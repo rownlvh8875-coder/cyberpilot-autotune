@@ -11,7 +11,7 @@ from cyberpilot_autotune.contracts import (
     ValidationError,
 )
 from cyberpilot_autotune.contracts.validation import count, nonnegative, parameters
-from cyberpilot_autotune.core.learner import Learner, ResettableLearner
+from cyberpilot_autotune.core.learner import Learner, LearningRequirements, ResettableLearner
 from cyberpilot_autotune.safety.gate import SafetyGate
 from cyberpilot_autotune.safety.reasons import ReasonCode as R
 from cyberpilot_autotune.safety.sanitizer import proposal_error
@@ -39,6 +39,11 @@ class AutoTuneEngine:
         count(maximum_proposals, "maximum_proposals")
         if maximum_proposals == 0:
             raise ValidationError("maximum_proposals must be positive")
+        if isinstance(learner, LearningRequirements):
+            required_speed = learner.minimum_speed_mps
+            nonnegative(required_speed, "learner minimum_speed_mps")
+            if gate.minimum_speed_mps < required_speed:
+                raise ValidationError("gate minimum speed must cover the learner requirement")
         self._mode = mode
         self._baseline = parameters(baseline_parameters)
         self._learner = learner
@@ -90,23 +95,19 @@ class AutoTuneEngine:
             self._last_clock_s = now
             previous_sequence = self._previous_sequence
             previous_timestamp_s = self._previous_timestamp_s
-            reason = self._gate.validate_observation(
+            reason = self._gate.validate_learning_sample(
                 observation,
                 now_s=now,
+                baseline_parameters=self._baseline,
                 previous_sequence=previous_sequence,
                 previous_timestamp_s=previous_timestamp_s,
             )
+            # Consume rejected sequences too; future timestamps cannot advance time high-water.
+            self._record_order(observation, now_s=now)
             if reason is not None:
                 return self._reject(sequence, reason, "Observation rejected")
             assert isinstance(observation, ObservationSnapshot)
             snapshot = replace(observation)
-            if snapshot.baseline_parameters != self._baseline:
-                return self._reject(
-                    sequence, R.BASELINE_MISMATCH, "Snapshot does not match trusted baseline"
-                )
-            # Consume admission before running learner; downstream failures cannot replay it.
-            self._previous_sequence = snapshot.sequence
-            self._previous_timestamp_s = snapshot.timestamp_s
             output = self._learner.observe(snapshot)
             finished = nonnegative(self._clock.now_s(), "clock")
             if finished < now:
@@ -115,9 +116,10 @@ class AutoTuneEngine:
                     sequence, R.UNHEALTHY, "Monotonic clock regressed during learner work"
                 )
             self._last_clock_s = finished
-            reason = self._gate.validate_observation(
+            reason = self._gate.validate_learning_sample(
                 snapshot,
                 now_s=finished,
+                baseline_parameters=self._baseline,
                 previous_sequence=previous_sequence,
                 previous_timestamp_s=previous_timestamp_s,
             )
@@ -162,6 +164,23 @@ class AutoTuneEngine:
                     DiagnosticEvent(R.INTERNAL_ERROR, f"Processing failed: {type(exc).__name__}"),
                 ),
             )
+
+    def _record_order(self, observation: object, *, now_s: float) -> None:
+        if type(observation) is not ObservationSnapshot:
+            return
+        sequence = observation.sequence
+        if type(sequence) is int and sequence >= 0:
+            if self._previous_sequence is None or sequence > self._previous_sequence:
+                self._previous_sequence = sequence
+        timestamp = observation.timestamp_s
+        try:
+            nonnegative(timestamp, "timestamp_s")
+        except ValidationError:
+            return
+        if timestamp <= now_s and (
+            self._previous_timestamp_s is None or timestamp > self._previous_timestamp_s
+        ):
+            self._previous_timestamp_s = timestamp
 
     def _reject(self, sequence: int | None, reason: R, detail: str) -> EngineResult:
         # Only called inside SHADOW's outer boundary; reset failure is an internal fault.

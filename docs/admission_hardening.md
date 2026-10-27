@@ -51,9 +51,9 @@ admission, observe or reset. Effective parameters always equal trusted baseline.
 ## Test-first implementation and completion checklist
 
 - [x] Contract/config validation RED then GREEN; migrate synthetic callers.
-- [ ] Pre-call active/speed/veto/call-count tests RED then GREEN.
-- [ ] Rejected-frame replay, exact minimum, reset/high-water and OFF tests.
-- [ ] Standalone learner defense-in-depth, incompatible policy, numeric properties.
+- [x] Pre-call active/speed/veto/call-count tests RED then GREEN.
+- [x] Rejected-frame replay, exact minimum, reset/high-water and OFF tests.
+- [x] Standalone learner defense-in-depth, incompatible policy, numeric properties.
 - [ ] Independent review and full regression, lint/format/mypy/coverage/build/wheel.
 - [ ] Push normally, inspect full CI at final head, keep PR #2 Draft/HOLD.
 
@@ -69,3 +69,9 @@ actual Carrot mapping, real logs/collection and vehicle limits remain non-goals.
   minimum-speed configuration and migrating synthetic-only callers. Original
   head/CI remain intact; this intermediate contract commit does not claim the
   admission boundary is complete.
+- Admission RED: control_active=None reached observe() once in the old engine.
+  Common admission now excludes unqualified frames before observe(), also in
+  empty-proposal streams, and rechecks after work.
+- Numeric-policy RED: a finite integer minimum above float exact precision could
+  be rounded during policy comparison. The comparison now validates without
+  coercing the learner requirement, rejecting an actually weaker gate policy.

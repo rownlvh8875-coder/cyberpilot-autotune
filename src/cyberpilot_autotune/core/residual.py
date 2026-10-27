@@ -108,8 +108,12 @@ class ResidualStatisticsLearner:
     def statistics(self) -> ResidualStatistics | None:
         return self._window.statistics if self._window is not None else None
 
+    @property
+    def minimum_speed_mps(self) -> float:
+        return self._config.minimum_speed_mps
+
     def reset(self) -> None:
-        """Discard evidence but preserve sequence/time high-water ordering."""
+        """Clear evidence only; a restarted time/sequence domain needs a new instance."""
         self._window = None
 
     def observe(self, snapshot: ObservationSnapshot) -> tuple[TuningProposal, ...]:
@@ -136,7 +140,9 @@ class ResidualStatisticsLearner:
         measured = snapshot.measured_curvature_inv_m
         if (
             not snapshot.source_valid
+            or snapshot.control_active is not True
             or snapshot.speed_mps is None
+            or snapshot.speed_mps < self.minimum_speed_mps
             or desired is None
             or measured is None
             or snapshot.driver_override is not False

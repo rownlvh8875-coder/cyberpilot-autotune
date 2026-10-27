@@ -68,7 +68,9 @@ def test_runtime_vetoes_retain_baseline(changes, expected):
     prime(runtime)
     learner.output = (proposal(),)
     result = runtime.step(observation(**changes))
-    assert result.gate_decisions[0].reason is expected
+    assert result.events[0].reason is expected
+    assert learner.calls == 1  # Only the prime frame was observed.
+    assert result.proposals == result.gate_decisions == ()
     assert result.effective_parameters == BASELINE
 
 

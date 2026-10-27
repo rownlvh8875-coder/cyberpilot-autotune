@@ -56,6 +56,54 @@ class SafetyGate:
             copied[key] = replace(spec)
         self._registry = MappingProxyType(copied)
 
+    @property
+    def minimum_speed_mps(self) -> float:
+        """The explicitly configured common learning threshold."""
+        return self._config.minimum_speed_mps
+
+    def validate_learning_sample(
+        self,
+        observation: object,
+        *,
+        now_s: float,
+        baseline_parameters: Mapping[str, float],
+        previous_sequence: int | None = None,
+        previous_timestamp_s: float | None = None,
+    ) -> R | None:
+        """Common admission boundary; no unqualified frame may reach observe()."""
+        reason = self.validate_observation(
+            observation,
+            now_s=now_s,
+            previous_sequence=previous_sequence,
+            previous_timestamp_s=previous_timestamp_s,
+        )
+        if reason is not None:
+            return reason
+        assert isinstance(observation, ObservationSnapshot)
+        try:
+            baseline = parameters(baseline_parameters)
+        except NonFiniteError:
+            return R.NON_FINITE
+        except ValidationError:
+            return R.BASELINE_MISMATCH
+        if observation.baseline_parameters != baseline:
+            return R.BASELINE_MISMATCH
+        return self._learning_veto(observation)
+
+    def _learning_veto(self, observation: ObservationSnapshot) -> R | None:
+        if observation.control_active is None:
+            return R.CONTROL_STATE_UNAVAILABLE
+        if observation.control_active is not True:
+            return R.CONTROL_INACTIVE
+        assert observation.speed_mps is not None  # Structural validation precedes this helper.
+        if observation.speed_mps < self.minimum_speed_mps:
+            return R.BELOW_MINIMUM_SPEED
+        if observation.driver_override:
+            return R.DRIVER_OVERRIDE
+        if observation.controller_saturated:
+            return R.CONTROLLER_SATURATED
+        return None
+
     def validate_observation(
         self,
         observation: object,
@@ -164,10 +212,9 @@ class SafetyGate:
             return decision(R.INSUFFICIENT_SAMPLES)
         if proposal.confidence < self._config.minimum_confidence:
             return decision(R.LOW_CONFIDENCE)
-        if observation.driver_override:
-            return decision(R.DRIVER_OVERRIDE)
-        if observation.controller_saturated:
-            return decision(R.CONTROLLER_SATURATED)
+        reason = self._learning_veto(observation)
+        if reason is not None:
+            return decision(reason)
         # 13/14/15. Hard bounds, step, then elapsed rate budget. Never clip.
         if not within_bounds(candidate, spec) or not within_bounds(baseline[parameter_id], spec):
             return decision(R.OUT_OF_BOUNDS)
