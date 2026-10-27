@@ -281,3 +281,19 @@ def test_nonfinite_observation_falls_back_before_learner(bad):
     assert result.events[0].reason is R.NON_FINITE
     assert learner.calls == 0
     assert result.effective_parameters == BASELINE
+
+
+@pytest.mark.parametrize("mode", [M.OFF, M.SHADOW])
+def test_baseline_preserves_integer_values_beyond_float_exact_precision(mode):
+    # Synthetic numeric boundary, unrelated to any vehicle value or tuning range.
+    baseline = {"synthetic.test_only": 2**53 + 1}
+    runtime = import_module("cyberpilot_autotune.runtime.engine").AutoTuneEngine(
+        mode=mode,
+        baseline_parameters=baseline,
+        learner=ScriptedLearner(),
+        gate=gate(),
+        clock=FakeClock(),
+    )
+    result = runtime.step(observation(baseline_parameters=baseline))
+    assert result.effective_parameters == baseline
+    assert result.baseline_parameters == baseline

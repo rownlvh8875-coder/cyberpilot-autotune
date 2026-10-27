@@ -55,7 +55,9 @@ def parameters(value: Mapping[str, float]) -> Mapping[str, float]:
     copied: dict[str, float] = {}
     for key, number in value.items():
         text(key, "parameter_id")
-        copied[key] = finite(number, "parameter value")
+        finite(number, "parameter value")
+        # Validate without coercing: large finite ints must retain exact baseline identity.
+        copied[key] = number
     return MappingProxyType(copied)
 
 

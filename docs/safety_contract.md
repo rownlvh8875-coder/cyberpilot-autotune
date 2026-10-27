@@ -10,6 +10,8 @@ baseline at construction. Snapshot data cannot replace it. EngineResult refuses
 unequal effective and baseline mappings, and exposes immutable mappings and
 tuples. Eligibility means a would-be candidate only. There is no controller,
 Params, actuator, transport, file sink or application callback in the API.
+Mapping copies validate finite numeric scalars without converting them; this
+preserves exact input baseline identity even for integers beyond float precision.
 
 ## Ordered gate evaluation
 

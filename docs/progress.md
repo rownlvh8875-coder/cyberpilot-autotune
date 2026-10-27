@@ -68,7 +68,8 @@
   non-finite runtime input and atomic discard after a second gate evaluation fails.
 - Independent read-only reviewer found no Critical, Important or Minor findings
   in source through b08da16. Reviewer ran 165 tests, lint/format/mypy and targeted
-  edge-case probes. Subsequent changes add tests/docs only.
+  edge-case probes. A later parent-discovered numeric precision regression is
+  documented below with its RED/GREEN verification.
 - Review exclusions stand because they match the authorized scope: future learner,
   integration/application/persistence/replay; hostile in-process code/private-state
   mutation; hard preemption; untrusted standalone gate history; standalone gate
@@ -117,9 +118,26 @@
   (`Bootstrap independent shadow-only AutoTune core`). It remains a draft.
 - Push CI at 2145d3f: all four Ubuntu/Windows x Python 3.12.3/3.12 checks passed:
   https://github.com/rownlvh8875-coder/cyberpilot-autotune/actions/runs/40598192477
-- This final documentation update does not change reviewed source or tests.
-  Its commit is checked again locally and the remote checks are inspected before
-  the user-facing completion report.
+- The documentation-only verification record was followed by an additional numeric
+  boundary correction, described below. Final source and tests are revalidated
+  before the user-facing completion report.
+
+## Final numeric-boundary correction
+
+- Parent review found that finite integer baselines above float's exact precision
+  could be rounded by defensive mapping copies. Both OFF and SHADOW regression
+  tests failed with 2**53 + 1 becoming 9007199254740992.0.
+- Root cause: parameters() stored finite()'s float conversion rather than the
+  original validated scalar. It now validates finiteness and preserves the scalar.
+- Added a generated property over finite floats and large finite integers proving
+  exact caller-baseline equality in both modes. No vehicle constants are involved.
+- The single-source-line correction is verified by RED/GREEN and full regression;
+  it follows the independent review snapshot and is not represented as having
+  received a second independent review.
+- Final local regression after correction: 183 passed, 0 failed, 0 skipped;
+  coverage 98.08% overall (484 statements, 142 branches), safety 100.00%.
+  Ruff lint/format and strict mypy passed. The remote clean-clone build and wheel
+  checks are repeated for this correction before the completion report.
 
 ## Remaining decisions
 

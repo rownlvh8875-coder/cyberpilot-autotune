@@ -74,3 +74,26 @@ def test_generated_streams_produce_deterministic_decisions(events):
         return results
 
     assert run() == run()
+
+
+@settings(derandomize=True, deadline=None)
+@given(
+    st.one_of(
+        st.integers(min_value=-(10**300), max_value=10**300),
+        st.floats(allow_nan=False, allow_infinity=False),
+    ),
+    st.sampled_from(list(RuntimeMode)),
+)
+def test_finite_baseline_values_are_never_coerced(value, mode):
+    from cyberpilot_autotune.runtime.engine import AutoTuneEngine
+    from tests.unit.test_gate import gate
+
+    baseline = {"synthetic.test_only": value}
+    runtime = AutoTuneEngine(
+        mode=mode,
+        baseline_parameters=baseline,
+        learner=ScriptedLearner(),
+        gate=gate(),
+        clock=FakeClock(),
+    )
+    assert runtime.step(observation(baseline_parameters=baseline)).effective_parameters == baseline
