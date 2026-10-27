@@ -229,3 +229,55 @@ def test_uninitialized_observation_cannot_escape_runtime_boundary(mode):
     result = engine(mode=mode).step(malformed)
     assert result.effective_parameters == BASELINE
     assert result.events[0].reason is R.INTERNAL_ERROR
+
+
+def test_mid_call_clock_regression_latches_fault():
+    clock = FakeClock()
+
+    class RegressingLearner:
+        def observe(self, snapshot):
+            clock.value = 9
+            return ()
+
+    result = engine(clock=clock, learner=RegressingLearner()).step(observation())
+    assert result.events[0].reason is R.UNHEALTHY
+    assert result.effective_parameters == BASELINE
+
+
+def test_gate_exception_after_partial_evaluation_discards_all_results(monkeypatch):
+    from cyberpilot_autotune.safety.gate import GateConfig, SafetyGate
+    from tests.unit.test_contracts import spec
+
+    first = spec()
+    second = spec(parameter_id="synthetic.second")
+    baseline = {"synthetic.test_only": 10.0, "synthetic.second": 10.0}
+    g = SafetyGate({first.parameter_id: first, second.parameter_id: second}, GateConfig(1, 10, 0.8))
+    real_evaluate = g.evaluate
+
+    def fail_on_second(snapshot, candidate, **kwargs):
+        if candidate.parameter_id == "synthetic.second":
+            raise RuntimeError("private input must not leak")
+        return real_evaluate(snapshot, candidate, **kwargs)
+
+    monkeypatch.setattr(g, "evaluate", fail_on_second)
+    runtime = import_module("cyberpilot_autotune.runtime.engine").AutoTuneEngine(
+        mode=M.SHADOW,
+        baseline_parameters=baseline,
+        gate=g,
+        clock=FakeClock(),
+        learner=ScriptedLearner((proposal(), proposal(parameter_id="synthetic.second"))),
+    )
+    result = runtime.step(observation(baseline_parameters=baseline))
+    assert result.events[0].reason is R.INTERNAL_ERROR
+    assert result.proposals == result.gate_decisions == ()
+    assert result.effective_parameters == baseline
+
+
+@pytest.mark.parametrize("bad", [float("nan"), float("inf"), -float("inf")])
+def test_nonfinite_observation_falls_back_before_learner(bad):
+    snapshot, learner = observation(), ScriptedLearner()
+    object.__setattr__(snapshot, "speed_mps", bad)
+    result = engine(learner=learner).step(snapshot)
+    assert result.events[0].reason is R.NON_FINITE
+    assert learner.calls == 0
+    assert result.effective_parameters == BASELINE
