@@ -16,8 +16,6 @@
   unavailable pinned source audit is resolved; independent software work proceeds.
 - Phase 0 verification: git diff --check. Python checks N/A (no package yet).
 
-## Execution decisions
-
 ## Phase 1
 
 - Import smoke RED: 1 failed because find_spec returned None before scaffolding.
@@ -25,6 +23,14 @@
 - Added src layout, py.typed, Python constraints, dev tools, coverage configuration,
   CI including wheel isolation, README, CONTRIBUTING, SECURITY and PR template.
 - Workflow safety/import targets are exercised when Phase 3/4 modules exist.
+
+## Phase 2
+
+- Contract tests RED: missing contracts module caused the expected test failure.
+- GREEN: 74 tests passed; numeric validation, immutability, alias protection,
+  unsupported modes and decision/result invariants covered.
+- Typed ValidationError remains visible at construction. Source validity and
+  optional override/saturation flags reject numeric boolean substitutes.
 
 ## Execution decisions
 
