@@ -32,8 +32,6 @@
 - Typed ValidationError remains visible at construction. Source validity and
   optional override/saturation flags reject numeric boolean substitutes.
 
-## Execution decisions
-
 ## Phase 3
 
 - Gate tests RED: missing safety.gate caused expected failure before implementation.
@@ -44,6 +42,20 @@
   and safety coverage are recorded in the final validation section.
 - Required pinned object remains unavailable; user could not supply a corrected
   SHA. This is recorded as unresolved, without substituting supplemental HEAD.
+
+## Phase 4
+
+- Runtime tests RED: missing runtime.engine caused expected failure.
+- Added OFF/SHADOW engine, injected clock, NoOp learner, read-only adapter Protocol
+  and in-memory diagnostics. ScriptedLearner exists only in test fixtures.
+- A forged uninitialized dataclass regression was observed RED (metadata escaped
+  before try); moving metadata extraction inside the outer boundary made it GREEN.
+- 165 tests passed; overall branch-inclusive coverage 96.96%, safety 100%.
+- Synthetic example printed ACCEPTED_FOR_SHADOW for an independently constructed
+  demonstration proposal and effective == baseline: True. Packaged NoOp produces
+  no proposals; the runtime evaluation path is exercised by test-only learners.
+- Internal faults latch unhealthy until engine replacement. Clock regression and
+  completed slow learner work fail closed, without claiming preemption deadlines.
 
 ## Execution decisions
 
