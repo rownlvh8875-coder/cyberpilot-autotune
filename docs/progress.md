@@ -1,4 +1,8 @@
-# Progress
+# Phase 0-4 progress and subsequent milestones
+
+Phase 0-4 evidence below is historical. The separately approved Phase 5 residual
+learner is tracked in [phase5_progress.md](phase5_progress.md); its design and
+scope are independent of the original milestone's completion record.
 
 ## Phase 0
 

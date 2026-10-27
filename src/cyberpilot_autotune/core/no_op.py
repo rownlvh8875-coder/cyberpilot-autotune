@@ -1,4 +1,4 @@
-"""The only packaged learner: deterministic, stateless and proposal-free."""
+"""A deterministic, stateless and proposal-free learner."""
 
 from dataclasses import dataclass
 

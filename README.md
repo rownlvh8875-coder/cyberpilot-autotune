@@ -11,6 +11,28 @@ Architecture: observation source -> read-only adapter -> immutable snapshot ->
 proposal-only learner -> Safety Gate -> runtime enforcer -> immutable result.
 The core does not depend on openpilot. See [architecture](docs/architecture.md).
 
+## Shadow residual learner
+
+Phase 5 adds `ResidualStatisticsLearner` alongside `NoOpLearner`. It maintains
+bounded EWMA curvature residual statistics for one context and returns proposals
+only after explicit minimum sample requirements. Invalid, old, missing, override,
+saturation and outlier evidence is excluded; context/baseline/gap/age transitions
+restart the window. Optional learner reset is integrated with SHADOW rejection
+paths. OFF invokes neither observation nor reset.
+
+Every scale, age, threshold and signed residual-to-parameter coefficient must be
+supplied explicitly. There are no vehicle defaults. Confidence is a support and
+consistency heuristic, not a calibrated probability or driving-quality measure.
+SafetyGate still independently checks every candidate; effective values remain
+exactly baseline. See [the Phase 5 design](docs/phase5_design.md) for formulas,
+reset and numeric policies, and [progress](docs/phase5_progress.md) for evidence.
+
+Run the local synthetic-only demonstration with:
+
+```sh
+python examples/residual_shadow.py
+```
+
 ## Local development
 
 Python >=3.12.3,<3.13 is required, based on inspected integration sources.
@@ -26,6 +48,7 @@ python -m mypy src/cyberpilot_autotune
 python -m pytest -q
 python -m pytest --cov=cyberpilot_autotune --cov-report=term-missing --cov-fail-under=85
 python -m coverage report --include="*/safety/*" --fail-under=95
+python -m coverage report --include="*/core/residual.py" --fail-under=95
 python -m build
 ```
 
@@ -35,15 +58,15 @@ integration and architecture tests. `examples` is synthetic only. `docs` records
 the audit, safety contract, integration evidence and future roadmap.
 
 No production safety or performance claim is made. There is no Apply mode,
-real learner, controller write API, vehicle deployment, persistence, real log
-ingestion, network telemetry or vehicle parameter registry. Python plugins are
+controller write API, vehicle deployment, persistence, real log ingestion,
+network telemetry or vehicle parameter registry. Python plugins are
 trusted code; this is not a sandbox or a hard real-time implementation.
 
 The source audit is pinned to CyberPilot commit
 `588d6b21c21089065a7d9165d6e7a438e8aa6297`; the current branch HEAD was also
 recorded separately in the [inventory](docs/porting_inventory.md). No code was
-copied from that source. Future phases are recorded in
-[the roadmap](docs/roadmap.md) and are not implemented by this milestone.
+copied from that source. Phases 6 onward are recorded in
+[the roadmap](docs/roadmap.md) and remain unimplemented.
 
 License selection is pending. No LICENSE file is provided. Source references do
 not establish a license for this independent repository.

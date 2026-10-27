@@ -1,17 +1,19 @@
 # Roadmap after Phase 0-4
 
-Everything below is unimplemented. The next change should be one small shadow-only
-learner PR, with the completed pinned source audit retained as provenance evidence.
+Phase 5 is implemented in the separate shadow residual-statistics change described
+below. Phases 6 onward remain unimplemented. The pinned source audit is retained
+as provenance evidence; no reference code is copied.
 
-## Phase 5: Conservative residual statistics learner
+## Phase 5: Conservative residual statistics learner (implemented)
 
-Build context-aware residual statistics using robust EWMA or an equally
-conservative method. Require explicit minimum samples, reset rules for context
-and validity changes, maximum state age and documented confidence calculation.
-Return proposals only. Do not add controller references, IO or optimization
-dependencies. Test known synthetic residual streams, outliers, missing signals,
-override/saturation exclusion, resets, bounded memory, sample thresholds and two
-fresh deterministic runs. Show no claim of vehicle performance improvement.
+Implemented one-window EWMA residual and absolute-innovation statistics, explicit
+minimum/capped samples, context/baseline/age/gap resets, missing/invalid/outlier/
+override/saturation exclusions, optional engine reset lifecycle and heuristic
+confidence. All conversion policy is explicit. Proposals pass the existing
+independent Safety Gate and effective values remain baseline. Unit, property,
+integration and guarded architecture tests use synthetic values only. A new
+synthetic example is deterministic across fresh processes. See phase5_design.md
+and phase5_progress.md. No vehicle performance improvement is claimed.
 
 ## Phase 6: Persistence
 

@@ -1,7 +1,8 @@
 # Architecture
 
 This is a research library, not a vehicle control system. The user-supplied
-Phase 0-4 specification is the implementation authority.
+Phase 0-4 specification and subsequently approved Phase 5 learner are the
+implementation authority. See phase5_design.md for the statistical contract.
 
 ```mermaid
 flowchart TD
@@ -48,3 +49,11 @@ prevent independent validation. The selected standard-library core makes future
 small upstream PRs possible. It is single-owner, synchronous and not a real-time
 or hostile-plugin sandbox. A learner that hangs cannot be preempted here; no hard
 deadline guarantee is claimed.
+
+Phase 5 adds one bounded, context-aware residual-statistics learner. It receives
+an explicit target specification and conversion policy, retains no raw history,
+and emits only proposals. The optional ResettableLearner lifecycle clears evidence
+when SHADOW rejects an observation before or after learner work. Existing stateless
+learners need only observe(). OFF invokes neither method. A faulted engine cannot
+resume; use a fresh/reset learner when constructing its replacement. Each engine
+owns its learner exclusively. Persistence and external data ingestion remain absent.

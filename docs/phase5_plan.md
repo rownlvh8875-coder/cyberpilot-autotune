@@ -26,13 +26,13 @@ ResidualStatistics snapshot; ResidualStatisticsLearner(parameter: ParameterSpec,
 config: ResidualStatisticsConfig), observe(snapshot)->tuple[TuningProposal,...],
 reset()->None, statistics property->ResidualStatistics|None.
 
-- [ ] Write tests for formulas, thresholds, configuration, invalid/missing data,
+- [x] Write tests for formulas, thresholds, configuration, invalid/missing data,
   override/saturation/outlier exclusion, resets, ordering, bounds independence,
   extreme arithmetic, capped state and immutable results.
-- [ ] Run tests and observe missing-feature RED.
-- [ ] Implement one-window EWMA using rational intermediates and finite outputs.
-- [ ] Add generated stream determinism and extreme-value properties.
-- [ ] Run full pytest, ruff lint/format, strict mypy and git diff --check; commit.
+- [x] Run tests and observe missing-feature RED.
+- [x] Implement one-window EWMA using rational intermediates and finite outputs.
+- [x] Add generated stream determinism and extreme-value properties.
+- [x] Run full pytest, ruff lint/format, strict mypy and git diff --check; commit.
 
 ## Task 2: Reset integration
 
@@ -40,10 +40,10 @@ Files: core/learner.py; runtime/engine.py; tests/integration/test_residual_runti
 Produces optional runtime-checkable ResettableLearner.reset()->None; existing
 Learner.observe signature and stateless learners remain compatible.
 
-- [ ] Warm real learner, inject invalid/stale/late frames and prove preexisting
+- [x] Warm real learner, inject invalid/stale/late frames and prove preexisting
   engine wrongly retains evidence (RED). Include reset throwing and OFF no calls.
-- [ ] Add optional reset to shadow rejection paths within outer exception boundary.
-- [ ] Prove eligible, out-of-bounds, step/rate, override/saturation and unknown
+- [x] Add optional reset to shadow rejection paths within outer exception boundary.
+- [x] Prove eligible, out-of-bounds, step/rate, override/saturation and unknown
   candidates keep original baseline. Run all checks and commit.
 
 ## Task 3: Example, docs and completion
@@ -51,11 +51,11 @@ Learner.observe signature and stateless learners remain compatible.
 Files: examples/residual_shadow.py, README.md, core/no_op.py docstring,
 docs/{architecture,safety_contract,roadmap,progress}.md and phase5_progress.md.
 
-- [ ] Run synthetic learner example through SHADOW, printing statistical evidence,
+- [x] Run synthetic learner example through SHADOW, printing statistical evidence,
   proposal/gate decision and effective==baseline; no scripted production learner.
-- [ ] Extend guarded import/execution tests to cover stateful learner in both modes.
-- [ ] Document formulas, resets, scope, limitations and actual verification results.
-- [ ] Obtain independent read-only whole-branch review; substantive fixes use RED/GREEN.
+- [x] Extend guarded import/execution tests to cover stateful learner in both modes.
+- [x] Document formulas, resets, scope, limitations and actual verification results.
+- [x] Obtain independent read-only whole-branch review; substantive fixes use RED/GREEN.
 - [ ] Revalidate editable install, tests, coverage >=85%/safety >=95%, lint/format,
   mypy, sdist/wheel and isolated wheel import; commit and push feature branch.
 - [ ] Create separate stacked Draft PR against feat/bootstrap-shadow-core; preserve

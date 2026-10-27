@@ -1,4 +1,4 @@
-# Safety contract: Phase 0-4
+# Safety contract: OFF/SHADOW with Phase 5 residual statistics
 
 This is software invariant evidence for research. It is not a vehicle safety
 claim, calibration, certification or permission for production deployment.
@@ -67,3 +67,27 @@ The injected clock must share a monotonic domain with the adapter. Clock
 regression is unhealthy. Freshness is rechecked after learner work, including
 empty proposals. This detects completed slow work; synchronous Python cannot
 preempt a hung learner. No hard real-time watchdog claim is made.
+
+## Residual-statistics evidence (Phase 5)
+
+ResidualStatisticsLearner uses only explicit caller-supplied configuration and a
+single target ParameterSpec; there is no vehicle registry or conversion default.
+It excludes invalid/missing/stale, override, saturated and absolute-outlier samples.
+Context/baseline changes or expired gap/window age require fresh minimum samples.
+Count is capped; raw samples and other contexts are not retained. Public reset
+clears evidence without erasing sequence/time high-water ordering.
+
+Confidence is a heuristic support-times-consistency score. It is not evidence of
+correct tuning, physical validity, improved control or safe deployment. The gate's
+sample/confidence, bounds, step and rate policy remains independent. Learner
+candidates are never clipped to make them eligible. Finite rational arithmetic
+prevents intermediate overflow; unrepresentable results yield no proposal.
+
+SHADOW's recoverable rejection paths invoke reset() only for learners that expose
+the optional ResettableLearner contract. This also invalidates already updated
+statistics after post-work expiration and clears evidence on malformed proposals.
+A reset exception becomes INTERNAL_ERROR at the existing outer boundary. OFF
+does not invoke reset(). Unexpected internal faults latch the engine without
+calling another user callback from its exception handler; a replacement engine
+must receive a fresh/reset learner. Shared concurrent learner instances are outside
+the single-owner lifecycle contract.

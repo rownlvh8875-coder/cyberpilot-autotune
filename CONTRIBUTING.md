@@ -14,7 +14,7 @@ python -m mypy src/cyberpilot_autotune
 python -m pytest -q
 ```
 
-Before a PR also run coverage (85% overall, 95% safety), `python -m build`,
+Before a PR also run coverage (85% overall, 95% safety, 95% residual learner), `python -m build`,
 and an isolated wheel import. Keep changes small. Document provenance before
 copying anything; unresolved source attribution must not be copied. License
 selection is pending. Do not add a license without owner approval.
