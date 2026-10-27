@@ -23,6 +23,7 @@ def observation(**changes):
         lateral_acceleration_mps2=None,
         controller_saturated=False,
         driver_override=False,
+        control_active=True,
         baseline_parameters={"synthetic.test_only": 10.0},
     )
     values.update(changes)
@@ -64,6 +65,17 @@ def test_valid_observation_and_unavailable_is_distinct_from_zero():
     assert observation().measured_curvature_inv_m == 0.0
     assert observation(speed_mps=None).speed_mps is None
     assert observation().lateral_acceleration_mps2 is None
+
+
+@pytest.mark.parametrize("active", [True, False, None])
+def test_explicit_controller_activity_is_three_state(active):
+    assert observation(control_active=active).control_active is active
+
+
+@pytest.mark.parametrize("bad", [0, 1, "enabled", float("nan")])
+def test_controller_activity_rejects_non_boolean_surrogates(bad):
+    with pytest.raises(api().ValidationError):
+        observation(control_active=bad)
 
 
 @pytest.mark.parametrize(

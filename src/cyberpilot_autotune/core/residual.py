@@ -1,7 +1,7 @@
 """Deterministic proposal-only residual research; no vehicle policy or defaults."""
 
 import math
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from fractions import Fraction
 
 from cyberpilot_autotune.contracts import (
@@ -27,6 +27,7 @@ class ResidualStatisticsConfig:
     consistency_scale_inv_m: float
     mean_deadband_inv_m: float
     parameter_delta_per_inv_m: float
+    minimum_speed_mps: float = field(kw_only=True)
 
     def __post_init__(self) -> None:
         if not 0 < finite(self.alpha, "alpha") <= 1:
@@ -36,6 +37,7 @@ class ResidualStatisticsConfig:
         if self.minimum_samples < 2 or self.maximum_samples < self.minimum_samples:
             raise ValidationError("require 2 <= minimum_samples <= maximum_samples")
         nonnegative(self.maximum_source_age_s, "maximum_source_age_s")
+        nonnegative(self.minimum_speed_mps, "minimum_speed_mps")
         for name in (
             "maximum_sample_gap_s",
             "maximum_state_age_s",

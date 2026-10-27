@@ -15,6 +15,7 @@ def config(**changes):
         minimum_samples=3,
         maximum_samples=8,
         maximum_source_age_s=1.0,
+        minimum_speed_mps=1.0,
         maximum_sample_gap_s=2.0,
         maximum_state_age_s=10.0,
         maximum_absolute_residual_inv_m=1.0,
@@ -296,6 +297,12 @@ def test_configuration_is_frozen_and_invalid_constructor_inputs_are_visible():
 
 def test_subprecision_delta_does_not_emit_unchanged_proposal():
     assert warm(learner(parameter_delta_per_inv_m=5e-324)) == ()
+
+
+@pytest.mark.parametrize("bad", [-1, float("nan"), float("inf"), -float("inf"), True])
+def test_minimum_speed_must_be_finite_nonnegative_and_explicit(bad):
+    with pytest.raises(ValidationError):
+        config(minimum_speed_mps=bad)
 
 
 def test_unrepresentable_innovation_clears_evidence():

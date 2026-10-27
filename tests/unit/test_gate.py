@@ -13,7 +13,12 @@ BASELINE = {"synthetic.test_only": 10.0}
 
 def gate(**config):
     module = import_module("cyberpilot_autotune.safety.gate")
-    values = dict(maximum_observation_age_s=1.0, minimum_samples=10, minimum_confidence=0.8)
+    values = dict(
+        maximum_observation_age_s=1.0,
+        minimum_samples=10,
+        minimum_confidence=0.8,
+        minimum_speed_mps=1.0,
+    )
     values.update(config)
     return module.SafetyGate({"synthetic.test_only": spec()}, module.GateConfig(**values))
 
@@ -140,7 +145,9 @@ def test_first_frame_rate_and_zero_rate_configuration():
     ).eligible
     zero = spec(maximum_rate_per_second=0)
     module = import_module("cyberpilot_autotune.safety.gate")
-    g = module.SafetyGate({zero.parameter_id: zero}, module.GateConfig(1, 10, 0.8))
+    g = module.SafetyGate(
+        {zero.parameter_id: zero}, module.GateConfig(1, 10, 0.8, minimum_speed_mps=1)
+    )
     assert (
         g.evaluate(
             observation(),
@@ -171,7 +178,7 @@ def test_health_veto_is_last():
 def test_registry_is_defensively_copied_and_missing_spec_rejects():
     module = import_module("cyberpilot_autotune.safety.gate")
     registry = {"synthetic.test_only": spec()}
-    g = module.SafetyGate(registry, module.GateConfig(1, 10, 0.8))
+    g = module.SafetyGate(registry, module.GateConfig(1, 10, 0.8, minimum_speed_mps=1))
     registry.clear()
     assert g.evaluate(
         observation(),
@@ -182,8 +189,8 @@ def test_registry_is_defensively_copied_and_missing_spec_rejects():
         previous_sequence=0,
     ).eligible
     with pytest.raises(ValidationError):
-        module.SafetyGate({"wrong": spec()}, module.GateConfig(1, 10, 0.8))
-    empty = module.SafetyGate({}, module.GateConfig(1, 10, 0.8))
+        module.SafetyGate({"wrong": spec()}, module.GateConfig(1, 10, 0.8, minimum_speed_mps=1))
+    empty = module.SafetyGate({}, module.GateConfig(1, 10, 0.8, minimum_speed_mps=1))
     assert (
         empty.evaluate(observation(), proposal(), now_s=10, baseline_parameters=BASELINE).reason
         is R.UNKNOWN_PARAMETER
@@ -195,7 +202,7 @@ def test_registry_is_defensively_copied_and_missing_spec_rejects():
 )
 def test_invalid_gate_config_is_not_hidden(args):
     with pytest.raises(ValidationError):
-        import_module("cyberpilot_autotune.safety.gate").GateConfig(*args)
+        import_module("cyberpilot_autotune.safety.gate").GateConfig(*args, minimum_speed_mps=1)
 
 
 @pytest.mark.parametrize(

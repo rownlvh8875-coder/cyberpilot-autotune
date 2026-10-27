@@ -19,7 +19,9 @@ def setup(mode=M.SHADOW, **configuration):
         mode=mode,
         baseline_parameters=BASELINE,
         learner=value,
-        gate=SafetyGate({"synthetic.test_only": spec()}, GateConfig(1, 3, 0.8)),
+        gate=SafetyGate(
+            {"synthetic.test_only": spec()}, GateConfig(1, 3, 0.8, minimum_speed_mps=1)
+        ),
         clock=clock,
     )
     return engine, value, clock

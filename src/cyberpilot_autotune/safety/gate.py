@@ -1,7 +1,7 @@
 """Ordered, stateless eligibility evaluation. Runtime owns exception recovery."""
 
 from collections.abc import Mapping
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from types import MappingProxyType
 
 from cyberpilot_autotune.contracts import (
@@ -32,9 +32,11 @@ class GateConfig:
     maximum_observation_age_s: float
     minimum_samples: int
     minimum_confidence: float
+    minimum_speed_mps: float = field(kw_only=True)
 
     def __post_init__(self) -> None:
         nonnegative(self.maximum_observation_age_s, "maximum_observation_age_s")
+        nonnegative(self.minimum_speed_mps, "minimum_speed_mps")
         count(self.minimum_samples, "minimum_samples")
         if not 0 <= finite(self.minimum_confidence, "minimum_confidence") <= 1:
             raise ValidationError("minimum_confidence must be in [0, 1]")

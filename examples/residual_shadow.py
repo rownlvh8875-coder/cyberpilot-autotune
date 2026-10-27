@@ -34,6 +34,7 @@ def main() -> None:
         minimum_samples=3,
         maximum_samples=8,
         maximum_source_age_s=1,
+        minimum_speed_mps=1,
         maximum_sample_gap_s=2,
         maximum_state_age_s=10,
         maximum_absolute_residual_inv_m=1,
@@ -48,7 +49,9 @@ def main() -> None:
         baseline_parameters=baseline,
         learner=learner,
         clock=clock,
-        gate=SafetyGate({parameter.parameter_id: parameter}, GateConfig(1, 3, 0.8)),
+        gate=SafetyGate(
+            {parameter.parameter_id: parameter}, GateConfig(1, 3, 0.8, minimum_speed_mps=1)
+        ),
     )
     for sequence in range(4):
         clock.value = 10.0 + sequence
@@ -64,6 +67,7 @@ def main() -> None:
             lateral_acceleration_mps2=None,
             controller_saturated=False,
             driver_override=sequence == 3,
+            control_active=True,
             baseline_parameters=baseline,
         )
         result = engine.step(observation)

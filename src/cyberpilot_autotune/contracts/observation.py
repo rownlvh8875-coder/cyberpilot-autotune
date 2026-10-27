@@ -1,7 +1,7 @@
 """Canonical units; None denotes unavailable, never an inferred numeric zero."""
 
 from collections.abc import Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from .validation import boolean, count, finite, nonnegative, parameters, text
 
@@ -20,6 +20,7 @@ class ObservationSnapshot:
     controller_saturated: bool | None
     driver_override: bool | None
     baseline_parameters: Mapping[str, float]
+    control_active: bool | None = field(default=None, kw_only=True)
 
     def __post_init__(self) -> None:
         nonnegative(self.timestamp_s, "timestamp_s")
@@ -27,6 +28,7 @@ class ObservationSnapshot:
         count(self.sequence, "sequence")
         text(self.context_key, "context_key")
         boolean(self.source_valid, "source_valid")
+        boolean(self.control_active, "control_active", optional=True)
         boolean(self.controller_saturated, "controller_saturated", optional=True)
         boolean(self.driver_override, "driver_override", optional=True)
         if self.speed_mps is not None:
