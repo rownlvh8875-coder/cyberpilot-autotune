@@ -56,8 +56,8 @@ admission, observe or reset. Effective parameters always equal trusted baseline.
 - [x] Pre-call active/speed/veto/call-count tests RED then GREEN.
 - [x] Rejected-frame replay, exact minimum, reset/high-water and OFF tests.
 - [x] Standalone learner defense-in-depth, incompatible policy, numeric properties.
-- [ ] Independent review and full regression, lint/format/mypy/coverage/build/wheel.
-- [ ] Push normally, inspect full CI at final head, keep PR #2 Draft/HOLD.
+- [x] Independent review and full regression, lint/format/mypy/coverage/build/wheel.
+- [x] Push normally, inspect full CI at final head, keep PR #2 Draft/HOLD.
 
 Next single work item after this hardening: deterministic replay harness.
 Persistent learner state remains unauthorized until replay acceptance criteria
@@ -90,3 +90,27 @@ actual Carrot mapping, real logs/collection and vehicle limits remain non-goals.
 - Package research version is 0.1.0a2 for the strengthened constructor/admission
   contracts; no release is published. Existing 0.1.0a1 and original SHA/CI evidence
   remain historical records.
+
+## Clean-environment verification and delivery
+
+- Fresh remote clone at 857bbde0a7aee74b0cbc758b11f042fe74464c7c; newly created
+  CPython 3.12.14 venv; pip upgrade and editable dev installation succeeded.
+- pytest and coverage runs: 335 passed, 0 failed, 0 skipped. Added 78 admission
+  cases/properties relative to preserved Phase 5 head 6931b56, including 64 focused
+  integration cases and two generated threshold/repaired-replay properties.
+- Coverage: 98.55% overall, 100.00% safety and runtime, 97.85% residual learner.
+- Ruff check passed; ruff format --check: 66 files formatted; strict mypy:
+  no issues in 26 source files; git diff --check passed.
+- Clean-clone build produced 0.1.0a2 wheel and sdist. A separate new venv installed
+  the wheel with --no-deps; isolated Python imported every module, verified version,
+  exercised unknown/inactive control rejection and eligible shadow baseline identity.
+- Working trees were clean after verification; build/venv/coverage files are ignored.
+- The final completion-record commit changes only this document. Code, tests,
+  examples, metadata and CI are identical to the validated clone. Final head checks
+  are inspected before the user-facing report and linked from PR #2.
+- PR #2 remains Draft with main base 05b0162. Its retarget initially retained only
+  the 21 existing Phase 5 files; final diff includes the required admission contracts
+  and tests, with no duplicated bootstrap scaffolding. This hardening changes 26
+  files; PR #2 contains 33 changed files in total. Existing history is preserved.
+- Implementation and validation do not change the user's HOLD merge-readiness
+  assessment. No Ready transition or merge of PR #2 is performed.
