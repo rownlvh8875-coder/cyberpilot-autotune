@@ -58,8 +58,6 @@
 - Internal faults latch unhealthy until engine replacement. Clock regression and
   completed slow learner work fail closed, without claiming preemption deadlines.
 
-## Execution decisions
-
 ## Architecture and regression verification
 
 - AST tests cover all package layers for forbidden vehicle imports, dynamic
@@ -86,3 +84,13 @@
   no global git configuration is changed.
 - First nonzero change has no rate evidence and is rejected. Missing required
   observations are rejected before learner execution.
+
+## Final local verification before clean-clone validation
+
+- Python 3.12.14: 180 tests passed, 0 failed, 0 skipped.
+- Branch-inclusive coverage: 98.08% overall, 100.00% safety.
+- Ruff check and format passed; strict mypy passed for 25 source files.
+- Isolated python -m build produced wheel and sdist successfully.
+- Source audit corrected and completed at the user-approved pin. Remote branch
+  listing, source hashes and keyword counts are in audit_evidence.md.
+- Whole-branch review: approved software scope, no findings or deferred minors.

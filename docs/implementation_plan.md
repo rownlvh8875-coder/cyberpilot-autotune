@@ -20,7 +20,9 @@ defines scope. Implementation decisions below are maintainer-reviewable choices.
 ## Tasks
 
 1. Phase 0: inspect remote refs, audit pinned object and separately HEAD; record
-   provenance, branch SHAs, real signal sources, Python evidence, ADRs and blockers.
+   provenance, branch SHAs, real signal sources, Python evidence and ADRs.
+   Official pinned CyberPilot SHA: 588d6b21c21089065a7d9165d6e7a438e8aa6297,
+   explicitly corrected by the user and verified by detached checkout.
    Commit only documentation after whitespace checks; Python checks are not yet
    applicable before a package/test toolchain exists.
 2. Phase 1: write import smoke test and see it fail because package is absent.

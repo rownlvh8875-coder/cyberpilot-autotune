@@ -11,8 +11,8 @@ parameter, filesystem and process concerns. A library plus a later optional
 adapter trades integration convenience for independent tests and small PRs.
 
 Python floor: >=3.12.3,<3.13. Both inspected ajouatom branches' pyproject.toml
-declare this range. carrot-wip CI uses setup-python 3.12. CyberPilot supplemental
-HEAD declares the same range and .python-version is 3.12.13. The requested pinned
-CyberPilot object is unavailable, so its version remains unverified. Local
+declare this range. carrot-wip CI uses setup-python 3.12. CyberPilot's inspected
+HEAD declares the same range and .python-version is 3.12.13. The corrected pinned
+CyberPilot object equals that inspected HEAD and its version is verified. Local
 validation uses the available CPython 3.12.14; CI also tests the minimum 3.12.3.
 There are no runtime third-party dependencies or vehicle-specific constants.

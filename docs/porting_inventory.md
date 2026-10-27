@@ -2,20 +2,21 @@
 
 Audit date: 2026-10-28. Source: https://github.com/rownlvh8875-coder/CyberPilot
 
-## Unavailable required baseline
+## Official fixed baseline
 
-Required pinned commit: `588d6baff90d5ed839b41554f447f12c7f23bed3`.
-`git fetch origin <SHA>` returned `not our ref`. GitHub fetch_commit returned
-422, `No commit found for SHA`. No checkout or content audit of that object was
-possible. It has not been replaced by branch HEAD. This is a Phase 0 acceptance
-blocker, not a reason to enable an unsafe fallback or stop independent code.
+The user corrected a typo in the original SHA and explicitly designated
+`588d6b21c21089065a7d9165d6e7a438e8aa6297` as the fixed audit baseline.
+The branch ref was fetched, cat-file verified the commit object, and detached
+checkout was confirmed by rev-parse and show. Official audit and provenance
+below refer to that fixed object, irrespective of future branch changes.
 
-## Supplemental HEAD review (not the pinned audit)
+## Pinned source audit
 
 H = `588d6b21c21089065a7d9165d6e7a438e8aa6297`, observed remote
 feature/cyber-autotune HEAD; commit date 2026-10-26, subject
 `ci(cyberpilot): add exact27 shadow boundary qualification`.
-Paths below came from ls-tree, git grep and git show at H. Existing tests were
+The separately observed branch HEAD currently equals the pinned object. Paths
+below came from ls-tree, git grep, git show and file reads at H. Existing tests were
 inspected by path but were not executed; none of their results are claimed.
 P = openpilot/tools/cyber_autotune/; T = P + tests/.
 Root LICENSE is MIT, copyright Comma.ai (2018). That root notice alone does not
@@ -25,7 +26,6 @@ is independently reimplemented from the user specification, not translated code.
 
 | Source path | Commit | Responsibility | Dependencies | Existing tests | Provenance/license | Disposition | Reason | Risk |
 |---|---|---|---|---|---|---|---|---|
-| Requested pinned tree (unavailable) | 588d6baff90d5ed839b41554f447f12c7f23bed3 | Required original audit | Unknown | Unknown | Unverifiable | UNKNOWN | Object unavailable through Git and API | Cannot certify pinned audit |
 | P/contracts.py | H | Offline metric/unit/hash contracts | cyber_lateral command_domain, metrics | T/test_contracts.py | Root MIT; addition attribution unverified | REWRITE | Vehicle parameter families and metric contracts do not match generic snapshots | Type and unit coupling |
 | P/profiles.py | H | Pure proposal assessment | contracts, policy, fractions, hashes | T/test_profiles.py | Root MIT; addition attribution unverified | REWRITE | Keep proposal concept; define independent typed contracts | Asserted metadata is not authority |
 | P/policy.py | H | Parameter policy registry | contracts, vehicle source paths | T/test_policy.py | Root MIT; addition attribution unverified | REWRITE | No actual vehicle IDs/constants admitted | Incorrect policy reuse |
@@ -36,11 +36,11 @@ is independently reimplemented from the user specification, not translated code.
 | P/archive.py | H | Immutable offline archive | ctypes, fsync, locks, archive_codec, profiles | T/test_archive.py | Root MIT; addition attribution unverified | REFERENCE_ONLY | Persistence deferred; no disk IO in runtime | Filesystem assumptions |
 | P/synthetic_lateral_gate.py | H | Synthetic offline lateral gate | Offline experiment stack | T/test_synthetic_lateral_gate.py | Root MIT; addition attribution unverified | REFERENCE_ONLY | Different counterfactual experiment contract | Cannot infer vehicle safety |
 | openpilot/selfdrive/controls/lib/cyber_lateral/optimizer.py | H | Offline experiment orchestration | experiments, speed tune, steering rate, torque authority | P tests/test_synthetic_lateral_closed_loop.py | Root MIT; addition attribution unverified | REJECT | Includes controller-domain variants outside Phase 0-4 | Vehicle constants and semantics |
-| docs/cyberpilot/changes/cyber-autotune-contracts-v2.md | H | Existing contract rationale | Metric/evidence suite | Documentation | Root MIT; addition attribution unverified | REFERENCE_ONLY | Supplemental conceptual comparison only | Not pinned evidence |
+| docs/cyberpilot/changes/cyber-autotune-contracts-v2.md | H | Existing contract rationale | Metric/evidence suite | Documentation | Root MIT; addition attribution unverified | REFERENCE_ONLY | Conceptual comparison only | Guarantees do not transfer automatically |
 | docs/cyberpilot/changes/cyber-autotune-offline-archive.md | H | Offline archive design | Linux archive implementation | Documentation | Root MIT; addition attribution unverified | REFERENCE_ONLY | Defer to persistence phase | No transfer of guarantees |
 | LICENSE | H | Root license notice | None | N/A | MIT, Comma.ai 2018 | REFERENCE_ONLY | Record notice without choosing target license | Per-file provenance remains unresolved |
 
-Classification counts (table rows): UNKNOWN 1, REWRITE 3, REFERENCE_ONLY 7,
+Classification counts (table rows): UNKNOWN 0, REWRITE 3, REFERENCE_ONLY 7,
 REJECT 3, REUSE 0, REFACTOR 0. Counts cover selected reviewed responsibilities,
 not the entire source tree. Reused files: none. Independently rewritten target
 responsibilities: contracts, proposal assessment and generic registry/gate policy.
@@ -69,7 +69,9 @@ proposal, safety gate, sanitizer, rate, rate budget, r policy, shadow, replay,
 source schema, controller, lateral, longitudinal, rollback, watchdog, persistence,
 state and candidate. Exact `F-60` through `F-69` labels were not found by
 `git grep -n -E 'F-6[0-9]([^0-9]|$)' H -- '*.md'`. No mapping of those requested
-labels to guessed files is asserted. This does not establish their absence at
-the unavailable pinned commit. Source-schema/rate-policy concepts occur in the
-much larger offline tool suite; exhaustive historical qualification is deferred
-until the required object is supplied.
+labels to guessed files is asserted. The same search including F60-style labels
+against the checked-out pinned Python/Markdown files also produced no matches.
+Source-schema/rate-policy concepts occur in the much larger offline tool suite;
+the audit covers the selected responsibilities above, not every historical
+experiment or unrelated subsystem. See audit_evidence.md for reproducible source
+metadata, file hashes and keyword search counts.

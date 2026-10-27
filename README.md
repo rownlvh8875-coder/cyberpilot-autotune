@@ -39,9 +39,10 @@ real learner, controller write API, vehicle deployment, persistence, real log
 ingestion, network telemetry or vehicle parameter registry. Python plugins are
 trusted code; this is not a sandbox or a hard real-time implementation.
 
-The required CyberPilot pinned object could not be fetched; that audit remains
-blocked. Supplemental HEAD evidence is explicitly separate in the
-[inventory](docs/porting_inventory.md). Future phases are recorded in
+The source audit is pinned to CyberPilot commit
+`588d6b21c21089065a7d9165d6e7a438e8aa6297`; the current branch HEAD was also
+recorded separately in the [inventory](docs/porting_inventory.md). No code was
+copied from that source. Future phases are recorded in
 [the roadmap](docs/roadmap.md) and are not implemented by this milestone.
 
 License selection is pending. No LICENSE file is provided. Source references do
