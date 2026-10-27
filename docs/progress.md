@@ -94,3 +94,36 @@
 - Source audit corrected and completed at the user-approved pin. Remote branch
   listing, source hashes and keyword counts are in audit_evidence.md.
 - Whole-branch review: approved software scope, no findings or deferred minors.
+
+## Clean clone, package and remote verification
+
+- Remote clone of feat/bootstrap-shadow-core at 2145d3f into a sibling directory
+  succeeded. A newly created CPython 3.12.14 venv installed upgraded pip and
+  `.[dev]` successfully. No previously installed project environment was reused.
+- `git status --short` and `git diff --check` were clean before and after checks.
+- `python -m ruff check .`: passed; format check: 54 files already formatted.
+- `python -m mypy src/cyberpilot_autotune`: no issues in 25 source files.
+- `python -m pytest -q`: 180 passed, 0 failed, 0 skipped.
+- Coverage run: 180 passed; 98.08% overall (483 statements, 142 branches),
+  100.00% safety (170 statements, 52 branches). Required 85%/95% checks passed.
+- `python -m build`: cyberpilot_autotune-0.1.0a0.tar.gz and
+  cyberpilot_autotune-0.1.0a0-py3-none-any.whl built successfully.
+- A separate new venv installed that wheel with --no-deps and imported every
+  module using isolated `python -I`, outside the source checkout: passed.
+- Synthetic example confirmed effective == baseline and standalone gate screening.
+- Initial main bf042cc and feature branch pushed successfully without force.
+  main still contains only README.md and .gitignore; no functionality was merged.
+- Draft PR: https://github.com/rownlvh8875-coder/cyberpilot-autotune/pull/1
+  (`Bootstrap independent shadow-only AutoTune core`). It remains a draft.
+- Push CI at 2145d3f: all four Ubuntu/Windows x Python 3.12.3/3.12 checks passed:
+  https://github.com/rownlvh8875-coder/cyberpilot-autotune/actions/runs/40598192477
+- This final documentation update does not change reviewed source or tests.
+  Its commit is checked again locally and the remote checks are inspected before
+  the user-facing completion report.
+
+## Remaining decisions
+
+License selection; per-addition provenance before any future copying; owner-selected
+Carrot integration branch; actual parameter registry and approved vehicle bounds/
+rate limits; replay acceptance criteria; persistence and deployment policies.
+These do not enable any vehicle application path in the current milestone.
