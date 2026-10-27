@@ -34,6 +34,19 @@
 
 ## Execution decisions
 
+## Phase 3
+
+- Gate tests RED: missing safety.gate caused expected failure before implementation.
+- Ordered stateless gate, exact bounds/step/rate checks and stable reason codes
+  implemented with no real parameter defaults or clipping.
+- Initial regression: 125 passed, 93.42% overall branch-inclusive coverage.
+- Additional malformed metadata checks exercise fail-closed paths; final counts
+  and safety coverage are recorded in the final validation section.
+- Required pinned object remains unavailable; user could not supply a corrected
+  SHA. This is recorded as unresolved, without substituting supplemental HEAD.
+
+## Execution decisions
+
 - The supplied architecture and explicit instruction to implement are sufficient
   authorization; no additional design approval step is introduced.
 - Local git author is the repository owner's login and GitHub noreply address;
