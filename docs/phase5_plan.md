@@ -56,7 +56,7 @@ docs/{architecture,safety_contract,roadmap,progress}.md and phase5_progress.md.
 - [x] Extend guarded import/execution tests to cover stateful learner in both modes.
 - [x] Document formulas, resets, scope, limitations and actual verification results.
 - [x] Obtain independent read-only whole-branch review; substantive fixes use RED/GREEN.
-- [ ] Revalidate editable install, tests, coverage >=85%/safety >=95%, lint/format,
+- [x] Revalidate editable install, tests, coverage >=85%/safety >=95%, lint/format,
   mypy, sdist/wheel and isolated wheel import; commit and push feature branch.
-- [ ] Create separate stacked Draft PR against feat/bootstrap-shadow-core; preserve
+- [x] Create separate stacked Draft PR against feat/bootstrap-shadow-core; preserve
   PR #1/main. Inspect final CI and report actual results in Korean.
