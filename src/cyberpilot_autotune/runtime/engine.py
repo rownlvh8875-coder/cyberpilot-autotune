@@ -11,7 +11,7 @@ from cyberpilot_autotune.contracts import (
     ValidationError,
 )
 from cyberpilot_autotune.contracts.validation import count, nonnegative, parameters
-from cyberpilot_autotune.core.learner import Learner
+from cyberpilot_autotune.core.learner import Learner, ResettableLearner
 from cyberpilot_autotune.safety.gate import SafetyGate
 from cyberpilot_autotune.safety.reasons import ReasonCode as R
 from cyberpilot_autotune.safety.sanitizer import proposal_error
@@ -86,9 +86,7 @@ class AutoTuneEngine:
             now = nonnegative(self._clock.now_s(), "clock")
             if self._last_clock_s is not None and now < self._last_clock_s:
                 self._faulted = True
-                return self._result(
-                    sequence, events=(DiagnosticEvent(R.UNHEALTHY, "Monotonic clock regressed"),)
-                )
+                return self._reject(sequence, R.UNHEALTHY, "Monotonic clock regressed")
             self._last_clock_s = now
             previous_sequence = self._previous_sequence
             previous_timestamp_s = self._previous_timestamp_s
@@ -99,19 +97,12 @@ class AutoTuneEngine:
                 previous_timestamp_s=previous_timestamp_s,
             )
             if reason is not None:
-                return self._result(
-                    sequence, events=(DiagnosticEvent(reason, "Observation rejected"),)
-                )
+                return self._reject(sequence, reason, "Observation rejected")
             assert isinstance(observation, ObservationSnapshot)
             snapshot = replace(observation)
             if snapshot.baseline_parameters != self._baseline:
-                return self._result(
-                    sequence,
-                    events=(
-                        DiagnosticEvent(
-                            R.BASELINE_MISMATCH, "Snapshot does not match trusted baseline"
-                        ),
-                    ),
+                return self._reject(
+                    sequence, R.BASELINE_MISMATCH, "Snapshot does not match trusted baseline"
                 )
             # Consume admission before running learner; downstream failures cannot replay it.
             self._previous_sequence = snapshot.sequence
@@ -120,13 +111,8 @@ class AutoTuneEngine:
             finished = nonnegative(self._clock.now_s(), "clock")
             if finished < now:
                 self._faulted = True
-                return self._result(
-                    sequence,
-                    events=(
-                        DiagnosticEvent(
-                            R.UNHEALTHY, "Monotonic clock regressed during learner work"
-                        ),
-                    ),
+                return self._reject(
+                    sequence, R.UNHEALTHY, "Monotonic clock regressed during learner work"
                 )
             self._last_clock_s = finished
             reason = self._gate.validate_observation(
@@ -136,33 +122,21 @@ class AutoTuneEngine:
                 previous_timestamp_s=previous_timestamp_s,
             )
             if reason is not None:
-                return self._result(
-                    sequence, events=(DiagnosticEvent(reason, "Post-work validation"),)
-                )
+                return self._reject(sequence, reason, "Post-work validation")
             # Do not consume iterators/generators: they can be unbounded or execute code.
             if type(output) not in (tuple, list) or len(output) > self._maximum_proposals:
-                return self._result(
-                    sequence,
-                    events=(
-                        DiagnosticEvent(
-                            R.INVALID_PROPOSAL, "Expected a bounded proposal collection"
-                        ),
-                    ),
+                return self._reject(
+                    sequence, R.INVALID_PROPOSAL, "Expected a bounded proposal collection"
                 )
             proposals: list[TuningProposal] = []
             identifiers: set[str] = set()
             for item in output:
                 reason = proposal_error(item)
                 if reason is not None:
-                    return self._result(
-                        sequence, events=(DiagnosticEvent(reason, "Malformed proposal"),)
-                    )
+                    return self._reject(sequence, reason, "Malformed proposal")
                 if item.parameter_id in identifiers:
-                    return self._result(
-                        sequence,
-                        events=(
-                            DiagnosticEvent(R.INVALID_PROPOSAL, "Duplicate parameter proposal"),
-                        ),
+                    return self._reject(
+                        sequence, R.INVALID_PROPOSAL, "Duplicate parameter proposal"
                     )
                 identifiers.add(item.parameter_id)
                 proposals.append(replace(item))
@@ -188,3 +162,9 @@ class AutoTuneEngine:
                     DiagnosticEvent(R.INTERNAL_ERROR, f"Processing failed: {type(exc).__name__}"),
                 ),
             )
+
+    def _reject(self, sequence: int | None, reason: R, detail: str) -> EngineResult:
+        # Only called inside SHADOW's outer boundary; reset failure is an internal fault.
+        if isinstance(self._learner, ResettableLearner):
+            self._learner.reset()
+        return self._result(sequence, events=(DiagnosticEvent(reason, detail),))

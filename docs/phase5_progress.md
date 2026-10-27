@@ -21,3 +21,13 @@ Spec/plan: phase5_design.md and phase5_plan.md.
   bounded count/statistics, deterministic output, finite candidates and no input
   baseline mutation. Extreme subtraction/innovation/candidate overflow excluded.
 - Ruff lint/format and strict mypy passed. No third-party runtime dependency added.
+
+## Task 2
+
+- RED: pre-admission invalid source retained warmed sample_count=3 in the old
+  engine, demonstrating the missing lifecycle boundary.
+- GREEN: optional ResettableLearner.reset() is invoked for SHADOW rejection paths;
+  stateless learners remain compatible. Reset exceptions become INTERNAL_ERROR
+  with the existing health latch. OFF never observes or resets.
+- 16 real learner/engine integration cases passed; full suite 255 passed.
+- Candidate bounds/step/rate remain independently enforced by SafetyGate.
