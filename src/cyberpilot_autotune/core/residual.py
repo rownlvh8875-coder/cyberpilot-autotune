@@ -120,6 +120,12 @@ class ResidualStatisticsLearner:
         if type(snapshot) is not ObservationSnapshot:
             self.reset()
             raise ValidationError("expected ObservationSnapshot")
+        previous_sequence = self._last_sequence
+        sequence = getattr(snapshot, "sequence", None)
+        # Reserve valid sequence identities even when structure/order later rejects the frame.
+        if type(sequence) is int and sequence >= 0:
+            if self._last_sequence is None or sequence > self._last_sequence:
+                self._last_sequence = sequence
         try:
             snapshot = replace(snapshot)
         except ValidationError:
@@ -130,12 +136,12 @@ class ResidualStatisticsLearner:
             raise ValidationError("malformed ObservationSnapshot") from exc
 
         previous_time = self._last_timestamp_s
-        if (self._last_sequence is not None and snapshot.sequence <= self._last_sequence) or (
+        if (previous_sequence is not None and snapshot.sequence <= previous_sequence) or (
             previous_time is not None and snapshot.timestamp_s <= previous_time
         ):
             self.reset()
             return ()
-        self._last_sequence, self._last_timestamp_s = snapshot.sequence, snapshot.timestamp_s
+        self._last_timestamp_s = snapshot.timestamp_s
         desired = snapshot.desired_curvature_inv_m
         measured = snapshot.measured_curvature_inv_m
         if (

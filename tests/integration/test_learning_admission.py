@@ -153,6 +153,26 @@ def test_reset_preserves_high_water_but_new_instance_accepts_restarted_domain():
     assert fresh.statistics.sample_count == 1
 
 
+@pytest.mark.parametrize("failure", ["reordered_timestamp", "nonfinite_signal"])
+def test_standalone_early_rejection_consumes_valid_sequence_before_repair(failure):
+    value = CountingLearner()
+    for index in range(3):
+        value.observe(sample(index))
+    if failure == "reordered_timestamp":
+        rejected = sample(3, timestamp_s=12, control_active=False)
+        assert value.observe(rejected) == ()
+    else:
+        rejected = sample(3)
+        object.__setattr__(rejected, "speed_mps", float("nan"))
+        with pytest.raises(ValidationError):
+            value.observe(rejected)
+    assert value.statistics is None
+    assert value.observe(sample(3, timestamp_s=13, control_active=True)) == ()
+    assert value.statistics is None
+    assert value.observe(sample(4, timestamp_s=14)) == ()
+    assert value.statistics.sample_count == 1
+
+
 def test_off_does_not_call_clock_admission_observe_or_reset(monkeypatch):
     engine, value, clock, gate = setup(mode=RuntimeMode.OFF)
 

@@ -42,6 +42,8 @@ for finite nonnegative timestamps at or before the injected clock. Future times
 therefore cannot poison normal stream time. Previous high-water values are used
 for the current frame's gate/rate evaluation. Correcting/replaying an already
 rejected sequence cannot manufacture samples. No unbounded rejection cache exists.
+Standalone observe() also reserves any valid sequence before structural/order
+checks. Repairing an early-rejected frame cannot manufacture learner samples.
 
 reset() deletes evidence only, preserving sequence/time high-water. It is valid
 within the same monotonic stream. A restarted sequence/time domain requires a
@@ -75,3 +77,8 @@ actual Carrot mapping, real logs/collection and vehicle limits remain non-goals.
 - Numeric-policy RED: a finite integer minimum above float exact precision could
   be rounded during policy comparison. The comparison now validates without
   coercing the learner requirement, rejecting an actually weaker gate policy.
+- Independent review found one Important standalone replay gap: structural or
+  timestamp-order rejection occurred before reserving a valid sequence. Two
+  regression cases reproduced sample_count=1 after repairing the rejected frame.
+  The learner now reserves that identity before those checks; the same tests
+  verify zero evidence on replay and fresh evidence only at the next sequence.
