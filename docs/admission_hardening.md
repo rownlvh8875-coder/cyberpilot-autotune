@@ -82,3 +82,11 @@ actual Carrot mapping, real logs/collection and vehicle limits remain non-goals.
   regression cases reproduced sample_count=1 after repairing the rejected frame.
   The learner now reserves that identity before those checks; the same tests
   verify zero evidence on replay and fresh evidence only at the next sequence.
+- Reviewer ran 178 focused tests and reported no other findings. The Important
+  finding was fixed in f20fbcf using two RED/GREEN regressions; full suite is now
+  335 passed, 0 failed, 0 skipped. No deferred review findings remain.
+- Local branch-inclusive coverage: overall 98.55%, safety 100.00%, runtime 100.00%,
+  residual learner 97.85%. Ruff lint/format and strict mypy passed (26 source files).
+- Package research version is 0.1.0a2 for the strengthened constructor/admission
+  contracts; no release is published. Existing 0.1.0a1 and original SHA/CI evidence
+  remain historical records.

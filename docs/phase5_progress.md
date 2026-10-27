@@ -1,5 +1,10 @@
 # Phase 5 progress
 
+The original implementation record below preserves SHA 6931b56 and its CI results.
+The user assessed it CONDITIONAL_PASS, with PR #2 merge readiness HOLD. Subsequent
+admission hardening, PR #1 merge commit and PR #2 main retarget are documented in
+[admission_hardening.md](admission_hardening.md). Persistence is not authorized.
+
 Base: 5d67bc640939adbc888b19cbb6264dcf6b0cc5ac.
 Branch: feat/shadow-residual-statistics.
 Spec/plan: phase5_design.md and phase5_plan.md.

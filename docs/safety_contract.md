@@ -15,6 +15,21 @@ preserves exact input baseline identity even for integers beyond float precision
 
 ## Ordered gate evaluation
 
+Before any learner call, validate_learning_sample performs structural/time/
+freshness/order validation and trusted-baseline identity, then requires
+control_active is True, speed_mps >= GateConfig.minimum_speed_mps, driver_override
+is False and controller_saturated is False. Structural admission includes valid
+source and required signals. GateConfig.minimum_speed_mps is explicit, finite and
+nonnegative. A declared learner minimum may not exceed the common threshold.
+This boundary also runs after learner work. No proposal is needed to trigger a veto.
+
+control_active=None returns CONTROL_STATE_UNAVAILABLE; False returns
+CONTROL_INACTIVE; speed below the threshold returns BELOW_MINIMUM_SPEED. None is
+unknown, not cruise/UI enabled. No actual Carrot mapping exists. All admission
+rejections return baseline without invoking observe(), and reset capable learners.
+
+The ordered candidate evaluation below is independent of pre-call admission:
+
 `safety/gate.py` implements this order. Numeric prerequisites needed to compare
 time/freshness/sequence are checked at their stage before the general sanitizer.
 
@@ -30,7 +45,7 @@ time/freshness/sequence are checked at their stage before the general sanitizer.
 | 8 | Exact nonempty context match | CONTEXT_MISMATCH |
 | 9 | Minimum sample count | INSUFFICIENT_SAMPLES |
 | 10 | Minimum confidence | LOW_CONFIDENCE |
-| 11 | Driver override veto | DRIVER_OVERRIDE |
+| 11 | Actual control activity, minimum speed and driver override veto | CONTROL_STATE_UNAVAILABLE / CONTROL_INACTIVE / BELOW_MINIMUM_SPEED / DRIVER_OVERRIDE |
 | 12 | Controller saturation veto | CONTROLLER_SATURATED |
 | 13 | Candidate and baseline within hard bounds | OUT_OF_BOUNDS |
 | 14 | Absolute baseline-relative step within maximum_step | STEP_LIMIT_EXCEEDED |
@@ -58,10 +73,13 @@ retain the trusted baseline. Construction/configuration failures remain visible
 as ValidationError. Diagnostics expose error class only, never error text or raw
 data. No files or external events are emitted.
 
-Stream state consists only of admitted sequence/capture time and observed clock
-high-water information. OFF does not read time, invoke learner or mutate stream
-state. SHADOW consumes an admitted frame even when downstream code fails, so an
-identical frame cannot be retried to manufacture additional evidence.
+Stream state contains sequence, clock-safe capture-time and clock high-water.
+SHADOW consumes any available nonnegative integer sequence even on admission
+rejection. Capture time advances only when finite, nonnegative and not in the
+future. Replaying a rejected sequence with repaired flags or a later timestamp
+cannot manufacture sample counts. OFF does not read time, call admission, invoke
+observe/reset or mutate stream state. The current frame's rate/order evaluation
+uses the cursor from before that frame was consumed.
 
 The injected clock must share a monotonic domain with the adapter. Clock
 regression is unhealthy. Freshness is rechecked after learner work, including
@@ -72,10 +90,13 @@ preempt a hung learner. No hard real-time watchdog claim is made.
 
 ResidualStatisticsLearner uses only explicit caller-supplied configuration and a
 single target ParameterSpec; there is no vehicle registry or conversion default.
-It excludes invalid/missing/stale, override, saturated and absolute-outlier samples.
+It independently excludes unknown/inactive control, below-minimum-speed,
+invalid/missing/stale, override, saturated and absolute-outlier samples.
 Context/baseline changes or expired gap/window age require fresh minimum samples.
 Count is capped; raw samples and other contexts are not retained. Public reset
-clears evidence without erasing sequence/time high-water ordering.
+clears only evidence without erasing sequence/time high-water ordering. reset()
+is appropriate within the same monotonic stream. If the sequence/time domain
+restarts, construct a new learner instance and engine instead of reusing reset().
 
 Confidence is a heuristic support-times-consistency score. It is not evidence of
 correct tuning, physical validity, improved control or safe deployment. The gate's

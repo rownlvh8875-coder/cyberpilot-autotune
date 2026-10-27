@@ -8,7 +8,8 @@ controller tuning research, developed independently for eventual small upstream
 PRs. Current modes are OFF and SHADOW; effective values always equal baseline.
 
 Architecture: observation source -> read-only adapter -> immutable snapshot ->
-proposal-only learner -> Safety Gate -> runtime enforcer -> immutable result.
+learning admission -> proposal-only learner -> candidate Safety Gate -> runtime
+enforcer -> immutable result.
 The core does not depend on openpilot. See [architecture](docs/architecture.md).
 
 ## Shadow residual learner
@@ -18,7 +19,17 @@ bounded EWMA curvature residual statistics for one context and returns proposals
 only after explicit minimum sample requirements. Invalid, old, missing, override,
 saturation and outlier evidence is excluded; context/baseline/gap/age transitions
 restart the window. Optional learner reset is integrated with SHADOW rejection
-paths. OFF invokes neither observation nor reset.
+paths. Before observe(), common admission requires explicit control_active=True,
+speed at least the caller-supplied minimum_speed_mps, valid/fresh/ordered input,
+trusted baseline identity and no override/saturation. None means activity is unknown;
+cruise/UI enabled is never substituted. Actual Carrot activity mapping is absent.
+OFF calls neither clock, admission, observe nor reset.
+
+Both GateConfig and ResidualStatisticsConfig require an explicit finite nonnegative
+minimum_speed_mps; no vehicle default exists. Common policy must be at least as
+strict as the learner's declared minimum. reset() deletes the evidence window
+only and preserves sequence/time high-water within the same monotonic stream.
+A restarted sequence/time domain needs a new learner instance and engine.
 
 Every scale, age, threshold and signed residual-to-parameter coefficient must be
 supplied explicitly. There are no vehicle defaults. Confidence is a support and
@@ -67,6 +78,8 @@ The source audit is pinned to CyberPilot commit
 recorded separately in the [inventory](docs/porting_inventory.md). No code was
 copied from that source. Phases 6 onward are recorded in
 [the roadmap](docs/roadmap.md) and remain unimplemented.
+The next single work item is a deterministic replay harness. Persistence is not
+authorized; replay acceptance criteria must exist before it is reconsidered.
 
 License selection is pending. No LICENSE file is provided. Source references do
 not establish a license for this independent repository.

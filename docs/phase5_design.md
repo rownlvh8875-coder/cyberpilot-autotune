@@ -2,8 +2,10 @@
 
 Scope approved by the user: the next small shadow-only learner change. Preserve
 Phase 0-4 invariants; no application, persistence, real replay ingestion, vehicle
-adapter, vehicle constants or new runtime dependencies. Base: 5d67bc6. PR #1 is
-still open, so this change uses a separate stacked branch and PR against it.
+adapter, vehicle constants or new runtime dependencies. Original base: 5d67bc6.
+PR #1 has since been merged via merge commit 05b0162 and PR #2 retargeted to main.
+The admission strengthening in admission_hardening.md supersedes earlier admission
+descriptions. Original implementation SHA/CI evidence remains in phase5_progress.md.
 
 ## Approach and alternatives
 
@@ -18,7 +20,9 @@ All configuration is explicit: alpha in (0,1], minimum_samples >=2,
 maximum_samples >= minimum_samples, maximum_source_age_s >=0, maximum_sample_gap_s
 >0, maximum_state_age_s >= maximum_sample_gap_s, maximum_absolute_residual_inv_m
 >0, consistency_scale_inv_m >0, mean_deadband_inv_m >=0 (below residual cutoff),
-and nonzero signed parameter_delta_per_inv_m. No vehicle defaults exist.
+nonzero signed parameter_delta_per_inv_m, and finite nonnegative minimum_speed_mps.
+GateConfig also requires the explicit minimum; it must cover the learner's declared
+minimum to ensure pre-observe admission cannot be weaker. No vehicle defaults exist.
 The target ParameterSpec supplies identity/units only; bounds/step/rate remain
 the gate's responsibility. The caller must supply a justified residual-to-target
 coefficient. The shipped example is explicitly synthetic and not a calibration.
@@ -52,8 +56,11 @@ subtraction and EWMA innovations. No random source, clock or IO is used by learn
 ## Resets and ordering
 
 Invalid contract construction raises ValidationError after clearing evidence.
-Invalid source, missing required signals/target baseline, age violation, override,
-saturation, outlier or unrepresentable arithmetic clear evidence and emit nothing.
+Invalid source, unknown/inactive control, speed below the explicit minimum, missing
+required signals/target baseline, age violation, override, saturation, outlier or
+unrepresentable arithmetic clear evidence and emit nothing. The engine's common
+admission rejects unqualified frames before observe(); standalone learner checks
+repeat these conditions as defense in depth.
 Non-increasing sequence or timestamp clears evidence, retains high-water cursor
 and emits nothing. Admitted excluded frames consume their cursor.
 Context or target-baseline changes, gap >maximum_sample_gap_s, or window age
@@ -66,7 +73,9 @@ post-work frames reset capable learners, including malformed proposals and clock
 regression, without changing existing stateless learners. A reset error is caught
 by the engine's outer boundary and latches INTERNAL_ERROR. Internal faults retain
 the existing health latch; use a new/reset learner when replacing an engine.
-OFF performs no observe/reset calls. One engine owns one learner instance.
+OFF performs no clock/admission/observe/reset calls. reset() is for the same
+monotonic stream; a restarted sequence/time domain requires a new learner instance.
+One engine owns one learner instance.
 
 ## Evidence and acceptance
 
