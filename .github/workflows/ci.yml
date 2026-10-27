@@ -1,0 +1,39 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  checks:
+    strategy:
+      matrix:
+        python: ['3.12.3', '3.12']
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[dev]"
+      - run: python -m ruff check .
+      - run: python -m ruff format --check .
+      - run: python -m mypy src/cyberpilot_autotune
+      - run: python -m pytest -q
+      - run: python -m pytest --cov=cyberpilot_autotune --cov-report=term-missing --cov-fail-under=85
+      - run: python -m coverage report --include="*/safety/*" --fail-under=95
+      - run: python -m build
+      - name: Install wheel in isolated environment and import outside checkout
+        shell: bash
+        run: |
+          python -m venv "$RUNNER_TEMP/wheel-env"
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            wheel_python="$RUNNER_TEMP/wheel-env/Scripts/python.exe"
+          else
+            wheel_python="$RUNNER_TEMP/wheel-env/bin/python"
+          fi
+          "$wheel_python" -m pip install dist/*.whl
+          cd "$RUNNER_TEMP"
+          "$wheel_python" -I -c "import cyberpilot_autotune.core, cyberpilot_autotune.safety, cyberpilot_autotune.runtime"
