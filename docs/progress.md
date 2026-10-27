@@ -18,6 +18,16 @@
 
 ## Execution decisions
 
+## Phase 1
+
+- Import smoke RED: 1 failed because find_spec returned None before scaffolding.
+- GREEN: editable installation succeeded; 1 passed, mypy 0 errors, ruff 0 errors.
+- Added src layout, py.typed, Python constraints, dev tools, coverage configuration,
+  CI including wheel isolation, README, CONTRIBUTING, SECURITY and PR template.
+- Workflow safety/import targets are exercised when Phase 3/4 modules exist.
+
+## Execution decisions
+
 - The supplied architecture and explicit instruction to implement are sufficient
   authorization; no additional design approval step is introduced.
 - Local git author is the repository owner's login and GitHub noreply address;
