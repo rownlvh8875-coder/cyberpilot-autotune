@@ -1,5 +1,26 @@
 # Future read-only Carrot integration
 
+## Phase 8A contract resolution
+
+The owner-selected audit target is carrot-wip at exact commit
+604bc0a22733e648ec05b268da1ffaae7db52a69. Phase 8A status is
+**CONTRACT_BLOCKED_REQUIRED_SIGNAL_UNRESOLVED**: published activity is a request,
+not proof of final actuator authority, and saturation alerts are not a universal
+instantaneous limiting signal. No mapper or actual adapter has been implemented.
+
+The current normative evidence is [the signal contract](carrot_signal_contract.md),
+[source provenance](carrot_provenance.md), [raw-blob manifest](carrot_source_manifest.json)
+and [synthetic evidence specification](carrot_signal_evidence.md). Unknown mandatory
+signals remain None and prevent Snapshot construction. Caller-supplied clock/health
+limits and an immutable baseline are proposed policies, not approved vehicle defaults.
+Phase 8B is NOT_STARTED; persistence, actual integration and Apply remain unauthorized.
+
+## Historical Phase 0 reconnaissance
+
+The observations below are preserved as historical context. Where they differ,
+the exact-SHA Phase 8A contract above supersedes the provisional mapping and target
+selection language. No historical row approves a runnable mapping.
+
 Inspected on 2026-10-28 using actual git ls-remote --heads, fetch, ls-tree and show.
 No upstream writes, PRs, branches or installation were performed.
 

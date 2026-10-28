@@ -48,14 +48,45 @@ Do not represent the synthetic cases as executed adapter behavior.
   types, units, sign limits, clocks, health, unavailable behavior and confidence.
   Include controller-aware saturation and baseline classification tables, source
   validity composition and age-at-anchor arithmetic without vehicle defaults.
-- [ ] Record 16 independent synthetic scenarios, explicit rejection and None
+- [x] Record 16 independent synthetic scenarios, explicit rejection and None
   semantics, timestamp/age arithmetic and unchanged injected baseline. Validate
   evidence JSON statically; no product mapper or runtime result is claimed.
-- [ ] Update the integration index/roadmap with the blocked decision and remaining
+- [x] Update the integration index/roadmap with the blocked decision and remaining
   evidence needed for a later owner-authorized Phase 8B. No later phase starts.
-- [ ] Run full regression, lint, format, strict types, package coverage floors,
-  replay goldens and build. Review the audit evidence independently, commit/push
-  normally, create Draft PR and inspect exact-head CI. Keep working tree clean.
+- [x] Run full local regression, lint, format, strict types, package coverage
+  floors, replay goldens and build. Obtain an independent read-only audit review
+  and correct its findings. The results are recorded below.
+
+Publication criterion: commit/push normally, create the required Draft PR and
+inspect exact-head push/PR CI. The Draft PR checks and final report retain those
+remote outcomes and final SHA; they are not embedded as a self-referential commit
+hash in these source documents. No Ready transition, merge or later phase is
+authorized by this audit.
+
+## Local verification and review record
+
+On 2026-10-28, Python 3.12.14 in the development environment ran the full suite:
+475 passed, zero failed and zero skipped. Overall branch-inclusive coverage is
+98.53%; safety 100%; residual learner 97.85%; replay 98.48%. Existing architecture,
+immutability, admission and baseline invariants are regression checks; no new
+mapper behavior is implied. Ruff check and format, strict mypy over 31 source
+files, git diff --check, wheel/sdist build and CLI verification of the four
+unchanged replay golden fixtures pass.
+
+An isolated wheel environment outside the checkout imported all 31 package
+modules and verified the four replay goldens. The rebuilt sdist was inspected:
+both new audit JSON evidence files are present and byte-identical to this tree.
+The only packaging change includes docs/*.json alongside the Markdown evidence.
+Runtime source, dependencies, tests, replay fixtures and CI definitions are
+unchanged from the target base.
+
+Static audit validation separately verifies 37 raw Git blobs, 52 upstream source
+ranges, 13 Snapshot rows and 16 synthetic evidence cases with exact age arithmetic.
+It does not execute or test a mapper. A fresh read-only reviewer independently
+checked the same source/fixture evidence and supported the blocked decision.
+It found zero Critical, zero Important and three Minor issues: a target baseline
+link anchor, an ambiguous age explanation and missing JSON in sdist. All three
+were corrected; no runtime code was added to resolve them.
 
 ## Review focus
 

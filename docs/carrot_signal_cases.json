@@ -1,0 +1,1410 @@
+{
+  "format": "CARROT_SIGNAL_AUDIT_SCENARIOS_V1",
+  "scope": "SYNTHETIC_EVIDENCE_ONLY_NOT_A_MAPPER",
+  "source_commit": "604bc0a22733e648ec05b268da1ffaae7db52a69",
+  "synthetic_only": true,
+  "not_for_vehicle_use": true,
+  "contract_status": "CONTRACT_BLOCKED_REQUIRED_SIGNAL_UNRESOLVED",
+  "mapping_executed": false,
+  "policy": {
+    "maximum_publication_age_ns": 250000000,
+    "maximum_receipt_age_ns": 125000000,
+    "maximum_topic_skew_ns": 125000000,
+    "threshold_status": "TEST_ONLY_NOT_VEHICLE_DEFAULTS"
+  },
+  "trusted_baseline": {
+    "synthetic.contract_only": 10
+  },
+  "cases": [
+    {
+      "id": "normal_torque",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": true,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.03125,
+          "effective_publication_age_s": 0.0625,
+          "topic_skew_s": 0.03125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 0,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "inactive_controller",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": false,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": false,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "INACTIVE_REQUEST"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.03125,
+          "effective_publication_age_s": 0.0625,
+          "topic_skew_s": 0.03125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 1,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "unknown_activity",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": null,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": null,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "ACTIVITY_UNAVAILABLE"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.03125,
+          "effective_publication_age_s": 0.0625,
+          "topic_skew_s": 0.03125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 2,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "steering_override",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": true
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": true,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "DRIVER_OVERRIDE"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.03125,
+          "effective_publication_age_s": 0.0625,
+          "topic_skew_s": 0.03125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 3,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "saturation_alert",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": true,
+            "saturated": true,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "SATURATION_ALERT_PRESENT"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.03125,
+          "effective_publication_age_s": 0.0625,
+          "topic_skew_s": 0.03125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 4,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "controller_type_mismatch",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "pidState",
+          "controllerLog": {
+            "active": true,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "CONTROLLER_UNION_MISMATCH"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.03125,
+          "effective_publication_age_s": 0.0625,
+          "topic_skew_s": 0.03125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": null,
+        "attempt_sequence_candidate": 5,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "missing_union_state",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": null,
+          "controllerLog": null,
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "MISSING_UNION_STATE"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.03125,
+          "effective_publication_age_s": 0.0625,
+          "topic_skew_s": 0.03125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": null,
+        "attempt_sequence_candidate": 6,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "stale_carState",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 99500000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": true,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "STALE_CAR_STATE",
+          "EXCESSIVE_TOPIC_SKEW"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.53125,
+          "effective_publication_age_s": 0.5625,
+          "topic_skew_s": 0.53125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 7,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "stale_controlsState",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 99500000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": true,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "STALE_CONTROLS_STATE",
+          "EXCESSIVE_TOPIC_SKEW"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100,
+          "source_age_s_at_anchor": 0.5,
+          "effective_publication_age_s": 0.5625,
+          "topic_skew_s": 0.5,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 8,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "excessive_topic_skew",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 99843750000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": true,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "EXCESSIVE_TOPIC_SKEW"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.1875,
+          "effective_publication_age_s": 0.21875,
+          "topic_skew_s": 0.1875,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 9,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "canValid_false",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": false,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": false,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": true,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "CAN_INVALID",
+          "INVALID_EVENT"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.03125,
+          "effective_publication_age_s": 0.0625,
+          "topic_skew_s": 0.03125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 10,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "valid_false",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": false,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": true,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "INVALID_EVENT"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.03125,
+          "effective_publication_age_s": 0.0625,
+          "topic_skew_s": 0.03125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 11,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "topic_not_alive",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 99953125000,
+          "recv_time_ns": 99953125000,
+          "health": {
+            "seen": true,
+            "updated": false,
+            "valid": true,
+            "alive": false,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100062500000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": true,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "TOPIC_NOT_ALIVE",
+          "TOPIC_NOT_UPDATED"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.078125,
+          "effective_publication_age_s": 0.109375,
+          "topic_skew_s": 0.078125,
+          "carState_receipt_age_s": 0.109375,
+          "controlsState_receipt_age_s": 0
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 12,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "topic_frequency_failure",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": false
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": true,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "TOPIC_FREQUENCY_FAILURE"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.03125,
+          "effective_publication_age_s": 0.0625,
+          "topic_skew_s": 0.03125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 13,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "reordered_timestamp",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": true,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 10
+        },
+        "previous_publication_ns": {
+          "carState": 100031250000,
+          "controlsState": 100062500000
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "OUT_OF_ORDER_PUBLICATION"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.03125,
+          "effective_publication_age_s": 0.0625,
+          "topic_skew_s": 0.03125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 14,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    },
+    {
+      "id": "immutable_baseline_mismatch",
+      "input": {
+        "now_ns": 100062500000,
+        "same_host_boot_attested": true,
+        "simulation": false,
+        "replay": false,
+        "required_health_bypasses": false,
+        "controller_identity": {
+          "kind": "torque",
+          "expected_union": "torqueState",
+          "is_meb": false,
+          "use_steering_angle": true
+        },
+        "carState": {
+          "logMonoTime": 100000000000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "canValid": true,
+          "vEgo": 2,
+          "steeringPressed": false
+        },
+        "controlsState": {
+          "logMonoTime": 100031250000,
+          "recv_time_ns": 100046875000,
+          "health": {
+            "seen": true,
+            "updated": true,
+            "valid": true,
+            "alive": true,
+            "freq_ok": true
+          },
+          "union_kind": "torqueState",
+          "controllerLog": {
+            "active": true,
+            "saturated": false,
+            "actualLateralAccel": 0
+          },
+          "desiredCurvature": 0,
+          "curvature": 0
+        },
+        "carControl_request": {
+          "latActive": true,
+          "enabled": true
+        },
+        "final_applied_authority": null,
+        "caller_baseline_snapshot": {
+          "synthetic.contract_only": 11
+        },
+        "previous_publication_ns": {
+          "carState": null,
+          "controlsState": null
+        }
+      },
+      "expected": {
+        "outcome": "REJECT_NO_SNAPSHOT",
+        "global_blockers": [
+          "BLOCKED_CONTROL_ACTIVE_SEMANTICS",
+          "BLOCKED_SATURATION_SEMANTICS"
+        ],
+        "case_policy_vetoes": [
+          "BASELINE_MISMATCH"
+        ],
+        "control_active": null,
+        "controller_saturated": null,
+        "snapshot_created": false,
+        "publication_metrics": {
+          "timestamp_s_candidate": 100.03125,
+          "source_age_s_at_anchor": 0.03125,
+          "effective_publication_age_s": 0.0625,
+          "topic_skew_s": 0.03125,
+          "carState_receipt_age_s": 0.015625,
+          "controlsState_receipt_age_s": 0.015625
+        },
+        "context_key_candidate": "synthetic/carrot-audit/v1/torque",
+        "attempt_sequence_candidate": 15,
+        "trusted_baseline": {
+          "synthetic.contract_only": 10
+        }
+      }
+    }
+  ]
+}

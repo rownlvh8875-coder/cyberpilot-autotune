@@ -50,6 +50,19 @@ synthetic milestone does not authorize persistence or vehicle integration.
 
 ## Phase 8: Optional Carrot adapter
 
+Phase 8A source audit is complete at carrot-wip commit
+604bc0a22733e648ec05b268da1ffaae7db52a69, with status
+**CONTRACT_BLOCKED_REQUIRED_SIGNAL_UNRESOLVED**. See
+[the signal contract](carrot_signal_contract.md) and
+[static synthetic evidence](carrot_signal_evidence.md). Final applied lateral
+authority and universal saturation meaning remain unresolved; no message-neutral
+mapper or actual adapter is implemented. Missing mandatory values remain None.
+Clock/health and injected-baseline policies are conditional designs only.
+
+Phase 8B is NOT_STARTED. Resolve the documented source semantics before seeking
+separate authorization for an optional adapter. Do not start persistence or
+controller application as a consequence of this audit.
+
 Pin the actual owner-selected branch and SHA. Isolate openpilot/cereal imports to
 an optional adapter distribution/package. Core tests must still pass without
 openpilot. Prove read-only mapping with mocks and golden unit/freshness fixtures,

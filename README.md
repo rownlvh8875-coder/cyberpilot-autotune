@@ -12,6 +12,13 @@ learning admission -> proposal-only learner -> candidate Safety Gate -> runtime
 enforcer -> immutable result.
 The core does not depend on openpilot. See [architecture](docs/architecture.md).
 
+Phase 8A audited carrot-wip at `604bc0a22733e648ec05b268da1ffaae7db52a69`.
+The [read-only signal contract](docs/carrot_signal_contract.md) is blocked on
+actual lateral authority and saturation semantics. Unknown signals remain None;
+no Carrot mapper or actual adapter is implemented. The
+[synthetic evidence](docs/carrot_signal_evidence.md) is a static specification,
+not executed vehicle or adapter behavior. Phase 8B is NOT_STARTED.
+
 ## Shadow residual learner
 
 Phase 5 adds `ResidualStatisticsLearner` alongside `NoOpLearner`. It maintains
