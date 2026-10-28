@@ -32,6 +32,7 @@ LEGACY_KEYS = frozenset(
         "sha256",
     }
 )
+LEGACY_RESULT_SHA256 = "5434e0cd203a08fb97662d94b91d66665bb950ba8cb276f90597efc8af673af5"
 
 
 class _GoldenMismatch(Exception):
@@ -116,7 +117,10 @@ def _verify(scenario: Path, expected_path: Path) -> dict[str, object]:
         )
     except (ValueError, RecursionError) as exc:
         raise ValidationError("invalid expectation JSON") from exc
-    if type(expected) is not dict or set(expected) not in (LEGACY_KEYS, output.keys()):
+    if type(expected) is not dict:
+        raise _GoldenMismatch
+    legacy = set(expected) == LEGACY_KEYS and output["result_sha256"] == LEGACY_RESULT_SHA256
+    if not legacy and set(expected) != output.keys():
         raise _GoldenMismatch
     actual = {key: output[key] for key in expected}
     if canonical_bytes(actual) != canonical_bytes(expected):

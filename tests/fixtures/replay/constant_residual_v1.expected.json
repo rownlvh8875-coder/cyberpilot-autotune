@@ -1,0 +1,67 @@
+{
+  "event_count": 5,
+  "proposal_count": 3,
+  "eligible_count": 3,
+  "rejection_counts": {},
+  "override_exclusion_count": 0,
+  "saturation_exclusion_count": 0,
+  "maximum_proposed_delta": [
+    1,
+    2
+  ],
+  "invariant_violations": 0,
+  "internal_error_count": 0,
+  "software_checks_passed": true,
+  "sha256": "44b7b8210df78f3e0fd885655f8c123ca4a556c8486ce01c565a56733c17b383",
+  "scenario_sha256": "c9998aff17ec5481cd48338f750b5e479a44dbe8ffc440fb67f69ffb60d4a480",
+  "configuration_sha256": "9e35a0f23565f9f57c7f42145cfde9ac1e7471a2738e6339b8268f4eedc274e1",
+  "result_sha256": "44b7b8210df78f3e0fd885655f8c123ca4a556c8486ce01c565a56733c17b383",
+  "events": [
+    {
+      "reason_codes": [],
+      "observation_sequence": 0,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 1,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [],
+      "observation_sequence": 1,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 2,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "ACCEPTED_FOR_SHADOW"
+      ],
+      "observation_sequence": 2,
+      "proposal_count": 1,
+      "eligible_count": 1,
+      "sample_count": 3,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "ACCEPTED_FOR_SHADOW"
+      ],
+      "observation_sequence": 3,
+      "proposal_count": 1,
+      "eligible_count": 1,
+      "sample_count": 4,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "ACCEPTED_FOR_SHADOW"
+      ],
+      "observation_sequence": 4,
+      "proposal_count": 1,
+      "eligible_count": 1,
+      "sample_count": 5,
+      "baseline_retained": true
+    }
+  ]
+}

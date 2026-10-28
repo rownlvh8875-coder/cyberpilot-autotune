@@ -1,0 +1,184 @@
+{
+  "event_count": 17,
+  "proposal_count": 3,
+  "eligible_count": 3,
+  "rejection_counts": {
+    "DRIVER_OVERRIDE": 2,
+    "INVALID_OBSERVATION": 1,
+    "CONTROL_STATE_UNAVAILABLE": 1,
+    "CONTROL_INACTIVE": 1,
+    "BELOW_MINIMUM_SPEED": 1,
+    "CONTROLLER_SATURATED": 1
+  },
+  "override_exclusion_count": 2,
+  "saturation_exclusion_count": 1,
+  "maximum_proposed_delta": [
+    1,
+    2
+  ],
+  "invariant_violations": 0,
+  "internal_error_count": 0,
+  "software_checks_passed": true,
+  "sha256": "1c566a3e8626a924217acaab5ca2a4343c4de64590ff5a56bf200b5a8404e294",
+  "scenario_sha256": "98700a3b86cf3e68c180bc4cd4ea1cb0492be89ee177387af29a326903f51e17",
+  "configuration_sha256": "9e35a0f23565f9f57c7f42145cfde9ac1e7471a2738e6339b8268f4eedc274e1",
+  "result_sha256": "1c566a3e8626a924217acaab5ca2a4343c4de64590ff5a56bf200b5a8404e294",
+  "events": [
+    {
+      "reason_codes": [],
+      "observation_sequence": 0,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 1,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [],
+      "observation_sequence": 1,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 2,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "DRIVER_OVERRIDE"
+      ],
+      "observation_sequence": 2,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [],
+      "observation_sequence": 3,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 1,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "INVALID_OBSERVATION"
+      ],
+      "observation_sequence": 4,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "CONTROL_STATE_UNAVAILABLE"
+      ],
+      "observation_sequence": 5,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "CONTROL_INACTIVE"
+      ],
+      "observation_sequence": 6,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "BELOW_MINIMUM_SPEED"
+      ],
+      "observation_sequence": 7,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "CONTROLLER_SATURATED"
+      ],
+      "observation_sequence": 8,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [],
+      "observation_sequence": 9,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 1,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [],
+      "observation_sequence": 10,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 2,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "ACCEPTED_FOR_SHADOW"
+      ],
+      "observation_sequence": 11,
+      "proposal_count": 1,
+      "eligible_count": 1,
+      "sample_count": 3,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "ACCEPTED_FOR_SHADOW"
+      ],
+      "observation_sequence": 12,
+      "proposal_count": 1,
+      "eligible_count": 1,
+      "sample_count": 4,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "DRIVER_OVERRIDE"
+      ],
+      "observation_sequence": 13,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [],
+      "observation_sequence": 14,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 1,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [],
+      "observation_sequence": 15,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 2,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "ACCEPTED_FOR_SHADOW"
+      ],
+      "observation_sequence": 16,
+      "proposal_count": 1,
+      "eligible_count": 1,
+      "sample_count": 3,
+      "baseline_retained": true
+    }
+  ]
+}

@@ -75,6 +75,7 @@ def test_unknown_and_missing_keys_are_not_ignored(part):
         {"desired_curvature_inv_m": float("inf")},
         {"source_age_s": -1},
         {"sequence": True},
+        {"sequence": -1},
         {"context_key": "driver/identity"},
     ],
 )

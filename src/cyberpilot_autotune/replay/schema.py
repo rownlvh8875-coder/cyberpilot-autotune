@@ -12,7 +12,7 @@ from cyberpilot_autotune.contracts import (
     ParameterSpec,
     ValidationError,
 )
-from cyberpilot_autotune.contracts.validation import nonnegative, parameters, typed_tuple
+from cyberpilot_autotune.contracts.validation import nonnegative, parameters, text, typed_tuple
 from cyberpilot_autotune.core.residual import ResidualStatisticsConfig
 from cyberpilot_autotune.safety.gate import GateConfig
 
@@ -81,6 +81,8 @@ class ReplayScenario:
             raise ValidationError("schema version must be an integer")
         if self.schema_version != 1:
             raise UnsupportedConfigurationError("unsupported replay schema version")
+        for name in ("scope", "learner_version", "time_domain"):
+            text(getattr(self, name), name)
         if self.scope != "SYNTHETIC_TEST_ONLY" or self.learner_version != "residual-ewma-v1":
             raise UnsupportedConfigurationError("unsupported scope or learner version")
         if self.time_domain != "synthetic.monotonic.v1":
@@ -88,6 +90,8 @@ class ReplayScenario:
         _clock_coordinate(self.monotonic_origin_s, "monotonic_origin_s")
         if not isinstance(self.units, Mapping) or set(self.units) != set(CANONICAL_UNITS):
             raise ValidationError("canonical units must have exact fields")
+        for unit_value in self.units.values():
+            text(unit_value, "unit")
         if dict(self.units) != CANONICAL_UNITS:
             raise UnsupportedConfigurationError("unsupported canonical units")
         if (
@@ -172,6 +176,7 @@ def load_replay(document: str) -> ReplayScenario:
         raise ValidationError("invalid replay JSON") from exc
     data = _object(value, _names(ReplayScenario))
     spec = _object(data["parameter_spec"], _names(ParameterSpec)).copy()
+    text(spec["out_of_range_policy"], "out_of_range_policy")
     if spec["out_of_range_policy"] != "REJECT":
         raise UnsupportedConfigurationError("only explicit REJECT policy is admitted")
     spec["out_of_range_policy"] = OutOfRangePolicy.REJECT

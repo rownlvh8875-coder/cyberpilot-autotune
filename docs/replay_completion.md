@@ -81,3 +81,20 @@ missing input, duplicate expected keys and unknown CLI flags. No update command.
 AST permits only rb reads in cli.py and writes to stdout/stderr buffers; guarded
 CLI execution forbids filesystem writes/network/threads/processes. Regression:
 461 passed; overall coverage 98.51%, replay 98.45%; lint/format/type checks pass.
+
+## Focused fixtures and review
+
+All three focused fixtures first failed verification while absent. Their event
+reasons, sample counts and summary metrics were hand-derived and checked before
+pinning new digests. constant_residual_v1: 5 events/3 proposals/3 eligible;
+admission_reset_v1: 17/3/3; ordering_high_water_v1: 16/2/2. Every result retains
+trusted baseline and has no INTERNAL_ERROR. Two fresh processes with distinct
+hash seeds reproduce full canonical output, all hash domains, counts and reasons.
+Original golden_v1 files remain byte-unchanged relative to 9500196.
+
+One independent read-only review found a P2 verifier downgrade: any scenario could
+use legacy expectations and omit event/sample-count/split-hash evidence. A RED test
+reproduced acceptance of downgraded focused expectations. GREEN restricts legacy
+compatibility to the historical aggregate result digest; focused expectations must
+match the complete field set. No deferred findings. Separately, invalid metadata
+types were reproduced returning unsupported exit 5 and corrected to input exit 2.

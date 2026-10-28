@@ -71,6 +71,21 @@ def test_unsupported_configuration_exit_five(tmp_path, field, value):
     assert result.stderr == b"UNSUPPORTED_CONFIGURATION: Unsupported replay configuration\n"
 
 
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("schema_version", True),
+        ("scope", []),
+        ("learner_version", False),
+        ("time_domain", 3),
+    ],
+)
+def test_invalid_metadata_types_are_input_errors_not_unsupported(tmp_path, field, value):
+    document = replay_document()
+    document[field] = value
+    assert invoke("run", write_document(tmp_path, document)).returncode == 2
+
+
 def test_verify_checks_metrics_as_well_as_digest_and_one_byte_mutation(tmp_path):
     scenario = FIXTURES / "golden_v1.json"
     expected = FIXTURES / "golden_v1.expected.json"
