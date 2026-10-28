@@ -8,7 +8,9 @@ caller-forged reports are not independent evidence.
 ## Required software checks
 
 - Strict schema admission before execution: explicit units/domain/activity/policy
-  and trusted baseline. Invalid JSON, versions, types and order reject.
+  and trusted baseline. Invalid JSON, versions, types, and evaluation-clock/domain
+  order reject. Observation sequence and capture-time anomalies are admitted for
+  runtime characterization.
 - Every OFF/SHADOW baseline and effective mapping equals the trusted baseline.
   OFF invokes no clock/admission/observe/reset and returns no candidate.
 - Independent eligible candidate binding, admission/freshness, evidence, bounds,
