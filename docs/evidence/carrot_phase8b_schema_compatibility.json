@@ -1,0 +1,1056 @@
+{
+  "schema_version": 1,
+  "scope": "SYNTHETIC_READ_ONLY_EXTRACTION_NO_ENGINE_NO_VEHICLE",
+  "target_base": "16e1695e7a9b41f4a6bc728a5bca781d38b26151",
+  "original_base": "604bc0a22733e648ec05b268da1ffaae7db52a69",
+  "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "integration_merge": "7a2f051b1f3847786318900444c88c2ba7a74a67",
+  "integration_tree_equals_source": true,
+  "generated_reader": {
+    "pycapnp": "2.1.0",
+    "python_minimum": "3.12.3",
+    "binding": "capnp.lib.capnp._DynamicStructReader",
+    "layout_sha256": "ca3e63676b4deb03efbd7998c667a4fbcc74a4a1c47c9755869c62a76e7cf0a0"
+  },
+  "schema_files": [
+    {
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "sha256": "5b8a0b8a5eb89d663025b46e453a36521f47954249de6a0553e013f3739baba0",
+      "bytes": 32081
+    },
+    {
+      "path": "openpilot/cereal/log.capnp",
+      "sha256": "7d5c19cc2a534fb6918ba51d393eff288f096b68b6c13fd5608c46d17454ba35",
+      "bytes": 71209
+    },
+    {
+      "path": "openpilot/cereal/custom.capnp",
+      "sha256": "c41f66de1daa06643f09bf6b93163279167f00ae753be0019f18dbe546f7708e",
+      "bytes": 6313
+    },
+    {
+      "path": "openpilot/cereal/deprecated.capnp",
+      "sha256": "65079ff035a29c4c267d07ef7240c316c7eaa81b52f795142ed7603489a61355",
+      "bytes": 17671
+    },
+    {
+      "path": "openpilot/cereal/include/c++.capnp",
+      "sha256": "fb306076cd38c27af1aed20fac6395e9a46fbe5b5df6a248b5f1b6845a079c44",
+      "bytes": 1354
+    },
+    {
+      "path": "openpilot/cereal/__init__.py",
+      "sha256": "c8e54d7417631916d8c5842d0d509d8c573ca8089e9cad6fc7acad849503fb60",
+      "bytes": 992
+    }
+  ],
+  "fields_and_unions": {
+    "ActuationReceipt": {
+      "fields": {
+        "controllerKind": {
+          "discriminant": 65535,
+          "enumerants": {
+            "angle": 3,
+            "mebCurvature": 4,
+            "other": 5,
+            "pid": 2,
+            "torque": 1,
+            "unknown": 0
+          },
+          "ordinal": 5,
+          "type": "enum",
+          "type_id": 16165255457692478376
+        },
+        "controllerOutputActuators": {
+          "discriminant": 65535,
+          "ordinal": 8,
+          "type": "struct",
+          "type_id": 16821636927315978280
+        },
+        "controllerOutputReturned": {
+          "discriminant": 65535,
+          "enumerants": {
+            "returned": 1,
+            "unavailable": 0
+          },
+          "ordinal": 11,
+          "type": "enum",
+          "type_id": 12614603515923074560
+        },
+        "finalRequestedActuators": {
+          "discriminant": 65535,
+          "ordinal": 7,
+          "type": "struct",
+          "type_id": 16821636927315978280
+        },
+        "hostApplyMonoTime": {
+          "discriminant": 65535,
+          "ordinal": 10,
+          "type": "struct",
+          "type_id": 16450994280758053229
+        },
+        "hostLateralActivityState": {
+          "discriminant": 65535,
+          "enumerants": {
+            "active": 2,
+            "inactive": 1,
+            "unavailable": 0
+          },
+          "ordinal": 2,
+          "type": "enum",
+          "type_id": 15976559615959818404
+        },
+        "instantaneousControllerLimitState": {
+          "discriminant": 65535,
+          "enumerants": {
+            "limited": 2,
+            "notLimited": 1,
+            "unavailable": 0
+          },
+          "ordinal": 6,
+          "type": "enum",
+          "type_id": 14666245693000443823
+        },
+        "outputLimitState": {
+          "discriminant": 65535,
+          "enumerants": {
+            "limited": 2,
+            "notLimited": 1,
+            "unavailable": 0
+          },
+          "ordinal": 9,
+          "type": "enum",
+          "type_id": 14666245693000443823
+        },
+        "receiptVersion": {
+          "discriminant": 65535,
+          "ordinal": 0,
+          "type": "uint16"
+        },
+        "safetyObservationMonoTime": {
+          "discriminant": 65535,
+          "ordinal": 12,
+          "type": "struct",
+          "type_id": 16450994280758053229
+        },
+        "safetyPermissionState": {
+          "discriminant": 65535,
+          "enumerants": {
+            "allowed": 2,
+            "disallowed": 1,
+            "unavailable": 0
+          },
+          "ordinal": 3,
+          "type": "enum",
+          "type_id": 15005767147851711863
+        },
+        "safetyStateMonoTime": {
+          "discriminant": 65535,
+          "ordinal": 4,
+          "type": "struct",
+          "type_id": 16450994280758053229
+        },
+        "sourceCarControlMonoTime": {
+          "discriminant": 65535,
+          "ordinal": 1,
+          "type": "struct",
+          "type_id": 16450994280758053229
+        }
+      },
+      "node_id": 9601461957427222131,
+      "union_fields": []
+    },
+    "Actuators": {
+      "fields": {
+        "aTarget": {
+          "discriminant": 65535,
+          "ordinal": 10,
+          "type": "float32"
+        },
+        "accel": {
+          "discriminant": 65535,
+          "ordinal": 4,
+          "type": "float32"
+        },
+        "brake": {
+          "discriminant": 65535,
+          "ordinal": 1,
+          "type": "float32"
+        },
+        "curvature": {
+          "discriminant": 65535,
+          "ordinal": 7,
+          "type": "float32"
+        },
+        "gas": {
+          "discriminant": 65535,
+          "ordinal": 0,
+          "type": "float32"
+        },
+        "jerk": {
+          "discriminant": 65535,
+          "ordinal": 9,
+          "type": "float32"
+        },
+        "speed": {
+          "discriminant": 65535,
+          "ordinal": 6,
+          "type": "float32"
+        },
+        "steeringAngleDeg": {
+          "discriminant": 65535,
+          "ordinal": 3,
+          "type": "float32"
+        },
+        "torque": {
+          "discriminant": 65535,
+          "ordinal": 2,
+          "type": "float32"
+        },
+        "torqueOutputCan": {
+          "discriminant": 65535,
+          "ordinal": 8,
+          "type": "float32"
+        }
+      },
+      "node_id": 16821636927315978280,
+      "union_fields": []
+    },
+    "CarControl": {
+      "fields": {
+        "actuators": {
+          "discriminant": 65535,
+          "ordinal": 6,
+          "type": "struct",
+          "type_id": 16821636927315978280
+        },
+        "latActive": {
+          "discriminant": 65535,
+          "ordinal": 11,
+          "type": "bool"
+        },
+        "lateralControlObservation": {
+          "discriminant": 65535,
+          "ordinal": 18,
+          "type": "struct",
+          "type_id": 12762610735489697612
+        }
+      },
+      "node_id": 17836551423953212591,
+      "union_fields": []
+    },
+    "CarOutput": {
+      "fields": {
+        "actuationReceipt": {
+          "discriminant": 65535,
+          "ordinal": 1,
+          "type": "struct",
+          "type_id": 9601461957427222131
+        }
+      },
+      "node_id": 15571149967297202821,
+      "union_fields": []
+    },
+    "CarState": {
+      "fields": {
+        "canValid": {
+          "discriminant": 65535,
+          "ordinal": 26,
+          "type": "bool"
+        },
+        "steeringAngleDeg": {
+          "discriminant": 65535,
+          "ordinal": 7,
+          "type": "float32"
+        },
+        "steeringPressed": {
+          "discriminant": 65535,
+          "ordinal": 9,
+          "type": "bool"
+        },
+        "vEgo": {
+          "discriminant": 65535,
+          "ordinal": 1,
+          "type": "float32"
+        }
+      },
+      "node_id": 11359479080460390460,
+      "union_fields": []
+    },
+    "Event": {
+      "fields": {
+        "carControl": {
+          "discriminant": 22,
+          "ordinal": 23,
+          "type": "struct",
+          "type_id": 17836551423953212591
+        },
+        "carOutput": {
+          "discriminant": 125,
+          "ordinal": 127,
+          "type": "struct",
+          "type_id": 15571149967297202821
+        },
+        "carState": {
+          "discriminant": 21,
+          "ordinal": 22,
+          "type": "struct",
+          "type_id": 11359479080460390460
+        },
+        "logMonoTime": {
+          "discriminant": 65535,
+          "ordinal": 0,
+          "type": "uint64"
+        },
+        "valid": {
+          "discriminant": 65535,
+          "ordinal": 67,
+          "type": "bool"
+        }
+      },
+      "node_id": 15210010373913746449,
+      "union_fields": [
+        "initData",
+        "roadCameraState",
+        "gpsNMEA",
+        "sensorEventDEPRECATED",
+        "can",
+        "deviceState",
+        "controlsState",
+        "liveEventDEPRECATED",
+        "model",
+        "featuresDEPRECATED",
+        "sensorEventsDEPRECATED",
+        "pandaStateDEPRECATED",
+        "radarState",
+        "liveUIDEPRECATED",
+        "roadEncodeIdx",
+        "liveTracksDEPRECATED",
+        "sendcan",
+        "logMessage",
+        "liveCalibration",
+        "androidLog",
+        "gpsLocation",
+        "carState",
+        "carControl",
+        "longitudinalPlan",
+        "liveLocationDEPRECATED",
+        "ethernetDataDEPRECATED",
+        "navUpdateDEPRECATED",
+        "cellInfoDEPRECATED",
+        "wifiScanDEPRECATED",
+        "androidGnssDEPRECATED",
+        "qcomGnss",
+        "lidarPtsDEPRECATED",
+        "procLog",
+        "ubloxGnss",
+        "clocks",
+        "liveMpcDEPRECATED",
+        "liveLongitudinalMpcDEPRECATED",
+        "navStatusDEPRECATED",
+        "ubloxRaw",
+        "gpsPlannerPointsDEPRECATED",
+        "gpsPlannerPlanDEPRECATED",
+        "applanixRawDEPRECATED",
+        "trafficEventsDEPRECATED",
+        "liveLocationTimingDEPRECATED",
+        "orbslamCorrectionDEPRECATED",
+        "liveLocationCorrectedDEPRECATED",
+        "orbObservationDEPRECATED",
+        "gpsLocationExternal",
+        "locationDEPRECATED",
+        "uiNavigationEventDEPRECATED",
+        "liveLocationKalmanDeprecatedDEPRECATED",
+        "testJoystick",
+        "orbOdometryDEPRECATED",
+        "orbFeaturesDEPRECATED",
+        "applanixLocationDEPRECATED",
+        "orbKeyFrameDEPRECATED",
+        "uiLayoutStateDEPRECATED",
+        "orbFeaturesSummaryDEPRECATED",
+        "driverStateDEPRECATED",
+        "boot",
+        "liveParameters",
+        "liveMapDataDEPRECATED",
+        "cameraOdometry",
+        "lateralPlan",
+        "kalmanOdometryDEPRECATED",
+        "thumbnail",
+        "onroadEventsDEPRECATED",
+        "carParams",
+        "driverCameraState",
+        "driverMonitoringStateDEPRECATED",
+        "liveLocationKalmanDEPRECATED",
+        "sentinel",
+        "wideRoadCameraState",
+        "modelV2",
+        "driverEncodeIdx",
+        "wideRoadEncodeIdx",
+        "managerState",
+        "uploaderState",
+        "peripheralState",
+        "pandaStates",
+        "navInstruction",
+        "navRoute",
+        "navThumbnail",
+        "errorLogMessage",
+        "roadEncodeData",
+        "driverEncodeData",
+        "wideRoadEncodeData",
+        "qRoadEncodeData",
+        "qRoadEncodeIdx",
+        "gnssMeasurements",
+        "driverStateV2",
+        "userBookmark",
+        "liveTorqueParameters",
+        "magnetometer",
+        "lightSensor",
+        "temperatureSensor",
+        "accelerometer",
+        "gyroscope",
+        "gyroscope2DEPRECATED",
+        "accelerometer2DEPRECATED",
+        "uiDebug",
+        "soundPressure",
+        "navModelDEPRECATED",
+        "mapRenderState",
+        "uiPlanDEPRECATED",
+        "carrotMan",
+        "carrotNavi",
+        "carrotNaviMedia",
+        "customReserved3",
+        "customReserved4",
+        "customReserved5",
+        "customReserved6",
+        "customReserved7",
+        "customReserved8",
+        "customReserved9",
+        "livestreamRoadEncodeIdx",
+        "livestreamWideRoadEncodeIdx",
+        "livestreamDriverEncodeIdx",
+        "livestreamRoadEncodeData",
+        "livestreamWideRoadEncodeData",
+        "livestreamDriverEncodeData",
+        "temperatureSensor2DEPRECATED",
+        "customReservedRawData0",
+        "navRouteNavd",
+        "navInstructionCarrot",
+        "carOutput",
+        "drivingModelData",
+        "livePose",
+        "selfdriveState",
+        "liveTracks",
+        "driverAssistance",
+        "alertDebug",
+        "onroadEvents",
+        "touch",
+        "customReserved10",
+        "customReserved11",
+        "customReserved12",
+        "customReserved13",
+        "customReserved14",
+        "customReserved15",
+        "customReserved16",
+        "customReserved17",
+        "customReserved18",
+        "customReserved19",
+        "liveDelay",
+        "rawAudioData",
+        "bookmarkButton",
+        "audioFeedback",
+        "lateralManeuverPlan",
+        "driverMonitoringState",
+        "youtubeRoadEncodeData",
+        "youtubeRoadEncodeIdx",
+        "customReservedRawData1"
+      ]
+    },
+    "LateralControlObservation": {
+      "fields": {
+        "controllerKind": {
+          "discriminant": 65535,
+          "enumerants": {
+            "angle": 3,
+            "mebCurvature": 4,
+            "other": 5,
+            "pid": 2,
+            "torque": 1,
+            "unknown": 0
+          },
+          "ordinal": 1,
+          "type": "enum",
+          "type_id": 16165255457692478376
+        },
+        "desiredTargetCurvatureInvM": {
+          "discriminant": 65535,
+          "ordinal": 5,
+          "type": "struct",
+          "type_id": 12697286352074836703
+        },
+        "desiredTargetState": {
+          "discriminant": 65535,
+          "enumerants": {
+            "available": 1,
+            "unavailable": 0
+          },
+          "ordinal": 4,
+          "type": "enum",
+          "type_id": 14156598134729343608
+        },
+        "instantaneousLimitState": {
+          "discriminant": 65535,
+          "enumerants": {
+            "limited": 2,
+            "notLimited": 1,
+            "unavailable": 0
+          },
+          "ordinal": 2,
+          "type": "enum",
+          "type_id": 14666245693000443823
+        },
+        "measurement": {
+          "discriminant": 65535,
+          "ordinal": 3,
+          "type": "struct",
+          "type_id": 11530480903211050919
+        },
+        "version": {
+          "discriminant": 65535,
+          "ordinal": 0,
+          "type": "uint16"
+        }
+      },
+      "node_id": 12762610735489697612,
+      "union_fields": []
+    },
+    "LateralMeasurementObservation": {
+      "fields": {
+        "calculationMonoTime": {
+          "discriminant": 65535,
+          "ordinal": 14,
+          "type": "struct",
+          "type_id": 16450994280758053229
+        },
+        "carStateHealthState": {
+          "discriminant": 65535,
+          "enumerants": {
+            "invalid": 1,
+            "unavailable": 0,
+            "valid": 2
+          },
+          "ordinal": 12,
+          "type": "enum",
+          "type_id": 9280565724580836493
+        },
+        "carStateMonoTime": {
+          "discriminant": 65535,
+          "ordinal": 4,
+          "type": "struct",
+          "type_id": 16450994280758053229
+        },
+        "effectiveAngleOffsetDeg": {
+          "discriminant": 65535,
+          "ordinal": 10,
+          "type": "struct",
+          "type_id": 12697286352074836703
+        },
+        "effectiveRollRad": {
+          "discriminant": 65535,
+          "ordinal": 11,
+          "type": "struct",
+          "type_id": 12697286352074836703
+        },
+        "effectiveSteerRatio": {
+          "discriminant": 65535,
+          "ordinal": 9,
+          "type": "struct",
+          "type_id": 12697286352074836703
+        },
+        "effectiveStiffnessFactor": {
+          "discriminant": 65535,
+          "ordinal": 8,
+          "type": "struct",
+          "type_id": 12697286352074836703
+        },
+        "inputSpeedMps": {
+          "discriminant": 65535,
+          "ordinal": 6,
+          "type": "struct",
+          "type_id": 12697286352074836703
+        },
+        "inputSteeringAngleDeg": {
+          "discriminant": 65535,
+          "ordinal": 7,
+          "type": "struct",
+          "type_id": 12697286352074836703
+        },
+        "liveParametersHealthState": {
+          "discriminant": 65535,
+          "enumerants": {
+            "invalid": 1,
+            "unavailable": 0,
+            "valid": 2
+          },
+          "ordinal": 13,
+          "type": "enum",
+          "type_id": 9280565724580836493
+        },
+        "liveParametersMonoTime": {
+          "discriminant": 65535,
+          "ordinal": 5,
+          "type": "struct",
+          "type_id": 16450994280758053229
+        },
+        "measuredCurvatureInvM": {
+          "discriminant": 65535,
+          "ordinal": 3,
+          "type": "struct",
+          "type_id": 12697286352074836703
+        },
+        "measurementMode": {
+          "discriminant": 65535,
+          "enumerants": {
+            "unavailable": 0,
+            "vehicleModelFallback": 2,
+            "vehicleModelLive": 1
+          },
+          "ordinal": 1,
+          "type": "enum",
+          "type_id": 17632517161062975714
+        },
+        "validityState": {
+          "discriminant": 65535,
+          "enumerants": {
+            "invalid": 1,
+            "unavailable": 0,
+            "valid": 2
+          },
+          "ordinal": 2,
+          "type": "enum",
+          "type_id": 9280565724580836493
+        },
+        "version": {
+          "discriminant": 65535,
+          "ordinal": 0,
+          "type": "uint16"
+        }
+      },
+      "node_id": 11530480903211050919,
+      "union_fields": []
+    },
+    "ObservationFloat64": {
+      "fields": {
+        "unavailable": {
+          "discriminant": 0,
+          "ordinal": 0,
+          "type": "void"
+        },
+        "value": {
+          "discriminant": 1,
+          "ordinal": 1,
+          "type": "float64"
+        }
+      },
+      "node_id": 12697286352074836703,
+      "union_fields": [
+        "unavailable",
+        "value"
+      ]
+    },
+    "ObservationMonoTime": {
+      "fields": {
+        "clockDomain": {
+          "discriminant": 65535,
+          "enumerants": {
+            "bootTime": 2,
+            "monotonic": 1,
+            "unavailable": 0
+          },
+          "ordinal": 2,
+          "type": "enum",
+          "type_id": 11767666885381520249
+        },
+        "unavailable": {
+          "discriminant": 0,
+          "ordinal": 0,
+          "type": "void"
+        },
+        "value": {
+          "discriminant": 1,
+          "ordinal": 1,
+          "type": "uint64"
+        }
+      },
+      "node_id": 16450994280758053229,
+      "union_fields": [
+        "unavailable",
+        "value"
+      ]
+    }
+  },
+  "source_bodies_copied": false,
+  "neutral_contract_cases": [
+    {
+      "id": "complete_active_allowed",
+      "result_sha256": "6af580973176ee6997bd06199bca4d84fd5bc387763004ef7505e38c3fe2a638"
+    },
+    {
+      "id": "instant_limited",
+      "result_sha256": "4554dc4b5e9306a03d9708db2d8e3532e61b843060d4bf9d2cf658185a8331e8"
+    },
+    {
+      "id": "output_limited",
+      "result_sha256": "4554dc4b5e9306a03d9708db2d8e3532e61b843060d4bf9d2cf658185a8331e8"
+    },
+    {
+      "id": "both_limited",
+      "result_sha256": "4554dc4b5e9306a03d9708db2d8e3532e61b843060d4bf9d2cf658185a8331e8"
+    },
+    {
+      "id": "host_inactive",
+      "result_sha256": "13f3c9f2673888a2cef6968ea80a023caa374efe31116766bc3652dddc3785dd"
+    },
+    {
+      "id": "safety_disallowed",
+      "result_sha256": "33fdce2b7a5c287cbdc555cb0e6c9036ab20060b6aaa582f3d7518d47488954f"
+    },
+    {
+      "id": "safety_unavailable",
+      "result_sha256": "74f03ac26ef518c4c36ea138fb2a07e48249f8440955510a944c92e60ef94bd5"
+    },
+    {
+      "id": "host_unavailable",
+      "result_sha256": "74f03ac26ef518c4c36ea138fb2a07e48249f8440955510a944c92e60ef94bd5"
+    },
+    {
+      "id": "return_unavailable",
+      "result_sha256": "74f03ac26ef518c4c36ea138fb2a07e48249f8440955510a944c92e60ef94bd5"
+    },
+    {
+      "id": "unsupported_receipt",
+      "result_sha256": "7560fe863326792cefa2ed639b5892dc8e34caddc5d040b85a8490f8d5b09afb"
+    },
+    {
+      "id": "legacy_observation",
+      "result_sha256": "7560fe863326792cefa2ed639b5892dc8e34caddc5d040b85a8490f8d5b09afb"
+    },
+    {
+      "id": "unsupported_measurement",
+      "result_sha256": "00c737f13311799adf7f838bf2bd073daead4bec29938fc34be535351d0369f2"
+    },
+    {
+      "id": "fallback",
+      "result_sha256": "102788ae64b73692ec8c4ab84b6224f718c48f2ef95b6ff70c1850e225707cdf"
+    },
+    {
+      "id": "measurement_invalid",
+      "result_sha256": "102788ae64b73692ec8c4ab84b6224f718c48f2ef95b6ff70c1850e225707cdf"
+    },
+    {
+      "id": "measurement_health_unknown",
+      "result_sha256": "102788ae64b73692ec8c4ab84b6224f718c48f2ef95b6ff70c1850e225707cdf"
+    },
+    {
+      "id": "lp_health_invalid",
+      "result_sha256": "102788ae64b73692ec8c4ab84b6224f718c48f2ef95b6ff70c1850e225707cdf"
+    },
+    {
+      "id": "numeric_unavailable",
+      "result_sha256": "102788ae64b73692ec8c4ab84b6224f718c48f2ef95b6ff70c1850e225707cdf"
+    },
+    {
+      "id": "nonfinite_measurement",
+      "result_sha256": "102788ae64b73692ec8c4ab84b6224f718c48f2ef95b6ff70c1850e225707cdf"
+    },
+    {
+      "id": "speed_missing",
+      "result_sha256": "102788ae64b73692ec8c4ab84b6224f718c48f2ef95b6ff70c1850e225707cdf"
+    },
+    {
+      "id": "negative_speed",
+      "result_sha256": "102788ae64b73692ec8c4ab84b6224f718c48f2ef95b6ff70c1850e225707cdf"
+    },
+    {
+      "id": "invalid_stiffness",
+      "result_sha256": "102788ae64b73692ec8c4ab84b6224f718c48f2ef95b6ff70c1850e225707cdf"
+    },
+    {
+      "id": "invalid_ratio",
+      "result_sha256": "102788ae64b73692ec8c4ab84b6224f718c48f2ef95b6ff70c1850e225707cdf"
+    },
+    {
+      "id": "missing_exact_command",
+      "result_sha256": "ad34fa54670ad9753f9dc3190278ca0d6c188a62efd2bb43ac2a715e221c900d"
+    },
+    {
+      "id": "missing_exact_carstate",
+      "result_sha256": "0c3dba9166ad8dcbb66e335ef6a0ea9cdb6f4cadf53e73711077518ee7db8227"
+    },
+    {
+      "id": "latest_command_substitution",
+      "result_sha256": "ad34fa54670ad9753f9dc3190278ca0d6c188a62efd2bb43ac2a715e221c900d"
+    },
+    {
+      "id": "latest_cs_substitution",
+      "result_sha256": "0c3dba9166ad8dcbb66e335ef6a0ea9cdb6f4cadf53e73711077518ee7db8227"
+    },
+    {
+      "id": "evicted_late_source",
+      "result_sha256": "ad34fa54670ad9753f9dc3190278ca0d6c188a62efd2bb43ac2a715e221c900d"
+    },
+    {
+      "id": "repeated_command_distinct_apply",
+      "result_sha256": "ec2b5c620601d64caf4159429b1db0e2c3469be58f276110cd8166fb63d5d6a2"
+    },
+    {
+      "id": "duplicate_cohort",
+      "result_sha256": "8be690b736e3baa64162125e102aa88bb16fe80ccc38f64abc8770fddf4f0575"
+    },
+    {
+      "id": "old_apply_after_eviction",
+      "result_sha256": "53cdbf9f0912463cd17f6153d9ff741fc8334eead556c21458c691358a3a4c0e"
+    },
+    {
+      "id": "repeated_sequence",
+      "result_sha256": "53cdbf9f0912463cd17f6153d9ff741fc8334eead556c21458c691358a3a4c0e"
+    },
+    {
+      "id": "stale_receipt",
+      "result_sha256": "5759cd847d280859829878046674b23fb9dc6d90820bcfe9ad3d6eb6665eeb5b"
+    },
+    {
+      "id": "command_delay",
+      "result_sha256": "40b8ea3eeb468281b66317542d3f57b5ebe0dcd10b73b3fbc6a78031300baf68"
+    },
+    {
+      "id": "stale_cs",
+      "result_sha256": "95e5fac127c5baaaa8de9d9e22f6c400f5e06aa97566f95a87140ef4e8b77227"
+    },
+    {
+      "id": "stale_lp",
+      "result_sha256": "b68a8567a745e8b922b0299a6089de1caaad205b2935cd86bd77e7344a217ff9"
+    },
+    {
+      "id": "stale_calculation",
+      "result_sha256": "faf530c8690da7fa5677c53f33aa907a5d4918ebda9f4da4db4602feab74b4df"
+    },
+    {
+      "id": "stale_safety",
+      "result_sha256": "ae83cf767dc66011ea9512a42d91bd68115493365cdd0b2cd47d6a01b2cac574"
+    },
+    {
+      "id": "source_skew",
+      "result_sha256": "6364a36575d010d5ec804d61b1fabadac5e85184c91df74f65efc3db976c1faa"
+    },
+    {
+      "id": "clock_domain_mismatch",
+      "result_sha256": "f839315eea6b68ff5df194cf27758c63ae91f76fb3052175611feea9e3858515"
+    },
+    {
+      "id": "negative_source_duration",
+      "result_sha256": "1072bdd2314ff072eaefcb3a2c0edc3bad4e935740d83bc04f79d80a08d37aee"
+    },
+    {
+      "id": "negative_safety_duration",
+      "result_sha256": "1072bdd2314ff072eaefcb3a2c0edc3bad4e935740d83bc04f79d80a08d37aee"
+    },
+    {
+      "id": "controller_mismatch",
+      "result_sha256": "3cf1f0f4588300df532a3c40c1d2560675d4e13c29e07e7c498fa9082005a0d1"
+    },
+    {
+      "id": "unknown_controller",
+      "result_sha256": "3cf1f0f4588300df532a3c40c1d2560675d4e13c29e07e7c498fa9082005a0d1"
+    },
+    {
+      "id": "meb_pre_pid_target",
+      "result_sha256": "c989b1a2fb1c78b2e8ddbc36216c21dde6e483bf574d00412ee5af7961f262ba"
+    },
+    {
+      "id": "meb_target_final_separation",
+      "result_sha256": "1d76f96b71a6292f954cd07a88522b30528d895acb7ad24fcca57f40cd1c1571"
+    },
+    {
+      "id": "nonfinite_target",
+      "result_sha256": "152f35aab8739059540f87264923d0eb0697ac283e8ddc84b9e821f159d5eda4"
+    },
+    {
+      "id": "missing_target",
+      "result_sha256": "152f35aab8739059540f87264923d0eb0697ac283e8ddc84b9e821f159d5eda4"
+    },
+    {
+      "id": "target_unavailable",
+      "result_sha256": "152f35aab8739059540f87264923d0eb0697ac283e8ddc84b9e821f159d5eda4"
+    },
+    {
+      "id": "static_context_mismatch",
+      "result_sha256": "2966f1203812bb533a810d4f4f74e116c0e6f2aa4c19c1fe2faa13e08e32c142"
+    },
+    {
+      "id": "baseline_epoch_mismatch",
+      "result_sha256": "ce589638bed9e430604470d17962a9617f15ee1c45f9caba918402b4fe587594"
+    },
+    {
+      "id": "baseline_value_mismatch",
+      "result_sha256": "ce589638bed9e430604470d17962a9617f15ee1c45f9caba918402b4fe587594"
+    },
+    {
+      "id": "driver_override",
+      "result_sha256": "f01fcfed067feb641a171f9d5c773e3a06476eed57a26ee9a05574e142166788"
+    },
+    {
+      "id": "available_zero",
+      "result_sha256": "573f54ae9a22a6306a310dcd7d32f2a18d424cca69832426f4c7796e87686ea7"
+    },
+    {
+      "id": "float64_target_float32_request",
+      "result_sha256": "63512429d473765ae77f02e870effc75cc4b3f53eecc24f78a4c1d5869ab633b"
+    },
+    {
+      "id": "outer_valid_false_previous_receipt",
+      "result_sha256": "6af580973176ee6997bd06199bca4d84fd5bc387763004ef7505e38c3fe2a638"
+    },
+    {
+      "id": "outer_valid_true_malformed_receipt",
+      "result_sha256": "09e528205b056107f06157f50def8a1107b8ff38458bc2b071c2772a384f8038"
+    },
+    {
+      "id": "unknown_override",
+      "result_sha256": "b35febb08fb089d5284dfe200bff9fa95474144aee7a62d840b494d807819aa6"
+    },
+    {
+      "id": "unknown_override_producer",
+      "result_sha256": "b35febb08fb089d5284dfe200bff9fa95474144aee7a62d840b494d807819aa6"
+    },
+    {
+      "id": "ambiguous_source_key",
+      "result_sha256": "ad34fa54670ad9753f9dc3190278ca0d6c188a62efd2bb43ac2a715e221c900d"
+    },
+    {
+      "id": "unhealthy_receipt_transport",
+      "result_sha256": "62a081164c3aee7e49732b4db4d938842795be88cc318762fef95efca52c3c10"
+    },
+    {
+      "id": "missing_command_time",
+      "result_sha256": "a2e22840f792d9b858924cf504ef0759312b6ed08c4c673b349052848649f003"
+    },
+    {
+      "id": "missing_calculation_time",
+      "result_sha256": "8a64c807cfef9a91f0875d755163dfcd89ef8ca6444b96c7d085dd44427f92ae"
+    },
+    {
+      "id": "unknown_instantaneous_state",
+      "result_sha256": "68cd3b0ee0a624cb25333ede6991c1fbeb41cf34a201947dd1899d1888749c13"
+    },
+    {
+      "id": "instant_unavailable_output_limited",
+      "result_sha256": "4554dc4b5e9306a03d9708db2d8e3532e61b843060d4bf9d2cf658185a8331e8"
+    },
+    {
+      "id": "unknown_output_limit",
+      "result_sha256": "68cd3b0ee0a624cb25333ede6991c1fbeb41cf34a201947dd1899d1888749c13"
+    },
+    {
+      "id": "source_instant_mismatch",
+      "result_sha256": "3cf1f0f4588300df532a3c40c1d2560675d4e13c29e07e7c498fa9082005a0d1"
+    },
+    {
+      "id": "source_cs_speed_mismatch",
+      "result_sha256": "b35febb08fb089d5284dfe200bff9fa95474144aee7a62d840b494d807819aa6"
+    },
+    {
+      "id": "nonfinite_output",
+      "result_sha256": "09e528205b056107f06157f50def8a1107b8ff38458bc2b071c2772a384f8038"
+    },
+    {
+      "id": "source_request_mismatch",
+      "result_sha256": "09e528205b056107f06157f50def8a1107b8ff38458bc2b071c2772a384f8038"
+    }
+  ],
+  "caller_only_evidence": [
+    "session generation/token",
+    "source/static-context/capability attestation",
+    "transport health",
+    "baseline/epoch",
+    "previous attempt/high-water/consumed state"
+  ],
+  "scalar_bool_unavailability": "No wire presence bit; synthetic unknown_override case preserves missing availability in caller capability, never default False.",
+  "qualified_source_capabilities": [
+    {
+      "producer_path": "opendbc_repo/opendbc/car/tesla/carstate.py",
+      "symbol": "CarState.update",
+      "field": "steeringPressed",
+      "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55"
+    },
+    {
+      "producer_path": "opendbc_repo/opendbc/car/volkswagen/carstate.py",
+      "symbol": "CarState.update_meb",
+      "field": "steeringPressed",
+      "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55"
+    },
+    {
+      "producer_path": "opendbc_repo/opendbc/car/hyundai/carstate.py",
+      "entry_symbol": "CarState.update",
+      "symbol": "CarState.update",
+      "field": "steeringPressed",
+      "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "platform_key": "HYUNDAI_SANTA_FE_2022",
+      "required_static_flags": 65536,
+      "canfd": false
+    },
+    {
+      "producer_path": "opendbc_repo/opendbc/car/hyundai/carstate.py",
+      "entry_symbol": "CarState.update",
+      "symbol": "CarState.update_canfd",
+      "field": "steeringPressed",
+      "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "platform_key": "HYUNDAI_IONIQ_5",
+      "required_static_flags": 10240,
+      "canfd": true
+    }
+  ],
+  "qualification": {
+    "status": "PHASE_8B_1_EXTRACTION_READY_FOR_PARKED_SIDECAR",
+    "implementation_head": "275642c0c1373c936f46ec2d054ce3cd4ea28db3",
+    "base_suite": {
+      "passed": 731,
+      "failed": 0,
+      "skipped": 0,
+      "coverage_percent": 96.83
+    },
+    "actual_schema_combined_suite": {
+      "passed": 834,
+      "failed": 0,
+      "skipped": 0,
+      "actual_schema_cases": 103,
+      "literal_contract_cases": 69,
+      "coverage_percent": 98.81,
+      "integration_package_coverage_percent": 98.8
+    },
+    "installed_wheels": {
+      "without_openpilot": "TYPED_DEPENDENCY_ERROR_VERIFIED",
+      "with_pinned_schemas": "ACTUAL_SCHEMA_MAPPING_VERIFIED",
+      "unchanged_replay_goldens": 4
+    },
+    "independent_review": {
+      "initial_critical": 0,
+      "initial_important": 2,
+      "initial_minor": 0,
+      "important_findings_reproduced_and_fixed": 2,
+      "actual_reader_regression_cases": 9,
+      "second_independent_review_claimed": false
+    },
+    "implementation_head_ci": {
+      "success": 10,
+      "failed": 0,
+      "skipped": 0,
+      "push_run_id": 40673558125,
+      "pull_request_run_id": 40673601929
+    },
+    "publication_rule": "Documentation-only successors require successful checks at their own exact head.",
+    "live_submaster": "NOT_STARTED",
+    "persistence": "NOT_AUTHORIZED",
+    "apply": "NOT_AUTHORIZED"
+  },
+  "hyundai_source_evidence": "hyundai_santafe_override_capability.json"
+}

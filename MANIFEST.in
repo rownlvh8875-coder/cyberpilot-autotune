@@ -2,3 +2,4 @@ include CONTRIBUTING.md SECURITY.md
 recursive-include docs *.md *.json
 recursive-include examples *.py
 recursive-include tests *.py *.json
+recursive-include compatibility *.py

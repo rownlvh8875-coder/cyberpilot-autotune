@@ -374,8 +374,6 @@ def evaluate(
                 type(version) is int and version in supported, MappingReason.UNSUPPORTED_VERSION
             )
         source_cs = attempt.source_car_state
-        if source_cs is None:
-            raise _Rejected(MappingReason.MISSING_SOURCE_CAR_STATE)
         _require(
             context.digest == policy.static_context_digest == command.static_context_digest,
             MappingReason.STATIC_CONTEXT_MISMATCH,
@@ -412,6 +410,8 @@ def evaluate(
             # Inactive source commands intentionally have no measurement/target.
             active = False
             raise _Rejected(MappingReason.UNAVAILABLE_LIMIT)
+        if source_cs is None:
+            raise _Rejected(MappingReason.MISSING_SOURCE_CAR_STATE)
         cs_ns = _ns(measurement.car_state_time, "monotonic")
         _require(
             _ns(source_cs.event_time, "monotonic") == cs_ns, MappingReason.MISSING_SOURCE_CAR_STATE
