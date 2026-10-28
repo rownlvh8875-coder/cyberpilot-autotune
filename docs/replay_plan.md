@@ -79,5 +79,5 @@ README, roadmap, architecture, CI and package metadata.
 - [x] Pin digest after matching hand-derived metrics; check two fresh processes,
   malformed fixtures and guarded import/execution with no network/writes/threads.
 - [x] Independent read-only review; meaningful findings fixed with RED/GREEN.
-- [ ] Clean clone install, full tests/coverage/lint/type/build and isolated wheel smoke.
-- [ ] Commit/push normally, create stacked Draft PR, inspect final CI; keep PR #2 HOLD.
+- [x] Clean clone install, full tests/coverage/lint/type/build and isolated wheel smoke.
+- [x] Commit/push normally, create stacked Draft PR, inspect final CI; keep PR #2 HOLD.

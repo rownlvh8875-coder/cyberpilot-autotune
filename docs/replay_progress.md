@@ -56,5 +56,40 @@ Plan: replay_plan.md; replay_spec.md defines the implemented schema and evidence
 - Version 0.1.0a3; source distribution includes docs/examples and synthetic test
   fixtures. Runtime dependencies remain empty. Acceptance/roadmap docs explicitly
   preserve NOT_AUTHORIZED persistence and PR #2 Draft/HOLD.
-- Local regression: 422 passed; full lint/format/mypy passed. Fresh-clone/build/wheel
-  and final remote CI evidence will be recorded after execution.
+- Local regression: 422 passed; full lint/format/mypy passed. Executed fresh-clone,
+  build/wheel and remote CI evidence follows below.
+
+## Clean-environment verification
+
+Remote fresh clone at 6a65dd4d0f2af4f74c85e2c839a3cf43c3d95c58 into the sibling
+cyberpilot-autotune-replay-clean directory; new CPython 3.12.14 virtual environment.
+Executed pip upgrade, editable dev install, diff check, ruff check, ruff format
+--check, strict mypy, pytest, pytest-cov, per-package coverage checks and build.
+
+- pytest: 422 passed, 0 failed, 0 skipped; 87 additional cases versus the base.
+- Branch-inclusive coverage: overall 98.66%, safety 100.00%, residual learner
+  97.85%, replay 98.88%. All declared thresholds pass.
+- Ruff/format passed for 80 Python files; mypy passed for 30 source files.
+- Wheel and sdist 0.1.0a3 built successfully; sdist includes golden fixture,
+  expectation, example and schema documentation. Build artifacts remain ignored.
+- Separate sibling wheel virtual environment installed only the wheel with
+  --no-deps. Isolated Python outside checkout imported the package and all 29
+  submodules, reproduced the pinned golden digest and verified trusted baseline
+  identity for all OFF/SHADOW results. No developer packages were installed there.
+- Both source checkouts stayed clean after validation. Existing main/PR #2
+  branch/commits remained unchanged. No reference checkout was modified.
+
+## Delivery
+
+Draft PR #3: https://github.com/rownlvh8875-coder/cyberpilot-autotune/pull/3.
+Stacked on feat/shadow-residual-statistics at the preserved base SHA; 25 changed
+files, all limited to replay/its tests/docs/packaging/CI. PR #2 remains Draft/HOLD.
+Final-head CI results are recorded in the PR description after execution.
+
+Code/delivery head 6a65dd4d0f2af4f74c85e2c839a3cf43c3d95c58 passed all four
+Ubuntu/Windows x Python 3.12.3/3.12 jobs for both events (8 successful checks):
+[push CI](https://github.com/rownlvh8875-coder/cyberpilot-autotune/actions/runs/40607957533)
+and [PR CI](https://github.com/rownlvh8875-coder/cyberpilot-autotune/actions/runs/40608179880).
+The completion-record commit changes documentation only; its final SHA/checks
+are reported in PR #3. No performance/safety certification or persistence
+authorization follows from these results.
