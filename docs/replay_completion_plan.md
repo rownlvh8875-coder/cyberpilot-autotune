@@ -51,23 +51,23 @@ inert and file writes/network/threads remain unavailable.
 
 ## Tasks
 
-- [ ] Schema/order: RED admit duplicate/regressed sequences/times, engine rejection,
+- [x] Schema/order: RED admit duplicate/regressed sequences/times, engine rejection,
   corrected-frame replay and high-water effects. Implement schema relaxation and
   independent maxima only. Existing invalid/clock-domain tests stay green. Full
   regression before atomic commit. Files: replay/schema.py, runner.py, replay tests.
-- [ ] Digest/characterization: RED formatting/input/policy/output/timer/self-exclusion
+- [x] Digest/characterization: RED formatting/input/policy/output/timer/self-exclusion
   and per-event learner sample counts. Add three properties and characterize_replay
   returning (ReplayReport, immutable sample-count tuple) from one shared executor.
   Keep aggregate digest. Full regression and commit.
-- [ ] CLI: RED run/verify/verify-all, exits 0/2/3/4/5, strict expected matching,
+- [x] CLI: RED run/verify/verify-all, exits 0/2/3/4/5, strict expected matching,
   stable redacted errors, sorted discovery and canonical bytes. Implement cli.py
   and typed unsupported schema errors; no IO in core. Full regression and commit.
-- [ ] Focused goldens: hand-derive constant, admission/reset and ordering stream
+- [x] Focused goldens: hand-derive constant, admission/reset and ordering stream
   metrics/event sample counts; verify before pinning new hashes. Keep historical
   aggregate bytes. Two fresh processes/hash seeds per fixture; full regression.
 - [ ] CI/docs: preserve matrix, overall coverage >=90%, package floors >=95%, CLI
   verify-all, installed-wheel CLI and fresh-process comparisons. Update schema,
   acceptance/high-water docs and evidence, build and isolated wheel validation.
-- [ ] One independent read-only review; reproduce and fix concrete findings.
+- [x] One independent read-only review; reproduce and fix concrete findings.
 - [ ] Append commits/push, keep PR #3 Draft; verify final push/PR CI, clean tree,
   unchanged engine/gate/learner and historical aggregate. Stop after report.

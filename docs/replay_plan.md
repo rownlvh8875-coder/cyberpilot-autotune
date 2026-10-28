@@ -1,5 +1,9 @@
 # Deterministic synthetic replay implementation plan
 
+Historical core plan; its strict observation-order schema rule was superseded by
+the authorized completion plan in replay_completion_plan.md. Evaluation clocks
+remain ordered; observation anomalies are now characterized by the engine.
+
 > Execute inline using test-driven-development and verification-before-completion.
 > The user approved the next single task: deterministic replay harness. Persistence
 > remains NOT_AUTHORIZED, as do vehicle integration/application and real logs.

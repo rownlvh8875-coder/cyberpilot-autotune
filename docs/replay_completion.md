@@ -98,3 +98,14 @@ reproduced acceptance of downgraded focused expectations. GREEN restricts legacy
 compatibility to the historical aggregate result digest; focused expectations must
 match the complete field set. No deferred findings. Separately, invalid metadata
 types were reproduced returning unsupported exit 5 and corrected to input exit 2.
+
+## CI and documentation
+
+Local full regression now passes 475 tests; lint/format (88 Python files) and
+strict mypy (31 source files) pass. The example delegates to the CLI, keeping file
+reads at one explicit boundary. Matrix remains Ubuntu/Windows x Python 3.12.3/3.12,
+on both push and PR. Overall coverage floor is 90%; safety/residual/replay remain
+95%. CI invokes verify-all, fresh-process aggregate/focused tests, and installed
+wheel CLI verification with an explicit fixture-directory argument outside checkout.
+Version is 0.1.0a4, with zero runtime dependencies. No golden auto-update path.
+Fresh-environment results and remote CI are recorded after execution.

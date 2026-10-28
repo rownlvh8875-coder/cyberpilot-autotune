@@ -49,7 +49,7 @@ def test_two_fresh_processes_and_hash_seeds_reproduce_golden_evidence():
             check=True,
         )
         data = json.loads(result.stdout)
-        assert data.pop("latency_ns")["off_total"] >= 0
+        assert "latency_ns" not in data
         assert data["sha256"] == expected["sha256"]
         assert data["software_checks_passed"] is True
         outputs.append(data)

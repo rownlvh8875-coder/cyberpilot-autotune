@@ -18,7 +18,7 @@ caller-forged reports are not independent evidence.
   injected timers, fresh processes, hash seeds and the CI matrix.
 - Guarded import/execution prohibits file writes, sockets, threads, processes and
   optional vehicle dependencies; static boundaries cover replay/ too.
-- Full regression/lint/format/type/build/wheel smoke passes; coverage >=85%
+- Full regression/lint/format/type/build/wheel smoke passes; coverage >=90%
   overall and >=95% for safety, residual learner and replay.
 
 ReplayReport.software_checks_passed implements the zero invariant/internal/health
@@ -62,3 +62,15 @@ needs explicit authorization and reviewed schema/version/integrity, atomic
 replacement, corruption fallback, expiry/reset, storage/permission and opt-in
 policies. Nothing starts automatically here. Application/deployment require their
 own RFC and approvals; the package contains no controller write capability.
+
+## Focused and CLI completion
+
+Require all three focused fixtures, per-event sample-count/reason expectations,
+split digest domains and canonical fresh-process output to match on the complete
+Windows/Ubuntu x Python matrix. Observation ordering anomalies reach runtime;
+only evaluation clock/domain violations reject at schema admission. See
+replay_ordering.md for the current conservative policy and its availability limit.
+CLI verify-all must pass from source and the installed wheel with explicit local
+fixture arguments. Exit-code and error-redaction tests are required. Historical
+aggregate fixture bytes/result digest stay unchanged. Synthetic software evidence
+does not supply real-data acceptance or remove NOT_AUTHORIZED persistence status.

@@ -14,7 +14,7 @@ python -m mypy src/cyberpilot_autotune
 python -m pytest -q
 ```
 
-Before a PR also run coverage (85% overall, 95% safety/residual/replay), `python -m build`,
+Before a PR also run coverage (90% overall, 95% safety/residual/replay), `python -m build`,
 and an isolated wheel import. Keep changes small. Document provenance before
 copying anything; unresolved source attribution must not be copied. License
 selection is pending. Do not add a license without owner approval.
@@ -28,3 +28,6 @@ Run `python -m pytest tests/integration/test_replay_golden.py -q` for pinned syn
 evidence. Investigate changed metrics/bytes before changing a digest; review and
 version intentional schema/hash changes. Synthetic software checks do not
 authorize real logs, persistence or vehicle experiments.
+Also run `python -m cyberpilot_autotune.replay.cli verify-all tests/fixtures/replay`.
+Only the explicit CLI boundary may read fixture files; the library remains pure
+with respect to file IO. No update-golden command or CI golden rewrites are allowed.

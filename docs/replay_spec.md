@@ -1,7 +1,8 @@
 # Deterministic synthetic replay schema v1
 
-Implemented in replay/. Persistence remains NOT_AUTHORIZED. No library file or
-network API, real log decoder, data collection, vehicle adapter or controller
+Implemented in replay/. Persistence remains NOT_AUTHORIZED. Pure library APIs
+have no file/network access; cli.py is the sole explicit bounded local read boundary.
+No real log decoder, data collection, vehicle adapter or controller
 application is provided.
 
 ## API and lifecycle
@@ -15,7 +16,7 @@ perf_counter_ns and measures processing only, excluding parsing/report hashing.
 Only one synthetic parameter is supported. Documents are capped at 256 KiB UTF-8
 and 1..1000 events. These are research resource caps, unrelated to vehicle limits.
 Missing/unknown/duplicate fields, nonfinite numbers, numeric booleans, incorrect
-types, unsupported versions, ambiguous units and inconsistent clock/order raise
+types, unsupported versions, ambiguous units and inconsistent evaluation clocks raise
 ValidationError before execution. Constructor/configuration and timer errors stay
 visible. Existing engine exceptions produce baseline results with INTERNAL_ERROR
 and fail software acceptance. No partial engine trace is returned for invalid JSON.
@@ -54,11 +55,13 @@ Clocks/capture times are finite nonnegative, in the declared domain at/after the
 origin and losslessly representable as binary64 (the engine Clock domain).
 Integer coordinates that would round during clock conversion reject.
 clock_after_s >= clock_before_s; next before clock >= preceding after.
-Sequence and capture time strictly increase. Capture may exceed the before clock
+Observation sequence and capture times may repeat or regress; only the engine
+judges ordering. Negative sequence/capture and capture before the declared origin
+remain structural errors. Capture may exceed the before clock
 to test FUTURE_TIMESTAMP; future captures do not advance engine time high-water.
 Structurally valid veto inputs (stale, override, saturation, baseline mismatch,
 inactive, missing signals) remain in the fixture for actual admission evaluation.
-Nonfinite/unordered documents fail at the schema boundary instead.
+Nonfinite values and regressing evaluation clocks fail at the schema boundary.
 
 ## Evidence and timing
 
@@ -77,7 +80,9 @@ baseline, mode and sequence. OFF must have no proposals/decisions. Eligible SHAD
 candidates must bind to proposal, parameter, baseline, context, learner version
 and event timestamp and satisfy admission, freshness, sample/confidence, bounds,
 step and rate limits. Step/rate checks use exact Fraction arithmetic against the
-preceding clock-safe capture, including rejected frames. No gate predicate is
+preceding maximum clock-safe capture, including rejected frames. The checker
+maintains sequence and time high-water independently and checks eligible ordering.
+No gate predicate is
 reused to verify itself. Per-event latency and totals measure engine.step calls;
 tests inject timers. No timing budget or hard real-time claim is made.
 
@@ -101,3 +106,51 @@ tests/fixtures/replay/golden_v1{,.expected}.json. See replay_acceptance.md for
 criteria and replay_progress.md for executed evidence. Intentional schema/hash
 changes require review and versioned fixtures; never silently regenerate a digest
 to make an unexplained regression pass.
+
+## Split digests and same-run characterization
+
+scenario_sha256 hashes canonical bytes of the complete validated ReplayScenario.
+configuration_sha256 hashes exactly scope, learner_version, time_domain,
+baseline_parameters, parameter_spec, gate_config and learner_config. It excludes
+events, units and monotonic_origin_s, as specified by this configuration domain.
+result_sha256 hashes the unchanged deterministic report v1 bytes described above;
+digest is its compatibility alias. Each is lowercase 64-character SHA-256. Hash
+properties and latency do not appear in their own hashed projection.
+
+characterize_replay returns (ReplayReport, tuple of post-event learner sample
+counts) from the same engine execution. None means an empty evidence window.
+This sidecar is outside the historical report v1 projection so aggregate
+compatibility is retained; focused expectations separately bind and verify it.
+CLI output includes the sidecar's event counts and all three hashes. Its canonical
+output is itself checked byte-for-byte across processes and CI platforms.
+
+## CLI and expected files
+
+```sh
+python -m cyberpilot_autotune.replay.cli run scenario.json
+python -m cyberpilot_autotune.replay.cli verify scenario.json expected.json
+python -m cyberpilot_autotune.replay.cli verify-all tests/fixtures/replay
+```
+
+run emits canonical UTF-8 JSON followed by literal LF, without latency. File IO is
+limited to bounded rb reads in cli.py; no file writing or update-golden option.
+verify compares typed canonical expected values, including all counts/reasons;
+focused expectations require the entire output field set and per-event reasons,
+observation_sequence, proposal/eligible counts, sample_count and baseline_retained.
+Legacy expectation fields are supported only for the unchanged historical
+aggregate result digest. This prevents focused verification from downgrading.
+JSON formatting/key order in inputs and expectations is immaterial. A one-digit
+semantic expectation mutation is a mismatch; whitespace is not signed data.
+
+verify-all selects regular files ending exactly _v1.json, excludes expected files,
+sorts by filename, and looks for <stem>.expected.json. Empty/unreadable directories
+and absent expected files fail. Output is emitted only after every fixture passes.
+Success is canonical run JSON or a short canonical sorted verification list.
+Errors emit only stable code and fixed non-sensitive text, without raw exceptions,
+paths or inputs. Exit 0 success; 2 schema/input; 3 golden mismatch; 4 invariant or
+unexpected replay failure; 5 typed unsupported version/configuration. Invalid
+metadata numeric/string types are input errors; recognized but unsupported policy
+values are configuration errors.
+
+Focused goldens and the exact current ordering policy are documented in
+replay_ordering.md. Complete delivery evidence is in replay_completion.md.

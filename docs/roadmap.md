@@ -39,7 +39,10 @@ Implemented the strict schema in replay_spec.md and a small synthetic golden
 fixture. Fresh OFF/SHADOW runs report proposal/eligible counts, rejection reasons,
 override/saturation exclusions, exact maximum delta, independent violations,
 separate runtime latency and a configuration/input/trace digest. Tests reject
-malformed data, unknown units, nonfinite values and reordered sequence/time;
+malformed data, unknown units, nonfinite values and regressed evaluation clocks;
+observation sequence/capture anomalies are characterized at runtime, not filtered.
+An explicit read-only CLI verifies aggregate/focused metrics, sample counts and
+scenario/configuration/result digests; no automatic golden update exists. Two
 fresh processes and the CI matrix must reproduce the pinned golden digest.
 See replay_acceptance.md for software checks and explicit limits. Real logs need
 a separately authorized data/provenance policy and acceptance criteria. This

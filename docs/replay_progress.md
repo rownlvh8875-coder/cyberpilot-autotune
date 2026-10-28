@@ -1,5 +1,8 @@
 # Synthetic replay progress
 
+Historical core milestone record. Subsequent authorized PR #2 merge, PR #3
+retarget and ordering/digest/CLI completion are recorded in replay_completion.md.
+
 Base: 26e83f9a5af23b2c9cb93aeb3ddae8f1189c0df0.
 Branch: feat/deterministic-replay. Baseline: 335 tests passed, working tree clean.
 Plan: replay_plan.md; replay_spec.md defines the implemented schema and evidence.

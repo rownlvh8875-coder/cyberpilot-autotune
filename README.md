@@ -57,11 +57,12 @@ python -m ruff check .
 python -m ruff format --check .
 python -m mypy src/cyberpilot_autotune
 python -m pytest -q
-python -m pytest --cov=cyberpilot_autotune --cov-report=term-missing --cov-fail-under=85
+python -m pytest --cov=cyberpilot_autotune --cov-report=term-missing --cov-fail-under=90
 python -m coverage report --include="*/safety/*" --fail-under=95
 python -m coverage report --include="*/core/residual.py" --fail-under=95
 python -m coverage report --include="*/replay/*" --fail-under=95
 python -m pytest tests/integration/test_replay_golden.py -q
+python -m cyberpilot_autotune.replay.cli verify-all tests/fixtures/replay
 python -m build
 ```
 
@@ -97,11 +98,18 @@ and writes no files. The caller explicitly supplies any document string.
 Run the small checked-in synthetic golden fixture locally:
 
 ```sh
-python examples/replay_synthetic.py
+python -m cyberpilot_autotune.replay.cli run tests/fixtures/replay/constant_residual_v1.json
+python -m cyberpilot_autotune.replay.cli verify-all tests/fixtures/replay
 ```
 
-The example explicitly reads that single fixture and prints JSON; it has no real
-log decoder or state storage. Both modes retain the trusted baseline. See the
+Only cli.py reads explicit local fixture files; core APIs remain free of file IO.
+The example delegates its aggregate fixture to this CLI. run emits canonical JSON
+without latency; verify checks digests, counts/reasons and focused event evidence.
+scenario_sha256, configuration_sha256 and result_sha256 identify separate domains;
+digest remains the result alias. Repeated/regressed observations reach the unchanged
+engine; evaluation clocks remain monotonic. Both modes retain baseline. See the
 [schema and encoding](docs/replay_spec.md) and
 [software acceptance criteria](docs/replay_acceptance.md). A matching digest is
 regression evidence, not data authentication or vehicle performance evidence.
+Ordering policy and its availability tradeoff are characterized in
+[the ordering evidence](docs/replay_ordering.md).

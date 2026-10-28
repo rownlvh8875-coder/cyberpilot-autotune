@@ -57,6 +57,13 @@ def test_each_fixture_has_byte_identical_fresh_process_output(name):
     output = json.loads(outputs[0])
     expected = json.loads((FIXTURES / f"{name}_v1.expected.json").read_text())
     assert all(output[key] == value for key, value in expected.items())
+    if name == "golden":
+        assert output["scenario_sha256"] == (
+            "ba456b58382795f9734fd33f9e40331d09cb9ad648eaa564b5f309afce304952"
+        )
+        assert output["configuration_sha256"] == (
+            "9e35a0f23565f9f57c7f42145cfde9ac1e7471a2738e6339b8268f4eedc274e1"
+        )
 
 
 def test_focused_sample_count_expectation_cannot_be_changed_silently(tmp_path, capfd):
