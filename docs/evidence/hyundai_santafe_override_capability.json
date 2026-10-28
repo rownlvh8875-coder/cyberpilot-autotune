@@ -1,0 +1,236 @@
+{
+  "repository": "https://github.com/rownlvh8875-coder/openpilot",
+  "original_base": "604bc0a22733e648ec05b268da1ffaae7db52a69",
+  "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "integration_merge": "7a2f051b1f3847786318900444c88c2ba7a74a67",
+  "tree_equality": true,
+  "source_status": "SOURCE_PLATFORM_QUALIFIED",
+  "runtime_status": "RUNTIME_FINGERPRINT_UNCONFIRMED",
+  "source_bodies_copied": false,
+  "independently_implemented": true,
+  "canfd_flag": {
+    "symbol": "HyundaiFlags.CANFD",
+    "expression": "2 ** 13",
+    "value": 8192
+  },
+  "santa_fe": {
+    "platform_enum": "HYUNDAI_SANTA_FE_2022",
+    "source_model_years": "2021-23",
+    "config_class": "HyundaiPlatformConfig",
+    "source_flags": 65536,
+    "flag_symbols": [
+      "HyundaiFlags.CHECKSUM_CRC8"
+    ],
+    "canfd": false,
+    "producer_path": "opendbc_repo/opendbc/car/hyundai/carstate.py",
+    "entry_symbol": "CarState.update",
+    "assignment_symbol": "CarState.update",
+    "assignment_line": 552,
+    "steering_torque_signal": "MDPS12.CR_Mdps_StrColTq"
+  },
+  "canfd_qualification_case": {
+    "platform_enum": "HYUNDAI_IONIQ_5",
+    "config_class": "HyundaiCanFDPlatformConfig",
+    "explicit_flags": 2048,
+    "resolved_static_flags": 10240,
+    "flag_symbols": [
+      "HyundaiFlags.EV",
+      "HyundaiFlags.CANFD"
+    ],
+    "canfd": true,
+    "entry_symbol": "CarState.update",
+    "assignment_symbol": "CarState.update_canfd",
+    "assignment_line": 1396,
+    "steering_torque_signal": "MDPS.STEERING_COL_TORQUE",
+    "scope": "CAN-FD producer capability evidence; not the owner vehicle"
+  },
+  "filter": {
+    "helper": "CarStateBase.update_steering_pressed",
+    "input": "abs(decoded steeringTorque) > existing CarControllerParams.STEER_THRESHOLD",
+    "min_count_argument": 5,
+    "assertion_after_consecutive_true_calls": 6,
+    "release": "immediate reset on a false threshold predicate",
+    "separate_amplitude_hysteresis": false,
+    "threshold_provenance_only": {
+      "legacy": 150,
+      "canfd": 250
+    },
+    "units": "DBC-decoded torque representation; no Nm conversion asserted; thresholds are upstream evidence, not AutoTune values"
+  },
+  "normal_returns": [
+    {
+      "symbol": "CarState.update",
+      "range": [
+        500,
+        696
+      ],
+      "returns": [
+        {
+          "line": 696,
+          "kind": "ret"
+        },
+        {
+          "line": 507,
+          "kind": "CANFD dispatch"
+        }
+      ]
+    },
+    {
+      "symbol": "CarState.update_canfd",
+      "range": [
+        1310,
+        1625
+      ],
+      "returns": [
+        {
+          "line": 1625,
+          "kind": "ret"
+        },
+        {
+          "line": 1470,
+          "kind": "CANFD dispatch"
+        }
+      ]
+    }
+  ],
+  "source_files": [
+    {
+      "path": "opendbc_repo/opendbc/car/hyundai/carstate.py",
+      "sha256": "728b74e6f4af1b3e7148d2140a79ab063c8307d6fc9ae2708c029cd916a22b68",
+      "inspected_ranges": [
+        {
+          "start_line": 500,
+          "end_line": 512,
+          "sha256": "9edc6cf94b66f73ec18172190e41ba6c50da57241c2687e06167b0c1f3a49298"
+        },
+        {
+          "start_line": 545,
+          "end_line": 553,
+          "sha256": "ac750e48e8db4b03b64bd094bd518dfac4c198b43e6736dc7dbb1d7366767d23"
+        },
+        {
+          "start_line": 688,
+          "end_line": 696,
+          "sha256": "3053aaaf73d5cd96a0d099c2125391e4ef7b5f744f661977307f23ff150dbd5d"
+        },
+        {
+          "start_line": 1310,
+          "end_line": 1316,
+          "sha256": "59a9e0af692e755f27f76c828d45fc9ab5adbc88cf6007bb8b6a808a986f2af6"
+        },
+        {
+          "start_line": 1394,
+          "end_line": 1397,
+          "sha256": "184e48d17fdf11aa7779b2ade09ac9426218168341995518f0fcd2e9f36142b7"
+        },
+        {
+          "start_line": 1616,
+          "end_line": 1625,
+          "sha256": "d671901b1a2ed0aa13551c9946757940e6bbb92499cc9bf8a4d8529b6b04d34a"
+        }
+      ]
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/hyundai/values.py",
+      "sha256": "8e6d4da59224694ec4992231983a8f8d153ad2dc5d877ff8a808bc3dd31c4900",
+      "inspected_ranges": [
+        {
+          "start_line": 38,
+          "end_line": 53,
+          "sha256": "765bbddd9a1f26f7c9ef102d963de5dab87f9190d0273976b401300294bb830f"
+        },
+        {
+          "start_line": 90,
+          "end_line": 123,
+          "sha256": "3d30a3673f3181584137e1be264fcafefaa8e99bd9de797421e925780352a875"
+        },
+        {
+          "start_line": 180,
+          "end_line": 196,
+          "sha256": "7820c15950422e31c567922b5e1e41cee6277e219b41fe4cb59f918bcc92b540"
+        },
+        {
+          "start_line": 332,
+          "end_line": 337,
+          "sha256": "b99d97ee3402855c31ad21f65b1892a0359cb916900e909a5f504ed2ad9537c8"
+        },
+        {
+          "start_line": 402,
+          "end_line": 410,
+          "sha256": "4b1a7bc8e38f2aa9235349efe189b3d74ef156db19d6dc75b73ec459fed8ab47"
+        }
+      ]
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "inspected_ranges": [
+        {
+          "start_line": 350,
+          "end_line": 364,
+          "sha256": "f3934c04a9cfc883313722682f8d55ed6bfdf890578ad6faf04f8a172a339bad"
+        },
+        {
+          "start_line": 420,
+          "end_line": 425,
+          "sha256": "081e718765b7835e1a4c57a28fb65dbf645d49dcdb643e29c2d115a8733e5841"
+        },
+        {
+          "start_line": 569,
+          "end_line": 573,
+          "sha256": "434f556498b5a9627d6380d15d6fb457b7d5c88e7a9eefa9287b1ebebc7d3101"
+        }
+      ]
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "inspected_ranges": [
+        {
+          "start_line": 379,
+          "end_line": 399,
+          "sha256": "259375d0fda2fe693ca5176adf4238a3d2cb27e13e9ad496b3ad081c8c7dd255"
+        },
+        {
+          "start_line": 416,
+          "end_line": 432,
+          "sha256": "e632e0c043b813ed5ab27e5aa090f5ee5956b452313ad1885cb47bea36eca2dc"
+        }
+      ]
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/hyundai/interface.py",
+      "sha256": "8efd085dba3f4293448ccca6c7d9241000a2892b384ec1f892c58ba3f534deed",
+      "inspected_ranges": [
+        {
+          "start_line": 31,
+          "end_line": 39,
+          "sha256": "b38ca14f5089967bf75d1e68213ec7efb99a867ea0a02747d784f2d9530670e8"
+        },
+        {
+          "start_line": 53,
+          "end_line": 65,
+          "sha256": "0a73602323809d72e43e84d26db5cc254040f8326ba5591cbebd9e789c8eaa6a"
+        }
+      ]
+    }
+  ],
+  "runtime_contract": {
+    "choice": "Option B: caller-injected non-identifying platform_key",
+    "source": "runtime CP.carFingerprint, never inferred from vehicle name",
+    "allowlist": [
+      "HYUNDAI_SANTA_FE_2022",
+      "HYUNDAI_IONIQ_5"
+    ],
+    "unconfirmed": "None -> unavailable override -> no Snapshot",
+    "context_checks": [
+      "brand",
+      "source revision",
+      "exact producer path and assignment symbol",
+      "required source static flags",
+      "CANFD bit matches platform variant"
+    ],
+    "no_actual_carparams_reader": true
+  },
+  "license": "Reference evidence only. No copied source bodies; repository license remains an owner decision."
+}

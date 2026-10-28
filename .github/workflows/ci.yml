@@ -72,6 +72,7 @@ jobs:
           git -C "$reference" remote add origin https://github.com/rownlvh8875-coder/openpilot.git
           git -C "$reference" sparse-checkout init --no-cone
           git -C "$reference" sparse-checkout set --no-cone /openpilot/__init__.py /openpilot/cereal/ /opendbc_repo/opendbc/car/car.capnp /opendbc_repo/opendbc/car/include/
+          git -C "$reference" sparse-checkout add --no-cone /opendbc_repo/opendbc/car/hyundai/carstate.py /opendbc_repo/opendbc/car/hyundai/values.py /opendbc_repo/opendbc/car/hyundai/interface.py /opendbc_repo/opendbc/car/interfaces.py /opendbc_repo/opendbc/car/__init__.py
           git -C "$reference" fetch --depth=2 --filter=blob:none origin 7a2f051b1f3847786318900444c88c2ba7a74a67
           git -C "$reference" checkout --detach 7a2f051b1f3847786318900444c88c2ba7a74a67
           git -C "$reference" diff --exit-code c2130730239bcdb4cbde9361ab90c8d99aa4ff55 7a2f051b1f3847786318900444c88c2ba7a74a67

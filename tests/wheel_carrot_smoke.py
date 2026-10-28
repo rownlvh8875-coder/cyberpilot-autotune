@@ -76,6 +76,24 @@ def main():
     assert result.snapshot.source_age_s == 0.1
     assert Path(sys.prefix) in Path(cyberpilot_autotune.__file__).resolve().parents
     print("ACTUAL_SCHEMA_WHEEL_MAPPING_VERIFIED")
+    from tests.fixtures.carrot_adapter import hyundai_config
+
+    for platform in ("HYUNDAI_SANTA_FE_2022", "HYUNDAI_IONIQ_5"):
+        for pressed in (False, True):
+            hyundai = CarrotReadOnlyAdapter(hyundai_config(platform))
+            cc, cs = (
+                car_control(log, attempt.source_command),
+                car_state(log, attempt.source_car_state),
+            )
+            cs.carState.steeringPressed = pressed
+            hyundai.ingest_car_control(sample(cc))
+            hyundai.ingest_car_state(sample(cs))
+            result = hyundai.evaluate_car_output(
+                sample(car_output(log, attempt.receipt)), evaluation_mono_time_ns=10_010_000_000
+            )
+            assert result.snapshot.source_valid and result.snapshot.driver_override is pressed
+            assert result.snapshot.baseline_parameters == fixture["BASELINE"]
+    print("HYUNDAI_FALSE_TRUE_WHEEL_MAPPING_VERIFIED_4_CASES")
 
 
 if __name__ == "__main__":

@@ -28,6 +28,10 @@ from .extraction import (
 )
 from .health import SessionToken, uint64
 
+# Pinned Hyundai source flags, not controller limits or inferred fingerprints.
+HYUNDAI_CANFD_FLAG = 8192
+HYUNDAI_PLATFORM_FLAGS = (("HYUNDAI_SANTA_FE_2022", 65536), ("HYUNDAI_IONIQ_5", 10240))
+
 
 @dataclass(frozen=True, slots=True)
 class CachePolicy:
@@ -50,7 +54,7 @@ class SteeringPressedCapability:
     producer_symbol: str
     source_revision: str
 
-    def supports(self, context: StaticVehicleContext) -> bool:
+    def supports(self, context: StaticVehicleContext, *, platform_key: str | None = None) -> bool:
         if self.source_revision != SOURCE_REVISION:
             return False
         if context.brand == "tesla":
@@ -62,6 +66,20 @@ class SteeringPressedCapability:
             return (
                 self.producer_path == "opendbc_repo/opendbc/car/volkswagen/carstate.py"
                 and self.producer_symbol == "CarState.update_meb"
+            )
+        if context.brand == "hyundai":
+            required = next(
+                (flags for key, flags in HYUNDAI_PLATFORM_FLAGS if key == platform_key), None
+            )
+            if required is None or context.flags & required != required:
+                return False
+            canfd = bool(context.flags & HYUNDAI_CANFD_FLAG)
+            if canfd != bool(required & HYUNDAI_CANFD_FLAG):
+                return False
+            return (
+                self.producer_path == "opendbc_repo/opendbc/car/hyundai/carstate.py"
+                and self.producer_symbol
+                == ("CarState.update_canfd" if canfd else "CarState.update")
             )
         return False
 
@@ -76,8 +94,14 @@ class ProducerAttestation:
     session: SessionToken
     permitted_controller_kinds: tuple[str, ...]
     steering_pressed_capability: SteeringPressedCapability | None
+    platform_key: str | None = None
 
     def __post_init__(self) -> None:
+        if self.platform_key is not None and (
+            type(self.platform_key) is not str
+            or self.platform_key not in tuple(key for key, _ in HYUNDAI_PLATFORM_FLAGS)
+        ):
+            raise CarrotInputError("UNQUALIFIED_PLATFORM_ATTESTATION")
         if (
             self.source_revision != SOURCE_REVISION
             or self.integration_merge != INTEGRATION_MERGE
@@ -111,6 +135,7 @@ class AdapterConfig:
             or attestation.observation_schema_revision != context.observation_schema_revision
             or context.controller_kind not in attestation.permitted_controller_kinds
             or attestation.permitted_controller_kinds != policy.allowed_controller_kinds
+            or (attestation.platform_key is not None and context.brand != "hyundai")
         ):
             raise CarrotInputError("INCONSISTENT_CALLER_CONTEXT")
         object.__setattr__(self, "static_context", context)
@@ -205,7 +230,14 @@ class CarrotReadOnlyAdapter:
     def ingest_car_state(self, sample: DecodedTopicSample) -> None:
         self._sample(sample, "carState")
         capability = self._config.attestation.steering_pressed_capability
-        supported = capability is not None and capability.supports(self._config.static_context)
+        supported = (
+            sample.transport_health.healthy
+            and sample.event_valid is True
+            and capability is not None
+            and capability.supports(
+                self._config.static_context, platform_key=self._config.attestation.platform_key
+            )
+        )
         try:
             source = extract_car_state(sample, self._binding, steering_pressed_supported=supported)
         except CarrotInputError:

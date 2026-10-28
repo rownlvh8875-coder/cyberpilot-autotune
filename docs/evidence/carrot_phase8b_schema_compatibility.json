@@ -987,6 +987,26 @@
       "symbol": "CarState.update_meb",
       "field": "steeringPressed",
       "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55"
+    },
+    {
+      "producer_path": "opendbc_repo/opendbc/car/hyundai/carstate.py",
+      "entry_symbol": "CarState.update",
+      "symbol": "CarState.update",
+      "field": "steeringPressed",
+      "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "platform_key": "HYUNDAI_SANTA_FE_2022",
+      "required_static_flags": 65536,
+      "canfd": false
+    },
+    {
+      "producer_path": "opendbc_repo/opendbc/car/hyundai/carstate.py",
+      "entry_symbol": "CarState.update",
+      "symbol": "CarState.update_canfd",
+      "field": "steeringPressed",
+      "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "platform_key": "HYUNDAI_IONIQ_5",
+      "required_static_flags": 10240,
+      "canfd": true
     }
   ],
   "qualification": {
@@ -1031,5 +1051,6 @@
     "live_submaster": "NOT_STARTED",
     "persistence": "NOT_AUTHORIZED",
     "apply": "NOT_AUTHORIZED"
-  }
+  },
+  "hyundai_source_evidence": "hyundai_santafe_override_capability.json"
 }

@@ -47,3 +47,26 @@ def config(kind="torque", *, generation=0, capacities=(3, 3, 2)):
         capability,
     )
     return AdapterConfig(ctx, policy, BASELINE, CachePolicy(*capacities), attestation)
+
+
+def hyundai_config(platform_key, *, confirmed=True):
+    """Synthetic CP attestation; does not confirm an actual vehicle fingerprint."""
+    canfd = platform_key == "HYUNDAI_IONIQ_5"
+    cfg = config()
+    ctx = replace(cfg.static_context, brand="hyundai", flags=10240 if canfd else 65536)
+    capability = SteeringPressedCapability(
+        "opendbc_repo/opendbc/car/hyundai/carstate.py",
+        "CarState.update_canfd" if canfd else "CarState.update",
+        SOURCE_REVISION,
+    )
+    return replace(
+        cfg,
+        static_context=ctx,
+        snapshot_policy=replace(cfg.snapshot_policy, static_context_digest=ctx.digest),
+        attestation=replace(
+            cfg.attestation,
+            static_context_digest=ctx.digest,
+            steering_pressed_capability=capability,
+            platform_key=platform_key if confirmed else None,
+        ),
+    )

@@ -25,6 +25,16 @@ def verify_reference(reference):
 
     merge = evidence["integration_merge"]
     source = evidence["source_revision"]
+    hyundai = json.loads(
+        (ROOT / "docs/evidence/hyundai_santafe_override_capability.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert (hyundai["source_revision"], hyundai["integration_merge"], hyundai["original_base"]) == (
+        source,
+        merge,
+        evidence["original_base"],
+    )
     assert git("rev-parse", "HEAD").decode().strip() == merge
     assert git("show", "-s", "--format=%P", merge).decode().strip().split() == [
         evidence["original_base"],
@@ -32,10 +42,14 @@ def verify_reference(reference):
     ]
     assert git("rev-parse", merge + "^{tree}") == git("rev-parse", source + "^{tree}")
     assert git("diff", "--name-only").strip() == b""
-    for item in evidence["schema_files"]:
+    for item in evidence["schema_files"] + hyundai["source_files"]:
         data = git("show", source + ":" + item["path"])
         assert hashlib.sha256(data).hexdigest() == item["sha256"]
         assert (reference / item["path"]).read_bytes() == data
+        lines = data.splitlines(keepends=True)
+        for span in item.get("inspected_ranges", ()):
+            inspected = b"".join(lines[span["start_line"] - 1 : span["end_line"]])
+            assert hashlib.sha256(inspected).hexdigest() == span["sha256"]
     return evidence
 
 

@@ -205,11 +205,12 @@ permitted controller kinds and optional qualified steeringPressed capability.
 AdapterConfig validates these against its frozen StaticVehicleContext and policy
 and defensively copies the trusted baseline. Epoch/context cannot mutate in place.
 
-Qualified override producers currently are the pinned Tesla CarState.update and
-VW MEB CarState.update_meb, checked against the caller context's brand/controller
-and exact source path/symbol/revision. Other ports yield unavailable override
-until separately audited; controller-family synthetic tests do not qualify a
-physical vehicle. Capabilities, static CP and live producer source identity are
+Qualified override producers are the pinned Tesla CarState.update, VW MEB
+CarState.update_meb, and the separately audited [Hyundai assignments](hyundai_santafe_capability.md).
+Hyundai additionally requires the caller's allowlisted runtime platform key and
+consistent source flags/variant. Other ports yield unavailable override until
+separately audited; controller-family synthetic tests do not qualify a physical
+vehicle. Capabilities, static CP and live producer source identity are
 caller attestations, not nonexistent receipt fields or constants filled as True.
 Actual transport health is calculated from all five supplied flags on every use.
 The caller must obtain these facts from its qualified receive/launch boundary;
