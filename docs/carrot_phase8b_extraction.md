@@ -180,6 +180,13 @@ new-session reset. This prevents repairing it under a new publication timestamp.
 Known malformed clocks/causal order or a known controller/context mismatch also
 require a new session. An initial well-typed unavailable/version-0 receipt is
 simply rejected: absent time is not invented clock-regression evidence.
+An incomplete version-1 cohort identity instead invalidates the session, even
+when individual field extraction succeeds. Known controller/version/domain and
+same-domain causal faults are checked immediately after consumption, independently
+of later cache, health or evaluation-clock failures. A missing exact source must
+never mask source command after apply, nor may an invalid evaluation argument
+hide a known changed controller. Source measurement clock ordering is checked
+without requiring the missing source CS first. No cross-domain subtraction occurs.
 Structurally present but later-invalid apply time can conservatively advance the
 high-water before rejection; explicit reset is required after an actual clock
 fault. This characterizes a fail-closed availability tradeoff, not optimal live
@@ -261,3 +268,23 @@ Full production SCons, native CAN extension, device Params/IPC, hardware, live
 timing and real logs remain unverified. No live SubMaster, Engine/learner connection,
 persistence, Apply/controller write, vehicle installation/test or upstream PR is
 implemented. Final review/exact-head results are recorded after verification.
+
+## Independent review correction record
+
+The fresh whole-branch review of implementation 8b2ad8ae331f5a379ddbe09f12bb41f67ce0edde
+found zero Critical, two Important and zero Minor issues. Both Important findings
+were lifecycle failures: an incomplete version-1 receipt could be repaired under
+a later publication; known clock/controller faults could be masked by an earlier
+missing-source or invalid-evaluation-time rejection. They were reproduced with
+actual generated readers before correction (six failing scenarios), then fixed
+by independent attestation checks immediately after transactional consumption.
+Three further actual-wire cases pin unsupported receipt/observation/measurement
+version changes. All nine cases now reject and require explicit new-session
+reset; default version-0 startup recovery remains tested. No second independent
+review of this correction is claimed.
+
+Post-correction local checks: 731 base tests and 834 combined native Linux tests
+(including 103 actual-schema checks), zero failures/skips. All 69 existing literal
+projections remain unchanged. The network-audited minimal environment uses Python
+3.12.3 and pycapnp 2.1.0; no production source dependency beyond schemas is loaded.
+Final clean-clone, wheel and remote CI results are recorded at publication.

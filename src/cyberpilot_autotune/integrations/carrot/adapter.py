@@ -233,6 +233,70 @@ class CarrotReadOnlyAdapter:
             if len(self._consumed) > self._config.cache_policy.maximum_consumed_cohorts:
                 del self._consumed[next(iter(self._consumed))]
 
+    def _attestation_failure(
+        self,
+        receipt: ReceiptEvidence,
+        command: SourceCommandEvidence | None,
+        publication_ns: int,
+    ) -> MappingReason | None:
+        """Known producer faults cannot be hidden by another admission failure."""
+        if receipt.version not in (0, 1):
+            return MappingReason.UNSUPPORTED_VERSION
+        kinds = ("pid", "torque", "angle", "mebCurvature")
+        if (
+            receipt.controller_kind in kinds
+            and receipt.controller_kind != self._config.static_context.controller_kind
+        ):
+            return MappingReason.CONTROLLER_MISMATCH
+        clocks: tuple[tuple[TimestampEvidence, str], ...] = (
+            (receipt.source_command_time, "monotonic"),
+            (receipt.host_apply_time, "monotonic"),
+            (receipt.safety_state_time, "bootTime"),
+            (receipt.safety_observation_time, "bootTime"),
+        )
+        pairs: tuple[tuple[TimestampEvidence, TimestampEvidence, str], ...] = (
+            (receipt.source_command_time, receipt.host_apply_time, "monotonic"),
+            (receipt.safety_state_time, receipt.safety_observation_time, "bootTime"),
+        )
+        if type(publication_ns) is int and publication_ns > 0:
+            pairs += (
+                (
+                    receipt.host_apply_time,
+                    TimestampEvidence(publication_ns, "monotonic"),
+                    "monotonic",
+                ),
+            )
+        if command is not None:
+            m = command.measurement
+            if command.observation_version not in (0, 1, 2) or m.version not in (0, 1):
+                return MappingReason.UNSUPPORTED_VERSION
+            clocks += (
+                (command.event_time, "monotonic"),
+                (m.car_state_time, "monotonic"),
+                (m.live_parameters_time, "monotonic"),
+                (m.calculation_time, "monotonic"),
+            )
+            pairs += (
+                (m.car_state_time, m.calculation_time, "monotonic"),
+                (m.live_parameters_time, m.calculation_time, "monotonic"),
+                (m.calculation_time, command.event_time, "monotonic"),
+                (command.event_time, receipt.host_apply_time, "monotonic"),
+            )
+        if any(stamp.value_ns is not None and stamp.domain != domain for stamp, domain in clocks):
+            return MappingReason.CLOCK_DOMAIN
+        # Only version 0's absent/default receipt is a normal startup exception.
+        if receipt.version == 1 and self._cohort(receipt) is None:
+            return MappingReason.MISSING_TIMESTAMP
+        if any(
+            left.value_ns is not None
+            and right.value_ns is not None
+            and left.domain == right.domain == domain
+            and left.value_ns > right.value_ns
+            for left, right, domain in pairs
+        ):
+            return MappingReason.TIME_ORDER
+        return None
+
     def evaluate_car_output(
         self, sample: DecodedTopicSample, *, evaluation_mono_time_ns: int
     ) -> MappingDecision:
@@ -266,6 +330,13 @@ class CarrotReadOnlyAdapter:
                 # A readable same-session attempt is consumed before later
                 # sample/evaluation-clock/health checks can reject it.
                 self._previous_host_apply_ns = max(host, previous_apply or host)
+            command_entry = self._commands.lookup(receipt.source_command_time.value_ns)
+            fault = self._attestation_failure(
+                receipt, command_entry.evidence if command_entry else None, sample.log_mono_time_ns
+            )
+            if fault is not None:
+                self._session_required = True
+                return MappingDecision(None, fault, cohort)
             if sample_error is not None:
                 raise sample_error
             now = uint64(evaluation_mono_time_ns)
@@ -277,7 +348,6 @@ class CarrotReadOnlyAdapter:
                     self._session_required = True
             if duplicate_publication:
                 return MappingDecision(None, MappingReason.DUPLICATE_COHORT, cohort)
-            command_entry = self._commands.lookup(receipt.source_command_time.value_ns)
             command = (
                 command_entry.evidence
                 if command_entry is not None and command_entry.health.healthy
@@ -314,30 +384,7 @@ class CarrotReadOnlyAdapter:
             decision = evaluate(
                 attempt, self._config.snapshot_policy, self._config.baseline_parameters
             )
-            clocks: tuple[tuple[TimestampEvidence, str], ...] = (
-                (receipt.source_command_time, "monotonic"),
-                (receipt.host_apply_time, "monotonic"),
-                (receipt.safety_state_time, "bootTime"),
-                (receipt.safety_observation_time, "bootTime"),
-            )
-            if command is not None:
-                clocks += (
-                    (command.measurement.car_state_time, "monotonic"),
-                    (command.measurement.live_parameters_time, "monotonic"),
-                    (command.measurement.calculation_time, "monotonic"),
-                )
-            explicit_clock_mismatch = any(
-                stamp.value_ns is not None and stamp.domain != domain for stamp, domain in clocks
-            )
-            known_kind_mismatch = (
-                receipt.controller_kind in ("pid", "torque", "angle", "mebCurvature")
-                and receipt.controller_kind != self._config.static_context.controller_kind
-            )
-            if (
-                decision.reason is MappingReason.TIME_ORDER
-                or explicit_clock_mismatch
-                or known_kind_mismatch
-            ):
+            if decision.reason is MappingReason.TIME_ORDER:
                 self._session_required = True
             return decision
         except CarrotSessionRequired:
