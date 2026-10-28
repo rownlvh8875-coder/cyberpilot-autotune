@@ -34,17 +34,17 @@ Execution tasks and file ownership:
 
 - [x] Verify/review/merge PR #6; preserve/retarget/review/merge PR #20 and prove
   parent, ancestor and tree equality before implementation.
-- [ ] RED/GREEN extraction: integrations/carrot/errors.py, health.py,
+- [x] RED/GREEN extraction: integrations/carrot/errors.py, health.py,
   availability.py and extraction.py; explicit immutable decoded samples,
   field/union/enum checks, no retained reader, optional dependency boundary.
-- [ ] RED/GREEN state: cache.py and adapter.py; exact bounded poisoned caches,
+- [x] RED/GREEN state: cache.py and adapter.py; exact bounded poisoned caches,
   transactional attempt consumption, sequence/high-water and explicit sessions.
-- [ ] Run all 69 existing literal contracts through actual generated schema
+- [x] Run all 69 existing literal contracts through actual generated schema
   extraction plus exact caches/join. Keep adapter state-machine tests separate
   from deliberately corrupted caller-attempt metadata used in pure cases.
-- [ ] Add compatibility tests/evidence and Linux-only pinned-schema CI; maintain
+- [x] Add compatibility tests/evidence and Linux-only pinned-schema CI; maintain
   all existing base jobs and no-dependency wheel smoke.
-- [ ] Full regression, coverage, build/wheels, fresh final review, append-only
+- [x] Full regression, coverage, build/wheels, fresh final review, append-only
   commits, push and requested Draft PR; record exact-head CI before completion.
 
 Review focus: a rejected frame repaired and resubmitted; stale health used from
@@ -288,3 +288,41 @@ Post-correction local checks: 731 base tests and 834 combined native Linux tests
 projections remain unchanged. The network-audited minimal environment uses Python
 3.12.3 and pycapnp 2.1.0; no production source dependency beyond schemas is loaded.
 Final clean-clone, wheel and remote CI results are recorded at publication.
+
+## Qualification decision
+
+**PHASE_8B_1_EXTRACTION_READY_FOR_PARKED_SIDECAR**.
+
+The implementation qualification head is
+275642c0c1373c936f46ec2d054ce3cd4ea28db3. Both workflow events completed
+successfully: [push CI](https://github.com/rownlvh8875-coder/cyberpilot-autotune/actions/runs/40673558125)
+and [PR CI](https://github.com/rownlvh8875-coder/cyberpilot-autotune/actions/runs/40673601929),
+five jobs each. This includes all eight original matrix jobs and two new
+network-isolated actual-schema jobs. Documentation-only successors must also
+pass their own exact-head checks before the final completion report.
+
+| Verification | Observed result |
+|---|---|
+| Fresh clone + editable install, Windows Python 3.12.14 | 731 passed; 0 failed/skipped; 96.83% branch-inclusive coverage |
+| Minimal Linux Python 3.12.3 / pycapnp 2.1.0 | 834 passed; 0 failed/skipped; 98.81% overall coverage |
+| Actual-schema checks within combined suite | 103, including all 69 unchanged literal projections |
+| Integration package coverage | 98.80%; state adapter 97.54%; extractor/cache/health/availability 100% |
+| Pure contract / safety coverage | 100% / 100% |
+| Residual learner / replay coverage | 97.85% / 98.48% |
+| Ruff / formatting / strict mypy | Pass; 132 Python files formatted; 40 source modules type-checked |
+| Wheel and sdist build | Pass |
+| Fresh base wheel | All 40 package modules imported (root plus 39 submodules); typed dependency error verified |
+| Fresh optional wheel | Actual generated-schema mapping, source age and immutable baseline verified |
+| Existing replay goldens | All four verify unchanged from source and both installed wheels |
+| Independent review correction | Both Important findings reproduced RED and resolved by nine actual-reader regression cases |
+| Remote CI at implementation head | 10/10 success; no skipped job |
+
+[Draft PR #7](https://github.com/rownlvh8875-coder/cyberpilot-autotune/pull/7)
+targets main at the recorded PR #6 merge. It remains Draft. The only pure-contract
+change is the documented inactive diagnostic ordering correction; core, safety,
+runtime, replay algorithms and all old golden/evidence expectations are unchanged.
+
+This decision qualifies extraction for a separately authorized parked-sidecar
+task. It does not start that task or qualify vehicle/live-driving/production use.
+Caller-serialized operation and the attestation limitations above remain binding.
+Live SubMaster is NOT_STARTED; persistence and Apply remain NOT_AUTHORIZED.

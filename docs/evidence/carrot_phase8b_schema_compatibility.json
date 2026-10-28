@@ -989,5 +989,47 @@
       "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55"
     }
   ],
-  "qualification": "PENDING_FINAL_REGRESSION_REVIEW_CI"
+  "qualification": {
+    "status": "PHASE_8B_1_EXTRACTION_READY_FOR_PARKED_SIDECAR",
+    "implementation_head": "275642c0c1373c936f46ec2d054ce3cd4ea28db3",
+    "base_suite": {
+      "passed": 731,
+      "failed": 0,
+      "skipped": 0,
+      "coverage_percent": 96.83
+    },
+    "actual_schema_combined_suite": {
+      "passed": 834,
+      "failed": 0,
+      "skipped": 0,
+      "actual_schema_cases": 103,
+      "literal_contract_cases": 69,
+      "coverage_percent": 98.81,
+      "integration_package_coverage_percent": 98.8
+    },
+    "installed_wheels": {
+      "without_openpilot": "TYPED_DEPENDENCY_ERROR_VERIFIED",
+      "with_pinned_schemas": "ACTUAL_SCHEMA_MAPPING_VERIFIED",
+      "unchanged_replay_goldens": 4
+    },
+    "independent_review": {
+      "initial_critical": 0,
+      "initial_important": 2,
+      "initial_minor": 0,
+      "important_findings_reproduced_and_fixed": 2,
+      "actual_reader_regression_cases": 9,
+      "second_independent_review_claimed": false
+    },
+    "implementation_head_ci": {
+      "success": 10,
+      "failed": 0,
+      "skipped": 0,
+      "push_run_id": 40673558125,
+      "pull_request_run_id": 40673601929
+    },
+    "publication_rule": "Documentation-only successors require successful checks at their own exact head.",
+    "live_submaster": "NOT_STARTED",
+    "persistence": "NOT_AUTHORIZED",
+    "apply": "NOT_AUTHORIZED"
+  }
 }
