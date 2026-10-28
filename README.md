@@ -1,11 +1,12 @@
 # CyberPilot AutoTune
 
-Independent controller tuning research. This repository is in the research and
-shadow-only stage. It has no production vehicle control or controller write path.
+Independent controller tuning research. OFF/SHADOW remain baseline-only. A separate,
+explicit steering application API can transact with caller-injected owner targets;
+no production Carrot writer, vehicle installation or approved vehicle policy is supplied.
 
 The purpose is a reusable, fail-closed, bounded online adaptation framework for
 controller tuning research, developed independently for eventual small upstream
-PRs. Current modes are OFF and SHADOW; effective values always equal baseline.
+PRs. Engine modes are OFF and SHADOW; their effective values always equal baseline.
 
 Architecture: observation source -> read-only adapter -> immutable snapshot ->
 learning admission -> proposal-only learner -> candidate Safety Gate -> runtime
@@ -74,6 +75,7 @@ python -m pytest --cov=cyberpilot_autotune --cov-report=term-missing --cov-fail-
 python -m coverage report --include="*/safety/*" --fail-under=95
 python -m coverage report --include="*/core/residual.py" --fail-under=95
 python -m coverage report --include="*/replay/*" --fail-under=95
+python -m coverage report --include="*/application/*" --fail-under=95
 python -m pytest tests/integration/test_replay_golden.py -q
 python -m cyberpilot_autotune.replay.cli verify-all tests/fixtures/replay
 python -m build
@@ -84,10 +86,28 @@ interfaces, synthetic replay and in-memory diagnostics. `tests` contains unit, p
 integration and architecture tests. `examples` is synthetic only. `docs` records
 the audit, safety contract, integration evidence and future roadmap.
 
-No production safety or performance claim is made. There is no Apply mode,
-controller write API, vehicle deployment, persistence, real log ingestion,
-network telemetry or vehicle parameter registry. Python plugins are
+No production safety or performance claim is made. No vehicle deployment,
+persistence, real log ingestion, network telemetry or approved vehicle parameter
+registry is supplied. Injected owner targets and authorization plugins are
 trusted code; this is not a sandbox or a hard real-time implementation.
+
+## Steering application core (isolated development)
+
+The owner approved steering-only bounded application development. The separate
+`application` package provides immutable policy/evidence contracts, independent
+owner authorization, atomic expected-revision commit/readback, actual elapsed
+step/rate screening, expiring holds, and explicit baseline recovery/failure states.
+It contains no learner, IPC, Params or concrete Carrot target. Longitudinal and
+controller safety limits are excluded. There are no vehicle bounds or deadlines.
+
+Current CyberPilot offline profile/identification exports remain research-only;
+their hashes, confidence and AUTO_ALLOWED labels do not authorize a write. One
+shared application core avoids duplicating its identification work. The existing
+Carrot torqued owner must be arbitrated before a real writer can be connected.
+See the [application contract](docs/steering_application_contract.md),
+[accepted design](docs/steering_application_design.md), and
+[implementation evidence](docs/steering_application_progress.md). Synthetic target
+tests prove host transactions, not physical actuation or vehicle readiness.
 
 The source audit is pinned to CyberPilot commit
 `588d6b21c21089065a7d9165d6e7a438e8aa6297`; the current branch HEAD was also

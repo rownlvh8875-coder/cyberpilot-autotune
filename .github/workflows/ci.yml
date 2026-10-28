@@ -29,6 +29,7 @@ jobs:
       - run: python -m coverage report --include="*/core/residual.py" --fail-under=95
       - run: python -m coverage report --include="*/replay/*" --fail-under=95
       - run: python -m coverage report --include="*/adapters/carrot_receipt_contract.py" --fail-under=95
+      - run: python -m coverage report --include="*/application/*" --fail-under=95
       - name: Verify pinned synthetic golden evidence across fresh processes
         run: python -m pytest tests/integration/test_replay_golden.py tests/integration/test_replay_focused.py -q
       - run: python -m cyberpilot_autotune.replay.cli verify-all tests/fixtures/replay
@@ -51,6 +52,7 @@ jobs:
           "$wheel_python" -I -m cyberpilot_autotune.replay.cli verify-all "$fixture_directory"
           "$wheel_python" -I -c "import runpy, sys; from cyberpilot_autotune.adapters.carrot_receipt_contract import evaluate; fixture=runpy.run_path(sys.argv[1]); attempt, policy=fixture['complete'](); result=evaluate(attempt, policy, fixture['BASELINE']); assert result.snapshot.source_valid; assert result.snapshot.baseline_parameters == fixture['BASELINE']; assert result.snapshot.source_age_s == 0.1" "$contract_fixture"
           "$wheel_python" -I "$optional_smoke" --contract-fixture "$contract_fixture"
+          "$wheel_python" -I "$GITHUB_WORKSPACE/tests/wheel_steering_application_smoke.py" --repository "$GITHUB_WORKSPACE"
   carrot-schema-compatibility:
     runs-on: ubuntu-24.04
     env:
@@ -91,6 +93,7 @@ jobs:
           sudo unshare --net -- setpriv --reuid="$compat_uid" --regid="$compat_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 "$compat_python" -m compatibility.carrot.run --reference-checkout "$RUNNER_TEMP/carrot-reference"
           python -m coverage report --include="*/integrations/carrot/*" --fail-under=95
           python -m coverage report --include="*/adapters/carrot_receipt_contract.py" --fail-under=95
+          python -m coverage report --include="*/application/*" --fail-under=95
       - name: Verify installed wheel against actual schemas without network
         shell: bash
         run: |

@@ -1,0 +1,49 @@
+{
+  "status": "ACCEPTED_STEERING_ONLY_SHARED_APPLICATION_DESIGN",
+  "cyberpilot_original_audit": "588d6b21c21089065a7d9165d6e7a438e8aa6297",
+  "cyberpilot_inspected_public_head": "02652a441c1c39b4a9c3bfaf1132217f0e57b384",
+  "carrot_source": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "carrot_integration": "7a2f051b1f3847786318900444c88c2ba7a74a67",
+  "autotune_main": "b24ef18e4270af5ab4f731aca31cf95f4f4b0cce",
+  "preserved_pr8_head": "e4361678ed176cbd7c0bb6f838d3daa7174caf22",
+  "source_files": [
+    {
+      "path": "openpilot/tools/cyber_autotune/contracts.py",
+      "sha256": "991891f87fd7f585f0f9e71767164db7be1ca2740c68cffa292c8c6876ba7001",
+      "decision": "COMPARE_INTERFACE_ONLY",
+      "reason": "Offline units and contract bindings do not enable parameters."
+    },
+    {
+      "path": "openpilot/tools/cyber_autotune/policy.py",
+      "sha256": "dd44a07a6c8a3730846ecddbb9202c73a8299a93c9f8b0aacfd1aa431c755578",
+      "decision": "DO_NOT_PROMOTE_TO_AUTHORIZATION",
+      "reason": "AUTO_ALLOWED is explicitly offline classification."
+    },
+    {
+      "path": "openpilot/tools/cyber_autotune/profiles.py",
+      "sha256": "76843bb6d70fe824bb8c775868f0e71c4b9ad223339d5ea7b119708ac42f3073",
+      "decision": "PRESERVE_BLOCKERS",
+      "reason": "runtime_accepted and offline_evaluable remain false."
+    },
+    {
+      "path": "openpilot/tools/cyber_autotune/torque_identification.py",
+      "sha256": "9f3d9c2f62c76c70ee16888b00904e2be434fd3f38838239d3cb12c98f81fb6b",
+      "decision": "DO_NOT_DUPLICATE_IDENTIFICATION",
+      "reason": "Existing numerical diagnostic is not qualified candidate/application authority."
+    }
+  ],
+  "unresolved": [
+    "owner_approved_registry",
+    "friction_signal_and_unit_equivalence",
+    "single_runtime_parameter_owner",
+    "vehicle_limits_and_deadlines",
+    "independent_evidence_qualification",
+    "actual_runtime_source_and_context"
+  ],
+  "copied_source_bodies": false,
+  "private_data_opened": false,
+  "runtime_or_vehicle_executed": false,
+  "other_task_messaged": false,
+  "scope": "steering_only; longitudinal unchanged",
+  "reference_source_modified": false
+}
