@@ -53,10 +53,12 @@ Record measured checks and design decisions below as work progresses.
   absent CyberPilot bridge (11). Behavioral RED/GREEN also covers timeout masking,
   hold expiry during authorization, no-change owner conflict, rejected timestamp
   high-water, malformed attempt repair, authority exceptions and rollback outcome.
-- Current full tests: 877 base / 1014 native actual-schema combined; 0 failures or
-  skips. Baseline was 738 / 875. New tests are synthetic only.
-- Native coverage: overall 99.07%, application 99.87%, coordinator 99.77%;
+- Current full tests after review corrections: 889 base / 1026 native actual-schema
+  combined; 0 failures or skips. Baseline was 738 / 875. New tests are synthetic only.
+- Native coverage: overall 99.02%, application 99.63%, coordinator 99.36%;
   pure receipt contract and safety 100%. Ruff/format and mypy pass (45 source files).
+  Base environment overall coverage is 97.54%; native compatibility covers the
+  optional schema-loading paths absent from a base install.
 - Ruling: proposal IDs are session-local 32-hex encoding of attempt sequence.
   Coupled with persistent-in-session high-water, bounded ID eviction cannot
   revive a rejected identity under a new counter. Metadata/evidence has its own hash.
@@ -71,6 +73,19 @@ Record measured checks and design decisions below as work progresses.
   optional-dependency rejection, synthetic commit/readback/rollback and four old
   goldens. A separate actual-schema wheel verifies unchanged generic/Hyundai
   read-only mappings and the same synthetic application path. No vehicle writer ran.
-- Application coverage 99.87% includes branches; the coordinator is 99.77%.
-  Its sole uncovered branch is the impossible None-clock path after an owned
-  transaction. No test fabricates internal state just to cover that branch.
+- Initial independent review at 2f8f138c0cd4ca7cbb4df86a647653f082e29e8c
+  reported Critical 0 / Important 4 / Minor 0. Reproduced RED cases cover hold
+  expiry masked by override/authorization denial, watchdog callback overruns,
+  stale grants after callbacks, legitimate grants issued at callback completion,
+  and idle time incorrectly counted as rollback duration. The corrected code
+  refreshes clocks at each boundary, gives known deadlines priority, and anchors
+  recovery at its own entry. Regression tests also exercise both steering selectors.
+- Corrected wheel/sdist and two new fresh environments passed: base imports all
+  44 discoverable modules and rejects missing optional dependencies; native wheel
+  verifies generic and four Hyundai False/True schema mappings. Both verify the
+  synthetic apply/rollback and all four unchanged replay goldens. Final exact-head
+  review confirmation and remote CI are required before this task is reported done.
+- Application coverage 99.63% includes branches; the coordinator is 99.36%.
+  The remaining uncovered paths are the absent-last-clock recovery branch and
+  grant expiry after a capability returns. No internal-state fabrication is used
+  solely to increase coverage.

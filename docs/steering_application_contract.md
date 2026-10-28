@@ -72,6 +72,9 @@ prove the port contract; a setter, bool lease or metadata label is insufficient.
 6. Ask the independent authority, verify its grant, and reread the owner tuple.
    A changed revision is a conflict even for a no-change request. Check deadlines
    before downstream freshness checks so known timeout faults cannot be masked.
+   Pass the current monotonic time to the authority and refresh it after the
+   callback. Grant age/expiry is checked after authorization, before commit and
+   after readback, including time spent inside caller capabilities.
 7. Commit via CAS, validate the acknowledgement and independently read back the
    entire tuple/revision. Check time, hold/grant expiry and source again. Only
    this path returns VERIFIED. A no-change result commits nothing and does not
@@ -97,6 +100,9 @@ acknowledgements and rollback deadline failures are exposed even if the baseline
 is finally observed. Baseline recovery is a distinct priority operation, not an
 adaptation step/rate update. A real owner must approve its recovery dynamics and
 latency; controller actuator limits are never widened by this core.
+The recovery deadline starts at recovery entry, excluding idle time since the
+previous evaluation. A failed recovery-entry clock still permits best-effort
+coherent baseline restoration, while timing qualification remains faulted.
 
 ApplicationReceipt contains the reason/state/attempt sequence, immutable baseline,
 effective values only when observed, verified revision, last valid evaluation
@@ -116,6 +122,9 @@ evidence/authorization, not reuse of a rejected attempt.
 coherent target state and the active hold expiry; stale/unavailable/override/
 saturation causes recovery. Expired holds latch a fault even if a fresh proposal
 arrives. Hold deadlines are not extended by replay or no-change calls.
+Hold expiry is checked before an ordinary veto can clear the active state, after
+authority callbacks even when they deny/raise, and after watchdog target reads.
+Watchdog source freshness is also rechecked after the read returns.
 
 There is no autonomous timer or hard real-time preemption. Callback overruns are
 detected after return; if the caller stops invoking the domain, this library

@@ -352,3 +352,155 @@ def test_no_target_authority_or_clock_capability_is_defaulted(missing):
             None if missing == "clock" else clock,
         )
     assert target.reads == authority.calls == 0
+
+
+@pytest.mark.parametrize("veto", ["override", "denial"])
+def test_expired_hold_latches_even_when_another_rejection_occurs(veto):
+    p, clock, target, authority, _ = system()
+    p = replace(p, maximum_hold_s=0.05)
+    app = BoundedSteeringApplicator(p, baseline(p), target, authority, clock)
+    app.process(request(p))
+    if veto == "override":
+        clock.time = 1.05
+        result = app.watchdog(replace(request(p, now=1.05).observation, driver_override=True))
+    else:
+        clock.time = 1.01
+
+        def deny(*args):
+            clock.time = 1.11
+            return None
+
+        authority.callback = deny
+        result = app.process(request(p, sequence=1, now=1.01, revision=1, value=11.0))
+    assert result.reason is R.HOLD_EXPIRED and result.state is S.FAULTED
+    assert result.effective_parameters == baseline(p).values
+    assert app.process(request(p, sequence=2, now=clock.time, revision=2)).reason is R.FAULT_LATCHED
+
+
+@pytest.mark.parametrize("kind", ["hold", "source"])
+def test_watchdog_revalidates_after_snapshot_callback(kind):
+    p, clock, target, authority, _ = system()
+    if kind == "source":
+        p = replace(p, maximum_source_age_s=0.1, maximum_hold_s=10.0)
+        authority.callback = lambda item, policy, now: AuthorizationGrant(
+            "d" * 32, item.digest, policy.digest, item.evidence.digest, now, now + 10.0
+        )
+    app = BoundedSteeringApplicator(p, baseline(p), target, authority, clock)
+    app.process(request(p))
+    clock.time = 1.01
+    snapshot = target.snapshot
+    delayed = [False]
+
+    def slow_snapshot():
+        value = snapshot()
+        if not delayed[0]:
+            clock.time += 0.6 if kind == "hold" else 0.2
+            delayed[0] = True
+        return value
+
+    target.snapshot = slow_snapshot
+    result = app.watchdog(request(p, now=1.01).observation)
+    assert result.reason is (R.HOLD_EXPIRED if kind == "hold" else R.STALE_SOURCE)
+    assert result.state is (S.FAULTED if kind == "hold" else S.READY)
+    assert result.effective_parameters == baseline(p).values
+
+
+@pytest.mark.parametrize("phase", ["authorization", "precommit", "readback"])
+def test_maximum_authorization_age_is_checked_at_current_time(phase):
+    p, clock, target, authority, _ = system()
+    p = replace(p, maximum_authorization_age_s=0.01)
+    app = BoundedSteeringApplicator(p, baseline(p), target, authority, clock)
+    if phase == "authorization":
+
+        def delayed(item, policy, now):
+            clock.time += 0.1
+            return AuthorizationGrant(
+                "d" * 32, item.digest, policy.digest, item.evidence.digest, now, now + 0.5
+            )
+
+        authority.callback = delayed
+    elif phase == "precommit":
+        snapshot = target.snapshot
+
+        def delayed_snapshot():
+            value = snapshot()
+            if target.reads == 2:
+                clock.time += 0.1
+            return value
+
+        target.snapshot = delayed_snapshot
+    else:
+        commit = target.commit
+
+        def delayed_commit(revision, values):
+            ack = commit(revision, values)
+            clock.time += 0.1
+            return ack
+
+        target.commit = delayed_commit
+    result = app.process(request(p))
+    assert result.reason is R.AUTHORIZATION_INVALID and result.state is S.FAULTED
+    if phase in ("authorization", "precommit"):
+        assert not target.writes
+    else:
+        assert result.effective_parameters == baseline(p).values
+
+
+def test_grant_issued_at_actual_authorization_completion_is_not_future():
+    p, clock, _, authority, app = system()
+
+    def delayed(item, policy, now):
+        clock.time += 0.1
+        return AuthorizationGrant(
+            "d" * 32, item.digest, policy.digest, item.evidence.digest, clock.time, clock.time + 0.5
+        )
+
+    authority.callback = delayed
+    assert app.process(request(p)).reason is R.VERIFIED
+
+
+@pytest.mark.parametrize("trigger", ["disarm", "malformed", "replay"])
+def test_recovery_duration_starts_at_entry_not_last_transaction(trigger):
+    p, clock, _, _, app = system()
+    item = request(p)
+    app.process(item)
+    clock.time = 1.4  # old grant still valid; rollback itself takes zero synthetic time
+    if trigger == "disarm":
+        result = app.disarm()
+        expected_state = S.DISARMED
+    else:
+        result = app.process(None if trigger == "malformed" else item)
+        expected_state = S.READY
+    assert result.state is expected_state and result.recovery_reason is None
+    assert result.effective_parameters == baseline(p).values
+
+
+def test_second_steering_selector_uses_the_same_bounded_transaction_and_rollback():
+    from cyberpilot_autotune.contracts import ParameterSpec
+
+    p, clock, target, authority, _ = system()
+    friction = ParameterSpec(
+        "friction",
+        "synthetic.not_for_vehicle",
+        0.0,
+        1.0,
+        0.2,
+        0.1,
+        "synthetic only; not a physical friction calibration",
+        False,
+    )
+    p = replace(p, parameters=(*p.parameters, friction))
+    app = BoundedSteeringApplicator(p, baseline(p), target, authority, clock)
+    item = request(p)
+    item = replace(
+        item,
+        proposal=replace(
+            item.proposal, parameter_id="friction", baseline_value=0.5, proposed_value=0.6
+        ),
+    )
+    result = app.process(item)
+    assert result.reason is R.VERIFIED
+    assert result.effective_parameters["friction"] == 0.6
+    assert result.effective_parameters["lat_accel_factor"] == 10.0
+    assert result.effective_parameters["lat_accel_offset"] == 0.0
+    assert app.disarm().effective_parameters == baseline(p).values

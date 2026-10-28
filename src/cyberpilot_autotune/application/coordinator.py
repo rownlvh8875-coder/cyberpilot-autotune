@@ -134,8 +134,13 @@ class BoundedSteeringApplicator:
 
     def _restore(self) -> bool:
         """Restore only a coherent owned revision; never overwrite a foreign state."""
-        started = self._last_clock
+        started = None
         try:
+            try:
+                started = self._now()
+            except _Reject:
+                self._state = S.FAULTED
+                self._recovery_reason = R.CLOCK_FAULT
             current = self._read(recovery=True)
             if not self._same(current, self._expected) and not (
                 self._pending is not None and self._same(current, self._pending)
@@ -181,6 +186,13 @@ class BoundedSteeringApplicator:
     def _reject(
         self, reason: R, sequence: int | None = None, *, fault: bool = False
     ) -> ApplicationReceipt:
+        # Reserve/authority/source rejection may precede a normal clock refresh.
+        # Observe an existing hold before recovery can clear its expiry evidence.
+        if self._active_until_s is not None:
+            try:
+                self._hold(self._now())
+            except _Reject as exc:
+                reason, fault = exc.reason, True
         if fault:
             self._state = S.FAULTED
             self._observed = None
@@ -279,9 +291,17 @@ class BoundedSteeringApplicator:
             raise _Reject(R.CONFIDENCE)
 
     def _grant(self, item: SteeringRequest, now: float) -> AuthorizationGrant:
+        started = now
+        issued_now = self._now()
+        self._work_deadline(issued_now, started)
+        failed = False
         try:
-            raw = self._authority.authorize(item, self._policy, now)
+            raw = self._authority.authorize(item, self._policy, issued_now)
         except Exception:
+            raw, failed = None, True
+        now = self._now()
+        self._work_deadline(now, started)
+        if failed:
             raise _Reject(R.AUTHORIZATION_INVALID, fault=True) from None
         if raw is None:
             raise _Reject(R.AUTHORIZATION_DENIED)
@@ -303,13 +323,23 @@ class BoundedSteeringApplicator:
             raise _Reject(R.AUTHORIZATION_INVALID, fault=True)
         return grant
 
-    def _deadline(self, now: float, started: float, grant: AuthorizationGrant) -> None:
+    def _hold(self, now: float) -> None:
         if self._active_until_s is not None and now >= self._active_until_s:
             raise _Reject(R.HOLD_EXPIRED, fault=True)
-        if now >= grant.expires_at_s or Fraction(now) - Fraction(started) > Fraction(
-            self._policy.maximum_transaction_s
-        ):
+
+    def _work_deadline(self, now: float, started: float) -> None:
+        self._hold(now)
+        if Fraction(now) - Fraction(started) > Fraction(self._policy.maximum_transaction_s):
             raise _Reject(R.TRANSACTION_TIMEOUT, fault=True)
+
+    def _deadline(self, now: float, started: float, grant: AuthorizationGrant) -> None:
+        self._work_deadline(now, started)
+        if now >= grant.expires_at_s:
+            raise _Reject(R.TRANSACTION_TIMEOUT, fault=True)
+        if grant.issued_at_s > now or Fraction(now) - Fraction(grant.issued_at_s) > Fraction(
+            self._policy.maximum_authorization_age_s
+        ):
+            raise _Reject(R.AUTHORIZATION_INVALID, fault=True)
 
     def process(self, raw: object) -> ApplicationReceipt:
         self._observed = None
@@ -394,10 +424,12 @@ class BoundedSteeringApplicator:
             return self._receipt(R.FAULT_LATCHED if self._state is S.FAULTED else R.DISARMED)
         try:
             now = self._now()
+            self._hold(now)
             self._source(observation, now)
-            if self._active_until_s is not None and now >= self._active_until_s:
-                raise _Reject(R.HOLD_EXPIRED, fault=True)
             current = self._read()
+            finished = self._now()
+            self._hold(finished)
+            self._source(observation, finished)
             if not self._same(current, self._expected):
                 raise _Reject(R.TARGET_CONFLICT, fault=True)
             return self._receipt(R.UNCHANGED)
