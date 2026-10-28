@@ -23,10 +23,23 @@ class CacheEntry[T]:
     health: TopicHealthEvidence
 
 
+@dataclass(frozen=True, slots=True)
+class CacheMetrics:
+    entries: int
+    poisoned_key_count: int
+    eviction_count: int
+
+
 class ExactCache[T: SourceCommandEvidence | SourceCarStateEvidence]:
     def __init__(self, maximum_entries: int) -> None:
         self._capacity = capacity(maximum_entries)
         self._entries: dict[int, CacheEntry[T] | None] = {}
+        self._poisoned_key_count = 0
+        self._eviction_count = 0
+
+    @property
+    def metrics(self) -> CacheMetrics:
+        return CacheMetrics(len(self._entries), self._poisoned_key_count, self._eviction_count)
 
     def __len__(self) -> int:
         return len(self._entries)
@@ -41,6 +54,8 @@ class ExactCache[T: SourceCommandEvidence | SourceCarStateEvidence]:
         entry = CacheEntry(replace(evidence), replace(health))
         if timestamp_ns in self._entries:
             if self._entries[timestamp_ns] != entry:
+                if self._entries[timestamp_ns] is not None:
+                    self._poisoned_key_count += 1
                 self._entries[timestamp_ns] = None
             return
         self._entries[timestamp_ns] = entry
@@ -49,9 +64,12 @@ class ExactCache[T: SourceCommandEvidence | SourceCarStateEvidence]:
     def _trim(self) -> None:
         if len(self._entries) > self._capacity:
             del self._entries[min(self._entries)]
+            self._eviction_count += 1
 
     def poison(self, timestamp_ns: int) -> None:
         uint64(timestamp_ns)
+        if timestamp_ns not in self._entries or self._entries[timestamp_ns] is not None:
+            self._poisoned_key_count += 1
         self._entries[timestamp_ns] = None
         self._trim()
 

@@ -18,7 +18,7 @@ from cyberpilot_autotune.adapters.carrot_receipt_contract import (
 from cyberpilot_autotune.contracts.validation import parameters
 
 from .availability import INTEGRATION_MERGE, SCHEMA_REVISION, SOURCE_REVISION, require_schema
-from .cache import ExactCache, capacity
+from .cache import CacheMetrics, ExactCache, capacity
 from .errors import CarrotInputError, CarrotSessionRequired
 from .extraction import (
     DecodedTopicSample,
@@ -168,6 +168,11 @@ class CarrotReadOnlyAdapter:
     @property
     def next_sequence(self) -> int:
         return self._next_sequence
+
+    @property
+    def cache_metrics(self) -> tuple[CacheMetrics, CacheMetrics]:
+        """Frozen observations only; never expose cache entries or alter admission."""
+        return self._commands.metrics, self._states.metrics
 
     @property
     def previous_host_apply_ns(self) -> int | None:
