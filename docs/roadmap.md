@@ -1,7 +1,8 @@
 # Roadmap after Phase 0-4
 
 Phase 5 is implemented in the separate shadow residual-statistics change described
-below. Phases 6 onward remain unimplemented. The pinned source audit is retained
+below. The synthetic subset of historical Phase 7 is also implemented. Phase 6
+and actual vehicle/log integration remain unimplemented. The pinned source audit is retained
 as provenance evidence; no reference code is copied.
 
 User authorization update: after admission hardening, the next single work item is
@@ -32,14 +33,20 @@ location, maximum size, reset/expiry and opt-in policy. Test truncation at every
 stage, replacement failure, checksum mismatch, incompatible state and safe
 baseline fallback. Filesystem/OS guarantees must be explicitly scoped.
 
-## Phase 7: Deterministic replay harness (next single work item, not implemented)
+## Phase 7: Deterministic replay harness (synthetic subset implemented)
 
-Implement the deterministic schema in replay_spec.md with one small synthetic
-golden fixture. Compare baseline versus shadow; report proposal count, rejection
-reason counts, override/saturation exclusions, maximum proposed delta, invariant
-violations, runtime latency and deterministic hash. Test malformed/unknown units,
-reordered sequences, invalid timestamps, corruption and repeated fresh-process
-hash identity. Real logs require a separate authorized data policy.
+Implemented the strict schema in replay_spec.md and a small synthetic golden
+fixture. Fresh OFF/SHADOW runs report proposal/eligible counts, rejection reasons,
+override/saturation exclusions, exact maximum delta, independent violations,
+separate runtime latency and a configuration/input/trace digest. Tests reject
+malformed data, unknown units, nonfinite values and regressed evaluation clocks;
+observation sequence/capture anomalies are characterized at runtime, not filtered.
+An explicit read-only CLI verifies aggregate/focused metrics, sample counts and
+scenario/configuration/result digests; no automatic golden update exists. Two
+fresh processes and the CI matrix must reproduce the pinned golden digest.
+See replay_acceptance.md for software checks and explicit limits. Real logs need
+a separately authorized data/provenance policy and acceptance criteria. This
+synthetic milestone does not authorize persistence or vehicle integration.
 
 ## Phase 8: Optional Carrot adapter
 

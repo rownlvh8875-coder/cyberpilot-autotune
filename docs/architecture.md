@@ -65,3 +65,18 @@ admission. A faulted engine cannot resume; a replacement in the same monotonic
 stream may use a reset learner, while a restarted sequence/time domain requires
 a new learner instance. Each engine
 owns its learner exclusively. Persistence and external data ingestion remain absent.
+
+The separately authorized synthetic replay harness lives in replay/. It validates
+an explicit JSON string before execution, constructs fresh OFF/SHADOW engines,
+and checks traces independently against trusted baseline and numerical limits.
+It has no file/network API, vehicle log decoder or persistent learner state.
+Canonical input/policy/result hashes exclude separately measured latency. See
+replay_spec.md and replay_acceptance.md. Engine, gate and learner algorithms stay
+unchanged; all calls use the existing admission boundary.
+
+The explicit replay CLI is the sole package boundary that reads local fixture
+files. It never writes them. Pure replay APIs still have no file IO. Schema passes
+observation-order anomalies to the unchanged engine, while independent replay
+checks maintain sequence/time maxima. Same-run sample counts are returned as a
+separate characterization sidecar, preserving historical result-hash bytes and
+verifying focused expectations directly. See replay_ordering.md.

@@ -22,9 +22,13 @@ jobs:
       - run: python -m ruff format --check .
       - run: python -m mypy src/cyberpilot_autotune
       - run: python -m pytest -q
-      - run: python -m pytest --cov=cyberpilot_autotune --cov-report=term-missing --cov-fail-under=85
+      - run: python -m pytest --cov=cyberpilot_autotune --cov-report=term-missing --cov-fail-under=90
       - run: python -m coverage report --include="*/safety/*" --fail-under=95
       - run: python -m coverage report --include="*/core/residual.py" --fail-under=95
+      - run: python -m coverage report --include="*/replay/*" --fail-under=95
+      - name: Verify pinned synthetic golden evidence across fresh processes
+        run: python -m pytest tests/integration/test_replay_golden.py tests/integration/test_replay_focused.py -q
+      - run: python -m cyberpilot_autotune.replay.cli verify-all tests/fixtures/replay
       - run: python -m build
       - name: Install wheel in isolated environment and import outside checkout
         shell: bash
@@ -35,6 +39,8 @@ jobs:
           else
             wheel_python="$RUNNER_TEMP/wheel-env/bin/python"
           fi
-          "$wheel_python" -m pip install dist/*.whl
+          "$wheel_python" -m pip install --no-deps dist/*.whl
+          fixture_directory="$GITHUB_WORKSPACE/tests/fixtures/replay"
           cd "$RUNNER_TEMP"
-          "$wheel_python" -I -c "import cyberpilot_autotune.core.residual, cyberpilot_autotune.safety, cyberpilot_autotune.runtime"
+          "$wheel_python" -I -c "import cyberpilot_autotune, pkgutil, importlib; [importlib.import_module(m.name) for m in pkgutil.walk_packages(cyberpilot_autotune.__path__, 'cyberpilot_autotune.')]"
+          "$wheel_python" -I -m cyberpilot_autotune.replay.cli verify-all "$fixture_directory"

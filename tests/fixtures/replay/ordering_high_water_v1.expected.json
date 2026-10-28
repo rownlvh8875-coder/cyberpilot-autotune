@@ -1,0 +1,173 @@
+{
+  "event_count": 16,
+  "proposal_count": 2,
+  "eligible_count": 2,
+  "rejection_counts": {
+    "OUT_OF_ORDER": 6,
+    "FUTURE_TIMESTAMP": 1,
+    "CONTROL_INACTIVE": 1
+  },
+  "override_exclusion_count": 0,
+  "saturation_exclusion_count": 0,
+  "maximum_proposed_delta": [
+    1,
+    2
+  ],
+  "invariant_violations": 0,
+  "internal_error_count": 0,
+  "software_checks_passed": true,
+  "sha256": "7a6b70118a247342ea68453bf7b6193088e374dc974b1e3fb8b9416ff25e1ae2",
+  "scenario_sha256": "107698ff144c9a6411268bc52dab1d72f085ba72623119c56a5294647bc4a2eb",
+  "configuration_sha256": "685d4192b1043704bf77d993ed176b74b47dfdad7baa142b4e404a565d4a9a0b",
+  "result_sha256": "7a6b70118a247342ea68453bf7b6193088e374dc974b1e3fb8b9416ff25e1ae2",
+  "events": [
+    {
+      "reason_codes": [],
+      "observation_sequence": 10,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 1,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [],
+      "observation_sequence": 11,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 2,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "OUT_OF_ORDER"
+      ],
+      "observation_sequence": 11,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "OUT_OF_ORDER"
+      ],
+      "observation_sequence": 9,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "OUT_OF_ORDER"
+      ],
+      "observation_sequence": 12,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "FUTURE_TIMESTAMP"
+      ],
+      "observation_sequence": 13,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [],
+      "observation_sequence": 14,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 1,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "CONTROL_INACTIVE"
+      ],
+      "observation_sequence": 15,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "OUT_OF_ORDER"
+      ],
+      "observation_sequence": 15,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [],
+      "observation_sequence": 16,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 1,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "OUT_OF_ORDER"
+      ],
+      "observation_sequence": 17,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "OUT_OF_ORDER"
+      ],
+      "observation_sequence": 18,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": null,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [],
+      "observation_sequence": 19,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 1,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [],
+      "observation_sequence": 20,
+      "proposal_count": 0,
+      "eligible_count": 0,
+      "sample_count": 2,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "ACCEPTED_FOR_SHADOW"
+      ],
+      "observation_sequence": 21,
+      "proposal_count": 1,
+      "eligible_count": 1,
+      "sample_count": 3,
+      "baseline_retained": true
+    },
+    {
+      "reason_codes": [
+        "ACCEPTED_FOR_SHADOW"
+      ],
+      "observation_sequence": 22,
+      "proposal_count": 1,
+      "eligible_count": 1,
+      "sample_count": 4,
+      "baseline_retained": true
+    }
+  ]
+}
