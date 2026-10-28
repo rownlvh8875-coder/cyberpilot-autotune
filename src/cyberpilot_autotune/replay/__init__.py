@@ -1,6 +1,6 @@
 """Explicit synthetic replay inputs; no persistence or real-log integration."""
 
-from .runner import ReplayLatency, ReplayReport, ReplaySummary, run_replay
+from .runner import ReplayLatency, ReplayReport, ReplaySummary, characterize_replay, run_replay
 from .schema import ReplayEvent, ReplayScenario, load_replay
 
 __all__ = [
@@ -11,4 +11,5 @@ __all__ = [
     "ReplaySummary",
     "load_replay",
     "run_replay",
+    "characterize_replay",
 ]

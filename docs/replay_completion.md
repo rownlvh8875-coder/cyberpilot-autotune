@@ -55,3 +55,18 @@ engine. Independent checker uses maxima for prior sequence and safe capture time
 including rejected frames. Regression: 426 passed; lint/format/type/diff checks pass.
 Historical aggregate result digest remains unchanged. Engine, gate and residual
 learner source files are untouched.
+
+## Digest separation and learner characterization
+
+RED: the three digest properties and characterization API were absent. GREEN:
+scenario_sha256 hashes the whole validated scenario; configuration_sha256 hashes
+exactly the seven user-specified configuration fields; result_sha256 hashes the
+unchanged deterministic report v1 bytes. digest remains an alias. Formatting,
+semantic input/policy/output mutations, timer independence and self-exclusion are
+tested. Aggregate digest remains 5434e0cd203a08fb97662d94b91d66665bb950ba8cb276f90597efc8af673af5.
+
+characterize_replay returns the report and immutable post-event sample counts
+from the same real learner run. This sidecar does not change the historical report
+projection; focused expected files and CLI compare it explicitly. None denotes
+an empty evidence window, never a fabricated zero observation. Ordering counts:
+1,2,None,None,None,None,1,None,None,1,None,None,1,2,3,4. Regression: 429 passed.

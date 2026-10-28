@@ -130,6 +130,31 @@ class ReplayReport:
 
     @property
     def digest(self) -> str:
+        """Compatibility alias for the historical deterministic report projection."""
+        return self.result_sha256
+
+    @property
+    def scenario_sha256(self) -> str:
+        return hashlib.sha256(canonical_bytes(self.scenario)).hexdigest()
+
+    @property
+    def configuration_sha256(self) -> str:
+        configuration = {
+            name: getattr(self.scenario, name)
+            for name in (
+                "scope",
+                "learner_version",
+                "time_domain",
+                "baseline_parameters",
+                "parameter_spec",
+                "gate_config",
+                "learner_config",
+            )
+        }
+        return hashlib.sha256(canonical_bytes(configuration)).hexdigest()
+
+    @property
+    def result_sha256(self) -> str:
         return hashlib.sha256(self.deterministic_bytes()).hexdigest()
 
     @property
@@ -247,6 +272,17 @@ def run_replay(
     scenario: ReplayScenario, *, timer_ns: Callable[[], int] = perf_counter_ns
 ) -> ReplayReport:
     """Run only validated synthetic scenarios, with fresh in-memory engines on every call."""
+    return characterize_replay(scenario, timer_ns=timer_ns)[0]
+
+
+def characterize_replay(
+    scenario: ReplayScenario, *, timer_ns: Callable[[], int] = perf_counter_ns
+) -> tuple[ReplayReport, tuple[int | None, ...]]:
+    """Return the report and same-run post-event learner sample counts, without IO.
+
+    None denotes an empty evidence window. The sidecar is outside the historical
+    report v1 hash projection and is separately checked by focused expectations.
+    """
     if type(scenario) is not ReplayScenario:
         raise ValidationError("run_replay requires ReplayScenario")
     scenario = replace(scenario)  # Revalidate before construction or execution of either engine.
@@ -259,15 +295,17 @@ def run_replay(
         gate=SafetyGate(registry, scenario.gate_config),
         clock=off_clock,
     )
+    learner = ResidualStatisticsLearner(scenario.parameter_spec, scenario.learner_config)
     shadow = AutoTuneEngine(
         mode=RuntimeMode.SHADOW,
         baseline_parameters=scenario.baseline_parameters,
-        learner=ResidualStatisticsLearner(scenario.parameter_spec, scenario.learner_config),
+        learner=learner,
         gate=SafetyGate(registry, scenario.gate_config),
         clock=shadow_clock,
     )
     off_results, shadow_results = [], []
     off_ns, shadow_ns = [], []
+    sample_counts: list[int | None] = []
     rejections: Counter[R] = Counter()
     proposal_count = eligible_count = violations = internal_errors = 0
     maximum_delta = Fraction(0)
@@ -281,6 +319,8 @@ def run_replay(
         off_ns.append(elapsed)
         shadow_result, elapsed = _measure(partial(shadow.step, event.observation), timer_ns)
         shadow_results.append(shadow_result)
+        statistics = learner.statistics
+        sample_counts.append(None if statistics is None else statistics.sample_count)
         shadow_ns.append(elapsed)
         violations += _violations(
             off_result, event, scenario, RuntimeMode.OFF, previous_capture, previous_sequence
@@ -322,10 +362,11 @@ def run_replay(
         violations,
         internal_errors,
     )
-    return ReplayReport(
+    report = ReplayReport(
         scenario,
         tuple(off_results),
         tuple(shadow_results),
         summary,
         ReplayLatency(tuple(off_ns), tuple(shadow_ns)),
     )
+    return report, tuple(sample_counts)
