@@ -66,3 +66,18 @@ def test_missing_session_and_malformed_submaster_cannot_open_bridge():
         source.SubMasterSource(ScriptedSubMaster([]), None)
     with pytest.raises(SidecarError, match="UNSUPPORTED_ENVIRONMENT"):
         source.SubMasterSource(object(), session())
+
+
+@pytest.mark.parametrize("api", [SimpleNamespace(), SimpleNamespace(SubMaster=None)])
+def test_missing_or_noncallable_receive_api_is_a_sanitized_environment_error(monkeypatch, api):
+    monkeypatch.setattr(source, "require_schema", binding)
+    original = builtins.__import__
+
+    def load(name, *args, **kwargs):
+        if name == "openpilot.cereal":
+            return SimpleNamespace(messaging=api)
+        return original(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", load)
+    with pytest.raises(SidecarError, match="UNSUPPORTED_ENVIRONMENT"):
+        source.require_live_dependencies()

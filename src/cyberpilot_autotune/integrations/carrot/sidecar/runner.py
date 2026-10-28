@@ -119,6 +119,8 @@ class SidecarRunner:
         try:
             self._now()
             self._source.poll(self._config.poll_timeout_ms, consume)
+            if self._fault is None:
+                self._now()
         except SidecarError as exc:
             if exc.topic is not None:
                 self._diag.received[exc.topic] += 1

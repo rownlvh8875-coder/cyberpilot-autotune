@@ -68,12 +68,37 @@ def test_malformed_receipt_fault_is_sticky_and_clears_latest_diagnostics(make):
 
 
 def test_local_monotonic_regression_requires_explicit_new_source_and_generation(make):
-    clock = iter([10_010_000_000, 10_010_000_000, 10_009_000_000])
+    clock = iter([10_010_000_000] * 3 + [10_009_000_000])
     runner = make([(), ()], clock=lambda: next(clock))
     runner.poll_once()
     with pytest.raises(SidecarError, match="MONOTONIC_REGRESSION"):
         runner.poll_once()
     assert runner.fault.code == "MONOTONIC_REGRESSION"
+
+
+@pytest.mark.parametrize("source_topics", [False, True])
+@pytest.mark.parametrize("elapsed_ns", [5_000_000_000, -1, None])
+def test_final_poll_without_output_updates_uptime_and_checks_clock(make, elapsed_ns, source_topics):
+    clock = [10_010_000_000]
+    runner = make([samples()[:2] if source_topics else ()], clock=lambda: clock[0])
+    sm = runner._source._sm
+    update = sm.update
+
+    def receive(timeout):
+        update(timeout)
+        clock[0] = None if elapsed_ns is None else clock[0] + elapsed_ns
+
+    sm.update = receive
+    if elapsed_ns is None or elapsed_ns < 0:
+        reason = "RUNTIME_INVARIANT_FAULT" if elapsed_ns is None else "MONOTONIC_REGRESSION"
+        with pytest.raises(SidecarError, match=reason):
+            runner.poll_once()
+        assert runner.diagnostics().session_fault_count == 1
+    else:
+        assert runner.poll_once() == ()
+        runner.close()
+        assert runner.diagnostics().uptime_s == elapsed_ns / 1e9
+        assert runner.diagnostics().session_state == "closed"
 
 
 def test_explicit_restart_never_automatically_recovers_and_normal_close_is_idempotent(make):

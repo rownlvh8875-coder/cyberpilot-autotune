@@ -49,8 +49,10 @@ generation inference or automatic reconnect is implemented.
   sources, rejected receipt consumption, unavailable fields and fault precedence.
 - [x] Full local regression/coverage, installed wheels and unchanged goldens;
   define pinned network-isolated CI and wheel checks.
-- [ ] Confirm remote CI and fresh independent whole-diff review at exact head.
-- [ ] Append-only push and new Draft PR; record review/check results externally.
+- [x] Initial exact-head push/PR CI: all 12 jobs passed. Fresh independent
+  whole-diff review found 0 Critical, 0 Important and 2 Minor issues.
+- [x] Append-only push and new [Draft PR #8](https://github.com/rownlvh8875-coder/cyberpilot-autotune/pull/8).
+  Final corrected-head review/check results are recorded there, without merging.
 
 ## Pinned SubMaster semantics
 
@@ -139,11 +141,11 @@ Phase 8B.2B is NOT_STARTED. Persistence and Apply are NOT_AUTHORIZED. No upstrea
 
 ## Implementation checkpoint
 
-Final local regression: 830 base tests and 999 combined actual-schema/audit tests
+Final local regression: 838 base tests and 1007 combined actual-schema/audit tests
 passed, with zero failures/skips. All 69 existing literal cases and four replay
 goldens remain unchanged. Overall branch-inclusive coverage is 98.75%; sidecar
-coverage is 98.36%, all Carrot integration coverage is 98.65%, and pure receipt
-contract/safety coverage is 100%. The focused sidecar suite passes 123 tests.
+coverage is 98.38%, all Carrot integration coverage is 98.66%, and pure receipt
+contract/safety coverage is 100%. The focused sidecar suite passes 131 tests.
 Ruff/format and strict mypy pass (46 source modules).
 The new frozen cache metrics do not change admission, eviction order or equality.
 
@@ -175,6 +177,14 @@ streams and the four existing Hyundai extraction cases preserve their baselines,
 and all four replay goldens verify. Both wheel and sdist build successfully.
 Exact-head independent review and remote push/PR CI are recorded in the Draft PR
 after this checkpoint; no vehicle or native IPC qualification is implied.
+
+The initial independent review at 3bd22ee18047dbd40edfeb53b666b2c789ae5671
+identified two minor issues. Both have RED/GREEN regressions: missing/noncallable
+receive constructors now fail inside the sanitized dependency/environment
+boundary; empty and CC/CS-only polls refresh uptime and validate the clock after
+polling, without replacing an existing sticky fault. Invalid or regressed clocks
+at that point stop the session. The corrected head receives a final read-only
+confirmation and a complete new CI run; those exact-head results live in PR #8.
 
 ## CLI input and stable exits
 

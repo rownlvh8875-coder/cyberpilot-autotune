@@ -38,11 +38,14 @@ def require_live_dependencies() -> MessagingAPI:
     require_schema()
     try:
         from openpilot.cereal import messaging
+
+        constructor = messaging.SubMaster
+        require(callable(constructor), SidecarReason.UNSUPPORTED_ENVIRONMENT)
     except ImportError:
         raise CarrotDependencyUnavailable() from None
     except Exception:
         raise SidecarError(SidecarReason.UNSUPPORTED_ENVIRONMENT) from None
-    return MessagingAPI(cast(Callable[..., SubMasterView], messaging.SubMaster))
+    return MessagingAPI(cast(Callable[..., SubMasterView], constructor))
 
 
 def open_live_source(session: SessionToken) -> "SubMasterSource":
