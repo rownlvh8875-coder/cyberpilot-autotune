@@ -41,10 +41,10 @@ Do not represent the synthetic cases as executed adapter behavior.
 
 ## Deliverables
 
-- [ ] Pin and hash the actually inspected source/schema/publisher/consumer files;
+- [x] Pin and hash the actually inspected source/schema/publisher/consumer files;
   record embedded opendbc tree/symlink layout and license/attribution limits in
   carrot_provenance.md plus carrot_source_manifest.json. Atomic docs commit.
-- [ ] Complete all Snapshot rows in carrot_signal_contract.md with exact sources,
+- [x] Complete all Snapshot rows in carrot_signal_contract.md with exact sources,
   types, units, sign limits, clocks, health, unavailable behavior and confidence.
   Include controller-aware saturation and baseline classification tables, source
   validity composition and age-at-anchor arithmetic without vehicle defaults.
