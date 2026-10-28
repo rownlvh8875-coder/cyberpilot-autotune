@@ -1,0 +1,1763 @@
+{
+  "schema_version": 1,
+  "reference_head": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "scope": "SYNTHETIC_CONTRACT_ONLY_NOT_A_VEHICLE_ADAPTER",
+  "synthetic_context_digest": "9cfeba0c38bb2151c49c157760d2774e7734fdcc977c183f81fded65b4d2df2a",
+  "cases": [
+    {
+      "id": "complete_active_allowed",
+      "kind": "torque",
+      "patch": {},
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": true,
+        "driver_override": false,
+        "speed_mps": 2.0,
+        "desired_curvature_inv_m": 0.0,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.0,
+        "source_age_s": 0.1,
+        "context_key": "carrot-contract-v1/r1/o2/torque/vm:9cfeba0c38bb2151c49c157760d2774e7734fdcc977c183f81fded65b4d2df2a/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "instant_limited",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.instantaneous_limit": "limited",
+        "attempt.source_command.instantaneous_limit": "limited",
+        "attempt.receipt.output_limit": "notLimited"
+      },
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": true,
+        "controller_saturated": true,
+        "source_valid": true,
+        "driver_override": false,
+        "speed_mps": 2.0,
+        "desired_curvature_inv_m": 0.0,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.0,
+        "source_age_s": 0.1,
+        "context_key": "carrot-contract-v1/r1/o2/torque/vm:9cfeba0c38bb2151c49c157760d2774e7734fdcc977c183f81fded65b4d2df2a/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "output_limited",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.instantaneous_limit": "notLimited",
+        "attempt.source_command.instantaneous_limit": "notLimited",
+        "attempt.receipt.output_limit": "limited"
+      },
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": true,
+        "controller_saturated": true,
+        "source_valid": true,
+        "driver_override": false,
+        "speed_mps": 2.0,
+        "desired_curvature_inv_m": 0.0,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.0,
+        "source_age_s": 0.1,
+        "context_key": "carrot-contract-v1/r1/o2/torque/vm:9cfeba0c38bb2151c49c157760d2774e7734fdcc977c183f81fded65b4d2df2a/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "both_limited",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.instantaneous_limit": "limited",
+        "attempt.source_command.instantaneous_limit": "limited",
+        "attempt.receipt.output_limit": "limited"
+      },
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": true,
+        "controller_saturated": true,
+        "source_valid": true,
+        "driver_override": false,
+        "speed_mps": 2.0,
+        "desired_curvature_inv_m": 0.0,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.0,
+        "source_age_s": 0.1,
+        "context_key": "carrot-contract-v1/r1/o2/torque/vm:9cfeba0c38bb2151c49c157760d2774e7734fdcc977c183f81fded65b4d2df2a/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "host_inactive",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.host_activity": "inactive"
+      },
+      "expected": {
+        "reason": "UNAVAILABLE_LIMIT",
+        "control_active": false,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "safety_disallowed",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.safety_permission": "disallowed"
+      },
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": false,
+        "controller_saturated": false,
+        "source_valid": true,
+        "driver_override": false,
+        "speed_mps": 2.0,
+        "desired_curvature_inv_m": 0.0,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.0,
+        "source_age_s": 0.1,
+        "context_key": "carrot-contract-v1/r1/o2/torque/vm:9cfeba0c38bb2151c49c157760d2774e7734fdcc977c183f81fded65b4d2df2a/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "safety_unavailable",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.safety_permission": "unavailable"
+      },
+      "expected": {
+        "reason": "UNAVAILABLE_ACTIVITY",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "host_unavailable",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.host_activity": "unavailable"
+      },
+      "expected": {
+        "reason": "UNAVAILABLE_ACTIVITY",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "return_unavailable",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.controller_output_returned": null
+      },
+      "expected": {
+        "reason": "UNAVAILABLE_ACTIVITY",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "unsupported_receipt",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.version": 0
+      },
+      "expected": {
+        "reason": "UNSUPPORTED_VERSION",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "legacy_observation",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.observation_version": 1
+      },
+      "expected": {
+        "reason": "UNSUPPORTED_VERSION",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "unsupported_measurement",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.version": 0
+      },
+      "expected": {
+        "reason": "UNSUPPORTED_VERSION",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "fallback",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.mode": "vehicleModelFallback"
+      },
+      "expected": {
+        "reason": "INVALID_MEASUREMENT",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "measurement_invalid",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.validity": "invalid"
+      },
+      "expected": {
+        "reason": "INVALID_MEASUREMENT",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "measurement_health_unknown",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.car_state_health": "unavailable"
+      },
+      "expected": {
+        "reason": "INVALID_MEASUREMENT",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "lp_health_invalid",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.live_parameters_health": "invalid"
+      },
+      "expected": {
+        "reason": "INVALID_MEASUREMENT",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "numeric_unavailable",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.measured_curvature_inv_m": null
+      },
+      "expected": {
+        "reason": "INVALID_MEASUREMENT",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "nonfinite_measurement",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.measured_curvature_inv_m": "NON_FINITE"
+      },
+      "expected": {
+        "reason": "INVALID_MEASUREMENT",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "speed_missing",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.input_speed_mps": null
+      },
+      "expected": {
+        "reason": "INVALID_MEASUREMENT",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "negative_speed",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.input_speed_mps": -1.0
+      },
+      "expected": {
+        "reason": "INVALID_MEASUREMENT",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "invalid_stiffness",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.effective_stiffness_factor": 0.0
+      },
+      "expected": {
+        "reason": "INVALID_MEASUREMENT",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "invalid_ratio",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.effective_steer_ratio": 0.0
+      },
+      "expected": {
+        "reason": "INVALID_MEASUREMENT",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "missing_exact_command",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command": null
+      },
+      "expected": {
+        "reason": "MISSING_SOURCE_COMMAND",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "missing_exact_carstate",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_car_state": null
+      },
+      "expected": {
+        "reason": "MISSING_SOURCE_CAR_STATE",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "latest_command_substitution",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.event_time.value_ns": 9990000000
+      },
+      "expected": {
+        "reason": "MISSING_SOURCE_COMMAND",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "latest_cs_substitution",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_car_state.event_time.value_ns": 9950000000
+      },
+      "expected": {
+        "reason": "MISSING_SOURCE_CAR_STATE",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "evicted_late_source",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command": null
+      },
+      "expected": {
+        "reason": "MISSING_SOURCE_COMMAND",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "repeated_command_distinct_apply",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.host_apply_time.value_ns": 10001000000,
+        "attempt.sequence": 1,
+        "attempt.previous_sequence": 0,
+        "attempt.previous_host_apply_ns": 10000000000,
+        "attempt.consumed_cohorts": [
+          [
+            9980000000,
+            10000000000
+          ]
+        ]
+      },
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": true,
+        "driver_override": false,
+        "speed_mps": 2.0,
+        "desired_curvature_inv_m": 0.0,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.001,
+        "source_age_s": 0.101,
+        "context_key": "carrot-contract-v1/r1/o2/torque/vm:9cfeba0c38bb2151c49c157760d2774e7734fdcc977c183f81fded65b4d2df2a/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10001000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "duplicate_cohort",
+      "kind": "torque",
+      "patch": {
+        "attempt.consumed_cohorts": [
+          [
+            9980000000,
+            10000000000
+          ]
+        ]
+      },
+      "expected": {
+        "reason": "DUPLICATE_COHORT",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "old_apply_after_eviction",
+      "kind": "torque",
+      "patch": {
+        "attempt.previous_host_apply_ns": 10000000000
+      },
+      "expected": {
+        "reason": "OUT_OF_ORDER",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "repeated_sequence",
+      "kind": "torque",
+      "patch": {
+        "attempt.previous_sequence": 0
+      },
+      "expected": {
+        "reason": "OUT_OF_ORDER",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "stale_receipt",
+      "kind": "torque",
+      "patch": {
+        "policy.maximum_receipt_age_s": 0.001
+      },
+      "expected": {
+        "reason": "STALE_RECEIPT",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "command_delay",
+      "kind": "torque",
+      "patch": {
+        "policy.maximum_command_to_apply_delay_s": 0.001
+      },
+      "expected": {
+        "reason": "COMMAND_DELAY",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "stale_cs",
+      "kind": "torque",
+      "patch": {
+        "policy.maximum_car_state_age_s": 0.001
+      },
+      "expected": {
+        "reason": "CAR_STATE_AGE",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "stale_lp",
+      "kind": "torque",
+      "patch": {
+        "policy.maximum_live_parameters_age_s": 0.001
+      },
+      "expected": {
+        "reason": "LIVE_PARAMETERS_AGE",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "stale_calculation",
+      "kind": "torque",
+      "patch": {
+        "policy.maximum_calculation_age_s": 0.001
+      },
+      "expected": {
+        "reason": "CALCULATION_AGE",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "stale_safety",
+      "kind": "torque",
+      "patch": {
+        "policy.maximum_safety_state_age_s": 0.001
+      },
+      "expected": {
+        "reason": "SAFETY_AGE",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "source_skew",
+      "kind": "torque",
+      "patch": {
+        "policy.maximum_source_skew_s": 0.001
+      },
+      "expected": {
+        "reason": "SOURCE_SKEW",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "clock_domain_mismatch",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.car_state_time.domain": "bootTime",
+        "attempt.source_car_state.event_time.domain": "bootTime"
+      },
+      "expected": {
+        "reason": "CLOCK_DOMAIN",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "negative_source_duration",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.live_parameters_time.value_ns": 9970000000
+      },
+      "expected": {
+        "reason": "TIME_ORDER",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "negative_safety_duration",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.safety_state_time.value_ns": 20001000000
+      },
+      "expected": {
+        "reason": "TIME_ORDER",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "controller_mismatch",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.controller_kind": "pid"
+      },
+      "expected": {
+        "reason": "CONTROLLER_MISMATCH",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "unknown_controller",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.controller_kind": "unknown",
+        "attempt.source_command.controller_kind": "unknown"
+      },
+      "expected": {
+        "reason": "CONTROLLER_MISMATCH",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "meb_pre_pid_target",
+      "kind": "mebCurvature",
+      "patch": {
+        "attempt.source_command.desired_target_curvature_inv_m": 0.125,
+        "attempt.source_command.requested_actuators.curvature": 0.25,
+        "attempt.receipt.final_requested_actuators.curvature": 0.25
+      },
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": true,
+        "driver_override": false,
+        "speed_mps": 2.0,
+        "desired_curvature_inv_m": 0.125,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.0,
+        "source_age_s": 0.1,
+        "context_key": "carrot-contract-v1/r1/o2/mebCurvature/vm:cf8cb5cd2d73521c7b17747661c8652cc34051c77faf4a8d5f1ca30789e344d7/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "meb_target_final_separation",
+      "kind": "mebCurvature",
+      "patch": {
+        "attempt.source_command.desired_target_curvature_inv_m": 0.125,
+        "attempt.source_command.requested_actuators.curvature": 0.25,
+        "attempt.receipt.final_requested_actuators.curvature": 0.25,
+        "attempt.receipt.controller_output_actuators.curvature": 0.0625,
+        "attempt.receipt.output_limit": "limited"
+      },
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": true,
+        "controller_saturated": true,
+        "source_valid": true,
+        "driver_override": false,
+        "speed_mps": 2.0,
+        "desired_curvature_inv_m": 0.125,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.0,
+        "source_age_s": 0.1,
+        "context_key": "carrot-contract-v1/r1/o2/mebCurvature/vm:cf8cb5cd2d73521c7b17747661c8652cc34051c77faf4a8d5f1ca30789e344d7/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "nonfinite_target",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.desired_target_curvature_inv_m": "NON_FINITE"
+      },
+      "expected": {
+        "reason": "INVALID_TARGET",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "missing_target",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.desired_target_curvature_inv_m": null
+      },
+      "expected": {
+        "reason": "INVALID_TARGET",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "target_unavailable",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.desired_target_state": "unavailable"
+      },
+      "expected": {
+        "reason": "INVALID_TARGET",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "static_context_mismatch",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.static_context_digest": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expected": {
+        "reason": "STATIC_CONTEXT_MISMATCH",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "baseline_epoch_mismatch",
+      "kind": "torque",
+      "patch": {
+        "attempt.baseline_epoch": 2
+      },
+      "expected": {
+        "reason": "BASELINE_MISMATCH",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "baseline_value_mismatch",
+      "kind": "torque",
+      "patch": {
+        "attempt.baseline_parameters.synthetic.test_only": 11.0
+      },
+      "expected": {
+        "reason": "BASELINE_MISMATCH",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "driver_override",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_car_state.steering_pressed": true
+      },
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": true,
+        "driver_override": true,
+        "speed_mps": 2.0,
+        "desired_curvature_inv_m": 0.0,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.0,
+        "source_age_s": 0.1,
+        "context_key": "carrot-contract-v1/r1/o2/torque/vm:9cfeba0c38bb2151c49c157760d2774e7734fdcc977c183f81fded65b4d2df2a/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "available_zero",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.input_speed_mps": 0.0,
+        "attempt.source_car_state.speed_mps": 0.0
+      },
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": true,
+        "driver_override": false,
+        "speed_mps": 0.0,
+        "desired_curvature_inv_m": 0.0,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.0,
+        "source_age_s": 0.1,
+        "context_key": "carrot-contract-v1/r1/o2/torque/vm:9cfeba0c38bb2151c49c157760d2774e7734fdcc977c183f81fded65b4d2df2a/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "float64_target_float32_request",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.desired_target_curvature_inv_m": 0.1,
+        "attempt.source_command.requested_actuators.curvature": 0.10000000149011612,
+        "attempt.receipt.final_requested_actuators.curvature": 0.10000000149011612,
+        "attempt.receipt.controller_output_actuators.curvature": 0.10000000149011612
+      },
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": true,
+        "driver_override": false,
+        "speed_mps": 2.0,
+        "desired_curvature_inv_m": 0.1,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.0,
+        "source_age_s": 0.1,
+        "context_key": "carrot-contract-v1/r1/o2/torque/vm:9cfeba0c38bb2151c49c157760d2774e7734fdcc977c183f81fded65b4d2df2a/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "outer_valid_false_previous_receipt",
+      "kind": "torque",
+      "patch": {
+        "attempt.outer_car_output_valid": false
+      },
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": true,
+        "driver_override": false,
+        "speed_mps": 2.0,
+        "desired_curvature_inv_m": 0.0,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.0,
+        "source_age_s": 0.1,
+        "context_key": "carrot-contract-v1/r1/o2/torque/vm:9cfeba0c38bb2151c49c157760d2774e7734fdcc977c183f81fded65b4d2df2a/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "outer_valid_true_malformed_receipt",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.final_requested_actuators": null
+      },
+      "expected": {
+        "reason": "INVALID_ACTUATORS",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "unknown_override",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_car_state.steering_pressed": null
+      },
+      "expected": {
+        "reason": "INVALID_SOURCE_CAR_STATE",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "unknown_override_producer",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_car_state.steering_pressed_supported": false
+      },
+      "expected": {
+        "reason": "INVALID_SOURCE_CAR_STATE",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "ambiguous_source_key",
+      "kind": "torque",
+      "patch": {
+        "attempt.exact_lookup_unambiguous": false
+      },
+      "expected": {
+        "reason": "MISSING_SOURCE_COMMAND",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "unhealthy_receipt_transport",
+      "kind": "torque",
+      "patch": {
+        "attempt.car_output_transport_healthy": false
+      },
+      "expected": {
+        "reason": "INVALID_INPUT",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "missing_command_time",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.source_command_time.value_ns": null
+      },
+      "expected": {
+        "reason": "MISSING_TIMESTAMP",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": null,
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "missing_calculation_time",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.measurement.calculation_time.value_ns": null
+      },
+      "expected": {
+        "reason": "MISSING_TIMESTAMP",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "unknown_instantaneous_state",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.instantaneous_limit": "unknown",
+        "attempt.source_command.instantaneous_limit": "unknown"
+      },
+      "expected": {
+        "reason": "UNAVAILABLE_LIMIT",
+        "control_active": true,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "instant_unavailable_output_limited",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.instantaneous_limit": "unavailable",
+        "attempt.source_command.instantaneous_limit": "unavailable",
+        "attempt.receipt.output_limit": "limited"
+      },
+      "expected": {
+        "reason": "ACCEPTED",
+        "control_active": true,
+        "controller_saturated": true,
+        "source_valid": true,
+        "driver_override": false,
+        "speed_mps": 2.0,
+        "desired_curvature_inv_m": 0.0,
+        "measured_curvature_inv_m": 0.0,
+        "timestamp_s": 10.0,
+        "source_age_s": 0.1,
+        "context_key": "carrot-contract-v1/r1/o2/torque/vm:9cfeba0c38bb2151c49c157760d2774e7734fdcc977c183f81fded65b4d2df2a/baseline:1",
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "unknown_output_limit",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.output_limit": "unavailable"
+      },
+      "expected": {
+        "reason": "UNAVAILABLE_LIMIT",
+        "control_active": true,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "source_instant_mismatch",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.instantaneous_limit": "limited"
+      },
+      "expected": {
+        "reason": "CONTROLLER_MISMATCH",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "source_cs_speed_mismatch",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_car_state.speed_mps": 3.0
+      },
+      "expected": {
+        "reason": "INVALID_SOURCE_CAR_STATE",
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "nonfinite_output",
+      "kind": "torque",
+      "patch": {
+        "attempt.receipt.controller_output_actuators.torque": "NON_FINITE"
+      },
+      "expected": {
+        "reason": "INVALID_ACTUATORS",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    },
+    {
+      "id": "source_request_mismatch",
+      "kind": "torque",
+      "patch": {
+        "attempt.source_command.requested_actuators.torque": 0.5
+      },
+      "expected": {
+        "reason": "INVALID_ACTUATORS",
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "driver_override": null,
+        "speed_mps": null,
+        "desired_curvature_inv_m": null,
+        "measured_curvature_inv_m": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "context_key": null,
+        "cohort_key": [
+          9980000000,
+          10000000000
+        ],
+        "baseline_unchanged": true
+      }
+    }
+  ]
+}

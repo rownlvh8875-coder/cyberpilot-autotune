@@ -13,7 +13,7 @@ from cyberpilot_autotune.adapters.base import ObservationAdapter
 
 ROOT = Path(__file__).resolve().parents[2]
 PACKAGE = ROOT / "src" / "cyberpilot_autotune"
-FORBIDDEN = {"openpilot", "cereal", "selfdrive", "common.params", "opendbc"}
+FORBIDDEN = {"openpilot", "cereal", "selfdrive", "common.params", "opendbc", "capnp"}
 CAPABILITIES = {"CarInterface", "CarInterfaceBase", "SubMaster"}
 
 
@@ -81,6 +81,7 @@ def test_adapter_exposes_only_readonly_conversion():
         "runtime",
         "telemetry.events",
         "adapters.base",
+        "adapters.carrot_receipt_contract",
         "contracts",
         "replay",
         "replay.runner",
@@ -97,7 +98,8 @@ def test_import_and_modes_have_no_io_network_threads_or_optional_dependencies(
             raise AssertionError('Forbidden side effect')
         class NoVehicleImports:
             def find_spec(self, fullname, *args):
-                if fullname.split('.')[0] in {'openpilot', 'cereal', 'selfdrive', 'opendbc'}:
+                forbidden_modules = {'openpilot', 'cereal', 'selfdrive', 'opendbc', 'capnp'}
+                if fullname.split('.')[0] in forbidden_modules:
                     raise AssertionError('Forbidden optional dependency')
         def audit(event, args):
             if event == 'open':
@@ -162,11 +164,26 @@ def test_import_and_modes_have_no_io_network_threads_or_optional_dependencies(
         assert len(report.digest) == 64
         if sys.argv[1] == 'replay.cli':
             assert package.main(['verify-all', sys.argv[2]]) == 0
-        assert not any(name.split('.')[0] in {'openpilot', 'cereal', 'selfdrive', 'opendbc'}
-                       for name in sys.modules)
+        if sys.argv[1] == 'adapters.carrot_receipt_contract':
+            sys.path.insert(0, sys.argv[3])
+            from tests.fixtures.carrot_v2 import complete, BASELINE
+            attempt, policy = complete()
+            decision = package.evaluate(attempt, policy, BASELINE)
+            assert decision.snapshot.source_valid
+            assert decision.snapshot.baseline_parameters == BASELINE
+        forbidden_modules = {'openpilot', 'cereal', 'selfdrive', 'opendbc', 'capnp'}
+        assert not any(name.split('.')[0] in forbidden_modules for name in sys.modules)
     """)
     result = subprocess.run(
-        [sys.executable, "-B", "-c", script, first_module, str(ROOT / "tests/fixtures/replay")],
+        [
+            sys.executable,
+            "-B",
+            "-c",
+            script,
+            first_module,
+            str(ROOT / "tests/fixtures/replay"),
+            str(ROOT),
+        ],
         cwd=tmp_path,
         capture_output=True,
         text=True,
