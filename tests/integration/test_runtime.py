@@ -68,7 +68,9 @@ def test_runtime_vetoes_retain_baseline(changes, expected):
     prime(runtime)
     learner.output = (proposal(),)
     result = runtime.step(observation(**changes))
-    assert result.gate_decisions[0].reason is expected
+    assert result.events[0].reason is expected
+    assert learner.calls == 1  # Only the prime frame was observed.
+    assert result.proposals == result.gate_decisions == ()
     assert result.effective_parameters == BASELINE
 
 
@@ -251,7 +253,10 @@ def test_gate_exception_after_partial_evaluation_discards_all_results(monkeypatc
     first = spec()
     second = spec(parameter_id="synthetic.second")
     baseline = {"synthetic.test_only": 10.0, "synthetic.second": 10.0}
-    g = SafetyGate({first.parameter_id: first, second.parameter_id: second}, GateConfig(1, 10, 0.8))
+    g = SafetyGate(
+        {first.parameter_id: first, second.parameter_id: second},
+        GateConfig(1, 10, 0.8, minimum_speed_mps=1),
+    )
     real_evaluate = g.evaluate
 
     def fail_on_second(snapshot, candidate, **kwargs):

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cyberpilot-autotune"
-version = "0.1.0a0"
+version = "0.1.0a2"
 description = "Independent fail-closed shadow-only controller tuning research"
 readme = "README.md"
 requires-python = ">=3.12.3,<3.13"

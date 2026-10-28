@@ -25,9 +25,21 @@ def main() -> None:
         "Test only; not for vehicle use; unrelated to real tuning",
         False,
     )
-    gate = SafetyGate({spec.parameter_id: spec}, GateConfig(1, 10, 0.8))
+    gate = SafetyGate({spec.parameter_id: spec}, GateConfig(1, 10, 0.8, minimum_speed_mps=1))
     snapshot = ObservationSnapshot(
-        10, 1, 0, "synthetic/test-only", True, 2, 0.01, 0, None, False, False, baseline
+        10,
+        1,
+        0,
+        "synthetic/test-only",
+        True,
+        2,
+        0.01,
+        0,
+        None,
+        False,
+        False,
+        baseline,
+        control_active=True,
     )
     clock: Clock = SyntheticClock()
     engine = AutoTuneEngine(

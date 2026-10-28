@@ -61,7 +61,16 @@ def test_adapter_exposes_only_readonly_conversion():
 
 
 @pytest.mark.parametrize(
-    "first_module", ["core", "safety", "runtime", "telemetry.events", "adapters.base", "contracts"]
+    "first_module",
+    [
+        "core",
+        "core.residual",
+        "safety",
+        "runtime",
+        "telemetry.events",
+        "adapters.base",
+        "contracts",
+    ],
 )
 def test_import_and_modes_have_no_io_network_threads_or_optional_dependencies(
     first_module, tmp_path
@@ -93,6 +102,9 @@ def test_import_and_modes_have_no_io_network_threads_or_optional_dependencies(
         for module in pkgutil.walk_packages(cyberpilot_autotune.__path__, 'cyberpilot_autotune.'):
             importlib.import_module(module.name)
         from cyberpilot_autotune.core.no_op import NoOpLearner
+        from cyberpilot_autotune.core.residual import (
+            ResidualStatisticsConfig, ResidualStatisticsLearner,
+        )
         from cyberpilot_autotune.contracts import ObservationSnapshot, ParameterSpec
         from cyberpilot_autotune.runtime.engine import AutoTuneEngine
         from cyberpilot_autotune.runtime.mode import RuntimeMode
@@ -102,14 +114,24 @@ def test_import_and_modes_have_no_io_network_threads_or_optional_dependencies(
         baseline = {'synthetic.test_only': 10.0}
         spec = ParameterSpec('synthetic.test_only', 'test_unit', 0, 20, 2, 1,
                              'Test only; not for vehicle use', False)
-        gate = SafetyGate({spec.parameter_id: spec}, GateConfig(1, 10, .8))
-        snapshot = ObservationSnapshot(10, 1, 0, 'test', True, 2, 0, 0, None,
-                                       False, False, baseline)
+        gate = SafetyGate({spec.parameter_id: spec}, GateConfig(1, 2, .8, minimum_speed_mps=1))
+        config = ResidualStatisticsConfig(.5, 2, 8, 1, 2, 10, 1, .5, .01, 2, minimum_speed_mps=1)
         for mode in RuntimeMode:
-            result = AutoTuneEngine(mode=mode, baseline_parameters=baseline,
-                                    learner=NoOpLearner(), gate=gate, clock=Clock()).step(snapshot)
-            assert result.effective_parameters == baseline
-            assert not any(event.reason.value == 'INTERNAL_ERROR' for event in result.events)
+            for learner in (NoOpLearner(), ResidualStatisticsLearner(spec, config)):
+                engine = AutoTuneEngine(mode=mode, baseline_parameters=baseline,
+                                       learner=learner, gate=gate, clock=Clock())
+                for sequence in range(2):
+                    snapshot = ObservationSnapshot(
+                        9 + sequence, sequence, 0, 'test', True, 2, .25, 0, None,
+                        False, False, baseline, control_active=True)
+                    result = engine.step(snapshot)
+                    assert result.effective_parameters == baseline
+                    assert not any(event.reason.value == 'INTERNAL_ERROR'
+                                   for event in result.events)
+                if isinstance(learner, ResidualStatisticsLearner) and mode is RuntimeMode.SHADOW:
+                    assert result.gate_decisions[0].eligible
+                    engine.step(None)
+                    assert learner.statistics is None
         assert not any(name.split('.')[0] in {'openpilot', 'cereal', 'selfdrive', 'opendbc'}
                        for name in sys.modules)
     """)

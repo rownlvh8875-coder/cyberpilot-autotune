@@ -1,10 +1,14 @@
 # Future deterministic replay specification (Phase 7, not implemented)
 
+This is the next single work item after admission hardening. The harness is not
+implemented by that hardening. Replay acceptance criteria must precede any later
+persistence work; persistent learner state remains unauthorized.
+
 Only small programmatically constructed synthetic observations are used today.
 There is no replay runner, real log reader or automatic driving-data collection.
 
 Proposed schema v1 will contain an ordered list of canonical observations,
-explicit source units, source validity and source age, monotonic timestamp
+explicit source units, source validity, actual control_active and source age, monotonic timestamp
 origin, sequence, a versioned nonidentifying context, baseline/spec snapshots and
 injected clock readings. Missing data will remain null and must never become zero.
 Reject unknown schema versions, non-finite JSON values, duplicate keys, unordered

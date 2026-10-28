@@ -24,6 +24,7 @@ Consumer/publisher: `openpilot/selfdrive/controls/controlsd.py`.
 
 | Snapshot field | Actual source and type | Unit evidence | Freshness / uncertainty |
 |---|---|---|---|
+| control_active | No actual mapping implemented | Explicit Bool/None for actual evaluated-controller activity | Unknown must veto; cruise/UI enabled is not an acceptable substitute; mapping requires a separate reviewed change |
 | speed_mps | CarState.vEgo Float32 | controlsd converts vEgo with MS_TO_KPH for display; canonical m/s | Require carState valid, alive and timestamp checks; speed magnitude/sign policy must be confirmed |
 | desired_curvature_inv_m | ControlsState.desiredCurvature Float32, assigned from self.desired_curvature in publish | latcontrol_torque multiplies desired_curvature by vEgo squared for lateral acceleration; geometric inverse meters | Model/plan lag and actual sign convention need adapter-specific tests |
 | measured_curvature_inv_m | ControlsState.curvature Float32; self.curvature = -VM.calc_curvature(...) | Vehicle-model path curvature; inverse meters from consumer equations | This is an estimate, not direct physical measurement; calibration validity needed |

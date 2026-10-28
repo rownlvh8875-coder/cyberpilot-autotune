@@ -1,19 +1,29 @@
 # Roadmap after Phase 0-4
 
-Everything below is unimplemented. The next change should be one small shadow-only
-learner PR, with the completed pinned source audit retained as provenance evidence.
+Phase 5 is implemented in the separate shadow residual-statistics change described
+below. Phases 6 onward remain unimplemented. The pinned source audit is retained
+as provenance evidence; no reference code is copied.
 
-## Phase 5: Conservative residual statistics learner
+User authorization update: after admission hardening, the next single work item is
+the deterministic replay harness (historical Phase 7), not persistence. Persistent
+learner state remains NOT_AUTHORIZED until replay acceptance criteria exist and
+explicit authorization is obtained. The historical phase numbers below are retained.
 
-Build context-aware residual statistics using robust EWMA or an equally
-conservative method. Require explicit minimum samples, reset rules for context
-and validity changes, maximum state age and documented confidence calculation.
-Return proposals only. Do not add controller references, IO or optimization
-dependencies. Test known synthetic residual streams, outliers, missing signals,
-override/saturation exclusion, resets, bounded memory, sample thresholds and two
-fresh deterministic runs. Show no claim of vehicle performance improvement.
+## Phase 5: Conservative residual statistics learner (implemented)
 
-## Phase 6: Persistence
+Implemented one-window EWMA residual and absolute-innovation statistics, explicit
+minimum/capped samples, context/baseline/age/gap resets, missing/invalid/outlier/
+override/saturation exclusions, optional engine reset lifecycle and heuristic
+confidence. All conversion policy is explicit. Proposals pass the existing
+independent Safety Gate and effective values remain baseline. Unit, property,
+integration and guarded architecture tests use synthetic values only. A new
+synthetic example is deterministic across fresh processes. See phase5_design.md
+and phase5_progress.md. No vehicle performance improvement is claimed.
+
+## Phase 6: Persistence (deferred, NOT_AUTHORIZED)
+
+Do not start this work before deterministic replay acceptance criteria are
+established and the owner explicitly authorizes persistence.
 
 Design schema and learner versions, checksum, temporary file write, fsync and
 atomic replace. Reject corruption, incompatible versions and incomplete writes;
@@ -22,7 +32,7 @@ location, maximum size, reset/expiry and opt-in policy. Test truncation at every
 stage, replacement failure, checksum mismatch, incompatible state and safe
 baseline fallback. Filesystem/OS guarantees must be explicitly scoped.
 
-## Phase 7: Replay framework
+## Phase 7: Deterministic replay harness (next single work item, not implemented)
 
 Implement the deterministic schema in replay_spec.md with one small synthetic
 golden fixture. Compare baseline versus shadow; report proposal count, rejection
