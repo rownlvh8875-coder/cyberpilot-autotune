@@ -45,3 +45,7 @@ select = ["E", "F", "I", "UP", "B"]
 python_version = "3.12"
 strict = true
 files = ["src/cyberpilot_autotune"]
+
+[[tool.mypy.overrides]]
+module = ["capnp", "openpilot.*"]
+ignore_missing_imports = true

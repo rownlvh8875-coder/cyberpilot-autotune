@@ -123,6 +123,19 @@ def test_actual_inactive_v2_has_no_nested_measurement_but_proves_inactivity():
     assert decision.controller_saturated is None and decision.snapshot is None
 
 
+def test_inactive_receipt_retains_false_without_inventing_a_source_car_state():
+    attempt, policy = complete()
+    command = replace(attempt.source_command, lat_active=False, instantaneous_limit="unavailable")
+    receipt = replace(attempt.receipt, host_activity="inactive", instantaneous_limit="unavailable")
+    result = evaluate(
+        replace(attempt, receipt=receipt, source_command=command, source_car_state=None),
+        policy,
+        BASELINE,
+    )
+    assert result.control_active is False
+    assert result.snapshot is None and result.reason.value == "UNAVAILABLE_LIMIT"
+
+
 @pytest.mark.parametrize(
     "name,value",
     [

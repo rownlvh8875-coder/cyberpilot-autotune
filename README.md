@@ -19,8 +19,11 @@ at carrot-wip `604bc0a22733e648ec05b268da1ffaae7db52a69`. The new
 with a pure message-neutral evaluator and executable synthetic cases. Exact
 receipt/source-command/source-CarState lookup, caller policy and immutable
 static context/baseline are mandatory. Unknown inputs fail closed. This proves
-neither physical response nor underlying planner quality. No actual cereal
-adapter or message cache is implemented; Phase 8B is NOT_STARTED.
+neither physical response nor underlying planner quality. Phase 8B.1 adds an
+[optional read-only extraction boundary](docs/carrot_phase8b_extraction.md) for
+explicitly supplied generated readers, exact bounded caches and qualified
+software sessions. It produces MappingDecision only. No live SubMaster loop,
+Engine/learner connection or vehicle installation is implemented.
 
 ## Shadow residual learner
 
