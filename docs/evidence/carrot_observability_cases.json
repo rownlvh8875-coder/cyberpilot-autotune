@@ -1,0 +1,2797 @@
+{
+  "schema_version": 1,
+  "scope": "SYNTHETIC_AUDIT_ONLY_NOT_AN_ADAPTER",
+  "reference_head": "4d89f044fc74138b0938f309ff8ea88d90faddcd",
+  "synthetic_policy": {
+    "maximum_age_s": 0.2,
+    "maximum_skew_s": 0.03
+  },
+  "meaning": "Literal conditional software-evidence truth tables, not source publisher execution or a production mapper. conditional_checks_passed only describes the synthetic subset; source_valid is false for every exact-pin case because mandatory measurement provenance is absent. MEB also lacks a same-command desired target. NON_FINITE is an explicit defect marker, not JSON NaN.",
+  "cases": [
+    {
+      "id": "active_allowed_no_limits",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": true
+      }
+    },
+    {
+      "id": "instantaneous_limited",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "limited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": true,
+        "source_valid": false,
+        "reasons": [
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": true
+      }
+    },
+    {
+      "id": "output_limited",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "limited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": true,
+        "source_valid": false,
+        "reasons": [
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": true
+      }
+    },
+    {
+      "id": "both_limited",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "limited",
+        "output_limit": "limited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": true,
+        "source_valid": false,
+        "reasons": [
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": true
+      }
+    },
+    {
+      "id": "host_inactive",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "inactive",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "unavailable",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": false,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "LIMIT_EVIDENCE_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "safety_disallowed",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "disallowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": false,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": true
+      }
+    },
+    {
+      "id": "safety_unavailable",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "unavailable",
+        "safety_state_ns": null,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "SAFETY_PERMISSION_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "output_unavailable",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "unavailable",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": null,
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "CONTROLLER_RETURN_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "legacy_receipt_v0",
+      "input": {
+        "receipt_version": 0,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "UNSUPPORTED_RECEIPT",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "evaluated_source_age_s": null,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "repeated_command_distinct_apply",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10001000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10001000000
+        ],
+        "timestamp_s": 10.001,
+        "source_age_s": 0.016,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": true
+      }
+    },
+    {
+      "id": "receipt_current_command_mismatch",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 10005000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "COMMAND_COHORT_MISMATCH",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "stale_receipt",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10300000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "STALE_RECEIPT",
+          "STALE_CAR_STATE",
+          "STALE_CONTROLS_STATE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.315,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "stale_car_state",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9700000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "STALE_CAR_STATE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.3,
+        "evaluated_source_age_s": 0.32,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "stale_controls_state",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9700000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "STALE_CONTROLS_STATE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.3,
+        "evaluated_source_age_s": 0.32,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "excessive_skew",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9960000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "EXCESSIVE_CAR_STATE_SKEW",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.04,
+        "evaluated_source_age_s": 0.06,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "controller_kind_mismatch",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "angle",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "CONTROLLER_KIND_MISMATCH",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "unknown_controller",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "unknown",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "CONTROLLER_KIND_MISMATCH",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "meb_real_pid",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "mebCurvature",
+        "expected_kind": "mebCurvature",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN",
+          "MEB_DESIRED_RESPONSE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": true
+      }
+    },
+    {
+      "id": "meb_dummy_only",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "mebCurvature",
+        "expected_kind": "mebCurvature",
+        "calculation_version": 1,
+        "instantaneous": "unavailable",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "limited",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "LIMIT_EVIDENCE_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN",
+          "MEB_DESIRED_RESPONSE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "nonfinite_actuator",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          "NON_FINITE",
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "ACTUATORS_UNAVAILABLE_OR_NONFINITE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "outer_valid_false_complete",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": false,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": true
+      }
+    },
+    {
+      "id": "outer_valid_true_malformed",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": null,
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "ACTUATORS_UNAVAILABLE_OR_NONFINITE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "baseline_mismatch",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 11
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "BASELINE_MISMATCH",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "measurement_unavailable",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": false,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "MEASUREMENT_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "source_clock_domain_mismatch",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "bootTime",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "INVALID_COHORT_CLOCK",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": null,
+        "timestamp_s": null,
+        "source_age_s": null,
+        "evaluated_source_age_s": null,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "simulation",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "unavailable",
+        "safety_state_ns": null,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "SAFETY_PERMISSION_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "replay",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "unavailable",
+        "safety_state_ns": null,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "SAFETY_PERMISSION_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "missing_panda",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "unavailable",
+        "safety_state_ns": null,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "SAFETY_PERMISSION_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "invalid_panda",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "unavailable",
+        "safety_state_ns": null,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "SAFETY_PERMISSION_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "mixed_multi_panda",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "unavailable",
+        "safety_state_ns": null,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "SAFETY_PERMISSION_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "reboot_suppression",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "inactive",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "unavailable",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": false,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "LIMIT_EVIDENCE_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "lateral_readiness_suppression",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "inactive",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "unavailable",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": false,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "LIMIT_EVIDENCE_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "stale_dead_command",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "unavailable",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "unknown",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": null,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "CONTROLLER_KIND_MISMATCH",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "boot_clock_suspend_offset",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 1009980000000,
+        "safety_observation_ns": 1010000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": true
+      }
+    },
+    {
+      "id": "unknown_wire_limit",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "65535",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": null,
+        "source_valid": false,
+        "reasons": [
+          "LIMIT_EVIDENCE_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "future_car_state",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 10001000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "CAR_STATE_ALIGNMENT_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": null,
+        "evaluated_source_age_s": null,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "unhealthy_car_state",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": false,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "CAR_STATE_UNHEALTHY",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "unhealthy_controls_state",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": false,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "CONTROLS_STATE_UNHEALTHY",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    },
+    {
+      "id": "driver_override",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": 4,
+        "driver_override": true,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": true
+      }
+    },
+    {
+      "id": "speed_unavailable",
+      "input": {
+        "receipt_version": 1,
+        "command_ns": 9990000000,
+        "apply_ns": 10000000000,
+        "command_domain": "monotonic",
+        "apply_domain": "monotonic",
+        "host": "active",
+        "safety": "allowed",
+        "safety_state_ns": 9980000000,
+        "safety_observation_ns": 10000000000,
+        "safety_domain": "bootTime",
+        "safety_observation_domain": "bootTime",
+        "returned": "returned",
+        "request_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "returned_actuators": [
+          0.25,
+          2,
+          0.001
+        ],
+        "kind": "torque",
+        "expected_kind": "torque",
+        "calculation_version": 1,
+        "instantaneous": "notLimited",
+        "output_limit": "notLimited",
+        "dummy_angle_limit": "unavailable",
+        "joined_command_ns": 9990000000,
+        "car_state_ns": 9995000000,
+        "controls_state_ns": 9985000000,
+        "car_state_domain": "monotonic",
+        "controls_state_domain": "monotonic",
+        "car_state_healthy": true,
+        "controls_state_healthy": true,
+        "measurement_valid": true,
+        "receipt_transport_healthy": true,
+        "outer_valid": true,
+        "speed_mps": null,
+        "driver_override": false,
+        "evaluation_ns": 10020000000,
+        "baseline_parameters": {
+          "synthetic.test_only": 10
+        },
+        "trusted_baseline": {
+          "synthetic.test_only": 10
+        }
+      },
+      "expected": {
+        "control_active": true,
+        "controller_saturated": false,
+        "source_valid": false,
+        "reasons": [
+          "SPEED_UNAVAILABLE",
+          "MEASUREMENT_PROVENANCE_UNPROVEN_AT_PIN"
+        ],
+        "cohort_key": [
+          9990000000,
+          10000000000
+        ],
+        "timestamp_s": 10,
+        "source_age_s": 0.015,
+        "evaluated_source_age_s": 0.035,
+        "baseline_unchanged": true,
+        "conditional_checks_passed": false
+      }
+    }
+  ],
+  "contract_status": "CONTRACT_BLOCKED_REQUIRED_SIGNAL_UNRESOLVED",
+  "blockers": [
+    "BLOCKED_MEASUREMENT_PROVENANCE",
+    "BLOCKED_MEB_DESIRED_RESPONSE_SEMANTICS"
+  ]
+}
