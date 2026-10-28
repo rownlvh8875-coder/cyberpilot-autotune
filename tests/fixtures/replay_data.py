@@ -73,3 +73,36 @@ def replay_document():
         },
         "events": [replay_event(index) for index in range(3)],
     }
+
+
+def ordering_document():
+    """Test only: enough age budget to isolate order vetoes from stale vetoes."""
+    document = replay_document()
+    document["gate_config"]["maximum_observation_age_s"] = 100.0
+    document["learner_config"].update(
+        maximum_source_age_s=100.0, maximum_sample_gap_s=100.0, maximum_state_age_s=100.0
+    )
+    coordinates = [
+        (10, 10),
+        (11, 11),
+        (11, 12),
+        (9, 13),
+        (12, 12),
+        (13, 100),
+        (14, 16),
+        (15, 17),
+        (15, 18),
+        (16, 19),
+        (17, 19),
+        (18, 18),
+        (19, 22),
+        (20, 23),
+        (21, 24),
+        (22, 25),
+    ]
+    document["events"] = [
+        replay_event(i, sequence=sequence, timestamp_s=float(timestamp))
+        for i, (sequence, timestamp) in enumerate(coordinates)
+    ]
+    document["events"][7]["observation"]["control_active"] = False
+    return document

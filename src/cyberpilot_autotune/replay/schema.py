@@ -104,8 +104,6 @@ class ReplayScenario:
         if not 0 < len(events) <= MAX_EVENTS:
             raise ValidationError("replay must contain 1..1000 events")
         events = tuple(replace(event) for event in events)
-        previous_sequence = -1
-        previous_timestamp: float | None = None
         previous_clock = self.monotonic_origin_s
         for event in events:
             snapshot = event.observation
@@ -114,11 +112,6 @@ class ReplayScenario:
                 or snapshot.timestamp_s < self.monotonic_origin_s
             ):
                 raise ValidationError("event is outside the declared monotonic clock domain")
-            if snapshot.sequence <= previous_sequence or (
-                previous_timestamp is not None and snapshot.timestamp_s <= previous_timestamp
-            ):
-                raise ValidationError("replay sequence and capture times must strictly increase")
-            previous_sequence, previous_timestamp = snapshot.sequence, snapshot.timestamp_s
             previous_clock = event.clock_after_s
         for name, value in (
             ("units", MappingProxyType(dict(self.units))),

@@ -176,6 +176,7 @@ def _violations(
     scenario: ReplayScenario,
     mode: RuntimeMode,
     previous_capture: float | None,
+    previous_sequence: int | None,
 ) -> int:
     """Independent checks, deliberately not delegated to SafetyGate's own predicates."""
     snapshot, baseline, spec = (
@@ -228,6 +229,8 @@ def _violations(
             and snapshot.speed_mps is not None
             and snapshot.speed_mps >= gate.minimum_speed_mps
             and snapshot.timestamp_s <= event.clock_before_s
+            and (previous_sequence is None or snapshot.sequence > previous_sequence)
+            and (previous_capture is None or snapshot.timestamp_s > previous_capture)
             and snapshot.source_age_s + (event.clock_after_s - snapshot.timestamp_s)
             <= gate.maximum_observation_age_s
             and proposal.sample_count >= gate.minimum_samples
@@ -269,6 +272,7 @@ def run_replay(
     proposal_count = eligible_count = violations = internal_errors = 0
     maximum_delta = Fraction(0)
     previous_capture = None
+    previous_sequence: int | None = None
     for event in scenario.events:
         off_clock.set_event(event)
         shadow_clock.set_event(event)
@@ -278,10 +282,12 @@ def run_replay(
         shadow_result, elapsed = _measure(partial(shadow.step, event.observation), timer_ns)
         shadow_results.append(shadow_result)
         shadow_ns.append(elapsed)
-        violations += _violations(off_result, event, scenario, RuntimeMode.OFF, previous_capture)
+        violations += _violations(
+            off_result, event, scenario, RuntimeMode.OFF, previous_capture, previous_sequence
+        )
         violations += int(off_clock.reads != 0)
         violations += _violations(
-            shadow_result, event, scenario, RuntimeMode.SHADOW, previous_capture
+            shadow_result, event, scenario, RuntimeMode.SHADOW, previous_capture, previous_sequence
         )
         for result_event in shadow_result.events:
             if result_event.reason not in (R.ACCEPTED_FOR_SHADOW, R.MODE_OFF):
@@ -298,7 +304,11 @@ def run_replay(
                 maximum_delta,
                 abs(Fraction(proposal.proposed_value) - Fraction(proposal.baseline_value)),
             )
-        if event.observation.timestamp_s <= event.clock_before_s:
+        if previous_sequence is None or event.observation.sequence > previous_sequence:
+            previous_sequence = event.observation.sequence
+        if event.observation.timestamp_s <= event.clock_before_s and (
+            previous_capture is None or event.observation.timestamp_s > previous_capture
+        ):
             previous_capture = event.observation.timestamp_s
     internal_errors += rejections[R.INTERNAL_ERROR]
     summary = ReplaySummary(

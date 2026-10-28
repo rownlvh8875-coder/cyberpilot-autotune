@@ -57,7 +57,7 @@ def test_arbitrary_non_schema_text_is_rejected_as_typed_error(raw):
 
 
 @given(st.integers(min_value=0, max_value=1))
-def test_reordered_frames_never_enter_runner(index):
+def test_reordered_evaluation_clocks_never_enter_runner(index):
     document = replay_document()
     document["events"][index], document["events"][index + 1] = (
         document["events"][index + 1],
@@ -65,3 +65,20 @@ def test_reordered_frames_never_enter_runner(index):
     )
     with pytest.raises(ValidationError):
         load_replay(json.dumps(document))
+
+
+@settings(max_examples=50, deadline=None)
+@given(st.lists(st.tuples(st.integers(0, 30), st.integers(0, 200)), min_size=1, max_size=25))
+def test_arbitrary_observation_order_remains_fail_closed_with_monotonic_clocks(frames):
+    document = replay_document()
+    document["events"] = []
+    for i, (sequence, capture) in enumerate(frames):
+        event = replay_event(i, sequence=sequence, timestamp_s=capture)
+        event["clock_before_s"] = event["clock_after_s"] = 100 + i
+        document["events"].append(event)
+    report = run_replay(load_replay(json.dumps(document)), timer_ns=Timer())
+    assert report.software_checks_passed
+    assert all(
+        result.effective_parameters == document["baseline_parameters"]
+        for result in report.shadow_results
+    )

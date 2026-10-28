@@ -100,15 +100,11 @@ def test_events_and_observations_require_exact_keys_and_explicit_activity():
         load(document)
 
 
-@pytest.mark.parametrize("mutation", ["sequence", "timestamp", "clock", "after", "origin"])
-def test_reordering_or_inconsistent_clock_domains_rejected(mutation):
+@pytest.mark.parametrize("mutation", ["clock", "after", "origin"])
+def test_inconsistent_evaluation_clock_domains_rejected(mutation):
     document = replay_document()
     event = document["events"][1]
-    if mutation == "sequence":
-        event["observation"]["sequence"] = 0
-    elif mutation == "timestamp":
-        event["observation"]["timestamp_s"] = 10
-    elif mutation == "clock":
+    if mutation == "clock":
         event["clock_before_s"] = 9
     elif mutation == "after":
         event["clock_after_s"] = 10
@@ -116,6 +112,17 @@ def test_reordering_or_inconsistent_clock_domains_rejected(mutation):
         event["clock_before_s"] = -1
     with pytest.raises(ValidationError):
         load(document)
+
+
+@pytest.mark.parametrize(
+    "field,first,value",
+    [("sequence", 0, 0), ("sequence", 2, 1), ("timestamp_s", 10, 9), ("timestamp_s", 10, 10)],
+)
+def test_observation_order_anomalies_are_structural_inputs_for_engine(field, first, value):
+    document = replay_document()
+    document["events"][0]["observation"][field] = first
+    document["events"][1]["observation"][field] = value
+    assert getattr(load(document).events[1].observation, field) == value
 
 
 def test_runtime_veto_inputs_remain_valid_synthetic_fixture_data():
