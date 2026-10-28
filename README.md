@@ -12,12 +12,15 @@ learning admission -> proposal-only learner -> candidate Safety Gate -> runtime
 enforcer -> immutable result.
 The core does not depend on openpilot. See [architecture](docs/architecture.md).
 
-Phase 8A audited carrot-wip at `604bc0a22733e648ec05b268da1ffaae7db52a69`.
-The [read-only signal contract](docs/carrot_signal_contract.md) is blocked on
-actual lateral authority and saturation semantics. Unknown signals remain None;
-no Carrot mapper or actual adapter is implemented. The
-[synthetic evidence](docs/carrot_signal_evidence.md) is a static specification,
-not executed vehicle or adapter behavior. Phase 8B is NOT_STARTED.
+The historical [Phase 8A signal audit](docs/carrot_signal_contract.md) was blocked
+at carrot-wip `604bc0a22733e648ec05b268da1ffaae7db52a69`. The new
+[observation-v2 exact-head audit](docs/carrot_observation_v2_reaudit.md), pinned to
+`c2130730239bcdb4cbde9361ab90c8d99aa4ff55`, proves the software signal contract
+with a pure message-neutral evaluator and executable synthetic cases. Exact
+receipt/source-command/source-CarState lookup, caller policy and immutable
+static context/baseline are mandatory. Unknown inputs fail closed. This proves
+neither physical response nor underlying planner quality. No actual cereal
+adapter or message cache is implemented; Phase 8B is NOT_STARTED.
 
 ## Shadow residual learner
 

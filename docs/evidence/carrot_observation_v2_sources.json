@@ -1,0 +1,2390 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/rownlvh8875-coder/openpilot",
+  "target_base": "03c3f2f36cbe47a9afec97ce7b9d411d3aa81ccb",
+  "original_base": "604bc0a22733e648ec05b268da1ffaae7db52a69",
+  "observation_v2_head": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "reference_pr": 20,
+  "pr_observation": {
+    "state": "open",
+    "draft": true,
+    "mergeable": true,
+    "successful_checks": 6,
+    "unresolved_threads": 0
+  },
+  "changed_files": [
+    {
+      "path": ".github/workflows/actuation-observability.yml",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "789ae2a1ebcccb4f10232bcaa993275fabb8fd57bdefc8a4464b2ff781b6a9f9",
+        "bytes": 1359,
+        "lines": 32
+      },
+      "reviewed": true,
+      "responsibility": "Fork-only offline schema/lint/type/test CI; no deployment job.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "Fork-only offline schema/lint/type/test CI; no deployment job.",
+          "start_line": 1,
+          "end_line": 32
+        }
+      ],
+      "producer": "developer documentation or offline verification tooling",
+      "consumer": "human source auditor or explicit CI invocation",
+      "schema_ordinal_evidence": "not applicable: no runtime schema field",
+      "clock_domain": "not applicable: no runtime timestamp publication",
+      "cohort_identity": "pins and offline cohort evidence only",
+      "availability_and_legacy_semantics": "no runtime signal inferred from tooling/docs"
+    },
+    {
+      "path": "docs/autotune_actuation_observability.md",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "26b31c5d39519e5fa26b00fe5a34a09ce42f31e6168a9d597ecb783e309b84b2",
+        "bytes": 23197,
+        "lines": 175
+      },
+      "reviewed": true,
+      "responsibility": "Claimed protocol, limitations and prior evidence; checked against source rather than trusted as proof.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "Claimed protocol, limitations and prior evidence; checked against source rather than trusted as proof.",
+          "start_line": 1,
+          "end_line": 175
+        }
+      ],
+      "producer": "developer documentation or offline verification tooling",
+      "consumer": "human source auditor or explicit CI invocation",
+      "schema_ordinal_evidence": "not applicable: no runtime schema field",
+      "clock_domain": "not applicable: no runtime timestamp publication",
+      "cohort_identity": "pins and offline cohort evidence only",
+      "availability_and_legacy_semantics": "no runtime signal inferred from tooling/docs"
+    },
+    {
+      "path": "docs/autotune_measurement_provenance.md",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "46284df93503c09b5aa44dde9ba31132ef5033a216b6e6d81a6b372a12fd2b0a",
+        "bytes": 14081,
+        "lines": 224
+      },
+      "reviewed": true,
+      "responsibility": "V2 interpretation and qualification claims; checked against independent source traces, not adopted as proof.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "V2 interpretation and qualification claims; checked against independent source traces, not adopted as proof.",
+          "start_line": 1,
+          "end_line": 224
+        }
+      ],
+      "producer": "developer documentation or offline verification tooling",
+      "consumer": "human source auditor or explicit CI invocation",
+      "schema_ordinal_evidence": "not applicable: no runtime schema field",
+      "clock_domain": "not applicable: no runtime timestamp publication",
+      "cohort_identity": "pins and offline cohort evidence only",
+      "availability_and_legacy_semantics": "no runtime signal inferred from tooling/docs"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "change": "M",
+      "base": {
+        "sha256": "490441669fd68462b1f59bcaf59d802b23437ce022430d19cb14a4e09f998131",
+        "bytes": 28646,
+        "lines": 900
+      },
+      "head": {
+        "sha256": "5b8a0b8a5eb89d663025b46e453a36521f47954249de6a0553e013f3739baba0",
+        "bytes": 32081,
+        "lines": 1017
+      },
+      "reviewed": true,
+      "responsibility": "Append-only command observation, explicit timestamp union and cohort receipt.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "Append-only command observation, explicit timestamp union and cohort receipt.",
+          "start_line": 1,
+          "end_line": 1017
+        }
+      ],
+      "producer": "schema definitions",
+      "consumer": "pinned producers and consumers",
+      "schema_ordinal_evidence": "see schema_ordinals; existing ordinals preserved",
+      "clock_domain": "explicit timestamp domain fields; Event envelope clock pinned separately",
+      "cohort_identity": "CarControl and receipt schema relationships",
+      "availability_and_legacy_semantics": "new nested/enum/optional defaults unavailable; no numeric zero sentinel"
+    },
+    {
+      "path": "openpilot/cereal/log.capnp",
+      "change": "M",
+      "base": {
+        "sha256": "42fa4764558d636f91d784ad13b4e15398a8a9a993daf589926c3794ee9d1e86",
+        "bytes": 70985,
+        "lines": 2811
+      },
+      "head": {
+        "sha256": "7d5c19cc2a534fb6918ba51d393eff288f096b68b6c13fd5608c46d17454ba35",
+        "bytes": 71209,
+        "lines": 2814
+      },
+      "reviewed": true,
+      "responsibility": "Three separate controller instantaneous tri-state fields; legacy saturated fields retained.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "Three separate controller instantaneous tri-state fields; legacy saturated fields retained.",
+          "start_line": 1,
+          "end_line": 2814
+        }
+      ],
+      "producer": "schema definitions",
+      "consumer": "pinned producers and consumers",
+      "schema_ordinal_evidence": "see schema_ordinals; existing ordinals preserved",
+      "clock_domain": "explicit timestamp domain fields; Event envelope clock pinned separately",
+      "cohort_identity": "CarControl and receipt schema relationships",
+      "availability_and_legacy_semantics": "new nested/enum/optional defaults unavailable; no numeric zero sentinel"
+    },
+    {
+      "path": "openpilot/selfdrive/car/actuation_receipt.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "f08a109b8d2b51cadfb01b9b783a6eda2f6d44b5f13a0e8776e2e9ae82c93789",
+        "bytes": 5506,
+        "lines": 123
+      },
+      "reviewed": true,
+      "responsibility": "Final-request capture, strict topic/safety evidence and same-call output completion.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "_usable_timestamp",
+          "start_line": 11,
+          "end_line": 12
+        },
+        {
+          "symbol": "safety_observation_clock_ns",
+          "start_line": 15,
+          "end_line": 20
+        },
+        {
+          "symbol": "_healthy",
+          "start_line": 23,
+          "end_line": 37
+        },
+        {
+          "symbol": "_finite_actuators",
+          "start_line": 40,
+          "end_line": 41
+        },
+        {
+          "symbol": "_safety_permission",
+          "start_line": 44,
+          "end_line": 69
+        },
+        {
+          "symbol": "capture_actuation_receipt",
+          "start_line": 72,
+          "end_line": 108
+        },
+        {
+          "symbol": "complete_actuation_receipt",
+          "start_line": 111,
+          "end_line": 123
+        }
+      ],
+      "producer": "card capture_actuation_receipt / complete_actuation_receipt",
+      "consumer": "next carOutput publication / future exact join",
+      "schema_ordinal_evidence": "ActuationReceipt @0 through @12; CarOutput receipt @1",
+      "clock_domain": "monotonic command/apply; separate bootTime safety stamps",
+      "cohort_identity": "source command timestamp + host apply timestamp",
+      "availability_and_legacy_semantics": "missing/stale/invalid/unknown receipt evidence stays unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/car/card.py",
+      "change": "M",
+      "base": {
+        "sha256": "3bb0538cc4c0473b95eceaaa045b8b7a103dbcf412e16fc247ca1edfdc6cc483",
+        "bytes": 26555,
+        "lines": 546
+      },
+      "head": {
+        "sha256": "59118167f527d3438071995f1f9fd5ea6db2ccebbff22ed4c1759afd0e49047b",
+        "bytes": 27426,
+        "lines": 561
+      },
+      "reviewed": true,
+      "responsibility": "Capture after suppression, unchanged apply call, previous-receipt publication/clearing.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "obd_callback",
+          "start_line": 51,
+          "end_line": 59
+        },
+        {
+          "symbol": "can_comm_callbacks",
+          "start_line": 62,
+          "end_line": 77
+        },
+        {
+          "symbol": "Car",
+          "start_line": 80,
+          "end_line": 551
+        },
+        {
+          "symbol": "main",
+          "start_line": 553,
+          "end_line": 557
+        },
+        {
+          "symbol": "set_obd_multiplexing",
+          "start_line": 52,
+          "end_line": 58
+        },
+        {
+          "symbol": "can_recv",
+          "start_line": 63,
+          "end_line": 72
+        },
+        {
+          "symbol": "can_send",
+          "start_line": 74,
+          "end_line": 75
+        },
+        {
+          "symbol": "__init__",
+          "start_line": 84,
+          "end_line": 209
+        },
+        {
+          "symbol": "_log_tesla_signals",
+          "start_line": 211,
+          "end_line": 219
+        },
+        {
+          "symbol": "state_update",
+          "start_line": 221,
+          "end_line": 336
+        },
+        {
+          "symbol": "state_publish",
+          "start_line": 338,
+          "end_line": 383
+        },
+        {
+          "symbol": "controls_update",
+          "start_line": 385,
+          "end_line": 497
+        },
+        {
+          "symbol": "step",
+          "start_line": 499,
+          "end_line": 530
+        },
+        {
+          "symbol": "params_thread",
+          "start_line": 532,
+          "end_line": 536
+        },
+        {
+          "symbol": "card_thread",
+          "start_line": 538,
+          "end_line": 551
+        }
+      ],
+      "producer": "card capture_actuation_receipt / complete_actuation_receipt",
+      "consumer": "next carOutput publication / future exact join",
+      "schema_ordinal_evidence": "ActuationReceipt @0 through @12; CarOutput receipt @1",
+      "clock_domain": "monotonic command/apply; separate bootTime safety stamps",
+      "cohort_identity": "source command timestamp + host apply timestamp",
+      "availability_and_legacy_semantics": "missing/stale/invalid/unknown receipt evidence stays unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/car/tests/fixtures/actuation_schema_baseline.json",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "879538ce6780ab40068c84aab5a275d48739d67eb305cb825dd072879280e33b",
+        "bytes": 4193,
+        "lines": 208
+      },
+      "reviewed": true,
+      "responsibility": "Legacy field ordinal/type inventory and synthetic legacy bytes.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "Legacy field ordinal/type inventory and synthetic legacy bytes.",
+          "start_line": 1,
+          "end_line": 208
+        }
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/car/tests/observability_support.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "d051214fb5c66600468fdbb745fbfe230784d4289801b71ce15a055b2667689e",
+        "bytes": 578,
+        "lines": 22
+      },
+      "reviewed": true,
+      "responsibility": "Offline settings isolation; never a production import.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "SyntheticReadOnlySettings",
+          "start_line": 7,
+          "end_line": 16
+        },
+        {
+          "symbol": "pytest_configure",
+          "start_line": 19,
+          "end_line": 22
+        },
+        {
+          "symbol": "get_int",
+          "start_line": 10,
+          "end_line": 12
+        },
+        {
+          "symbol": "get_float",
+          "start_line": 14,
+          "end_line": 16
+        }
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/car/tests/test_actuation_can.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "a4ca78a0d0bfda0c89fddeadfb36cb3f5be608a15358c0e1ddd6d646bec75dda",
+        "bytes": 6446,
+        "lines": 124
+      },
+      "reviewed": true,
+      "responsibility": "Real offline controller/packer differential cases; tracked DBC preservation.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "test_real_controller_outputs_and_can_bytes_count_order_match_base_with_receipts",
+          "start_line": 22,
+          "end_line": 119
+        },
+        {
+          "symbol": "test_offline_fixture_generation_does_not_replace_tracked_dbc_sources",
+          "start_line": 122,
+          "end_line": 124
+        },
+        {
+          "symbol": "Settings",
+          "start_line": 27,
+          "end_line": 47
+        },
+        {
+          "symbol": "restore_new_module_aliases",
+          "start_line": 51,
+          "end_line": 56
+        },
+        {
+          "symbol": "get_bool",
+          "start_line": 28,
+          "end_line": 31
+        },
+        {
+          "symbol": "get_int",
+          "start_line": 33,
+          "end_line": 36
+        },
+        {
+          "symbol": "get_float",
+          "start_line": 38,
+          "end_line": 41
+        },
+        {
+          "symbol": "put_int",
+          "start_line": 43,
+          "end_line": 47
+        }
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/car/tests/test_actuation_card.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "0fd07d5b6647d5bb8918023de2f3ab7521db76a5f91f181f882e278828e33e43",
+        "bytes": 8976,
+        "lines": 202
+      },
+      "reviewed": true,
+      "responsibility": "Complete card methods, delayed cohort publication, suppression and apply/CAN regression.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "card_methods",
+          "start_line": 20,
+          "end_line": 50
+        },
+        {
+          "symbol": "new_message",
+          "start_line": 53,
+          "end_line": 56
+        },
+        {
+          "symbol": "fixture",
+          "start_line": 59,
+          "end_line": 123
+        },
+        {
+          "symbol": "test_receipt_records_the_final_command_actually_passed_to_apply",
+          "start_line": 129,
+          "end_line": 140
+        },
+        {
+          "symbol": "test_skipped_dead_command_clears_previous_receipt_without_applying",
+          "start_line": 143,
+          "end_line": 150
+        },
+        {
+          "symbol": "test_publication_keeps_previous_cohort_and_existing_loop_order",
+          "start_line": 153,
+          "end_line": 172
+        },
+        {
+          "symbol": "test_apply_arguments_returned_outputs_and_synthetic_can_are_identical_to_pinned_base",
+          "start_line": 176,
+          "end_line": 182
+        },
+        {
+          "symbol": "test_receipt_failure_leaves_original_apply_and_can_path_running",
+          "start_line": 185,
+          "end_line": 193
+        },
+        {
+          "symbol": "test_malformed_stored_receipt_cannot_break_existing_publication",
+          "start_line": 196,
+          "end_line": 202
+        },
+        {
+          "symbol": "encode",
+          "start_line": 28,
+          "end_line": 33
+        },
+        {
+          "symbol": "apply",
+          "start_line": 72,
+          "end_line": 79
+        },
+        {
+          "symbol": "send",
+          "start_line": 81,
+          "end_line": 83
+        }
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/car/tests/test_actuation_receipt.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "784c282210012c590c0b47f7031b9b285d90a318cfd2b9117cd4040fd02a8bc2",
+        "bytes": 13105,
+        "lines": 318
+      },
+      "reviewed": true,
+      "responsibility": "Source health, enum, clocks, copy, limit and optional-boundary failure cases.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "Messages",
+          "start_line": 13,
+          "end_line": 24
+        },
+        {
+          "symbol": "source",
+          "start_line": 27,
+          "end_line": 43
+        },
+        {
+          "symbol": "receipt",
+          "start_line": 46,
+          "end_line": 53
+        },
+        {
+          "symbol": "test_receipt_binds_source_final_request_output_and_publication_metadata",
+          "start_line": 56,
+          "end_line": 70
+        },
+        {
+          "symbol": "test_snapshot_copies_survive_request_and_returned_output_mutation",
+          "start_line": 73,
+          "end_line": 85
+        },
+        {
+          "symbol": "test_repeated_command_has_distinct_apply_identity_and_no_current_command_mix",
+          "start_line": 89,
+          "end_line": 101
+        },
+        {
+          "symbol": "test_explicit_final_host_activity",
+          "start_line": 105,
+          "end_line": 107
+        },
+        {
+          "symbol": "test_unhealthy_command_never_claims_host_activity",
+          "start_line": 111,
+          "end_line": 114
+        },
+        {
+          "symbol": "test_missing_future_or_stale_command_stamp_is_not_available",
+          "start_line": 118,
+          "end_line": 121
+        },
+        {
+          "symbol": "test_permission_requires_known_unanimous_configuration_correlated_pandas",
+          "start_line": 135,
+          "end_line": 142
+        },
+        {
+          "symbol": "test_insufficient_panda_evidence_is_unavailable",
+          "start_line": 167,
+          "end_line": 200
+        },
+        {
+          "symbol": "test_cohort_output_comparison_is_controller_aware",
+          "start_line": 214,
+          "end_line": 221
+        },
+        {
+          "symbol": "test_malformed_or_unknown_calculation_evidence_never_becomes_not_limited",
+          "start_line": 225,
+          "end_line": 239
+        },
+        {
+          "symbol": "test_internal_observability_error_cannot_escape_control_boundary",
+          "start_line": 242,
+          "end_line": 251
+        },
+        {
+          "symbol": "test_receipt_calls_have_no_file_network_thread_or_process_side_effect",
+          "start_line": 254,
+          "end_line": 271
+        },
+        {
+          "symbol": "test_panda_boot_clock_and_monotonic_receive_clock_are_not_conflated",
+          "start_line": 275,
+          "end_line": 289
+        },
+        {
+          "symbol": "test_unknown_boot_clock_cannot_assert_fresh_safety_permission",
+          "start_line": 292,
+          "end_line": 296
+        },
+        {
+          "symbol": "test_unrecognized_wire_enum_is_not_a_known_panda_or_safety_configuration",
+          "start_line": 300,
+          "end_line": 308
+        },
+        {
+          "symbol": "test_boot_clock_query_failure_is_unavailable",
+          "start_line": 311,
+          "end_line": 318
+        },
+        {
+          "symbol": "__init__",
+          "start_line": 14,
+          "end_line": 24
+        },
+        {
+          "symbol": "Broken",
+          "start_line": 243,
+          "end_line": 245
+        },
+        {
+          "symbol": "forbidden",
+          "start_line": 263,
+          "end_line": 264
+        },
+        {
+          "symbol": "unavailable",
+          "start_line": 314,
+          "end_line": 315
+        },
+        {
+          "symbol": "__getattribute__",
+          "start_line": 244,
+          "end_line": 245
+        }
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/car/tests/test_actuation_receipt_schema.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "9c9a1dbc74b1d5f79e918e12a362bd94efd3fe42bccf0dbb62d6ebc185180deb",
+        "bytes": 3414,
+        "lines": 71
+      },
+      "reviewed": true,
+      "responsibility": "Legacy decoding, appended ordinals, pointer absence and enum defaults.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "test_old_output_decodes_without_fabricating_available_evidence",
+          "start_line": 11,
+          "end_line": 26
+        },
+        {
+          "symbol": "test_old_field_ordinals_and_types_are_unchanged",
+          "start_line": 29,
+          "end_line": 44
+        },
+        {
+          "symbol": "test_default_calculation_states_are_unavailable_not_false",
+          "start_line": 47,
+          "end_line": 53
+        },
+        {
+          "symbol": "test_legacy_reader_ignores_appended_receipt",
+          "start_line": 56,
+          "end_line": 71
+        }
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/car/tests/test_tesla_signal_card.py",
+      "change": "M",
+      "base": {
+        "sha256": "e58f8d133e552ace48f35ca561cd5f1acaf20be066a6b70c079ce2e2b19b0549",
+        "bytes": 6611,
+        "lines": 127
+      },
+      "head": {
+        "sha256": "1a6943717e56c862a81a6e3dc7d4ed51b036c998477254f941c2cf6dc7fe8bce",
+        "bytes": 6982,
+        "lines": 130
+      },
+      "reviewed": true,
+      "responsibility": "Existing test namespace receives new evidence functions; prior assertions retained.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "test_card_publishes_confirmed_request_id_separately_from_ownership",
+          "start_line": 16,
+          "end_line": 34
+        },
+        {
+          "symbol": "test_received_driver_input_precedes_independent_cancellation_boundary",
+          "start_line": 37,
+          "end_line": 44
+        },
+        {
+          "symbol": "test_lamp_diagnostics_are_periodic_only_during_sessions_and_immediate_on_status_change",
+          "start_line": 47,
+          "end_line": 76
+        },
+        {
+          "symbol": "test_final_card_boundary_uses_gated_control_and_fresh_intent",
+          "start_line": 80,
+          "end_line": 130
+        },
+        {
+          "symbol": "log_signals",
+          "start_line": 56,
+          "end_line": 57
+        },
+        {
+          "symbol": "Messages",
+          "start_line": 95,
+          "end_line": 97
+        },
+        {
+          "symbol": "apply",
+          "start_line": 112,
+          "end_line": 114
+        },
+        {
+          "symbol": "all_alive",
+          "start_line": 96,
+          "end_line": 97
+        }
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "change": "M",
+      "base": {
+        "sha256": "5fc6a9158149a13b3b8786ecf5596f17e037ae9006717f9fa07211ed5f205a6a",
+        "bytes": 25696,
+        "lines": 480
+      },
+      "head": {
+        "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
+        "bytes": 25755,
+        "lines": 480
+      },
+      "reviewed": true,
+      "responsibility": "Same-command observation publication; original output comparison branches retained.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "lateral_control_allowed",
+          "start_line": 52,
+          "end_line": 57
+        },
+        {
+          "symbol": "Controls",
+          "start_line": 60,
+          "end_line": 468
+        },
+        {
+          "symbol": "main",
+          "start_line": 471,
+          "end_line": 476
+        },
+        {
+          "symbol": "__init__",
+          "start_line": 61,
+          "end_line": 109
+        },
+        {
+          "symbol": "update",
+          "start_line": 111,
+          "end_line": 117
+        },
+        {
+          "symbol": "state_control",
+          "start_line": 119,
+          "end_line": 286
+        },
+        {
+          "symbol": "publish",
+          "start_line": 288,
+          "end_line": 460
+        },
+        {
+          "symbol": "run",
+          "start_line": 462,
+          "end_line": 468
+        },
+        {
+          "symbol": "smooth_value",
+          "start_line": 206,
+          "end_line": 208
+        }
+      ],
+      "producer": "Controls.state_control / publish",
+      "consumer": "CarControl Event -> card and future exact join",
+      "schema_ordinal_evidence": "CarControl lateralControlObservation @18",
+      "clock_domain": "monotonic source/calculation/Event stamps",
+      "cohort_identity": "frozen exact CS/LP inputs, VM result and pre-controller target",
+      "availability_and_legacy_semantics": "unsupported/inactive/fallback/invalid evidence unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_angle.py",
+      "change": "M",
+      "base": {
+        "sha256": "d01c571d063538f18d47c74b0e8ba6c444fe7c8dff2bb7d8a01d492f48c57dad",
+        "bytes": 1283,
+        "lines": 30
+      },
+      "head": {
+        "sha256": "fcf1b60fb3379c564b200799988a41a2131b8f3ff4569238e2f82a527505efbd",
+        "bytes": 1640,
+        "lines": 33
+      },
+      "reviewed": true,
+      "responsibility": "Adds independent raw instantaneous evidence to existing lateral controller update without changing its timer or return.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "LatControlAngle",
+          "start_line": 11,
+          "end_line": 33
+        },
+        {
+          "symbol": "__init__",
+          "start_line": 12,
+          "end_line": 14
+        },
+        {
+          "symbol": "update",
+          "start_line": 16,
+          "end_line": 33
+        }
+      ],
+      "producer": "lateral controller calculation / record_lateral_observation",
+      "consumer": "receipt capture and controlsd logging",
+      "schema_ordinal_evidence": "observation kind @1 / instant limit @2; log appended fields",
+      "clock_domain": "same calculation; no own wall clock",
+      "cohort_identity": "same source CC; MEB actual PID, not dummy angle state",
+      "availability_and_legacy_semantics": "unknown/inactive instantaneous state unavailable; timer remains separate"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_pid.py",
+      "change": "M",
+      "base": {
+        "sha256": "cfa74584b040c8ddb129215894636d2528304ded1c767bdd13679aeadb546d00",
+        "bytes": 2087,
+        "lines": 48
+      },
+      "head": {
+        "sha256": "5ca41a124c1906a75df6077b00c701bc89596043318121b916bcfc8d4da515d8",
+        "bytes": 2393,
+        "lines": 51
+      },
+      "reviewed": true,
+      "responsibility": "Adds independent raw instantaneous evidence to existing lateral controller update without changing its timer or return.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "LatControlPID",
+          "start_line": 9,
+          "end_line": 51
+        },
+        {
+          "symbol": "__init__",
+          "start_line": 10,
+          "end_line": 15
+        },
+        {
+          "symbol": "reset",
+          "start_line": 17,
+          "end_line": 19
+        },
+        {
+          "symbol": "update",
+          "start_line": 21,
+          "end_line": 51
+        }
+      ],
+      "producer": "lateral controller calculation / record_lateral_observation",
+      "consumer": "receipt capture and controlsd logging",
+      "schema_ordinal_evidence": "observation kind @1 / instant limit @2; log appended fields",
+      "clock_domain": "same calculation; no own wall clock",
+      "cohort_identity": "same source CC; MEB actual PID, not dummy angle state",
+      "availability_and_legacy_semantics": "unknown/inactive instantaneous state unavailable; timer remains separate"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "change": "M",
+      "base": {
+        "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+        "bytes": 16824,
+        "lines": 307
+      },
+      "head": {
+        "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49",
+        "bytes": 17132,
+        "lines": 310
+      },
+      "reviewed": true,
+      "responsibility": "Adds independent raw instantaneous evidence to existing lateral controller update without changing its timer or return.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "get_predicted_lateral_jerk",
+          "start_line": 36,
+          "end_line": 42
+        },
+        {
+          "symbol": "sign",
+          "start_line": 44,
+          "end_line": 45
+        },
+        {
+          "symbol": "get_lookahead_value",
+          "start_line": 47,
+          "end_line": 59
+        },
+        {
+          "symbol": "roll_pitch_adjust",
+          "start_line": 66,
+          "end_line": 67
+        },
+        {
+          "symbol": "LatControlTorque",
+          "start_line": 69,
+          "end_line": 310
+        },
+        {
+          "symbol": "__init__",
+          "start_line": 70,
+          "end_line": 132
+        },
+        {
+          "symbol": "update_live_torque_params",
+          "start_line": 135,
+          "end_line": 141
+        },
+        {
+          "symbol": "update",
+          "start_line": 143,
+          "end_line": 310
+        }
+      ],
+      "producer": "lateral controller calculation / record_lateral_observation",
+      "consumer": "receipt capture and controlsd logging",
+      "schema_ordinal_evidence": "observation kind @1 / instant limit @2; log appended fields",
+      "clock_domain": "same calculation; no own wall clock",
+      "cohort_identity": "same source CC; MEB actual PID, not dummy angle state",
+      "availability_and_legacy_semantics": "unknown/inactive instantaneous state unavailable; timer remains separate"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/lateral_observation.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "d409567d46b66da97ee9e453ada64e2807cd800e21b0670a6a782139c211d229",
+        "bytes": 3424,
+        "lines": 75
+      },
+      "reviewed": true,
+      "responsibility": "Controller selection, instantaneous evidence and controller-aware output comparison.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "instantaneous_limit_state",
+          "start_line": 13,
+          "end_line": 16
+        },
+        {
+          "symbol": "_meb_limit_state",
+          "start_line": 19,
+          "end_line": 26
+        },
+        {
+          "symbol": "record_lateral_observation",
+          "start_line": 29,
+          "end_line": 46
+        },
+        {
+          "symbol": "controller_kind",
+          "start_line": 49,
+          "end_line": 55
+        },
+        {
+          "symbol": "lateral_output_limited",
+          "start_line": 58,
+          "end_line": 66
+        },
+        {
+          "symbol": "output_limit_state",
+          "start_line": 69,
+          "end_line": 75
+        }
+      ],
+      "producer": "lateral controller calculation / record_lateral_observation",
+      "consumer": "receipt capture and controlsd logging",
+      "schema_ordinal_evidence": "observation kind @1 / instant limit @2; log appended fields",
+      "clock_domain": "same calculation; no own wall clock",
+      "cohort_identity": "same source CC; MEB actual PID, not dummy angle state",
+      "availability_and_legacy_semantics": "unknown/inactive instantaneous state unavailable; timer remains separate"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/measurement_observation.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "ae603b68e0d57ced9c8be4d36559e00de953a7bb9dbcf423a54956a1beb5bf52",
+        "bytes": 6561,
+        "lines": 169
+      },
+      "reviewed": true,
+      "responsibility": "Freeze exact VM inputs/result, source health/publication timestamps and pre-controller target; unavailable unions on failure.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "VMMeasurement",
+          "start_line": 24,
+          "end_line": 32
+        },
+        {
+          "symbol": "_number",
+          "start_line": 35,
+          "end_line": 42
+        },
+        {
+          "symbol": "_stamp",
+          "start_line": 45,
+          "end_line": 46
+        },
+        {
+          "symbol": "_topic_health",
+          "start_line": 49,
+          "end_line": 55
+        },
+        {
+          "symbol": "capture_vm_measurement",
+          "start_line": 58,
+          "end_line": 107
+        },
+        {
+          "symbol": "capture_desired_target",
+          "start_line": 110,
+          "end_line": 112
+        },
+        {
+          "symbol": "_measurement_message",
+          "start_line": 115,
+          "end_line": 150
+        },
+        {
+          "symbol": "record_measurement_and_target",
+          "start_line": 153,
+          "end_line": 169
+        }
+      ],
+      "producer": "capture_vm_measurement / capture_desired_target / record_measurement_and_target",
+      "consumer": "Controls.state_control",
+      "schema_ordinal_evidence": "measurement @3 and desired target @4,@5",
+      "clock_domain": "CLOCK_MONOTONIC source and calculation stamps",
+      "cohort_identity": "same source CarControl Event",
+      "availability_and_legacy_semantics": "inactive/fallback/unknown/invalid groups cannot provide valid measurement"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/tests/test_lateral_observation.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "291d8e4c56153699a8ec347106ecd484e0d9bb1aba3893d364b875fbd869b114",
+        "bytes": 11846,
+        "lines": 238
+      },
+      "reviewed": true,
+      "responsibility": "Instant/timer distinction, real MEB PID, controller and publish differential checks.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "controller",
+          "start_line": 24,
+          "end_line": 41
+        },
+        {
+          "symbol": "update",
+          "start_line": 44,
+          "end_line": 48
+        },
+        {
+          "symbol": "test_instantaneous_limit_precedes_the_unchanged_timer",
+          "start_line": 53,
+          "end_line": 57
+        },
+        {
+          "symbol": "test_curvature_limit_is_visible_without_timer_speed_override_or_rate_exclusions",
+          "start_line": 62,
+          "end_line": 66
+        },
+        {
+          "symbol": "test_inactive_calculation_is_unavailable",
+          "start_line": 70,
+          "end_line": 73
+        },
+        {
+          "symbol": "test_controller_return_state_and_timer_match_pinned_baseline",
+          "start_line": 77,
+          "end_line": 98
+        },
+        {
+          "symbol": "test_same_carcontrol_carries_actual_calculation_evidence",
+          "start_line": 102,
+          "end_line": 111
+        },
+        {
+          "symbol": "test_meb_uses_real_pid_evidence_and_never_dummy_angle_state",
+          "start_line": 115,
+          "end_line": 126
+        },
+        {
+          "symbol": "test_missing_or_nonfinite_meb_pid_evidence_is_unavailable",
+          "start_line": 130,
+          "end_line": 135
+        },
+        {
+          "symbol": "test_unknown_calculation_wire_enum_is_unavailable_without_actuator_mutation",
+          "start_line": 138,
+          "end_line": 146
+        },
+        {
+          "symbol": "test_unknown_instantaneous_inputs_never_become_false",
+          "start_line": 153,
+          "end_line": 155
+        },
+        {
+          "symbol": "test_existing_output_comparison_keeps_arithmetic_even_for_nonfinite_old_inputs",
+          "start_line": 171,
+          "end_line": 176
+        },
+        {
+          "symbol": "test_complete_state_control_attaches_the_same_calculation_to_carcontrol",
+          "start_line": 180,
+          "end_line": 203
+        },
+        {
+          "symbol": "test_complete_existing_output_comparison_block_matches_pinned_base",
+          "start_line": 209,
+          "end_line": 238
+        }
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/tests/test_lateral_startup_control.py",
+      "change": "M",
+      "base": {
+        "sha256": "9fa9d5a1bba3400e32c994606a76ec816ee8e54da034f6dbc6adb295786f5d6f",
+        "bytes": 7113,
+        "lines": 146
+      },
+      "head": {
+        "sha256": "72b2a61fd3945c30f74731a32dbce04a2644fc07ea52b6db5fdc13702f416fe8",
+        "bytes": 7622,
+        "lines": 151
+      },
+      "reviewed": true,
+      "responsibility": "Existing test namespace receives evidence function and MEB placeholder; assertions retained.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "control_fixture",
+          "start_line": 26,
+          "end_line": 73
+        },
+        {
+          "symbol": "test_full_control_loop_waits_only_for_first_readiness",
+          "start_line": 77,
+          "end_line": 112
+        },
+        {
+          "symbol": "test_normal_torque_reset_preserves_existing_integral_and_nn_history",
+          "start_line": 115,
+          "end_line": 125
+        },
+        {
+          "symbol": "test_lane_tuning_reads_only_when_used_and_remains_live",
+          "start_line": 130,
+          "end_line": 151
+        }
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/tests/test_measurement_control.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "3a1cbfab34796f581b29b20569e06192e8a6358053ff2783a2fe584ce2c8f338",
+        "bytes": 11308,
+        "lines": 253
+      },
+      "reviewed": true,
+      "responsibility": "Full control differential, exact VM values, source timestamps, MEB prePID separation, source-command lookup and Params equivalence.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "fixture",
+          "start_line": 21,
+          "end_line": 79
+        },
+        {
+          "symbol": "test_same_call_vm_result_effective_configuration_and_precontroller_target",
+          "start_line": 83,
+          "end_line": 105
+        },
+        {
+          "symbol": "test_current_bad_live_health_is_not_hidden_by_sticky_startup",
+          "start_line": 108,
+          "end_line": 116
+        },
+        {
+          "symbol": "test_complete_control_values_vm_state_pid_and_params_reads_match_starting_head",
+          "start_line": 120,
+          "end_line": 146
+        },
+        {
+          "symbol": "test_scaled_live_ratio_is_recorded_without_an_additional_settings_read",
+          "start_line": 149,
+          "end_line": 159
+        },
+        {
+          "symbol": "test_exactly_representable_normal_target_equals_existing_request",
+          "start_line": 163,
+          "end_line": 172
+        },
+        {
+          "symbol": "lookup_exact_source",
+          "start_line": 175,
+          "end_line": 182
+        },
+        {
+          "symbol": "test_delayed_receipt_looks_up_v2_command_and_never_uses_current_evidence",
+          "start_line": 185,
+          "end_line": 215
+        },
+        {
+          "symbol": "test_receipt_old_fields_are_identical_for_v1_and_v2_source_command",
+          "start_line": 219,
+          "end_line": 227
+        },
+        {
+          "symbol": "test_all_original_control_operations_and_their_order_are_preserved",
+          "start_line": 230,
+          "end_line": 253
+        },
+        {
+          "symbol": "Settings",
+          "start_line": 35,
+          "end_line": 46
+        },
+        {
+          "symbol": "method",
+          "start_line": 235,
+          "end_line": 236
+        },
+        {
+          "symbol": "get_float",
+          "start_line": 36,
+          "end_line": 38
+        },
+        {
+          "symbol": "get_int",
+          "start_line": 40,
+          "end_line": 42
+        },
+        {
+          "symbol": "get_bool",
+          "start_line": 44,
+          "end_line": 46
+        },
+        {
+          "symbol": "baseline_step",
+          "start_line": 75,
+          "end_line": 76
+        }
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/tests/test_measurement_observation.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "3b9da6860f5ddb2053608947d4f0ecaea67c4f05db586ca3e397269e0d415715",
+        "bytes": 9765,
+        "lines": 228
+      },
+      "reviewed": true,
+      "responsibility": "Current source health, effective inputs, timestamp/number/serializer failure and no side effects.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "fixture",
+          "start_line": 20,
+          "end_line": 25
+        },
+        {
+          "symbol": "capture",
+          "start_line": 28,
+          "end_line": 29
+        },
+        {
+          "symbol": "command",
+          "start_line": 32,
+          "end_line": 38
+        },
+        {
+          "symbol": "test_live_evidence_preserves_exact_values_stamps_and_independent_health",
+          "start_line": 41,
+          "end_line": 65
+        },
+        {
+          "symbol": "test_current_bad_health_is_invalid_even_if_startup_previously_latched",
+          "start_line": 70,
+          "end_line": 76
+        },
+        {
+          "symbol": "test_missing_or_future_publication_time_cannot_be_valid",
+          "start_line": 81,
+          "end_line": 86
+        },
+        {
+          "symbol": "test_fallback_is_named_and_cannot_be_valid_live_measurement",
+          "start_line": 89,
+          "end_line": 95
+        },
+        {
+          "symbol": "test_unknown_relaxed_or_invalid_sources_do_not_supply_optional_numbers",
+          "start_line": 99,
+          "end_line": 117
+        },
+        {
+          "symbol": "test_nonfinite_actual_input_is_not_serialized_as_evidence",
+          "start_line": 122,
+          "end_line": 127
+        },
+        {
+          "symbol": "test_nonfinite_or_unrepresentable_effective_configuration_is_invalid",
+          "start_line": 131,
+          "end_line": 134
+        },
+        {
+          "symbol": "test_inactive_or_unsupported_calculation_has_no_target_or_measurement",
+          "start_line": 138,
+          "end_line": 142
+        },
+        {
+          "symbol": "test_target_capture_does_not_replace_unavailable_with_zero",
+          "start_line": 148,
+          "end_line": 153
+        },
+        {
+          "symbol": "test_unknown_evidence_enum_is_unavailable_without_touching_v1_limit",
+          "start_line": 156,
+          "end_line": 161
+        },
+        {
+          "symbol": "test_corrupted_frozen_copy_does_not_serialize_nonfinite_values",
+          "start_line": 164,
+          "end_line": 168
+        },
+        {
+          "symbol": "test_inconsistent_valid_copy_cannot_publish_available_numbers",
+          "start_line": 182,
+          "end_line": 186
+        },
+        {
+          "symbol": "test_unrepresentable_number_is_not_changed_to_a_numeric_zero",
+          "start_line": 189,
+          "end_line": 190
+        },
+        {
+          "symbol": "test_attachment_failure_cannot_change_actuators_or_v1_fields",
+          "start_line": 193,
+          "end_line": 211
+        },
+        {
+          "symbol": "test_telemetry_exceptions_and_io_prohibition_do_not_escape",
+          "start_line": 214,
+          "end_line": 228
+        },
+        {
+          "symbol": "broken",
+          "start_line": 204,
+          "end_line": 205
+        },
+        {
+          "symbol": "forbidden",
+          "start_line": 220,
+          "end_line": 221
+        }
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/tests/test_measurement_schema.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "7f18d100fe547d259be093f4c748cc488f75b79a861c70d2df5f27593115b156",
+        "bytes": 3000,
+        "lines": 65
+      },
+      "reviewed": true,
+      "responsibility": "Legacy v0/v1 decode, new optional Float64 default and append-only measurement/target ordinal checks.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "test_optional_numeric_distinguishes_unavailable_from_genuine_zero",
+          "start_line": 10,
+          "end_line": 14
+        },
+        {
+          "symbol": "test_v2_schema_appends_fields_without_reusing_v1_ordinals",
+          "start_line": 17,
+          "end_line": 22
+        },
+        {
+          "symbol": "test_legacy_observation_bytes_decode_new_evidence_as_unavailable",
+          "start_line": 26,
+          "end_line": 49
+        },
+        {
+          "symbol": "test_float64_preserves_the_actual_python_calculation_without_rounding",
+          "start_line": 52,
+          "end_line": 57
+        },
+        {
+          "symbol": "test_measurement_default_health_and_timestamps_are_unavailable",
+          "start_line": 60,
+          "end_line": 65
+        }
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
+    },
+    {
+      "path": "tools/actuation_observability/verify.py",
+      "change": "A",
+      "base": null,
+      "head": {
+        "sha256": "a1a954f15d5e1c48e0a630e5b3c1b8a54148d4e5f2debe987b7cee96ecbcd1e6",
+        "bytes": 5483,
+        "lines": 136
+      },
+      "reviewed": true,
+      "responsibility": "Explicit developer checker and isolated missing-only DBC fixture generation.",
+      "copied_into_target": false,
+      "inspected_symbols": [
+        {
+          "symbol": "lint",
+          "start_line": 32,
+          "end_line": 67
+        },
+        {
+          "symbol": "schema",
+          "start_line": 70,
+          "end_line": 81
+        },
+        {
+          "symbol": "tests",
+          "start_line": 84,
+          "end_line": 123
+        },
+        {
+          "symbol": "diagnostics",
+          "start_line": 47,
+          "end_line": 58
+        }
+      ],
+      "producer": "developer documentation or offline verification tooling",
+      "consumer": "human source auditor or explicit CI invocation",
+      "schema_ordinal_evidence": "not applicable: no runtime schema field",
+      "clock_domain": "not applicable: no runtime timestamp publication",
+      "cohort_identity": "pins and offline cohort evidence only",
+      "availability_and_legacy_semantics": "no runtime signal inferred from tooling/docs"
+    }
+  ],
+  "supporting_files": [
+    {
+      "path": "LICENSE",
+      "base": {
+        "sha256": "716ce815a0467219c59ec2433e6bce7f32efc45240725c6d3141a52b111d2558",
+        "bytes": 1059,
+        "lines": 7
+      },
+      "head": {
+        "sha256": "716ce815a0467219c59ec2433e6bce7f32efc45240725c6d3141a52b111d2558",
+        "bytes": 1059,
+        "lines": 7
+      }
+    },
+    {
+      "path": "opendbc_repo/LICENSE",
+      "base": {
+        "sha256": "6543c4a66b46affddae1b9ae1e1992687f0b7191e74ba3a7235388b9f42a6d13",
+        "bytes": 1059,
+        "lines": 7
+      },
+      "head": {
+        "sha256": "6543c4a66b46affddae1b9ae1e1992687f0b7191e74ba3a7235388b9f42a6d13",
+        "bytes": 1059,
+        "lines": 7
+      }
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "base": {
+        "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+        "bytes": 26872,
+        "lines": 690
+      },
+      "head": {
+        "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+        "bytes": 26872,
+        "lines": 690
+      }
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "base": {
+        "sha256": "f8ca23c2b85c2fc20d7e08271f2e692f26ae38a4fbadfcb621f9998cb65ea39e",
+        "bytes": 6380,
+        "lines": 229
+      },
+      "head": {
+        "sha256": "f8ca23c2b85c2fc20d7e08271f2e692f26ae38a4fbadfcb621f9998cb65ea39e",
+        "bytes": 6380,
+        "lines": 229
+      }
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/volkswagen/carstate.py",
+      "base": {
+        "sha256": "0151c8297eee964070e71da9fd463874af307de4b2cfaec127dabe13d571a38a",
+        "bytes": 30176,
+        "lines": 547
+      },
+      "head": {
+        "sha256": "0151c8297eee964070e71da9fd463874af307de4b2cfaec127dabe13d571a38a",
+        "bytes": 30176,
+        "lines": 547
+      }
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/volkswagen/carcontroller.py",
+      "base": {
+        "sha256": "e2ee634d4a559ae2992722e049a6e71658085f1978c5164bb390d4978fb07815",
+        "bytes": 24232,
+        "lines": 374
+      },
+      "head": {
+        "sha256": "e2ee634d4a559ae2992722e049a6e71658085f1978c5164bb390d4978fb07815",
+        "bytes": 24232,
+        "lines": 374
+      }
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/volkswagen/values.py",
+      "base": {
+        "sha256": "ee5a875a5c7ef292710c1d9017d557cd6e9da2d5b08056bfdf9cc226f7951dea",
+        "bytes": 27385,
+        "lines": 636
+      },
+      "head": {
+        "sha256": "ee5a875a5c7ef292710c1d9017d557cd6e9da2d5b08056bfdf9cc226f7951dea",
+        "bytes": 27385,
+        "lines": 636
+      }
+    },
+    {
+      "path": "openpilot/cereal/messaging/__init__.py",
+      "base": {
+        "sha256": "bb10c4a88e694d7c4e2fa500b92c6d8a9474363297afda3cfba880eea146ad68",
+        "bytes": 11909,
+        "lines": 323
+      },
+      "head": {
+        "sha256": "bb10c4a88e694d7c4e2fa500b92c6d8a9474363297afda3cfba880eea146ad68",
+        "bytes": 11909,
+        "lines": 323
+      }
+    },
+    {
+      "path": "openpilot/cereal/messaging/messaging.h",
+      "base": {
+        "sha256": "7d007b2e4d32e102b9ab51d5a566323b51c69187eb3fde261d1002c3b6735a6b",
+        "bytes": 3367,
+        "lines": 102
+      },
+      "head": {
+        "sha256": "7d007b2e4d32e102b9ab51d5a566323b51c69187eb3fde261d1002c3b6735a6b",
+        "bytes": 3367,
+        "lines": 102
+      }
+    },
+    {
+      "path": "openpilot/common/timing.h",
+      "base": {
+        "sha256": "66a580e240fa4fe4af03bc3073ddd0f4db5d1027720e8adfa92ba448f7c8bc71",
+        "bytes": 1237,
+        "lines": 51
+      },
+      "head": {
+        "sha256": "66a580e240fa4fe4af03bc3073ddd0f4db5d1027720e8adfa92ba448f7c8bc71",
+        "bytes": 1237,
+        "lines": 51
+      }
+    },
+    {
+      "path": "openpilot/cereal/services.py",
+      "base": {
+        "sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1",
+        "bytes": 5633,
+        "lines": 152
+      },
+      "head": {
+        "sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1",
+        "bytes": 5633,
+        "lines": 152
+      }
+    },
+    {
+      "path": "openpilot/selfdrive/pandad/pandad.cc",
+      "base": {
+        "sha256": "8b1d52adc5809eb663f97d7899bbecd5647cea85fef4f67eb5c1a8b2ee7e1115",
+        "bytes": 24149,
+        "lines": 667
+      },
+      "head": {
+        "sha256": "8b1d52adc5809eb663f97d7899bbecd5647cea85fef4f67eb5c1a8b2ee7e1115",
+        "bytes": 24149,
+        "lines": 667
+      }
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/latcontrol.py",
+      "base": {
+        "sha256": "cf57ac5072064072b80f7eb10408ea1e1627fd54d128123fc84cea85d9ab1374",
+        "bytes": 1161,
+        "lines": 33
+      },
+      "head": {
+        "sha256": "cf57ac5072064072b80f7eb10408ea1e1627fd54d128123fc84cea85d9ab1374",
+        "bytes": 1161,
+        "lines": 33
+      }
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/drive_helpers.py",
+      "base": {
+        "sha256": "aab41e3bdc94e78ba51acf564bd5271eae08017fbf57b2fe0874f9860805bccf",
+        "bytes": 5622,
+        "lines": 136
+      },
+      "head": {
+        "sha256": "aab41e3bdc94e78ba51acf564bd5271eae08017fbf57b2fe0874f9860805bccf",
+        "bytes": 5622,
+        "lines": 136
+      }
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/lateral_readiness.py",
+      "base": {
+        "sha256": "9c18096700082a2c30fb99749946369ff0bc75f7a87d9289d2828316de270092",
+        "bytes": 3082,
+        "lines": 76
+      },
+      "head": {
+        "sha256": "9c18096700082a2c30fb99749946369ff0bc75f7a87d9289d2828316de270092",
+        "bytes": 3082,
+        "lines": 76
+      }
+    },
+    {
+      "path": "openpilot/common/pid.py",
+      "base": {
+        "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+        "bytes": 4567,
+        "lines": 155
+      },
+      "head": {
+        "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+        "bytes": 4567,
+        "lines": 155
+      }
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "base": {
+        "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee",
+        "bytes": 716,
+        "lines": 20
+      },
+      "head": {
+        "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee",
+        "bytes": 716,
+        "lines": 20
+      }
+    },
+    {
+      "path": "openpilot/selfdrive/locationd/paramsd.py",
+      "base": {
+        "sha256": "d973bcb4ed39f4828af09b8edf830450ec0e938adef90d76ac6ab59fec3d428b",
+        "bytes": 14174,
+        "lines": 326
+      },
+      "head": {
+        "sha256": "d973bcb4ed39f4828af09b8edf830450ec0e938adef90d76ac6ab59fec3d428b",
+        "bytes": 14174,
+        "lines": 326
+      }
+    },
+    {
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "base": {
+        "sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+        "bytes": 12402,
+        "lines": 280
+      },
+      "head": {
+        "sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+        "bytes": 12402,
+        "lines": 280
+      }
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/tesla/carstate.py",
+      "base": {
+        "sha256": "06950f90e1b2d6ed0d0bb502ca0094ba6f04e43714d84211e218ed4f655f09ae",
+        "bytes": 22810,
+        "lines": 448
+      },
+      "head": {
+        "sha256": "06950f90e1b2d6ed0d0bb502ca0094ba6f04e43714d84211e218ed4f655f09ae",
+        "bytes": 22810,
+        "lines": 448
+      }
+    }
+  ],
+  "evidence_ranges": [
+    {
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "symbol": "CarState speed/steering/override schema",
+      "start_line": 158,
+      "end_line": 205,
+      "range_sha256": "e6bed145919c1b1a442785e55ad3c003d9ec222a464f03c67cd03163a31a97c4",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/opendbc_repo/opendbc/car/car.capnp#L158-L205"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "symbol": "CarControl/Actuators schema",
+      "start_line": 458,
+      "end_line": 505,
+      "range_sha256": "803d05c6e88b13782fffafcdfe6bb7800a737a8cbc833a4ef256069c62f61f49",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/opendbc_repo/opendbc/car/car.capnp#L458-L505"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "symbol": "optional clock/numeric, observation2, measurement1, receipt1 schema",
+      "start_line": 614,
+      "end_line": 733,
+      "range_sha256": "5ca194b5ab122d7fccdcdca7904c632c9aba8fdc1937f19475a480ecfba95f3c",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/opendbc_repo/opendbc/car/car.capnp#L614-L733"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "symbol": "CarParams static configuration schema",
+      "start_line": 737,
+      "end_line": 900,
+      "range_sha256": "eb761a4bab6573a741b2a733524ac1f66ad563fb96b81908423868cefccb9841",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/opendbc_repo/opendbc/car/car.capnp#L737-L900"
+    },
+    {
+      "path": "openpilot/cereal/log.capnp",
+      "symbol": "legacy timers and new limit fields",
+      "start_line": 880,
+      "end_line": 920,
+      "range_sha256": "28933129229970907aaf0369adea010a5c9c656099a8a4f58adcf74c5d45a45e",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/cereal/log.capnp#L880-L920"
+    },
+    {
+      "path": "openpilot/cereal/log.capnp",
+      "symbol": "Event envelope",
+      "start_line": 2620,
+      "end_line": 2630,
+      "range_sha256": "5fa1a235a05582301dfcd684ba58d5db422edbf97c24d7e248eec32be063e665",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/cereal/log.capnp#L2620-L2630"
+    },
+    {
+      "path": "openpilot/selfdrive/car/actuation_receipt.py",
+      "symbol": "safety_observation_clock_ns",
+      "start_line": 15,
+      "end_line": 20,
+      "range_sha256": "47a3917cfccdc32c1c69e43f5c799ccf3d22d0234a1864dd4384e01085c6154b",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/car/actuation_receipt.py#L15-L20"
+    },
+    {
+      "path": "openpilot/selfdrive/car/actuation_receipt.py",
+      "symbol": "_healthy",
+      "start_line": 23,
+      "end_line": 37,
+      "range_sha256": "ec1d3b82442f8c4e0e6d0910050b9237bd5f1d4755888d91e4dacb4086ce56a4",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/car/actuation_receipt.py#L23-L37"
+    },
+    {
+      "path": "openpilot/selfdrive/car/actuation_receipt.py",
+      "symbol": "_safety_permission",
+      "start_line": 44,
+      "end_line": 69,
+      "range_sha256": "88ebfe3c4184ecc780f6e22b97a7b9e537fc5ef4d3534c7d5ef1c1c1374e6e41",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/car/actuation_receipt.py#L44-L69"
+    },
+    {
+      "path": "openpilot/selfdrive/car/actuation_receipt.py",
+      "symbol": "capture_actuation_receipt",
+      "start_line": 72,
+      "end_line": 108,
+      "range_sha256": "9cf9ba3041fdfae348b32d90ca3044a96f11623b6514db0276e5379d8be6d495",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/car/actuation_receipt.py#L72-L108"
+    },
+    {
+      "path": "openpilot/selfdrive/car/actuation_receipt.py",
+      "symbol": "complete_actuation_receipt",
+      "start_line": 111,
+      "end_line": 123,
+      "range_sha256": "7713922cd28f6bfd67ed275f16f8053ba8600cf0265a55e6d286ed81cd1a0a2d",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/car/actuation_receipt.py#L111-L123"
+    },
+    {
+      "path": "openpilot/selfdrive/car/card.py",
+      "symbol": "state_publish",
+      "start_line": 338,
+      "end_line": 383,
+      "range_sha256": "fe3db115946ba6a1d73408e457b2315ed2a6052fa9c21b3a2951103a74d0a811",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/car/card.py#L338-L383"
+    },
+    {
+      "path": "openpilot/selfdrive/car/card.py",
+      "symbol": "controls_update",
+      "start_line": 385,
+      "end_line": 497,
+      "range_sha256": "805e2c5dc565f83f65ec417c1d925e0f970b26701145f173029093d62e674a22",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/car/card.py#L385-L497"
+    },
+    {
+      "path": "openpilot/selfdrive/car/card.py",
+      "symbol": "step",
+      "start_line": 499,
+      "end_line": 530,
+      "range_sha256": "03ed06504bfd637db1ba5f63ca8cd6ab9dbb1a85925c44fa1126293495fde0fe",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/car/card.py#L499-L530"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "state_control",
+      "start_line": 119,
+      "end_line": 286,
+      "range_sha256": "103243c0eab5222733320364e58bef4ec9b0ab0d390a54506c75b557a38f8fd6",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/controlsd.py#L119-L286"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "publish",
+      "start_line": 288,
+      "end_line": 460,
+      "range_sha256": "60f3770d3230e3b2da458c917b07e9fed28a0f846ab9c6557d6f242980de4be9",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/controlsd.py#L288-L460"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/lateral_observation.py",
+      "symbol": "instantaneous_limit_state",
+      "start_line": 13,
+      "end_line": 16,
+      "range_sha256": "25710c8240f6d754adc71114104c52da15181abba99165c98867496b335556ed",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/lateral_observation.py#L13-L16"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/lateral_observation.py",
+      "symbol": "_meb_limit_state",
+      "start_line": 19,
+      "end_line": 26,
+      "range_sha256": "e1e37f14682a6c25666fc68a93129b6496192d25f286cfc9997cd15efb9d747a",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/lateral_observation.py#L19-L26"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/lateral_observation.py",
+      "symbol": "record_lateral_observation",
+      "start_line": 29,
+      "end_line": 46,
+      "range_sha256": "5989d068e29efc33373ea22ca2ff878a8ce3f6f7a170cf7722ef81ee45135ece",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/lateral_observation.py#L29-L46"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/lateral_observation.py",
+      "symbol": "controller_kind",
+      "start_line": 49,
+      "end_line": 55,
+      "range_sha256": "bed008507585a8332926bcdb7853ef695cf0c9e135d5db35bd6198e524699608",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/lateral_observation.py#L49-L55"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/lateral_observation.py",
+      "symbol": "lateral_output_limited",
+      "start_line": 58,
+      "end_line": 66,
+      "range_sha256": "96cbed83f9541b5e2d511820974c7e7c4b87a004fc9bb06fbdfba9c400fb6c76",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/lateral_observation.py#L58-L66"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/lateral_observation.py",
+      "symbol": "output_limit_state",
+      "start_line": 69,
+      "end_line": 75,
+      "range_sha256": "6c5438c78a8687fd744c0c7b72de6162244a0fcf17ad61a5510c25e87d6df57d",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/lateral_observation.py#L69-L75"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/measurement_observation.py",
+      "symbol": "_number",
+      "start_line": 35,
+      "end_line": 42,
+      "range_sha256": "7cf62df8c61f7261e2a5223cc80dae66ba4d9d6760346a2c130549f949e905b4",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/measurement_observation.py#L35-L42"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/measurement_observation.py",
+      "symbol": "_stamp",
+      "start_line": 45,
+      "end_line": 46,
+      "range_sha256": "813a1a14ed2d9bc97d0c5abc7d152f905e99d301e871fb8945419f72a6511b18",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/measurement_observation.py#L45-L46"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/measurement_observation.py",
+      "symbol": "_topic_health",
+      "start_line": 49,
+      "end_line": 55,
+      "range_sha256": "7dbfee67ace89ac233f16149937133e7fc315254d1aeeefae9d42b6d4e0fc344",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/measurement_observation.py#L49-L55"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/measurement_observation.py",
+      "symbol": "capture_vm_measurement",
+      "start_line": 58,
+      "end_line": 107,
+      "range_sha256": "3cf529b713ff7d1c06c7899f85cb5b3966e1759a1562b5b37c379fa67c7b0f26",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/measurement_observation.py#L58-L107"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/measurement_observation.py",
+      "symbol": "capture_desired_target",
+      "start_line": 110,
+      "end_line": 112,
+      "range_sha256": "a0089f4e75f3c5c1486157b9b42129973152bef0759ee28c9ef1ed8ed2c158ae",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/measurement_observation.py#L110-L112"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/measurement_observation.py",
+      "symbol": "_measurement_message",
+      "start_line": 115,
+      "end_line": 150,
+      "range_sha256": "ee0d2db0d48dc48b6695eeb061aed77a7af7ca218c06a6f755ab51f4096672a1",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/measurement_observation.py#L115-L150"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/measurement_observation.py",
+      "symbol": "record_measurement_and_target",
+      "start_line": 153,
+      "end_line": 169,
+      "range_sha256": "2db09a4773003b47ef730b4abd80785c5c149ce485adb69bc2a7ce239a7518c9",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/measurement_observation.py#L153-L169"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "symbol": "calc_slip_factor",
+      "start_line": 225,
+      "end_line": 229,
+      "range_sha256": "54f55b7dec2f548c3911a8bdb4ee4ab2da580402e3e9500c628f9df98ecb9b65",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/opendbc_repo/opendbc/car/vehicle_model.py#L225-L229"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "symbol": "__init__",
+      "start_line": 24,
+      "end_line": 39,
+      "range_sha256": "9322e03a13c2fedadc50d9a4fff36707c16ec2d9cefdf4763fea348de7fb3e6b",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/opendbc_repo/opendbc/car/vehicle_model.py#L24-L39"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "symbol": "update_params",
+      "start_line": 41,
+      "end_line": 45,
+      "range_sha256": "88b5d7d8b62b15e32d1046da8a8ba8b6b33e6e96307a4690bda1517dcdcb9ecb",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/opendbc_repo/opendbc/car/vehicle_model.py#L41-L45"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "symbol": "calc_curvature",
+      "start_line": 66,
+      "end_line": 77,
+      "range_sha256": "2ce8571abb4ab543755c111b7867bf9cabe62af311a87312c8f17032541d2416",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/opendbc_repo/opendbc/car/vehicle_model.py#L66-L77"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "symbol": "curvature_factor",
+      "start_line": 79,
+      "end_line": 90,
+      "range_sha256": "623adb9f58d9c3960cfbaf615a3c39fb0658a18032c909f6ffa5282019637773",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/opendbc_repo/opendbc/car/vehicle_model.py#L79-L90"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "symbol": "roll_compensation",
+      "start_line": 106,
+      "end_line": 121,
+      "range_sha256": "d8adf3dc04ae33ebf3374a856c1f01eab679ec870a1621f97b0be4f77e8043f6",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/opendbc_repo/opendbc/car/vehicle_model.py#L106-L121"
+    },
+    {
+      "path": "openpilot/cereal/messaging/__init__.py",
+      "symbol": "new_message",
+      "start_line": 42,
+      "end_line": 54,
+      "range_sha256": "18a429ebaa63993d075fca856d316ce51373d25448ade6e6833b90e50c25d568",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/cereal/messaging/__init__.py#L42-L54"
+    },
+    {
+      "path": "openpilot/cereal/messaging/__init__.py",
+      "symbol": "update_msgs",
+      "start_line": 255,
+      "end_line": 280,
+      "range_sha256": "8051f0c4a49b4a0b0d6a9f1480f042719286f8b2fe8ecc2a7f86fbac35ff950a",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/cereal/messaging/__init__.py#L255-L280"
+    },
+    {
+      "path": "openpilot/cereal/messaging/__init__.py",
+      "symbol": "all_checks",
+      "start_line": 300,
+      "end_line": 301,
+      "range_sha256": "484ae04ed1e9db6a05385ae0e54111d3d163237ba275c761c006fc8317334fb1",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/cereal/messaging/__init__.py#L300-L301"
+    },
+    {
+      "path": "openpilot/cereal/messaging/messaging.h",
+      "symbol": "C++ publication timing",
+      "start_line": 1,
+      "end_line": 102,
+      "range_sha256": "7d007b2e4d32e102b9ab51d5a566323b51c69187eb3fde261d1002c3b6735a6b",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/cereal/messaging/messaging.h#L1-L102"
+    },
+    {
+      "path": "openpilot/common/timing.h",
+      "symbol": "C++ publication timing",
+      "start_line": 1,
+      "end_line": 51,
+      "range_sha256": "66a580e240fa4fe4af03bc3073ddd0f4db5d1027720e8adfa92ba448f7c8bc71",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/common/timing.h#L1-L51"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/drive_helpers.py",
+      "symbol": "is_volkswagen_meb",
+      "start_line": 9,
+      "end_line": 12,
+      "range_sha256": "8f6ef6c09c2c605abe25426046881faae918bd694af9cb164d7f63b6066499db",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/drive_helpers.py#L9-L12"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/lateral_readiness.py",
+      "symbol": "live_parameters_ready",
+      "start_line": 30,
+      "end_line": 34,
+      "range_sha256": "67143d5b72a3bd29249a3d766d64be0d2331daa130b0dc76fd842e412ec3632e",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/lateral_readiness.py#L30-L34"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/lateral_readiness.py",
+      "symbol": "lateral_vehicle_parameters",
+      "start_line": 45,
+      "end_line": 48,
+      "range_sha256": "de04cea334085905ac92f4dd57dfe02c2bd451e3a44cd58a0d10e16a09d65c5f",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/lateral_readiness.py#L45-L48"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "symbol": "resolve_vehicle_model_steer_ratio",
+      "start_line": 10,
+      "end_line": 20,
+      "range_sha256": "d4407c097aadf0e0345e838f0fe6ba1089afe59f5802185bca8b87045b51c6f2",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/openpilot/selfdrive/controls/lib/steer_ratio.py#L10-L20"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/tesla/carstate.py",
+      "symbol": "CarState.update steeringPressed producer",
+      "start_line": 224,
+      "end_line": 232,
+      "range_sha256": "850130a17d3eed6b09d36e55c3fed8ae27ffaa8b8555655f55b01d78830a5160",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/opendbc_repo/opendbc/car/tesla/carstate.py#L224-L232"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/volkswagen/carstate.py",
+      "symbol": "CarState.update_meb steeringPressed producer",
+      "start_line": 190,
+      "end_line": 196,
+      "range_sha256": "c741da5f284df53d2897bbfa82d30c9488430682135137085b81604fbcbb8e6b",
+      "url": "https://github.com/rownlvh8875-coder/openpilot/blob/c2130730239bcdb4cbde9361ab90c8d99aa4ff55/opendbc_repo/opendbc/car/volkswagen/carstate.py#L190-L196"
+    }
+  ],
+  "schema_ordinals": {
+    "CarControl_lateralControlObservation": 18,
+    "CarOutput_actuationReceipt": 1,
+    "LateralControlObservation": {
+      "version": 0,
+      "controllerKind": 1,
+      "instantaneousLimitState": 2,
+      "measurement": 3,
+      "desiredTargetState": 4,
+      "desiredTargetCurvatureInvM": 5
+    },
+    "LateralMeasurementObservation": {
+      "version": 0,
+      "measurementMode": 1,
+      "validityState": 2,
+      "measuredCurvatureInvM": 3,
+      "carStateMonoTime": 4,
+      "liveParametersMonoTime": 5,
+      "inputSpeedMps": 6,
+      "inputSteeringAngleDeg": 7,
+      "effectiveStiffnessFactor": 8,
+      "effectiveSteerRatio": 9,
+      "effectiveAngleOffsetDeg": 10,
+      "effectiveRollRad": 11,
+      "carStateHealthState": 12,
+      "liveParametersHealthState": 13,
+      "calculationMonoTime": 14
+    }
+  },
+  "provenance": {
+    "source_bodies_copied": false,
+    "independently_authored": true,
+    "upstream_license_evidence": [
+      "LICENSE",
+      "opendbc_repo/LICENSE"
+    ],
+    "license_interpretation": "MIT-style notices on inspected license blobs; no all-files attribution conclusion",
+    "target_license": "Owner decision pending; no LICENSE added"
+  },
+  "decision": "CONTRACT_READY_FOR_PHASE_8B",
+  "snapshot_contracts": [
+    {
+      "snapshot_field": "timestamp_s",
+      "path": "openpilot/selfdrive/car/actuation_receipt.py",
+      "symbol": "capture_actuation_receipt",
+      "schema_ordinal": "ActuationReceipt.hostApplyMonoTime @10",
+      "producer": "capture_actuation_receipt",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "monotonic",
+      "cohort_identity": "source command + host apply; timestamp_s uses host apply",
+      "availability_semantics": "missing union/domain rejects",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    },
+    {
+      "snapshot_field": "sequence",
+      "path": "openpilot/cereal/messaging/__init__.py",
+      "symbol": "SubMaster.update_msgs",
+      "schema_ordinal": "none: caller-owned mapping-attempt counter",
+      "producer": "SubMaster.update_msgs",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "caller monotonic stream",
+      "cohort_identity": "not a source frame",
+      "availability_semantics": "missing/repeated/regressed counter rejects",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    },
+    {
+      "snapshot_field": "source_age_s",
+      "path": "openpilot/selfdrive/car/actuation_receipt.py",
+      "symbol": "capture_actuation_receipt / _healthy",
+      "schema_ordinal": "source CC @1 / apply @10 / safety @4,@12",
+      "producer": "capture_actuation_receipt / _healthy",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "separate monotonic and bootTime durations",
+      "cohort_identity": "age at apply, excluding evaluation delay",
+      "availability_semantics": "negative or unavailable duration rejects",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    },
+    {
+      "snapshot_field": "context_key",
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "symbol": "VehicleModel.__init__ / update_params",
+      "schema_ordinal": "caller-attested static CP and baseline epoch",
+      "producer": "VehicleModel.__init__ / update_params",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "same attested process/boot context",
+      "cohort_identity": "versioned canonical non-identifying digest",
+      "availability_semantics": "unknown/mismatch rejects",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    },
+    {
+      "snapshot_field": "source_valid",
+      "path": "openpilot/selfdrive/controls/lib/measurement_observation.py",
+      "symbol": "capture_vm_measurement / _topic_health",
+      "schema_ordinal": "measurement @3, validityState @2, health @12,@13",
+      "producer": "capture_vm_measurement / _topic_health",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "measurement monotonic source/current health",
+      "cohort_identity": "all exact joins + policy + quality known",
+      "availability_semantics": "any mandatory failure rejects",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    },
+    {
+      "snapshot_field": "speed_mps",
+      "path": "openpilot/selfdrive/controls/lib/measurement_observation.py",
+      "symbol": "capture_vm_measurement",
+      "schema_ordinal": "LateralMeasurementObservation.inputSpeedMps @6",
+      "producer": "capture_vm_measurement",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "same measurement calculation",
+      "cohort_identity": "exact frozen CS.vEgo; exact CS join verifies",
+      "availability_semantics": "unavailable/negative/nonfinite rejects",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    },
+    {
+      "snapshot_field": "desired_curvature_inv_m",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.state_control",
+      "schema_ordinal": "LateralControlObservation.desiredTargetCurvatureInvM @5",
+      "producer": "Controls.state_control",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "source command",
+      "cohort_identity": "clipped target before MEB correction",
+      "availability_semantics": "unavailable/nonfinite rejects; no final request substitution",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    },
+    {
+      "snapshot_field": "measured_curvature_inv_m",
+      "path": "openpilot/selfdrive/controls/lib/measurement_observation.py",
+      "symbol": "capture_vm_measurement",
+      "schema_ordinal": "LateralMeasurementObservation.measuredCurvatureInvM @3",
+      "producer": "capture_vm_measurement",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "same calculation",
+      "cohort_identity": "frozen VM estimate, not a physical sensor measurement",
+      "availability_semantics": "fallback/invalid/unavailable rejects",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    },
+    {
+      "snapshot_field": "lateral_acceleration_mps2",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.state_control",
+      "schema_ordinal": "none used",
+      "producer": "Controls.state_control",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "not applicable",
+      "cohort_identity": "intentionally unavailable",
+      "availability_semantics": "None, never curvature times speed squared",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    },
+    {
+      "snapshot_field": "controller_saturated",
+      "path": "openpilot/selfdrive/controls/lib/lateral_observation.py",
+      "symbol": "record_lateral_observation / output_limit_state",
+      "schema_ordinal": "ActuationReceipt.instantaneousControllerLimitState @6 / outputLimitState @9",
+      "producer": "record_lateral_observation / output_limit_state",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "same command/apply cohort",
+      "cohort_identity": "independent instantaneous/output limit predicates",
+      "availability_semantics": "unknown/inactive/no return None and rejects full mapping",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    },
+    {
+      "snapshot_field": "driver_override",
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "symbol": "CarState",
+      "schema_ordinal": "CarState.steeringPressed @9",
+      "producer": "CarState",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "exact source CS Event timestamp",
+      "cohort_identity": "known producer support required, not default builder",
+      "availability_semantics": "unknown producer/field/CS rejects",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    },
+    {
+      "snapshot_field": "baseline_parameters",
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "symbol": "CarParams (not used as baseline)",
+      "schema_ordinal": "none: caller-owned immutable mapping",
+      "producer": "CarParams (not used as baseline)",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "caller epoch",
+      "cohort_identity": "exact independently trusted baseline match",
+      "availability_semantics": "missing/mismatch rejects; never Params",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    },
+    {
+      "snapshot_field": "control_active",
+      "path": "openpilot/selfdrive/car/actuation_receipt.py",
+      "symbol": "capture_actuation_receipt / complete_actuation_receipt",
+      "schema_ordinal": "host @2 / permission @3 / return @11",
+      "producer": "capture_actuation_receipt / complete_actuation_receipt",
+      "consumer": "future extraction boundary -> pure evaluate -> ObservationSnapshot",
+      "clock_domain": "same receipt cohort",
+      "cohort_identity": "host-admitted and safety-permission-observed only",
+      "availability_semantics": "unavailable None; no physical/CAN acknowledgment claim",
+      "legacy_default_behavior": "unavailable for receipt0/observation0/1; never inferred zero/False"
+    }
+  ],
+  "mandatory_gates": {
+    "receipt_binding": "PROVEN",
+    "source_command_join": "PROVEN",
+    "source_car_state_join": "PROVEN",
+    "control_active": "PROVEN",
+    "controller_saturated": "PROVEN",
+    "desired_target": "PROVEN",
+    "measurement_provenance": "PROVEN",
+    "driver_override_provenance": "PROVEN",
+    "clock_source_age": "PROVEN",
+    "static_context_policy": "PROVEN",
+    "source_valid": "PROVEN",
+    "caller_policy": "PROVEN",
+    "immutable_baseline": "PROVEN"
+  },
+  "decision_scope": "Pure contract and evidence only; actual extraction/cache adapter NOT_STARTED; underlying planner quality/physical response not attested."
+}
