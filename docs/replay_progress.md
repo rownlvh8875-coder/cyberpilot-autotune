@@ -18,3 +18,14 @@ Plan: replay_plan.md; existing replay_spec.md defines the approved future scope.
   keys, numeric failures, ordering, explicit activity, resource caps and immutability.
 - Canonical tests use hand-written expected bytes for float.hex, exact integer and
   rational tags. No engine or learner executes during decode.
+
+## Task 2
+
+- RED: integration tests failed because run_replay was absent.
+- GREEN: fresh OFF/SHADOW runs, immutable traces/summary, independent trusted
+  baseline and bounds/step/rate checks, fault rejection and timer-excluded digest.
+- Generated streams cover activity, speed, override, saturation and residual
+  transitions; arbitrary text/reordering is rejected with typed errors.
+- A large-origin freshness regression first reproduced a false invariant report;
+  subtracting capture time before adding source age fixed precision loss.
+- Full regression: 401 passed; ruff, format, strict mypy and diff checks passed.

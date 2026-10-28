@@ -25,9 +25,13 @@ def _value(value: object) -> Any:
     if is_dataclass(value) and not isinstance(value, type):
         return {field.name: _value(getattr(value, field.name)) for field in fields(value)}
     if isinstance(value, Mapping):
-        if any(type(key) is not str for key in value):
-            raise ValidationError("canonical mapping keys must be strings")
-        return {key: _value(item) for key, item in value.items()}
+        result = {}
+        for key, item in value.items():
+            name = key.value if isinstance(key, Enum) else key
+            if type(name) is not str or name in result:
+                raise ValidationError("canonical keys must be unique strings or string enums")
+            result[name] = _value(item)
+        return result
     if isinstance(value, (tuple, list)):
         return [_value(item) for item in value]
     raise ValidationError("unsupported canonical value type")
