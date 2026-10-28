@@ -70,3 +70,14 @@ from the same real learner run. This sidecar does not change the historical repo
 projection; focused expected files and CLI compare it explicitly. None denotes
 an empty evidence window, never a fabricated zero observation. Ordering counts:
 1,2,None,None,None,None,1,None,None,1,None,None,1,2,3,4. Regression: 429 passed.
+
+## CLI
+
+RED: run/error tests failed because cli.py was absent. GREEN: run/verify/verify-all,
+strict typed semantic expectation matching, bounded local reads, sorted discovery,
+raw-error redaction and portable canonical stdout. Exits 0/2/3/4/5 are exercised.
+Direct-entry and fresh-process outputs agree, including invalid UTF-8/oversized/
+missing input, duplicate expected keys and unknown CLI flags. No update command.
+AST permits only rb reads in cli.py and writes to stdout/stderr buffers; guarded
+CLI execution forbids filesystem writes/network/threads/processes. Regression:
+461 passed; overall coverage 98.51%, replay 98.45%; lint/format/type checks pass.

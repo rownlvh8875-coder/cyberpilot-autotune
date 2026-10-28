@@ -18,6 +18,12 @@ from cyberpilot_autotune.safety.gate import GateConfig
 
 MAX_REPLAY_BYTES = 256 * 1024
 MAX_EVENTS = 1000
+
+
+class UnsupportedConfigurationError(ValidationError):
+    """Structurally recognizable replay configuration that this version cannot run."""
+
+
 CANONICAL_UNITS: Mapping[str, str] = MappingProxyType(
     {
         "timestamp_s": "s",
@@ -71,15 +77,19 @@ class ReplayScenario:
     events: tuple[ReplayEvent, ...]
 
     def __post_init__(self) -> None:
-        if type(self.schema_version) is not int or self.schema_version != 1:
-            raise ValidationError("unsupported replay schema version")
+        if type(self.schema_version) is not int:
+            raise ValidationError("schema version must be an integer")
+        if self.schema_version != 1:
+            raise UnsupportedConfigurationError("unsupported replay schema version")
         if self.scope != "SYNTHETIC_TEST_ONLY" or self.learner_version != "residual-ewma-v1":
-            raise ValidationError("unsupported scope or learner version")
+            raise UnsupportedConfigurationError("unsupported scope or learner version")
         if self.time_domain != "synthetic.monotonic.v1":
-            raise ValidationError("unknown replay clock domain")
+            raise UnsupportedConfigurationError("unknown replay clock domain")
         _clock_coordinate(self.monotonic_origin_s, "monotonic_origin_s")
-        if not isinstance(self.units, Mapping) or dict(self.units) != CANONICAL_UNITS:
-            raise ValidationError("canonical units must be explicit and exact")
+        if not isinstance(self.units, Mapping) or set(self.units) != set(CANONICAL_UNITS):
+            raise ValidationError("canonical units must have exact fields")
+        if dict(self.units) != CANONICAL_UNITS:
+            raise UnsupportedConfigurationError("unsupported canonical units")
         if (
             type(self.parameter_spec) is not ParameterSpec
             or type(self.gate_config) is not GateConfig
@@ -92,14 +102,14 @@ class ReplayScenario:
             replace(self.learner_config),
         )
         if not spec.parameter_id.startswith("synthetic.") or spec.persistence_eligible:
-            raise ValidationError("only nonpersistent synthetic specifications are admitted")
+            raise UnsupportedConfigurationError("only nonpersistent synthetic specs are admitted")
         baseline = parameters(self.baseline_parameters)
         if set(baseline) != {spec.parameter_id}:
             raise ValidationError("replay baseline must bind the single declared parameter")
         if not spec.lower_bound <= baseline[spec.parameter_id] <= spec.upper_bound:
             raise ValidationError("trusted replay baseline must be inside its specification")
         if gate.minimum_speed_mps < learner.minimum_speed_mps:
-            raise ValidationError("common admission cannot be weaker than learner policy")
+            raise UnsupportedConfigurationError("common admission weaker than learner policy")
         events = typed_tuple(self.events, ReplayEvent)
         if not 0 < len(events) <= MAX_EVENTS:
             raise ValidationError("replay must contain 1..1000 events")
@@ -163,7 +173,7 @@ def load_replay(document: str) -> ReplayScenario:
     data = _object(value, _names(ReplayScenario))
     spec = _object(data["parameter_spec"], _names(ParameterSpec)).copy()
     if spec["out_of_range_policy"] != "REJECT":
-        raise ValidationError("only explicit REJECT policy is admitted")
+        raise UnsupportedConfigurationError("only explicit REJECT policy is admitted")
     spec["out_of_range_policy"] = OutOfRangePolicy.REJECT
     raw_events = data["events"]
     if type(raw_events) is not list or not 0 < len(raw_events) <= MAX_EVENTS:

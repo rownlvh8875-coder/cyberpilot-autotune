@@ -39,6 +39,18 @@ def test_dependency_boundaries_use_ast():
                 if isinstance(call.func, ast.Name):
                     assert call.func.id not in {"__import__", "eval", "exec", "open"}, path
                 if isinstance(call.func, ast.Attribute):
+                    is_cli = path == PACKAGE / "replay" / "cli.py"
+                    if call.func.attr == "write":
+                        assert is_cli and ast.unparse(call.func.value) in {
+                            "sys.stdout.buffer",
+                            "sys.stderr.buffer",
+                        }, path
+                        continue
+                    if call.func.attr in {"open", "read_bytes", "read_text"}:
+                        assert is_cli, path
+                        assert call.func.attr == "open" and len(call.args) == 1, path
+                        assert isinstance(call.args[0], ast.Constant), path
+                        assert call.args[0].value == "rb", path
                     assert call.func.attr not in {
                         "import_module",
                         "write",
@@ -72,6 +84,7 @@ def test_adapter_exposes_only_readonly_conversion():
         "contracts",
         "replay",
         "replay.runner",
+        "replay.cli",
     ],
 )
 def test_import_and_modes_have_no_io_network_threads_or_optional_dependencies(
@@ -147,11 +160,13 @@ def test_import_and_modes_have_no_io_network_threads_or_optional_dependencies(
         report = run_replay(scenario, timer_ns=lambda: next(ticks))
         assert report.software_checks_passed and report.summary.eligible_count == 1
         assert len(report.digest) == 64
+        if sys.argv[1] == 'replay.cli':
+            assert package.main(['verify-all', sys.argv[2]]) == 0
         assert not any(name.split('.')[0] in {'openpilot', 'cereal', 'selfdrive', 'opendbc'}
                        for name in sys.modules)
     """)
     result = subprocess.run(
-        [sys.executable, "-B", "-c", script, first_module],
+        [sys.executable, "-B", "-c", script, first_module, str(ROOT / "tests/fixtures/replay")],
         cwd=tmp_path,
         capture_output=True,
         text=True,
