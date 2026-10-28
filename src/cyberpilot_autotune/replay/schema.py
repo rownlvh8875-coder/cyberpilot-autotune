@@ -30,6 +30,12 @@ CANONICAL_UNITS: Mapping[str, str] = MappingProxyType(
 )
 
 
+def _clock_coordinate(value: float, name: str) -> None:
+    # Engine Clock readings are binary64; decoding must not change a time identity.
+    if nonnegative(value, name) != value:
+        raise ValidationError("clock coordinates must be losslessly representable as binary64")
+
+
 @dataclass(frozen=True, slots=True)
 class ReplayEvent:
     clock_before_s: float
@@ -37,13 +43,14 @@ class ReplayEvent:
     observation: ObservationSnapshot
 
     def __post_init__(self) -> None:
-        nonnegative(self.clock_before_s, "clock_before_s")
-        nonnegative(self.clock_after_s, "clock_after_s")
+        _clock_coordinate(self.clock_before_s, "clock_before_s")
+        _clock_coordinate(self.clock_after_s, "clock_after_s")
         if self.clock_after_s < self.clock_before_s:
             raise ValidationError("replay clock regressed during an event")
         if type(self.observation) is not ObservationSnapshot:
             raise ValidationError("replay event requires ObservationSnapshot")
         snapshot = replace(self.observation)
+        _clock_coordinate(snapshot.timestamp_s, "timestamp_s")
         if not snapshot.context_key.startswith("synthetic/"):
             raise ValidationError("replay context must be explicitly synthetic")
         object.__setattr__(self, "observation", snapshot)
@@ -70,7 +77,7 @@ class ReplayScenario:
             raise ValidationError("unsupported scope or learner version")
         if self.time_domain != "synthetic.monotonic.v1":
             raise ValidationError("unknown replay clock domain")
-        nonnegative(self.monotonic_origin_s, "monotonic_origin_s")
+        _clock_coordinate(self.monotonic_origin_s, "monotonic_origin_s")
         if not isinstance(self.units, Mapping) or dict(self.units) != CANONICAL_UNITS:
             raise ValidationError("canonical units must be explicit and exact")
         if (

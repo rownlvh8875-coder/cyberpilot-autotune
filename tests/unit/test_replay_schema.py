@@ -152,6 +152,41 @@ def test_resource_caps_and_overflow_exponents_fail_closed():
         module.load_replay(raw)
 
 
+@pytest.mark.parametrize("coordinate", ["origin", "capture", "before", "after"])
+def test_clock_integers_that_lose_precision_in_engine_are_rejected(coordinate):
+    document = replay_document()
+    document["monotonic_origin_s"] = 2**53
+    for i, event in enumerate(document["events"]):
+        exact = 2**53 + 4 * (i + 1)
+        event["observation"]["timestamp_s"] = exact
+        event["clock_before_s"] = event["clock_after_s"] = exact
+    if coordinate == "origin":
+        document["monotonic_origin_s"] += 1
+    elif coordinate == "capture":
+        document["events"][0]["observation"]["timestamp_s"] += 1
+    elif coordinate == "before":
+        document["events"][0]["clock_before_s"] -= 1
+    else:
+        document["events"][0]["clock_after_s"] += 1
+    with pytest.raises(ValidationError, match="losslessly"):
+        load(document)
+
+
+def test_lossless_large_integer_clock_boundary_remains_admitted():
+    document = replay_document()
+    document["monotonic_origin_s"] = 2**53
+    for i, event in enumerate(document["events"], start=1):
+        exact = 2**53 + 2 * i
+        event["observation"]["timestamp_s"] = exact
+        event["clock_before_s"] = event["clock_after_s"] = exact
+    from cyberpilot_autotune.replay import run_replay
+
+    report = run_replay(load(document))
+    assert report.summary.rejection_counts == {}
+    assert report.summary.eligible_count == 1
+    assert report.software_checks_passed
+
+
 def test_scenario_is_frozen_and_defensively_copies_nested_input():
     scenario = load(replay_document())
     baseline = {"synthetic.test_only": 10.0}

@@ -29,3 +29,14 @@ Plan: replay_plan.md; existing replay_spec.md defines the approved future scope.
 - A large-origin freshness regression first reproduced a false invariant report;
   subtracting capture time before adding source age fixed precision loss.
 - Full regression: 401 passed; ruff, format, strict mypy and diff checks passed.
+
+## Independent review
+
+- One read-only fresh-context review found one P2 correctness issue: finite integer
+  clocks above 2**53 could round in the engine, manufacturing FUTURE_TIMESTAMP
+  despite capture equaling the fixture clock. No other scoped findings were raised.
+- Four RED tests reproduced admission of lossy origin/capture/before/after values.
+  Schema now requires binary64-lossless time coordinates before engine creation;
+  GREEN tests also preserve admission of exactly representable large integers.
+- Golden metrics/digest remain unchanged. No engine/gate/learner implementation,
+  existing PR #2 history or reference repository changed.
