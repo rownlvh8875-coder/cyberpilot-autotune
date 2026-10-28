@@ -18,7 +18,7 @@ CAPABILITIES = {"CarInterface", "CarInterfaceBase", "SubMaster"}
 
 
 def test_dependency_boundaries_use_ast():
-    for area in ("contracts", "core", "safety", "runtime", "adapters", "telemetry"):
+    for area in ("contracts", "core", "safety", "runtime", "adapters", "telemetry", "replay"):
         for path in (PACKAGE / area).rglob("*.py"):
             tree = ast.parse(path.read_text(encoding="utf-8"))
             for node in ast.walk(tree):
@@ -70,6 +70,8 @@ def test_adapter_exposes_only_readonly_conversion():
         "telemetry.events",
         "adapters.base",
         "contracts",
+        "replay",
+        "replay.runner",
     ],
 )
 def test_import_and_modes_have_no_io_network_threads_or_optional_dependencies(
@@ -132,6 +134,19 @@ def test_import_and_modes_have_no_io_network_threads_or_optional_dependencies(
                     assert result.gate_decisions[0].eligible
                     engine.step(None)
                     assert learner.statistics is None
+        from dataclasses import replace
+        from cyberpilot_autotune.replay import ReplayEvent, ReplayScenario, run_replay
+        from cyberpilot_autotune.replay.schema import CANONICAL_UNITS
+        frames = tuple(ReplayEvent(9 + i, 9 + i, replace(
+            snapshot, timestamp_s=9 + i, sequence=i, context_key='synthetic/guarded'
+        )) for i in range(2))
+        scenario = ReplayScenario(1, 'SYNTHETIC_TEST_ONLY', 'residual-ewma-v1',
+            'synthetic.monotonic.v1', 0, CANONICAL_UNITS, baseline, spec,
+            GateConfig(1, 2, .8, minimum_speed_mps=1), config, frames)
+        ticks = iter(range(100))
+        report = run_replay(scenario, timer_ns=lambda: next(ticks))
+        assert report.software_checks_passed and report.summary.eligible_count == 1
+        assert len(report.digest) == 64
         assert not any(name.split('.')[0] in {'openpilot', 'cereal', 'selfdrive', 'opendbc'}
                        for name in sys.modules)
     """)

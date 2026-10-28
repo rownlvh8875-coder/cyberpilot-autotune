@@ -25,6 +25,9 @@ jobs:
       - run: python -m pytest --cov=cyberpilot_autotune --cov-report=term-missing --cov-fail-under=85
       - run: python -m coverage report --include="*/safety/*" --fail-under=95
       - run: python -m coverage report --include="*/core/residual.py" --fail-under=95
+      - run: python -m coverage report --include="*/replay/*" --fail-under=95
+      - name: Verify pinned synthetic golden evidence across fresh processes
+        run: python -m pytest tests/integration/test_replay_golden.py -q
       - run: python -m build
       - name: Install wheel in isolated environment and import outside checkout
         shell: bash
@@ -36,5 +39,7 @@ jobs:
             wheel_python="$RUNNER_TEMP/wheel-env/bin/python"
           fi
           "$wheel_python" -m pip install dist/*.whl
+          fixture="$GITHUB_WORKSPACE/tests/fixtures/replay/golden_v1.json"
           cd "$RUNNER_TEMP"
-          "$wheel_python" -I -c "import cyberpilot_autotune.core.residual, cyberpilot_autotune.safety, cyberpilot_autotune.runtime"
+          "$wheel_python" -I -c "import cyberpilot_autotune.core.residual, cyberpilot_autotune.safety, cyberpilot_autotune.runtime, cyberpilot_autotune.replay"
+          "$wheel_python" -I -c "from pathlib import Path; import sys; from cyberpilot_autotune.replay import load_replay, run_replay; r = run_replay(load_replay(Path(sys.argv[1]).read_text(encoding='utf-8'))); assert r.software_checks_passed; assert r.digest == '5434e0cd203a08fb97662d94b91d66665bb950ba8cb276f90597efc8af673af5'" "$fixture"

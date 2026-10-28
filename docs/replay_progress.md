@@ -2,7 +2,7 @@
 
 Base: 26e83f9a5af23b2c9cb93aeb3ddae8f1189c0df0.
 Branch: feat/deterministic-replay. Baseline: 335 tests passed, working tree clean.
-Plan: replay_plan.md; existing replay_spec.md defines the approved future scope.
+Plan: replay_plan.md; replay_spec.md defines the implemented schema and evidence.
 
 - PR #1 is merged; PR #2 remains Draft/HOLD. No merge or retarget of PR #2 is
   authorized by this replay task. Use a separate stacked PR for the new harness.
@@ -40,3 +40,21 @@ Plan: replay_plan.md; existing replay_spec.md defines the approved future scope.
   GREEN tests also preserve admission of exactly representable large integers.
 - Golden metrics/digest remain unchanged. No engine/gate/learner implementation,
   existing PR #2 history or reference repository changed.
+
+## Task 3
+
+- RED: golden tests first failed because the fixture did not exist. Hand-derived
+  expectations then passed, with only the intentionally unpinned digest failing.
+  After verifying counts, pinned digest and both fresh-process/hash-seed checks pass.
+- Golden: 21 events, 5 proposals, 2 eligible, exact maximum delta 3/2; all 42 engine
+  outputs retain trusted baseline; zero violations/internal errors. Latency stays
+  separate from deterministic evidence. No real-data/performance claim is made.
+- Extended static/guarded architecture checks to replay imports and execution;
+  added public report validation, timer regression and generated input coverage.
+- CI checks replay coverage >=95%, golden evidence on all four matrix jobs and
+  functional golden replay from the separately installed wheel outside checkout.
+- Version 0.1.0a3; source distribution includes docs/examples and synthetic test
+  fixtures. Runtime dependencies remain empty. Acceptance/roadmap docs explicitly
+  preserve NOT_AUTHORIZED persistence and PR #2 Draft/HOLD.
+- Local regression: 422 passed; full lint/format/mypy passed. Fresh-clone/build/wheel
+  and final remote CI evidence will be recorded after execution.

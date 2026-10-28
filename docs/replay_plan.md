@@ -53,9 +53,9 @@ Files: replay/{schema,canonical,__init__}.py; tests/unit/test_replay_schema.py.
 APIs: load_replay(document:str)->ReplayScenario, ReplayEvent, ReplayScenario,
 canonical_bytes(value:object)->bytes. Frozen validated, defensively copied structures.
 
-- [ ] Write failing strict schema/units/order/type/immutability and canonical byte tests.
-- [ ] Observe RED, implement minimal typed schema/decoder/encoding, verify GREEN.
-- [ ] Full tests, lint/format/mypy/whitespace; atomic commit.
+- [x] Write failing strict schema/units/order/type/immutability and canonical byte tests.
+- [x] Observe RED, implement minimal typed schema/decoder/encoding, verify GREEN.
+- [x] Full tests, lint/format/mypy/whitespace; atomic commit.
 
 ## Task 2: Runner and independent evidence
 
@@ -63,10 +63,10 @@ Files: replay/runner.py; tests/{unit,integration,property}/test_replay*.py.
 API: run_replay(scenario, *, timer_ns=perf_counter_ns)->ReplayReport. Immutable
 results, summary, digest and separately measured latency; fresh engines each run.
 
-- [ ] Write failing known-stream counts, baseline identity, independent violation,
+- [x] Write failing known-stream counts, baseline identity, independent violation,
   timer-excluded digest and deterministic input/policy-binding tests.
-- [ ] Observe RED; implement bounded runner and report without IO/application.
-- [ ] Add generated stream invariants; full checks and atomic commit.
+- [x] Observe RED; implement bounded runner and report without IO/application.
+- [x] Add generated stream invariants; full checks and atomic commit.
 
 ## Task 3: Golden evidence and delivery
 
@@ -74,10 +74,10 @@ Files: tests/fixtures/replay/{golden_v1,golden_v1.expected}.json;
 examples/replay_synthetic.py; docs/{replay_spec,replay_acceptance,replay_progress}.md;
 README, roadmap, architecture, CI and package metadata.
 
-- [ ] Golden expected metrics: 21 events, 5 proposals, 2 eligible; 2 low-confidence,
+- [x] Golden expected metrics: 21 events, 5 proposals, 2 eligible; 2 low-confidence,
   1 rate veto; admission vetoes and exact maximum delta 3/2; zero invariant violations.
-- [ ] Pin digest after matching hand-derived metrics; check two fresh processes,
+- [x] Pin digest after matching hand-derived metrics; check two fresh processes,
   malformed fixtures and guarded import/execution with no network/writes/threads.
-- [ ] Independent read-only review; meaningful findings fixed with RED/GREEN.
+- [x] Independent read-only review; meaningful findings fixed with RED/GREEN.
 - [ ] Clean clone install, full tests/coverage/lint/type/build and isolated wheel smoke.
 - [ ] Commit/push normally, create stacked Draft PR, inspect final CI; keep PR #2 HOLD.

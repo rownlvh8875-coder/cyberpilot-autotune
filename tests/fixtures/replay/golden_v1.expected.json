@@ -1,0 +1,24 @@
+{
+  "event_count": 21,
+  "proposal_count": 5,
+  "eligible_count": 2,
+  "rejection_counts": {
+    "DRIVER_OVERRIDE": 1,
+    "CONTROLLER_SATURATED": 1,
+    "CONTROL_STATE_UNAVAILABLE": 1,
+    "CONTROL_INACTIVE": 1,
+    "BELOW_MINIMUM_SPEED": 1,
+    "INVALID_OBSERVATION": 2,
+    "STALE_OBSERVATION": 1,
+    "BASELINE_MISMATCH": 1,
+    "LOW_CONFIDENCE": 2,
+    "RATE_LIMIT_EXCEEDED": 1,
+    "FUTURE_TIMESTAMP": 1
+  },
+  "override_exclusion_count": 1,
+  "saturation_exclusion_count": 1,
+  "maximum_proposed_delta": [3, 2],
+  "invariant_violations": 0,
+  "internal_error_count": 0,
+  "sha256": "5434e0cd203a08fb97662d94b91d66665bb950ba8cb276f90597efc8af673af5"
+}

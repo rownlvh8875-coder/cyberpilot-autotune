@@ -60,11 +60,13 @@ python -m pytest -q
 python -m pytest --cov=cyberpilot_autotune --cov-report=term-missing --cov-fail-under=85
 python -m coverage report --include="*/safety/*" --fail-under=95
 python -m coverage report --include="*/core/residual.py" --fail-under=95
+python -m coverage report --include="*/replay/*" --fail-under=95
+python -m pytest tests/integration/test_replay_golden.py -q
 python -m build
 ```
 
 `src/cyberpilot_autotune` contains contracts, safety, runtime, learners, adapter
-interfaces and in-memory diagnostics. `tests` contains unit, property,
+interfaces, synthetic replay and in-memory diagnostics. `tests` contains unit, property,
 integration and architecture tests. `examples` is synthetic only. `docs` records
 the audit, safety contract, integration evidence and future roadmap.
 
@@ -76,10 +78,30 @@ trusted code; this is not a sandbox or a hard real-time implementation.
 The source audit is pinned to CyberPilot commit
 `588d6b21c21089065a7d9165d6e7a438e8aa6297`; the current branch HEAD was also
 recorded separately in the [inventory](docs/porting_inventory.md). No code was
-copied from that source. Phases 6 onward are recorded in
-[the roadmap](docs/roadmap.md) and remain unimplemented.
-The next single work item is a deterministic replay harness. Persistence is not
-authorized; replay acceptance criteria must exist before it is reconsidered.
+copied from that source. Remaining phases are recorded in
+[the roadmap](docs/roadmap.md). Persistence is NOT_AUTHORIZED; synthetic software
+acceptance does not authorize learner state storage or real replay data.
 
 License selection is pending. No LICENSE file is provided. Source references do
 not establish a license for this independent repository.
+
+## Deterministic synthetic replay
+
+`cyberpilot_autotune.replay.load_replay(json_string)` validates a bounded synthetic
+schema before execution. `run_replay(scenario)` constructs fresh OFF and SHADOW
+engines and returns immutable traces, counts, independent invariant checks and a
+SHA-256 digest binding the inputs, policy and deterministic results. Runtime
+latency is measured separately and excluded from the digest. The library reads
+and writes no files. The caller explicitly supplies any document string.
+
+Run the small checked-in synthetic golden fixture locally:
+
+```sh
+python examples/replay_synthetic.py
+```
+
+The example explicitly reads that single fixture and prints JSON; it has no real
+log decoder or state storage. Both modes retain the trusted baseline. See the
+[schema and encoding](docs/replay_spec.md) and
+[software acceptance criteria](docs/replay_acceptance.md). A matching digest is
+regression evidence, not data authentication or vehicle performance evidence.
