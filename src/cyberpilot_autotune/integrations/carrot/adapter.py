@@ -362,6 +362,10 @@ class CarrotReadOnlyAdapter:
                 # A readable same-session attempt is consumed before later
                 # sample/evaluation-clock/health checks can reject it.
                 self._previous_host_apply_ns = max(host, previous_apply or host)
+                if previous_apply is not None and host < previous_apply:
+                    # A known producer-clock regression cannot be hidden by a
+                    # malformed evaluation argument or a later admission exit.
+                    self._session_required = True
             command_entry = self._commands.lookup(receipt.source_command_time.value_ns)
             fault = self._attestation_failure(
                 receipt, command_entry.evidence if command_entry else None, sample.log_mono_time_ns
@@ -376,8 +380,6 @@ class CarrotReadOnlyAdapter:
                 if host > sample.log_mono_time_ns or sample.log_mono_time_ns > now:
                     self._session_required = True
                     return MappingDecision(None, MappingReason.TIME_ORDER, cohort)
-                if previous_apply is not None and host < previous_apply:
-                    self._session_required = True
             if duplicate_publication:
                 return MappingDecision(None, MappingReason.DUPLICATE_COHORT, cohort)
             command = (

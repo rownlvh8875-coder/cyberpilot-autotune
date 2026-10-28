@@ -85,10 +85,6 @@
         {
           "line": 1625,
           "kind": "ret"
-        },
-        {
-          "line": 1470,
-          "kind": "CANFD dispatch"
         }
       ]
     }

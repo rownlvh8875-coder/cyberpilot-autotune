@@ -108,7 +108,7 @@ source entries still stored known False. Extraction admission now requires both
 the frozen transport health and source Event.valid before setting the capability
 flag. Such entries retain None/False and cannot produce a Snapshot.
 
-Local verification: 738 base tests; 872 combined tests with zero failures/skips.
+Initial verification: 738 base tests; 872 combined tests with zero failures/skips.
 The compatibility portion contains the existing 103 checks unchanged, 29 new
 Hyundai generated-reader scenarios, and two source-evidence checks. All 69 literal
 projections remain unchanged. Native branch-inclusive coverage is 98.82% overall,
@@ -122,3 +122,33 @@ Source hashes and inspected ranges are verified before the offline suite. CI
 prepares only the additional pinned source files during setup and imports none
 of the Hyundai producer code. These tests qualify extraction and attestations,
 not live CAN parsing, hardware, or the owner's actual fingerprint.
+
+## Independent post-correction review and follow-up
+
+The fresh whole-PR review at 14c696400548af08a4cf7a6c8d0e9e41e331c5db found
+zero Critical, two Important and one Minor. It independently passed 738 base
+and 872 combined tests, then reproduced a missing session latch: a regressed
+host-apply timestamp followed by an invalid evaluation argument could permit a
+later mapping. Three new actual-reader scenarios reproduced this at RED. The
+latch now occurs immediately after apply consumption/high-water update, before
+any evaluation/sample-error exit. Rejection reason, consumption and high-water
+semantics are preserved; explicit new-session reset remains necessary.
+
+The other Important finding was the actual compatibility CI failure: Git 2.55
+rejects --no-cone on sparse-checkout add. All paths now use the already-supported
+single sparse-checkout set --no-cone operation. Successful corrected exact-head
+CI is still a required publication gate; an earlier failed run is not a pass.
+
+The Minor source-inventory error classified a nested corner_max helper return
+at source line 1470 as a CANFD dispatch. It is removed from normal_returns;
+the outer method's normal return remains 1625. Source bodies/hashes are unchanged.
+The corrected head requires a new fresh independent review before merge, as the
+owner requested. Review and merge results belong to that exact-head external
+publication evidence rather than this earlier review's verdict.
+
+Post-correction regression passes 738 base and 875 combined checks (zero
+failures/skips), retaining the same overall/integration coverage reported above.
+The added three cases assert both retained high-water/attempt consumption and
+rejection of repaired follow-up receipts until explicit reset. A new temporary
+reference checkout prepared with the single-set CI sequence passes exact tree,
+raw-file/range hashes and the complete offline suite.
