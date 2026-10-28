@@ -1,5 +1,17 @@
 # Roadmap after Phase 0-4
 
+2026-10-29 authorization update: the owner approved the
+[shared steering application design](steering_application_design.md), restricted
+the first increment to steering and requested reuse of CyberPilot identification
+work. The separate [application contract](steering_application_contract.md)
+implements a caller-policy/owner-target transaction core. This supersedes the
+earlier prohibition on developing that isolated capability; it does not approve
+vehicle limits, a concrete Carrot owner writer, installation or live activation.
+Longitudinal, persistence and vehicle operation remain outside this increment.
+PR #8's read-only sidecar is preserved separately; actual parked qualification
+still awaits operator evidence. Historical milestones below retain their original
+scope and the real application/vehicle gates remain mandatory.
+
 Phase 5 is implemented in the separate shadow residual-statistics change described
 below. The synthetic subset of historical Phase 7 is also implemented. Phase 6
 and actual vehicle/log integration remain unimplemented. The pinned source audit is retained
