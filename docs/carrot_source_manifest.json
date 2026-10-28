@@ -1,0 +1,233 @@
+{
+  "repository": "https://github.com/ajouatom/openpilot",
+  "reference": "refs/heads/carrot-wip",
+  "commit": "604bc0a22733e648ec05b268da1ffaae7db52a69",
+  "last_observed_commit": "604bc0a22733e648ec05b268da1ffaae7db52a69",
+  "intervening_commits": 0,
+  "hash_basis": "raw_git_blob_bytes",
+  "copied_code": false,
+  "files": [
+    {
+      "path": "LICENSE",
+      "git_blob_sha1": "7dafa9443b1545980b261dddd4184a8daec16758",
+      "sha256": "716ce815a0467219c59ec2433e6bce7f32efc45240725c6d3141a52b111d2558",
+      "bytes": 1059
+    },
+    {
+      "path": "opendbc_repo/LICENSE",
+      "git_blob_sha1": "f1fd199c632b14a8917580bbb2e2624291d6a428",
+      "sha256": "6543c4a66b46affddae1b9ae1e1992687f0b7191e74ba3a7235388b9f42a6d13",
+      "bytes": 1059
+    },
+    {
+      "path": "opendbc",
+      "git_blob_sha1": "7cd9a5bd1ebf2e9138bf09290a2bfe9d7e251b7d",
+      "sha256": "8914f72c601bfe1e2d8bc9c72db822af834201948be3a81a7374ee644c66bec5",
+      "bytes": 20
+    },
+    {
+      "path": "openpilot/cereal/log.capnp",
+      "git_blob_sha1": "43b344c57bf02d72a19628a5a7e62f8a50b0e93b",
+      "sha256": "42fa4764558d636f91d784ad13b4e15398a8a9a993daf589926c3794ee9d1e86",
+      "bytes": 70985
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "git_blob_sha1": "9a4df1956e204054311ec999be6173a101f6ffc0",
+      "sha256": "490441669fd68462b1f59bcaf59d802b23437ce022430d19cb14a4e09f998131",
+      "bytes": 28646
+    },
+    {
+      "path": "openpilot/cereal/messaging/__init__.py",
+      "git_blob_sha1": "6601c14904cbfa2ec374a39e09bad003b5aac257",
+      "sha256": "bb10c4a88e694d7c4e2fa500b92c6d8a9474363297afda3cfba880eea146ad68",
+      "bytes": 11909
+    },
+    {
+      "path": "openpilot/cereal/services.py",
+      "git_blob_sha1": "2b6d3e0b36341e7b30ce179d72744354c809a43f",
+      "sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1",
+      "bytes": 5633
+    },
+    {
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "git_blob_sha1": "d4c974a46ad2b330c997042c699f9b6783408038",
+      "sha256": "5fc6a9158149a13b3b8786ecf5596f17e037ae9006717f9fa07211ed5f205a6a",
+      "bytes": 25696
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/latcontrol.py",
+      "git_blob_sha1": "2f48cbf751cedbc3ecf452a0b9cbc221834bcb99",
+      "sha256": "cf57ac5072064072b80f7eb10408ea1e1627fd54d128123fc84cea85d9ab1374",
+      "bytes": 1161
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_angle.py",
+      "git_blob_sha1": "fc9bbfcb9aa0f55f6cd396111d57b395d0fbda1d",
+      "sha256": "d01c571d063538f18d47c74b0e8ba6c444fe7c8dff2bb7d8a01d492f48c57dad",
+      "bytes": 1283
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_pid.py",
+      "git_blob_sha1": "8a4d1860a904f79dc0c10932d649670a32372bd0",
+      "sha256": "cfa74584b040c8ddb129215894636d2528304ded1c767bdd13679aeadb546d00",
+      "bytes": 2087
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "git_blob_sha1": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "bytes": 16824
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/lateral_readiness.py",
+      "git_blob_sha1": "d64e45f02666bc9a10f8ce5878341158a91a7cdf",
+      "sha256": "9c18096700082a2c30fb99749946369ff0bc75f7a87d9289d2828316de270092",
+      "bytes": 3082
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/drive_helpers.py",
+      "git_blob_sha1": "be7247ad61664ffa011bc4ad14a1c30b2172a036",
+      "sha256": "aab41e3bdc94e78ba51acf564bd5271eae08017fbf57b2fe0874f9860805bccf",
+      "bytes": 5622
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "git_blob_sha1": "e679268b3e488a7eac11720a37f43d4a8fa2bb7a",
+      "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee",
+      "bytes": 716
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/lateral_planner.py",
+      "git_blob_sha1": "c0e5a1c422f0a636e3cfad07ad3760c38038553b",
+      "sha256": "c281ad6cbf56d24ce5777c9d333dd4b995cbd9c36104cd3cd1f7e9ba2d04f341",
+      "bytes": 13942
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/longitudinal_planner.py",
+      "git_blob_sha1": "6bea634604d1e2c5b14121a331679245ef789ef3",
+      "sha256": "d20ec36947c6aefd12b425daa0f8d1fa39d0d273d1da578b13a20b079aad878a",
+      "bytes": 24125
+    },
+    {
+      "path": "openpilot/selfdrive/selfdrived/selfdrived.py",
+      "git_blob_sha1": "af32c70188b9687c2cf436f2409d07b15abfad1d",
+      "sha256": "e160f4588777e9c4bb30550117b349fb70220931a0d3dfa726d8c14cb5d438e9",
+      "bytes": 39138
+    },
+    {
+      "path": "openpilot/selfdrive/selfdrived/state.py",
+      "git_blob_sha1": "5f136c3675a4e01dab07c2d22ded1cc4f22d2fd5",
+      "sha256": "7081e646c1d183fdc7a4e7bf93e7390d32509e5b398200a319bf7b939b2a6b61",
+      "bytes": 4648
+    },
+    {
+      "path": "openpilot/selfdrive/carrot/carrot_controls.py",
+      "git_blob_sha1": "5bbd8afaf23d95afacdb19604c331bc374d818bc",
+      "sha256": "6af0420174b549322dc7d1fa7ee0d9d085ef170dfc35cb74466dd5797fd79c81",
+      "bytes": 1293
+    },
+    {
+      "path": "openpilot/selfdrive/car/card.py",
+      "git_blob_sha1": "677d623c7c91bd79d7944a746270d8b1b14dcd57",
+      "sha256": "3bb0538cc4c0473b95eceaaa045b8b7a103dbcf412e16fc247ca1edfdc6cc483",
+      "bytes": 26555
+    },
+    {
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "git_blob_sha1": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "bytes": 12402
+    },
+    {
+      "path": "openpilot/selfdrive/locationd/paramsd.py",
+      "git_blob_sha1": "a17c7c2c013ee0a5d29b2e1d877fbd4d070c5207",
+      "sha256": "d973bcb4ed39f4828af09b8edf830450ec0e938adef90d76ac6ab59fec3d428b",
+      "bytes": 14174
+    },
+    {
+      "path": "openpilot/selfdrive/locationd/lagd.py",
+      "git_blob_sha1": "d9c28cc6113c5cb1c86db9ca9f4bfe53ec66770a",
+      "sha256": "cd5922709e4686d105a4bef0dadcd56fda6e64eafc9efabb7c1b58a82c99226a",
+      "bytes": 17340
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "git_blob_sha1": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "bytes": 26872
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "git_blob_sha1": "c7d0494be6d5f59684257dad119e620880d1950e",
+      "sha256": "f8ca23c2b85c2fc20d7e08271f2e692f26ae38a4fbadfcb621f9998cb65ea39e",
+      "bytes": 6380
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "git_blob_sha1": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "bytes": 15701
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/common/conversions.py",
+      "git_blob_sha1": "111c928842a4642485f52c6de9fefc973e612aba",
+      "sha256": "6691f6e8c74a48175d2497b580573e7164d222414a82ec41814e8fa4a8d138aa",
+      "bytes": 384
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/tesla/carstate.py",
+      "git_blob_sha1": "a55a64d7a1069030a77dceb67ed2a46e3a2b32f6",
+      "sha256": "06950f90e1b2d6ed0d0bb502ca0094ba6f04e43714d84211e218ed4f655f09ae",
+      "bytes": 22810
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/hyundai/carstate.py",
+      "git_blob_sha1": "b17a7b0c3f4baa41b7c3d845f43cc7a6bb8ea7c2",
+      "sha256": "728b74e6f4af1b3e7148d2140a79ab063c8307d6fc9ae2708c029cd916a22b68",
+      "bytes": 84990
+    },
+    {
+      "path": "openpilot/selfdrive/pandad/pandad.cc",
+      "git_blob_sha1": "47722a18e1ecbcd4c8d322045ef68ec03126b37c",
+      "sha256": "8b1d52adc5809eb663f97d7899bbecd5647cea85fef4f67eb5c1a8b2ee7e1115",
+      "bytes": 24149
+    },
+    {
+      "path": "opendbc_repo/opendbc/safety/safety.h",
+      "git_blob_sha1": "36aa0c875a5920ae027bbcc12ea151ba767d2f41",
+      "sha256": "a8b2b54271dd1fb3fd7f6998b0473a939dce1bfec56a644fc64cd649cfd825aa",
+      "bytes": 32823
+    },
+    {
+      "path": "panda/board/health.h",
+      "git_blob_sha1": "5ee5b4c23bed02e9bc4ed2d17caf8589a28d4551",
+      "sha256": "bd8ec57900ea5c717014badc2d281fff8cfeeede0bd985a272bf08f7c1ae1a40",
+      "bytes": 2264
+    },
+    {
+      "path": "panda/board/main_comms.h",
+      "git_blob_sha1": "5f70d09ba2a56c707fb33424c69432f5a0b04fd3",
+      "sha256": "79fe6ea3e7512d227b426db673bb6874d4d0973c21b080f964cdbf57c561839d",
+      "bytes": 12645
+    },
+    {
+      "path": "openpilot/common/transformations/README.md",
+      "git_blob_sha1": "42a060da80bf328b415fef659fe916d092ff34aa",
+      "sha256": "3a6f885f5ce95b3c3f3cad4cf63e683f9142f1516ec698c198379c6a66c140f1",
+      "bytes": 4097
+    },
+    {
+      "path": "openpilot/tools/joystick/joystickd.py",
+      "git_blob_sha1": "6c3392bb8b9501ac2309cfe1324211b4f228f15a",
+      "sha256": "554c62a06b20b8a9f287a86ad29e430c42a312a12353030497489ea199d0a0ba",
+      "bytes": 3001
+    },
+    {
+      "path": "openpilot/selfdrive/carrot/realtime/compact_state.py",
+      "git_blob_sha1": "995b73c7dd10bb03415908e0e8a3a26ec6af5eb4",
+      "sha256": "55616d5a4b1070e0cc5c00de88e0291e027981475b06089031f5c9eb66b7b333",
+      "bytes": 22362
+    }
+  ]
+}
