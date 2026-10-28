@@ -186,6 +186,12 @@ class CarrotReadOnlyAdapter:
         """Explicit caller observation; no restart detection or automatic recovery."""
         self._session_required = True
 
+    def reject_output_envelope(self) -> MappingDecision:
+        """Consume an unidentifiable output without manufacturing timestamp/validity."""
+        self._next_sequence += 1
+        self._session_required = True
+        return MappingDecision(None, MappingReason.INVALID_INPUT, None)
+
     def reset_session(self, config: AdapterConfig) -> None:
         candidate = replace(config)
         previous = self._config.attestation.session
@@ -335,7 +341,7 @@ class CarrotReadOnlyAdapter:
         return None
 
     def evaluate_car_output(
-        self, sample: DecodedTopicSample, *, evaluation_mono_time_ns: int
+        self, sample: DecodedTopicSample, *, evaluation_mono_time_ns: int | None
     ) -> MappingDecision:
         sequence = self._next_sequence
         self._next_sequence += 1

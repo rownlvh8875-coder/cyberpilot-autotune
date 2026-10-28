@@ -17,7 +17,7 @@ from tests.fixtures.sidecar import ScriptedSubMaster
 def test_fixed_local_messaging_import_is_explicit_and_typed(monkeypatch, failure):
     monkeypatch.setattr(source, "require_schema", binding)
     original = builtins.__import__
-    expected = SimpleNamespace(SubMaster=lambda *args, **kwargs: None)
+    expected = SimpleNamespace(SubMaster=lambda *args, **kwargs: None, PubMaster=object())
 
     def load(name, *args, **kwargs):
         if name == "openpilot.cereal":
@@ -28,7 +28,9 @@ def test_fixed_local_messaging_import_is_explicit_and_typed(monkeypatch, failure
 
     monkeypatch.setattr(builtins, "__import__", load)
     if failure is None:
-        assert source.require_live_dependencies() is expected
+        api = source.require_live_dependencies()
+        assert api.SubMaster is expected.SubMaster
+        assert not hasattr(api, "PubMaster")
     else:
         with pytest.raises(
             CarrotDependencyUnavailable if failure is ImportError else SidecarError

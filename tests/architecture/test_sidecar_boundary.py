@@ -63,6 +63,18 @@ def test_entire_integration_has_no_control_persistence_or_extra_runtime_capabili
                             ("availability.py", "openpilot.cereal", ("car", "log")),
                             ("source.py", "openpilot.cereal", ("messaging",)),
                         }
+                        function = next(
+                            n
+                            for n in tree.body
+                            if isinstance(n, ast.FunctionDef)
+                            and n.name
+                            == (
+                                "require_schema"
+                                if path.name == "availability.py"
+                                else "require_live_dependencies"
+                            )
+                        )
+                        assert node in list(ast.walk(function))
             if isinstance(node, ast.Call):
                 name = (
                     node.func.id
@@ -79,3 +91,35 @@ def test_entire_integration_has_no_control_persistence_or_extra_runtime_capabili
                     assert node.func.value.attr in {"_commands", "_states"}
                 else:
                     assert name not in forbidden_calls
+
+
+def test_scripted_sidecar_receive_path_has_no_extra_io_or_control_side_effect(monkeypatch):
+    import builtins
+    import socket
+    import subprocess
+    import threading
+
+    from cyberpilot_autotune.integrations.carrot.sidecar.runner import SidecarRunner
+    from cyberpilot_autotune.integrations.carrot.sidecar.source import SubMasterSource
+    from tests.fixtures.carrot_adapter import session
+    from tests.fixtures.carrot_readers import binding, samples
+    from tests.fixtures.sidecar import ScriptedSubMaster, sidecar_config
+
+    monkeypatch.setattr("cyberpilot_autotune.integrations.carrot.adapter.require_schema", binding)
+    runner = SidecarRunner(
+        sidecar_config(),
+        SubMasterSource(ScriptedSubMaster([samples()]), session()),
+        clock=lambda: 10_010_000_000,
+    )
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("EXTRA_RUNTIME_CAPABILITY")
+
+    with monkeypatch.context() as guard:
+        guard.setattr(builtins, "open", forbidden)
+        guard.setattr(socket, "socket", forbidden)
+        guard.setattr(subprocess, "Popen", forbidden)
+        guard.setattr(threading.Thread, "start", forbidden)
+        assert runner.poll_once()[0].snapshot.source_valid
+        assert runner.diagnostics().accepted_mapping_count == 1
+        runner.close()

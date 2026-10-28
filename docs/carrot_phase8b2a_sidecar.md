@@ -20,10 +20,13 @@ The approved data flow is SubMaster -> immediate immutable extraction -> existin
 exact caches/join -> existing pure evaluator -> MappingDecision and sanitized
 terminal diagnostics. No engine/learner/controller is reachable.
 
-Ruling: retain the existing admission/cache algorithm. Add only frozen read-only
+Ruling: retain the existing normal admission/cache algorithm. Add frozen read-only
 cache metrics and cumulative per-session poison/eviction counters because these
-cannot be truthfully reconstructed outside the cache. No source evidence or
-mutable cache entry is exposed. The cost is a small tested metrics-only extension.
+cannot be truthfully reconstructed outside the cache. An explicit unavailable
+output-envelope rejection also increments the existing attempt counter and latches
+the session, without fabricating a timestamp or False validity. No source evidence
+or mutable cache entry is exposed. The cost is these small tested observer/closed
+rejection extensions; the established receipt evaluator path is unchanged.
 
 Ruling: configuration uses explicit CLI pins/platform/budgets plus a bounded JSON
 object on stdin; no config file, Params or CarParams reader. All context, baseline,
@@ -44,8 +47,9 @@ generation inference or automatic reconnect is implemented.
 - [x] TDD qualify-only CLI, stdin validation, stable exit codes and shutdown.
 - [x] Actual schema simulated streams: Hyundai, MEB, delayed/missing/conflicting
   sources, rejected receipt consumption, unavailable fields and fault precedence.
-- [ ] Full regression/coverage, installed wheels, unchanged goldens and pinned
-  network-isolated CI. Fresh independent whole-diff review at exact final head.
+- [x] Full local regression/coverage, installed wheels and unchanged goldens;
+  define pinned network-isolated CI and wheel checks.
+- [ ] Confirm remote CI and fresh independent whole-diff review at exact head.
 - [ ] Append-only push and new Draft PR; record review/check results externally.
 
 ## Pinned SubMaster semantics
@@ -63,6 +67,8 @@ SubMaster/msgq internals own their IPC; the sidecar creates no additional socket
 publisher, process or background thread. The pinned API has no SubMaster.close;
 our close drops its owned reference, letting native socket destructors release
 resources. No current reader is accessed after close.
+The dependency entry point returns a frozen binding containing only the receive
+constructor; it does not return the messaging module or expose its publishers.
 
 Only updated=True topics are consumed, in CC/CS/CO order per synchronous update.
 Each callback copies immediately through the existing adapter. No batch of borrowed
@@ -76,6 +82,11 @@ nor claim it describes the previous receipt. Producer measurement health remains
 separate. Health-failed but structurally readable outputs still reach transactional
 adapter rejection; missing envelope metadata is a sticky runtime fault with no
 retry or partial Snapshot.
+
+A structurally unparseable updated carOutput still consumes an explicit closed
+adapter attempt through reject_output_envelope. It produces INVALID_INPUT with no
+cohort or Snapshot and requires a new session. Available output envelopes always
+use the original evaluate_car_output transaction, including unhealthy health.
 
 ## Runtime gates and lifecycle
 
@@ -128,19 +139,69 @@ Phase 8B.2B is NOT_STARTED. Persistence and Apply are NOT_AUTHORIZED. No upstrea
 
 ## Implementation checkpoint
 
-Initial full regression: 820 base tests and 985 combined actual-schema/audit tests
+Final local regression: 830 base tests and 999 combined actual-schema/audit tests
 passed, with zero failures/skips. All 69 existing literal cases and four replay
-goldens remain unchanged. Overall branch-inclusive coverage is 98.74%; sidecar
-unit coverage is 98.25%. Ruff/format and strict mypy pass (46 source modules).
+goldens remain unchanged. Overall branch-inclusive coverage is 98.75%; sidecar
+coverage is 98.36%, all Carrot integration coverage is 98.65%, and pure receipt
+contract/safety coverage is 100%. The focused sidecar suite passes 123 tests.
+Ruff/format and strict mypy pass (46 source modules).
 The new frozen cache metrics do not change admission, eviction order or equality.
 
 Observed RED/GREEN cases include absent runtime modules/APIs, cache transitions,
 unknown updated flag silently skipped, unexpected new-session clock exception,
 initial clock exception leakage, metadata-error receive counting, stdin error
-exit classification and native signed-int timeout representability. Each has a
-behavioral regression test; the subsequent complete suite passes.
+exit classification, native signed-int timeout representability, unavailable
+envelope consumption, evaluation-clock failure consumption, schema/controller
+fault latching and receive-only dependency exposure. Each has a behavioral
+regression test; the subsequent complete suite passes.
 
-Actual reader fixtures cover 27 literal runner streams and one MEB bridge-only
-regression. The MEB case does not bypass the CLI's Hyundai platform gate or
+Actual reader tests cover 27 literal runner streams, one MEB bridge-only
+regression and four envelope/version/controller fault cases (32 new actual-schema
+tests). The MEB case does not bypass the CLI's Hyundai platform gate or
 authorize a new platform. Raw schema readers are generated from the pinned tree;
 the SubMaster receive loop is scripted, so no native service is launched.
+
+Validation commands: `python -m ruff check .`, `python -m ruff format --check .`,
+`python -m mypy src/cyberpilot_autotune`, `python -m pytest -q`,
+`python -m compatibility.carrot.run --reference-checkout <pinned-checkout>`,
+the same compatibility command with `--sidecar-only`, scope-specific coverage
+reports, `python -m build`, and `python -m cyberpilot_autotune.replay.cli verify-all
+tests/fixtures/replay`. Actual-schema runs use Linux Python 3.12.3 and pycapnp 2.1.0;
+the base run uses Windows Python 3.12.14.
+
+Fresh wheel environments confirm all 45 discoverable submodules import without
+openpilot, optional dependencies fail with the typed error, two Hyundai sidecar
+streams and the four existing Hyundai extraction cases preserve their baselines,
+and all four replay goldens verify. Both wheel and sdist build successfully.
+Exact-head independent review and remote push/PR CI are recorded in the Draft PR
+after this checkpoint; no vehicle or native IPC qualification is implied.
+
+## CLI input and stable exits
+
+Only `qualify` exists. It requires the four exact revision flags, expected/runtime
+platform flags, positive `--maximum-updates` and `--poll-timeout-ms`. The poll timeout
+must fit the pinned Cython Poller's signed C int; this is a software representation
+bound, not a vehicle freshness value. Launch pins are checked before stdin or IPC.
+
+Stdin is one JSON object with exactly these keys:
+
+| Key | Caller-owned value |
+|---|---|
+| static_context | All fields of existing StaticVehicleContext, without extra fields |
+| static_context_digest | The existing context.digest; no alternative hashing |
+| baseline_parameters | Explicit finite parameter mapping, defensively copied |
+| baseline_epoch | Same epoch as snapshot_policy and producer attestation |
+| session | Explicit generation and non-identifying 32-hex token |
+| cache_policy | Three positive existing CachePolicy capacities |
+| snapshot_policy | All existing age/skew/version/kind/context/epoch fields |
+| steering_pressed_capability | Exact audited producer path, symbol and revision |
+| allowed_controller_kinds | Same list as snapshot_policy |
+
+No default input file or policy is created. Duplicate JSON keys, nonfinite JSON,
+unknown/missing fields and over-64-KiB input reject without echoing input. Argparse
+errors are likewise sanitized. Terminal output is canonical JSON per summary line.
+
+Exit codes: 0 bounded normal exit or interrupt; 2 invalid config/input; 3 optional
+dependency/schema unavailable; 4 source/platform/session mismatch; 5 runtime
+invariant/envelope fault; 6 unsupported environment. Code 0 never means that a
+vehicle, live timing, physical actuation or parked procedure has been qualified.

@@ -189,3 +189,62 @@ def test_missing_valid_metadata_still_counts_the_observed_updated_topic(make):
     with pytest.raises(SidecarError):
         runner.poll_once()
     assert dict(runner.diagnostics().received_counts)["carControl"] == 1
+
+
+def test_unparseable_output_envelope_consumes_attempt_without_fabricated_metadata(make):
+    cc, cs, co = samples()
+    runner = make([(cc, cs, co)])
+    sm = runner._source._sm
+    update = sm.update
+
+    def missing(timeout):
+        update(timeout)
+        sm.logMonoTime.pop("carOutput")
+
+    sm.update = missing
+    (result,) = runner.poll_once()
+    assert result.snapshot is None and result.reason.value == "INVALID_INPUT"
+    state = runner.diagnostics()
+    assert state.receipt_attempt_count == 1
+    assert dict(state.received_counts)["carOutput"] == 1
+    assert state.session_state == "faulted" and state.session_fault_count == 1
+    with pytest.raises(SidecarError):
+        runner.poll_once()
+
+
+@pytest.mark.parametrize("failed_clock", [None, 10_009_000_000])
+def test_output_attempt_is_consumed_when_evaluation_clock_fails_during_receive(make, failed_clock):
+    clock = [10_010_000_000]
+    runner = make([samples()], clock=lambda: clock[0])
+    sm = runner._source._sm
+    update = sm.update
+
+    def receive(timeout):
+        update(timeout)
+        clock[0] = failed_clock
+
+    sm.update = receive
+    (result,) = runner.poll_once()
+    assert result.snapshot is None and result.reason.value == "INVALID_INPUT"
+    assert runner.diagnostics().receipt_attempt_count == 1
+    assert runner._adapter.previous_host_apply_ns == 10_000_000_000
+    assert runner.fault is not None
+
+
+def test_old_receive_generation_after_explicit_reset_is_a_session_fault(make):
+    runner = make([])
+    cfg = sidecar_config()
+    cfg = replace(
+        cfg,
+        adapter=replace(
+            cfg.adapter, attestation=replace(cfg.adapter.attestation, session=session(1))
+        ),
+    )
+    fresh = SubMasterSource(ScriptedSubMaster([]), session(1))
+    runner.new_session(cfg, fresh)
+    old_cc, _, _ = samples()
+    fresh.poll = lambda timeout, consume: consume(old_cc)
+    with pytest.raises(SidecarError, match="SESSION_REQUIRED"):
+        runner.poll_once()
+    assert runner.diagnostics().latest_snapshot_available is False
+    assert runner.diagnostics().session_fault_count == 1

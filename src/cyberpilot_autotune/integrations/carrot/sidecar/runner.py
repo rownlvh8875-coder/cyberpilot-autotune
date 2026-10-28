@@ -4,7 +4,7 @@ from collections.abc import Callable
 from dataclasses import replace
 from time import monotonic_ns
 
-from cyberpilot_autotune.adapters.carrot_receipt_contract import MappingDecision
+from cyberpilot_autotune.adapters.carrot_receipt_contract import MappingDecision, MappingReason
 
 from ..adapter import CarrotReadOnlyAdapter
 from ..errors import (
@@ -76,6 +76,10 @@ class SidecarRunner:
 
         def consume(sample: DecodedTopicSample) -> None:
             require(sample.topic in TOPICS, SidecarReason.INVALID_TOPIC)
+            require(
+                sample.session_token == self._config.adapter.attestation.session,
+                SidecarReason.SESSION_REQUIRED,
+            )
             self._diag.received[sample.topic] += 1
             self._diag.healthy_count += int(sample.transport_health.healthy)
             if sample.topic == "carControl":
@@ -83,9 +87,20 @@ class SidecarRunner:
             elif sample.topic == "carState":
                 self._adapter.ingest_car_state(sample)
             else:
-                decision = self._adapter.evaluate_car_output(
-                    sample, evaluation_mono_time_ns=self._now()
-                )
+                try:
+                    now = self._now()
+                except SidecarError as clock_failure:
+                    # None is an explicitly unavailable evaluation clock. The
+                    # original boundary consumes the known cohort before rejecting.
+                    decision = self._adapter.evaluate_car_output(
+                        sample, evaluation_mono_time_ns=None
+                    )
+                    require(decision.snapshot is None, SidecarReason.RUNTIME_INVARIANT_FAULT)
+                    self._diag.record(decision)
+                    results.append(decision)
+                    self._fail(clock_failure.reason)
+                    return
+                decision = self._adapter.evaluate_car_output(sample, evaluation_mono_time_ns=now)
                 require(
                     decision.snapshot is None
                     or decision.snapshot.baseline_parameters
@@ -94,7 +109,11 @@ class SidecarRunner:
                 )
                 self._diag.record(decision)
                 results.append(decision)
-                if self._adapter.session_required:
+                if decision.reason is MappingReason.UNSUPPORTED_VERSION:
+                    self._fail(SidecarReason.SCHEMA_REVISION_MISMATCH)
+                elif decision.reason is MappingReason.CONTROLLER_MISMATCH:
+                    self._fail(SidecarReason.CONTROLLER_CONTEXT_MISMATCH)
+                elif self._adapter.session_required:
                     self._fail(SidecarReason.SESSION_REQUIRED)
 
         try:
@@ -103,6 +122,12 @@ class SidecarRunner:
         except SidecarError as exc:
             if exc.topic is not None:
                 self._diag.received[exc.topic] += 1
+            if exc.topic == "carOutput":
+                decision = self._adapter.reject_output_envelope()
+                self._diag.record(decision)
+                results.append(decision)
+                self._fail(exc.reason)
+                return tuple(results)
             self._fail(exc.reason)
             raise
         except CarrotSessionRequired:

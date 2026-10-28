@@ -84,7 +84,7 @@
   "actual_schema_fixtures": [
     {
       "path": "tests/fixtures/sidecar_streams_v1.json",
-      "sha256": "9d9b70ab323a65cffd8f9df03f699af40eab059ba04ebf72ec2b212f68a0645b",
+      "sha256": "cf0f630b9941a88a7fe9d09a3098892c50cbeb31d3f7211b791f8fe6f3566f5a",
       "expected_result_hashes": [
         {
           "id": "hyundai_false",

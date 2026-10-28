@@ -97,3 +97,17 @@ def test_session_tag_is_read_only_and_health_shortcut_changes_are_rechecked():
     sm.update = lambda timeout: setattr(sm, "simulation", True)
     with pytest.raises(SidecarError, match="UNSUPPORTED_ENVIRONMENT"):
         source.poll(1, lambda sample: None)
+
+
+@pytest.mark.parametrize("timestamp", [0, None, -1, True])
+def test_updated_topic_requires_an_available_positive_publication_timestamp(timestamp):
+    sm = ScriptedSubMaster([samples()])
+    update = sm.update
+
+    def malformed(timeout):
+        update(timeout)
+        sm.logMonoTime["carControl"] = timestamp
+
+    sm.update = malformed
+    with pytest.raises(SidecarError, match="INVALID_SOURCE_METADATA"):
+        SubMasterSource(sm, session()).poll(1, lambda sample: None)

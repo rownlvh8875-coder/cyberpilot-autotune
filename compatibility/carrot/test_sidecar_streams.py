@@ -1,6 +1,7 @@
 """Real pycapnp reader stream -> source bridge -> existing adapter -> contract."""
 
 import json
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -71,3 +72,56 @@ def test_meb_bridge_preserves_pre_pid_target_vs_corrected_final_request():
     assert result.desired_curvature_inv_m == 0.125 and result.driver_override is False
     assert co.carOutput.actuationReceipt.finalRequestedActuators.curvature == 0.25
     source.close()
+
+
+@pytest.mark.parametrize("missing", ["valid", "logMonoTime"])
+def test_actual_output_with_unavailable_outer_metadata_consumes_closed_attempt(missing):
+    cfg, frames = stream("hyundai_false")
+    sm = ScriptedSubMaster(frames)
+    update = sm.update
+
+    def broken(timeout):
+        update(timeout)
+        if sm.updated["carOutput"]:
+            getattr(sm, missing).pop("carOutput")
+
+    sm.update = broken
+    runner = SidecarRunner(
+        cfg, SubMasterSource(sm, cfg.adapter.attestation.session), clock=lambda: 10_010_000_000
+    )
+    runner.poll_once()
+    (result,) = runner.poll_once()
+    assert result.reason.value == "INVALID_INPUT" and result.snapshot is None
+    assert runner.diagnostics().receipt_attempt_count == 1
+    assert runner.fault is not None
+    runner.close()
+
+
+@pytest.mark.parametrize(
+    "fault,reason",
+    [
+        ("legacy_observation", "SCHEMA_REVISION_MISMATCH"),
+        ("limit_context", "CONTROLLER_CONTEXT_MISMATCH"),
+    ],
+)
+def test_wire_schema_or_controller_context_mismatch_stops_the_session(fault, reason):
+    cfg, frames = stream("hyundai_false")
+    cc = frames[0][0].reader
+    # These are actual generated readers backed by synthetic builders.
+    if fault == "legacy_observation":
+        changed = cc.as_builder()
+        changed.lateralControlObservation.version = 1
+        frames[0] = (replace(frames[0][0], reader=changed.as_reader()), frames[0][1])
+    else:
+        changed = frames[1][0].reader.as_builder()
+        changed.actuationReceipt.instantaneousControllerLimitState = "limited"
+        frames[1] = (replace(frames[1][0], reader=changed.as_reader()),)
+    runner = SidecarRunner(
+        cfg,
+        SubMasterSource(ScriptedSubMaster(frames), cfg.adapter.attestation.session),
+        clock=lambda: 10_010_000_000,
+    )
+    runner.poll_once()
+    assert runner.poll_once()[0].snapshot is None
+    assert runner.fault is not None and runner.fault.code == reason
+    runner.close()

@@ -2,6 +2,7 @@
 
 import sys
 from collections.abc import Callable, Mapping, Sequence
+from dataclasses import dataclass
 from typing import Protocol, cast
 
 from ..availability import require_schema
@@ -28,7 +29,8 @@ class SubMasterView(Protocol):
     def update(self, timeout: int) -> None: ...
 
 
-class MessagingAPI(Protocol):
+@dataclass(frozen=True, slots=True)
+class MessagingAPI:
     SubMaster: Callable[..., SubMasterView]
 
 
@@ -40,7 +42,7 @@ def require_live_dependencies() -> MessagingAPI:
         raise CarrotDependencyUnavailable() from None
     except Exception:
         raise SidecarError(SidecarReason.UNSUPPORTED_ENVIRONMENT) from None
-    return cast(MessagingAPI, messaging)
+    return MessagingAPI(cast(Callable[..., SubMasterView], messaging.SubMaster))
 
 
 def open_live_source(session: SessionToken) -> "SubMasterSource":
@@ -105,7 +107,7 @@ class SubMasterSource:
                 )
             )
             try:
-                stamp = uint64(sm.logMonoTime.get(topic), present=False)
+                stamp = uint64(sm.logMonoTime.get(topic))
                 valid = _flag(sm, "valid", topic)
                 require(type(valid) is bool, SidecarReason.INVALID_SOURCE_METADATA)
                 assert valid is not None
