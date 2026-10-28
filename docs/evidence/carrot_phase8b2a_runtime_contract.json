@@ -1,0 +1,201 @@
+{
+  "contract_basis": "b24ef18e4270af5ab4f731aca31cf95f4f4b0cce",
+  "original_base": "604bc0a22733e648ec05b268da1ffaae7db52a69",
+  "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "integration_revision": "7a2f051b1f3847786318900444c88c2ba7a74a67",
+  "schema_revision": "observation-v2-measurement-v1",
+  "topics": [
+    "carControl",
+    "carState",
+    "carOutput"
+  ],
+  "required_health_fields": [
+    "seen",
+    "alive",
+    "valid",
+    "freq_ok",
+    "updated"
+  ],
+  "publication_timestamp": "SubMaster.logMonoTime[topic]",
+  "event_valid": "SubMaster.valid[topic] (the actual Event.valid; not invented independent receipt validity)",
+  "factory": {
+    "symbol": "openpilot.cereal.messaging.SubMaster",
+    "services": [
+      "carControl",
+      "carState",
+      "carOutput"
+    ],
+    "poll": [
+      "carControl",
+      "carState",
+      "carOutput"
+    ],
+    "ignore_lists": "all empty",
+    "simulation": false,
+    "address": "pinned local default"
+  },
+  "source_files": [
+    {
+      "path": "openpilot/cereal/messaging/__init__.py",
+      "sha256": "bb10c4a88e694d7c4e2fa500b92c6d8a9474363297afda3cfba880eea146ad68"
+    },
+    {
+      "path": "openpilot/cereal/services.py",
+      "sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1"
+    },
+    {
+      "path": "msgq_repo/msgq/ipc_pyx.pyx",
+      "sha256": "02cf21d0232967eed7bd68ed0209e55f5f1e3edef3675671bc6524ca64976fa4"
+    }
+  ],
+  "config_schema": {
+    "flags": [
+      "expected_platform",
+      "runtime_platform",
+      "source_revision",
+      "integration_revision",
+      "contract_basis",
+      "schema_revision",
+      "poll_timeout_ms",
+      "maximum_updates"
+    ],
+    "stdin": [
+      "static_context",
+      "static_context_digest",
+      "baseline_parameters",
+      "baseline_epoch",
+      "session",
+      "cache_policy",
+      "snapshot_policy",
+      "steering_pressed_capability",
+      "allowed_controller_kinds"
+    ]
+  },
+  "exit_codes": {
+    "0": "normal bounded qualification exit or interrupt",
+    "2": "invalid config/input",
+    "3": "optional dependency/schema unavailable",
+    "4": "source/platform/session mismatch",
+    "5": "runtime invariant fault",
+    "6": "unsupported environment"
+  },
+  "no_source_bodies_copied": true,
+  "runtime_fingerprint_status": "RUNTIME_FINGERPRINT_UNCONFIRMED",
+  "actual_schema_fixtures": [
+    {
+      "path": "tests/fixtures/sidecar_streams_v1.json",
+      "sha256": "cf0f630b9941a88a7fe9d09a3098892c50cbeb31d3f7211b791f8fe6f3566f5a",
+      "expected_result_hashes": [
+        {
+          "id": "hyundai_false",
+          "sha256": "7103015ca094a268856dfdea4d027b7e53dfa86c02f1e8e0311e597fe09c07d6"
+        },
+        {
+          "id": "delayed",
+          "sha256": "7103015ca094a268856dfdea4d027b7e53dfa86c02f1e8e0311e597fe09c07d6"
+        },
+        {
+          "id": "repeated_cc",
+          "sha256": "7103015ca094a268856dfdea4d027b7e53dfa86c02f1e8e0311e597fe09c07d6"
+        },
+        {
+          "id": "exact_zero",
+          "sha256": "7103015ca094a268856dfdea4d027b7e53dfa86c02f1e8e0311e597fe09c07d6"
+        },
+        {
+          "id": "hyundai_true",
+          "sha256": "6fb6b96d40f59f9c81a5daf4a5d4b47f766f45dee7c20ffaa5669c30213e4261"
+        },
+        {
+          "id": "host_inactive",
+          "sha256": "ea4a6be81e71b3712f66f1ebe63b85d104ac731bece3089c0c226dce341c3374"
+        },
+        {
+          "id": "safety_disallowed",
+          "sha256": "a2edef0745b700d9a376b090805f78cc0ebb98c6090583f9846398978f1bc2fd"
+        },
+        {
+          "id": "instant_limited",
+          "sha256": "2f2285e46f681fbffe27644394c14f559617e1e8c45434a53fbc2b4074f0ae4a"
+        },
+        {
+          "id": "output_limited",
+          "sha256": "2f2285e46f681fbffe27644394c14f559617e1e8c45434a53fbc2b4074f0ae4a"
+        },
+        {
+          "id": "missing_cc",
+          "sha256": "61edd4468ea4f7d8127741d32457fe5e7a791ead5309f87721cbf6f94afc83ec"
+        },
+        {
+          "id": "missing_cs",
+          "sha256": "7fc28596244e22f765151e970e333c65880ae102f8a3edef3ea64bc11da6f3cb"
+        },
+        {
+          "id": "latest_cc",
+          "sha256": "61edd4468ea4f7d8127741d32457fe5e7a791ead5309f87721cbf6f94afc83ec"
+        },
+        {
+          "id": "latest_cs",
+          "sha256": "7fc28596244e22f765151e970e333c65880ae102f8a3edef3ea64bc11da6f3cb"
+        },
+        {
+          "id": "duplicate_receipt",
+          "sha256": "c9995c7f5b3ca9e63821cd51c964adde6f7bf23d03eed1c7d3d50287617eb3dc"
+        },
+        {
+          "id": "co_before_sources",
+          "sha256": "f411d852068cbd7e14804a0cfe8d8e2c97a6668a0f59eb24667c445212e7e913"
+        },
+        {
+          "id": "rejected_repaired",
+          "sha256": "32119bbbc25f1c5dc74f8447a46ff1249d4808cc702e5014dc43f2629c686cb4"
+        },
+        {
+          "id": "poison_cc",
+          "sha256": "23629c5be7f806a9bbec8db9cadb132830c75a2539b0d45d3f60a49a994518fa"
+        },
+        {
+          "id": "poison_cs",
+          "sha256": "066a303b13e22fff43c5e818ebfda5ab69a3d2ee304909ff27cff8afb306e0d5"
+        },
+        {
+          "id": "evict_cc",
+          "sha256": "398dc3f3ea0755a8b99756797a15ffcd6df13e05698a697ba3833e81fc05d6b5"
+        },
+        {
+          "id": "evict_cs",
+          "sha256": "739c45453dd551207d4e8efcb0821d185277d6d8b936e302acba48d3959ec868"
+        },
+        {
+          "id": "apply_regression",
+          "sha256": "70390eb40e2cb103448c771d38e3c90e0776932a0d000532489077ddbcf80d18"
+        },
+        {
+          "id": "unavailable_measurement",
+          "sha256": "5cdf73cb643fcf4423377275c27f2eadfadd57b72e2ab94f9126a89aa16cfb07"
+        },
+        {
+          "id": "unsupported_observation",
+          "sha256": "428090450f1a5f337e67d9e0fb081efaa675016c283fb02f1ec595f50b27aba6"
+        },
+        {
+          "id": "malformed_receipt",
+          "sha256": "064195217808aa8ca83196e0ac67ccf9e2c8dc4a06154b98c8a38d1b0ad206ad"
+        },
+        {
+          "id": "outer_invalid",
+          "sha256": "ebedb3441906a6383db976b346bf486c879289da6cf157a9d3f835a15014995a"
+        },
+        {
+          "id": "unknown_enum",
+          "sha256": "c868f592e943c23938ffc596292638e72638f560f35140a510652cc229f504a6"
+        },
+        {
+          "id": "nonfinite_target",
+          "sha256": "3ee61d4aa3a7744f030789c42ecf5c31c2a6836bc5c28c7c754e56fba2124b57"
+        }
+      ]
+    }
+  ],
+  "reader_version": "pycapnp 2.1.0"
+}

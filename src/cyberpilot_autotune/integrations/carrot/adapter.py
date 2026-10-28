@@ -18,7 +18,7 @@ from cyberpilot_autotune.adapters.carrot_receipt_contract import (
 from cyberpilot_autotune.contracts.validation import parameters
 
 from .availability import INTEGRATION_MERGE, SCHEMA_REVISION, SOURCE_REVISION, require_schema
-from .cache import ExactCache, capacity
+from .cache import CacheMetrics, ExactCache, capacity
 from .errors import CarrotInputError, CarrotSessionRequired
 from .extraction import (
     DecodedTopicSample,
@@ -170,6 +170,11 @@ class CarrotReadOnlyAdapter:
         return self._next_sequence
 
     @property
+    def cache_metrics(self) -> tuple[CacheMetrics, CacheMetrics]:
+        """Frozen observations only; never expose cache entries or alter admission."""
+        return self._commands.metrics, self._states.metrics
+
+    @property
     def previous_host_apply_ns(self) -> int | None:
         return self._previous_host_apply_ns
 
@@ -180,6 +185,12 @@ class CarrotReadOnlyAdapter:
     def producer_restarted(self) -> None:
         """Explicit caller observation; no restart detection or automatic recovery."""
         self._session_required = True
+
+    def reject_output_envelope(self) -> MappingDecision:
+        """Consume an unidentifiable output without manufacturing timestamp/validity."""
+        self._next_sequence += 1
+        self._session_required = True
+        return MappingDecision(None, MappingReason.INVALID_INPUT, None)
 
     def reset_session(self, config: AdapterConfig) -> None:
         candidate = replace(config)
@@ -330,7 +341,7 @@ class CarrotReadOnlyAdapter:
         return None
 
     def evaluate_car_output(
-        self, sample: DecodedTopicSample, *, evaluation_mono_time_ns: int
+        self, sample: DecodedTopicSample, *, evaluation_mono_time_ns: int | None
     ) -> MappingDecision:
         sequence = self._next_sequence
         self._next_sequence += 1

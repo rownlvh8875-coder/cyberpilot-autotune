@@ -1,0 +1,469 @@
+{
+  "schema_version": 1,
+  "scope": "synthetic/test-only/no vehicle data",
+  "cases": [
+    {
+      "id": "hyundai_false",
+      "expected": {
+        "reasons": [
+          "ACCEPTED"
+        ],
+        "snapshot_available": true,
+        "control_active": true,
+        "controller_saturated": false,
+        "driver_override": false,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "delayed",
+      "expected": {
+        "reasons": [
+          "ACCEPTED"
+        ],
+        "snapshot_available": true,
+        "control_active": true,
+        "controller_saturated": false,
+        "driver_override": false,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "repeated_cc",
+      "expected": {
+        "reasons": [
+          "ACCEPTED"
+        ],
+        "snapshot_available": true,
+        "control_active": true,
+        "controller_saturated": false,
+        "driver_override": false,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "exact_zero",
+      "expected": {
+        "reasons": [
+          "ACCEPTED"
+        ],
+        "snapshot_available": true,
+        "control_active": true,
+        "controller_saturated": false,
+        "driver_override": false,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "hyundai_true",
+      "expected": {
+        "reasons": [
+          "ACCEPTED"
+        ],
+        "snapshot_available": true,
+        "control_active": true,
+        "controller_saturated": false,
+        "driver_override": true,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "host_inactive",
+      "expected": {
+        "reasons": [
+          "UNAVAILABLE_LIMIT"
+        ],
+        "snapshot_available": false,
+        "control_active": false,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "safety_disallowed",
+      "expected": {
+        "reasons": [
+          "ACCEPTED"
+        ],
+        "snapshot_available": true,
+        "control_active": false,
+        "controller_saturated": false,
+        "driver_override": false,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "instant_limited",
+      "expected": {
+        "reasons": [
+          "ACCEPTED"
+        ],
+        "snapshot_available": true,
+        "control_active": true,
+        "controller_saturated": true,
+        "driver_override": false,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "output_limited",
+      "expected": {
+        "reasons": [
+          "ACCEPTED"
+        ],
+        "snapshot_available": true,
+        "control_active": true,
+        "controller_saturated": true,
+        "driver_override": false,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "missing_cc",
+      "expected": {
+        "reasons": [
+          "MISSING_SOURCE_COMMAND"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "missing_cs",
+      "expected": {
+        "reasons": [
+          "MISSING_SOURCE_CAR_STATE"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "latest_cc",
+      "expected": {
+        "reasons": [
+          "MISSING_SOURCE_COMMAND"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "latest_cs",
+      "expected": {
+        "reasons": [
+          "MISSING_SOURCE_CAR_STATE"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "duplicate_receipt",
+      "expected": {
+        "reasons": [
+          "ACCEPTED",
+          "DUPLICATE_COHORT"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 2,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "co_before_sources",
+      "expected": {
+        "reasons": [
+          "MISSING_SOURCE_COMMAND",
+          "DUPLICATE_COHORT"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 2,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "rejected_repaired",
+      "expected": {
+        "reasons": [
+          "UNAVAILABLE_ACTIVITY",
+          "DUPLICATE_COHORT"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 2,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "poison_cc",
+      "expected": {
+        "reasons": [
+          "MISSING_SOURCE_COMMAND"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 1,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "poison_cs",
+      "expected": {
+        "reasons": [
+          "MISSING_SOURCE_CAR_STATE"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 1,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "evict_cc",
+      "expected": {
+        "reasons": [
+          "MISSING_SOURCE_COMMAND"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 1,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "evict_cs",
+      "expected": {
+        "reasons": [
+          "MISSING_SOURCE_CAR_STATE"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 1,
+        "fault": false
+      }
+    },
+    {
+      "id": "apply_regression",
+      "expected": {
+        "reasons": [
+          "ACCEPTED",
+          "OUT_OF_ORDER"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 2,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": true
+      }
+    },
+    {
+      "id": "unavailable_measurement",
+      "expected": {
+        "reasons": [
+          "INVALID_MEASUREMENT"
+        ],
+        "snapshot_available": false,
+        "control_active": true,
+        "controller_saturated": false,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "unsupported_observation",
+      "expected": {
+        "reasons": [
+          "UNSUPPORTED_VERSION"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": true
+      }
+    },
+    {
+      "id": "malformed_receipt",
+      "expected": {
+        "reasons": [
+          "MISSING_TIMESTAMP"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": true
+      }
+    },
+    {
+      "id": "outer_invalid",
+      "expected": {
+        "reasons": [
+          "INVALID_INPUT"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "unknown_enum",
+      "expected": {
+        "reasons": [
+          "UNAVAILABLE_ACTIVITY"
+        ],
+        "snapshot_available": false,
+        "control_active": null,
+        "controller_saturated": null,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    },
+    {
+      "id": "nonfinite_target",
+      "expected": {
+        "reasons": [
+          "INVALID_TARGET"
+        ],
+        "snapshot_available": false,
+        "control_active": true,
+        "controller_saturated": false,
+        "driver_override": null,
+        "attempts": 1,
+        "poisoned": 0,
+        "cc_evicted": 0,
+        "cs_evicted": 0,
+        "fault": false
+      }
+    }
+  ]
+}
