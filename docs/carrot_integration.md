@@ -1,5 +1,16 @@
 # Future read-only Carrot integration
 
+## Phase 8A.2 exact observability-head re-audit
+
+The [independent re-audit](carrot_observability_reaudit.md) pins fork observability
+head 4d89f044fc74138b0938f309ff8ea88d90faddcd. Historical activity/saturation software
+evidence gaps are resolved, but the overall result remains
+**CONTRACT_BLOCKED_REQUIRED_SIGNAL_UNRESOLVED**: actual VM measurement provenance
+is absent, and MEB final corrected request cannot replace the desired target.
+No production contract module, actual adapter or Phase 8B implementation exists.
+The earlier upstream-base findings below remain historical, not a new precheck
+of the unchanged upstream source.
+
 ## Phase 8A contract resolution
 
 The owner-selected audit target is carrot-wip at exact commit

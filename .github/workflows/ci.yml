@@ -21,6 +21,7 @@ jobs:
       - run: python -m ruff check .
       - run: python -m ruff format --check .
       - run: python -m mypy src/cyberpilot_autotune
+      - run: python -m tests.audit.validate_observability
       - run: python -m pytest -q
       - run: python -m pytest --cov=cyberpilot_autotune --cov-report=term-missing --cov-fail-under=90
       - run: python -m coverage report --include="*/safety/*" --fail-under=95
