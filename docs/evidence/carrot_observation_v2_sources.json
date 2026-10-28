@@ -31,7 +31,13 @@
           "start_line": 1,
           "end_line": 32
         }
-      ]
+      ],
+      "producer": "developer documentation or offline verification tooling",
+      "consumer": "human source auditor or explicit CI invocation",
+      "schema_ordinal_evidence": "not applicable: no runtime schema field",
+      "clock_domain": "not applicable: no runtime timestamp publication",
+      "cohort_identity": "pins and offline cohort evidence only",
+      "availability_and_legacy_semantics": "no runtime signal inferred from tooling/docs"
     },
     {
       "path": "docs/autotune_actuation_observability.md",
@@ -51,7 +57,13 @@
           "start_line": 1,
           "end_line": 175
         }
-      ]
+      ],
+      "producer": "developer documentation or offline verification tooling",
+      "consumer": "human source auditor or explicit CI invocation",
+      "schema_ordinal_evidence": "not applicable: no runtime schema field",
+      "clock_domain": "not applicable: no runtime timestamp publication",
+      "cohort_identity": "pins and offline cohort evidence only",
+      "availability_and_legacy_semantics": "no runtime signal inferred from tooling/docs"
     },
     {
       "path": "docs/autotune_measurement_provenance.md",
@@ -71,7 +83,13 @@
           "start_line": 1,
           "end_line": 224
         }
-      ]
+      ],
+      "producer": "developer documentation or offline verification tooling",
+      "consumer": "human source auditor or explicit CI invocation",
+      "schema_ordinal_evidence": "not applicable: no runtime schema field",
+      "clock_domain": "not applicable: no runtime timestamp publication",
+      "cohort_identity": "pins and offline cohort evidence only",
+      "availability_and_legacy_semantics": "no runtime signal inferred from tooling/docs"
     },
     {
       "path": "opendbc_repo/opendbc/car/car.capnp",
@@ -95,7 +113,13 @@
           "start_line": 1,
           "end_line": 1017
         }
-      ]
+      ],
+      "producer": "schema definitions",
+      "consumer": "pinned producers and consumers",
+      "schema_ordinal_evidence": "see schema_ordinals; existing ordinals preserved",
+      "clock_domain": "explicit timestamp domain fields; Event envelope clock pinned separately",
+      "cohort_identity": "CarControl and receipt schema relationships",
+      "availability_and_legacy_semantics": "new nested/enum/optional defaults unavailable; no numeric zero sentinel"
     },
     {
       "path": "openpilot/cereal/log.capnp",
@@ -119,7 +143,13 @@
           "start_line": 1,
           "end_line": 2814
         }
-      ]
+      ],
+      "producer": "schema definitions",
+      "consumer": "pinned producers and consumers",
+      "schema_ordinal_evidence": "see schema_ordinals; existing ordinals preserved",
+      "clock_domain": "explicit timestamp domain fields; Event envelope clock pinned separately",
+      "cohort_identity": "CarControl and receipt schema relationships",
+      "availability_and_legacy_semantics": "new nested/enum/optional defaults unavailable; no numeric zero sentinel"
     },
     {
       "path": "openpilot/selfdrive/car/actuation_receipt.py",
@@ -169,7 +199,13 @@
           "start_line": 111,
           "end_line": 123
         }
-      ]
+      ],
+      "producer": "card capture_actuation_receipt / complete_actuation_receipt",
+      "consumer": "next carOutput publication / future exact join",
+      "schema_ordinal_evidence": "ActuationReceipt @0 through @12; CarOutput receipt @1",
+      "clock_domain": "monotonic command/apply; separate bootTime safety stamps",
+      "cohort_identity": "source command timestamp + host apply timestamp",
+      "availability_and_legacy_semantics": "missing/stale/invalid/unknown receipt evidence stays unavailable"
     },
     {
       "path": "openpilot/selfdrive/car/card.py",
@@ -263,7 +299,13 @@
           "start_line": 538,
           "end_line": 551
         }
-      ]
+      ],
+      "producer": "card capture_actuation_receipt / complete_actuation_receipt",
+      "consumer": "next carOutput publication / future exact join",
+      "schema_ordinal_evidence": "ActuationReceipt @0 through @12; CarOutput receipt @1",
+      "clock_domain": "monotonic command/apply; separate bootTime safety stamps",
+      "cohort_identity": "source command timestamp + host apply timestamp",
+      "availability_and_legacy_semantics": "missing/stale/invalid/unknown receipt evidence stays unavailable"
     },
     {
       "path": "openpilot/selfdrive/car/tests/fixtures/actuation_schema_baseline.json",
@@ -283,7 +325,13 @@
           "start_line": 1,
           "end_line": 208
         }
-      ]
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
     },
     {
       "path": "openpilot/selfdrive/car/tests/observability_support.py",
@@ -318,7 +366,13 @@
           "start_line": 14,
           "end_line": 16
         }
-      ]
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
     },
     {
       "path": "openpilot/selfdrive/car/tests/test_actuation_can.py",
@@ -373,7 +427,13 @@
           "start_line": 43,
           "end_line": 47
         }
-      ]
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
     },
     {
       "path": "openpilot/selfdrive/car/tests/test_actuation_card.py",
@@ -448,7 +508,13 @@
           "start_line": 81,
           "end_line": 83
         }
-      ]
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
     },
     {
       "path": "openpilot/selfdrive/car/tests/test_actuation_receipt.py",
@@ -583,7 +649,13 @@
           "start_line": 244,
           "end_line": 245
         }
-      ]
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
     },
     {
       "path": "openpilot/selfdrive/car/tests/test_actuation_receipt_schema.py",
@@ -618,7 +690,13 @@
           "start_line": 56,
           "end_line": 71
         }
-      ]
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
     },
     {
       "path": "openpilot/selfdrive/car/tests/test_tesla_signal_card.py",
@@ -677,7 +755,13 @@
           "start_line": 96,
           "end_line": 97
         }
-      ]
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
     },
     {
       "path": "openpilot/selfdrive/controls/controlsd.py",
@@ -741,7 +825,13 @@
           "start_line": 206,
           "end_line": 208
         }
-      ]
+      ],
+      "producer": "Controls.state_control / publish",
+      "consumer": "CarControl Event -> card and future exact join",
+      "schema_ordinal_evidence": "CarControl lateralControlObservation @18",
+      "clock_domain": "monotonic source/calculation/Event stamps",
+      "cohort_identity": "frozen exact CS/LP inputs, VM result and pre-controller target",
+      "availability_and_legacy_semantics": "unsupported/inactive/fallback/invalid evidence unavailable"
     },
     {
       "path": "openpilot/selfdrive/controls/lib/latcontrol_angle.py",
@@ -775,7 +865,13 @@
           "start_line": 16,
           "end_line": 33
         }
-      ]
+      ],
+      "producer": "lateral controller calculation / record_lateral_observation",
+      "consumer": "receipt capture and controlsd logging",
+      "schema_ordinal_evidence": "observation kind @1 / instant limit @2; log appended fields",
+      "clock_domain": "same calculation; no own wall clock",
+      "cohort_identity": "same source CC; MEB actual PID, not dummy angle state",
+      "availability_and_legacy_semantics": "unknown/inactive instantaneous state unavailable; timer remains separate"
     },
     {
       "path": "openpilot/selfdrive/controls/lib/latcontrol_pid.py",
@@ -814,7 +910,13 @@
           "start_line": 21,
           "end_line": 51
         }
-      ]
+      ],
+      "producer": "lateral controller calculation / record_lateral_observation",
+      "consumer": "receipt capture and controlsd logging",
+      "schema_ordinal_evidence": "observation kind @1 / instant limit @2; log appended fields",
+      "clock_domain": "same calculation; no own wall clock",
+      "cohort_identity": "same source CC; MEB actual PID, not dummy angle state",
+      "availability_and_legacy_semantics": "unknown/inactive instantaneous state unavailable; timer remains separate"
     },
     {
       "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
@@ -873,7 +975,13 @@
           "start_line": 143,
           "end_line": 310
         }
-      ]
+      ],
+      "producer": "lateral controller calculation / record_lateral_observation",
+      "consumer": "receipt capture and controlsd logging",
+      "schema_ordinal_evidence": "observation kind @1 / instant limit @2; log appended fields",
+      "clock_domain": "same calculation; no own wall clock",
+      "cohort_identity": "same source CC; MEB actual PID, not dummy angle state",
+      "availability_and_legacy_semantics": "unknown/inactive instantaneous state unavailable; timer remains separate"
     },
     {
       "path": "openpilot/selfdrive/controls/lib/lateral_observation.py",
@@ -918,7 +1026,13 @@
           "start_line": 69,
           "end_line": 75
         }
-      ]
+      ],
+      "producer": "lateral controller calculation / record_lateral_observation",
+      "consumer": "receipt capture and controlsd logging",
+      "schema_ordinal_evidence": "observation kind @1 / instant limit @2; log appended fields",
+      "clock_domain": "same calculation; no own wall clock",
+      "cohort_identity": "same source CC; MEB actual PID, not dummy angle state",
+      "availability_and_legacy_semantics": "unknown/inactive instantaneous state unavailable; timer remains separate"
     },
     {
       "path": "openpilot/selfdrive/controls/lib/measurement_observation.py",
@@ -973,7 +1087,13 @@
           "start_line": 153,
           "end_line": 169
         }
-      ]
+      ],
+      "producer": "capture_vm_measurement / capture_desired_target / record_measurement_and_target",
+      "consumer": "Controls.state_control",
+      "schema_ordinal_evidence": "measurement @3 and desired target @4,@5",
+      "clock_domain": "CLOCK_MONOTONIC source and calculation stamps",
+      "cohort_identity": "same source CarControl Event",
+      "availability_and_legacy_semantics": "inactive/fallback/unknown/invalid groups cannot provide valid measurement"
     },
     {
       "path": "openpilot/selfdrive/controls/tests/test_lateral_observation.py",
@@ -1058,7 +1178,13 @@
           "start_line": 209,
           "end_line": 238
         }
-      ]
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
     },
     {
       "path": "openpilot/selfdrive/controls/tests/test_lateral_startup_control.py",
@@ -1097,7 +1223,13 @@
           "start_line": 130,
           "end_line": 151
         }
-      ]
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
     },
     {
       "path": "openpilot/selfdrive/controls/tests/test_measurement_control.py",
@@ -1192,7 +1324,13 @@
           "start_line": 75,
           "end_line": 76
         }
-      ]
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
     },
     {
       "path": "openpilot/selfdrive/controls/tests/test_measurement_observation.py",
@@ -1307,7 +1445,13 @@
           "start_line": 220,
           "end_line": 221
         }
-      ]
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
     },
     {
       "path": "openpilot/selfdrive/controls/tests/test_measurement_schema.py",
@@ -1347,7 +1491,13 @@
           "start_line": 60,
           "end_line": 65
         }
-      ]
+      ],
+      "producer": "independent synthetic test fixtures",
+      "consumer": "offline pytest and real offline CAN packers",
+      "schema_ordinal_evidence": "schema assertions where applicable; not a runtime publication",
+      "clock_domain": "explicit synthetic clocks; no wall-clock timing assertions",
+      "cohort_identity": "same-command/apply and delayed publication assertions",
+      "availability_and_legacy_semantics": "unknown/malformed/default cases reject or remain unavailable"
     },
     {
       "path": "tools/actuation_observability/verify.py",
@@ -1382,7 +1532,13 @@
           "start_line": 47,
           "end_line": 58
         }
-      ]
+      ],
+      "producer": "developer documentation or offline verification tooling",
+      "consumer": "human source auditor or explicit CI invocation",
+      "schema_ordinal_evidence": "not applicable: no runtime schema field",
+      "clock_domain": "not applicable: no runtime timestamp publication",
+      "cohort_identity": "pins and offline cohort evidence only",
+      "availability_and_legacy_semantics": "no runtime signal inferred from tooling/docs"
     }
   ],
   "supporting_files": [
@@ -2010,7 +2166,7 @@
     },
     {
       "path": "opendbc_repo/opendbc/car/volkswagen/carstate.py",
-      "symbol": "CarState.update_mqb steeringPressed producer",
+      "symbol": "CarState.update_meb steeringPressed producer",
       "start_line": 190,
       "end_line": 196,
       "range_sha256": "c741da5f284df53d2897bbfa82d30c9488430682135137085b81604fbcbb8e6b",

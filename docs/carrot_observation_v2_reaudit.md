@@ -16,17 +16,17 @@ persistence, controller writes, real logs or vehicle work are authorized.
 
 - [x] Recheck target main, reference PR base/head, Draft/Open/mergeability,
   successful exact-head checks and unresolved threads; baseline: 536 tests pass.
-- [ ] Inspect all 26 changed files plus supporting schema/clock/VM sources;
+- [x] Inspect all 26 changed files plus supporting schema/clock/VM sources;
   record raw Git blob hashes and symbol ranges in the source evidence JSON.
-- [ ] Prove the mandatory joins and truth tables before adding runtime code.
+- [x] Prove the mandatory joins and truth tables before adding runtime code.
   If any gate is unresolved, add only audit evidence and record the blocker.
-- [ ] Write failing synthetic contract/evidence tests, observe the failures,
+- [x] Write failing synthetic contract/evidence tests, observe the failures,
   implement the minimum permitted evaluator, and pass the full regression.
-- [ ] Specify immutable caller policy, static non-identifying context, baseline
+- [x] Specify immutable caller policy, static non-identifying context, baseline
   epoch and cache ownership; pin at least 40 independent literal expected cases.
-- [ ] Verify lint, formatting, types, branch coverage, four unchanged replay
-  goldens, build, fresh wheel and independent review; commit append-only, push
-  and open the requested Draft PR, then verify exact-head CI.
+- [x] Verify lint, formatting, types, branch coverage, four unchanged replay
+  goldens, build, fresh wheel and independent review. Append-only publication and
+  exact-head CI are separately recorded on the Draft PR and completion report.
 
 Files: this report; `docs/evidence/carrot_observation_v2_sources.json`;
 `docs/evidence/carrot_observation_v2_cases.json`; audit validator/tests; and,
@@ -333,3 +333,35 @@ Windows/Ubuntu and Python 3.12.3/current 3.12 matrix. Wheel checks import every
 installed module outside the checkout, verify all four unchanged replay goldens
 and evaluate an explicitly supplied synthetic fixture against the installed
 wheel. No openpilot/cereal package or reference repository is a test dependency.
+
+## Qualification record
+
+Local CPython 3.12.14: **668 passed, zero failed/skipped**. Coverage is
+branch-inclusive: **98.81% overall**, **100.00% contract** (298 statements,
+58 branches), **100.00% safety**, **97.85% residual**, **98.48% replay**. Ruff lint
+and formatting pass (106 files); strict mypy passes 32 source files. Both the
+offline validator and optional raw Git source/range/legacy verification pass.
+
+A separate clean clone and fresh virtual environment installed upgraded pip and
+editable .[dev], then repeated lint, formatting, types, validator, full pytest,
+coverage, contract threshold, four replay goldens and wheel/sdist build. A further
+isolated wheel environment imported the root plus 31 submodules outside the
+checkout, ran all four replay CLI goldens and evaluated the explicit synthetic
+contract fixture against the installed wheel. Its Snapshot preserved the trusted
+baseline. Both evidence JSON files are byte-identical in the built sdist.
+Reference source programs were not installed or executed by these target tests.
+
+The independent whole-branch read-only review covered target base
+03c3f2f36cbe47a9afec97ce7b9d411d3aa81ccb through implementation head
+bc16a00b92960aa454e529214892e7b21f842ecb: **zero Critical, Important or Minor
+findings**. The reviewer independently repeated 668 tests, 135 focused tests,
+100% contract coverage, raw evidence checks, lint/format/types and 32 additional
+adversarial checks. No re-review of this subsequent documentation-only record is
+claimed. Source-gate review separately confirmed the required software signals.
+
+Remaining obligations belong to the future authorized extraction boundary:
+actual union/pointer extraction, trustworthy static CP/session binding and known
+override producer support, bounded exact caches and transactional attempt
+consumption. Passing this pure contract does not implement or qualify them.
+No production SCons, device IPC, physical actuation, real data or vehicle test is
+part of this audit. Phase 8B remains NOT_STARTED; PR #20 remains Draft/unmerged.
