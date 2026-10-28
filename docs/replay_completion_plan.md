@@ -65,9 +65,9 @@ inert and file writes/network/threads remain unavailable.
 - [x] Focused goldens: hand-derive constant, admission/reset and ordering stream
   metrics/event sample counts; verify before pinning new hashes. Keep historical
   aggregate bytes. Two fresh processes/hash seeds per fixture; full regression.
-- [ ] CI/docs: preserve matrix, overall coverage >=90%, package floors >=95%, CLI
+- [x] CI/docs: preserve matrix, overall coverage >=90%, package floors >=95%, CLI
   verify-all, installed-wheel CLI and fresh-process comparisons. Update schema,
   acceptance/high-water docs and evidence, build and isolated wheel validation.
 - [x] One independent read-only review; reproduce and fix concrete findings.
-- [ ] Append commits/push, keep PR #3 Draft; verify final push/PR CI, clean tree,
+- [x] Append commits/push, keep PR #3 Draft; verify final push/PR CI, clean tree,
   unchanged engine/gate/learner and historical aggregate. Stop after report.
