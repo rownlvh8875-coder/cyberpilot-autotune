@@ -10,3 +10,11 @@ Plan: replay_plan.md; existing replay_spec.md defines the approved future scope.
 - Pre-flight: schema uses existing immutable contracts/configs; runner creates fresh
   OFF/SHADOW engines and uses the existing admission boundary. No core signature
   changes or learner algorithm changes are needed.
+
+## Task 1
+
+- RED: replay schema test failed because the replay package did not exist.
+- GREEN: 46 schema/canonical tests passed, covering exact fields/units, duplicate
+  keys, numeric failures, ordering, explicit activity, resource caps and immutability.
+- Canonical tests use hand-written expected bytes for float.hex, exact integer and
+  rational tags. No engine or learner executes during decode.
