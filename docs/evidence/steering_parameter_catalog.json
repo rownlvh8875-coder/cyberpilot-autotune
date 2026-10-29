@@ -1,0 +1,1581 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "descriptor": {
+        "canonical_unit": null,
+        "classification": "TUNING_CANDIDATE",
+        "consumer_claim_ids": [
+          "hoya:controlsd-live",
+          "hoya:custom",
+          "hoya:key-defaults",
+          "hoya:linear",
+          "hoya:live-tuple",
+          "hoya:nn",
+          "hoya:settings-type",
+          "hoya:settings-write",
+          "hoya:ui-LateralTorqueAccelFactor"
+        ],
+        "consumer_transform_description": "Stored count times 0.001 in the positive custom torque branch.",
+        "consumer_unit": "default-linear m/s^2 per normalized torque",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "TORQUED_PRODUCER",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueAccelFactor",
+        "domain": "steering",
+        "evidence_gaps": [
+          "BRAND_NN_CALLBACK_SCOPE_UNRESOLVED",
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "UNRESOLVED_UNIT_EQUIVALENCE"
+        ],
+        "evidence_status": "CONDITIONAL",
+        "family": "torque_response",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueAccelFactor",
+        "runtime_field": "LatControlTorque.torque_params.latAccelFactor",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+        "storage_key": "LateralTorqueAccelFactor",
+        "storage_registry_default": 2500,
+        "storage_scale": 0.001,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 6000,
+        "ui_catalog_min": 1000,
+        "ui_default": 2500,
+        "ui_unit_description": "Catalog label denotes storage count times 0.001."
+      },
+      "descriptor_digest": "bbbd9ab5dfe062f8391890ea176aeafc823f0d1a93aa5144a4220592076272fd",
+      "source_role": "hoya",
+      "compatibility_verdict": "CONDITIONAL",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "integer mode selector",
+        "classification": "MODE_SELECTOR",
+        "consumer_claim_ids": [
+          "hoya:custom",
+          "hoya:key-defaults",
+          "hoya:live-tuple",
+          "hoya:settings-type",
+          "hoya:settings-write",
+          "hoya:ui-LateralTorqueCustom"
+        ],
+        "consumer_transform_description": "Positive sampled integer enables custom tuple/gain reads every ten frames; cached previous mode gates the live setter.",
+        "consumer_unit": "integer mode selector",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "TORQUED_PRODUCER",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueCustom",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "UI_NATIVE_DEFAULT_MISMATCH"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "torque_mode",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueCustom",
+        "runtime_field": "LatControlTorque.lateralTorqueCustom",
+        "schema_version": 1,
+        "semantic_description": "Selects a torque parameter ownership/consumer path, never a numerical application target.",
+        "source_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+        "storage_key": "LateralTorqueCustom",
+        "storage_registry_default": 0,
+        "storage_scale": 1.0,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 1,
+        "ui_catalog_min": 0,
+        "ui_default": 1,
+        "ui_unit_description": "Integer selector; UI default 1 differs from native key default 0."
+      },
+      "descriptor_digest": "5c7ef42bfa9bdbc2049176e20880b1d3eef2fa44f9530e4b17140a0e5e4a21df",
+      "source_role": "hoya",
+      "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": null,
+        "classification": "TUNING_CANDIDATE",
+        "consumer_claim_ids": [
+          "hoya:controlsd-live",
+          "hoya:custom",
+          "hoya:friction",
+          "hoya:key-defaults",
+          "hoya:linear",
+          "hoya:live-tuple",
+          "hoya:nn",
+          "hoya:settings-type",
+          "hoya:settings-write",
+          "hoya:ui-LateralTorqueFriction"
+        ],
+        "consumer_transform_description": "Stored count times 0.001 in the positive custom torque branch.",
+        "consumer_unit": "default-linear normalized torque correction",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "TORQUED_PRODUCER",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueFriction",
+        "domain": "steering",
+        "evidence_gaps": [
+          "BRAND_NN_CALLBACK_SCOPE_UNRESOLVED",
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "UNRESOLVED_UNIT_EQUIVALENCE"
+        ],
+        "evidence_status": "CONDITIONAL",
+        "family": "torque_response",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueFriction",
+        "runtime_field": "LatControlTorque.torque_params.friction",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+        "storage_key": "LateralTorqueFriction",
+        "storage_registry_default": 100,
+        "storage_scale": 0.001,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 1000,
+        "ui_catalog_min": 0,
+        "ui_default": 100,
+        "ui_unit_description": "Catalog label denotes storage count times 0.001."
+      },
+      "descriptor_digest": "04b0500453bd0825ec993a95977e3bb2b3b4819654070aee2c9a7798ec2977fd",
+      "source_role": "hoya",
+      "compatibility_verdict": "CONDITIONAL",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "PID feedforward software coefficient",
+        "classification": "SAFETY_SENSITIVE",
+        "consumer_claim_ids": [
+          "hoya:custom",
+          "hoya:key-defaults",
+          "hoya:nn",
+          "hoya:pid",
+          "hoya:settings-type",
+          "hoya:settings-write",
+          "hoya:ui-LateralTorqueKf"
+        ],
+        "consumer_transform_description": "Stored integer-text count times 0.01 assigns the torque PID feedforward coefficient; error/feedforward domain depends on the actual callback.",
+        "consumer_unit": "PID feedforward software coefficient",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueKf",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "UI_LABEL_SCALE_MISMATCH"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "torque_pid",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueKf",
+        "runtime_field": "LatControlTorque.pid.k_f",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+        "storage_key": "LateralTorqueKf",
+        "storage_registry_default": 100,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 200,
+        "ui_catalog_min": 0,
+        "ui_default": 100,
+        "ui_unit_description": "English/Chinese UI titles denote times 0.001; Korean title and consumer denote times 0.01."
+      },
+      "descriptor_digest": "feeeca256f2b4348f26ad1b7e7309c473549788cac2d7c57cfec8bb7f46cd04a",
+      "source_role": "hoya",
+      "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "PID integral software coefficient",
+        "classification": "SAFETY_SENSITIVE",
+        "consumer_claim_ids": [
+          "hoya:custom",
+          "hoya:key-defaults",
+          "hoya:nn",
+          "hoya:pid",
+          "hoya:settings-type",
+          "hoya:settings-write",
+          "hoya:ui-LateralTorqueKiV"
+        ],
+        "consumer_transform_description": "Stored integer-text count times 0.01 assigns the torque PID integral coefficient; error/feedforward domain depends on the actual callback.",
+        "consumer_unit": "PID integral software coefficient",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueKiV",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "torque_pid",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueKiV",
+        "runtime_field": "LatControlTorque.pid._k_i",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+        "storage_key": "LateralTorqueKiV",
+        "storage_registry_default": 10,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 200,
+        "ui_catalog_min": 0,
+        "ui_default": 10,
+        "ui_unit_description": "Catalog label denotes times 0.01."
+      },
+      "descriptor_digest": "e3bc546421d98298e3aedb17cb4dcd14a151175707f58f3de179232b5c93957e",
+      "source_role": "hoya",
+      "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "PID proportional software coefficient",
+        "classification": "SAFETY_SENSITIVE",
+        "consumer_claim_ids": [
+          "hoya:custom",
+          "hoya:key-defaults",
+          "hoya:nn",
+          "hoya:pid",
+          "hoya:settings-type",
+          "hoya:settings-write",
+          "hoya:ui-LateralTorqueKpV"
+        ],
+        "consumer_transform_description": "Stored integer-text count times 0.01 assigns the torque PID proportional coefficient; error/feedforward domain depends on the actual callback.",
+        "consumer_unit": "PID proportional software coefficient",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueKpV",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "torque_pid",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueKpV",
+        "runtime_field": "LatControlTorque.pid._k_p",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+        "storage_key": "LateralTorqueKpV",
+        "storage_registry_default": 100,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 200,
+        "ui_catalog_min": 0,
+        "ui_default": 100,
+        "ui_unit_description": "Catalog label denotes times 0.01."
+      },
+      "descriptor_digest": "bf6793bcf0bce6df0953f76aae31a5306bfe2ca4658e9bd40c4158db8bfa8dbc",
+      "source_role": "hoya",
+      "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "s",
+        "classification": "DESCRIPTIVE_ONLY",
+        "consumer_claim_ids": [
+          "hoya:delay",
+          "hoya:delay-model",
+          "hoya:delay-nn",
+          "hoya:key-defaults",
+          "hoya:settings-type",
+          "hoya:settings-write",
+          "hoya:ui-SteerActuatorDelay"
+        ],
+        "consumer_transform_description": "Stored count times 0.01 seconds. controlsd zero selects liveDelay; modeld selects positive custom or liveDelay plus smoothing; NN initialization separately caches raw scaled delay plus 0.3 seconds.",
+        "consumer_unit": "s",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "NN_ALTERNATIVE",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "SteerActuatorDelay",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "SOURCE_BRANCH_DRIFT",
+          "UI_NATIVE_DEFAULT_MISMATCH"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "steering_delay",
+        "mode_conditions": [
+          "Hoya controlsd reads on each state_control",
+          "modeld positive custom selection is distinct from NN constructor timing"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "SteerActuatorDelay",
+        "runtime_field": "controlsd / modeld / NN desired_lat_jerk_time",
+        "schema_version": 1,
+        "semantic_description": "Software delay selector used by several source-specific timing paths; not measured physical delay.",
+        "source_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+        "storage_key": "SteerActuatorDelay",
+        "storage_registry_default": 0,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 300,
+        "ui_catalog_min": 0,
+        "ui_default": 30,
+        "ui_unit_description": "Raw integer catalog value; title does not state the seconds multiplier."
+      },
+      "descriptor_digest": "0bbcba2dbafb07b98cfcc2ac6be7fabe048effdd3bfc8655c8816c699d10acb9",
+      "source_role": "hoya",
+      "compatibility_verdict": "DRIFTED",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "dimensionless ratio multiplier",
+        "classification": "DESCRIPTIVE_ONLY",
+        "consumer_claim_ids": [
+          "hoya:key-defaults",
+          "hoya:ratio",
+          "hoya:settings-type",
+          "hoya:settings-write",
+          "hoya:ui-SteerRatioRate",
+          "hoya:vm"
+        ],
+        "consumer_transform_description": "MEB returns the learned ratio directly before manual override/rate scaling; non-MEB applies a valid CustomSR override or learned ratio times stored rate times 0.01, with source fallback/floor.",
+        "consumer_unit": "dimensionless ratio multiplier",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "UI_SETTINGS_WRITER",
+          "VEHICLE_MODEL_CONSUMER"
+        ],
+        "display_name": "SteerRatioRate",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "SOURCE_BRANCH_DRIFT"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "vehicle_model_ratio",
+        "mode_conditions": [
+          "Hoya MEB bypass before custom/rate resolution"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "SteerRatioRate",
+        "runtime_field": "VehicleModel.update_params resolved steer ratio",
+        "schema_version": 1,
+        "semantic_description": "Scales or is bypassed/overridden in the source-specific VehicleModel ratio resolver.",
+        "source_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+        "storage_key": "SteerRatioRate",
+        "storage_registry_default": 100,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 200,
+        "ui_catalog_min": 30,
+        "ui_default": 100,
+        "ui_unit_description": "Raw percent-like count; catalog label denotes times 0.01."
+      },
+      "descriptor_digest": "80b365ff497be2be47e5d6fe3e50f175581445467abccc91767bf91064ad85ca",
+      "source_role": "hoya",
+      "compatibility_verdict": "DRIFTED",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": null,
+        "classification": "COUPLED_PRESERVED_STATE",
+        "consumer_claim_ids": [
+          "hoya:controlsd-live",
+          "hoya:linear",
+          "hoya:live-tuple",
+          "hoya:nn",
+          "hoya:offset-fit",
+          "hoya:offset-publish",
+          "hoya:wire"
+        ],
+        "consumer_transform_description": "latAccelOffsetFiltered is passed unchanged to the live tuple setter. Custom mode uses the captured CP offset. The default linear callback does not use the offset directly.",
+        "consumer_unit": null,
+        "consumer_value_source": "Future exact liveTorqueParameters message evidence only; no value read here.",
+        "default_sources": [
+          "No UI or available-state default; producer seed zero is not availability."
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "TORQUED_PRODUCER",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "liveTorqueParameters.latAccelOffset",
+        "domain": "steering",
+        "evidence_gaps": [
+          "LOGICAL_ID_NOT_WIRE_MEMBER",
+          "OFFSET_CANONICAL_UNIT_UNRESOLVED",
+          "OWNERSHIP_CONFLICT_UNRESOLVED"
+        ],
+        "evidence_status": "UNRESOLVED",
+        "family": "torque_coupled_state",
+        "mode_conditions": [
+          "live validity/useParams and custom-mode conditions retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "liveTorqueParameters.latAccelOffset",
+        "runtime_field": "liveTorqueParameters.latAccelOffsetFiltered",
+        "schema_version": 1,
+        "semantic_description": "Logical preserved offset ID for the filtered wire state; not a literal wire field or tuning candidate.",
+        "source_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+        "storage_key": null,
+        "storage_registry_default": null,
+        "storage_scale": 1.0,
+        "storage_type": "MESSAGE_FLOAT32",
+        "storage_unit": "filtered message scalar",
+        "ui_catalog_max": null,
+        "ui_catalog_min": null,
+        "ui_default": null,
+        "ui_unit_description": null
+      },
+      "descriptor_digest": "bedc3e8267bd4f91b9f617f32c1daeac58ea05f5f5aa517e8135a25e367f3a8b",
+      "source_role": "hoya",
+      "compatibility_verdict": "UNRESOLVED",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": null,
+        "classification": "TUNING_CANDIDATE",
+        "consumer_claim_ids": [
+          "runtime:controlsd-live",
+          "runtime:custom",
+          "runtime:key-defaults",
+          "runtime:linear",
+          "runtime:live-tuple",
+          "runtime:nn",
+          "runtime:settings-type",
+          "runtime:settings-write",
+          "runtime:ui-LateralTorqueAccelFactor"
+        ],
+        "consumer_transform_description": "Stored count times 0.001 in the positive custom torque branch.",
+        "consumer_unit": "default-linear m/s^2 per normalized torque",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "TORQUED_PRODUCER",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueAccelFactor",
+        "domain": "steering",
+        "evidence_gaps": [
+          "BRAND_NN_CALLBACK_SCOPE_UNRESOLVED",
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "UNRESOLVED_UNIT_EQUIVALENCE"
+        ],
+        "evidence_status": "CONDITIONAL",
+        "family": "torque_response",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueAccelFactor",
+        "runtime_field": "LatControlTorque.torque_params.latAccelFactor",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+        "storage_key": "LateralTorqueAccelFactor",
+        "storage_registry_default": 2500,
+        "storage_scale": 0.001,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 6000,
+        "ui_catalog_min": 1000,
+        "ui_default": 2500,
+        "ui_unit_description": "Catalog label denotes storage count times 0.001."
+      },
+      "descriptor_digest": "cc86b46c752ec7cda789028b75de88769b69a0a1b14cfe1fd528045ecf32d136",
+      "source_role": "runtime",
+      "compatibility_verdict": "CONDITIONAL",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "integer mode selector",
+        "classification": "MODE_SELECTOR",
+        "consumer_claim_ids": [
+          "runtime:custom",
+          "runtime:key-defaults",
+          "runtime:live-tuple",
+          "runtime:settings-type",
+          "runtime:settings-write",
+          "runtime:ui-LateralTorqueCustom"
+        ],
+        "consumer_transform_description": "Positive sampled integer enables custom tuple/gain reads every ten frames; cached previous mode gates the live setter.",
+        "consumer_unit": "integer mode selector",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "TORQUED_PRODUCER",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueCustom",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "UI_NATIVE_DEFAULT_MISMATCH"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "torque_mode",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueCustom",
+        "runtime_field": "LatControlTorque.lateralTorqueCustom",
+        "schema_version": 1,
+        "semantic_description": "Selects a torque parameter ownership/consumer path, never a numerical application target.",
+        "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+        "storage_key": "LateralTorqueCustom",
+        "storage_registry_default": 0,
+        "storage_scale": 1.0,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 1,
+        "ui_catalog_min": 0,
+        "ui_default": 1,
+        "ui_unit_description": "Integer selector; UI default 1 differs from native key default 0."
+      },
+      "descriptor_digest": "011eaaf9fd38971b5bdb2c2b95c7b4248de9dfa341af0dd77ee9b08b82c03456",
+      "source_role": "runtime",
+      "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": null,
+        "classification": "TUNING_CANDIDATE",
+        "consumer_claim_ids": [
+          "runtime:controlsd-live",
+          "runtime:custom",
+          "runtime:friction",
+          "runtime:key-defaults",
+          "runtime:linear",
+          "runtime:live-tuple",
+          "runtime:nn",
+          "runtime:settings-type",
+          "runtime:settings-write",
+          "runtime:ui-LateralTorqueFriction"
+        ],
+        "consumer_transform_description": "Stored count times 0.001 in the positive custom torque branch.",
+        "consumer_unit": "default-linear normalized torque correction",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "TORQUED_PRODUCER",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueFriction",
+        "domain": "steering",
+        "evidence_gaps": [
+          "BRAND_NN_CALLBACK_SCOPE_UNRESOLVED",
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "UNRESOLVED_UNIT_EQUIVALENCE"
+        ],
+        "evidence_status": "CONDITIONAL",
+        "family": "torque_response",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueFriction",
+        "runtime_field": "LatControlTorque.torque_params.friction",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+        "storage_key": "LateralTorqueFriction",
+        "storage_registry_default": 100,
+        "storage_scale": 0.001,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 1000,
+        "ui_catalog_min": 0,
+        "ui_default": 100,
+        "ui_unit_description": "Catalog label denotes storage count times 0.001."
+      },
+      "descriptor_digest": "bd71bcb9ecbb8d621b5c2f22ca9705e217efafd0ef3dbce39ec8b169d51552ff",
+      "source_role": "runtime",
+      "compatibility_verdict": "CONDITIONAL",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "PID feedforward software coefficient",
+        "classification": "SAFETY_SENSITIVE",
+        "consumer_claim_ids": [
+          "runtime:custom",
+          "runtime:key-defaults",
+          "runtime:nn",
+          "runtime:pid",
+          "runtime:settings-type",
+          "runtime:settings-write",
+          "runtime:ui-LateralTorqueKf"
+        ],
+        "consumer_transform_description": "Stored integer-text count times 0.01 assigns the torque PID feedforward coefficient; error/feedforward domain depends on the actual callback.",
+        "consumer_unit": "PID feedforward software coefficient",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueKf",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "UI_LABEL_SCALE_MISMATCH"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "torque_pid",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueKf",
+        "runtime_field": "LatControlTorque.pid.k_f",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+        "storage_key": "LateralTorqueKf",
+        "storage_registry_default": 100,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 200,
+        "ui_catalog_min": 0,
+        "ui_default": 100,
+        "ui_unit_description": "English/Chinese UI titles denote times 0.001; Korean title and consumer denote times 0.01."
+      },
+      "descriptor_digest": "94ee5ba1e140451a24e77bdc4c7c01d851720b0f29a4b8c1a0396669741b3f4e",
+      "source_role": "runtime",
+      "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "PID integral software coefficient",
+        "classification": "SAFETY_SENSITIVE",
+        "consumer_claim_ids": [
+          "runtime:custom",
+          "runtime:key-defaults",
+          "runtime:nn",
+          "runtime:pid",
+          "runtime:settings-type",
+          "runtime:settings-write",
+          "runtime:ui-LateralTorqueKiV"
+        ],
+        "consumer_transform_description": "Stored integer-text count times 0.01 assigns the torque PID integral coefficient; error/feedforward domain depends on the actual callback.",
+        "consumer_unit": "PID integral software coefficient",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueKiV",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "torque_pid",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueKiV",
+        "runtime_field": "LatControlTorque.pid._k_i",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+        "storage_key": "LateralTorqueKiV",
+        "storage_registry_default": 10,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 200,
+        "ui_catalog_min": 0,
+        "ui_default": 10,
+        "ui_unit_description": "Catalog label denotes times 0.01."
+      },
+      "descriptor_digest": "a694bc2431904371161837ca6a4b5f23c3d6a04f9028f30ee70115331fe6f80c",
+      "source_role": "runtime",
+      "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "PID proportional software coefficient",
+        "classification": "SAFETY_SENSITIVE",
+        "consumer_claim_ids": [
+          "runtime:custom",
+          "runtime:key-defaults",
+          "runtime:nn",
+          "runtime:pid",
+          "runtime:settings-type",
+          "runtime:settings-write",
+          "runtime:ui-LateralTorqueKpV"
+        ],
+        "consumer_transform_description": "Stored integer-text count times 0.01 assigns the torque PID proportional coefficient; error/feedforward domain depends on the actual callback.",
+        "consumer_unit": "PID proportional software coefficient",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueKpV",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "torque_pid",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueKpV",
+        "runtime_field": "LatControlTorque.pid._k_p",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+        "storage_key": "LateralTorqueKpV",
+        "storage_registry_default": 100,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 200,
+        "ui_catalog_min": 0,
+        "ui_default": 100,
+        "ui_unit_description": "Catalog label denotes times 0.01."
+      },
+      "descriptor_digest": "8f1a6368b9f22d29c23ef6dba82106b8ae1b0da29fbe44e61c89d346790463ed",
+      "source_role": "runtime",
+      "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "s",
+        "classification": "DESCRIPTIVE_ONLY",
+        "consumer_claim_ids": [
+          "runtime:delay",
+          "runtime:delay-model",
+          "runtime:delay-nn",
+          "runtime:key-defaults",
+          "runtime:settings-type",
+          "runtime:settings-write",
+          "runtime:ui-SteerActuatorDelay"
+        ],
+        "consumer_transform_description": "Stored count times 0.01 seconds. controlsd zero selects liveDelay; modeld selects positive custom or liveDelay plus smoothing; NN initialization separately caches raw scaled delay plus 0.3 seconds.",
+        "consumer_unit": "s",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "NN_ALTERNATIVE",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "SteerActuatorDelay",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "SOURCE_BRANCH_DRIFT",
+          "UI_NATIVE_DEFAULT_MISMATCH"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "steering_delay",
+        "mode_conditions": [
+          "Runtime/current controlsd reads in active lane-plan branch",
+          "modeld positive custom selection is distinct from NN constructor timing"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "SteerActuatorDelay",
+        "runtime_field": "controlsd / modeld / NN desired_lat_jerk_time",
+        "schema_version": 1,
+        "semantic_description": "Software delay selector used by several source-specific timing paths; not measured physical delay.",
+        "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+        "storage_key": "SteerActuatorDelay",
+        "storage_registry_default": 0,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 300,
+        "ui_catalog_min": 0,
+        "ui_default": 30,
+        "ui_unit_description": "Raw integer catalog value; title does not state the seconds multiplier."
+      },
+      "descriptor_digest": "de627255c62ec4f7aa667b6aa78c9f309f930bc65c40e52aa955aaaf43036229",
+      "source_role": "runtime",
+      "compatibility_verdict": "DRIFTED",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "dimensionless ratio multiplier",
+        "classification": "DESCRIPTIVE_ONLY",
+        "consumer_claim_ids": [
+          "runtime:key-defaults",
+          "runtime:ratio",
+          "runtime:settings-type",
+          "runtime:settings-write",
+          "runtime:ui-SteerRatioRate",
+          "runtime:vm"
+        ],
+        "consumer_transform_description": "All platforms use the helper manual CustomSR override or learned ratio times stored rate times 0.01, with source fallback/floor. There is no MEB bypass in this helper.",
+        "consumer_unit": "dimensionless ratio multiplier",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "UI_SETTINGS_WRITER",
+          "VEHICLE_MODEL_CONSUMER"
+        ],
+        "display_name": "SteerRatioRate",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "SOURCE_BRANCH_DRIFT"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "vehicle_model_ratio",
+        "mode_conditions": [
+          "All platforms: CustomSR override precedes rate scaling"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "SteerRatioRate",
+        "runtime_field": "VehicleModel.update_params resolved steer ratio",
+        "schema_version": 1,
+        "semantic_description": "Scales or is bypassed/overridden in the source-specific VehicleModel ratio resolver.",
+        "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+        "storage_key": "SteerRatioRate",
+        "storage_registry_default": 100,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 200,
+        "ui_catalog_min": 30,
+        "ui_default": 100,
+        "ui_unit_description": "Raw percent-like count; catalog label denotes times 0.01."
+      },
+      "descriptor_digest": "613eecabf75f29d3a960e1029fc06778fdb221bc1984ec91eec7d9e04384cc69",
+      "source_role": "runtime",
+      "compatibility_verdict": "DRIFTED",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": null,
+        "classification": "COUPLED_PRESERVED_STATE",
+        "consumer_claim_ids": [
+          "runtime:controlsd-live",
+          "runtime:linear",
+          "runtime:live-tuple",
+          "runtime:nn",
+          "runtime:offset-fit",
+          "runtime:offset-publish",
+          "runtime:wire"
+        ],
+        "consumer_transform_description": "latAccelOffsetFiltered is passed unchanged to the live tuple setter. Custom mode uses the captured CP offset. The default linear callback does not use the offset directly.",
+        "consumer_unit": null,
+        "consumer_value_source": "Future exact liveTorqueParameters message evidence only; no value read here.",
+        "default_sources": [
+          "No UI or available-state default; producer seed zero is not availability."
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "TORQUED_PRODUCER",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "liveTorqueParameters.latAccelOffset",
+        "domain": "steering",
+        "evidence_gaps": [
+          "LOGICAL_ID_NOT_WIRE_MEMBER",
+          "OFFSET_CANONICAL_UNIT_UNRESOLVED",
+          "OWNERSHIP_CONFLICT_UNRESOLVED"
+        ],
+        "evidence_status": "UNRESOLVED",
+        "family": "torque_coupled_state",
+        "mode_conditions": [
+          "live validity/useParams and custom-mode conditions retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "liveTorqueParameters.latAccelOffset",
+        "runtime_field": "liveTorqueParameters.latAccelOffsetFiltered",
+        "schema_version": 1,
+        "semantic_description": "Logical preserved offset ID for the filtered wire state; not a literal wire field or tuning candidate.",
+        "source_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+        "storage_key": null,
+        "storage_registry_default": null,
+        "storage_scale": 1.0,
+        "storage_type": "MESSAGE_FLOAT32",
+        "storage_unit": "filtered message scalar",
+        "ui_catalog_max": null,
+        "ui_catalog_min": null,
+        "ui_default": null,
+        "ui_unit_description": null
+      },
+      "descriptor_digest": "5a34cbb2897e80ae56b8e539b7c9db6ac9e5a23971022358990ce1ef22cb6749",
+      "source_role": "runtime",
+      "compatibility_verdict": "UNRESOLVED",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": null,
+        "classification": "TUNING_CANDIDATE",
+        "consumer_claim_ids": [
+          "upstream:controlsd-live",
+          "upstream:custom",
+          "upstream:key-defaults",
+          "upstream:linear",
+          "upstream:live-tuple",
+          "upstream:nn",
+          "upstream:settings-type",
+          "upstream:settings-write",
+          "upstream:ui-LateralTorqueAccelFactor"
+        ],
+        "consumer_transform_description": "Stored count times 0.001 in the positive custom torque branch.",
+        "consumer_unit": "default-linear m/s^2 per normalized torque",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "TORQUED_PRODUCER",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueAccelFactor",
+        "domain": "steering",
+        "evidence_gaps": [
+          "BRAND_NN_CALLBACK_SCOPE_UNRESOLVED",
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "UNRESOLVED_UNIT_EQUIVALENCE"
+        ],
+        "evidence_status": "CONDITIONAL",
+        "family": "torque_response",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueAccelFactor",
+        "runtime_field": "LatControlTorque.torque_params.latAccelFactor",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+        "storage_key": "LateralTorqueAccelFactor",
+        "storage_registry_default": 2500,
+        "storage_scale": 0.001,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 6000,
+        "ui_catalog_min": 1000,
+        "ui_default": 2500,
+        "ui_unit_description": "Catalog label denotes storage count times 0.001."
+      },
+      "descriptor_digest": "53b73b1623ec2c4c20402a295f39931129aa62cf1b8da8e6bf5e930df66219ad",
+      "source_role": "upstream",
+      "compatibility_verdict": "CONDITIONAL",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "integer mode selector",
+        "classification": "MODE_SELECTOR",
+        "consumer_claim_ids": [
+          "upstream:custom",
+          "upstream:key-defaults",
+          "upstream:live-tuple",
+          "upstream:settings-type",
+          "upstream:settings-write",
+          "upstream:ui-LateralTorqueCustom"
+        ],
+        "consumer_transform_description": "Positive sampled integer enables custom tuple/gain reads every ten frames; cached previous mode gates the live setter.",
+        "consumer_unit": "integer mode selector",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "TORQUED_PRODUCER",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueCustom",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "UI_NATIVE_DEFAULT_MISMATCH"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "torque_mode",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueCustom",
+        "runtime_field": "LatControlTorque.lateralTorqueCustom",
+        "schema_version": 1,
+        "semantic_description": "Selects a torque parameter ownership/consumer path, never a numerical application target.",
+        "source_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+        "storage_key": "LateralTorqueCustom",
+        "storage_registry_default": 0,
+        "storage_scale": 1.0,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 1,
+        "ui_catalog_min": 0,
+        "ui_default": 1,
+        "ui_unit_description": "Integer selector; UI default 1 differs from native key default 0."
+      },
+      "descriptor_digest": "d9fdc55d11e907ff3d39160ae53eef4a8c3edaa3218cb58a0fd97f27988de836",
+      "source_role": "upstream",
+      "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": null,
+        "classification": "TUNING_CANDIDATE",
+        "consumer_claim_ids": [
+          "upstream:controlsd-live",
+          "upstream:custom",
+          "upstream:friction",
+          "upstream:key-defaults",
+          "upstream:linear",
+          "upstream:live-tuple",
+          "upstream:nn",
+          "upstream:settings-type",
+          "upstream:settings-write",
+          "upstream:ui-LateralTorqueFriction"
+        ],
+        "consumer_transform_description": "Stored count times 0.001 in the positive custom torque branch.",
+        "consumer_unit": "default-linear normalized torque correction",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "TORQUED_PRODUCER",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueFriction",
+        "domain": "steering",
+        "evidence_gaps": [
+          "BRAND_NN_CALLBACK_SCOPE_UNRESOLVED",
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "UNRESOLVED_UNIT_EQUIVALENCE"
+        ],
+        "evidence_status": "CONDITIONAL",
+        "family": "torque_response",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueFriction",
+        "runtime_field": "LatControlTorque.torque_params.friction",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+        "storage_key": "LateralTorqueFriction",
+        "storage_registry_default": 100,
+        "storage_scale": 0.001,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 1000,
+        "ui_catalog_min": 0,
+        "ui_default": 100,
+        "ui_unit_description": "Catalog label denotes storage count times 0.001."
+      },
+      "descriptor_digest": "1671d845b2ad52c74a07ea6aab0c494b4986cc184d7f0b39f59738a3a7a12fee",
+      "source_role": "upstream",
+      "compatibility_verdict": "CONDITIONAL",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "PID feedforward software coefficient",
+        "classification": "SAFETY_SENSITIVE",
+        "consumer_claim_ids": [
+          "upstream:custom",
+          "upstream:key-defaults",
+          "upstream:nn",
+          "upstream:pid",
+          "upstream:settings-type",
+          "upstream:settings-write",
+          "upstream:ui-LateralTorqueKf"
+        ],
+        "consumer_transform_description": "Stored integer-text count times 0.01 assigns the torque PID feedforward coefficient; error/feedforward domain depends on the actual callback.",
+        "consumer_unit": "PID feedforward software coefficient",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueKf",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "UI_LABEL_SCALE_MISMATCH"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "torque_pid",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueKf",
+        "runtime_field": "LatControlTorque.pid.k_f",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+        "storage_key": "LateralTorqueKf",
+        "storage_registry_default": 100,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 200,
+        "ui_catalog_min": 0,
+        "ui_default": 100,
+        "ui_unit_description": "English/Chinese UI titles denote times 0.001; Korean title and consumer denote times 0.01."
+      },
+      "descriptor_digest": "cb2a63759f8226c0fa0438fd71a0baf3b2d139d6c3ee374095859022ab090a1f",
+      "source_role": "upstream",
+      "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "PID integral software coefficient",
+        "classification": "SAFETY_SENSITIVE",
+        "consumer_claim_ids": [
+          "upstream:custom",
+          "upstream:key-defaults",
+          "upstream:nn",
+          "upstream:pid",
+          "upstream:settings-type",
+          "upstream:settings-write",
+          "upstream:ui-LateralTorqueKiV"
+        ],
+        "consumer_transform_description": "Stored integer-text count times 0.01 assigns the torque PID integral coefficient; error/feedforward domain depends on the actual callback.",
+        "consumer_unit": "PID integral software coefficient",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueKiV",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "torque_pid",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueKiV",
+        "runtime_field": "LatControlTorque.pid._k_i",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+        "storage_key": "LateralTorqueKiV",
+        "storage_registry_default": 10,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 200,
+        "ui_catalog_min": 0,
+        "ui_default": 10,
+        "ui_unit_description": "Catalog label denotes times 0.01."
+      },
+      "descriptor_digest": "fda138855a9fd52822c9c202563a047ee2f4e7da681ba907d36f7639166e0a21",
+      "source_role": "upstream",
+      "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "PID proportional software coefficient",
+        "classification": "SAFETY_SENSITIVE",
+        "consumer_claim_ids": [
+          "upstream:custom",
+          "upstream:key-defaults",
+          "upstream:nn",
+          "upstream:pid",
+          "upstream:settings-type",
+          "upstream:settings-write",
+          "upstream:ui-LateralTorqueKpV"
+        ],
+        "consumer_transform_description": "Stored integer-text count times 0.01 assigns the torque PID proportional coefficient; error/feedforward domain depends on the actual callback.",
+        "consumer_unit": "PID proportional software coefficient",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "LateralTorqueKpV",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "torque_pid",
+        "mode_conditions": [
+          "custom versus live and NN/brand callback must be retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "LateralTorqueKpV",
+        "runtime_field": "LatControlTorque.pid._k_p",
+        "schema_version": 1,
+        "semantic_description": "Source-bound steering coefficient description only.",
+        "source_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+        "storage_key": "LateralTorqueKpV",
+        "storage_registry_default": 100,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 200,
+        "ui_catalog_min": 0,
+        "ui_default": 100,
+        "ui_unit_description": "Catalog label denotes times 0.01."
+      },
+      "descriptor_digest": "2462393717f5f94c95aa8629563b17d83b767463281a4b68f51d0c2441e16942",
+      "source_role": "upstream",
+      "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "s",
+        "classification": "DESCRIPTIVE_ONLY",
+        "consumer_claim_ids": [
+          "upstream:delay",
+          "upstream:delay-model",
+          "upstream:delay-nn",
+          "upstream:key-defaults",
+          "upstream:settings-type",
+          "upstream:settings-write",
+          "upstream:ui-SteerActuatorDelay"
+        ],
+        "consumer_transform_description": "Stored count times 0.01 seconds. controlsd zero selects liveDelay; modeld selects positive custom or liveDelay plus smoothing; NN initialization separately caches raw scaled delay plus 0.3 seconds.",
+        "consumer_unit": "s",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "NN_ALTERNATIVE",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "SteerActuatorDelay",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "SOURCE_BRANCH_DRIFT",
+          "UI_NATIVE_DEFAULT_MISMATCH"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "steering_delay",
+        "mode_conditions": [
+          "Runtime/current controlsd reads in active lane-plan branch",
+          "modeld positive custom selection is distinct from NN constructor timing"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "SteerActuatorDelay",
+        "runtime_field": "controlsd / modeld / NN desired_lat_jerk_time",
+        "schema_version": 1,
+        "semantic_description": "Software delay selector used by several source-specific timing paths; not measured physical delay.",
+        "source_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+        "storage_key": "SteerActuatorDelay",
+        "storage_registry_default": 0,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 300,
+        "ui_catalog_min": 0,
+        "ui_default": 30,
+        "ui_unit_description": "Raw integer catalog value; title does not state the seconds multiplier."
+      },
+      "descriptor_digest": "84fbf47fb8d8d6a86af3ed4b80f3597f60efd75e4f220039814cbf48e908c15e",
+      "source_role": "upstream",
+      "compatibility_verdict": "DRIFTED",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": "dimensionless ratio multiplier",
+        "classification": "DESCRIPTIVE_ONLY",
+        "consumer_claim_ids": [
+          "upstream:key-defaults",
+          "upstream:ratio",
+          "upstream:settings-type",
+          "upstream:settings-write",
+          "upstream:ui-SteerRatioRate",
+          "upstream:vm"
+        ],
+        "consumer_transform_description": "All platforms use the helper manual CustomSR override or learned ratio times stored rate times 0.01, with source fallback/floor. There is no MEB bypass in this helper.",
+        "consumer_unit": "dimensionless ratio multiplier",
+        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "default_sources": [
+          "pinned UI catalog and native key registry; neither is a baseline"
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "UI_SETTINGS_WRITER",
+          "VEHICLE_MODEL_CONSUMER"
+        ],
+        "display_name": "SteerRatioRate",
+        "domain": "steering",
+        "evidence_gaps": [
+          "OWNERSHIP_CONFLICT_UNRESOLVED",
+          "SOURCE_BRANCH_DRIFT"
+        ],
+        "evidence_status": "PROVEN",
+        "family": "vehicle_model_ratio",
+        "mode_conditions": [
+          "All platforms: CustomSR override precedes rate scaling"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "SteerRatioRate",
+        "runtime_field": "VehicleModel.update_params resolved steer ratio",
+        "schema_version": 1,
+        "semantic_description": "Scales or is bypassed/overridden in the source-specific VehicleModel ratio resolver.",
+        "source_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+        "storage_key": "SteerRatioRate",
+        "storage_registry_default": 100,
+        "storage_scale": 0.01,
+        "storage_type": "INTEGER_TEXT",
+        "storage_unit": "raw integer setting count",
+        "ui_catalog_max": 200,
+        "ui_catalog_min": 30,
+        "ui_default": 100,
+        "ui_unit_description": "Raw percent-like count; catalog label denotes times 0.01."
+      },
+      "descriptor_digest": "7f494b6625b26d2407d58030cc667aa8bc09d19c5958e260d3cf327d04c0858c",
+      "source_role": "upstream",
+      "compatibility_verdict": "DRIFTED",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    },
+    {
+      "descriptor": {
+        "canonical_unit": null,
+        "classification": "COUPLED_PRESERVED_STATE",
+        "consumer_claim_ids": [
+          "upstream:controlsd-live",
+          "upstream:linear",
+          "upstream:live-tuple",
+          "upstream:nn",
+          "upstream:offset-fit",
+          "upstream:offset-publish",
+          "upstream:wire"
+        ],
+        "consumer_transform_description": "latAccelOffsetFiltered is passed unchanged to the live tuple setter. Custom mode uses the captured CP offset. The default linear callback does not use the offset directly.",
+        "consumer_unit": null,
+        "consumer_value_source": "Future exact liveTorqueParameters message evidence only; no value read here.",
+        "default_sources": [
+          "No UI or available-state default; producer seed zero is not availability."
+        ],
+        "descriptive_owner": [
+          "CONTROLSD_CONSUMER",
+          "CUSTOM_TORQUE_OVERRIDE",
+          "NN_ALTERNATIVE",
+          "TORQUED_PRODUCER",
+          "UI_SETTINGS_WRITER"
+        ],
+        "display_name": "liveTorqueParameters.latAccelOffset",
+        "domain": "steering",
+        "evidence_gaps": [
+          "LOGICAL_ID_NOT_WIRE_MEMBER",
+          "OFFSET_CANONICAL_UNIT_UNRESOLVED",
+          "OWNERSHIP_CONFLICT_UNRESOLVED"
+        ],
+        "evidence_status": "UNRESOLVED",
+        "family": "torque_coupled_state",
+        "mode_conditions": [
+          "live validity/useParams and custom-mode conditions retained",
+          "torque controller selected"
+        ],
+        "ownership_status": "OWNERSHIP_CONFLICT_UNRESOLVED",
+        "parameter_id": "liveTorqueParameters.latAccelOffset",
+        "runtime_field": "liveTorqueParameters.latAccelOffsetFiltered",
+        "schema_version": 1,
+        "semantic_description": "Logical preserved offset ID for the filtered wire state; not a literal wire field or tuning candidate.",
+        "source_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+        "storage_key": null,
+        "storage_registry_default": null,
+        "storage_scale": 1.0,
+        "storage_type": "MESSAGE_FLOAT32",
+        "storage_unit": "filtered message scalar",
+        "ui_catalog_max": null,
+        "ui_catalog_min": null,
+        "ui_default": null,
+        "ui_unit_description": null
+      },
+      "descriptor_digest": "38fa00ed7919f703d2987faa16e5936c073d70c0513adfed6934c8242d6dc7c6",
+      "source_role": "upstream",
+      "compatibility_verdict": "UNRESOLVED",
+      "application_policy": "APPLICATION_POLICY_UNRESOLVED"
+    }
+  ],
+  "application_registry": false
+}
