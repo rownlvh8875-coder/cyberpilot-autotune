@@ -38,6 +38,8 @@ jobs:
       - run: python -m tests.audit.validate_torque_science --coverage-json .coverage-research.json
       - run: python -m tests.audit.validate_torque_science --verify-history
       - run: python -m tests.audit.validate_friction_model --verify-history --coverage-json .coverage-research.json
+      - run: python -m coverage json --include="*/observability/*" -o .coverage-observability.json
+      - run: python -m tests.audit.validate_friction_receipt --verify-history --coverage-json .coverage-observability.json
       - name: Verify pinned synthetic golden evidence across fresh processes
         run: python -m pytest tests/integration/test_replay_golden.py tests/integration/test_replay_focused.py -q
       - run: python -m cyberpilot_autotune.replay.cli verify-all tests/fixtures/replay
@@ -61,6 +63,9 @@ jobs:
           friction_smoke="$GITHUB_WORKSPACE/tests/wheel_friction_smoke.py"
           friction_policy="$GITHUB_WORKSPACE/docs/evidence/friction_model_policy.json"
           friction_source="$GITHUB_WORKSPACE/src"
+          receipt_smoke="$GITHUB_WORKSPACE/tests/wheel_friction_receipt_smoke.py"
+          receipt_fixture="$GITHUB_WORKSPACE/tests/fixtures/friction_receipt.py"
+          receipt_schema="$GITHUB_WORKSPACE/docs/evidence/friction_observability_receipt_schema.json"
           science_policy="$GITHUB_WORKSPACE/docs/evidence/torque_identification_policy.json"
           research_wheel="$(python -c 'from pathlib import Path; print(next(Path("dist").glob("*.whl")).resolve())')"
           cd "$RUNNER_TEMP"
@@ -72,6 +77,7 @@ jobs:
           "$wheel_python" -I "$owner_smoke"
           "$wheel_python" -I "$science_smoke" --policy "$science_policy" --expect-optional-dependency
           "$wheel_python" -I "$friction_smoke" --policy "$friction_policy" --source-root "$friction_source" --expect-optional-dependency
+          "$wheel_python" -I "$receipt_smoke" --fixture "$receipt_fixture" --schema "$receipt_schema" --source-root "$friction_source"
           "$wheel_python" -m pip install "${research_wheel}[research]"
           "$wheel_python" -I "$science_smoke" --policy "$science_policy"
           "$wheel_python" -I "$friction_smoke" --policy "$friction_policy" --source-root "$friction_source"
@@ -112,11 +118,15 @@ jobs:
           import sys
           from tests.audit.validate_torque_science import source_specs, git_bytes
           from tests.audit.validate_friction_model import source_specs as friction_specs
+          from tests.audit.validate_friction_receipt import source_specs as receipt_specs, BASE as receipt_base
           refs = {'carrot': sys.argv[1], 'research': sys.argv[2]}
           for _, repo, revision, path, _ in source_specs():
               git_bytes(refs[repo], revision, path)
           for _, revision, path, _ in friction_specs():
               if revision != '43ca6761749e71ec575906f099b02386bc76d994':
+                  git_bytes(sys.argv[1], revision, path)
+          for _, revision, path, _ in receipt_specs():
+              if revision != receipt_base:
                   git_bytes(sys.argv[1], revision, path)
           PY
       - name: Verify source file/blob/range/catalog hashes without network
@@ -128,6 +138,7 @@ jobs:
           sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_steering_knowledge --reference-checkout "$RUNNER_TEMP/knowledge-reference"
           sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_torque_science --carrot-checkout "$RUNNER_TEMP/knowledge-reference" --research-checkout "$RUNNER_TEMP/science-reference" --verify-history
           sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_friction_model --reference-checkout "$RUNNER_TEMP/knowledge-reference" --verify-history
+          sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_friction_receipt --reference-checkout "$RUNNER_TEMP/knowledge-reference" --verify-history
   carrot-schema-compatibility:
     runs-on: ubuntu-24.04
     env:

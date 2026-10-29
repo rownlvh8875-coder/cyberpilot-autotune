@@ -152,6 +152,7 @@ def test_new_namespaces_are_only_knowledge_and_isolated_reference_protocol():
                 "src/cyberpilot_autotune/knowledge/",
                 "src/cyberpilot_autotune/owner_protocol/",
                 "src/cyberpilot_autotune/research/",
+                "src/cyberpilot_autotune/observability/",
             )
         )
         for p in current - original

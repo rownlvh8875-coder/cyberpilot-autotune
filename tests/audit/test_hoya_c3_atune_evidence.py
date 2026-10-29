@@ -217,4 +217,5 @@ def test_audit_keeps_the_entire_existing_source_and_replay_goldens_unchanged():
         and "knowledge" not in p.parts
         and "owner_protocol" not in p.parts
         and "research" not in p.parts
+        and "observability" not in p.parts
     } == {p for p in sources["preserved_files"] if p.startswith("src/")}

@@ -1,0 +1,1838 @@
+{
+  "schema": "friction-observation-v1:neutral-semantic-manifest",
+  "wire_format": "PROPOSED_NO_CEREAL_TAG_ASSIGNMENTS",
+  "runtime_producer_implemented": false,
+  "empirical_identification_qualified": false,
+  "representation_encoding_design_ready": true,
+  "representation_encoding_runtime_qualified": false,
+  "digest_meaning": "CONTENT_IDENTITY_ONLY_NOT_AUTHENTICITY_OR_AUTHORITY",
+  "fields": [
+    {
+      "field": "CycleIdentity.session_id",
+      "python_type": "<class 'str'>",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.controller_cycle_id",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.controller_cycle_start_mono_time_ns",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "ns, explicit monotonic domain",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "R/C Controls.state_control entry before fresh CC/fallback LP allocation, monotonic",
+      "availability": "PROPOSED_ENTRY_CAPTURE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.context_capture_mono_time_ns",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "ns, explicit monotonic domain",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.callback_enter_mono_time_ns",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "ns, explicit monotonic domain",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.callback_exit_mono_time_ns",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "ns, explicit monotonic domain",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.control_event_mono_time_ns",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "ns, explicit monotonic domain",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.receipt_complete_mono_time_ns",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "ns, explicit monotonic domain",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.source_revision",
+      "python_type": "<class 'str'>",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "Git commit SHA-1",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.source_schema_digest",
+      "python_type": "<class 'str'>",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.vehicle_context_digest",
+      "python_type": "<class 'str'>",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.controller_instance_generation",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.installed_parameter_generation",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.geometry_generation",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.callback_invocation_index",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "CycleIdentity.clock_domain",
+      "python_type": "<enum 'ClockDomain'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'ClockDomain'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ConsumedSourceIdentity.role",
+      "python_type": "<enum 'SourceRole'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'SourceRole'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "exact actually consumed event/object identity and clock; not latest-seen",
+      "availability": "EVENT_TIMES_EXIST_CONSUMPTION_LINKAGE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ConsumedSourceIdentity.source_time_ns",
+      "python_type": "int | None",
+      "type": "UInt64 + explicit presence",
+      "unit": "ns, explicit monotonic domain",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "source": "exact actually consumed event/object identity and clock; not latest-seen",
+      "availability": "EVENT_TIMES_EXIST_CONSUMPTION_LINKAGE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ConsumedSourceIdentity.clock_domain",
+      "python_type": "<enum 'ClockDomain'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'ClockDomain'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "source": "exact actually consumed event/object identity and clock; not latest-seen",
+      "availability": "EVENT_TIMES_EXIST_CONSUMPTION_LINKAGE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ConsumedSourceIdentity.sequence",
+      "python_type": "int | None",
+      "type": "UInt64 + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "source": "exact actually consumed event/object identity and clock; not latest-seen",
+      "availability": "EVENT_TIMES_EXIST_CONSUMPTION_LINKAGE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ConsumedSourceIdentity.source_identity",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "source": "exact actually consumed event/object identity and clock; not latest-seen",
+      "availability": "EVENT_TIMES_EXIST_CONSUMPTION_LINKAGE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ConsumedSourceIdentity.consumed",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "source": "exact actually consumed event/object identity and clock; not latest-seen",
+      "availability": "EVENT_TIMES_EXIST_CONSUMPTION_LINKAGE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ConsumedSourceIdentity.valid",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "source": "exact actually consumed event/object identity and clock; not latest-seen",
+      "availability": "EVENT_TIMES_EXIST_CONSUMPTION_LINKAGE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ConsumedSourceIdentity.alive",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "source": "exact actually consumed event/object identity and clock; not latest-seen",
+      "availability": "EVENT_TIMES_EXIST_CONSUMPTION_LINKAGE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ConsumedSourceIdentity.origin",
+      "python_type": "<enum 'SourceOrigin'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'SourceOrigin'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "source": "exact actually consumed event/object identity and clock; not latest-seen",
+      "availability": "EVENT_TIMES_EXIST_CONSUMPTION_LINKAGE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ConsumedSourceIdentity.controller_cycle_digest",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "CONDITIONAL_ON_CONSUMED_LOCAL_CYCLE_OBJECT",
+      "source": "exact actually consumed event/object identity and clock; not latest-seen",
+      "availability": "EVENT_TIMES_EXIST_CONSUMPTION_LINKAGE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ScalarObservation.signal",
+      "python_type": "<enum 'Signal'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'Signal'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ScalarObservation.stage",
+      "python_type": "<enum 'Stage'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'Stage'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ScalarObservation.value",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "signal-dependent; see Signal field semantics",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ScalarObservation.precision",
+      "python_type": "<enum 'Precision'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'Precision'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ScalarObservation.origin",
+      "python_type": "<enum 'ScalarOrigin'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'ScalarOrigin'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ScalarObservation.cycle_digest",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ScalarObservation.captured_mono_time_ns",
+      "python_type": "int | None",
+      "type": "UInt64 + explicit presence",
+      "unit": "ns, explicit monotonic domain",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerCallbackSignals.desired_lateral_accel",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "m/s^2",
+      "stage": "CALLBACK_INPUT",
+      "required": "ELIGIBILITY",
+      "source": "R/C LatControlTorque.update executed feedforward branch + base callback/helper",
+      "availability": "EXISTING_FLOAT32_ONLY_NOT_EXACT_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerCallbackSignals.actual_lateral_accel",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "m/s^2",
+      "stage": "CALLBACK_INPUT",
+      "required": "ELIGIBILITY",
+      "source": "R/C LatControlTorque.update executed feedforward branch + base callback/helper",
+      "availability": "EXISTING_FLOAT32_ONLY_NOT_EXACT_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerCallbackSignals.roll",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "rad",
+      "stage": "CALLBACK_INPUT",
+      "required": "ELIGIBILITY",
+      "source": "R/C LatControlTorque.update executed feedforward branch + base callback/helper",
+      "availability": "PROPOSED_LOCAL_CAPTURE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerCallbackSignals.roll_compensation",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "m/s^2",
+      "stage": "CALLBACK_INPUT",
+      "required": "ELIGIBILITY",
+      "source": "R/C LatControlTorque.update executed feedforward branch + base callback/helper",
+      "availability": "PROPOSED_LOCAL_CAPTURE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerCallbackSignals.callback_acceleration",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "m/s^2",
+      "stage": "CALLBACK_INPUT",
+      "required": "ELIGIBILITY",
+      "source": "R/C LatControlTorque.update executed feedforward branch + base callback/helper",
+      "availability": "PROPOSED_LOCAL_CAPTURE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerCallbackSignals.friction_input",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "m/s^2",
+      "stage": "CALLBACK_INPUT",
+      "required": "ELIGIBILITY",
+      "source": "R/C LatControlTorque.update executed feedforward branch + base callback/helper",
+      "availability": "PROPOSED_LOCAL_CAPTURE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerCallbackSignals.friction_deadzone",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "m/s^2",
+      "stage": "CALLBACK_INPUT",
+      "required": "ELIGIBILITY",
+      "source": "R/C LatControlTorque.update executed feedforward branch + base callback/helper",
+      "availability": "PROPOSED_LOCAL_CAPTURE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerCallbackSignals.friction_threshold",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "m/s^2",
+      "stage": "CALLBACK_INPUT",
+      "required": "ELIGIBILITY",
+      "source": "R/C LatControlTorque.update executed feedforward branch + base callback/helper",
+      "availability": "PROPOSED_LOCAL_CAPTURE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerCallbackSignals.q_observed",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "1",
+      "stage": "HELPER_Q",
+      "required": "ELIGIBILITY",
+      "source": "future instrumented actual helper state; NOT reconstructed/C-derived",
+      "availability": "NOT_PUBLISHED_CURRENT_HELPER_HAS_NO_Q_OUTPUT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerCallbackSignals.friction_compensation_enabled",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CALLBACK_INPUT",
+      "required": "ELIGIBILITY",
+      "source": "R/C LatControlTorque.update executed feedforward branch + base callback/helper",
+      "availability": "PROPOSED_LOCAL_CAPTURE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerCallbackSignals.gravity_adjusted",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CALLBACK_INPUT",
+      "required": "ELIGIBILITY",
+      "source": "R/C LatControlTorque.update executed feedforward branch + base callback/helper",
+      "availability": "PROPOSED_LOCAL_CAPTURE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerStageDecomposition.callback_output_raw",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "normalized torque, internal callback sign",
+      "stage": "RAW_CALLBACK_PRE_PID_KF",
+      "required": "ELIGIBILITY",
+      "source": "R/C LatControlTorque.update executed feedforward branch + base callback/helper",
+      "availability": "PROPOSED_LOCAL_CAPTURE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerStageDecomposition.pid_p",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "normalized torque",
+      "stage": "PID_P",
+      "required": "ELIGIBILITY",
+      "source": "R/C PIDController.update / LatControlTorque return / exact linked downstream stage",
+      "availability": "PARTIAL_PUBLISHED_FLOAT32_OR_DOWNSTREAM_WRONG_STAGE_FOR_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerStageDecomposition.pid_i",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "normalized torque",
+      "stage": "PID_I",
+      "required": "ELIGIBILITY",
+      "source": "R/C PIDController.update / LatControlTorque return / exact linked downstream stage",
+      "availability": "PARTIAL_PUBLISHED_FLOAT32_OR_DOWNSTREAM_WRONG_STAGE_FOR_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerStageDecomposition.pid_d",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "normalized torque",
+      "stage": "PID_D",
+      "required": "ELIGIBILITY",
+      "source": "R/C PIDController.update / LatControlTorque return / exact linked downstream stage",
+      "availability": "PARTIAL_PUBLISHED_FLOAT32_OR_DOWNSTREAM_WRONG_STAGE_FOR_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerStageDecomposition.pid_f",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "normalized torque",
+      "stage": "PID_SCALED_F",
+      "required": "ELIGIBILITY",
+      "source": "R/C PIDController.update / LatControlTorque return / exact linked downstream stage",
+      "availability": "PARTIAL_PUBLISHED_FLOAT32_OR_DOWNSTREAM_WRONG_STAGE_FOR_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerStageDecomposition.pid_sum",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "normalized torque",
+      "stage": "PID_PRE_CLIP_SUM",
+      "required": "ELIGIBILITY",
+      "source": "R/C PIDController.update / LatControlTorque return / exact linked downstream stage",
+      "availability": "PARTIAL_PUBLISHED_FLOAT32_OR_DOWNSTREAM_WRONG_STAGE_FOR_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerStageDecomposition.post_pid_output",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "normalized torque, internal PID sign",
+      "stage": "PID_POST_CLIP_INTERNAL_SIGN",
+      "required": "ELIGIBILITY",
+      "source": "R/C PIDController.update / LatControlTorque return / exact linked downstream stage",
+      "availability": "PARTIAL_PUBLISHED_FLOAT32_OR_DOWNSTREAM_WRONG_STAGE_FOR_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerStageDecomposition.requested_torque",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "normalized torque, negated internal PID sign",
+      "stage": "REQUESTED_ACTUATOR_TORQUE",
+      "required": "OPTIONAL",
+      "source": "R/C PIDController.update / LatControlTorque return / exact linked downstream stage",
+      "availability": "PARTIAL_PUBLISHED_FLOAT32_OR_DOWNSTREAM_WRONG_STAGE_FOR_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerStageDecomposition.host_output",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "normalized torque, external stage sign",
+      "stage": "HOST_CONTROLLER_OUTPUT",
+      "required": "OPTIONAL",
+      "source": "R/C PIDController.update / LatControlTorque return / exact linked downstream stage",
+      "availability": "PARTIAL_PUBLISHED_FLOAT32_OR_DOWNSTREAM_WRONG_STAGE_FOR_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerStageDecomposition.applied_torque",
+      "python_type": "cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.contracts.ScalarObservation | None",
+      "unit": "normalized torque, applied stage sign",
+      "stage": "APPLIED_NORMALIZED_TORQUE",
+      "required": "OPTIONAL",
+      "source": "R/C PIDController.update / LatControlTorque return / exact linked downstream stage",
+      "availability": "PARTIAL_PUBLISHED_FLOAT32_OR_DOWNSTREAM_WRONG_STAGE_FOR_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerStageDecomposition.downstream_cycle_id",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "CONDITIONAL_ON_DOWNSTREAM_VALUE",
+      "source": "R/C PIDController.update / LatControlTorque return / exact linked downstream stage",
+      "availability": "PARTIAL_PUBLISHED_FLOAT32_OR_DOWNSTREAM_WRONG_STAGE_FOR_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ControllerStageDecomposition.downstream_identities",
+      "python_type": "tuple[cyberpilot_autotune.observability.contracts.DownstreamStageIdentity, ...]",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "CONDITIONAL_ON_DOWNSTREAM_VALUE",
+      "source": "R/C PIDController.update / LatControlTorque return / exact linked downstream stage",
+      "availability": "PARTIAL_PUBLISHED_FLOAT32_OR_DOWNSTREAM_WRONG_STAGE_FOR_RAW",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DownstreamStageIdentity.stage",
+      "python_type": "<enum 'Stage'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'Stage'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "exact command publication and downstream source-command receipt, NOT consumed input",
+      "availability": "PARTIAL_OBSERVATION_V2_RECEIPTS_NO_FRICTION_CORE_BINDING",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DownstreamStageIdentity.source_event_id",
+      "python_type": "<class 'str'>",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "exact command publication and downstream source-command receipt, NOT consumed input",
+      "availability": "PARTIAL_OBSERVATION_V2_RECEIPTS_NO_FRICTION_CORE_BINDING",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DownstreamStageIdentity.source_command_event_id",
+      "python_type": "<class 'str'>",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "exact command publication and downstream source-command receipt, NOT consumed input",
+      "availability": "PARTIAL_OBSERVATION_V2_RECEIPTS_NO_FRICTION_CORE_BINDING",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DownstreamStageIdentity.source_time_ns",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "ns, explicit monotonic domain",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "exact command publication and downstream source-command receipt, NOT consumed input",
+      "availability": "PARTIAL_OBSERVATION_V2_RECEIPTS_NO_FRICTION_CORE_BINDING",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DownstreamStageIdentity.clock_domain",
+      "python_type": "<enum 'ClockDomain'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'ClockDomain'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "exact command publication and downstream source-command receipt, NOT consumed input",
+      "availability": "PARTIAL_OBSERVATION_V2_RECEIPTS_NO_FRICTION_CORE_BINDING",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DownstreamStageIdentity.controller_cycle_digest",
+      "python_type": "<class 'str'>",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "exact command publication and downstream source-command receipt, NOT consumed input",
+      "availability": "PARTIAL_OBSERVATION_V2_RECEIPTS_NO_FRICTION_CORE_BINDING",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DownstreamStageIdentity.exact_source_command_reference",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "exact command publication and downstream source-command receipt, NOT consumed input",
+      "availability": "PARTIAL_OBSERVATION_V2_RECEIPTS_NO_FRICTION_CORE_BINDING",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DownstreamStageIdentity.source_valid",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "ELIGIBILITY",
+      "source": "exact command publication and downstream source-command receipt, NOT consumed input",
+      "availability": "PARTIAL_OBSERVATION_V2_RECEIPTS_NO_FRICTION_CORE_BINDING",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DownstreamStageIdentity.source_transport_healthy",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "ELIGIBILITY",
+      "source": "exact command publication and downstream source-command receipt, NOT consumed input",
+      "availability": "PARTIAL_OBSERVATION_V2_RECEIPTS_NO_FRICTION_CORE_BINDING",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LimitState.controller_active",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "required": "ELIGIBILITY",
+      "source": "same-cycle active/health/override and timer versus instantaneous limit witnesses",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_ATOMIC_LIMIT_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LimitState.source_healthy",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "required": "ELIGIBILITY",
+      "source": "same-cycle active/health/override and timer versus instantaneous limit witnesses",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_ATOMIC_LIMIT_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LimitState.steering_pressed",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "required": "ELIGIBILITY",
+      "source": "same-cycle active/health/override and timer versus instantaneous limit witnesses",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_ATOMIC_LIMIT_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LimitState.driver_override",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "required": "ELIGIBILITY",
+      "source": "same-cycle active/health/override and timer versus instantaneous limit witnesses",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_ATOMIC_LIMIT_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LimitState.timer_saturated",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "required": "ELIGIBILITY",
+      "source": "same-cycle active/health/override and timer versus instantaneous limit witnesses",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_ATOMIC_LIMIT_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LimitState.instantaneous_controller_limited",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "required": "ELIGIBILITY",
+      "source": "same-cycle active/health/override and timer versus instantaneous limit witnesses",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_ATOMIC_LIMIT_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LimitState.curvature_limited",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "required": "ELIGIBILITY",
+      "source": "same-cycle active/health/override and timer versus instantaneous limit witnesses",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_ATOMIC_LIMIT_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LimitState.steer_limited_by_controls",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "required": "ELIGIBILITY",
+      "source": "same-cycle active/health/override and timer versus instantaneous limit witnesses",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_ATOMIC_LIMIT_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LimitState.vehicle_actuator_limited",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "required": "ELIGIBILITY",
+      "source": "same-cycle active/health/override and timer versus instantaneous limit witnesses",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_ATOMIC_LIMIT_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "InstalledParameters.generation",
+      "python_type": "int | None",
+      "type": "UInt64 + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual torque_params/generation after latching; offset field origin separate",
+      "availability": "STARTUP_OR_LIVE_CANDIDATES_MISSING_INSTALLED_COHORT",
+      "qualification_meaning": "CONTEXT_ONLY_NOT_TRUTH_OR_TARGET"
+    },
+    {
+      "field": "InstalledParameters.factor_installed",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "m/s^2 per normalized torque",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual torque_params/generation after latching; offset field origin separate",
+      "availability": "STARTUP_OR_LIVE_CANDIDATES_MISSING_INSTALLED_COHORT",
+      "qualification_meaning": "CONTEXT_ONLY_NOT_TRUTH_OR_TARGET"
+    },
+    {
+      "field": "InstalledParameters.friction_installed",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "normalized torque",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual torque_params/generation after latching; offset field origin separate",
+      "availability": "STARTUP_OR_LIVE_CANDIDATES_MISSING_INSTALLED_COHORT",
+      "qualification_meaning": "CONTEXT_ONLY_NOT_TRUTH_OR_TARGET"
+    },
+    {
+      "field": "InstalledParameters.offset_installed",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "m/s^2",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "OPTIONAL",
+      "source": "actual torque_params/generation after latching; offset field origin separate",
+      "availability": "STARTUP_OR_LIVE_CANDIDATES_MISSING_INSTALLED_COHORT",
+      "qualification_meaning": "CONTEXT_ONLY_NOT_TRUTH_OR_TARGET"
+    },
+    {
+      "field": "InstalledParameters.offset_source",
+      "python_type": "<enum 'OffsetSource'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'OffsetSource'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "OPTIONAL",
+      "source": "actual torque_params/generation after latching; offset field origin separate",
+      "availability": "STARTUP_OR_LIVE_CANDIDATES_MISSING_INSTALLED_COHORT",
+      "qualification_meaning": "CONTEXT_ONLY_NOT_TRUTH_OR_TARGET"
+    },
+    {
+      "field": "InstalledParameters.source_field",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "OPTIONAL",
+      "source": "actual torque_params/generation after latching; offset field origin separate",
+      "availability": "STARTUP_OR_LIVE_CANDIDATES_MISSING_INSTALLED_COHORT",
+      "qualification_meaning": "CONTEXT_ONLY_NOT_TRUTH_OR_TARGET"
+    },
+    {
+      "field": "InstalledParameters.precision",
+      "python_type": "<enum 'Precision'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'Precision'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual torque_params/generation after latching; offset field origin separate",
+      "availability": "STARTUP_OR_LIVE_CANDIDATES_MISSING_INSTALLED_COHORT",
+      "qualification_meaning": "CONTEXT_ONLY_NOT_TRUTH_OR_TARGET"
+    },
+    {
+      "field": "InstalledParameters.custom_selector",
+      "python_type": "int | None",
+      "type": "UInt64 + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual torque_params/generation after latching; offset field origin separate",
+      "availability": "STARTUP_OR_LIVE_CANDIDATES_MISSING_INSTALLED_COHORT",
+      "qualification_meaning": "CONTEXT_ONLY_NOT_TRUTH_OR_TARGET"
+    },
+    {
+      "field": "GainSnapshot.generation",
+      "python_type": "int | None",
+      "type": "UInt64 + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual PID speed-effective k_p/k_i/k_d/k_f in same installed generation",
+      "availability": "MISSING_GAIN_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "GainSnapshot.k_p",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "1",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual PID speed-effective k_p/k_i/k_d/k_f in same installed generation",
+      "availability": "MISSING_GAIN_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "GainSnapshot.k_i",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "1/s",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual PID speed-effective k_p/k_i/k_d/k_f in same installed generation",
+      "availability": "MISSING_GAIN_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "GainSnapshot.k_d",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "s",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual PID speed-effective k_p/k_i/k_d/k_f in same installed generation",
+      "availability": "MISSING_GAIN_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "GainSnapshot.k_f",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "1",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual PID speed-effective k_p/k_i/k_d/k_f in same installed generation",
+      "availability": "MISSING_GAIN_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "GainSnapshot.precision",
+      "python_type": "<enum 'Precision'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'Precision'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual PID speed-effective k_p/k_i/k_d/k_f in same installed generation",
+      "availability": "MISSING_GAIN_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "GainSnapshot.cycle_digest",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual PID speed-effective k_p/k_i/k_d/k_f in same installed generation",
+      "availability": "MISSING_GAIN_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "GainSnapshot.captured_mono_time_ns",
+      "python_type": "int | None",
+      "type": "UInt64 + explicit presence",
+      "unit": "ns, explicit monotonic domain",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "actual PID speed-effective k_p/k_i/k_d/k_f in same installed generation",
+      "availability": "MISSING_GAIN_COHORT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.source_revision",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "Git commit SHA-1",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.vehicle_context_digest",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.generation",
+      "python_type": "int | None",
+      "type": "UInt64 + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.applied_vm_context_id",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.origin",
+      "python_type": "<enum 'GeometryOrigin'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'GeometryOrigin'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.wheelbase",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "m",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.center_to_front",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "m",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.center_to_front_ratio",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "1",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.stiffness_factor",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "1",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.effective_steer_ratio",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "1",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.steer_ratio_rate_raw",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "percent",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.steer_ratio_rate_effective",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "multiplier",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.custom_sr_raw",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "tenths of steer ratio",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.custom_sr_effective",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "scaled custom override; 0 disabled, NOT effective VM ratio",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.precision",
+      "python_type": "<enum 'Precision'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'Precision'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.requested_center_to_front_percent",
+      "python_type": "int | None",
+      "type": "UInt64 + explicit presence",
+      "unit": "percent intent; 0 vehicle default",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "OPTIONAL",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.paramsd_target_ratio",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "1, candidate only",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "OPTIONAL",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "AppliedGeometryContext.live_parameters_ratio",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "1, candidate only",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "OPTIONAL",
+      "source": "R static CP baseline + applied VM; C actually applied VM, not request/LP candidate",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_VM_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DelayContext.effective_delay_s",
+      "python_type": "float | None",
+      "type": "Float64 + explicit presence",
+      "unit": "s",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "exact effective SAD/liveDelay and downstream sample-pair alignment receipt",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_ALIGNMENT_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DelayContext.source",
+      "python_type": "<enum 'DelaySource'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'DelaySource'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "exact effective SAD/liveDelay and downstream sample-pair alignment receipt",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_ALIGNMENT_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DelayContext.alignment_method",
+      "python_type": "<enum 'AlignmentMethod'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'AlignmentMethod'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "exact effective SAD/liveDelay and downstream sample-pair alignment receipt",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_ALIGNMENT_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DelayContext.alignment_version",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "exact effective SAD/liveDelay and downstream sample-pair alignment receipt",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_ALIGNMENT_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DelayContext.correction_count",
+      "python_type": "int | None",
+      "type": "UInt64 + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "exact effective SAD/liveDelay and downstream sample-pair alignment receipt",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_ALIGNMENT_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DelayContext.sample_pair_id",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "OPTIONAL",
+      "source": "exact effective SAD/liveDelay and downstream sample-pair alignment receipt",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_ALIGNMENT_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "DelayContext.values_already_aligned",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "exact effective SAD/liveDelay and downstream sample-pair alignment receipt",
+      "availability": "PARTIAL_SOURCE_FIELDS_MISSING_APPLIED_ALIGNMENT_RECEIPT",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "FrictionObservationContext.cycle_digest",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "FrictionObservationContext.snapshot_time_ns",
+      "python_type": "int | None",
+      "type": "UInt64 + explicit presence",
+      "unit": "ns, explicit monotonic domain",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "FrictionObservationContext.installed",
+      "python_type": "cyberpilot_autotune.observability.context.InstalledParameters | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.context.InstalledParameters | None",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "FrictionObservationContext.gains",
+      "python_type": "cyberpilot_autotune.observability.context.GainSnapshot | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.context.GainSnapshot | None",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "FrictionObservationContext.geometry",
+      "python_type": "cyberpilot_autotune.observability.context.AppliedGeometryContext | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.context.AppliedGeometryContext | None",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "FrictionObservationContext.delay",
+      "python_type": "cyberpilot_autotune.observability.context.DelayContext | None",
+      "type": "Enum/Struct/List + explicit presence: cyberpilot_autotune.observability.context.DelayContext | None",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.cycle",
+      "python_type": "<class 'cyberpilot_autotune.observability.contracts.CycleIdentity'>",
+      "type": "Enum/Struct/List + explicit presence: <class 'cyberpilot_autotune.observability.contracts.CycleIdentity'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.callback_stage",
+      "python_type": "<enum 'CallbackStage'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'CallbackStage'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.controller_mode",
+      "python_type": "<enum 'ControllerMode'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'ControllerMode'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.callback_family",
+      "python_type": "<enum 'CallbackFamily'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'CallbackFamily'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.callback_function",
+      "python_type": "<enum 'CallbackFunction'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'CallbackFunction'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.callback_site",
+      "python_type": "<enum 'CallbackSite'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'CallbackSite'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.sources",
+      "python_type": "tuple[cyberpilot_autotune.observability.contracts.ConsumedSourceIdentity, ...]",
+      "type": "Enum/Struct/List + explicit presence: tuple[cyberpilot_autotune.observability.contracts.ConsumedSourceIdentity, ...]",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.signals",
+      "python_type": "<class 'cyberpilot_autotune.observability.contracts.ControllerCallbackSignals'>",
+      "type": "Enum/Struct/List + explicit presence: <class 'cyberpilot_autotune.observability.contracts.ControllerCallbackSignals'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.stages",
+      "python_type": "<class 'cyberpilot_autotune.observability.contracts.ControllerStageDecomposition'>",
+      "type": "Enum/Struct/List + explicit presence: <class 'cyberpilot_autotune.observability.contracts.ControllerStageDecomposition'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.context",
+      "python_type": "<class 'cyberpilot_autotune.observability.context.FrictionObservationContext'>",
+      "type": "Enum/Struct/List + explicit presence: <class 'cyberpilot_autotune.observability.context.FrictionObservationContext'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.limits",
+      "python_type": "<class 'cyberpilot_autotune.observability.contracts.LimitState'>",
+      "type": "Enum/Struct/List + explicit presence: <class 'cyberpilot_autotune.observability.contracts.LimitState'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.receipt_schema_version",
+      "python_type": "<class 'str'>",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "LateralTorqueIdentificationReceipt.consumption_manifest_complete",
+      "python_type": "bool | None",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "ELIGIBILITY",
+      "source": "future cycle-scoped immutable read-only capture metadata",
+      "availability": "PROPOSED_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ObservationPolicy.receipt_versions",
+      "python_type": "tuple[str, ...]",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "LOCAL_EVALUATOR_ONLY",
+      "source": "neutral local evaluator only",
+      "availability": "LOCAL_ONLY_NOT_WIRE_PRODUCER",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ObservationPolicy.source_revisions",
+      "python_type": "tuple[str, ...]",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "LOCAL_EVALUATOR_ONLY",
+      "source": "neutral local evaluator only",
+      "availability": "LOCAL_ONLY_NOT_WIRE_PRODUCER",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ObservationEligibilityDecision.status",
+      "python_type": "<enum 'EligibilityStatus'>",
+      "type": "Enum/Struct/List + explicit presence: <enum 'EligibilityStatus'>",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "LOCAL_EVALUATOR_ONLY",
+      "source": "neutral local evaluator only",
+      "availability": "LOCAL_ONLY_NOT_WIRE_PRODUCER",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ObservationEligibilityDecision.reasons",
+      "python_type": "tuple[cyberpilot_autotune.observability.validation.ObservationReason, ...]",
+      "type": "Enum/Struct/List + explicit presence: tuple[cyberpilot_autotune.observability.validation.ObservationReason, ...]",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "LOCAL_EVALUATOR_ONLY",
+      "source": "neutral local evaluator only",
+      "availability": "LOCAL_ONLY_NOT_WIRE_PRODUCER",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ObservationEligibilityDecision.receipt_digest",
+      "python_type": "<class 'str'>",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "LOCAL_EVALUATOR_ONLY",
+      "source": "neutral local evaluator only",
+      "availability": "LOCAL_ONLY_NOT_WIRE_PRODUCER",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ObservationEligibilityDecision.epoch_digest",
+      "python_type": "<class 'str'>",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "LOCAL_EVALUATOR_ONLY",
+      "source": "neutral local evaluator only",
+      "availability": "LOCAL_ONLY_NOT_WIRE_PRODUCER",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
+      "field": "ObservationEligibilityDecision.candidate_generation_allowed",
+      "python_type": "<class 'bool'>",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "LOCAL_EVALUATOR_ONLY",
+      "source": "neutral local evaluator only",
+      "availability": "LOCAL_ONLY_NOT_WIRE_PRODUCER",
+      "qualification_meaning": "FIXED_FALSE_NO_AUTHORITY"
+    },
+    {
+      "field": "ObservationEligibilityDecision.application_authorized",
+      "python_type": "<class 'bool'>",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "LOCAL_EVALUATOR_ONLY",
+      "source": "neutral local evaluator only",
+      "availability": "LOCAL_ONLY_NOT_WIRE_PRODUCER",
+      "qualification_meaning": "FIXED_FALSE_NO_AUTHORITY"
+    },
+    {
+      "field": "ObservationEligibilityDecision.runtime_accepted",
+      "python_type": "<class 'bool'>",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "LOCAL_EVALUATOR_ONLY",
+      "source": "neutral local evaluator only",
+      "availability": "LOCAL_ONLY_NOT_WIRE_PRODUCER",
+      "qualification_meaning": "FIXED_FALSE_NO_AUTHORITY"
+    },
+    {
+      "field": "ObservationEligibilityDecision.owner_proposal_allowed",
+      "python_type": "<class 'bool'>",
+      "type": "Bool + explicit presence",
+      "unit": "dimensionless identity/status/structure",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "LOCAL_EVALUATOR_ONLY",
+      "source": "neutral local evaluator only",
+      "availability": "LOCAL_ONLY_NOT_WIRE_PRODUCER",
+      "qualification_meaning": "FIXED_FALSE_NO_AUTHORITY"
+    }
+  ],
+  "enums": [
+    {
+      "type": "AlignmentMethod",
+      "values": [
+        "RAW_CALLBACK_NO_ALIGNMENT",
+        "SINGLE_DOWNSTREAM_PAIR",
+        "CORE_VALUES_SHIFTED",
+        "UNKNOWN"
+      ]
+    },
+    {
+      "type": "CallbackFamily",
+      "values": [
+        "LINEAR",
+        "NN_LITE",
+        "NN",
+        "GM_SIGLIN",
+        "GM_NEURAL",
+        "OTHER"
+      ]
+    },
+    {
+      "type": "CallbackFunction",
+      "values": [
+        "CarInterfaceBase.torque_from_lateral_accel_linear",
+        "CarInterface.torque_from_lateral_accel_siglin",
+        "CarInterface.torque_from_lateral_accel_neural",
+        "get_ff_nn",
+        "OTHER"
+      ]
+    },
+    {
+      "type": "CallbackSite",
+      "values": [
+        "FEEDFORWARD",
+        "SETPOINT",
+        "MEASUREMENT",
+        "NN_FRICTION_OVERRIDE",
+        "UNKNOWN"
+      ]
+    },
+    {
+      "type": "CallbackStage",
+      "values": [
+        "LINEAR_CALLBACK_PRE_PID",
+        "NN_LITE_CALLBACK_PRE_PID",
+        "NN_CALLBACK_PRE_PID",
+        "GM_SIGLIN_CALLBACK_PRE_PID",
+        "OTHER_UNSUPPORTED"
+      ]
+    },
+    {
+      "type": "ClockDomain",
+      "values": [
+        "MONOTONIC",
+        "UNKNOWN",
+        "SENSOR"
+      ]
+    },
+    {
+      "type": "ControllerMode",
+      "values": [
+        "STANDARD",
+        "CUSTOM",
+        "UNKNOWN"
+      ]
+    },
+    {
+      "type": "DelaySource",
+      "values": [
+        "STATIC_CP",
+        "MANUAL",
+        "LIVE_DELAY",
+        "UNAVAILABLE"
+      ]
+    },
+    {
+      "type": "GeometryOrigin",
+      "values": [
+        "STATIC_CP_BASELINE_APPLIED_VM",
+        "ACTUALLY_APPLIED_VM",
+        "REQUESTED_NOT_APPLIED",
+        "LIVE_PARAMETERS_CANDIDATE",
+        "UNAVAILABLE"
+      ]
+    },
+    {
+      "type": "OffsetSource",
+      "values": [
+        "INSTALLED_BUT_UNUSED_LINEAR",
+        "FILTERED_LIVE_CONTEXT_ONLY",
+        "RAW_LIVE_CONTEXT_ONLY",
+        "UNAVAILABLE"
+      ]
+    },
+    {
+      "type": "Precision",
+      "values": [
+        "CONTROLLER_LOCAL_BINARY64",
+        "LEGACY_FLOAT32",
+        "UNKNOWN"
+      ]
+    },
+    {
+      "type": "ScalarOrigin",
+      "values": [
+        "LOCAL_DIRECT",
+        "HELPER_OBSERVED",
+        "LEGACY_PUBLISHED",
+        "RECONSTRUCTED_DIAGNOSTIC",
+        "DERIVED_FROM_INSTALLED_C",
+        "DOWNSTREAM",
+        "UNAVAILABLE"
+      ]
+    },
+    {
+      "type": "Signal",
+      "values": [
+        "desired_lateral_accel",
+        "actual_lateral_accel",
+        "roll",
+        "roll_compensation",
+        "callback_acceleration",
+        "friction_input",
+        "friction_deadzone",
+        "friction_threshold",
+        "q_observed",
+        "callback_output_raw",
+        "pid_p",
+        "pid_i",
+        "pid_d",
+        "pid_f",
+        "pid_sum",
+        "post_pid_output",
+        "requested_torque",
+        "host_output",
+        "applied_torque"
+      ]
+    },
+    {
+      "type": "SourceOrigin",
+      "values": [
+        "WIRE_EVENT",
+        "LOCAL_CYCLE_OBJECT",
+        "UNKNOWN"
+      ]
+    },
+    {
+      "type": "SourceRole",
+      "values": [
+        "carState",
+        "livePose",
+        "liveParameters",
+        "carControl",
+        "modelV2",
+        "controlState",
+        "liveDelay"
+      ]
+    },
+    {
+      "type": "Stage",
+      "values": [
+        "CALLBACK_INPUT",
+        "HELPER_Q",
+        "RAW_CALLBACK_PRE_PID_KF",
+        "PID_P",
+        "PID_I",
+        "PID_D",
+        "PID_SCALED_F",
+        "PID_PRE_CLIP_SUM",
+        "PID_POST_CLIP_INTERNAL_SIGN",
+        "REQUESTED_ACTUATOR_TORQUE",
+        "HOST_CONTROLLER_OUTPUT",
+        "APPLIED_NORMALIZED_TORQUE"
+      ]
+    },
+    {
+      "type": "EligibilityStatus",
+      "values": [
+        "ELIGIBLE",
+        "REJECTED"
+      ]
+    },
+    {
+      "type": "ObservationReason",
+      "values": [
+        "UNSUPPORTED_RECEIPT_VERSION",
+        "UNSUPPORTED_SOURCE_REVISION",
+        "SOURCE_SCHEMA_MISMATCH",
+        "IDENTIFICATION_MODEL_UNSUPPORTED",
+        "WRONG_CALLBACK_STAGE",
+        "MODE_IDENTITY_INCOMPLETE",
+        "MISSING_RAW_CALLBACK_OUTPUT",
+        "MISSING_Q",
+        "MISSING_REQUIRED_SIGNAL",
+        "Q_NOT_INDEPENDENTLY_OBSERVED",
+        "RAW_PRECISION_UNAVAILABLE",
+        "WRONG_SIGNAL_STAGE",
+        "NONLOCAL_SIGNAL_ORIGIN",
+        "SOURCE_COHORT_INCOMPLETE",
+        "SOURCE_TIMESTAMP_MISMATCH",
+        "WRONG_CLOCK_DOMAIN",
+        "TIME_ORDER_INVALID",
+        "SOURCE_UNHEALTHY",
+        "GEOMETRY_CONTEXT_INCOMPLETE",
+        "GEOMETRY_NOT_ACTUALLY_APPLIED",
+        "GEOMETRY_CONTEXT_INCONSISTENT",
+        "INSTALLED_CONTEXT_INCOMPLETE",
+        "MISSING_GAIN_COHORT",
+        "DELAY_CONTEXT_INCOMPLETE",
+        "DOUBLE_ALIGNMENT",
+        "ALIGNMENT_METADATA_INCONSISTENT",
+        "ALIGNMENT_NOT_RAW_CALLBACK",
+        "MISSING_LIMIT_STATE",
+        "DRIVER_OVERRIDE",
+        "SATURATED",
+        "CONTROLLER_LIMITED",
+        "VEHICLE_ACTUATOR_LIMITED",
+        "CONTROLLER_INACTIVE",
+        "LINEAR_INPUT_INCONSISTENT",
+        "CALLBACK_FLAG_INCONSISTENT",
+        "Q_SEMANTICS_INCONSISTENT",
+        "FRICTION_INPUT_DOMAIN_INVALID",
+        "RAW_OUTPUT_INCONSISTENT",
+        "MISSING_PID_DECOMPOSITION",
+        "PID_STAGE_INCONSISTENT",
+        "DOWNSTREAM_COHORT_INCOMPLETE",
+        "DUPLICATE_CONTROLLER_CYCLE",
+        "MODE_CHANGED",
+        "INSTALLED_PARAMETER_CONTEXT_CHANGED",
+        "GEOMETRY_CONTEXT_CHANGED",
+        "DELAY_CONTEXT_CHANGED",
+        "EPOCH_CONTEXT_CHANGED",
+        "PREVIOUS_RECEIPT_NOT_ELIGIBLE"
+      ]
+    }
+  ],
+  "authority": {
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  }
+}
