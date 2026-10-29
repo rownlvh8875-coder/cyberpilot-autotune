@@ -1,0 +1,332 @@
+{
+  "schema": "native-build-device-containment-design-v1",
+  "receipt_schema_proposal": "native-build-device-containment-v1",
+  "status": "DESIGN_PROPOSAL_NOT_IMPLEMENTED_OR_ADOPTED",
+  "content_digest": "4296dc27fa164d578ff4a4848c53640021d9aeaad4eb99b99d65654140b4f7e9",
+  "digest_semantics": "SHA256 sorted compact UTF8 JSON excluding only content_digest, ensure_ascii=false, allow_nan=false. Content identity only; no authenticity, execution permission or application authority.",
+  "cyberpilot_base": "86ae36c5077ea6b69eab73e74a4f843159705a21",
+  "source": {
+    "runtime_R": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+    "comparative_C": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+    "R_tree": "ffb213d9fdc0f9618264822bd2a4e26263abfe74",
+    "preserved_applied_tree": "6185197d6f334f745a9c082519013b8fe0376f65",
+    "patch_sha256": "8aa8b63b16ad2050280b3d5e08bc8712111c29014338ef85020aa934787ee8ac",
+    "offline_candidate_revision": "9957868acc7459f515f1b79e9315cf93a878d933",
+    "candidate_published": false,
+    "input_manifest": "docs/evidence/offline_native_build_inputs.json",
+    "input_manifest_content_digest": "a7d07813bbf4b17f31525c90d7fa56e5423ba8ec4db0367e4b1e78fdb020335f",
+    "static_audit": "docs/evidence/offline_native_build_static_audit.json",
+    "static_audit_sha256": "1b32af01c3cce7f43af14881d2a4947056648c324220db22562c21cc132c60a9"
+  },
+  "current_branch_observation": {
+    "repository": "ajouatom/openpilot",
+    "branch": "carrot-wip",
+    "previous_pinned_C": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+    "observed_head": "1fbce2fe7869fda285ee860f7172743e04f6022f",
+    "observed_date_client": "2026-10-30",
+    "client_timezone": "Asia/Seoul",
+    "compare_status": "ahead",
+    "ahead_by": 2,
+    "behind_by": 0,
+    "commits": [
+      {
+        "sha": "bd1ea4eb006b9e6ca8059a0a64fa01c37ae7dee7",
+        "subject": "Preserve ATC preparation cues and isolate manual crossing indicators"
+      },
+      {
+        "sha": "1fbce2fe7869fda285ee860f7172743e04f6022f",
+        "subject": "Record ATC validation and install missing planner test dependency"
+      }
+    ],
+    "relevant_changed_paths": [
+      "openpilot/cereal/log.capnp",
+      "openpilot/selfdrive/modeld/modeld.py",
+      ".github/workflows/tests.yaml"
+    ],
+    "semantic_review_performed": false,
+    "promoted_to_source_profile": false
+  },
+  "current_acceptance_rule": "STRICT_NO_DEVICE_ATTEMPT",
+  "proposed_rule": "CAPABILITY_CLOSED_DISCOVERY_PROPOSAL",
+  "proposed_rule_adopted": false,
+  "preferred_future_architecture": "KERNEL_DENY_PLUS_TRUSTED_EXTERNAL_OBSERVER",
+  "actual_backend_selected": false,
+  "modes": {
+    "STRICT_NO_DEVICE_ATTEMPT": {
+      "any_hardware_attempt_rejects": true,
+      "denied_open_rejects": true
+    },
+    "CAPABILITY_CLOSED_DISCOVERY_PROPOSAL": {
+      "separate_policy_adoption_required": true,
+      "qualified_backend_required": true,
+      "diagnostic_denial_is_not_authorization": true
+    }
+  },
+  "evidence_kinds": [
+    "SYNTHETIC",
+    "OBSERVED"
+  ],
+  "decisions": [
+    "REJECTED",
+    "DIAGNOSTIC_EXPECTED_DENIAL_ONLY",
+    "CONTAINMENT_RECORD_REVIEWABLE_NOT_AUTHORIZATION"
+  ],
+  "rejection_reason_order": [
+    "POLICY_NOT_ADOPTED",
+    "ENFORCEMENT_UNQUALIFIED",
+    "SOURCE_COHORT_MISMATCH",
+    "INPUT_CLOSURE_INCOMPLETE",
+    "MUTABLE_LOADER_INPUT",
+    "PROCESS_PROVENANCE_UNKNOWN",
+    "CLOCK_DOMAIN_UNBOUND",
+    "TRACE_INCOMPLETE",
+    "TRACE_SEQUENCE_INVALID",
+    "RESOURCE_RESOLUTION_UNKNOWN",
+    "RESULT_UNKNOWN",
+    "DEVICE_ATTEMPT_STRICT",
+    "UNEXPECTED_DISCOVERY_OPERATION",
+    "PROHIBITED_CAPABILITY_ACQUIRED",
+    "CONTROL_OPERATION_ATTEMPTED",
+    "NETWORK_OR_FD_PASS_ATTEMPTED",
+    "OBSERVER_OR_POLICY_TAMPERED",
+    "CPU_BACKEND_UNCONFIRMED"
+  ],
+  "required_pseudo_device_identities": [
+    {
+      "path": "/dev/null",
+      "kind": "char",
+      "major": 1,
+      "minor": 3
+    },
+    {
+      "path": "/dev/zero",
+      "kind": "char",
+      "major": 1,
+      "minor": 5
+    },
+    {
+      "path": "/dev/random",
+      "kind": "char",
+      "major": 1,
+      "minor": 8
+    },
+    {
+      "path": "/dev/urandom",
+      "kind": "char",
+      "major": 1,
+      "minor": 9
+    }
+  ],
+  "diagnostic_proposal": {
+    "allowed_resolution_kinds": [
+      "PRIVATE_NAMESPACE_ABSENCE",
+      "POLICY_DENIED_NO_OBJECT"
+    ],
+    "exposed_prohibited_hardware_rejects_even_if_open_denied": true,
+    "endpoints": [
+      "/dev/kfd",
+      "/dev/nvidiactl",
+      "/dev/nvidia-uvm",
+      "/dev/kgsl-3d0"
+    ],
+    "operations": [
+      "OPEN"
+    ],
+    "flag_sets": [
+      [
+        "O_RDWR"
+      ],
+      [
+        "O_RDWR",
+        "O_CLOEXEC"
+      ]
+    ],
+    "result_errno_names": [
+      "ENOENT",
+      "EACCES",
+      "EPERM"
+    ],
+    "required_proof": [
+      "trusted_policy_adoption_and_backend_binding",
+      "immutable_source_input_interpreter_argv_env",
+      "trusted_discovery_stage_process_lineage",
+      "authoritative_resource_or_bound_absence_resolution",
+      "observed_enforcement_active_before_and_through_event",
+      "proven_failed_result_no_fd_no_effect",
+      "complete_trace_all_descendants_no_loss",
+      "zero_successful_prohibited_capabilities"
+    ],
+    "errno_alone_sufficient": false,
+    "pathname_string_alone_sufficient": false,
+    "zero_log_events_proves_zero_access": false
+  },
+  "always_fatal_attempt_classes": [
+    "SYSFS_ENABLE_OR_DRIVER_UNBIND",
+    "VFIO_KVM_RAW_BLOCK",
+    "HARDWARE_IOCTL_OR_MMAP",
+    "NONCANDIDATE_GPU_NODE",
+    "CAN_GPIO_CAMERA_USB_CONTROL",
+    "NETWORK_OR_FD_PASSING",
+    "PRIVILEGE_NAMESPACE_POLICY_CHANGE",
+    "OBSERVER_TAMPERING",
+    "UNMEDIATED_ASYNC_IO"
+  ],
+  "required_enforcement_properties": [
+    "private_mount_pid_ipc_network_views",
+    "no_host_home_data_secrets_agents_sockets_devices_sysfs_exposure",
+    "exact_pseudo_devices_only",
+    "zero_capabilities_nonroot_no_new_privs",
+    "kernel_MAC_device_and_syscall_deny_observed_not_just_requested",
+    "all_aliases_inherited_and_passed_FDs_covered",
+    "immutable_tracked_and_loader_inputs_generated_code_provenance",
+    "complete_external_observer_before_first_payload_instruction",
+    "observer_failure_stops_tree",
+    "no_network_or_profile_relaxation_fallback"
+  ],
+  "actual_observations": {
+    "image_digest": null,
+    "kernel_runtime_policy_binding": null,
+    "MAC_enforcement": null,
+    "device_ACL_enforcement": null,
+    "syscall_enforcement": null,
+    "namespace_isolation": null,
+    "source_immutability": null,
+    "observer_complete_coverage": null,
+    "successful_prohibited_handles": null,
+    "successful_prohibited_effects": null,
+    "CPU_backend": null
+  },
+  "evidence_fields": {
+    "envelope": [
+      "schema_version",
+      "evidence_kind",
+      "run_id",
+      "policy_mode",
+      "policy_version_digest",
+      "collector_verifier_implementation_digests",
+      "source_input_cohort",
+      "execution_cohort",
+      "observed_enforcement",
+      "trace_coverage",
+      "resource_outcomes",
+      "missing_checks"
+    ],
+    "operation": [
+      "trusted_process_identity",
+      "stage_binding",
+      "lineage_exec_generation",
+      "sequence",
+      "mono_time_ns",
+      "clock_domain",
+      "requested_operation_flags_arguments",
+      "request_is_untrusted",
+      "resolved_resource_or_bound_absence",
+      "resolution_provenance",
+      "namespace_mount_generation",
+      "actual_completion_errno",
+      "FD_created_or_imported",
+      "effect_observed",
+      "capture_guard_binding"
+    ],
+    "availability": "Every unavailable field is explicit null/UNAVAILABLE; unknown is not zero/false/default. Reject nonfinite, bool-as-int and invalid UInt64-like values.",
+    "trace_rule": "All descendants/execs/FD lineage; unique ordered event IDs, bound monotonic domains, complete start and quiescent exit; any gap/unknown rejects.",
+    "resolution_rule": "Kernel-bound object/absence identity or qualified deny-before-operation broker; no unsafe CONTINUE or string-prefix approval.",
+    "synthetic_rule": "Pure first implementation accepts SYNTHETIC only; all real-runtime/application/owner/candidate flags remain false. It cannot establish OBSERVED trust or policy adoption."
+  },
+  "synthetic_case_v1": {
+    "schema_version": "synthetic-native-containment-case-v1",
+    "scope": "ONE_MODELED_DISCOVERY_CHILD_AND_NONEMPTY_SECURITY_EVENT_LIST_ONLY; not a complete observed trace format",
+    "required_fields": {
+      "schema_version": "exact literal above",
+      "evidence_kind": "exact SYNTHETIC; OBSERVED rejected",
+      "source_cohort_digest": "64 lowercase hex; simulated identity compared to expected_source_cohort_digest in SyntheticPolicyContext",
+      "actor_id": "nonempty string; synthetic local identity, not a host/vehicle identifier",
+      "process_generation": "UInt64",
+      "exec_generation": "UInt64",
+      "clock_domain": "exact synthetic-monotonic-ns-v1",
+      "modeled_proofs": "exact keys below, each bool|null; every key must be true for diagnostic classification",
+      "cpu_backend": "CPU:LLVM|null; required exact CPU:LLVM for diagnostic classification",
+      "successful_prohibited_handles": "UInt64|null; required actual modeled value0, null rejects",
+      "successful_prohibited_effects": "UInt64|null; required actual modeled value0, null rejects",
+      "events": "nonempty ordered array of exact event records below",
+      "candidate_generation_allowed": "fixed false",
+      "application_authorized": "fixed false",
+      "runtime_accepted": "fixed false",
+      "owner_proposal_allowed": "fixed false"
+    },
+    "modeled_proof_keys": [
+      "input_closure_complete",
+      "enforcement_observed_active",
+      "source_loader_immutable",
+      "process_stage_bound",
+      "resource_resolution_bound",
+      "capture_guard_bound",
+      "trace_complete",
+      "observer_intact"
+    ],
+    "event_fields": {
+      "sequence": "UInt64; strictly increasing, no duplicates",
+      "mono_time_ns": "UInt64; nondecreasing within the one bound domain",
+      "actor_id": "must equal case.actor_id",
+      "process_generation": "must equal case.process_generation",
+      "exec_generation": "must equal case.exec_generation",
+      "clock_domain": "must equal case.clock_domain",
+      "operation_class": "OPEN|CONTROL|IOCTL|MMAP|NETWORK|FD_PASS|PRIVILEGE_OR_POLICY|ASYNC_IO|OTHER",
+      "requested_endpoint": "string|null; untrusted request label, never resolution proof",
+      "flags": "unique array of strings|null; only exact preregistered sets can be candidate",
+      "resolved_kind": "PRIVATE_NAMESPACE_ABSENCE|POLICY_DENIED_NO_OBJECT|PROHIBITED_HARDWARE|EXACT_PSEUDO|REGULAR_BUILD_FILE|UNKNOWN|null",
+      "resolution_bound": "bool|null",
+      "result_known": "bool|null",
+      "errno_name": "string|null; exact ENOENT/EACCES/EPERM only for candidate denial",
+      "fd_created_or_imported": "bool|null; must be false for candidate denial",
+      "effect_observed": "bool|null; must be false for candidate denial"
+    },
+    "context_fields": {
+      "mode": "one of the two contract modes",
+      "hypothetical_adoption_for_test": "bool; simulation only, never real policy adoption",
+      "expected_source_cohort_digest": "64 lowercase hex"
+    },
+    "immutable_rule": "Frozen defensive-copied tuples/frozensets/mappings; flags canonicalized sorted after duplicate rejection; event order preserved.",
+    "parser_errors": "ValueError for missing/unknown/duplicate JSON keys, malformed schema/scalars/enums, nonfinite and OBSERVED; no IO",
+    "decisions": "Only REJECTED or DIAGNOSTIC_EXPECTED_DENIAL_ONLY; never OBSERVED trust or CONTAINMENT_RECORD_REVIEWABLE_NOT_AUTHORIZATION",
+    "reason_mapping": {
+      "input_closure_complete": "INPUT_CLOSURE_INCOMPLETE",
+      "enforcement_observed_active": "ENFORCEMENT_UNQUALIFIED",
+      "source_loader_immutable": "MUTABLE_LOADER_INPUT",
+      "process_stage_bound": "PROCESS_PROVENANCE_UNKNOWN",
+      "resource_resolution_bound": "RESOURCE_RESOLUTION_UNKNOWN",
+      "capture_guard_bound": "ENFORCEMENT_UNQUALIFIED",
+      "trace_complete": "TRACE_INCOMPLETE",
+      "observer_intact": "OBSERVER_OR_POLICY_TAMPERED"
+    },
+    "current_implementation_exists": false
+  },
+  "scope": {
+    "design_only": true,
+    "runner_implemented": false,
+    "policy_deployed": false,
+    "collector_implemented": false,
+    "evaluator_implemented": false,
+    "kernel_probe_executed": false,
+    "native_probe_executed": false,
+    "scons_invoked": false,
+    "image_or_container_started": false,
+    "native_source_modified": false,
+    "Gate_A_unblocked": false
+  },
+  "candidate_generation_allowed": false,
+  "application_authorized": false,
+  "runtime_accepted": false,
+  "owner_proposal_allowed": false,
+  "retained_statuses": [
+    "GATE_A_BLOCKED_DEVICE_PROBE_CONTAINMENT_UNRESOLVED",
+    "FULL_NATIVE_BUILD_INPUT_CLOSURE_INCOMPLETE",
+    "STATIC_BUILD_ACTION_AUDIT_INCOMPLETE",
+    "NATIVE_BUILD_EXECUTION_NOT_STARTED",
+    "DEVICE_CONTAINMENT_RUNTIME_UNQUALIFIED",
+    "FRICTION_RUNTIME_PRODUCER_NOT_QUALIFIED",
+    "FRICTION_EMPIRICAL_IDENTIFICATION_NOT_QUALIFIED",
+    "RUNTIME_FINGERPRINT_UNCONFIRMED",
+    "APPLICATION_NOT_AUTHORIZED"
+  ]
+}
