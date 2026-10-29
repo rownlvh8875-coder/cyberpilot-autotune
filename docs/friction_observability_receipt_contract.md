@@ -76,10 +76,21 @@ downstream events <= receipt completion. Optional downstream observations use
 their actual Event times; t_ctl and t_cmd need not be equal. Snapshot
 evidence is captured within the cycle; downstream values require their own
 exact causal references. Unavailable downstream stages stay None.
+For increasing cycle IDs in the same session/controller instance, the next
+context capture (and therefore callback) cannot precede the previous t_ctl, or
+previous requested-command t_cmd when that Event identity is supplied. This
+matches the pinned serial update -> state_control -> publish loop. Do not use
+previous receipt completion or host/applied companion times as the boundary:
+later downstream evidence can legitimately complete after the next cycle begins.
+A new session/instance starts a separate epoch, not an implicitly pooled sample.
 
 No freshness, low-error/jerk/speed/excitation/sample-count/F/C range or condition
 number safety cutoff is invented. Structural numerical equation consistency
 uses a documented binary64 roundoff allowance, not an empirical threshold.
+The source threshold constant 0.3, normalized q's [-1,1] domain and exact helper
+zero/clipped states are not relaxed by that arithmetic allowance. An available
+offset also requires consistent installed/filtered/raw source-field provenance;
+an unavailable optional offset remains None, not an invented zero/regressor.
 
 ## Exact LINEAR and q
 

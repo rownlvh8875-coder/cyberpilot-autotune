@@ -100,6 +100,11 @@ def publish(self, CC):
   cc_send = messaging.new_message('carControl')
   cc_send.carControl = CC
   self.pm.send('carControl', cc_send)
+def run(self):
+  while True:
+    self.update()
+    CC, lac_log = self.state_control()
+    self.publish(CC, lac_log)
 """
     audit.check_consumed_source_fragments(raw)
     for old, new in (
@@ -111,6 +116,10 @@ def publish(self, CC):
         (
             b"self.pm.send('controlsState', dat)\n  cc_send = messaging.new_message('carControl')",
             b"cc_send = messaging.new_message('carControl')\n  self.pm.send('controlsState', dat)",
+        ),
+        (
+            b"self.update()\n    CC, lac_log = self.state_control()",
+            b"CC, lac_log = self.state_control()\n    self.update()",
         ),
     ):
         with pytest.raises(ValueError):

@@ -143,9 +143,11 @@ Python float/NumPy float64 callback locals should retain binary64 precision.
 Existing torqueState and CP tuning fields are Float32; widening cannot recover
 lost information or turn old telemetry into direct local observations. PID error
 is itself read after the Float32 pid_log.error write, unlike local friction input.
-Direct a/error/roll arithmetic is checked exactly in binary64; q/callback/PID
+Direct a/error/roll arithmetic is checked exactly in binary64; interior-q/callback/PID
 consistency has only a documented eight-ulp roundoff allowance, not a noise or
 empirical selection threshold. Float32-only mapping is rejected as exact raw data.
+The fixed helper threshold and zero/clipped-q states are exact, q stays in [-1,1],
+and an available offset cannot claim missing or contradictory source-field identity.
 Canonical sorted finite JSON preserves explicit unavailable values; SHA-256 is
 content identity only, never authenticity, authorization or safety approval.
 
@@ -188,9 +190,9 @@ generation changes, None versus zero/false, defensive copies, q independence,
 exact boundary arithmetic, duplicate/reused source/downstream IDs, future times,
 wrong clocks, post-speed-latch gains, epoch splits and authority/import barriers.
 
-- Full regression after review fixes: 1380 tests passed; prior baseline was 1261.
-- H7 targeted: 119 tests; 829/829 statements and 264/264 branches (100% each).
-- Overall combined coverage: 98.51%; all historical coverage gates pass.
+- Full regression after review fixes: 1401 tests passed; prior baseline was 1261.
+- H7 targeted: 140 tests; 838/838 statements and 272/272 branches (100% each).
+- Overall combined coverage: 98.52%; all historical coverage gates pass.
 - Source audit: 41 files / 30 claims / 44 isolated helper/callback/PID math cases,
   plus H6 exact-source geometry parity. H2/H3/H4/H5/H6 audits remain green.
 - ruff check and format, mypy, wheel/sdist build pass. Replay goldens unchanged;
@@ -228,6 +230,18 @@ controlsState creation/publication then carControl creation/publication order;
 its reordering mutation also failed RED before the fix. The full 1380-test suite,
 119 H7 tests, 100/100 coverage, all source/history audits, build and wheel checks
 are rerun before another new exact-head review. No timing exception is waived.
+
+Third review at 22cec8f8590ccbfa21e7f9f92e432d70b20a657c returned C0/I1/M0:
+locally consistent increasing cycles could replay/overlap an earlier callback
+interval. Five regressions were observed RED; next context/callback is now
+ordered after previous control/known-command publication for the same instance.
+Exact boundary, absent optional command identity, new session/instance and late
+host/applied companion cases remain explicit. The source-AST serial-loop reorder
+mutation also went RED->GREEN. Additional self-audit REDs tightened exact q
+zero/clip states, constant threshold and available-offset field provenance, not
+empirical thresholds. Full 1401 tests and 140 H7 tests pass at 100/100 coverage;
+source/history/build/wheel checks are rerun before a new fresh exact-head review.
+No finding is deferred or waived.
 
 ## Execution rulings / costs
 

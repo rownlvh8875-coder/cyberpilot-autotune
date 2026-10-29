@@ -392,6 +392,21 @@ def check_consumed_source_fragments(raw):
         ),
         "CONTROL_AND_COMMAND_EVENT_ORDER",
     )
+    runner = next(
+        node for node in ast.walk(tree) if isinstance(node, ast.FunctionDef) and node.name == "run"
+    )
+    loop = next(node for node in ast.walk(runner) if isinstance(node, ast.While))
+    serial_calls = [
+        ast.unparse(call.func)
+        for statement in loop.body
+        for call in ast.walk(statement)
+        if isinstance(call, ast.Call)
+        and ast.unparse(call.func) in {"self.update", "self.state_control", "self.publish"}
+    ]
+    require(
+        serial_calls == ["self.update", "self.state_control", "self.publish"],
+        "SERIAL_CONTROLLER_CYCLE_ORDER",
+    )
 
 
 def check_callback_fragments(raw):

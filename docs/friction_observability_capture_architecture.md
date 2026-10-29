@@ -87,6 +87,9 @@ geometry and limit state under exact generations. It avoids reconstructing a
 fictional cycle from asynchronous latest-seen topics. External dependencies still
 require exact consumed IDs; an atomic envelope cannot authenticate a dishonest
 producer or prove an omitted dependency was truly unused.
+The pinned serial controller loop also orders cycles: next context/callback must
+follow the previous control/known-command publication. It must not wait for later
+host/applied companion evidence or confuse that completion with cycle execution.
 
 Capture bounded scalar metadata only. Avoid full arrays/model payloads, source
 IO, Params rereads, encoding/network/persistence in the control hot path.

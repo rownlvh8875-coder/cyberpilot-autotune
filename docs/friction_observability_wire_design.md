@@ -51,11 +51,15 @@ reviewed semantics and numerical parity against legacy interpolation.
 
 The three direct input operations (a=desired-roll_compensation,
 error=desired-actual, roll_compensation=roll*g) require exact binary64 equality;
-even one ulp crossing a deadzone boundary must not be hidden. For normalized-q,
+even one ulp crossing a deadzone boundary must not be hidden. For interior normalized-q,
 callback/PID algebraic consistency only, the evaluator allows eight binary64 ulps
 of roundoff at scale max(1,|a|,|b|). This is not a noise tolerance, safety
 bound, low-error/jerk threshold or legacy-Float32 acceptance path. Precision/
 origin/stage tags are checked independently.
+The threshold constant is exactly 0.3; q must stay in [-1,1], with exact zero
+and clipped endpoint states. Those source constants/states are not roundoff
+estimates. Supplied offset values likewise require consistent raw/filtered/
+installed field provenance; optional unobserved offset may remain None.
 
 ## Causality and stage bindings
 
@@ -101,6 +105,11 @@ association can be described; its method/version/count/pair ID are explicit.
 More than one correction is rejected. Pair identity and unapplied Params/LP
 candidates are per-observation diagnostics, not new installed/applied epochs.
 Actual geometry/SR/stiffness/delay/mode/F/C/gain/generation changes do split epochs.
+Within one session/controller instance, increasing cycle IDs additionally require
+the next context capture to follow the previous control Event, and the previous
+requested-command Event when known. Later host/applied companion completion is
+not a controller-cycle boundary. New sessions/instances require an explicit new
+epoch; receipt completion timestamps alone do not establish serial invocation.
 
 ## Versioning and decoding
 

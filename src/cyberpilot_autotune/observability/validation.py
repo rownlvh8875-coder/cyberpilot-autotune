@@ -24,6 +24,7 @@ from .types import (
     ControllerMode,
     DelaySource,
     GeometryOrigin,
+    OffsetSource,
     Precision,
     ScalarOrigin,
     Signal,
@@ -292,6 +293,14 @@ def _context(receipt: LateralTorqueIdentificationReceipt, reasons: list[Observat
             (receipt.controller_mode == ControllerMode.CUSTOM) != (installed.custom_selector > 0)
         ):
             reasons.append(R.MODE_IDENTITY_INCOMPLETE)
+    if installed is not None and installed.offset_installed is not None:
+        offset_field = {
+            OffsetSource.INSTALLED_UNUSED_LINEAR: "torque_params.latAccelOffset",
+            OffsetSource.FILTERED_LIVE: "liveTorqueParameters.latAccelOffsetFiltered",
+            OffsetSource.RAW_LIVE: "liveTorqueParameters.latAccelOffsetRaw",
+        }.get(installed.offset_source)
+        if offset_field is None or installed.source_field != offset_field:
+            reasons.append(R.INSTALLED_CONTEXT_INCOMPLETE)
     if (
         gains is None
         or gains.generation != cycle.installed_parameter_generation
@@ -468,11 +477,16 @@ def _linear(receipt: LateralTorqueIdentificationReceipt, reasons: list[Observati
         )
         if not (a == desired - rc and error == desired - actual and rc == roll * 9.81):
             reasons.append(R.LINEAR_INPUT_INCONSISTENT)
-        if deadzone < 0 or threshold <= 0 or not _equivalent(threshold, 0.3):
+        if deadzone < 0 or threshold != 0.3:
             reasons.append(R.FRICTION_INPUT_DOMAIN_INVALID)
         else:
             reconstructed = reconstruct_q_diagnostic(error, deadzone, threshold, enabled)
-            if not _equivalent(observed_q, reconstructed):
+            q_matches = (
+                observed_q == reconstructed
+                if reconstructed in (-1.0, 0.0, 1.0)
+                else _equivalent(observed_q, reconstructed)
+            )
+            if not -1.0 <= observed_q <= 1.0 or not q_matches:
                 reasons.append(R.Q_SEMANTICS_INCONSISTENT)
         installed = receipt.context.installed
         if (
@@ -607,6 +621,18 @@ def _previous(
         or receipt.cycle.control_event_mono_time_ns <= previous.cycle.control_event_mono_time_ns
     ):
         reasons.append(R.TIME_ORDER_INVALID)
+    if same_instance and receipt.cycle.controller_cycle_id > previous.cycle.controller_cycle_id:
+        previous_publication = max(
+            [previous.cycle.control_event_mono_time_ns]
+            + [
+                identity.source_time_ns
+                for identity in previous.stages.downstream_identities
+                if identity.stage == Stage.REQUESTED_TORQUE
+            ]
+        )
+        # Serial controller invocation, not the completion of later companion evidence.
+        if receipt.cycle.context_capture_mono_time_ns < previous_publication:
+            reasons.append(R.TIME_ORDER_INVALID)
     before_context, after_context = epoch_context(previous.context), epoch_context(receipt.context)
     for name, reason in (
         ("geometry", R.GEOMETRY_CONTEXT_CHANGED),

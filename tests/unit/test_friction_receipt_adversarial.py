@@ -12,6 +12,7 @@ from cyberpilot_autotune.observability.types import (
     AlignmentMethod,
     ClockDomain,
     GeometryOrigin,
+    OffsetSource,
     ScalarOrigin,
     SourceOrigin,
     SourceRole,
@@ -85,6 +86,54 @@ def test_identical_local_object_metadata_cannot_be_reused_with_only_a_new_cycle_
         sources=tuple(rebound if s.role == SourceRole.CAR_CONTROL else s for s in current.sources),
     )
     assert "SOURCE_TIMESTAMP_MISMATCH" in reasons(changed, previous)
+
+
+@pytest.mark.parametrize(
+    ("error", "q"),
+    [(0.5, 1.0000000000000002), (-0.5, -1.0000000000000002), (0.01, 5e-324)],
+)
+def test_exact_helper_zero_and_clip_states_are_not_relaxed_by_algebraic_roundoff(error, q):
+    receipt = complete(error=error, q=q)
+    assert "Q_SEMANTICS_INCONSISTENT" in reasons(receipt)
+
+
+def test_pinned_threshold_constant_is_exact_not_a_roundoff_derived_value():
+    receipt = complete()
+    threshold = replace(receipt.signals.friction_threshold, value=0.30000000000000004)
+    changed = replace(receipt, signals=replace(receipt.signals, friction_threshold=threshold))
+    assert "FRICTION_INPUT_DOMAIN_INVALID" in reasons(changed)
+
+
+@pytest.mark.parametrize(
+    ("origin", "field"),
+    [
+        (OffsetSource.UNAVAILABLE, None),
+        (OffsetSource.FILTERED_LIVE, "liveTorqueParameters.latAccelOffsetRaw"),
+        (OffsetSource.RAW_LIVE, "liveTorqueParameters.latAccelOffsetFiltered"),
+        (OffsetSource.INSTALLED_UNUSED_LINEAR, None),
+    ],
+)
+def test_available_offset_cannot_claim_unknown_or_contradictory_field_provenance(origin, field):
+    receipt = complete()
+    installed = replace(receipt.context.installed, offset_source=origin, source_field=field)
+    changed = replace(receipt, context=replace(receipt.context, installed=installed))
+    assert "INSTALLED_CONTEXT_INCOMPLETE" in reasons(changed)
+
+
+@pytest.mark.parametrize(
+    ("origin", "field", "value"),
+    [
+        (OffsetSource.FILTERED_LIVE, "liveTorqueParameters.latAccelOffsetFiltered", 0.0),
+        (OffsetSource.RAW_LIVE, "liveTorqueParameters.latAccelOffsetRaw", 0.0),
+        (OffsetSource.UNAVAILABLE, None, None),
+    ],
+)
+def test_offset_field_provenance_can_be_preserved_without_adding_a_regressor(origin, field, value):
+    receipt = complete()
+    installed = replace(
+        receipt.context.installed, offset_source=origin, source_field=field, offset_installed=value
+    )
+    assert reasons(replace(receipt, context=replace(receipt.context, installed=installed))) == set()
 
 
 def test_unchanged_wire_sample_can_be_consumed_across_successive_cycles():
