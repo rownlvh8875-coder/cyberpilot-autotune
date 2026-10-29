@@ -80,6 +80,9 @@ and ObservationEligibilityDecision are evaluator-local and excluded from wire;
 all other fields receive an explicit proposed ordinal/type mapping. Authority and
 eligibility decisions are not serialized as permissions. Enum wire values reserve
 0 for unknown; numeric ordinals do not inherit Python declaration indices.
+The initial proposal derives ordinals from the frozen H7 inventory. After any
+native schema ships, its explicit ordinal map is authoritative and append-only;
+never regenerate shipped ordinals from a changed Python declaration order.
 
 Use explicit OptionalFloat64/OptionalUInt64/OptionalBool/OptionalDigest unions:
 unavailable @0 :Void, value @1 :payload. Do not use a numeric default to represent
@@ -148,6 +151,11 @@ context <= callback <= PID/gain capture <= t_ctl <= t_cmd <= receipt completion.
 Wire samples can be older; late host/applied companion completion cannot delay the
 next cycle. The one core receipt is immutable; later exact-linked companion data
 is separate, never a mutation or nearest-time join.
+Taps use a provisional session/generation/cycle token, not a premature final
+CycleIdentity digest. Construct the final identity only after actual t_ctl/t_cmd
+and CycleIdentity.receipt_complete_mono_time_ns are known. Completion here is the
+immutable semantic snapshot boundary, before hashing/serialization/transport,
+not a claim that transport has completed. Late companions link to that final ID.
 
 ## Capturability and honest partial results
 
