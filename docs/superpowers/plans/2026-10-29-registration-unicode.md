@@ -44,7 +44,7 @@ No symlink-to-reference that Path.resolve would collapse back to ASCII.
 
 Create docs/native_registration_unicode_result.md. Existing evidence stays frozen.
 
-- [ ] Reverify source/patch/schema/digests; full source/history/coverage, core/native,
+- [x] Reverify source/patch/schema/digests; full source/history/coverage, core/native,
   lint/format/mypy/build/fresh wheel/replay and knowledge/owner/science smokes.
 - [ ] Commit result; final exact-head independent review, C/I RED→GREEN fixes
   only/minors deferred; record review externally, not by changing reviewed head.
@@ -65,3 +65,12 @@ One-line ensure_ascii=False fix → GREEN8; mandatory native192/no skips and ful
 core1494 pass. Lint/format/mypy71 and whitespace pass. Exact existing complete
 record and reference/cache size/mtime snapshots unchanged; Unicode overlay cleanup
 passes. Native source/patch/registration identity and permissions are untouched.
+
+Task2 local gates complete: all H2–H7/design source/history/coverage audits and
+existing source registration pass. Core1494/98.52%; H7 unchanged843 statements/
+276 branches100%/100%; native192/no skips. Lint/format/mypy71, build/fresh vanilla
+wheel70 imports, H7/H6 six hashes each, replay11/four digests, knowledge/owner/
+science/research/optional smokes pass. One existing-code line changed; no native
+asset, installed source, old test/CI/evidence or environment configuration change.
+Final review/publication/hosted CI will be recorded externally in the new Draft PR
+to keep the exact reviewed head unchanged.
