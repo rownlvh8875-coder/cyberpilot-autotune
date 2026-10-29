@@ -1,0 +1,719 @@
+{
+  "schema_version": 1,
+  "scope": "AUDIT_DESIGN_ONLY",
+  "parameters": [
+    {
+      "parameter_id": "lat_accel_factor",
+      "tunable": true,
+      "verdict": "UNIT_EQUIVALENCE_CONDITIONAL",
+      "global_status": "FACTOR_UNIT_EQUIVALENCE_UNRESOLVED",
+      "confidence": "CONDITIONAL",
+      "producer": "TLS slope of roll-corrected sensor acceleration versus negative normalized returned torque; or CP/custom settings",
+      "stored_representation": "LateralTorqueAccelFactor native integer text",
+      "storage_scale": 0.001,
+      "runtime_representation": "Float32 latAccelFactorRaw/Filtered -> mutable CP torque builder",
+      "equation_role": "Default linear inverse denominator; torqued fitted y/x slope",
+      "unit": "m/s^2 per normalized torque ONLY for the scoped default linear/fit interpretation",
+      "sign": "Slope follows estimator x=-returned torque; final controller output negates internal PID torque",
+      "cyberpilot_mapping": "PR9 lat_accel_factor has a caller-supplied units string, no independently qualified production unit registry",
+      "unresolved_gaps": [
+        "QUALIFIED_CYBERPILOT_UNIT_REGISTRY_ABSENT",
+        "NN_AND_BRAND_CALLBACK_NOT_UNIVERSAL",
+        "IDENTIFICATION_QUALIFICATION_ABSENT"
+      ],
+      "evidence": [
+        "runtime:fit",
+        "runtime:sample-inputs",
+        "runtime:default-linear",
+        "runtime:controller-compute",
+        "runtime:hyundai-output",
+        "current:fit",
+        "current:sample-inputs",
+        "current:default-linear",
+        "current:controller-compute",
+        "current:hyundai-output",
+        "pr9:parameter-spec",
+        "pr9:research"
+      ]
+    },
+    {
+      "parameter_id": "friction",
+      "tunable": true,
+      "verdict": "UNIT_EQUIVALENCE_CONDITIONAL",
+      "global_status": "FRICTION_UNIT_EQUIVALENCE_UNRESOLVED",
+      "confidence": "CONDITIONAL",
+      "producer": "TLS rotated-coordinate standard deviation times source FRICTION_FACTOR; perpendicular only for nonnegative slope; CP/custom alternatives",
+      "stored_representation": "LateralTorqueFriction native integer text",
+      "storage_scale": 0.001,
+      "runtime_representation": "Float32 frictionCoefficientRaw/Filtered copied unchanged to torque_params.friction",
+      "equation_role": "Production helper signed/deadzoned interpolation added to normalized torque; fitted rotated spread is numerically forwarded without a proven physical-unit conversion",
+      "unit": null,
+      "sign": "Producer spread is nonnegative; compensation sign follows deadzoned error, then final controller output is negated",
+      "cyberpilot_mapping": "No justified conversion from offline diagnostic friction or residual spread to the controller coefficient",
+      "unresolved_gaps": [
+        "PERPENDICULAR_SPREAD_NORMALIZATION_UNPROVEN",
+        "QUALIFIED_CYBERPILOT_UNIT_REGISTRY_ABSENT",
+        "NN_FRICTION_OVERRIDE_AND_LITE_SHAPES_DIFFER"
+      ],
+      "evidence": [
+        "runtime:fit",
+        "runtime:rotation",
+        "runtime:friction",
+        "runtime:default-linear",
+        "runtime:controller-compute",
+        "runtime:offset-test",
+        "current:fit",
+        "current:rotation",
+        "current:friction",
+        "current:default-linear",
+        "current:controller-compute",
+        "current:offset-test",
+        "pr9:research"
+      ]
+    },
+    {
+      "parameter_id": "lat_accel_offset",
+      "tunable": false,
+      "verdict": "PRESERVED_STATE_SEMANTICS_PROVEN",
+      "global_status": "OFFSET_SEMANTICS_PROVEN",
+      "confidence": "PROVEN",
+      "producer": "TLS y intercept -> first-order filtered state; CP captured offset in custom mode",
+      "stored_representation": null,
+      "storage_scale": null,
+      "runtime_representation": "latAccelOffsetRaw/Filtered Float32; logical catalog latAccelOffset is not a wire member",
+      "equation_role": "Intercept of estimator y=a*x+b; forwarded as coupled state; no direct use by inspected linear/GM callbacks/full-NN coefficient expressions",
+      "unit": "Estimator y-intercept in m/s^2; no physical bias-calibration or universal consumer-unit claim",
+      "sign": "Signed y intercept in estimator orientation; not a direct left/right actuator command",
+      "cyberpilot_mapping": "Preserve exact controller-effective offset in a future same-owner tuple snapshot; never tune, drop, seed from zero or restore from unrelated latest message",
+      "unresolved_gaps": [
+        "EXTERNAL_COHERENT_EFFECTIVE_TUPLE_ABSENT",
+        "PHYSICAL_OFFSET_IDENTIFICATION_NOT_QUALIFIED"
+      ],
+      "evidence": [
+        "runtime:fit",
+        "runtime:filter-update",
+        "runtime:reset",
+        "runtime:publish",
+        "runtime:controller-init",
+        "runtime:live-setter",
+        "runtime:controller-compute",
+        "runtime:default-linear",
+        "runtime:gm-neural",
+        "runtime:gm-siglin",
+        "runtime:schema",
+        "current:fit",
+        "current:filter-update",
+        "current:reset",
+        "current:publish",
+        "current:controller-init",
+        "current:live-setter",
+        "current:controller-compute",
+        "current:default-linear",
+        "current:gm-neural",
+        "current:gm-siglin",
+        "current:schema",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    }
+  ],
+  "writer_conflicts": [
+    {
+      "source": "torqued/live path",
+      "factor": "filtered proposal",
+      "friction": "filtered proposal",
+      "offset": "filtered proposal",
+      "active_condition": "all_checks/useParams and cached custom <=0",
+      "can_overwrite": "controlsd reassigns latest healthy tuple every control frame, even without a new publication",
+      "conflict": "DEFINITE",
+      "evidence": [
+        "runtime:controlsd-frame",
+        "runtime:live-setter",
+        "runtime:estimator-main",
+        "current:controlsd-frame",
+        "current:live-setter",
+        "current:estimator-main"
+      ]
+    },
+    {
+      "source": "manual/custom",
+      "factor": "raw *.001",
+      "friction": "raw *.001",
+      "offset": "captured CP default",
+      "active_condition": "new sampled custom >0 every ten controller frames",
+      "can_overwrite": "custom assignments replace proposed values later in that calculation; modes 1->0 and >1->0 differ",
+      "conflict": "DEFINITE",
+      "evidence": [
+        "runtime:controller-compute",
+        "runtime:controller-init",
+        "current:controller-compute",
+        "current:controller-init"
+      ]
+    },
+    {
+      "source": "full NN / NN-lite / brand NN",
+      "factor": "mode-dependent/bypassed",
+      "friction": "bypassed or special override/helper",
+      "offset": "not directly used in inspected expressions",
+      "active_condition": "cached flags plus model_good and actual callback",
+      "can_overwrite": "not a tuple writer, but can invalidate the intended parameter effect",
+      "conflict": "CONDITIONAL",
+      "evidence": [
+        "runtime:controller-compute",
+        "runtime:callback-init",
+        "runtime:gm-select",
+        "current:controller-compute",
+        "current:callback-init",
+        "current:gm-select"
+      ]
+    },
+    {
+      "source": "default CarParams",
+      "factor": "startup table",
+      "friction": "startup table",
+      "offset": "startup zero/captured value",
+      "active_condition": "controller construction or source-specific custom reset",
+      "can_overwrite": "fresh controller/session can replace in-memory proposed state; CP is not current readback",
+      "conflict": "CONDITIONAL",
+      "evidence": [
+        "runtime:cp-seed",
+        "runtime:controller-init",
+        "current:cp-seed",
+        "current:controller-init"
+      ]
+    },
+    {
+      "source": "controlsd initialization",
+      "factor": "builder copy",
+      "friction": "builder copy",
+      "offset": "builder copy",
+      "active_condition": "process start/restart/controller selection",
+      "can_overwrite": "new controller context must invalidate any old lease/revision",
+      "conflict": "DEFINITE",
+      "evidence": [
+        "runtime:controlsd-init",
+        "runtime:controller-init",
+        "current:controlsd-init",
+        "current:controller-init"
+      ]
+    },
+    {
+      "source": "Params/UI refresh",
+      "factor": "per-key stored value",
+      "friction": "per-key stored value",
+      "offset": "no offset UI key in tuple",
+      "active_condition": "external settings updates followed by periodic reads",
+      "can_overwrite": "stored values may be read from different storage update epochs; mode change is an ownership fault",
+      "conflict": "CONDITIONAL",
+      "evidence": [
+        "runtime:settings-write",
+        "runtime:controller-compute",
+        "runtime:params-put",
+        "current:settings-write",
+        "current:controller-compute",
+        "current:params-put"
+      ]
+    },
+    {
+      "source": "CyberPilot proposed writer",
+      "factor": "not implemented",
+      "friction": "not implemented",
+      "offset": "must preserve",
+      "active_condition": "no authorized real writer exists",
+      "can_overwrite": "would add a conflicting second writer unless all effective updates are arbitrated",
+      "conflict": "UNRESOLVED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contract-doc"
+      ]
+    }
+  ],
+  "pr9_requirements": [
+    {
+      "requirement": "snapshot",
+      "mechanism": "Owner returns immutable selected tuple sampled at a named consumption boundary",
+      "status": "SOURCE_CHANGE_REQUIRED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "owner_identity",
+      "mechanism": "Non-identifying owner instance/session identity, never a PID/VIN substitute",
+      "status": "SOURCE_CHANGE_REQUIRED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "scope",
+      "mechanism": "Explicit reviewed steering-only scope independent of producer metadata",
+      "status": "DESIGNABLE",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "context",
+      "mechanism": "Bind source/controller/callback/NN/custom/VM context and invalidate on change",
+      "status": "SOURCE_CHANGE_REQUIRED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "baseline_epoch",
+      "mechanism": "Bind independently trusted baseline and explicit epoch/session",
+      "status": "SOURCE_CHANGE_REQUIRED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "monotonic_timestamp",
+      "mechanism": "Owner sample time from one monotonic domain; publication time is not commit time",
+      "status": "SOURCE_CHANGE_REQUIRED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "revision",
+      "mechanism": "Owner monotonic revision for every effective tuple/mode transition",
+      "status": "SOURCE_CHANGE_REQUIRED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "expected_revision_cas",
+      "mechanism": "Single serialized owner compares before replacing tuple, rejects foreign revision",
+      "status": "SOURCE_CHANGE_REQUIRED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "atomic_selected_tuple",
+      "mechanism": "Consume one immutable factor/friction/offset tuple per frame; no partial updates",
+      "status": "SOURCE_CHANGE_REQUIRED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "revision_plus_one_ack",
+      "mechanism": "Return exact next revision only after completed selected-tuple transition",
+      "status": "SOURCE_CHANGE_REQUIRED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "independent_readback",
+      "mechanism": "Read actual owner-consumed tuple/revision after ack; do not echo request",
+      "status": "SOURCE_CHANGE_REQUIRED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "unrelated_preservation",
+      "mechanism": "Owner changes only admitted factor/friction, preserves offset/gains/limits/other state",
+      "status": "DESIGNABLE",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "exclusive_ownership",
+      "mechanism": "All live/custom/default updates route through one effective owner",
+      "status": "SOURCE_CHANGE_REQUIRED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "rollback",
+      "mechanism": "CAS restore trusted original tuple only for still-owned exact revision; independent verify",
+      "status": "SOURCE_CHANGE_REQUIRED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "failure_semantics",
+      "mechanism": "Reject/uncertain/foreign/partial/timeout are explicit; no hidden retry/rearm",
+      "status": "DESIGNABLE",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    },
+    {
+      "requirement": "watchdog",
+      "mechanism": "Serialized deadline/veto checks plus independently approved stalled-owner lifecycle guarantee",
+      "status": "BLOCKED",
+      "evidence": [
+        "pr9:ports",
+        "pr9:contracts",
+        "pr9:coordinator"
+      ]
+    }
+  ],
+  "options": [
+    {
+      "option": "A",
+      "name": "Direct LatControlTorque attribute writer",
+      "scores": {
+        "exclusive_ownership": 0,
+        "cas_feasibility": 0,
+        "tuple_coherence": 1,
+        "readback": 1,
+        "rollback": 1,
+        "watchdog": 0,
+        "latency": 5,
+        "compatibility": 2,
+        "upstream_friendliness": 1,
+        "torqued_preservation": 1,
+        "custom_nn_interaction": 0,
+        "failure_isolation": 0
+      },
+      "rationale": "Short path but existing live/custom setters overwrite it; no owner protocol or independent ack. Reject as a wrapper around current attributes.",
+      "evidence": [
+        "runtime:live-setter",
+        "runtime:controller-compute",
+        "runtime:controlsd-frame",
+        "runtime:params-put",
+        "current:live-setter",
+        "current:controller-compute",
+        "current:controlsd-frame",
+        "current:params-put",
+        "pr9:ports"
+      ]
+    },
+    {
+      "option": "B",
+      "name": "torqued exclusive owner with proposal input",
+      "scores": {
+        "exclusive_ownership": 3,
+        "cas_feasibility": 3,
+        "tuple_coherence": 3,
+        "readback": 2,
+        "rollback": 2,
+        "watchdog": 1,
+        "latency": 1,
+        "compatibility": 2,
+        "upstream_friendliness": 2,
+        "torqued_preservation": 2,
+        "custom_nn_interaction": 2,
+        "failure_isolation": 3
+      },
+      "rationale": "Estimator owns proposals, but effective consumption lives in another process; would need a new controller ack/CAS channel and changes estimator responsibility.",
+      "evidence": [
+        "runtime:live-setter",
+        "runtime:controller-compute",
+        "runtime:controlsd-frame",
+        "runtime:params-put",
+        "current:live-setter",
+        "current:controller-compute",
+        "current:controlsd-frame",
+        "current:params-put",
+        "pr9:ports"
+      ]
+    },
+    {
+      "option": "C",
+      "name": "Shared TorqueParameterOwner in serialized controlsd domain",
+      "scores": {
+        "exclusive_ownership": 5,
+        "cas_feasibility": 5,
+        "tuple_coherence": 5,
+        "readback": 4,
+        "rollback": 4,
+        "watchdog": 2,
+        "latency": 4,
+        "compatibility": 2,
+        "upstream_friendliness": 3,
+        "torqued_preservation": 5,
+        "custom_nn_interaction": 4,
+        "failure_isolation": 4
+      },
+      "rationale": "Selected design: one effective owner receives estimator/custom/CyberPilot proposals, exposes consumed immutable tuple/revision, and keeps torqued scientific work separate. Every score is conditional on new source/owner guarantees; stalled-process watchdog remains blocked.",
+      "evidence": [
+        "runtime:live-setter",
+        "runtime:controller-compute",
+        "runtime:controlsd-frame",
+        "runtime:params-put",
+        "current:live-setter",
+        "current:controller-compute",
+        "current:controlsd-frame",
+        "current:params-put",
+        "pr9:ports"
+      ]
+    },
+    {
+      "option": "D",
+      "name": "Monolithic controlsd owner/arbitrator",
+      "scores": {
+        "exclusive_ownership": 4,
+        "cas_feasibility": 4,
+        "tuple_coherence": 4,
+        "readback": 4,
+        "rollback": 3,
+        "watchdog": 2,
+        "latency": 5,
+        "compatibility": 3,
+        "upstream_friendliness": 3,
+        "torqued_preservation": 4,
+        "custom_nn_interaction": 3,
+        "failure_isolation": 2
+      },
+      "rationale": "Correct execution location but policy, proposal routing and control calculation become coupled; more difficult to isolate/test ownership from controller logic.",
+      "evidence": [
+        "runtime:live-setter",
+        "runtime:controller-compute",
+        "runtime:controlsd-frame",
+        "runtime:params-put",
+        "current:live-setter",
+        "current:controller-compute",
+        "current:controlsd-frame",
+        "current:params-put",
+        "pr9:ports"
+      ]
+    },
+    {
+      "option": "E",
+      "name": "Params indirect writer",
+      "scores": {
+        "exclusive_ownership": 0,
+        "cas_feasibility": 0,
+        "tuple_coherence": 0,
+        "readback": 0,
+        "rollback": 1,
+        "watchdog": 0,
+        "latency": 1,
+        "compatibility": 3,
+        "upstream_friendliness": 1,
+        "torqued_preservation": 1,
+        "custom_nn_interaction": 1,
+        "failure_isolation": 0
+      },
+      "rationale": "Per-key persistent storage has no effective tuple CAS/readback and is excluded from this integration scope. Reject.",
+      "evidence": [
+        "runtime:live-setter",
+        "runtime:controller-compute",
+        "runtime:controlsd-frame",
+        "runtime:params-put",
+        "current:live-setter",
+        "current:controller-compute",
+        "current:controlsd-frame",
+        "current:params-put",
+        "pr9:ports"
+      ]
+    }
+  ],
+  "score_semantics": "0..5 conditional architecture potential; larger is better, including lower latency. Not measured qualification.",
+  "selected_option": "C",
+  "selected_architecture": "SHARED_TORQUE_PARAMETER_OWNER",
+  "readback_candidates": [
+    {
+      "candidate": "Params",
+      "assessment": "Stored intent only; custom gated/scaled, read per key, no effective tuple/revision or current offset.",
+      "existing_verified": false,
+      "evidence": [
+        "runtime:publish",
+        "runtime:controlsd-publish",
+        "runtime:controller-compute",
+        "runtime:live-setter",
+        "current:publish",
+        "current:controlsd-publish",
+        "current:controller-compute",
+        "current:live-setter",
+        "pr9:ports"
+      ]
+    },
+    {
+      "candidate": "latest_liveTorqueParameters",
+      "assessment": "Estimator output only; can remain unused or contain old filtered state; version is not owner revision.",
+      "existing_verified": false,
+      "evidence": [
+        "runtime:publish",
+        "runtime:controlsd-publish",
+        "runtime:controller-compute",
+        "runtime:live-setter",
+        "current:publish",
+        "current:controlsd-publish",
+        "current:controller-compute",
+        "current:live-setter",
+        "pr9:ports"
+      ]
+    },
+    {
+      "candidate": "LatControlTorque_internal",
+      "assessment": "Closest current numeric truth for base callback, but mutable/private and no external revision/lease/snapshot/readback protocol.",
+      "existing_verified": false,
+      "evidence": [
+        "runtime:publish",
+        "runtime:controlsd-publish",
+        "runtime:controller-compute",
+        "runtime:live-setter",
+        "current:publish",
+        "current:controlsd-publish",
+        "current:controller-compute",
+        "current:live-setter",
+        "pr9:ports"
+      ]
+    },
+    {
+      "candidate": "new_owner_managed_state",
+      "assessment": "Selected future mechanism must expose consumed tuple after commit; does not exist in either source pin.",
+      "existing_verified": false,
+      "evidence": [
+        "runtime:publish",
+        "runtime:controlsd-publish",
+        "runtime:controller-compute",
+        "runtime:live-setter",
+        "current:publish",
+        "current:controlsd-publish",
+        "current:controller-compute",
+        "current:live-setter",
+        "pr9:ports"
+      ]
+    },
+    {
+      "candidate": "CarControl_or_CarOutput",
+      "assessment": "Actuators/receipt/controller evidence describe an actuation cohort, not the consumed factor/friction/offset revision.",
+      "existing_verified": false,
+      "evidence": [
+        "runtime:publish",
+        "runtime:controlsd-publish",
+        "runtime:controller-compute",
+        "runtime:live-setter",
+        "current:publish",
+        "current:controlsd-publish",
+        "current:controller-compute",
+        "current:live-setter",
+        "pr9:ports"
+      ]
+    }
+  ],
+  "implementation_gates": [
+    {
+      "gate": "factor_equivalence",
+      "status": "BLOCKED"
+    },
+    {
+      "gate": "friction_equivalence",
+      "status": "BLOCKED"
+    },
+    {
+      "gate": "offset_preserved_semantics",
+      "status": "PROVEN"
+    },
+    {
+      "gate": "single_owner_selection",
+      "status": "DESIGNABLE"
+    },
+    {
+      "gate": "writer_conflicts_mapped",
+      "status": "PROVEN"
+    },
+    {
+      "gate": "cas_design_approved",
+      "status": "BLOCKED"
+    },
+    {
+      "gate": "readback_design_approved",
+      "status": "BLOCKED"
+    },
+    {
+      "gate": "rollback_source",
+      "status": "DESIGNABLE"
+    },
+    {
+      "gate": "custom_nn_modes",
+      "status": "DESIGNABLE"
+    },
+    {
+      "gate": "runtime_source_selected_and_qualified",
+      "status": "BLOCKED"
+    },
+    {
+      "gate": "vehicle_context_fingerprint",
+      "status": "BLOCKED"
+    },
+    {
+      "gate": "vehicle_bounds_rates",
+      "status": "BLOCKED"
+    }
+  ],
+  "existing": {
+    "cas": "NO_EXISTING_CAS",
+    "readback": "NO_EXISTING_VERIFIED_READBACK",
+    "atomic_tuple": "ATOMIC_TUPLE_NOT_PROVEN"
+  },
+  "status": "CARROT_WRITER_ARCHITECTURE_BLOCKED_UNIT_EQUIVALENCE_AND_OWNER_PROTOCOL_ABSENT",
+  "verdicts": [
+    "FACTOR_UNIT_EQUIVALENCE_UNRESOLVED",
+    "FRICTION_UNIT_EQUIVALENCE_UNRESOLVED",
+    "OFFSET_SEMANTICS_PROVEN",
+    "OWNERSHIP_MODEL_SELECTED",
+    "CAS_SOURCE_CHANGE_REQUIRED",
+    "READBACK_SOURCE_CHANGE_REQUIRED",
+    "VEHICLE_APPLICATION_BOUNDS_UNRESOLVED",
+    "PARAMETER_IDENTIFICATION_QUALIFICATION_UNRESOLVED",
+    "RUNTIME_FINGERPRINT_UNCONFIRMED"
+  ],
+  "drift": {
+    "status": "SOURCE_DRIFT_AFFECTS_IDENTIFICATION",
+    "direct_torqued_formula_changed": false,
+    "vm_geometry_changed": true,
+    "meaning": "Controller VM-derived acceleration/error and paramsd globals change; torqued sensor-based formula is byte-identical. Potential closed-loop identification context drift, not a measured fit change.",
+    "evidence": [
+      "runtime:vm",
+      "runtime:paramsd",
+      "runtime:sample-inputs",
+      "current:vm",
+      "current:paramsd",
+      "current:sample-inputs",
+      "current:geometry"
+    ]
+  },
+  "hoya_apply": "APPLICATION_ARCHITECTURE_REJECTED",
+  "next_single_task": "Shared TorqueParameterOwner detailed design",
+  "application_bounds": null,
+  "application_rates": null,
+  "writer_implemented": false,
+  "watchdog_owner_approved": false,
+  "physical_actuation_proven": false
+}
