@@ -254,6 +254,12 @@ def _sources(receipt: LateralTorqueIdentificationReceipt, reasons: list[Observat
             ):
                 reasons.append(R.SOURCE_COHORT_INCOMPLETE)
             if (
+                source.origin == SourceOrigin.LOCAL_CYCLE_OBJECT
+                and source.source_time_ns is not None
+                and source.source_time_ns < receipt.cycle.controller_cycle_start_mono_time_ns
+            ):
+                reasons.append(R.TIME_ORDER_INVALID)
+            if (
                 source.source_time_ns is None
                 or (source.sequence is None and source.source_identity is None)
                 or source.origin == SourceOrigin.UNKNOWN
@@ -631,7 +637,7 @@ def _previous(
             ]
         )
         # Serial controller invocation, not the completion of later companion evidence.
-        if receipt.cycle.context_capture_mono_time_ns < previous_publication:
+        if receipt.cycle.controller_cycle_start_mono_time_ns < previous_publication:
             reasons.append(R.TIME_ORDER_INVALID)
     before_context, after_context = epoch_context(previous.context), epoch_context(receipt.context)
     for name, reason in (
@@ -722,7 +728,8 @@ def evaluate(
     if cycle.clock_domain != ClockDomain.MONOTONIC:
         reasons.append(R.WRONG_CLOCK_DOMAIN)
     if (
-        not cycle.context_capture_mono_time_ns
+        not cycle.controller_cycle_start_mono_time_ns
+        <= cycle.context_capture_mono_time_ns
         <= cycle.callback_enter_mono_time_ns
         <= cycle.callback_exit_mono_time_ns
         <= cycle.control_event_mono_time_ns

@@ -40,9 +40,9 @@ R: c2130730239bcdb4cbde9361ab90c8d99aa4ff55.
 C: f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3.
 Current carrot-wip re-read at H7 start: still C; no movement to promote.
 The nine required H6 authoritative documents/manifests are pinned as acceptance
-basis. The H7 source manifest pins 41 files and 30 semantic claims, including
+basis. The H7 source manifest pins 41 files and 34 semantic claims, including
 repo/revision/path/symbol/range/blob SHA/range SHA-256. Canonical source-manifest
-SHA-256: c1c6697eea57a9024e3178c82a87a3011cc9ed8866c4efb570d874f39269975a.
+SHA-256: c2bc6a566ec0a9906e9ce407fce6ec803d1c8f0dc72edd696b6dd2f46c36a747.
 
 R/C share LINEAR, helper, NN_LITE/NN, custom-latching and PID stage semantics.
 C additionally needs actual dynamic VM geometry, distinct from requested
@@ -61,7 +61,8 @@ observability package files import only stdlib and their neutral sibling types.
   source-schema digest, vehicle mechanical-context digest, controller/installed/
   geometry generations and friction-observation-v1 version. No wall clock or
   object address is an identity.
-- Timing: entry snapshot, callback entry/exit, actual control Event publication
+- Timing: explicit controlsd state_control cycle entry before local allocations,
+  entry snapshot, callback entry/exit, actual control Event publication
   and receipt completion; monotonic clock domain is explicit. Actual gain-use
   capture is separately bound to the same cycle after PID latches current speed.
 - Sources: complete dependency declaration, per-role actual consumed flag,
@@ -131,7 +132,7 @@ Later companion evidence does not mutate the immutable core.
 
 ## Wire, precision and capture design
 
-The neutral semantic schema lists 143 fields in 15 records and 18 enums, with
+The neutral semantic schema lists 144 fields in 15 records and 18 enums, with
 type/unit/stage/presence/source/qualification meaning. It is not cereal schema.
 Proposed wire encoding: Float64 continuous values, UInt64 times/IDs/generations,
 explicit enums and Bool with availability, bounded typed source/stage records.
@@ -190,10 +191,10 @@ generation changes, None versus zero/false, defensive copies, q independence,
 exact boundary arithmetic, duplicate/reused source/downstream IDs, future times,
 wrong clocks, post-speed-latch gains, epoch splits and authority/import barriers.
 
-- Full regression after review fixes: 1401 tests passed; prior baseline was 1261.
-- H7 targeted: 140 tests; 838/838 statements and 272/272 branches (100% each).
+- Full regression after review fixes: 1408 tests passed; prior baseline was 1261.
+- H7 targeted: 147 tests; 843/843 statements and 276/276 branches (100% each).
 - Overall combined coverage: 98.52%; all historical coverage gates pass.
-- Source audit: 41 files / 30 claims / 44 isolated helper/callback/PID math cases,
+- Source audit: 41 files / 34 claims / 44 isolated helper/callback/PID math cases,
   plus H6 exact-source geometry parity. H2/H3/H4/H5/H6 audits remain green.
 - ruff check and format, mypy, wheel/sdist build pass. Replay goldens unchanged;
   all four CLI fixtures and eleven focused/golden tests pass.
@@ -242,6 +243,21 @@ zero/clip states, constant threshold and available-offset field provenance, not
 empirical thresholds. Full 1401 tests and 140 H7 tests pass at 100/100 coverage;
 source/history/build/wheel checks are rerun before a new fresh exact-head review.
 No finding is deferred or waived.
+
+Fourth review at 52ed115b4a883e16f66f767bff49811d86dda35e returned C0/I1/M0:
+a uniquely identified current local CC could still claim a creation time before
+the preceding cycle. Its standalone/previous-aware regressions were observed RED.
+The completed causal model now has an explicit controlsd state_control entry
+timestamp, before fresh local allocation: previous control/known-command time <=
+next cycle start <= local creation <= context <= callback <= PID <= control Event.
+Wire samples can be older; host/applied companion completion is not a cycle bound.
+New source-symbol/range claims pin state_control entry and the serial run loop in
+both profiles; an allocation-after-callback AST mutation also went RED->GREEN.
+UInt64, entry-after-context, boundary, standalone-local and older-wire cases pass.
+Full 1408 / targeted147 / 100%-100% verification precedes another fresh review;
+no old-head approval is reused. v1 remains the initial unimplemented prerelease
+proposal, not a released/native wire schema; future accepted timing/cohort changes
+must follow the documented version-bump rule.
 
 ## Execution rulings / costs
 

@@ -116,15 +116,15 @@ Task 1: complete, freeze 83c2170; no new Python existed at freeze.
 Task 2: complete, tests 065eee6 then implementation 6eb4c68. Missing-package RED,
 then 31 basic tests GREEN; added causal adversaries RED->GREEN. Full suite 1302
 passed before the latest 41 additional primitive/adversarial cases.
-Task 3: complete. Latest targeted suite 140 passed; package 838 statements /
-272 branches 100% each. Direct LINEAR a/error/roll arithmetic uses exact binary64
+Task 3: complete. Latest targeted suite 147 passed; package 843 statements /
+276 branches 100% each. Direct LINEAR a/error/roll arithmetic uses exact binary64
 equality, including one-ulp boundary adversary RED->GREEN. Separate gain actual-use
 time binding and exact downstream command/event lineage also pinned RED->GREEN.
 Task 4: complete. Schema absent-module/enum-inventory/source-auditor RED->GREEN;
-41 source files, 30 semantic claims, 44 isolated math cases, 143 schema fields,
+41 source files, 34 semantic claims, 44 isolated math cases, 144 schema fields,
 18 enums, all 20 requested synthetic fixtures pass. History protects 264 original
 files (three exact namespace amendments included); H6 validator other AST unchanged.
-Full suite 1401 passed after review fixes, overall coverage 98.52%,
+Full suite 1408 passed after review fixes, overall coverage 98.52%,
 lint/format/mypy/build pass.
 Task 5: complete, wire/capture/source compatibility/v2 mapping and final result
 written. No native patch or empirical threshold.
@@ -172,3 +172,11 @@ missing-command/late-companion cases pass. Serial native-loop mutation RED->GREE
 Self-audit source-constant/q endpoint and offset-provenance REDs also fixed, no
 empirical thresholds introduced. Full 1401 / targeted140 / coverage100%-100%
 rerun; a new fresh final exact-head review remains mandatory.
+
+Review round 4: exact head 52ed115b4a883e16f66f767bff49811d86dda35e, C0/I1/M0.
+Fresh local IDs could claim old creation times; standalone/previous-aware REDs
+led to explicit controlsd state_control cycle-start capture, local creation inside
+[start,context], and next start after previous control/known-command Event.
+No wire freshness cutoff or companion-completion bound. Source entry/run ranges
+and allocation-order AST mutation pin the provenance. Full1408/target147 and
+coverage100%-100% rerun before a new exact-head review; no waiver or carried approval.

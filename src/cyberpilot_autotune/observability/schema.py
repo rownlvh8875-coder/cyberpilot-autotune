@@ -161,6 +161,11 @@ def _stage(record: str, name: str) -> str:
 
 
 def _source(record: str, name: str) -> tuple[str, str]:
+    if record == "CycleIdentity" and name == "controller_cycle_start_mono_time_ns":
+        return (
+            "R/C Controls.state_control entry before fresh CC/fallback LP allocation, monotonic",
+            "PROPOSED_ENTRY_CAPTURE_NOT_PUBLISHED",
+        )
     if record in {"ObservationPolicy", "ObservationEligibilityDecision"}:
         return "neutral local evaluator only", "LOCAL_ONLY_NOT_WIRE_PRODUCER"
     if record == "ControllerCallbackSignals" or name == "callback_output_raw":

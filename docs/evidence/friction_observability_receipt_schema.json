@@ -30,6 +30,17 @@
       "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
     },
     {
+      "field": "CycleIdentity.controller_cycle_start_mono_time_ns",
+      "python_type": "<class 'int'>",
+      "type": "UInt64 + explicit presence",
+      "unit": "ns, explicit monotonic domain",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "STRUCTURAL",
+      "source": "R/C Controls.state_control entry before fresh CC/fallback LP allocation, monotonic",
+      "availability": "PROPOSED_ENTRY_CAPTURE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
       "field": "CycleIdentity.context_capture_mono_time_ns",
       "python_type": "<class 'int'>",
       "type": "UInt64 + explicit presence",

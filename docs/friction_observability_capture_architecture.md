@@ -38,6 +38,8 @@ do not outweigh missing causal observability in B/C/D alone.
 
 1. controlsd supplies exact actually consumed source identities and the actual
    applied VM/installed-context snapshot, not later Params or LP lookups.
+   Its state_control entry supplies controller_cycle_start_mono_time_ns, before
+   local CC/fallback LP allocation, not a callback or publication timestamp.
    A non-identifying session nonce and deterministic cycle/invocation IDs identify
    the cycle; no wall clock, Python id() or object address.
    Bind every consumed local object explicitly to this cycle. R/C carControl is
@@ -87,9 +89,11 @@ geometry and limit state under exact generations. It avoids reconstructing a
 fictional cycle from asynchronous latest-seen topics. External dependencies still
 require exact consumed IDs; an atomic envelope cannot authenticate a dishonest
 producer or prove an omitted dependency was truly unused.
-The pinned serial controller loop also orders cycles: next context/callback must
+The pinned serial controller loop also orders cycles: next cycle entry must
 follow the previous control/known-command publication. It must not wait for later
 host/applied companion evidence or confuse that completion with cycle execution.
+Consumed local object creation must be inside [cycle entry, context capture];
+wire samples can be older. This permits standalone local-creation validation too.
 
 Capture bounded scalar metadata only. Avoid full arrays/model payloads, source
 IO, Params rereads, encoding/network/persistence in the control hot path.

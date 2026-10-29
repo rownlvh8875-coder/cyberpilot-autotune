@@ -8,7 +8,7 @@ publisher or runtime producer implemented.
 
 ## Semantic inventory
 
-evidence/friction_observability_receipt_schema.json enumerates 143 fields in 15
+evidence/friction_observability_receipt_schema.json enumerates 144 fields in 15
 neutral records and 18 enums. It is a semantic proposal, NOT a cereal schema.
 The pure schema builder and mutation validator reproduce it without any native
 or optional dependency. Policy/eligibility-decision entries are local evaluator
@@ -68,6 +68,10 @@ times inside one cycle. Actual speed-effective gains are captured after PID
 latches current speed, with their own cycle digest/time; querying them before
 that would observe the previous speed. Installed configuration generation is
 still bound to the entry snapshot.
+The separate controller_cycle_start_mono_time_ns is controlsd state_control entry,
+before fresh CC/fallback-LP creation. Local object creation lies between this
+start and context capture; older wire samples may predate cycle start. Do not
+substitute callback entry, context time or Event time for this caller-entry field.
 
 control_event_mono_time_ns is the actual controlsState Event timestamp t_ctl,
 which follows callback/PID execution. The requested carControl Event t_cmd is
@@ -106,7 +110,7 @@ More than one correction is rejected. Pair identity and unapplied Params/LP
 candidates are per-observation diagnostics, not new installed/applied epochs.
 Actual geometry/SR/stiffness/delay/mode/F/C/gain/generation changes do split epochs.
 Within one session/controller instance, increasing cycle IDs additionally require
-the next context capture to follow the previous control Event, and the previous
+the next cycle start to follow the previous control Event, and the previous
 requested-command Event when known. Later host/applied companion completion is
 not a controller-cycle boundary. New sessions/instances require an explicit new
 epoch; receipt completion timestamps alone do not establish serial invocation.
@@ -125,6 +129,9 @@ Future decoding must reject nonfinite/invalid IDs/unknown required semantics,
 preserve all unavailable fields, distinguish enum unknown from LINEAR, and
 defensively copy lists. No permissive fallback/default coefficient is allowed.
 Cap'n Proto round-trip/evolution/native-build/device tests remain future work.
+H7's review refinements finalize the initial unimplemented v1 prerelease proposal;
+no released/native v1 encoding exists. After contract acceptance, changing the
+cycle-start/cohort/timing contract requires a new receipt version, not silent reuse.
 
 ## Privacy and authority
 

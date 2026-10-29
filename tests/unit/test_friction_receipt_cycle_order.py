@@ -18,6 +18,10 @@ from tests.unit.test_friction_receipt import reasons
 
 def retime(receipt, **changes):
     """Retag consistent synthetic records; no old cycle binding is left behind."""
+    if "context_capture_mono_time_ns" in changes:
+        changes.setdefault(
+            "controller_cycle_start_mono_time_ns", changes["context_capture_mono_time_ns"] - 20
+        )
     cycle = replace(receipt.cycle, **changes)
 
     def scalars(record):
@@ -60,7 +64,7 @@ def retime(receipt, **changes):
                 controller_cycle_digest=cycle.digest
                 if s.origin == SourceOrigin.LOCAL_CYCLE_OBJECT
                 else s.controller_cycle_digest,
-                source_time_ns=min(s.source_time_ns, cycle.context_capture_mono_time_ns - 1),
+                source_time_ns=min(s.source_time_ns, cycle.context_capture_mono_time_ns),
             )
             for s in receipt.sources
         ),
@@ -107,9 +111,10 @@ def test_exact_previous_publication_boundary_is_allowed_without_inventing_an_int
     start = previous.cycle.control_event_mono_time_ns
     current = retime(
         complete(11),
-        context_capture_mono_time_ns=start,
-        callback_enter_mono_time_ns=start + 10,
-        callback_exit_mono_time_ns=start + 20,
+        controller_cycle_start_mono_time_ns=start,
+        context_capture_mono_time_ns=start + 20,
+        callback_enter_mono_time_ns=start + 30,
+        callback_exit_mono_time_ns=start + 40,
     )
     assert reasons(current, previous) == set()
 
@@ -121,6 +126,55 @@ def test_absent_previous_command_identity_uses_known_control_publication_not_fab
         stages=replace(previous.stages, requested_torque=None, downstream_identities=()),
     )
     assert reasons(complete(11), previous) == set()
+
+
+def test_fresh_local_identity_cannot_claim_creation_before_previous_cycle_publication():
+    previous, current = complete(10), complete(11)
+    sources = tuple(
+        replace(s, source_time_ns=previous.cycle.callback_enter_mono_time_ns)
+        if s.origin == SourceOrigin.LOCAL_CYCLE_OBJECT
+        else s
+        for s in current.sources
+    )
+    bad = replace(current, sources=sources)
+    assert "TIME_ORDER_INVALID" in reasons(bad, previous)
+    assert "TIME_ORDER_INVALID" in reasons(bad)
+
+
+def test_standalone_local_creation_requires_current_cycle_start_but_wire_may_be_older():
+    receipt = complete()
+    start = receipt.cycle.controller_cycle_start_mono_time_ns
+    for local_time, accepted in ((start - 1, False), (start, True)):
+        sources = tuple(
+            replace(s, source_time_ns=local_time)
+            if s.origin == SourceOrigin.LOCAL_CYCLE_OBJECT
+            else replace(s, source_time_ns=start - 1)
+            for s in receipt.sources
+        )
+        assert (not reasons(replace(receipt, sources=sources))) is accepted
+
+
+def test_context_after_prior_publication_does_not_hide_earlier_overlapping_cycle_entry():
+    previous = complete(10)
+    current = retime(
+        complete(11), controller_cycle_start_mono_time_ns=previous.cycle.callback_enter_mono_time_ns
+    )
+    assert reasons(current) == set()
+    assert "TIME_ORDER_INVALID" in reasons(current, previous)
+
+
+def test_cycle_entry_cannot_follow_its_context_snapshot():
+    receipt = complete()
+    changed = retime(
+        receipt, controller_cycle_start_mono_time_ns=receipt.cycle.context_capture_mono_time_ns + 1
+    )
+    assert "TIME_ORDER_INVALID" in reasons(changed)
+
+
+@pytest.mark.parametrize("invalid", [-1, True, float("inf")])
+def test_cycle_entry_has_explicit_uint64_semantics(invalid):
+    with pytest.raises(ValueError):
+        replace(complete().cycle, controller_cycle_start_mono_time_ns=invalid)
 
 
 def test_late_downstream_companion_does_not_force_next_controller_cycle_to_wait():

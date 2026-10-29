@@ -121,6 +121,14 @@ def run(self):
             b"self.update()\n    CC, lac_log = self.state_control()",
             b"CC, lac_log = self.state_control()\n    self.update()",
         ),
+        (
+            b"CC = car.CarControl.new_message()\n"
+            b"  steer, angle, log = self.LaC.update(CC.latActive, CS, self.VM, lp, "
+            b"limited, desired, CC, limited)",
+            b"steer, angle, log = self.LaC.update(CC.latActive, CS, self.VM, lp, "
+            b"limited, desired, CC, limited)\n"
+            b"  CC = car.CarControl.new_message()",
+        ),
     ):
         with pytest.raises(ValueError):
             audit.check_consumed_source_fragments(raw.replace(old, new))

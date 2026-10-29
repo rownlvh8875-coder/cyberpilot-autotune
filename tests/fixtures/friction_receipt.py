@@ -27,6 +27,7 @@ def cycle(number=10, **changes):
     fields = dict(
         session_id="1" * 64,
         controller_cycle_id=number,
+        controller_cycle_start_mono_time_ns=9980 + number * 1000,
         context_capture_mono_time_ns=10000 + number * 1000,
         callback_enter_mono_time_ns=10010 + number * 1000,
         callback_exit_mono_time_ns=10020 + number * 1000,

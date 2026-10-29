@@ -49,8 +49,12 @@ only (no VIN/dongle/route/GPS/driver/CAN/model payload/images).
 
 Cycle identity binds session, cycle ID, control Event monotonic time, callback
 enter/exit, receipt completion time, exact source, vehicle digest and controller/
-installed/geometry generations. Consumed sources have explicit role, monotonic
-time/domain, sequence/opaque identity, valid/alive and consumed/not-used state.
+installed/geometry generations.
+controller_cycle_start_mono_time_ns is the actual controlsd Controls.state_control
+entry timestamp, before local CC/fallback-LP allocation and before the later
+LatControlTorque entry/context snapshot. It is not reconstructed from Event time.
+Consumed sources have explicit role, monotonic time/domain, sequence/opaque
+identity, valid/alive and consumed/not-used state.
 Required role declarations cover carState/livePose/liveParameters/carControl;
 model/control inputs are declared if actually read. Latest-seen is not consumed.
 Local cycle carControl builders are labeled LOCAL_CYCLE_OBJECT; a later published
@@ -70,19 +74,23 @@ binding and capture time. Source cohort duplicates, future consumed times,
 wrong clocks, mixed snapshot/cycle IDs and generation mismatches fail closed.
 control_event_mono_time_ns is the controlsState Event timestamp (t_ctl), distinct
 from the later requested carControl Event timestamp (t_cmd). Pinned R/C create
-and publish controlsState before creating/publishing carControl. Source time <=
-callback entry; callback entry <= exit <= PID/gain capture <= t_ctl <= t_cmd <=
-downstream events <= receipt completion. Optional downstream observations use
+and publish controlsState before creating/publishing carControl. Consumed source
+time <= context; cycle start <= local-object creation <= context <= callback entry
+<= exit <= PID/gain capture <= t_ctl <= t_cmd <= downstream events <= receipt
+completion. Optional downstream observations use
 their actual Event times; t_ctl and t_cmd need not be equal. Snapshot
 evidence is captured within the cycle; downstream values require their own
 exact causal references. Unavailable downstream stages stay None.
 For increasing cycle IDs in the same session/controller instance, the next
-context capture (and therefore callback) cannot precede the previous t_ctl, or
+cycle start (and therefore local creation/context/callback) cannot precede the
+previous t_ctl, or
 previous requested-command t_cmd when that Event identity is supplied. This
 matches the pinned serial update -> state_control -> publish loop. Do not use
 previous receipt completion or host/applied companion times as the boundary:
 later downstream evidence can legitimately complete after the next cycle begins.
 A new session/instance starts a separate epoch, not an implicitly pooled sample.
+Older wire inputs are permitted before cycle start; consumed fresh local objects
+must lie inside their own [cycle start, context] interval even without previous.
 
 No freshness, low-error/jerk/speed/excitation/sample-count/F/C range or condition
 number safety cutoff is invented. Structural numerical equation consistency

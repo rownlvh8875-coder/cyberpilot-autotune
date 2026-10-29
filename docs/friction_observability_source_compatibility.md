@@ -5,9 +5,9 @@ C=f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3.
 carrot-wip was re-read at H7 start and still equals C; no branch movement or
 automatic promotion. H7 primary profiles remain the H6 pins.
 
-evidence/friction_observability_receipt_sources.json pins 41 files, 30 semantic
+evidence/friction_observability_receipt_sources.json pins 41 files, 34 semantic
 claims, file/blob/range hashes and H6 acceptance-basis content. Its canonical
-digest is c1c6697eea57a9024e3178c82a87a3011cc9ed8866c4efb570d874f39269975a.
+digest is c2bc6a566ec0a9906e9ce407fce6ec803d1c8f0dc72edd696b6dd2f46c36a747.
 Explicit source audit runs isolated exact helper/callback/PID/VM math only:
 44 helper/callback/PID cases plus H6 geometry parity, no native imports or Params.
 Exact source archives are audit inputs outside the installed package.
@@ -35,6 +35,7 @@ Exact source archives are audit inputs outside the installed package.
 | delay | SAD/liveDelay branches and NN initialization/lookahead | same | source/branch/effective value and pair metadata explicit |
 | source timestamps | Event times but no atomic callback receipt | same | consumed IDs/capture receipt still missing |
 | consumed object origin | wire CS, fresh local CC; LP can be local fallback | same | role/origin pinned; consumed local objects bind current cycle; no cross-cycle local-ID reuse |
+| cycle start / serial entry | state_control entry before local allocations; serial run loop | same | explicit caller-entry timestamp, local creation interval and next-cycle publication boundary |
 
 ## Source details not inferred from comments
 

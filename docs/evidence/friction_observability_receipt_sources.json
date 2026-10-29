@@ -131,6 +131,18 @@
           "start": 1,
           "end": 480,
           "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5"
+        },
+        {
+          "name": "Controls.state_control",
+          "start": 119,
+          "end": 286,
+          "sha256": "103243c0eab5222733320364e58bef4ec9b0ab0d390a54506c75b557a38f8fd6"
+        },
+        {
+          "name": "Controls.run",
+          "start": 462,
+          "end": 468,
+          "sha256": "536a21782f8d560dd791bbca162a02f63b0af08f0bb907b201fe3645ce307c7b"
         }
       ]
     },
@@ -401,6 +413,18 @@
           "start": 1,
           "end": 481,
           "sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d"
+        },
+        {
+          "name": "Controls.state_control",
+          "start": 116,
+          "end": 279,
+          "sha256": "5fe2a0568f57276b7f83c9b7516c1d5c05df0e0b8cf4cc61343b1956ac3cf54a"
+        },
+        {
+          "name": "Controls.run",
+          "start": 463,
+          "end": 469,
+          "sha256": "536a21782f8d560dd791bbca162a02f63b0af08f0bb907b201fe3645ce307c7b"
         }
       ]
     },
@@ -1039,6 +1063,32 @@
       "meaning": "SAD/liveDelay branch; LaC return assigned torque; carControl publication later, not retroactive consumed input; CS is wire carState, CC freshly allocated per state_control invocation; LP may use local fallback"
     },
     {
+      "id": "runtime_cycle_entry",
+      "file_id": "runtime_controlsd",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.state_control",
+      "start": 119,
+      "end": 286,
+      "git_blob": "2378902ba077177b96dfb57f010e06c388241213",
+      "sha256": "103243c0eab5222733320364e58bef4ec9b0ab0d390a54506c75b557a38f8fd6",
+      "meaning": "future cycle start is state_control entry before fresh local CC/fallback LP creation, not callback/context/publication time; entry capture not published"
+    },
+    {
+      "id": "runtime_serial_cycle_order",
+      "file_id": "runtime_controlsd",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.run",
+      "start": 462,
+      "end": 468,
+      "git_blob": "2378902ba077177b96dfb57f010e06c388241213",
+      "sha256": "536a21782f8d560dd791bbca162a02f63b0af08f0bb907b201fe3645ce307c7b",
+      "meaning": "serial update -> state_control -> publish before next cycle entry, not companion completion"
+    },
+    {
       "id": "current_linear_inputs",
       "file_id": "current_controller",
       "repository": "ajouatom/openpilot",
@@ -1221,6 +1271,32 @@
       "meaning": "SAD/liveDelay branch; LaC return assigned torque; carControl publication later, not retroactive consumed input; CS is wire carState, CC freshly allocated per state_control invocation; LP may use local fallback"
     },
     {
+      "id": "current_cycle_entry",
+      "file_id": "current_controlsd",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.state_control",
+      "start": 116,
+      "end": 279,
+      "git_blob": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "sha256": "5fe2a0568f57276b7f83c9b7516c1d5c05df0e0b8cf4cc61343b1956ac3cf54a",
+      "meaning": "future cycle start is state_control entry before fresh local CC/fallback LP creation, not callback/context/publication time; entry capture not published"
+    },
+    {
+      "id": "current_serial_cycle_order",
+      "file_id": "current_controlsd",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.run",
+      "start": 463,
+      "end": 469,
+      "git_blob": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "sha256": "536a21782f8d560dd791bbca162a02f63b0af08f0bb907b201fe3645ce307c7b",
+      "meaning": "serial update -> state_control -> publish before next cycle entry, not companion completion"
+    },
+    {
       "id": "current_dynamic_geometry",
       "file_id": "current_geometry",
       "repository": "ajouatom/openpilot",
@@ -1247,7 +1323,7 @@
       "meaning": "sourceCS/exact lookup/measurement receipts reusable only for specified stage; no q/raw ff/installed gain cohort"
     }
   ],
-  "neutral_schema_sha256": "885696e620eeb45edf7e1652b9e4eca2d585ee15eadf4e815f393ba74dcb8788",
+  "neutral_schema_sha256": "4e9805fbeac75035215e5e20791dd90c55fe117efca124a8875fec72dba84e90",
   "h6_validator_compatibility_sha256": "aa27d15517e693b0288ed37893deae4515a7c1f88388bb29e871c9fe0e68d032",
   "runtime_producer_implemented": false,
   "native_runtime_imported": false,

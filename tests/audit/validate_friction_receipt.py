@@ -36,7 +36,7 @@ BASE = "a5d3514f23797829eb58d08c638b22cf4dd30c8a"
 FREEZE = "83c2170d699894a8044b1e82d453281ccd495d5d"
 SOURCE_PATH = "docs/evidence/friction_observability_receipt_sources.json"
 SCHEMA_PATH = "docs/evidence/friction_observability_receipt_schema.json"
-SOURCE_MANIFEST_SHA256 = "c1c6697eea57a9024e3178c82a87a3011cc9ed8866c4efb570d874f39269975a"
+SOURCE_MANIFEST_SHA256 = "c2bc6a566ec0a9906e9ce407fce6ec803d1c8f0dc72edd696b6dd2f46c36a747"
 COMPATIBILITY = (
     "tests/architecture/test_knowledge_boundary.py",
     "tests/audit/test_carrot_writer_ownership.py",
@@ -61,6 +61,8 @@ def source_specs():
         revision = BASE if revision == h6.BASE else revision
         if identity.endswith("_controller"):
             symbols += ("LatControlTorque.update_live_torque_params",)
+        if identity.endswith("_controlsd"):
+            symbols += ("Controls.state_control", "Controls.run")
         result.append((identity, revision, path, symbols))
     result.extend(
         (profile + "_car_schema", revision, "opendbc_repo/opendbc/car/car.capnp", ())
@@ -241,6 +243,22 @@ def build_sources(reference):
                     "CC freshly allocated per state_control invocation; LP may use local fallback"
                 ),
             ),
+            (
+                "cycle_entry",
+                "controlsd",
+                "Controls.state_control",
+                (
+                    "future cycle start is state_control entry before fresh local CC/fallback LP "
+                    "creation, not callback/context/publication time; entry capture not published"
+                ),
+            ),
+            (
+                "serial_cycle_order",
+                "controlsd",
+                "Controls.run",
+                "serial update -> state_control -> publish before next cycle entry, "
+                "not companion completion",
+            ),
         ):
             claim(profile + "_" + name, profile + "_" + file, symbol, meaning)
     claim(
@@ -367,6 +385,13 @@ def check_consumed_source_fragments(raw):
         and ast.unparse(calls[0].args[6]) == "CC",
         "CONSUMED_LOCAL_CC_CALL_ARGUMENT",
     )
+    local_cc = next(
+        item
+        for item in state.body
+        if isinstance(item, ast.Assign)
+        and any(isinstance(t, ast.Name) and t.id == "CC" for t in item.targets)
+    )
+    require(state.lineno < local_cc.lineno < calls[0].lineno, "LOCAL_OBJECT_CREATION_IN_CYCLE")
     published = assignments(publication)
     require(
         ("cc_send", "messaging.new_message('carControl')") in published

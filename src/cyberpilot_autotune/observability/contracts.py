@@ -39,6 +39,7 @@ SOURCE_SCHEMA_DIGESTS = (
 class CycleIdentity:
     session_id: str
     controller_cycle_id: int
+    controller_cycle_start_mono_time_ns: int
     context_capture_mono_time_ns: int
     callback_enter_mono_time_ns: int
     callback_exit_mono_time_ns: int
