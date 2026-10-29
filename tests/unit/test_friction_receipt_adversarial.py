@@ -159,6 +159,50 @@ def test_source_specific_local_live_parameters_fallback_requires_current_cycle_b
     assert reasons(replace(receipt, sources=sources)) == set()
 
 
+@pytest.mark.parametrize("declare_unused", [False, True])
+def test_model_input_read_even_on_linear_cannot_be_omitted_or_declared_unused(declare_unused):
+    receipt = complete()
+    other = tuple(s for s in receipt.sources if s.role != SourceRole.MODEL)
+    unused = c.ConsumedSourceIdentity(role=SourceRole.MODEL, consumed=False)
+    sources = (*other, unused) if declare_unused else other
+    assert "SOURCE_COHORT_INCOMPLETE" in reasons(replace(receipt, sources=sources))
+
+
+@pytest.mark.parametrize(
+    ("changes", "reason"),
+    [
+        ({"valid": False}, "SOURCE_UNHEALTHY"),
+        ({"alive": False}, "SOURCE_UNHEALTHY"),
+        ({"clock_domain": ClockDomain.UNKNOWN}, "WRONG_CLOCK_DOMAIN"),
+        ({"source_identity": None, "sequence": None}, "SOURCE_COHORT_INCOMPLETE"),
+    ],
+)
+def test_required_model_identity_health_and_domain_checks_cannot_be_bypassed(changes, reason):
+    receipt = complete()
+    sources = tuple(
+        replace(s, **changes) if s.role == SourceRole.MODEL else s for s in receipt.sources
+    )
+    assert reason in reasons(replace(receipt, sources=sources))
+
+
+def test_pinned_model_argument_is_wire_origin_not_a_new_local_object():
+    receipt = complete()
+    other = tuple(s for s in receipt.sources if s.role != SourceRole.MODEL)
+    local = c.ConsumedSourceIdentity(
+        role=SourceRole.MODEL,
+        consumed=True,
+        source_time_ns=receipt.cycle.context_capture_mono_time_ns,
+        clock_domain=ClockDomain.MONOTONIC,
+        sequence=receipt.cycle.controller_cycle_id,
+        source_identity="d" * 64,
+        origin=SourceOrigin.LOCAL_CYCLE_OBJECT,
+        controller_cycle_digest=receipt.cycle.digest,
+        valid=True,
+        alive=True,
+    )
+    assert "SOURCE_COHORT_INCOMPLETE" in reasons(replace(receipt, sources=(*other, local)))
+
+
 @pytest.mark.parametrize(
     "changes",
     [

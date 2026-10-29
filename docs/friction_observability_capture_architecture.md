@@ -40,6 +40,9 @@ do not outweigh missing causal observability in B/C/D alone.
    applied VM/installed-context snapshot, not later Params or LP lookups.
    Its state_control entry supplies controller_cycle_start_mono_time_ns, before
    local CC/fallback LP allocation, not a callback or publication timestamp.
+   Include the exact consumed modelV2 ID/time/health even for LINEAR: the pinned
+   controller reads orientation.x for model_good before the NN-dependent paths.
+   Capture no full model output and invent no model-quality admission threshold.
    A non-identifying session nonce and deterministic cycle/invocation IDs identify
    the cycle; no wall clock, Python id() or object address.
    Bind every consumed local object explicitly to this cycle. R/C carControl is

@@ -208,7 +208,7 @@ def test_defensive_source_copy_and_duplicate_source_identity_rejection():
     inputs = list(receipt.sources)
     copied = replace(receipt, sources=inputs)
     inputs.clear()
-    assert len(copied.sources) == 4
+    assert len(copied.sources) == 5
     with pytest.raises(ValueError, match="DUPLICATE_CONSUMED_SOURCE"):
         replace(receipt, sources=receipt.sources + receipt.sources[:1])
 

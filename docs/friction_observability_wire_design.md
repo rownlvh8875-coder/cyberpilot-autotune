@@ -86,7 +86,9 @@ was already known at callback entry.
 A carControl builder consumed by the callback is LOCAL_CYCLE_OBJECT, not a later
 published carControl Event. It requires an explicit current controller-cycle
 digest and a non-reused source identity/sequence within the controller instance.
-carState must be wire-origin under R/C. The source-specific local liveParameters
+carState must be wire-origin under R/C, as must the required consumed modelV2
+input: model_good reads it even on LINEAR. Store only ID/time/status, never full
+model output or images. The source-specific local liveParameters
 fallback is represented separately, with the same local-cycle binding; legitimate
 unchanged wire-sample reuse remains allowed. Requested/host/applied stages require
 distinct

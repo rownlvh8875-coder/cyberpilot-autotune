@@ -88,12 +88,19 @@ ff = self.torque_from_lateral_accel(
 
 
 def test_consumed_source_ast_pins_local_builder_wire_state_and_fallback_without_execution():
-    raw = b"""raise RuntimeError("never execute this file")
+    call = (
+        b"steer, angle, log = self.LaC.update(CC.latActive, CS, self.VM, lp, limited, "
+        b"desired, CC, limited, model_data=self.sm['modelV2'])"
+    )
+    raw = (
+        b"""raise RuntimeError("never execute this file")
 def state_control(self):
   CS = self.sm['carState']
   lp = self.sm['liveParameters'] if lateral_ready else lateral_vehicle_parameters(self.sm, self.CP)
   CC = car.CarControl.new_message()
-  steer, angle, log = self.LaC.update(CC.latActive, CS, self.VM, lp, limited, desired, CC, limited)
+  """
+        + call
+        + b"""
 def publish(self, CC):
   dat = messaging.new_message('controlsState')
   self.pm.send('controlsState', dat)
@@ -106,6 +113,7 @@ def run(self):
     CC, lac_log = self.state_control()
     self.publish(CC, lac_log)
 """
+    )
     audit.check_consumed_source_fragments(raw)
     for old, new in (
         (b"CS = self.sm['carState']", b"CS = car.CarState.new_message()"),
@@ -113,6 +121,7 @@ def run(self):
         (b"desired, CC, limited", b"desired, self.sm['carControl'], limited"),
         (b"cc_send.carControl = CC", b"cc_send.carControl = other"),
         (b"lateral_vehicle_parameters(self.sm, self.CP)", b"other(self.sm, self.CP)"),
+        (b"model_data=self.sm['modelV2']", b"model_data=None"),
         (
             b"self.pm.send('controlsState', dat)\n  cc_send = messaging.new_message('carControl')",
             b"cc_send = messaging.new_message('carControl')\n  self.pm.send('controlsState', dat)",
@@ -122,13 +131,24 @@ def run(self):
             b"CC, lac_log = self.state_control()\n    self.update()",
         ),
         (
-            b"CC = car.CarControl.new_message()\n"
-            b"  steer, angle, log = self.LaC.update(CC.latActive, CS, self.VM, lp, "
-            b"limited, desired, CC, limited)",
-            b"steer, angle, log = self.LaC.update(CC.latActive, CS, self.VM, lp, "
-            b"limited, desired, CC, limited)\n"
-            b"  CC = car.CarControl.new_message()",
+            b"CC = car.CarControl.new_message()\n  " + call,
+            call + b"\n  CC = car.CarControl.new_message()",
         ),
     ):
         with pytest.raises(ValueError):
             audit.check_consumed_source_fragments(raw.replace(old, new))
+
+
+def test_model_source_read_is_unconditional_on_nn_mode_without_executing_native_code():
+    raw = b"""raise RuntimeError("never execute")
+model_good = model_data is not None and len(model_data.orientation.x) >= CONTROL_N
+if model_good and self.use_nnff:
+  pass
+"""
+    audit.check_model_dependency_fragments(raw)
+    for mutated in (
+        raw.replace(b"orientation.x", b"orientation.y"),
+        raw.replace(b"model_good =", b"if self.use_nnff:\n  model_good ="),
+    ):
+        with pytest.raises(ValueError):
+            audit.check_model_dependency_fragments(mutated)

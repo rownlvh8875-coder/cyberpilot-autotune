@@ -40,9 +40,9 @@ R: c2130730239bcdb4cbde9361ab90c8d99aa4ff55.
 C: f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3.
 Current carrot-wip re-read at H7 start: still C; no movement to promote.
 The nine required H6 authoritative documents/manifests are pinned as acceptance
-basis. The H7 source manifest pins 41 files and 34 semantic claims, including
+basis. The H7 source manifest pins 41 files and 38 semantic claims, including
 repo/revision/path/symbol/range/blob SHA/range SHA-256. Canonical source-manifest
-SHA-256: c2bc6a566ec0a9906e9ce407fce6ec803d1c8f0dc72edd696b6dd2f46c36a747.
+SHA-256: 274f4410eade0b7b9a55fde61e912bd8831fb9ceedb5b9fcc0764c064ff04def.
 
 R/C share LINEAR, helper, NN_LITE/NN, custom-latching and PID stage semantics.
 C additionally needs actual dynamic VM geometry, distinct from requested
@@ -67,13 +67,15 @@ observability package files import only stdlib and their neutral sibling types.
   capture is separately bound to the same cycle after PID latches current speed.
 - Sources: complete dependency declaration, per-role actual consumed flag,
   source timestamp/domain/sequence or opaque identity, origin, valid and alive.
-  carState/livePose/liveParameters/carControl are declared even when a role is
+  carState/livePose/liveParameters/carControl/modelV2 are declared even when a role is
   explicitly unused. LOCAL_CYCLE_OBJECT carControl is not a later published Event.
-  R/C role origins are enforced for local carControl and wire carState; every
+  R/C role origins are enforced for local carControl and wire carState/modelV2; every
   consumed local object binds the current cycle digest. Local source IDs/sequences
   cannot be reused across distinct cycles within one session/controller instance;
   unchanged wire samples may be reused. LP's source-specific local fallback is
   allowed only with the same explicit current-cycle binding.
+  modelV2 is a required consumed wire input in both active LINEAR profiles because
+  model_good reads orientation.x; no model payload or NN quality threshold is added.
 - Stage/mode: executed family, function and call site, not just a CUSTOM selector.
   Only pinned LINEAR feedforward is eligible. NN_LITE/NN/GM/other receipts remain
   diagnostic and IDENTIFICATION_MODEL_UNSUPPORTED, never fallback to LINEAR.
@@ -191,10 +193,10 @@ generation changes, None versus zero/false, defensive copies, q independence,
 exact boundary arithmetic, duplicate/reused source/downstream IDs, future times,
 wrong clocks, post-speed-latch gains, epoch splits and authority/import barriers.
 
-- Full regression after review fixes: 1408 tests passed; prior baseline was 1261.
-- H7 targeted: 147 tests; 843/843 statements and 276/276 branches (100% each).
+- Full regression after review fixes: 1416 tests passed; prior baseline was 1261.
+- H7 targeted: 155 tests; 843/843 statements and 276/276 branches (100% each).
 - Overall combined coverage: 98.52%; all historical coverage gates pass.
-- Source audit: 41 files / 34 claims / 44 isolated helper/callback/PID math cases,
+- Source audit: 41 files / 38 claims / 44 isolated helper/callback/PID math cases,
   plus H6 exact-source geometry parity. H2/H3/H4/H5/H6 audits remain green.
 - ruff check and format, mypy, wheel/sdist build pass. Replay goldens unchanged;
   all four CLI fixtures and eleven focused/golden tests pass.
@@ -258,6 +260,17 @@ Full 1408 / targeted147 / 100%-100% verification precedes another fresh review;
 no old-head approval is reused. v1 remains the initial unimplemented prerelease
 proposal, not a released/native wire schema; future accepted timing/cohort changes
 must follow the documented version-bump rule.
+
+Fifth review at 7ca88e481a7fc136913cc4e815df3a072a0e752a returned C0/I1/M0:
+omitting modelV2 or calling it unused bypassed metadata/health checks although the
+pinned active LINEAR path reads it for model_good. Missing/unused/wrong-origin
+regressions and native-argument/read AST mutations were observed RED, then the
+required consumed wire MODEL cohort was enforced. Model health/domain/identity
+guards are exercised; no model payload, image or NN-quality admission threshold
+was introduced. Source claims pin both the call argument and unconditional active
+read, including rejection of an NN-only guarded read. Full1416/target155 and
+100/100 coverage plus source/history/build/wheel checks precede a new fresh review;
+no prior approval or waived finding is carried forward.
 
 ## Execution rulings / costs
 

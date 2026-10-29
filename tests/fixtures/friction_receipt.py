@@ -92,6 +92,7 @@ def complete(number=10, *, error=0.5, q=1.0, compensation=True):
                 SourceRole.LIVE_POSE,
                 SourceRole.LIVE_PARAMETERS,
                 SourceRole.CAR_CONTROL,
+                SourceRole.MODEL,
             ),
             start=10,
         )

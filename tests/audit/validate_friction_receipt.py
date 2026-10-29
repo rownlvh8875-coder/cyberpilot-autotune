@@ -36,7 +36,7 @@ BASE = "a5d3514f23797829eb58d08c638b22cf4dd30c8a"
 FREEZE = "83c2170d699894a8044b1e82d453281ccd495d5d"
 SOURCE_PATH = "docs/evidence/friction_observability_receipt_sources.json"
 SCHEMA_PATH = "docs/evidence/friction_observability_receipt_schema.json"
-SOURCE_MANIFEST_SHA256 = "c2bc6a566ec0a9906e9ce407fce6ec803d1c8f0dc72edd696b6dd2f46c36a747"
+SOURCE_MANIFEST_SHA256 = "274f4410eade0b7b9a55fde61e912bd8831fb9ceedb5b9fcc0764c064ff04def"
 COMPATIBILITY = (
     "tests/architecture/test_knowledge_boundary.py",
     "tests/audit/test_carrot_writer_ownership.py",
@@ -259,6 +259,18 @@ def build_sources(reference):
                 "serial update -> state_control -> publish before next cycle entry, "
                 "not companion completion",
             ),
+            (
+                "model_argument",
+                "controlsd",
+                "Controls.state_control",
+                "always passes model_data=self.sm['modelV2'] to LatControlTorque.update",
+            ),
+            (
+                "linear_model_read",
+                "controller",
+                "LatControlTorque.update",
+                "active path reads model_data.orientation.x for model_good even on LINEAR",
+            ),
         ):
             claim(profile + "_" + name, profile + "_" + file, symbol, meaning)
     claim(
@@ -385,6 +397,11 @@ def check_consumed_source_fragments(raw):
         and ast.unparse(calls[0].args[6]) == "CC",
         "CONSUMED_LOCAL_CC_CALL_ARGUMENT",
     )
+    require(
+        {kw.arg: ast.unparse(kw.value) for kw in calls[0].keywords}.get("model_data")
+        == "self.sm['modelV2']",
+        "CONSUMED_MODEL_ARGUMENT",
+    )
     local_cc = next(
         item
         for item in state.body
@@ -432,6 +449,34 @@ def check_consumed_source_fragments(raw):
         serial_calls == ["self.update", "self.state_control", "self.publish"],
         "SERIAL_CONTROLLER_CYCLE_ORDER",
     )
+
+
+def check_model_dependency_fragments(raw):
+    tree = ast.parse(raw)
+    reads = [
+        node
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Assign)
+        and any(isinstance(t, ast.Name) and t.id == "model_good" for t in node.targets)
+    ]
+    require(
+        len(reads) == 1
+        and ast.unparse(reads[0].value)
+        == "model_data is not None and len(model_data.orientation.x) >= CONTROL_N",
+        "LINEAR_MODEL_READ",
+    )
+    parents = {child: node for node in ast.walk(tree) for child in ast.iter_child_nodes(node)}
+    node = reads[0]
+    while node in parents:
+        node = parents[node]
+        if isinstance(node, ast.If):
+            require(
+                not any(
+                    isinstance(part, ast.Attribute) and part.attr in {"use_nnff", "use_nnff_lite"}
+                    for part in ast.walk(node.test)
+                ),
+                "MODEL_READ_NOT_NN_CONDITIONAL",
+            )
 
 
 def check_callback_fragments(raw):
@@ -482,6 +527,7 @@ def verify_source_equations(reference):
             reference, revision, "openpilot/selfdrive/controls/lib/latcontrol_torque.py"
         )
         check_callback_fragments(controller)
+        check_model_dependency_fragments(controller)
         interface = h6.git_bytes(reference, revision, "opendbc_repo/opendbc/car/interfaces.py")
         threshold = next(
             node.value.value

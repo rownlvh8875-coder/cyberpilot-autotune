@@ -55,11 +55,14 @@ entry timestamp, before local CC/fallback-LP allocation and before the later
 LatControlTorque entry/context snapshot. It is not reconstructed from Event time.
 Consumed sources have explicit role, monotonic time/domain, sequence/opaque
 identity, valid/alive and consumed/not-used state.
-Required role declarations cover carState/livePose/liveParameters/carControl;
-model/control inputs are declared if actually read. Latest-seen is not consumed.
+Required role declarations cover carState/livePose/liveParameters/carControl/modelV2.
+Both pins pass modelV2 and read orientation.x for model_good even on the active
+LINEAR path; its identity/time/health and consumed=True are therefore mandatory,
+without storing model payload or applying an NN quality/sample threshold.
+Other model/control inputs are declared if actually read. Latest-seen is not consumed.
 Local cycle carControl builders are labeled LOCAL_CYCLE_OBJECT; a later published
 carControl Event is never retroactively called a consumed input.
-For both pinned profiles, carState origin must be WIRE_EVENT and carControl
+For both pinned profiles, carState/modelV2 origin must be WIRE_EVENT and carControl
 origin must be LOCAL_CYCLE_OBJECT. Every consumed local object additionally
 binds controller_cycle_digest to the exact current CycleIdentity.digest; source
 identity/sequence cannot be reused across distinct cycles in the same session

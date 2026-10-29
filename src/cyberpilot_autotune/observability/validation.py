@@ -228,13 +228,19 @@ def _sources(receipt: LateralTorqueIdentificationReceipt, reasons: list[Observat
         SourceRole.LIVE_POSE,
         SourceRole.LIVE_PARAMETERS,
         SourceRole.CAR_CONTROL,
+        SourceRole.MODEL,
     }
     if not required <= sources.keys() or receipt.consumption_manifest_complete is not True:
         reasons.append(R.SOURCE_COHORT_INCOMPLETE)
     for source in receipt.sources:
         if source.consumed is None or (
             source.role
-            in {SourceRole.CAR_STATE, SourceRole.LIVE_PARAMETERS, SourceRole.CAR_CONTROL}
+            in {
+                SourceRole.CAR_STATE,
+                SourceRole.LIVE_PARAMETERS,
+                SourceRole.CAR_CONTROL,
+                SourceRole.MODEL,
+            }
             and not source.consumed
         ):
             reasons.append(R.SOURCE_COHORT_INCOMPLETE)
@@ -244,6 +250,7 @@ def _sources(receipt: LateralTorqueIdentificationReceipt, reasons: list[Observat
             expected_origin = {
                 SourceRole.CAR_STATE: SourceOrigin.WIRE_EVENT,
                 SourceRole.CAR_CONTROL: SourceOrigin.LOCAL_CYCLE_OBJECT,
+                SourceRole.MODEL: SourceOrigin.WIRE_EVENT,
             }.get(source.role)
             if receipt.cycle.source_revision in {RUNTIME, CURRENT} and (
                 expected_origin is not None and source.origin != expected_origin

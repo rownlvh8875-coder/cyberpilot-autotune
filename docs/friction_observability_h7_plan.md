@@ -116,15 +116,15 @@ Task 1: complete, freeze 83c2170; no new Python existed at freeze.
 Task 2: complete, tests 065eee6 then implementation 6eb4c68. Missing-package RED,
 then 31 basic tests GREEN; added causal adversaries RED->GREEN. Full suite 1302
 passed before the latest 41 additional primitive/adversarial cases.
-Task 3: complete. Latest targeted suite 147 passed; package 843 statements /
+Task 3: complete. Latest targeted suite 155 passed; package 843 statements /
 276 branches 100% each. Direct LINEAR a/error/roll arithmetic uses exact binary64
 equality, including one-ulp boundary adversary RED->GREEN. Separate gain actual-use
 time binding and exact downstream command/event lineage also pinned RED->GREEN.
 Task 4: complete. Schema absent-module/enum-inventory/source-auditor RED->GREEN;
-41 source files, 34 semantic claims, 44 isolated math cases, 144 schema fields,
+41 source files, 38 semantic claims, 44 isolated math cases, 144 schema fields,
 18 enums, all 20 requested synthetic fixtures pass. History protects 264 original
 files (three exact namespace amendments included); H6 validator other AST unchanged.
-Full suite 1408 passed after review fixes, overall coverage 98.52%,
+Full suite 1416 passed after review fixes, overall coverage 98.52%,
 lint/format/mypy/build pass.
 Task 5: complete, wire/capture/source compatibility/v2 mapping and final result
 written. No native patch or empirical threshold.
@@ -180,3 +180,10 @@ led to explicit controlsd state_control cycle-start capture, local creation insi
 No wire freshness cutoff or companion-completion bound. Source entry/run ranges
 and allocation-order AST mutation pin the provenance. Full1408/target147 and
 coverage100%-100% rerun before a new exact-head review; no waiver or carried approval.
+
+Review round 5: exact head 7ca88e481a7fc136913cc4e815df3a072a0e752a, C0/I1/M0.
+Required modelV2 was omittable although active LINEAR reads model_good; missing/
+unused/wrong-origin cases and source argument/read/NN-guard mutations observedRED.
+Required consumed wire MODEL metadata/health cohort now enforced with no model
+payload or NN-quality threshold. Full1416/target155/coverage100%-100% rerun before
+another new exact-head review. No waiver or old-head approval carried forward.

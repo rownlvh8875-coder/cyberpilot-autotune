@@ -1089,6 +1089,32 @@
       "meaning": "serial update -> state_control -> publish before next cycle entry, not companion completion"
     },
     {
+      "id": "runtime_model_argument",
+      "file_id": "runtime_controlsd",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.state_control",
+      "start": 119,
+      "end": 286,
+      "git_blob": "2378902ba077177b96dfb57f010e06c388241213",
+      "sha256": "103243c0eab5222733320364e58bef4ec9b0ab0d390a54506c75b557a38f8fd6",
+      "meaning": "always passes model_data=self.sm['modelV2'] to LatControlTorque.update"
+    },
+    {
+      "id": "runtime_linear_model_read",
+      "file_id": "runtime_controller",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update",
+      "start": 143,
+      "end": 310,
+      "git_blob": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "sha256": "8930581509973e7a2342b96dd320b5c30670c6cd8bf55fca7437c260638e3448",
+      "meaning": "active path reads model_data.orientation.x for model_good even on LINEAR"
+    },
+    {
       "id": "current_linear_inputs",
       "file_id": "current_controller",
       "repository": "ajouatom/openpilot",
@@ -1295,6 +1321,32 @@
       "git_blob": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
       "sha256": "536a21782f8d560dd791bbca162a02f63b0af08f0bb907b201fe3645ce307c7b",
       "meaning": "serial update -> state_control -> publish before next cycle entry, not companion completion"
+    },
+    {
+      "id": "current_model_argument",
+      "file_id": "current_controlsd",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.state_control",
+      "start": 116,
+      "end": 279,
+      "git_blob": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "sha256": "5fe2a0568f57276b7f83c9b7516c1d5c05df0e0b8cf4cc61343b1956ac3cf54a",
+      "meaning": "always passes model_data=self.sm['modelV2'] to LatControlTorque.update"
+    },
+    {
+      "id": "current_linear_model_read",
+      "file_id": "current_controller",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update",
+      "start": 142,
+      "end": 307,
+      "git_blob": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "dd9a614bea1a1eb0541c3db10cea9377f94f88d6877e4cc9d5a2612973dcacaf",
+      "meaning": "active path reads model_data.orientation.x for model_good even on LINEAR"
     },
     {
       "id": "current_dynamic_geometry",

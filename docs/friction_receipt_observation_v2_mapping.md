@@ -25,6 +25,7 @@ independently verified exact source lookup/health contract.
 | applied geometry generation / VM context ID | MISSING_COHORT | CP default or LP candidate is not sufficient |
 | delay method/version/pair-correction receipt | MISSING | no implicit/double alignment |
 | callback invocation / complete dependency manifest | MISSING | exact actual-consumption capture required |
+| consumed modelV2 identity/time/health for LINEAR model_good read | MISSING | neither optional omission nor passive model-topic presence proves the actual consumed source |
 
 REUSABLE_EXACT describes the semantics of a correctly supplied v2 witness; it
 does not claim PR8's real extraction/runtime has been qualified. A similar field
