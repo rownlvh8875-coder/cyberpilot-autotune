@@ -52,6 +52,12 @@ def assert_cohorts(result, selector, family, *, receipts=True, freeze=False):
         assert step["selector"] == latched, "LATCH_COHORT"
         assert step["installed"] == installed, "INSTALLED_COHORT"
         assert step["gains"] == gains, "GAIN_COHORT"
+        assert len(step["calls"]) == (3 if step["active"] else 0), "CALLBACK_COUNT"
+        assert all(call["installed"] == installed for call in step["calls"]), (
+            "CALLBACK_CONSUMED_COHORT"
+        )
+        if step["active"]:
+            assert step["pid_values"][3] == step["calls"][-1]["raw"] * gains[3], "PID_F_STAGE"
         assert step["live_accepted"] == (step["frame"] <= 10 or step["frame"] == 31), "LIVE_BYPASS"
         if not step["active"] or not receipts:
             assert step["receipt"] is None

@@ -52,7 +52,7 @@ docs/carrot_custom_torque_cohort_parity_result.md. Add no old CI/test changes.
 
 - [x] Pin source file/blob/range hashes, scenario/coverage/mutation observations
   and unchanged patch/tree identities; test evidence against observed scenarios.
-- [ ] Full core/native/source/history/coverage, lint/format/mypy/build/fresh wheel,
+- [x] Full core/native/source/history/coverage, lint/format/mypy/build/fresh wheel,
   replay and knowledge/owner/science/research smokes. No native/full NN claim.
 - [x] Test reusable setup with eleven warmed R blobs; save necessary environment
   draft fields for user review/Publish, not runtime activation.
@@ -92,3 +92,12 @@ checkpoint record — cost: regenerate it if the scoped scenario semantics chang
 Setup tested successfully with eleven exact-R blobs, core1494/native184; only
 install_script/start_skill drafts updated for review/Publish. No network/secrets,
 repository ref selection or actual runtime behavior changed by the setup draft.
+
+Task2 local gates complete: fresh184 native/no skips and1494 core pass; installed
+coverage98.52%, H7 unchanged843 statements/276 branches100%/100%. All H2–H7/design
+source/history/coverage audits, source registration, lint/format/mypy71, build/
+fresh wheel70 imports, replay11/four digests, knowledge/owner/science/research and
+optional-dependency smokes pass. Exact callback count/consumed cohorts and actual
+PID f multiplication are also asserted; all six mutants remain caught. Native
+patch/applied tree/candidate and all old tracked files remain unchanged. Final
+review/publication/CI results belong to the new PR's external completion record.
