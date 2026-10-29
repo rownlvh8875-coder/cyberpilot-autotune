@@ -23,7 +23,7 @@ def evidence():
 def test_writer_audit_manifest_is_complete_without_authority():
     from tests.audit.validate_carrot_writer import validate
 
-    assert validate(*evidence()) == {"files": 55, "claims": 93, "parameters": 3, "requirements": 16}
+    assert validate(*evidence()) == {"files": 55, "claims": 95, "parameters": 3, "requirements": 16}
 
 
 @pytest.mark.parametrize(
@@ -48,6 +48,17 @@ def test_writer_audit_manifest_is_complete_without_authority():
         "writer",
         "hoya",
         "fingerprint",
+        "overall_status",
+        "factor_gate",
+        "cas_gate",
+        "readback_gate",
+        "duplicate_gate",
+        "missing_gate",
+        "unknown_gate",
+        "parameter_verdict",
+        "offset_verdict",
+        "requirement_status",
+        "score_axis",
     ],
 )
 def test_incomplete_or_promoted_evidence_fails_closed(mutation):
@@ -88,8 +99,32 @@ def test_incomplete_or_promoted_evidence_fails_closed(mutation):
         m["writer_implemented"] = True
     elif mutation == "hoya":
         m["hoya_apply"] = "ADOPT"
-    else:
+    elif mutation == "fingerprint":
         m["verdicts"].remove("RUNTIME_FINGERPRINT_UNCONFIRMED")
+    elif mutation == "overall_status":
+        m["status"] = "CARROT_WRITER_ARCHITECTURE_APPROVED"
+    elif mutation in {"factor_gate", "cas_gate", "readback_gate"}:
+        name = {
+            "factor_gate": "factor_equivalence",
+            "cas_gate": "cas_design_approved",
+            "readback_gate": "readback_design_approved",
+        }[mutation]
+        next(g for g in m["implementation_gates"] if g["gate"] == name)["status"] = "PROVEN"
+    elif mutation == "duplicate_gate":
+        m["implementation_gates"][0] = copy.deepcopy(m["implementation_gates"][1])
+    elif mutation == "missing_gate":
+        m["implementation_gates"].pop()
+    elif mutation == "parameter_verdict":
+        m["parameters"][0]["verdict"] = "UNIT_EQUIVALENCE_PROVEN"
+    elif mutation == "offset_verdict":
+        m["parameters"][2]["global_status"] = "VEHICLE_OFFSET_APPROVED"
+    elif mutation == "requirement_status":
+        m["pr9_requirements"][-1]["status"] = "PROVEN"
+    elif mutation == "score_axis":
+        scores = m["options"][0]["scores"]
+        scores["unknown_axis"] = scores.pop("watchdog")
+    else:
+        m["implementation_gates"][0]["gate"] = "unknown_gate"
     with pytest.raises(ValueError):
         validate(s, m)
 
@@ -191,3 +226,22 @@ if mode.use_nnff_lite:
     ):
         with pytest.raises(ValueError):
             nn_modes(wrong)
+
+
+def test_rotation_magnitude_witness_does_not_assume_negative_slope_orthogonality():
+    import math
+
+    from tests.audit.validate_carrot_writer import rotation_magnitude
+
+    data = b"""def slope2rot(slope):
+    sin = math.sqrt(slope ** 2 / (slope ** 2 + 1))
+    return sin
+"""
+    rotation_magnitude(data)
+    with pytest.raises(ValueError):
+        rotation_magnitude(data.replace(b"slope ** 2 /", b"slope /"))
+    # Algebraic counterexample only; not a fitted or approved vehicle parameter.
+    a, x = -2.0, 1.0
+    y = a * x
+    rotated_coordinate = (y - abs(a) * x) / math.sqrt(a * a + 1)
+    assert rotated_coordinate != 0.0

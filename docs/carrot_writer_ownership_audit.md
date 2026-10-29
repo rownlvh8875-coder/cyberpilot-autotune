@@ -19,7 +19,7 @@ policy, scientific identification or watchdog acceptance gates.
 
 Current upstream was rechecked and had not moved from the supplied last observed
 f5e4 pin. No runtime compatibility pin is upgraded. The source manifest independently
-binds 55 files and 93 source ranges/claims with Git blob and SHA-256 identities.
+binds 55 files and 95 source ranges/claims with Git blob and SHA-256 identities.
 The two PR #9 documents, ports, contracts, coordinator and research guard were
 read at the exact PR #9 head; they are not installed/imported into main.
 
@@ -60,8 +60,8 @@ Ordinary fit admission requires source activity history, no override, velocity/
 torque/acceleration gates and adequate point buckets. The normal minimum sample
 count is 4000, with distinct decimated settings and bucket requirements. These
 are **existing diagnostic estimator heuristics**, not newly approved learning or
-vehicle application policy. TLS produces slope/intercept and perpendicular
-spread. Source sanity clipping affects factor/friction; offset is filtered without
+vehicle application policy. TLS produces slope/intercept and rotated spread, perpendicular to the fitted
+line only for nonnegative slope. Source sanity clipping affects factor/friction; offset is filtered without
 the corresponding clip in this path.
 
 At nominal 4 Hz get_msg emits filtered values even when no new valid fit updates

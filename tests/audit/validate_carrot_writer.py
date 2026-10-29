@@ -18,6 +18,21 @@ PINS = dict(
     pr9="6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
 )
 BASE = "66f4b79036560a11e7020af9cc214118dcbd4fba"
+AUDIT_STATUS = "CARROT_WRITER_ARCHITECTURE_BLOCKED_UNIT_EQUIVALENCE_AND_OWNER_PROTOCOL_ABSENT"
+GATES = {
+    "factor_equivalence": "BLOCKED",
+    "friction_equivalence": "BLOCKED",
+    "offset_preserved_semantics": "PROVEN",
+    "single_owner_selection": "DESIGNABLE",
+    "writer_conflicts_mapped": "PROVEN",
+    "cas_design_approved": "BLOCKED",
+    "readback_design_approved": "BLOCKED",
+    "rollback_source": "DESIGNABLE",
+    "custom_nn_modes": "DESIGNABLE",
+    "runtime_source_selected_and_qualified": "BLOCKED",
+    "vehicle_context_fingerprint": "BLOCKED",
+    "vehicle_bounds_rates": "BLOCKED",
+}
 INTEGRATION = "7a2f051b1f3847786318900444c88c2ba7a74a67"
 REQUIREMENTS = {
     "snapshot",
@@ -45,6 +60,26 @@ CONFLICTS = {
     "controlsd initialization",
     "Params/UI refresh",
     "CyberPilot proposed writer",
+}
+SCORE_AXES = {
+    "exclusive_ownership",
+    "cas_feasibility",
+    "tuple_coherence",
+    "readback",
+    "rollback",
+    "watchdog",
+    "latency",
+    "compatibility",
+    "upstream_friendliness",
+    "torqued_preservation",
+    "custom_nn_interaction",
+    "failure_isolation",
+}
+REQUIREMENT_STATUS = dict.fromkeys(REQUIREMENTS, "SOURCE_CHANGE_REQUIRED") | {
+    "scope": "DESIGNABLE",
+    "unrelated_preservation": "DESIGNABLE",
+    "failure_semantics": "DESIGNABLE",
+    "watchdog": "BLOCKED",
 }
 VERDICTS = {
     "FACTOR_UNIT_EQUIVALENCE_UNRESOLVED",
@@ -99,7 +134,7 @@ def validate(sources, matrix):
         require(hex_id(f["git_blob_sha"], 40) and hex_id(f["sha256"], 64), "file hash")
         require(type(f["line_count"]) is int and f["line_count"] > 0, "source size")
     claims = {c["id"]: c for c in sources["claims"]}
-    require(len(claims) == len(sources["claims"]) == 93, "claim inventory")
+    require(len(claims) == len(sources["claims"]) == 95, "claim inventory")
     for c in claims.values():
         require(
             c["file_id"] in files and c["id"].split(":")[0] == c["file_id"].split(":")[0],
@@ -140,12 +175,19 @@ def validate(sources, matrix):
         require(
             ps[key]["confidence"] == "CONDITIONAL" and bool(ps[key]["unresolved_gaps"]), "unit gaps"
         )
+        require(ps[key]["verdict"] == "UNIT_EQUIVALENCE_CONDITIONAL", "parameter verdict overclaim")
     require(
         ps["lat_accel_offset"]["tunable"] is False
         and ps["lat_accel_offset"]["stored_representation"] is None,
         "preserved offset",
     )
     require(ps["friction"]["unit"] is None, "unproven friction unit")
+    require(
+        ps["lat_accel_offset"]["global_status"] == "OFFSET_SEMANTICS_PROVEN"
+        and ps["lat_accel_offset"]["verdict"] == "PRESERVED_STATE_SEMANTICS_PROVEN"
+        and ps["lat_accel_offset"]["confidence"] == "PROVEN",
+        "offset scope",
+    )
     require(
         {c["source"] for c in matrix["writer_conflicts"]} == CONFLICTS
         and len(matrix["writer_conflicts"]) == 7,
@@ -163,7 +205,7 @@ def validate(sources, matrix):
         )
     for entry in matrix["pr9_requirements"]:
         require(
-            entry["status"] in {"PROVEN", "DESIGNABLE", "SOURCE_CHANGE_REQUIRED", "BLOCKED"},
+            entry["status"] == REQUIREMENT_STATUS[entry["requirement"]],
             "requirement status",
         )
     require(
@@ -186,7 +228,7 @@ def validate(sources, matrix):
     )
     for option in matrix["options"]:
         require(
-            len(option["scores"]) == 12
+            set(option["scores"]) == SCORE_AXES
             and all(type(v) is int and 0 <= v <= 5 for v in option["scores"].values())
             and bool(option["rationale"]),
             "scores/rationale",
@@ -197,11 +239,11 @@ def validate(sources, matrix):
         "selection",
     )
     require(
-        len(matrix["implementation_gates"]) == 12
-        and {g["gate"]: g["status"] for g in matrix["implementation_gates"]}["vehicle_bounds_rates"]
-        == "BLOCKED",
+        len(matrix["implementation_gates"]) == len(GATES)
+        and {g["gate"]: g["status"] for g in matrix["implementation_gates"]} == GATES,
         "implementation gates",
     )
+    require(matrix["status"] == AUDIT_STATUS, "overall blocked decision")
     require(
         set(matrix["verdicts"]) == VERDICTS and len(matrix["verdicts"]) == len(VERDICTS),
         "qualification overclaim",
@@ -313,6 +355,38 @@ def nn_modes(data):
     )
 
 
+def rotation_magnitude(data):
+    tree = ast.parse(data.decode("utf8"))
+    function = next(
+        n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "slope2rot"
+    )
+    sine = next(
+        n.value
+        for n in function.body
+        if isinstance(n, ast.Assign)
+        and any(isinstance(t, ast.Name) and t.id == "sin" for t in n.targets)
+    )
+    require(
+        isinstance(sine, ast.Call)
+        and isinstance(sine.func, ast.Attribute)
+        and sine.func.attr == "sqrt"
+        and len(sine.args) == 1,
+        "rotation square root",
+    )
+    ratio = sine.args[0]
+    require(
+        isinstance(ratio, ast.BinOp)
+        and isinstance(ratio.op, ast.Div)
+        and isinstance(ratio.left, ast.BinOp)
+        and isinstance(ratio.left.op, ast.Pow)
+        and isinstance(ratio.left.left, ast.Name)
+        and ratio.left.left.id == "slope"
+        and isinstance(ratio.left.right, ast.Constant)
+        and ratio.left.right.value == 2,
+        "rotation uses slope magnitude",
+    )
+
+
 def semantic_check(path, data):
     """Selected structural witnesses supplement hashes and human semantic review."""
     text = data.decode("utf8")
@@ -377,6 +451,7 @@ def semantic_check(path, data):
             "custom selector getter",
         )
     elif path.endswith("/torqued.py"):
+        rotation_magnitude(data)
         tree = ast.parse(text)
         calls = {
             n.func.attr

@@ -49,7 +49,7 @@ runtime mode, baseline, ownership or approved application bounds.
 |---|---|---|---|---|
 | LateralTorqueFriction | Manual coefficient assignment | Native integer text, get_float ×0.001 | Production helper's compensation magnitude under selected callback | PROVEN conversion |
 | CP friction | Startup/table coefficient | Float32 | Callback-specific magnitude, not a trusted baseline | CONDITIONAL effect |
-| frictionCoefficientRaw | std of rotated/perpendicular spread × FRICTION_FACTOR | Float32; source factor is an estimator heuristic | Nonnegative numeric spread in a rotation mixing x/y coordinate magnitudes; general normalized torque conversion unproven | CONDITIONAL units |
+| frictionCoefficientRaw | std of rotated spread × FRICTION_FACTOR; perpendicular only for nonnegative fitted slope | Float32; source factor is an estimator heuristic | Nonnegative numeric spread in a rotation mixing x/y coordinate magnitudes; general normalized torque conversion unproven | CONDITIONAL units |
 | frictionCoefficientFiltered | Clipped/filtered numeric spread | Float32 passed unchanged into controller | Numeric identity is proven; dimensional/identification equivalence is not | CONDITIONAL |
 | controller torque_params.friction | Signed interpolation endpoint magnitude | Float32 | In base callback, additive normalized-torque contribution; sign follows deadzoned error | PROVEN scoped role |
 | CyberPilot friction | PR #9 independently qualified target coefficient | No automatic diagnostic conversion | Residual/diagnostic spread or same name cannot prove this magnitude | UNRESOLVED |
@@ -61,7 +61,10 @@ compensation is disabled. It has no direct speed or steeringPressed input; those
 change upstream error/jerk/curvature/PID behavior. NN-lite changes friction input
 shaping; full NN may use an optional override; GM callback paths differ again.
 
-Rotation normalizes the fit's perpendicular coordinate using its numerical slope.
+The rotation uses a nonnegative sine derived from slope squared, so its second
+coordinate is (y − abs(a)·x)/sqrt(a²+1). It is perpendicular to the fitted line
+only for nonnegative a. A negative-slope noiseless line can still have nonzero
+rotated spread; this condition is not silently excluded by a general claim.
 The source does not supply a proven general physical conversion from that rotated
 spread to normalized torque, or from CyberPilot diagnostic friction to this
 controller coefficient. We do not invent a slope-dependent multiplier, correct
@@ -72,7 +75,7 @@ synthetic data, and leaves factor/friction estimate checks as TODO. It is eviden
 about that test's scope, not qualification of the production coefficient.
 
 **UNIT_EQUIVALENCE_CONDITIONAL / FRICTION_UNIT_EQUIVALENCE_UNRESOLVED.**
-Evidence: fit, friction, default-linear, controller-compute, gm-neural, gm-siglin,
+Evidence: fit, rotation, friction, default-linear, controller-compute, gm-neural, gm-siglin,
 offset-test, old-test-helper, pr9:research.
 
 ## lat_accel_offset: preserved state, not a target

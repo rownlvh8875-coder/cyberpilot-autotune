@@ -69,11 +69,30 @@ bounds and scientific parameter-identification qualification remain unresolved.
 - Post-merge H2 baseline: 843 tests passed before adding H3 evidence/tests.
 - RED/GREEN: missing validator, coefficient transform witness and NN branch
   witness; mutation cases deny incorrect pins/hashes/units/authority/readback.
-- H3 audit tests: 26 passed. Full base suite: 869 passed.
-- Native optional schema regression: 1006 passed, 0 failed/skipped. Overall
+- H3 audit tests: 38 passed. Full base suite: 881 passed.
+- Native optional schema regression: 1018 passed, 0 failed/skipped. Overall
   coverage 98.93%; knowledge 99.71% (branch-only 100%), safety/pure contract 100%.
-- Explicit full source validator: 55 files / 93 claims / 3 fields / 16 PR9
+- Explicit full source validator: 55 files / 95 claims / 3 fields / 16 PR9
   requirements. H2 39/78/27 source validator and H1 structural audit also pass.
 - Ruff/format and strict mypy pass, with no production source change. Final
   build/fresh-wheel, independent review and remote CI outcomes are recorded
   in the Draft PR/final report after the audit commits.
+
+## Independent review correction ledger
+
+Initial fresh read-only review at a856e9ae25f0651a5091ee4ebe52062c8667eb1f
+reported Critical 0 / Important 1 / Minor 2. All were reproduced/corrected:
+
+- RED/GREEN approval/gate mutations: pin the complete BLOCKED decision, exact
+  twelve gate/status mapping, PR9 requirement statuses, parameter verdict scope
+  and named scoring axes. Missing/duplicated gates and contradictory approval
+  metadata now reject. No product application policy is implemented.
+- Add two exact slope2rot range claims: sine loses slope sign, so perpendicular
+  spread interpretation applies only for nonnegative fitted slope. A negative
+  slope algebraic counterexample is diagnostic only, not a tuning value.
+- Correct 240 updates at nominal 20 Hz to 12 seconds; preserve the stale upstream
+  60-second comment as a documented discrepancy, without modifying upstream.
+
+Post-correction local suite: 881 base / 1018 native passed, 0 failed/skipped;
+full source evidence 55 files / 95 claims verified. Final exact-head independent
+confirmation and remote CI are recorded in the Draft PR/final report.

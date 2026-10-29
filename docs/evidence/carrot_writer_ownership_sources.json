@@ -765,7 +765,7 @@
       "range_start": 145,
       "range_end": 157,
       "source_range_sha256": "efa2cbfcc4a36b428c93f053afc47ed750c95f6c9a2fa40e02e0ddba5362ea09",
-      "semantic_claim": "TLS on [normalized returned torque,1,roll-corrected lateral acceleration] yields slope/intercept; friction is perpendicular spread times the source factor. No general normalized-torque equivalence follows.",
+      "semantic_claim": "TLS on [normalized returned torque,1,roll-corrected lateral acceleration] yields slope/intercept; friction is rotated-coordinate spread times the source factor (perpendicular only for nonnegative slope). No general normalized-torque equivalence follows.",
       "category": "units",
       "conditions": [
         "Only the exact inspected source and named path; no vehicle approval"
@@ -1019,6 +1019,20 @@
       "source_range_sha256": "76cd96f69674ea9b435418092eff83b2a31daa5e8ae6f4851eb7dc938765cc3e",
       "semantic_claim": "Restore key binds fingerprint, tuning, offline factor/friction and estimator version, not an owner epoch or effective revision.",
       "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:rotation",
+      "file_id": "current:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "slope2rot",
+      "range_start": 39,
+      "range_end": 42,
+      "source_range_sha256": "b3ea067644213a817d3674fab9519ab7e630740c5dbd16cca81c6f8ce6653393",
+      "semantic_claim": "The rotation uses a nonnegative sine from squared slope; its second coordinate is perpendicular to the fitted line only for nonnegative slope. Negative-slope fits require the magnitude-based interpretation.",
+      "category": "units",
       "conditions": [
         "Only the exact inspected source and named path; no vehicle approval"
       ],
@@ -1479,7 +1493,7 @@
       "range_start": 145,
       "range_end": 157,
       "source_range_sha256": "efa2cbfcc4a36b428c93f053afc47ed750c95f6c9a2fa40e02e0ddba5362ea09",
-      "semantic_claim": "TLS on [normalized returned torque,1,roll-corrected lateral acceleration] yields slope/intercept; friction is perpendicular spread times the source factor. No general normalized-torque equivalence follows.",
+      "semantic_claim": "TLS on [normalized returned torque,1,roll-corrected lateral acceleration] yields slope/intercept; friction is rotated-coordinate spread times the source factor (perpendicular only for nonnegative slope). No general normalized-torque equivalence follows.",
       "category": "units",
       "conditions": [
         "Only the exact inspected source and named path; no vehicle approval"
@@ -1719,6 +1733,20 @@
       "source_range_sha256": "76cd96f69674ea9b435418092eff83b2a31daa5e8ae6f4851eb7dc938765cc3e",
       "semantic_claim": "Restore key binds fingerprint, tuning, offline factor/friction and estimator version, not an owner epoch or effective revision.",
       "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:rotation",
+      "file_id": "runtime:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "slope2rot",
+      "range_start": 39,
+      "range_end": 42,
+      "source_range_sha256": "b3ea067644213a817d3674fab9519ab7e630740c5dbd16cca81c6f8ce6653393",
+      "semantic_claim": "The rotation uses a nonnegative sine from squared slope; its second coordinate is perpendicular to the fitted line only for nonnegative slope. Negative-slope fits require the magnitude-based interpretation.",
+      "category": "units",
       "conditions": [
         "Only the exact inspected source and named path; no vehicle approval"
       ],
