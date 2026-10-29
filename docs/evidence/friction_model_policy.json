@@ -1,0 +1,222 @@
+{
+  "schema": "friction-model-preregistration-v1",
+  "base": "43ca6761749e71ec575906f099b02386bc76d994",
+  "source_profiles": {
+    "runtime": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+    "current": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+    "research": "02652a441c1c39b4a9c3bfaf1132217f0e57b384"
+  },
+  "estimands": {
+    "F": "conditional linear callback acceleration-per-normalized-torque slope, not empirically qualified",
+    "C": "conditional additive controller-domain response coefficient on independently observed q; not optimum physical friction",
+    "offset": "free intercept; inverse intercept=-F*controller_intercept",
+    "K": "1.5*std perpendicular residual; diagnostic only; never transformed to C",
+    "explicit_term": "implemented callback consistency only when term was constructed with installed C"
+  },
+  "models": [
+    {
+      "id": "controller",
+      "equation": "u_cb=beta_a*a_cb+beta_q*q+beta_0",
+      "F": "1/beta_a",
+      "C": "beta_q",
+      "design": [
+        "a_cb",
+        "q",
+        "1"
+      ]
+    },
+    {
+      "id": "inverse",
+      "equation": "a_cb=beta_u*u_cb+beta_q*q+beta_0",
+      "F": "beta_u",
+      "C": "-beta_q/beta_u",
+      "design": [
+        "u_cb",
+        "q",
+        "1"
+      ]
+    },
+    {
+      "id": "branch",
+      "equation": "a_cb=F*u_cb+b_plus*I(q=+1)+b_minus*I(q=-1)",
+      "F": "joint within-branch slope or independently supplied",
+      "C": "(b_minus-b_plus)/(2*F)",
+      "design": [
+        "u_cb",
+        "I(q=+1)",
+        "I(q=-1)"
+      ]
+    },
+    {
+      "id": "explicit",
+      "equation": "h=C*q+b_h",
+      "F": "not required for decomposed h",
+      "C": "slope(q,h), IMPLEMENTED_COEFFICIENT_CONSISTENCY_ONLY",
+      "design": [
+        "q",
+        "1"
+      ]
+    }
+  ],
+  "selection": {
+    "frozen_before_results": true,
+    "order": [
+      "require exact source/mode, correct callback target and independent q, complete applied geometry/cohort/delay context",
+      "require independent scientific response, not h=C_installed*q or installed C label",
+      "require both signs and full numerical rank; no condition-number physical cutoff",
+      "compare structural recovery before noise/complexity; observed-data feasibility before synthetic accuracy",
+      "if any mandatory current-signal/cohort requirement missing select NO_IDENTIFIABLE_MODEL_WITH_CURRENT_SIGNALS; never select synthetic winner as deployable"
+    ],
+    "tie_order": [
+      "controller",
+      "inverse",
+      "branch",
+      "explicit"
+    ],
+    "real_selection_thresholds": "SELECTION_THRESHOLD_UNJUSTIFIED; no low-error/jerk threshold invented"
+  },
+  "synthetic": {
+    "role": "synthetic_known_truth_only",
+    "seed": 606,
+    "per_case_points": 360,
+    "truth": {
+      "factor": 2.4,
+      "friction": 0.17,
+      "offset": 0.04,
+      "deadzone": 0.06,
+      "threshold": 0.3
+    },
+    "noise": "seeded random.Random integer-derived uniform noise; no platform libm trajectories",
+    "scenarios": [
+      "zero_friction",
+      "symmetric",
+      "asymmetric_occupancy",
+      "directional_asymmetry",
+      "deadzone_only",
+      "transition_only",
+      "single_sign",
+      "collinear_design",
+      "compensation_disabled",
+      "known_factor",
+      "wrong_factor",
+      "joint_factor",
+      "factor_interval",
+      "pid_contamination",
+      "feedforward_only",
+      "pid_subtracted",
+      "x_noise",
+      "a_noise",
+      "q_noise",
+      "total_noise",
+      "delay_mismatch",
+      "roll_mismatch",
+      "geometry_change",
+      "mode_change",
+      "saturation",
+      "driver_override"
+    ],
+    "independence": "generator imports contracts only; no estimator, q helper, NumPy, or hidden truth transform shared",
+    "factor_cases": {
+      "known": "synthetic oracle only",
+      "wrong_multiplier": 1.25,
+      "interval": [
+        2.1,
+        2.7
+      ]
+    },
+    "noise_amplitude": 0.08,
+    "pid": "0.23*q+0.05*a",
+    "delay_samples": 3,
+    "roll_bias_mps2": 0.12,
+    "synthetic_exact_recovery_tolerance": 1e-9,
+    "numerical_rank": "NumPy SVD default numerical tolerance only",
+    "condition_number": "diagnostic, never a physical acceptance cutoff",
+    "interval": "extrema of residual slope across 1/F endpoints with intercept; deterministic sensitivity, not CI/safe bounds"
+  },
+  "geometry": {
+    "classification": "GEOMETRY_CONTEXT_PARAMETER",
+    "unknown": "None; scientific comparison blocked",
+    "raw_zero": "VEHICLE_DEFAULT intent, not physical ratio zero",
+    "applied": "request is not applied evidence; current rate-limited actual VM snapshot must be bound",
+    "epoch": "any geometry, steer ratio/rate/customSR, stiffness, delay source/value, controller/custom mode or installed F/C/generation change closes epoch; no mixed-context fit",
+    "static_runtime": "CP.centerToFront/CP.wheelbase; no dynamic parameter/live field/update_geometry at c213",
+    "current": "Params -> rate-limited paramsd geometry -> liveParameters ratio -> controlsd VM.update_geometry; no backport assumption",
+    "toy": {
+      "wheelbase": 2.73,
+      "baseline_ratio": 0.43,
+      "ratios": [
+        0.43,
+        0.44,
+        0.51
+      ],
+      "mass": 1234,
+      "inertia": 2300,
+      "front_stiffness": 70000,
+      "rear_stiffness": 90000,
+      "stiffness_factor": 0.95,
+      "steer_ratio": 14.7,
+      "rear_steer_ratio": 0,
+      "speed": 18,
+      "steer_angle_rad": 0.035,
+      "roll_rad": 0.02,
+      "dt": 0.001,
+      "steps": 200
+    },
+    "comparisons": [
+      "coherently redistribute front/rear stiffness with ratio, then steady curvature/roll",
+      "dynamic A/B transient yaw/lateral velocity",
+      "mismatched geometry cohort must reject even if steady mapping invariant"
+    ],
+    "verdict_rule": "MATERIAL if dynamic or steady difference exceeds numerical tolerance 1e-9; NEGLIGIBLE_UNDER_MODEL if all tested differences <=1e-9; EFFECT_UNRESOLVED if model/evidence absent",
+    "scope": "generic mathematical fixture, not any actual vehicle and not vehicle-safe ranges"
+  },
+  "observations": {
+    "required": [
+      "callback_acceleration",
+      "callback_output_raw",
+      "friction_input",
+      "deadzone",
+      "threshold",
+      "compensation_enabled",
+      "q_or_exact_inputs",
+      "controller_mode",
+      "factor_installed_context",
+      "friction_installed_context_not_truth",
+      "PID_decomposition_and_kf",
+      "saturation",
+      "steeringPressed",
+      "command_and_curvature_limit",
+      "source_timestamps",
+      "geometry_applied_context",
+      "delay_applied_context",
+      "cohort_generation"
+    ],
+    "profiles": [
+      "c213",
+      "f5e4",
+      "observation-v2"
+    ],
+    "extension": "read-only design only, no schema/runtime edits"
+  },
+  "gates": {
+    "empirical": false,
+    "application": false,
+    "bounds": false,
+    "runtime_fingerprint": false,
+    "encoding": false,
+    "watchdog": false,
+    "external_executor": false,
+    "frozen_development": "FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE",
+    "factor": "FACTOR_IDENTIFICATION_UNQUALIFIED_FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE"
+  },
+  "prohibitions": [
+    "no Params writes",
+    "no native/controller/schema/writer changes",
+    "no driving data/holdout/evaluation access",
+    "no recommendations",
+    "no repeat artifact search without new lead",
+    "no H2/H3/H4/H5 modifications",
+    "no upstream PR",
+    "no automatically starting next task"
+  ]
+}
