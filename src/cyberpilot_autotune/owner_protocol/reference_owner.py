@@ -148,10 +148,16 @@ class ReferenceTorqueParameterOwner:
             now = self._now()
         except Exception:
             self._fault("CLOCK_FAULT")
+        self._check_active_lease(now, installed=False)
+        return current, now
+
+    def _check_active_lease(self, now: float, *, installed: bool) -> None:
         if self._lease is not None and now >= self._lease.expires_at_s:
+            self._fault_reason = "LEASE_EXPIRED"
+            if installed:
+                self._fault("LEASE_EXPIRED")
             self._state = OwnerState.RECOVERING
             raise OwnerProtocolError("LEASE_EXPIRED")
-        return current, now
 
     def _authorize(self, grant: AuthorityContext, operation: str, now: float) -> None:
         if (
@@ -178,10 +184,14 @@ class ReferenceTorqueParameterOwner:
         commit_id: str,
         started: float,
         duration: float,
+        *,
+        guard_active_lease: bool,
     ) -> CommitAck:
         if current.revision == UINT64_MAX:
             self._fault("REVISION_EXHAUSTED")
         now = self._operation_time()
+        if guard_active_lease:
+            self._check_active_lease(now, installed=False)
         if now - started > duration:
             self._fault("DEADLINE")
         # Exactly one complete transition at the injected serialized boundary.
@@ -197,6 +207,8 @@ class ReferenceTorqueParameterOwner:
             self._fault("ACK_FAULT")
         self._expected, self._pending = update, None
         finished = self._operation_time()
+        if guard_active_lease:
+            self._check_active_lease(finished, installed=True)
         if finished - started > duration:
             self._fault("DEADLINE")
         return CommitAck(
@@ -271,8 +283,10 @@ class ReferenceTorqueParameterOwner:
             digest(("install", self.identity.digest, current.revision + 1, proposal.digest))[:32],
             started,
             self.policy.maximum_transaction_s,
+            guard_active_lease=True,
         )
         finished = self._operation_time()
+        self._check_active_lease(finished, installed=True)
         if finished >= min(authority_context.expires_at_s, proposal_deadline) or (
             finished - started > self.policy.maximum_transaction_s
             or finished - proposal.generated_at_s > self.policy.maximum_proposal_age_s
@@ -307,7 +321,7 @@ class ReferenceTorqueParameterOwner:
             self._state is OwnerState.FAULTED and self._recovery_attempted
         ):
             raise OwnerProtocolError("RECOVERY_UNAVAILABLE")
-        was_faulted = self._state is OwnerState.FAULTED
+        was_faulted = self._state is OwnerState.FAULTED or self._fault_reason is not None
         self._recovery_attempted = True
         if self._recovery_forbidden:
             return RecoveryResult(None, None, False, "RECOVERY_CONTEXT_UNPROVEN", self._state, None)
@@ -326,6 +340,7 @@ class ReferenceTorqueParameterOwner:
                     commit_id,
                     started,
                     self.policy.maximum_rollback_s,
+                    guard_active_lease=False,
                 )
             readback = self.snapshot()
             if readback.values.digest != self.baseline.values.digest or (
@@ -430,8 +445,12 @@ class ReferenceTorqueParameterOwner:
             )[:32],
             started,
             self.policy.maximum_transaction_s,
+            guard_active_lease=True,
         )
-        if self._operation_time() >= authority_context.expires_at_s:
+        finished = self._operation_time()
+        if finished - started > self.policy.maximum_transaction_s:
+            self._fault("DEADLINE")
+        if finished >= authority_context.expires_at_s:
             self._fault("MODE_TRANSITION_FAULT")
         self._state = (
             OwnerState.DISARMED

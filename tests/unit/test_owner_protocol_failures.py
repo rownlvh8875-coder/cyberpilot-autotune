@@ -397,3 +397,43 @@ def test_fresh_watchdog_input_does_not_refresh_the_active_proposals_original_age
     result = owner.watchdog(replace(evidence(), generated_at_s=13.25))
     assert result.verified and result.values == base.values and result.revision == 9
     assert result.state is OwnerState.FAULTED
+
+
+@pytest.mark.parametrize(
+    "times,revision",
+    [
+        ([12.9, 12.9, 13.0, 13.0, 13.0], 8),
+        ([12.9, 12.9, 12.9, 13.0, 13.0], 9),
+        ([12.9, 12.9, 12.9, 12.9, 13.0], 9),
+    ],
+)
+def test_old_lease_expiry_precedes_renewal_at_every_final_install_boundary(times, revision):
+    owner, port, clock, authority, base = setup_owner()
+    first = proposal(owner)
+    owner.commit(7, first, grant(owner, authority, first))
+    second = replace(
+        proposal(owner, sequence=2, candidate=TorqueParameterTuple(3.0, 0.2, -0.125)),
+        generated_at_s=12.9,
+        expires_at_s=20.0,
+    )
+    authorization = replace(grant(owner, authority, second), expires_at_s=20.0)
+    samples = iter(times)
+    clock.now_s = lambda: next(samples)
+    with pytest.raises(OwnerProtocolError, match="LEASE_EXPIRED"):
+        owner.commit(8, second, authorization)
+    assert port.read().revision == revision
+    clock.now_s = lambda: 13.0
+    result = owner.rollback()
+    assert result.verified and result.values == base.values
+    assert result.revision == revision + 1
+    assert owner.state is OwnerState.FAULTED
+
+
+def test_mode_final_clock_cannot_hide_transaction_overrun_behind_unexpired_grant():
+    owner, port, clock, authority, _ = setup_owner()
+    authorization = mode_grant(owner, authority, ControllerMode.NN_TORQUE, 7)
+    samples = iter([10.0, 10.0, 10.0, 10.0, 11.5])
+    clock.now_s = lambda: next(samples)
+    with pytest.raises(OwnerProtocolError, match="DEADLINE"):
+        owner.transition_mode(7, ControllerMode.NN_TORQUE, authorization)
+    assert owner.state is OwnerState.FAULTED and port.read().revision == 8

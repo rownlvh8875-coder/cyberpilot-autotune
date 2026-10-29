@@ -12,7 +12,7 @@ describes logical in-memory behavior, not an installed vehicle capability.
 | T05 | stale CAS, malformed/stale proposal, unsupported mode or authority rejection | rejected, tuple unchanged | unchanged |
 | T06 | successful proposal identity reused or failed structured identity edited | REPLAY rejection | unchanged |
 | T07 | another producer attempts active lease takeover | PRODUCER_BUSY rejection | unchanged |
-| T08 | new commit discovers expired lease | RECOVERING, no forward install | unchanged |
+| T08 | new commit discovers expired lease | RECOVERING, no forward install; expiry fault survives recovery | unchanged |
 | T09 | watchdog expiry, stale source or active producer death in proven context | baseline recovery then FAULTED | +1 only if tuple changes |
 | T10 | watchdog actual context/mode/epoch/owner mismatch | FAULTED, unknown; no guessed overwrite | unchanged |
 | T11 | foreign/malformed port state, including simultaneous expiry | FAULTED, unknown | no owner install |

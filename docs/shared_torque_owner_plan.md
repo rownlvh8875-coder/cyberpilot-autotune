@@ -66,3 +66,17 @@ CI adds an explicit owner_protocol >=98% coverage report to existing coverage ru
 
 Final exact-head CI, independent review findings/fixes and PR URL are recorded in
 the Draft PR and final report after the immutable implementation/design commits.
+
+## Independent review correction
+
+Initial independent review of 8559ed68b94f036226ef7529647121a74e1ba999:
+Critical 0 / Important 2 / Minor 0. RED regressions reproduced both findings:
+old lease expiry crossed at the final pre/post-CAS/final-return clocks could be
+masked by a new lease, and mode's last clock omitted the transaction duration.
+
+Correction checks the old lease at every forward install/return boundary while
+allowing explicit baseline recovery after expiry; it retains the expiry fault
+even when pre-install rejection is followed by direct recovery. Mode's final
+clock checks both duration and grant expiry. Four adversarial timing cases plus
+the sticky-recovery assertion passed after their observed failures. Full-suite
+and fresh final-head review results are reported after the correction commit.
