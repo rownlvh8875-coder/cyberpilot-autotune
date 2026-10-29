@@ -31,13 +31,20 @@ ROLES = (
 
 
 def content_digest(value):
+    def plain(item):
+        if isinstance(item, Mapping):
+            return {key: plain(value) for key, value in item.items()}
+        if isinstance(item, (tuple, list)):
+            return [plain(value) for value in item]
+        return item
+
     return hashlib.sha256(
-        json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
+        json.dumps(plain(value), sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
     ).hexdigest()
 
 
 def freeze(value):
-    if isinstance(value, dict):
+    if isinstance(value, Mapping):
         return MappingProxyType({key: freeze(item) for key, item in value.items()})
     if isinstance(value, (list, tuple)):
         return tuple(freeze(item) for item in value)
@@ -82,6 +89,11 @@ def guarded(method):
 class SealedReceipt:
     payload: object
     digest: str
+
+    def __post_init__(self):
+        if self.digest != content_digest(self.payload):
+            raise ValueError("CONTENT_DIGEST_MISMATCH")
+        object.__setattr__(self, "payload", freeze(self.payload))
 
 
 class PassiveFrictionObserver:
@@ -157,7 +169,14 @@ class PassiveFrictionObserver:
             self._bad = True
 
     def _generation(self, name, values):
-        key = content_digest(values)
+        # Fixed-size scalar comparison only. Preserve signed zero without JSON,
+        # binary packing or content hashing in the pre-command capture path.
+        key = tuple(
+            (value, math.copysign(1.0, value))
+            if type(value) is float and value == 0.0
+            else (value, None)
+            for value in values
+        )
         previous, generation = self._epochs.get(name, (None, -1))
         if key != previous:
             generation += 1
@@ -192,27 +211,11 @@ class PassiveFrictionObserver:
                 raise ValueError("SOURCE_TIME")
         if sequence is not None:
             uint(sequence)
-        identity = (
-            None
-            if source_time is None or sequence is None
-            else content_digest(
-                {
-                    "session": self._origin[3],
-                    "role": role,
-                    "time": source_time,
-                    "sequence": sequence,
-                    "origin": origin,
-                    "local_cycle": self._data["cycle_id"]
-                    if origin == "LOCAL_CYCLE_OBJECT"
-                    else None,
-                }
-            )
-        )
         self._data["sources"][role] = dict(
             role=role,
             source_time_ns=source_time,
             sequence=sequence,
-            source_identity=identity,
+            source_identity=None,
             consumed=consumed,
             valid=valid,
             alive=alive,
@@ -223,6 +226,8 @@ class PassiveFrictionObserver:
     @guarded
     def wire_source(self, sm, topic, role=None, consumed=True):
         seen = bool(sm.seen[topic])
+        if not seen:
+            raise ValueError("CONSUMED_SOURCE_NEVER_SEEN")
         self.source(
             role or topic,
             int(sm.logMonoTime[topic]) if seen else None,
@@ -230,6 +235,33 @@ class PassiveFrictionObserver:
             bool(sm.valid[topic]),
             bool(sm.alive[topic]),
             consumed=consumed,
+        )
+
+    @guarded
+    def local_source(self, role):
+        sequence = self._data.get("local_sequence", 0)
+        self._data["local_sequence"] = sequence + 1
+        self.source(role, self.now(), sequence, True, True, origin="LOCAL_CYCLE_OBJECT")
+
+    @guarded
+    def unused(self, role):
+        self.source(role, None, None, None, None, consumed=False)
+
+    @guarded
+    def applied_geometry(self, vm, stiffness, raw_rate, raw_custom):
+        self.geometry(vm.l, vm.aF, stiffness, vm.sR, raw_rate, raw_custom)
+
+    @guarded
+    def selected_delay(self, value, source):
+        if source not in {"MANUAL", "LIVE_DELAY"}:
+            raise ValueError("SELECTED_DELAY_SOURCE")
+        self._data["context"]["delay"] = dict(
+            effective_delay_s=number(value),
+            source=source,
+            alignment_method="RAW_CALLBACK_NO_ALIGNMENT",
+            alignment_version="raw-v1",
+            correction_count=0,
+            values_already_aligned=False,
         )
 
     @guarded
@@ -241,15 +273,16 @@ class PassiveFrictionObserver:
         if wheelbase <= 0:
             raise ValueError("GEOMETRY")
         generation = self._generation("geometry", values)
+        self._data["geometry_values"] = values
         self._data["context"]["geometry"] = dict(
             source_revision=self._origin[0],
             vehicle_context_digest=self._origin[2],
             generation=generation,
-            applied_vm_context_id=content_digest(values),
+            applied_vm_context_id=None,
             origin="ACTUALLY_APPLIED_VM",
             wheelbase=values[0],
             center_to_front=values[1],
-            center_to_front_ratio=values[1] / values[0],
+            center_to_front_ratio=None,
             stiffness_factor=values[2],
             effective_steer_ratio=values[3],
             steer_ratio_rate_raw=values[4],
@@ -276,6 +309,7 @@ class PassiveFrictionObserver:
         function,
         nn_lite,
         full_nn,
+        invocation_index=2,
     ):
         if "callback_enter" in self._data:
             raise ValueError("MULTIPLE_FEEDFORWARD_CALLBACKS")
@@ -283,11 +317,12 @@ class PassiveFrictionObserver:
         if not isinstance(function, str):
             name = getattr(function, "__qualname__", "OTHER")
             module = getattr(function, "__module__", "")
-            function = (
-                name
-                if module in {"opendbc.car.interfaces", "opendbc.car.gm.interface"}
-                else "OTHER"
-            )
+            approved = {
+                ("opendbc.car.interfaces", "CarInterfaceBase.torque_from_lateral_accel_linear"),
+                ("opendbc.car.gm.interface", "CarInterface.torque_from_lateral_accel_siglin"),
+                ("opendbc.car.gm.interface", "CarInterface.torque_from_lateral_accel_neural"),
+            }
+            function = name if (module, name) in approved else "OTHER"
         generation = self._generation("installed", values + (uint(selector),))
         family = "OTHER"
         if full_nn:
@@ -301,7 +336,12 @@ class PassiveFrictionObserver:
             family = "GM_NEURAL"
         else:
             function = "OTHER"
-        self._data.update(family=family, function=function, selector=selector)
+        self._data.update(
+            family=family,
+            function=function,
+            selector=selector,
+            invocation_index=uint(invocation_index),
+        )
         self._data["context"]["installed"] = dict(
             generation=generation,
             factor_installed=values[0],
@@ -431,25 +471,46 @@ class PassiveFrictionObserver:
             controller_instance_generation=0,
             installed_parameter_generation=data["context"]["installed"]["generation"],
             geometry_generation=data["context"]["geometry"]["generation"],
-            callback_invocation_index=2 if data["family"] != "NN" else 0,
+            callback_invocation_index=data["invocation_index"],
             clock_domain="MONOTONIC",
         )
         cycle_id = content_digest(cycle)
+        geometry_values = data["geometry_values"]
+        data["context"]["geometry"]["applied_vm_context_id"] = content_digest(geometry_values)
+        data["context"]["geometry"]["center_to_front_ratio"] = (
+            geometry_values[1] / geometry_values[0]
+        )
         sources = list(data["sources"].values())
         for source in sources:
             source["controller_cycle_digest"] = cycle_id
+            if source["source_time_ns"] is not None and source["sequence"] is not None:
+                source["source_identity"] = content_digest(
+                    {
+                        "session": self._origin[3],
+                        "role": source["role"],
+                        "time": source["source_time_ns"],
+                        "sequence": source["sequence"],
+                        "origin": source["origin"],
+                        "local_cycle": data["cycle_id"]
+                        if source["origin"] == "LOCAL_CYCLE_OBJECT"
+                        else None,
+                    }
+                )
         for section in ("signals", "stages"):
             for value in data[section].values():
                 if isinstance(value, dict):
                     value["cycle_digest"] = cycle_id
         data["context"].update(cycle_digest=cycle_id, snapshot_time_ns=data["context_time"])
         data["context"]["gains"]["cycle_digest"] = cycle_id
-        data["context"]["delay"] = dict(
-            source="UNAVAILABLE",
-            alignment_method="RAW_CALLBACK_NO_ALIGNMENT",
-            alignment_version="raw-v1",
-            correction_count=0,
-            values_already_aligned=False,
+        data["context"].setdefault(
+            "delay",
+            dict(
+                source="UNAVAILABLE",
+                alignment_method="RAW_CALLBACK_NO_ALIGNMENT",
+                alignment_version="raw-v1",
+                correction_count=0,
+                values_already_aligned=False,
+            ),
         )
         family = data["family"]
         stage = (
@@ -533,3 +594,13 @@ def encode(receipt, target):
 
     fill(receipt.payload, target)
     return target
+
+
+def to_event(receipt, log_schema):
+    """Encode a post-seal Event; caller owns transport, which is unqualified."""
+    stamp = PassiveFrictionObserver.now()
+    if stamp < receipt.payload["cycle"]["receipt_complete_mono_time_ns"]:
+        raise ValueError("RECEIPT_EVENT_TIME_ORDER")
+    event = log_schema.Event.new_message(logMonoTime=stamp, valid=True)
+    encode(receipt, event.init("lateralTorqueIdentification"))
+    return event

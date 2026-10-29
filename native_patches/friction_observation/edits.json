@@ -40,7 +40,7 @@
     ],
     [
       "        ff = self.torque_from_nn(nn_input)",
-      "        observe(observer, 'callback_enter', desired_lateral_accel, actual_lateral_accel,\n                roll, roll_compensation, None, friction_input, None,\n                self.torque_params.latAccelFactor, self.torque_params.friction,\n                self.torque_params.latAccelOffset, self.lateralTorqueCustom,\n                self.torque_from_nn, False, True)\n        ff = self.torque_from_nn(nn_input)\n        observe(observer, 'callback_exit', ff)"
+      "        observe(observer, 'callback_enter', desired_lateral_accel, actual_lateral_accel,\n                roll, roll_compensation, None, friction_input, None,\n                self.torque_params.latAccelFactor, self.torque_params.friction,\n                self.torque_params.latAccelOffset, self.lateralTorqueCustom,\n                self.torque_from_nn, False, True, 3 if error_blend_factor > 0.0 else 2)\n        ff = self.torque_from_nn(nn_input)\n        observe(observer, 'callback_exit', ff)"
     ],
     [
       "        ff = self.torque_from_lateral_accel(LatControlInputs(gravity_adjusted_lateral_accel, roll_compensation, CS.vEgo, CS.aEgo), self.torque_params,",
@@ -57,6 +57,64 @@
     [
       "      pid_log.instantaneousLimitState = instantaneous_limit_state(active, raw_limited, curvature_limited)",
       "      pid_log.instantaneousLimitState = instantaneous_limit_state(active, raw_limited, curvature_limited)\n      observe(observer, 'limits', bool(CS.steeringPressed), bool(pid_log.saturated),\n              raw_limited, bool(curvature_limited), bool(steer_limited_by_controls))"
+    ]
+  ],
+  "openpilot/selfdrive/controls/controlsd.py": [
+    [
+      "class Controls:\n  def __init__(self) -> None:\n",
+      "class Controls:\n  def __init__(self, friction_observer=None) -> None:\n    self.friction_observer = friction_observer\n"
+    ],
+    [
+      "from openpilot.selfdrive.controls.lib.latcontrol_torque import LatControlTorque",
+      "from openpilot.selfdrive.controls.lib.latcontrol_torque import LatControlTorque\nfrom openpilot.selfdrive.controls.lib.friction_observation import observe"
+    ],
+    [
+      "    self.carrot_controls = CarrotControls(self.CP)",
+      "    if friction_observer is not None and isinstance(self.LaC, LatControlTorque):\n      self.LaC.friction_observer = friction_observer\n    self.carrot_controls = CarrotControls(self.CP)"
+    ],
+    [
+      "  def state_control(self):\n    CS = self.sm['carState']",
+      "  def state_control(self):\n    observer = self.friction_observer\n    observe(observer, 'begin_cycle', self.sm.frame)\n    CS = self.sm['carState']\n    observe(observer, 'wire_source', self.sm, 'carState')"
+    ],
+    [
+      "    lp = self.sm['liveParameters'] if lateral_ready else lateral_vehicle_parameters(self.sm, self.CP)",
+      "    lp = self.sm['liveParameters'] if lateral_ready else lateral_vehicle_parameters(self.sm, self.CP)\n    if lateral_ready:\n      observe(observer, 'wire_source', self.sm, 'liveParameters')\n    else:\n      observe(observer, 'local_source', 'liveParameters')"
+    ],
+    [
+      "                                           self.params.get_float(\"SteerRatioRate\"),\n                                           self.params.get_float(\"CustomSR\"))",
+      "                                           (observed_sr_rate := self.params.get_float(\"SteerRatioRate\")),\n                                           (observed_custom_sr := self.params.get_float(\"CustomSR\")))"
+    ],
+    [
+      "    self.VM.update_params(x, sr)",
+      "    self.VM.update_params(x, sr)\n    observe(observer, 'applied_geometry', self.VM, x, observed_sr_rate, observed_custom_sr)"
+    ],
+    [
+      "    model_v2 = self.sm['modelV2']",
+      "    model_v2 = self.sm['modelV2']\n    observe(observer, 'wire_source', self.sm, 'modelV2')"
+    ],
+    [
+      "    CC = car.CarControl.new_message()",
+      "    CC = car.CarControl.new_message()\n    observe(observer, 'local_source', 'carControl')\n    # R's torque callback sees fresh local CC, not publish's later pose backfill.\n    observe(observer, 'unused', 'livePose')"
+    ],
+    [
+      "    self.pm.send('carControl', cc_send)",
+      "    self.pm.send('carControl', cc_send)\n    observe(self.friction_observer, 'complete', int(dat.logMonoTime), int(cc_send.logMonoTime))"
+    ],
+    [
+      "      steer_actuator_delay = self.params.get_float(\"SteerActuatorDelay\") * 0.01",
+      "      steer_actuator_delay = self.params.get_float(\"SteerActuatorDelay\") * 0.01\n      observed_delay_source = \"MANUAL\""
+    ],
+    [
+      "        steer_actuator_delay = self.sm['liveDelay'].lateralDelay",
+      "        steer_actuator_delay = self.sm['liveDelay'].lateralDelay\n        observed_delay_source = 'LIVE_DELAY'"
+    ],
+    [
+      "        curvature = get_lag_adjusted_curvature(self.CP, CS.vEgo, lat_plan.psis, lat_plan.curvatures,\n                                               steer_actuator_delay + lat_smooth_seconds, lat_plan.distances)",
+      "        curvature = get_lag_adjusted_curvature(self.CP, CS.vEgo, lat_plan.psis, lat_plan.curvatures,\n                                               steer_actuator_delay + lat_smooth_seconds, lat_plan.distances)\n        observe(observer, 'selected_delay', steer_actuator_delay, observed_delay_source)\n        if observed_delay_source == 'LIVE_DELAY':\n          observe(observer, 'wire_source', self.sm, 'liveDelay')"
+    ],
+    [
+      "        curvature = get_lag_adjusted_curvature(self.CP, CS.vEgo, lat_plan.psis, lat_plan.curvatures, steer_actuator_delay + lat_smooth_seconds, lat_plan.distances)",
+      "        curvature = get_lag_adjusted_curvature(self.CP, CS.vEgo, lat_plan.psis, lat_plan.curvatures, steer_actuator_delay + lat_smooth_seconds, lat_plan.distances)\n        observe(observer, 'selected_delay', steer_actuator_delay, observed_delay_source)\n        if observed_delay_source == 'LIVE_DELAY':\n          observe(observer, 'wire_source', self.sm, 'liveDelay')"
     ]
   ]
 }

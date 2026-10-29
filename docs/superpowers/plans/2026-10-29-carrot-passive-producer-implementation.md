@@ -40,14 +40,14 @@ approves executing that previously unexecuted plan; activation remains excluded.
 Files: compatibility/friction_native/{__init__,bundle}.py,
 native_patches/friction_observation/{receipt.capnp,instrumentation.patch},
 tests/native_friction/test_bundle.py.
-Interfaces: bundle.build(reference:Path,destination:Path)->dict of source bytes;
+Interfaces: bundle.build(reference:Path,destination:Path)->(before,after) byte maps;
 bundle.verify(reference)->None. Reject unknown pin/changed source bytes; never
 modify the reference checkout. Build into a newly allocated empty test directory.
-- [ ] Test absent bundle; exact slot110/typeID, required presence and 134 wire fields.
-- [ ] Generate static schema from frozen map; reject authority/unavailable defaults.
-- [ ] Preserve all old union/type IDs and validate old/new readers in separate
+- [x] Test absent bundle; exact slot110/typeID, required presence and 134 wire fields.
+- [x] Generate static schema from frozen map; reject authority/unavailable defaults.
+- [x] Preserve all old union/type IDs and validate old/new readers in separate
   schema parsers/processes (avoid duplicate global schema registration).
-- [ ] Commit after focused tests pass.
+- [x] Commit after focused tests pass.
 
 ## Task2 — bounded collector and actual PID tap (RED→GREEN)
 
@@ -57,28 +57,28 @@ Interfaces: PassiveFrictionObserver(enabled=False, *, source_revision,
 source_schema_digest,vehicle_context_digest,session_id); begin_cycle(cycle);
 callback/pid/context/limits capture; seal(control_time,command_time)->immutable
 native receipt mapping; encode(schema)->wire. Native module imports stdlib only.
-- [ ] Write failing tests for disabled/invalid origin, immutable sealing, finite
+- [x] Write failing tests for disabled/invalid origin, immutable sealing, finite
   validation, duplicate/future/wrong-clock input, context generation and q absence.
-- [ ] Test exact native PID base/patched parity: return/state bits and getter counts,
+- [x] Test exact native PID base/patched parity: return/state bits and getter counts,
   normal/freeze/override/clip/reset/error cases; observer exceptions stay observer-only.
-- [ ] Implement bounded per-cycle scalars; no IO, mutable external references or
+- [x] Implement bounded per-cycle scalars; no IO, mutable external references or
   callback/gain re-evaluation; missing reads remain unavailable.
-- [ ] Commit after targeted and whole suite pass.
+- [x] Commit after targeted and whole suite pass.
 
 ## Task3 — native callback/caller wiring (RED→GREEN)
 
 Files: instrumentation.patch; tests/native_friction/test_controller.py;
 compatibility/friction_native/harness.py. Native helper supplies begin/context/
 callback/PID/limit/finalization entry points consumed only by the optional taps.
-- [ ] Write source-backed baseline/patched actual-method tests (not substitute
+- [x] Write source-backed baseline/patched actual-method tests (not substitute
   controller equations), including LINEAR/NN_LITE/NN/custom/GM and inactive paths.
-- [ ] Wire original FF invocation and raw ff/PID operands; preserve readback,
+- [x] Wire original FF invocation and raw ff/PID operands; preserve readback,
   sanitizer, callback invocation count and original command sends.
-- [ ] Wire cycle start/local sources/installed/applied context and separate
+- [x] Wire cycle start/local sources/installed/applied context and separate
   t_ctl/t_cmd/final completion; no post-publish CC mutation or latest-reader join.
-- [ ] Test observer failures and controller exceptions independently; no timer or
+- [x] Test observer failures and controller exceptions independently; no timer or
   threshold invented, no unselected delay or skipped k_i filled with a default.
-- [ ] Commit after parity and full tests pass.
+- [x] Commit after parity and full tests pass.
 
 ## Task4 — schema round-trip / CI / review / publication
 
@@ -86,9 +86,9 @@ Files: compatibility/friction_native/run.py; tests for actual compiled schema;
 docs/carrot_passive_friction_producer_result.md; source/payload evidence manifest.
 CI adds pinned pycapnp install and isolated runner to existing source-audit job;
 old design-history audit gets only exact recognition of these additive CI lines.
-- [ ] Round-trip actual native wire; old empty payload/version/default/NaN/Inf/
+- [x] Round-trip actual native wire; old empty payload/version/default/NaN/Inf/
   unknown enums/None vs0/False; callback raw cannot be applied or reconstructed q.
-- [ ] Full CyberPilot regressions, source audits, coverage, lint/type/build/wheel;
+- [x] Full CyberPilot regressions, source audits, coverage, lint/type/build/wheel;
   runnable native synthetic baseline and patched harness. Full hardware/native
   build/vehicle/transport tests are explicitly unrun, not skipped into a pass.
 - [ ] Fresh final independent review; one C/I RED→GREEN fix pass, minors deferred.
@@ -119,3 +119,17 @@ and Float32 error logging use explicit offline dependency doubles; these do not
 qualify actual NN models, transport or hardware. Full runnable native/hardware
 baseline is not available; CyberPilot baseline and extracted pinned method
 baselines are distinguished, never reported as a full openpilot native build.
+
+Task1/2/3 implementation and Task4 local gates:105 native tests with no skips;
+collector288statements/114branches100%/100%; full1481pass; core98.52%, H7 unchanged
+100%/100%; exact schema/patch application and existing audits/build/wheel pass.
+Never-seen sources and wrong callback-module names got dedicated RED→GREEN cases;
+NN FF invocation index2/3 is tied to actual existing branch, not a guessed zero.
+CI extends only dependency install/source warm/new audit, with exact old-audit
+recognition. Final review/publication/hosted CI will be recorded in the new PR.
+Native assets are repository-only, not installed wheel/sdist contents (see result).
+Environment install_script/start_skill draft saved after actual successful setup;
+requires user review/save/Publish, no services or activation.
+Pre-command content hashing found by dedicated RED guard was moved entirely to
+post-command completion; scalar-only signed-zero-preserving epoch comparisons
+remain in capture. Full native/helper tests105 pass, including the guard.

@@ -1,0 +1,80 @@
+{
+  "application_authorized": false,
+  "cyberpilot_base": "cd02d81b745565aa8ae41d4799fd1b1687f2a07e",
+  "deployment_performed": false,
+  "empirical_qualified": false,
+  "instrumented_native_revision": null,
+  "native_base": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "patch_sha256": "8aa8b63b16ad2050280b3d5e08bc8712111c29014338ef85020aa934787ee8ac",
+  "q_observed": null,
+  "runtime_qualified": false,
+  "schema": "passive-native-friction-patch-v1",
+  "source_files": [
+    {
+      "path": "openpilot/cereal/custom.capnp",
+      "sha256": "c41f66de1daa06643f09bf6b93163279167f00ae753be0019f18dbe546f7708e"
+    },
+    {
+      "path": "openpilot/cereal/log.capnp",
+      "sha256": "7d5c19cc2a534fb6918ba51d393eff288f096b68b6c13fd5608c46d17454ba35"
+    },
+    {
+      "path": "openpilot/cereal/services.py",
+      "sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1"
+    },
+    {
+      "path": "openpilot/common/pid.py",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5"
+    },
+    {
+      "path": "openpilot/cereal/deprecated.capnp",
+      "sha256": "65079ff035a29c4c267d07ef7240c316c7eaa81b52f795142ed7603489a61355"
+    },
+    {
+      "path": "openpilot/cereal/include/c++.capnp",
+      "sha256": "fb306076cd38c27af1aed20fac6395e9a46fbe5b5df6a248b5f1b6845a079c44"
+    },
+    {
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "sha256": "5b8a0b8a5eb89d663025b46e453a36521f47954249de6a0553e013f3739baba0"
+    }
+  ],
+  "target_files": [
+    {
+      "path": "openpilot/cereal/custom.capnp",
+      "sha256": "ada09dff86e1b4db11b3074d7120415ca5c85ca186cbff1aff0a6667e80ee22d"
+    },
+    {
+      "path": "openpilot/cereal/log.capnp",
+      "sha256": "00ca3b61347659b2515d36efe26cedff57965ca9610e15fe6b2cafdeaefe3b77"
+    },
+    {
+      "path": "openpilot/cereal/services.py",
+      "sha256": "3312401eeb4b8e1d994ed290f7622eea8a358dee6293c537bf53a9dc57f0a3a2"
+    },
+    {
+      "path": "openpilot/common/pid.py",
+      "sha256": "77892029af46c4821909ee4dbaa2a3c623e261fea1b46044aeb99d844a063a11"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "sha256": "27d3be24301b159c883e633ab67eb0feb65c4b677525cc1411d5c73a830d83d3"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "sha256": "a253b4f7c2852545e6ad222a3c576e2f490c7efad2eb0030eac765f437f8b6ed"
+    },
+    {
+      "path": "openpilot/selfdrive/controls/lib/friction_observation.py",
+      "sha256": "85546689832c38ef92c50b2a21e9c11ac48b8e22292c339e3fa278aedfe5f13f"
+    }
+  ]
+}

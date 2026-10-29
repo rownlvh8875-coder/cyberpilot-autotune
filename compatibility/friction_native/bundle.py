@@ -57,6 +57,14 @@ def originals(reference):
     return {path: git_bytes(reference, path) for path in EDIT_PATHS[:-1]}
 
 
+def reference_paths():
+    return EDIT_PATHS[:-1] + (
+        "openpilot/cereal/deprecated.capnp",
+        "openpilot/cereal/include/c++.capnp",
+        "opendbc_repo/opendbc/car/car.capnp",
+    )
+
+
 def patch(original, revised):
     return "".join(
         "".join(

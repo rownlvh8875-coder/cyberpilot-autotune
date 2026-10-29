@@ -372,7 +372,10 @@ def extend_ci(original):
 
 
 def compatible_ci(original, actual):
-    return actual in (original, extend_ci(original))
+    from compatibility.friction_native.ci import extend as native_extension
+
+    design = extend_ci(original)
+    return actual in (original, design, native_extension(design))
 
 
 def verify_history():
