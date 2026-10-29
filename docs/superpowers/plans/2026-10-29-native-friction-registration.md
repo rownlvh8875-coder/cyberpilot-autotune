@@ -40,14 +40,14 @@ canonical(value)->bytes; main(argv=None)->int. Verification reconstructs content
 not a shape-only or caller-supplied digest check. CLI --reference-checkout required;
 --print-record optional, otherwise compare committed evidence and fail on drift.
 
-- [ ] Write tests: missing module fails with OFFLINE_REGISTRATION_MISSING;
+- [x] Write tests: missing module fails with OFFLINE_REGISTRATION_MISSING;
   deterministic full tree/single-parent commit, seven-path diff and unchanged
   reference; schema digest/closure; old source rejection; altered record denial.
-- [ ] Run tests, observe expected RED. Native cases require exact warmed R cache.
-- [ ] Implement isolated object overlay, deterministic metadata, frozen PR18
+- [x] Run tests, observe expected RED. Native cases require exact warmed R cache.
+- [x] Implement isolated object overlay, deterministic metadata, frozen PR18
   source/target/patch validation, separate root/closure digests and CLI verification.
-- [ ] GREEN: core tests and mandatory source-backed native tests; record exact count.
-- [ ] Commit implementation after passing focused/full tests.
+- [x] GREEN: core tests and mandatory source-backed native tests; record exact count.
+- [x] Commit implementation after passing focused/full tests.
 
 ## Task 2: evidence, result and regression/publication
 
@@ -57,7 +57,7 @@ docs/carrot_passive_native_registration_result.md. No old evidence rewritten.
 Interfaces: evidence is exactly prepare(reference), verified by CLI and mandatory
 source tests discovered by the existing runner/CI; no CI edits needed.
 
-- [ ] Generate record using --print-record and add via apply_patch.
+- [x] Generate record using --print-record and add via apply_patch.
 - [ ] CLI verify, source suite/no skips, coverage, all old audits, pytest, lint,
   format, mypy, build/fresh wheel, replay and knowledge/owner/science smokes.
 - [ ] Document provenance/limits, synthetic identity and all retained blockers.
@@ -84,3 +84,21 @@ cost: source deployment/registration qualification still require separate work.
 
 Baseline:1481 core tests pass; PR18 exact head0d1d44c OPEN/Draft with12 successful
 CI checks. carrot-wip re-read unchanged at f5e4. All prior heads remain preserved.
+
+Task1 RED14: absent implementation fails OFFLINE_REGISTRATION_MISSING. Initial
+GREEN run13/14: independent write-tree attempted a missing untouched promisor
+blob, while network guard correctly denied lazy fetch. Git documents --missing-ok;
+the index oracle uses it to compare complete trees without claiming blob closure.
+Ruling: untouched blobs may remain promisor references — this task proves complete
+tree identity, not full-source availability — cost: no standalone/deployable Git
+archive, full build or device distribution is produced.
+
+Ruling: include the generated evidence with Task1 rather than defer it to Task2 —
+Task1's record-verification tests need their committed input — cost: regenerate the
+record if implementation semantics change before the final freeze.
+Task 1: complete — RED14 missing implementation → GREEN14; duplicate-key parser
+test RED missing read_record → GREEN. Added real Git mode/layout, wrong object
+format, tamper/CLI and additive-history cases. Final focused21/21, native126/126
+without skips, core1494/1494; lint/format/mypy pass. New offline tool coverage
+119/125 statements (95.20%),32/38 branches (84.21%), combined92.64%; defensive
+Git corruption/error guards remain unexercised, not claimed100%. Old H7 unchanged.
