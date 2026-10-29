@@ -94,6 +94,7 @@ jobs:
         with:
           python-version: '3.12.3'
       - run: python -m pip install -e ".[dev,research]"
+      - run: python -m pip install pycapnp==2.1.0
       - name: Prepare exact Git objects outside package source during setup
         shell: bash
         run: |
@@ -133,6 +134,9 @@ jobs:
           for _, revision, path, _ in design_specs():
               if revision != design_base:
                   git_bytes(sys.argv[1], revision, path)
+          from compatibility.friction_native.bundle import reference_paths, PIN as native_pin
+          for path in reference_paths():
+              git_bytes(sys.argv[1], native_pin, path)
           PY
       - name: Verify source file/blob/range/catalog hashes without network
         shell: bash
@@ -145,6 +149,7 @@ jobs:
           sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_friction_model --reference-checkout "$RUNNER_TEMP/knowledge-reference" --verify-history
           sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_friction_receipt --reference-checkout "$RUNNER_TEMP/knowledge-reference" --verify-history
           sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_carrot_friction_patch_design --reference-checkout "$RUNNER_TEMP/knowledge-reference" --verify-history
+          sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m compatibility.friction_native.run --reference-checkout "$RUNNER_TEMP/knowledge-reference" --verify-history
   carrot-schema-compatibility:
     runs-on: ubuntu-24.04
     env:
