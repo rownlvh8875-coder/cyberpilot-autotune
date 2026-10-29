@@ -23,12 +23,14 @@ jobs:
       - run: python -m mypy src/cyberpilot_autotune
       - run: python -m tests.audit.validate_observability
       - run: python -m tests.audit.validate_observation_v2
+      - run: python -m tests.audit.validate_steering_knowledge
       - run: python -m pytest -q
       - run: python -m pytest --cov=cyberpilot_autotune --cov-report=term-missing --cov-fail-under=90
       - run: python -m coverage report --include="*/safety/*" --fail-under=95
       - run: python -m coverage report --include="*/core/residual.py" --fail-under=95
       - run: python -m coverage report --include="*/replay/*" --fail-under=95
       - run: python -m coverage report --include="*/adapters/carrot_receipt_contract.py" --fail-under=95
+      - run: python -m coverage report --include="*/knowledge/*" --fail-under=95
       - name: Verify pinned synthetic golden evidence across fresh processes
         run: python -m pytest tests/integration/test_replay_golden.py tests/integration/test_replay_focused.py -q
       - run: python -m cyberpilot_autotune.replay.cli verify-all tests/fixtures/replay
@@ -46,11 +48,47 @@ jobs:
           fixture_directory="$GITHUB_WORKSPACE/tests/fixtures/replay"
           contract_fixture="$GITHUB_WORKSPACE/tests/fixtures/carrot_v2.py"
           optional_smoke="$GITHUB_WORKSPACE/tests/wheel_carrot_smoke.py"
+          knowledge_smoke="$GITHUB_WORKSPACE/tests/wheel_knowledge_smoke.py"
           cd "$RUNNER_TEMP"
           "$wheel_python" -I -c "import cyberpilot_autotune, pkgutil, importlib; [importlib.import_module(m.name) for m in pkgutil.walk_packages(cyberpilot_autotune.__path__, 'cyberpilot_autotune.')]"
           "$wheel_python" -I -m cyberpilot_autotune.replay.cli verify-all "$fixture_directory"
           "$wheel_python" -I -c "import runpy, sys; from cyberpilot_autotune.adapters.carrot_receipt_contract import evaluate; fixture=runpy.run_path(sys.argv[1]); attempt, policy=fixture['complete'](); result=evaluate(attempt, policy, fixture['BASELINE']); assert result.snapshot.source_valid; assert result.snapshot.baseline_parameters == fixture['BASELINE']; assert result.snapshot.source_age_s == 0.1" "$contract_fixture"
           "$wheel_python" -I "$optional_smoke" --contract-fixture "$contract_fixture"
+          "$wheel_python" -I "$knowledge_smoke"
+  knowledge-source-audit:
+    runs-on: ubuntu-24.04
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.3'
+      - run: python -m pip install -e ".[dev]"
+      - name: Prepare exact Git objects outside package source during setup
+        shell: bash
+        run: |
+          reference="$RUNNER_TEMP/knowledge-reference"
+          git init --quiet "$reference"
+          git -C "$reference" remote add upstream https://github.com/ajouatom/openpilot.git
+          git -C "$reference" remote add fork https://github.com/rownlvh8875-coder/openpilot.git
+          git -C "$reference" fetch --depth=1 --filter=blob:none upstream 0e9c589c1b83027146f909a9cdc306c2c665ceaf
+          git -C "$reference" fetch --depth=1 --filter=blob:none upstream f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3
+          git -C "$reference" fetch --depth=2 --filter=blob:none fork 7a2f051b1f3847786318900444c88c2ba7a74a67
+          python - "$reference" <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+          manifest = json.loads(Path('docs/evidence/steering_parameter_knowledge_sources.json').read_text())
+          for item in manifest['files']:
+              subprocess.run(['git', '-C', sys.argv[1], 'show', item['exact_revision'] + ':' + item['path']], stdout=subprocess.DEVNULL, check=True)
+          PY
+      - name: Verify source file/blob/range/catalog hashes without network
+        shell: bash
+        run: |
+          audit_python="$(python -c 'import sys; print(sys.executable)')"
+          audit_uid="$(id -u)"
+          audit_gid="$(id -g)"
+          sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_steering_knowledge --reference-checkout "$RUNNER_TEMP/knowledge-reference"
   carrot-schema-compatibility:
     runs-on: ubuntu-24.04
     env:
