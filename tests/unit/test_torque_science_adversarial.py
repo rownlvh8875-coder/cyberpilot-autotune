@@ -129,3 +129,20 @@ def test_all_degenerate_data_returns_unknown_and_no_jackknife_interval():
     assert result.full.fit is None and result.residuals is None
     assert result.factor_jackknife_se is None and result.confidence_interval is None
     assert "LEAVE_ONE_ROUTE_FIT_UNAVAILABLE" in result.blockers
+
+
+def test_zero_command_does_not_become_positive_side_excitation():
+    from cyberpilot_autotune.research.torque_identification.cluster_stats import analyze_clusters
+    from cyberpilot_autotune.research.torque_identification.contracts import Point, digest
+
+    data = dataset(route_count=1)
+    route, epoch = data.routes[0], data.routes[0].epochs[0]
+    points = tuple(
+        Point(digest(("zero-side", i)), i, x, 2 * x)
+        for i, x in enumerate((-0.4, -0.2, 0.0, 0.2, 0.4))
+    )
+    changed = replace(data, routes=(replace(route, epochs=(replace(epoch, points=points),)),))
+    result = analyze_clusters(changed)
+    assert result.residuals is not None
+    assert result.residuals.left_fit.fit is None
+    assert result.residuals.right_fit.fit is None

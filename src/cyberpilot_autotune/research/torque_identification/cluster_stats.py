@@ -137,9 +137,9 @@ def _residuals(points: tuple[Point, ...], fit: RawFit) -> ResidualDiagnostic:
     covariance = fsum(
         (p.normalized_command - x_mean) * (e - mean) for p, e in zip(points, residual, strict=True)
     ) / len(points)
-    sides = tuple(
-        tuple(p for p in points if (p.normalized_command < 0) == negative)
-        for negative in (True, False)
+    sides = (
+        tuple(p for p in points if p.normalized_command < 0),
+        tuple(p for p in points if p.normalized_command > 0),
     )
     means = tuple(
         fsum(

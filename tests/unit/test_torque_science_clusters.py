@@ -201,6 +201,7 @@ def test_missing_development_data_returns_unknown_not_historical_claimed_counts(
     from cyberpilot_autotune.research.torque_identification.qualification import qualify
 
     report = qualify(None, policy())
+    assert report.status == "TORQUE_IDENTIFICATION_BLOCKED_FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE"
     assert report.cluster_count is None and report.point_count is None
     assert report.cluster_statistics is None
     assert "FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE" in report.blockers

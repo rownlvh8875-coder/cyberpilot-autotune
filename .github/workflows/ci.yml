@@ -13,6 +13,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
@@ -32,6 +34,9 @@ jobs:
       - run: python -m coverage report --include="*/adapters/carrot_receipt_contract.py" --fail-under=95
       - run: python -m coverage report --include="*/knowledge/*" --fail-under=95
       - run: python -m coverage report --include="*/owner_protocol/*" --fail-under=98
+      - run: python -m coverage json --include="*/research/*" -o .coverage-research.json
+      - run: python -m tests.audit.validate_torque_science --coverage-json .coverage-research.json
+      - run: python -m tests.audit.validate_torque_science --verify-history
       - name: Verify pinned synthetic golden evidence across fresh processes
         run: python -m pytest tests/integration/test_replay_golden.py tests/integration/test_replay_focused.py -q
       - run: python -m cyberpilot_autotune.replay.cli verify-all tests/fixtures/replay
@@ -51,6 +56,9 @@ jobs:
           optional_smoke="$GITHUB_WORKSPACE/tests/wheel_carrot_smoke.py"
           knowledge_smoke="$GITHUB_WORKSPACE/tests/wheel_knowledge_smoke.py"
           owner_smoke="$GITHUB_WORKSPACE/tests/wheel_owner_smoke.py"
+          science_smoke="$GITHUB_WORKSPACE/tests/wheel_science_smoke.py"
+          science_policy="$GITHUB_WORKSPACE/docs/evidence/torque_identification_policy.json"
+          research_wheel="$(python -c 'from pathlib import Path; print(next(Path("dist").glob("*.whl")).resolve())')"
           cd "$RUNNER_TEMP"
           "$wheel_python" -I -c "import cyberpilot_autotune, pkgutil, importlib; [importlib.import_module(m.name) for m in pkgutil.walk_packages(cyberpilot_autotune.__path__, 'cyberpilot_autotune.')]"
           "$wheel_python" -I -m cyberpilot_autotune.replay.cli verify-all "$fixture_directory"
@@ -58,12 +66,17 @@ jobs:
           "$wheel_python" -I "$optional_smoke" --contract-fixture "$contract_fixture"
           "$wheel_python" -I "$knowledge_smoke"
           "$wheel_python" -I "$owner_smoke"
+          "$wheel_python" -I "$science_smoke" --policy "$science_policy" --expect-optional-dependency
+          "$wheel_python" -m pip install "${research_wheel}[research]"
+          "$wheel_python" -I "$science_smoke" --policy "$science_policy"
   knowledge-source-audit:
     runs-on: ubuntu-24.04
     env:
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12.3'
@@ -85,6 +98,17 @@ jobs:
           for item in manifest['files']:
               subprocess.run(['git', '-C', sys.argv[1], 'show', item['exact_revision'] + ':' + item['path']], stdout=subprocess.DEVNULL, check=True)
           PY
+          science_reference="$RUNNER_TEMP/science-reference"
+          git init --quiet "$science_reference"
+          git -C "$science_reference" remote add origin https://github.com/rownlvh8875-coder/CyberPilot.git
+          git -C "$science_reference" fetch --depth=1 --filter=blob:none origin 02652a441c1c39b4a9c3bfaf1132217f0e57b384
+          python - "$reference" "$science_reference" <<'PY'
+          import sys
+          from tests.audit.validate_torque_science import source_specs, git_bytes
+          refs = {'carrot': sys.argv[1], 'research': sys.argv[2]}
+          for _, repo, revision, path, _ in source_specs():
+              git_bytes(refs[repo], revision, path)
+          PY
       - name: Verify source file/blob/range/catalog hashes without network
         shell: bash
         run: |
@@ -92,12 +116,15 @@ jobs:
           audit_uid="$(id -u)"
           audit_gid="$(id -g)"
           sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_steering_knowledge --reference-checkout "$RUNNER_TEMP/knowledge-reference"
+          sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_torque_science --carrot-checkout "$RUNNER_TEMP/knowledge-reference" --research-checkout "$RUNNER_TEMP/science-reference" --verify-history
   carrot-schema-compatibility:
     runs-on: ubuntu-24.04
     env:
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12.3'

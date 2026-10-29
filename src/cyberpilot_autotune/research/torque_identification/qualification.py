@@ -88,7 +88,7 @@ def qualify(data: FrozenDevelopment | None, policy_json: str) -> ScientificQuali
         statistics.cluster_count if statistics else None,
         statistics.epoch_count if statistics else None,
         statistics.point_count if statistics else None,
-        "TORQUE_IDENTIFICATION_BLOCKED_SCIENTIFIC_GATES_UNRESOLVED",
+        "TORQUE_IDENTIFICATION_BLOCKED_" + reason,
         "FACTOR_IDENTIFICATION_UNQUALIFIED_" + reason,
         "FRICTION_NATIVE_ESTIMATOR_NOT_DIRECT_IDENTIFICATION",
         "NONIDENTIFIABLE",
