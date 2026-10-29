@@ -40,6 +40,7 @@ jobs:
       - run: python -m tests.audit.validate_friction_model --verify-history --coverage-json .coverage-research.json
       - run: python -m coverage json --include="*/observability/*" -o .coverage-observability.json
       - run: python -m tests.audit.validate_friction_receipt --verify-history --coverage-json .coverage-observability.json
+      - run: python -m tests.audit.validate_carrot_friction_patch_design --verify-history
       - name: Verify pinned synthetic golden evidence across fresh processes
         run: python -m pytest tests/integration/test_replay_golden.py tests/integration/test_replay_focused.py -q
       - run: python -m cyberpilot_autotune.replay.cli verify-all tests/fixtures/replay
@@ -119,6 +120,7 @@ jobs:
           from tests.audit.validate_torque_science import source_specs, git_bytes
           from tests.audit.validate_friction_model import source_specs as friction_specs
           from tests.audit.validate_friction_receipt import source_specs as receipt_specs, BASE as receipt_base
+          from tests.audit.validate_carrot_friction_patch_design import source_specs as design_specs, BASE as design_base
           refs = {'carrot': sys.argv[1], 'research': sys.argv[2]}
           for _, repo, revision, path, _ in source_specs():
               git_bytes(refs[repo], revision, path)
@@ -127,6 +129,9 @@ jobs:
                   git_bytes(sys.argv[1], revision, path)
           for _, revision, path, _ in receipt_specs():
               if revision != receipt_base:
+                  git_bytes(sys.argv[1], revision, path)
+          for _, revision, path, _ in design_specs():
+              if revision != design_base:
                   git_bytes(sys.argv[1], revision, path)
           PY
       - name: Verify source file/blob/range/catalog hashes without network
@@ -139,6 +144,7 @@ jobs:
           sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_torque_science --carrot-checkout "$RUNNER_TEMP/knowledge-reference" --research-checkout "$RUNNER_TEMP/science-reference" --verify-history
           sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_friction_model --reference-checkout "$RUNNER_TEMP/knowledge-reference" --verify-history
           sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_friction_receipt --reference-checkout "$RUNNER_TEMP/knowledge-reference" --verify-history
+          sudo unshare --net -- setpriv --reuid="$audit_uid" --regid="$audit_gid" --init-groups env PYTHONDONTWRITEBYTECODE=1 GIT_NO_LAZY_FETCH=1 "$audit_python" -m tests.audit.validate_carrot_friction_patch_design --reference-checkout "$RUNNER_TEMP/knowledge-reference" --verify-history
   carrot-schema-compatibility:
     runs-on: ubuntu-24.04
     env:

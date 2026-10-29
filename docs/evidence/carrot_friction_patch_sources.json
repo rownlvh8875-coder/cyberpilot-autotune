@@ -1,0 +1,671 @@
+{
+  "auto_promoted": false,
+  "base": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+  "candidate_revision": null,
+  "carrot_wip_observed": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+  "comparative_native_base": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+  "files": [
+    {
+      "blob_sha": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "id": "R_helper",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "ranges": [
+        {
+          "end": 443,
+          "name": "whole_file",
+          "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+          "start": 1
+        },
+        {
+          "end": 284,
+          "name": "apply_center_deadzone",
+          "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e",
+          "start": 281
+        },
+        {
+          "end": 299,
+          "name": "get_friction",
+          "sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c",
+          "start": 291
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e"
+    },
+    {
+      "blob_sha": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "id": "R_callback",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "ranges": [
+        {
+          "end": 690,
+          "name": "whole_file",
+          "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+          "start": 1
+        },
+        {
+          "end": 415,
+          "name": "CarInterfaceBase.torque_from_lateral_accel_linear",
+          "sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f",
+          "start": 411
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10"
+    },
+    {
+      "blob_sha": "a75aa42731640260b0f20202541171ec3838360b",
+      "id": "R_pid",
+      "path": "openpilot/common/pid.py",
+      "ranges": [
+        {
+          "end": 155,
+          "name": "whole_file",
+          "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+          "start": 1
+        },
+        {
+          "end": 70,
+          "name": "PIDController.update",
+          "sha256": "d29d2e74de600292dbdf15fcdbc3e4eaa41e3e40c871447a62e0f95d89aa7f5a",
+          "start": 49
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65"
+    },
+    {
+      "blob_sha": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "id": "R_controller",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "ranges": [
+        {
+          "end": 310,
+          "name": "whole_file",
+          "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49",
+          "start": 1
+        },
+        {
+          "end": 310,
+          "name": "LatControlTorque.update",
+          "sha256": "8930581509973e7a2342b96dd320b5c30670c6cd8bf55fca7437c260638e3448",
+          "start": 143
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49"
+    },
+    {
+      "blob_sha": "2378902ba077177b96dfb57f010e06c388241213",
+      "id": "R_controlsd",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "ranges": [
+        {
+          "end": 480,
+          "name": "whole_file",
+          "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
+          "start": 1
+        },
+        {
+          "end": 117,
+          "name": "Controls.update",
+          "sha256": "b901d84d14d66faea609bee818495d87474c0e1638caca62fcdaf17b1b9692c9",
+          "start": 111
+        },
+        {
+          "end": 286,
+          "name": "Controls.state_control",
+          "sha256": "103243c0eab5222733320364e58bef4ec9b0ab0d390a54506c75b557a38f8fd6",
+          "start": 119
+        },
+        {
+          "end": 460,
+          "name": "Controls.publish",
+          "sha256": "60f3770d3230e3b2da458c917b07e9fed28a0f846ab9c6557d6f242980de4be9",
+          "start": 288
+        },
+        {
+          "end": 468,
+          "name": "Controls.run",
+          "sha256": "536a21782f8d560dd791bbca162a02f63b0af08f0bb907b201fe3645ce307c7b",
+          "start": 462
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5"
+    },
+    {
+      "blob_sha": "9c5cebe0eaa6fbfa077e9e8bfd0b5161367ef862",
+      "id": "R_log",
+      "path": "openpilot/cereal/log.capnp",
+      "ranges": [
+        {
+          "end": 2814,
+          "name": "whole_file",
+          "sha256": "7d5c19cc2a534fb6918ba51d393eff288f096b68b6c13fd5608c46d17454ba35",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "7d5c19cc2a534fb6918ba51d393eff288f096b68b6c13fd5608c46d17454ba35"
+    },
+    {
+      "blob_sha": "295ee9c73a6bed2a1a04c47f9eb67be9342f441f",
+      "id": "R_custom",
+      "path": "openpilot/cereal/custom.capnp",
+      "ranges": [
+        {
+          "end": 276,
+          "name": "whole_file",
+          "sha256": "c41f66de1daa06643f09bf6b93163279167f00ae753be0019f18dbe546f7708e",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "c41f66de1daa06643f09bf6b93163279167f00ae753be0019f18dbe546f7708e"
+    },
+    {
+      "blob_sha": "2b6d3e0b36341e7b30ce179d72744354c809a43f",
+      "id": "R_services",
+      "path": "openpilot/cereal/services.py",
+      "ranges": [
+        {
+          "end": 152,
+          "name": "whole_file",
+          "sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1"
+    },
+    {
+      "blob_sha": "6601c14904cbfa2ec374a39e09bad003b5aac257",
+      "id": "R_messaging",
+      "path": "openpilot/cereal/messaging/__init__.py",
+      "ranges": [
+        {
+          "end": 323,
+          "name": "whole_file",
+          "sha256": "bb10c4a88e694d7c4e2fa500b92c6d8a9474363297afda3cfba880eea146ad68",
+          "start": 1
+        },
+        {
+          "end": 54,
+          "name": "new_message",
+          "sha256": "18a429ebaa63993d075fca856d316ce51373d25448ade6e6833b90e50c25d568",
+          "start": 42
+        },
+        {
+          "end": 280,
+          "name": "SubMaster.update_msgs",
+          "sha256": "8051f0c4a49b4a0b0d6a9f1480f042719286f8b2fe8ecc2a7f86fbac35ff950a",
+          "start": 255
+        },
+        {
+          "end": 313,
+          "name": "PubMaster.send",
+          "sha256": "cd0c585395bdd9ebdf9e8af2d1e3a35c11e6667e561a648638c7af21c37ded1b",
+          "start": 310
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "bb10c4a88e694d7c4e2fa500b92c6d8a9474363297afda3cfba880eea146ad68"
+    },
+    {
+      "blob_sha": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "id": "C_helper",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "ranges": [
+        {
+          "end": 443,
+          "name": "whole_file",
+          "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+          "start": 1
+        },
+        {
+          "end": 284,
+          "name": "apply_center_deadzone",
+          "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e",
+          "start": 281
+        },
+        {
+          "end": 299,
+          "name": "get_friction",
+          "sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c",
+          "start": 291
+        }
+      ],
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e"
+    },
+    {
+      "blob_sha": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "id": "C_callback",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "ranges": [
+        {
+          "end": 690,
+          "name": "whole_file",
+          "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+          "start": 1
+        },
+        {
+          "end": 415,
+          "name": "CarInterfaceBase.torque_from_lateral_accel_linear",
+          "sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f",
+          "start": 411
+        }
+      ],
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10"
+    },
+    {
+      "blob_sha": "a75aa42731640260b0f20202541171ec3838360b",
+      "id": "C_pid",
+      "path": "openpilot/common/pid.py",
+      "ranges": [
+        {
+          "end": 155,
+          "name": "whole_file",
+          "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+          "start": 1
+        },
+        {
+          "end": 70,
+          "name": "PIDController.update",
+          "sha256": "d29d2e74de600292dbdf15fcdbc3e4eaa41e3e40c871447a62e0f95d89aa7f5a",
+          "start": 49
+        }
+      ],
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65"
+    },
+    {
+      "blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "id": "C_controller",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "ranges": [
+        {
+          "end": 307,
+          "name": "whole_file",
+          "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+          "start": 1
+        },
+        {
+          "end": 307,
+          "name": "LatControlTorque.update",
+          "sha256": "dd9a614bea1a1eb0541c3db10cea9377f94f88d6877e4cc9d5a2612973dcacaf",
+          "start": 142
+        }
+      ],
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc"
+    },
+    {
+      "blob_sha": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "id": "C_controlsd",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "ranges": [
+        {
+          "end": 481,
+          "name": "whole_file",
+          "sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d",
+          "start": 1
+        },
+        {
+          "end": 114,
+          "name": "Controls.update",
+          "sha256": "b901d84d14d66faea609bee818495d87474c0e1638caca62fcdaf17b1b9692c9",
+          "start": 108
+        },
+        {
+          "end": 279,
+          "name": "Controls.state_control",
+          "sha256": "5fe2a0568f57276b7f83c9b7516c1d5c05df0e0b8cf4cc61343b1956ac3cf54a",
+          "start": 116
+        },
+        {
+          "end": 461,
+          "name": "Controls.publish",
+          "sha256": "0842e78accd8f79f37093c2ca83d483124a26f59ec7d47430bc3f8827e6ceadd",
+          "start": 281
+        },
+        {
+          "end": 469,
+          "name": "Controls.run",
+          "sha256": "536a21782f8d560dd791bbca162a02f63b0af08f0bb907b201fe3645ce307c7b",
+          "start": 463
+        }
+      ],
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d"
+    },
+    {
+      "blob_sha": "609cb5892185f11cb0ee6d2e91c081170d40d7e9",
+      "id": "C_log",
+      "path": "openpilot/cereal/log.capnp",
+      "ranges": [
+        {
+          "end": 2812,
+          "name": "whole_file",
+          "sha256": "0d546ea5f37bc26a16f71ae0433a9a617728c78d77de872c1d327a10cf0fe1db",
+          "start": 1
+        }
+      ],
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "sha256": "0d546ea5f37bc26a16f71ae0433a9a617728c78d77de872c1d327a10cf0fe1db"
+    },
+    {
+      "blob_sha": "295ee9c73a6bed2a1a04c47f9eb67be9342f441f",
+      "id": "C_custom",
+      "path": "openpilot/cereal/custom.capnp",
+      "ranges": [
+        {
+          "end": 276,
+          "name": "whole_file",
+          "sha256": "c41f66de1daa06643f09bf6b93163279167f00ae753be0019f18dbe546f7708e",
+          "start": 1
+        }
+      ],
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "sha256": "c41f66de1daa06643f09bf6b93163279167f00ae753be0019f18dbe546f7708e"
+    },
+    {
+      "blob_sha": "2b6d3e0b36341e7b30ce179d72744354c809a43f",
+      "id": "C_services",
+      "path": "openpilot/cereal/services.py",
+      "ranges": [
+        {
+          "end": 152,
+          "name": "whole_file",
+          "sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1",
+          "start": 1
+        }
+      ],
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1"
+    },
+    {
+      "blob_sha": "6601c14904cbfa2ec374a39e09bad003b5aac257",
+      "id": "C_messaging",
+      "path": "openpilot/cereal/messaging/__init__.py",
+      "ranges": [
+        {
+          "end": 323,
+          "name": "whole_file",
+          "sha256": "bb10c4a88e694d7c4e2fa500b92c6d8a9474363297afda3cfba880eea146ad68",
+          "start": 1
+        },
+        {
+          "end": 54,
+          "name": "new_message",
+          "sha256": "18a429ebaa63993d075fca856d316ce51373d25448ade6e6833b90e50c25d568",
+          "start": 42
+        },
+        {
+          "end": 280,
+          "name": "SubMaster.update_msgs",
+          "sha256": "8051f0c4a49b4a0b0d6a9f1480f042719286f8b2fe8ecc2a7f86fbac35ff950a",
+          "start": 255
+        },
+        {
+          "end": 313,
+          "name": "PubMaster.send",
+          "sha256": "cd0c585395bdd9ebdf9e8af2d1e3a35c11e6667e561a648638c7af21c37ded1b",
+          "start": 310
+        }
+      ],
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "sha256": "bb10c4a88e694d7c4e2fa500b92c6d8a9474363297afda3cfba880eea146ad68"
+    },
+    {
+      "blob_sha": "0e1dc945a55f9a6a1cecb6a74346a8b89ae45cd6",
+      "id": "h7_0",
+      "path": "docs/friction_observability_receipt_contract.md",
+      "ranges": [
+        {
+          "end": 238,
+          "name": "whole_file",
+          "sha256": "0309050b53a3f015943dce1ecbb337d27768a3a612ffb9b1f1ac02db07b6f1d0",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "0309050b53a3f015943dce1ecbb337d27768a3a612ffb9b1f1ac02db07b6f1d0"
+    },
+    {
+      "blob_sha": "475175a0bbb8db68ad9cfb4fa6c1383c7af30ddc",
+      "id": "h7_1",
+      "path": "docs/friction_observability_wire_design.md",
+      "ranges": [
+        {
+          "end": 144,
+          "name": "whole_file",
+          "sha256": "e51c56ffe3de68773313d698da7ecf94900d2442176f2846e25cc717bf1ef8b5",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "e51c56ffe3de68773313d698da7ecf94900d2442176f2846e25cc717bf1ef8b5"
+    },
+    {
+      "blob_sha": "0686c188fabb92a6f3c095f8e5428f5bf4193642",
+      "id": "h7_2",
+      "path": "docs/friction_observability_capture_architecture.md",
+      "ranges": [
+        {
+          "end": 107,
+          "name": "whole_file",
+          "sha256": "ed89d2313c8534abb2a797c9e5cc660c08f05cc0d7e7aaf7cb6aba525e3a1455",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "ed89d2313c8534abb2a797c9e5cc660c08f05cc0d7e7aaf7cb6aba525e3a1455"
+    },
+    {
+      "blob_sha": "fad33109282cd427d8b2a903cbd2b76cc4b12b62",
+      "id": "h7_3",
+      "path": "docs/friction_observability_source_compatibility.md",
+      "ranges": [
+        {
+          "end": 68,
+          "name": "whole_file",
+          "sha256": "d7858db46444aa0b5b2a809feed34a3225b56736b5235cd6c45a33becaa5bff2",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "d7858db46444aa0b5b2a809feed34a3225b56736b5235cd6c45a33becaa5bff2"
+    },
+    {
+      "blob_sha": "bda8511b0e02603586da9ec55e156488bb168b26",
+      "id": "h7_4",
+      "path": "docs/friction_receipt_observation_v2_mapping.md",
+      "ranges": [
+        {
+          "end": 55,
+          "name": "whole_file",
+          "sha256": "b305bb71547bb33f7239b9f2b401b67084cd862a76d7b400c7f825fb630af10f",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "b305bb71547bb33f7239b9f2b401b67084cd862a76d7b400c7f825fb630af10f"
+    },
+    {
+      "blob_sha": "c4bb5e038d2e9f81119bf056f31fff3b6a27c18c",
+      "id": "h7_5",
+      "path": "docs/friction_observability_h7_result.md",
+      "ranges": [
+        {
+          "end": 334,
+          "name": "whole_file",
+          "sha256": "eddbe1741b8685a4d89ecc527c0bb1e77d64ac1dcb4aeadf73f748473bba23e0",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "eddbe1741b8685a4d89ecc527c0bb1e77d64ac1dcb4aeadf73f748473bba23e0"
+    },
+    {
+      "blob_sha": "1f9659728dee6deebefe27adb48c50a43c964e7e",
+      "id": "h7_6",
+      "path": "docs/evidence/friction_observability_receipt_schema.json",
+      "ranges": [
+        {
+          "end": 1838,
+          "name": "whole_file",
+          "sha256": "840d5f0071ceec3c63e7d10d3c65563ae7de4f1ef7d9d281998d4618bdccb5ee",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "840d5f0071ceec3c63e7d10d3c65563ae7de4f1ef7d9d281998d4618bdccb5ee"
+    },
+    {
+      "blob_sha": "12ef56db4bec42dde0bd82fac7ecb9d3f5c5825b",
+      "id": "h7_7",
+      "path": "docs/evidence/friction_observability_receipt_sources.json",
+      "ranges": [
+        {
+          "end": 1387,
+          "name": "whole_file",
+          "sha256": "20085ce3d9aac1f58b818c870e6fee0c8bd6924ed9f889022e0217b74cc7c390",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "20085ce3d9aac1f58b818c870e6fee0c8bd6924ed9f889022e0217b74cc7c390"
+    },
+    {
+      "blob_sha": "591b8f449e4286c26da5bfdc3e3dffe40cbd6316",
+      "id": "h7_8",
+      "path": "src/cyberpilot_autotune/observability/__init__.py",
+      "ranges": [
+        {
+          "end": 1,
+          "name": "whole_file",
+          "sha256": "ddb2e601967c45d4814ec378920c64598c16f9e725e577fc678f22ae5c06052c",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "ddb2e601967c45d4814ec378920c64598c16f9e725e577fc678f22ae5c06052c"
+    },
+    {
+      "blob_sha": "d9b24aaecd1b10e8a387965352e4a6966aee3b97",
+      "id": "h7_9",
+      "path": "src/cyberpilot_autotune/observability/types.py",
+      "ranges": [
+        {
+          "end": 205,
+          "name": "whole_file",
+          "sha256": "85392838cb4536632425d9661ddb8abbdec1112b2411d0f154ae759eb62f5857",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "85392838cb4536632425d9661ddb8abbdec1112b2411d0f154ae759eb62f5857"
+    },
+    {
+      "blob_sha": "e3e58d56a19403ffbb739b8ab0e05fa57a38990f",
+      "id": "h7_10",
+      "path": "src/cyberpilot_autotune/observability/context.py",
+      "ranges": [
+        {
+          "end": 172,
+          "name": "whole_file",
+          "sha256": "0f5aff5bf940891628032a99174c5fca36c2001e185d5366c45156f4226bbee5",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "0f5aff5bf940891628032a99174c5fca36c2001e185d5366c45156f4226bbee5"
+    },
+    {
+      "blob_sha": "15228582c8f03ad39ef10af300aa46aee5f1c64d",
+      "id": "h7_11",
+      "path": "src/cyberpilot_autotune/observability/contracts.py",
+      "ranges": [
+        {
+          "end": 304,
+          "name": "whole_file",
+          "sha256": "56a3968bb560c015c2da4c5f092fb3a897a2dfce753f167d16d64b61e189b234",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "56a3968bb560c015c2da4c5f092fb3a897a2dfce753f167d16d64b61e189b234"
+    },
+    {
+      "blob_sha": "36ef6fbd71b3000e33c120469e04442aa2de2948",
+      "id": "h7_12",
+      "path": "src/cyberpilot_autotune/observability/schema.py",
+      "ranges": [
+        {
+          "end": 342,
+          "name": "whole_file",
+          "sha256": "49ef7c754c40430fc31a209d4478d45a330d8563f2faf3d82ee0208eac439520",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "49ef7c754c40430fc31a209d4478d45a330d8563f2faf3d82ee0208eac439520"
+    },
+    {
+      "blob_sha": "fecc3536217a2d5da686e74fc74b92c586e34e51",
+      "id": "h7_13",
+      "path": "src/cyberpilot_autotune/observability/validation.py",
+      "ranges": [
+        {
+          "end": 766,
+          "name": "whole_file",
+          "sha256": "390d7df8e2215a0ff083f1e4b68df5bfd4582bb0c33f6afdf984af0f61d29be9",
+          "start": 1
+        }
+      ],
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "sha256": "390d7df8e2215a0ff083f1e4b68df5bfd4582bb0c33f6afdf984af0f61d29be9"
+    }
+  ],
+  "freeze": "115fd98534eed0f39e4017e0d72fafbb662fc71d",
+  "math_digest": "c432bd380f820b3cc3373daa728322a60319527ae4c519f2887d4a69ff071b18",
+  "native_patch_implemented": false,
+  "primary_native_base": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "schema": "carrot-friction-patch-design-sources-v1",
+  "wire_digest": "6da412600a59334225ef50792ea6792e3245c87ce21050dd7af72d9f65125b69"
+}

@@ -1,0 +1,1947 @@
+{
+  "allocation_state": "PROPOSAL_ONLY",
+  "application_authorized": false,
+  "candidate_revision": null,
+  "digest_lengths": {
+    "sha256": 32,
+    "source_revision": 20
+  },
+  "empirical_qualified": false,
+  "enums": [
+    {
+      "type": "AlignmentMethod",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "RAW_CALLBACK_NO_ALIGNMENT"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "SINGLE_DOWNSTREAM_PAIR"
+        },
+        {
+          "ordinal": 3,
+          "semantic": "CORE_VALUES_SHIFTED"
+        }
+      ]
+    },
+    {
+      "type": "CallbackFamily",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "LINEAR"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "NN_LITE"
+        },
+        {
+          "ordinal": 3,
+          "semantic": "NN"
+        },
+        {
+          "ordinal": 4,
+          "semantic": "GM_SIGLIN"
+        },
+        {
+          "ordinal": 5,
+          "semantic": "GM_NEURAL"
+        },
+        {
+          "ordinal": 6,
+          "semantic": "OTHER"
+        }
+      ]
+    },
+    {
+      "type": "CallbackFunction",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "CarInterfaceBase.torque_from_lateral_accel_linear"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "CarInterface.torque_from_lateral_accel_siglin"
+        },
+        {
+          "ordinal": 3,
+          "semantic": "CarInterface.torque_from_lateral_accel_neural"
+        },
+        {
+          "ordinal": 4,
+          "semantic": "get_ff_nn"
+        },
+        {
+          "ordinal": 5,
+          "semantic": "OTHER"
+        }
+      ]
+    },
+    {
+      "type": "CallbackSite",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "FEEDFORWARD"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "SETPOINT"
+        },
+        {
+          "ordinal": 3,
+          "semantic": "MEASUREMENT"
+        },
+        {
+          "ordinal": 4,
+          "semantic": "NN_FRICTION_OVERRIDE"
+        }
+      ]
+    },
+    {
+      "type": "CallbackStage",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "LINEAR_CALLBACK_PRE_PID"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "NN_LITE_CALLBACK_PRE_PID"
+        },
+        {
+          "ordinal": 3,
+          "semantic": "NN_CALLBACK_PRE_PID"
+        },
+        {
+          "ordinal": 4,
+          "semantic": "GM_SIGLIN_CALLBACK_PRE_PID"
+        },
+        {
+          "ordinal": 5,
+          "semantic": "OTHER_UNSUPPORTED"
+        }
+      ]
+    },
+    {
+      "type": "ClockDomain",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "MONOTONIC"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "SENSOR"
+        }
+      ]
+    },
+    {
+      "type": "ControllerMode",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "STANDARD"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "CUSTOM"
+        }
+      ]
+    },
+    {
+      "type": "DelaySource",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "STATIC_CP"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "MANUAL"
+        },
+        {
+          "ordinal": 3,
+          "semantic": "LIVE_DELAY"
+        },
+        {
+          "ordinal": 4,
+          "semantic": "UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "type": "GeometryOrigin",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "STATIC_CP_BASELINE_APPLIED_VM"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "ACTUALLY_APPLIED_VM"
+        },
+        {
+          "ordinal": 3,
+          "semantic": "REQUESTED_NOT_APPLIED"
+        },
+        {
+          "ordinal": 4,
+          "semantic": "LIVE_PARAMETERS_CANDIDATE"
+        },
+        {
+          "ordinal": 5,
+          "semantic": "UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "type": "OffsetSource",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "INSTALLED_BUT_UNUSED_LINEAR"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "FILTERED_LIVE_CONTEXT_ONLY"
+        },
+        {
+          "ordinal": 3,
+          "semantic": "RAW_LIVE_CONTEXT_ONLY"
+        },
+        {
+          "ordinal": 4,
+          "semantic": "UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "type": "Precision",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "CONTROLLER_LOCAL_BINARY64"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "LEGACY_FLOAT32"
+        }
+      ]
+    },
+    {
+      "type": "ScalarOrigin",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "LOCAL_DIRECT"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "HELPER_OBSERVED"
+        },
+        {
+          "ordinal": 3,
+          "semantic": "LEGACY_PUBLISHED"
+        },
+        {
+          "ordinal": 4,
+          "semantic": "RECONSTRUCTED_DIAGNOSTIC"
+        },
+        {
+          "ordinal": 5,
+          "semantic": "DERIVED_FROM_INSTALLED_C"
+        },
+        {
+          "ordinal": 6,
+          "semantic": "DOWNSTREAM"
+        },
+        {
+          "ordinal": 7,
+          "semantic": "UNAVAILABLE"
+        }
+      ]
+    },
+    {
+      "type": "Signal",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "desired_lateral_accel"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "actual_lateral_accel"
+        },
+        {
+          "ordinal": 3,
+          "semantic": "roll"
+        },
+        {
+          "ordinal": 4,
+          "semantic": "roll_compensation"
+        },
+        {
+          "ordinal": 5,
+          "semantic": "callback_acceleration"
+        },
+        {
+          "ordinal": 6,
+          "semantic": "friction_input"
+        },
+        {
+          "ordinal": 7,
+          "semantic": "friction_deadzone"
+        },
+        {
+          "ordinal": 8,
+          "semantic": "friction_threshold"
+        },
+        {
+          "ordinal": 9,
+          "semantic": "q_observed"
+        },
+        {
+          "ordinal": 10,
+          "semantic": "callback_output_raw"
+        },
+        {
+          "ordinal": 11,
+          "semantic": "pid_p"
+        },
+        {
+          "ordinal": 12,
+          "semantic": "pid_i"
+        },
+        {
+          "ordinal": 13,
+          "semantic": "pid_d"
+        },
+        {
+          "ordinal": 14,
+          "semantic": "pid_f"
+        },
+        {
+          "ordinal": 15,
+          "semantic": "pid_sum"
+        },
+        {
+          "ordinal": 16,
+          "semantic": "post_pid_output"
+        },
+        {
+          "ordinal": 17,
+          "semantic": "requested_torque"
+        },
+        {
+          "ordinal": 18,
+          "semantic": "host_output"
+        },
+        {
+          "ordinal": 19,
+          "semantic": "applied_torque"
+        }
+      ]
+    },
+    {
+      "type": "SourceOrigin",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "WIRE_EVENT"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "LOCAL_CYCLE_OBJECT"
+        }
+      ]
+    },
+    {
+      "type": "SourceRole",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "carState"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "livePose"
+        },
+        {
+          "ordinal": 3,
+          "semantic": "liveParameters"
+        },
+        {
+          "ordinal": 4,
+          "semantic": "carControl"
+        },
+        {
+          "ordinal": 5,
+          "semantic": "modelV2"
+        },
+        {
+          "ordinal": 6,
+          "semantic": "controlState"
+        },
+        {
+          "ordinal": 7,
+          "semantic": "liveDelay"
+        }
+      ]
+    },
+    {
+      "type": "Stage",
+      "unknown_ordinal": 0,
+      "values": [
+        {
+          "ordinal": 1,
+          "semantic": "CALLBACK_INPUT"
+        },
+        {
+          "ordinal": 2,
+          "semantic": "HELPER_Q"
+        },
+        {
+          "ordinal": 3,
+          "semantic": "RAW_CALLBACK_PRE_PID_KF"
+        },
+        {
+          "ordinal": 4,
+          "semantic": "PID_P"
+        },
+        {
+          "ordinal": 5,
+          "semantic": "PID_I"
+        },
+        {
+          "ordinal": 6,
+          "semantic": "PID_D"
+        },
+        {
+          "ordinal": 7,
+          "semantic": "PID_SCALED_F"
+        },
+        {
+          "ordinal": 8,
+          "semantic": "PID_PRE_CLIP_SUM"
+        },
+        {
+          "ordinal": 9,
+          "semantic": "PID_POST_CLIP_INTERNAL_SIGN"
+        },
+        {
+          "ordinal": 10,
+          "semantic": "REQUESTED_ACTUATOR_TORQUE"
+        },
+        {
+          "ordinal": 11,
+          "semantic": "HOST_CONTROLLER_OUTPUT"
+        },
+        {
+          "ordinal": 12,
+          "semantic": "APPLIED_NORMALIZED_TORQUE"
+        }
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "local_only": false,
+      "native_name": "sessionId",
+      "ordinal": 0,
+      "semantic_field": "CycleIdentity.session_id",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "controllerCycleId",
+      "ordinal": 1,
+      "semantic_field": "CycleIdentity.controller_cycle_id",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "controllerCycleStartMonoTimeNs",
+      "ordinal": 2,
+      "semantic_field": "CycleIdentity.controller_cycle_start_mono_time_ns",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "ns, explicit monotonic domain",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "contextCaptureMonoTimeNs",
+      "ordinal": 3,
+      "semantic_field": "CycleIdentity.context_capture_mono_time_ns",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "ns, explicit monotonic domain",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "callbackEnterMonoTimeNs",
+      "ordinal": 4,
+      "semantic_field": "CycleIdentity.callback_enter_mono_time_ns",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "ns, explicit monotonic domain",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "callbackExitMonoTimeNs",
+      "ordinal": 5,
+      "semantic_field": "CycleIdentity.callback_exit_mono_time_ns",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "ns, explicit monotonic domain",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "controlEventMonoTimeNs",
+      "ordinal": 6,
+      "semantic_field": "CycleIdentity.control_event_mono_time_ns",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "ns, explicit monotonic domain",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "receiptCompleteMonoTimeNs",
+      "ordinal": 7,
+      "semantic_field": "CycleIdentity.receipt_complete_mono_time_ns",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "ns, explicit monotonic domain",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "sourceRevision",
+      "ordinal": 8,
+      "semantic_field": "CycleIdentity.source_revision",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "Git commit SHA-1",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "sourceSchemaDigest",
+      "ordinal": 9,
+      "semantic_field": "CycleIdentity.source_schema_digest",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "vehicleContextDigest",
+      "ordinal": 10,
+      "semantic_field": "CycleIdentity.vehicle_context_digest",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "controllerInstanceGeneration",
+      "ordinal": 11,
+      "semantic_field": "CycleIdentity.controller_instance_generation",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "installedParameterGeneration",
+      "ordinal": 12,
+      "semantic_field": "CycleIdentity.installed_parameter_generation",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "geometryGeneration",
+      "ordinal": 13,
+      "semantic_field": "CycleIdentity.geometry_generation",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "callbackInvocationIndex",
+      "ordinal": 14,
+      "semantic_field": "CycleIdentity.callback_invocation_index",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "clockDomain",
+      "ordinal": 15,
+      "semantic_field": "CycleIdentity.clock_domain",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "ClockDomain"
+    },
+    {
+      "local_only": false,
+      "native_name": "role",
+      "ordinal": 0,
+      "semantic_field": "ConsumedSourceIdentity.role",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "SourceRole"
+    },
+    {
+      "local_only": false,
+      "native_name": "sourceTimeNs",
+      "ordinal": 1,
+      "semantic_field": "ConsumedSourceIdentity.source_time_ns",
+      "semantic_required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "ns, explicit monotonic domain",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "clockDomain",
+      "ordinal": 2,
+      "semantic_field": "ConsumedSourceIdentity.clock_domain",
+      "semantic_required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "ClockDomain"
+    },
+    {
+      "local_only": false,
+      "native_name": "sequence",
+      "ordinal": 3,
+      "semantic_field": "ConsumedSourceIdentity.sequence",
+      "semantic_required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "sourceIdentity",
+      "ordinal": 4,
+      "semantic_field": "ConsumedSourceIdentity.source_identity",
+      "semantic_required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "consumed",
+      "ordinal": 5,
+      "semantic_field": "ConsumedSourceIdentity.consumed",
+      "semantic_required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "valid",
+      "ordinal": 6,
+      "semantic_field": "ConsumedSourceIdentity.valid",
+      "semantic_required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "alive",
+      "ordinal": 7,
+      "semantic_field": "ConsumedSourceIdentity.alive",
+      "semantic_required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "origin",
+      "ordinal": 8,
+      "semantic_field": "ConsumedSourceIdentity.origin",
+      "semantic_required": "CONDITIONAL_ON_ACTUAL_CONSUMPTION",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "SourceOrigin"
+    },
+    {
+      "local_only": false,
+      "native_name": "controllerCycleDigest",
+      "ordinal": 9,
+      "semantic_field": "ConsumedSourceIdentity.controller_cycle_digest",
+      "semantic_required": "CONDITIONAL_ON_CONSUMED_LOCAL_CYCLE_OBJECT",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "signal",
+      "ordinal": 0,
+      "semantic_field": "ScalarObservation.signal",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "Signal"
+    },
+    {
+      "local_only": false,
+      "native_name": "stage",
+      "ordinal": 1,
+      "semantic_field": "ScalarObservation.stage",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "Stage"
+    },
+    {
+      "local_only": false,
+      "native_name": "value",
+      "ordinal": 2,
+      "semantic_field": "ScalarObservation.value",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "signal-dependent; see Signal field semantics",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "precision",
+      "ordinal": 3,
+      "semantic_field": "ScalarObservation.precision",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "Precision"
+    },
+    {
+      "local_only": false,
+      "native_name": "origin",
+      "ordinal": 4,
+      "semantic_field": "ScalarObservation.origin",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "ScalarOrigin"
+    },
+    {
+      "local_only": false,
+      "native_name": "cycleDigest",
+      "ordinal": 5,
+      "semantic_field": "ScalarObservation.cycle_digest",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "capturedMonoTimeNs",
+      "ordinal": 6,
+      "semantic_field": "ScalarObservation.captured_mono_time_ns",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "ns, explicit monotonic domain",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "desiredLateralAccel",
+      "ordinal": 0,
+      "semantic_field": "ControllerCallbackSignals.desired_lateral_accel",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CALLBACK_INPUT",
+      "unit": "m/s^2",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "actualLateralAccel",
+      "ordinal": 1,
+      "semantic_field": "ControllerCallbackSignals.actual_lateral_accel",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CALLBACK_INPUT",
+      "unit": "m/s^2",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "roll",
+      "ordinal": 2,
+      "semantic_field": "ControllerCallbackSignals.roll",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CALLBACK_INPUT",
+      "unit": "rad",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "rollCompensation",
+      "ordinal": 3,
+      "semantic_field": "ControllerCallbackSignals.roll_compensation",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CALLBACK_INPUT",
+      "unit": "m/s^2",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "callbackAcceleration",
+      "ordinal": 4,
+      "semantic_field": "ControllerCallbackSignals.callback_acceleration",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CALLBACK_INPUT",
+      "unit": "m/s^2",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "frictionInput",
+      "ordinal": 5,
+      "semantic_field": "ControllerCallbackSignals.friction_input",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CALLBACK_INPUT",
+      "unit": "m/s^2",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "frictionDeadzone",
+      "ordinal": 6,
+      "semantic_field": "ControllerCallbackSignals.friction_deadzone",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CALLBACK_INPUT",
+      "unit": "m/s^2",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "frictionThreshold",
+      "ordinal": 7,
+      "semantic_field": "ControllerCallbackSignals.friction_threshold",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CALLBACK_INPUT",
+      "unit": "m/s^2",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "qObserved",
+      "ordinal": 8,
+      "semantic_field": "ControllerCallbackSignals.q_observed",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "HELPER_Q",
+      "unit": "1",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "frictionCompensationEnabled",
+      "ordinal": 9,
+      "semantic_field": "ControllerCallbackSignals.friction_compensation_enabled",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CALLBACK_INPUT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "gravityAdjusted",
+      "ordinal": 10,
+      "semantic_field": "ControllerCallbackSignals.gravity_adjusted",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CALLBACK_INPUT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "callbackOutputRaw",
+      "ordinal": 0,
+      "semantic_field": "ControllerStageDecomposition.callback_output_raw",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "RAW_CALLBACK_PRE_PID_KF",
+      "unit": "normalized torque, internal callback sign",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "pidP",
+      "ordinal": 1,
+      "semantic_field": "ControllerStageDecomposition.pid_p",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "PID_P",
+      "unit": "normalized torque",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "pidI",
+      "ordinal": 2,
+      "semantic_field": "ControllerStageDecomposition.pid_i",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "PID_I",
+      "unit": "normalized torque",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "pidD",
+      "ordinal": 3,
+      "semantic_field": "ControllerStageDecomposition.pid_d",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "PID_D",
+      "unit": "normalized torque",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "pidF",
+      "ordinal": 4,
+      "semantic_field": "ControllerStageDecomposition.pid_f",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "PID_SCALED_F",
+      "unit": "normalized torque",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "pidSum",
+      "ordinal": 5,
+      "semantic_field": "ControllerStageDecomposition.pid_sum",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "PID_PRE_CLIP_SUM",
+      "unit": "normalized torque",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "postPidOutput",
+      "ordinal": 6,
+      "semantic_field": "ControllerStageDecomposition.post_pid_output",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "PID_POST_CLIP_INTERNAL_SIGN",
+      "unit": "normalized torque, internal PID sign",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "requestedTorque",
+      "ordinal": 7,
+      "semantic_field": "ControllerStageDecomposition.requested_torque",
+      "semantic_required": "OPTIONAL",
+      "stage": "REQUESTED_ACTUATOR_TORQUE",
+      "unit": "normalized torque, negated internal PID sign",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "hostOutput",
+      "ordinal": 8,
+      "semantic_field": "ControllerStageDecomposition.host_output",
+      "semantic_required": "OPTIONAL",
+      "stage": "HOST_CONTROLLER_OUTPUT",
+      "unit": "normalized torque, external stage sign",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "appliedTorque",
+      "ordinal": 9,
+      "semantic_field": "ControllerStageDecomposition.applied_torque",
+      "semantic_required": "OPTIONAL",
+      "stage": "APPLIED_NORMALIZED_TORQUE",
+      "unit": "normalized torque, applied stage sign",
+      "wire_type": "ScalarObservation"
+    },
+    {
+      "local_only": false,
+      "native_name": "downstreamCycleId",
+      "ordinal": 10,
+      "semantic_field": "ControllerStageDecomposition.downstream_cycle_id",
+      "semantic_required": "CONDITIONAL_ON_DOWNSTREAM_VALUE",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "downstreamIdentities",
+      "ordinal": 11,
+      "semantic_field": "ControllerStageDecomposition.downstream_identities",
+      "semantic_required": "CONDITIONAL_ON_DOWNSTREAM_VALUE",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "List(DownstreamStageIdentity)"
+    },
+    {
+      "local_only": false,
+      "native_name": "stage",
+      "ordinal": 0,
+      "semantic_field": "DownstreamStageIdentity.stage",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "Stage"
+    },
+    {
+      "local_only": false,
+      "native_name": "sourceEventId",
+      "ordinal": 1,
+      "semantic_field": "DownstreamStageIdentity.source_event_id",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "sourceCommandEventId",
+      "ordinal": 2,
+      "semantic_field": "DownstreamStageIdentity.source_command_event_id",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "sourceTimeNs",
+      "ordinal": 3,
+      "semantic_field": "DownstreamStageIdentity.source_time_ns",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "ns, explicit monotonic domain",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "clockDomain",
+      "ordinal": 4,
+      "semantic_field": "DownstreamStageIdentity.clock_domain",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "ClockDomain"
+    },
+    {
+      "local_only": false,
+      "native_name": "controllerCycleDigest",
+      "ordinal": 5,
+      "semantic_field": "DownstreamStageIdentity.controller_cycle_digest",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "exactSourceCommandReference",
+      "ordinal": 6,
+      "semantic_field": "DownstreamStageIdentity.exact_source_command_reference",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "sourceValid",
+      "ordinal": 7,
+      "semantic_field": "DownstreamStageIdentity.source_valid",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "sourceTransportHealthy",
+      "ordinal": 8,
+      "semantic_field": "DownstreamStageIdentity.source_transport_healthy",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "controllerActive",
+      "ordinal": 0,
+      "semantic_field": "LimitState.controller_active",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "sourceHealthy",
+      "ordinal": 1,
+      "semantic_field": "LimitState.source_healthy",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "steeringPressed",
+      "ordinal": 2,
+      "semantic_field": "LimitState.steering_pressed",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "driverOverride",
+      "ordinal": 3,
+      "semantic_field": "LimitState.driver_override",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "timerSaturated",
+      "ordinal": 4,
+      "semantic_field": "LimitState.timer_saturated",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "instantaneousControllerLimited",
+      "ordinal": 5,
+      "semantic_field": "LimitState.instantaneous_controller_limited",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "curvatureLimited",
+      "ordinal": 6,
+      "semantic_field": "LimitState.curvature_limited",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "steerLimitedByControls",
+      "ordinal": 7,
+      "semantic_field": "LimitState.steer_limited_by_controls",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "vehicleActuatorLimited",
+      "ordinal": 8,
+      "semantic_field": "LimitState.vehicle_actuator_limited",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "SAME_CYCLE_LIMIT_STATE",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "generation",
+      "ordinal": 0,
+      "semantic_field": "InstalledParameters.generation",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "factorInstalled",
+      "ordinal": 1,
+      "semantic_field": "InstalledParameters.factor_installed",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "m/s^2 per normalized torque",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "frictionInstalled",
+      "ordinal": 2,
+      "semantic_field": "InstalledParameters.friction_installed",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "normalized torque",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "offsetInstalled",
+      "ordinal": 3,
+      "semantic_field": "InstalledParameters.offset_installed",
+      "semantic_required": "OPTIONAL",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "m/s^2",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "offsetSource",
+      "ordinal": 4,
+      "semantic_field": "InstalledParameters.offset_source",
+      "semantic_required": "OPTIONAL",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OffsetSource"
+    },
+    {
+      "local_only": false,
+      "native_name": "sourceField",
+      "ordinal": 5,
+      "semantic_field": "InstalledParameters.source_field",
+      "semantic_required": "OPTIONAL",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "Text"
+    },
+    {
+      "local_only": false,
+      "native_name": "precision",
+      "ordinal": 6,
+      "semantic_field": "InstalledParameters.precision",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "Precision"
+    },
+    {
+      "local_only": false,
+      "native_name": "customSelector",
+      "ordinal": 7,
+      "semantic_field": "InstalledParameters.custom_selector",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "generation",
+      "ordinal": 0,
+      "semantic_field": "GainSnapshot.generation",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "kP",
+      "ordinal": 1,
+      "semantic_field": "GainSnapshot.k_p",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "1",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "kI",
+      "ordinal": 2,
+      "semantic_field": "GainSnapshot.k_i",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "1/s",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "kD",
+      "ordinal": 3,
+      "semantic_field": "GainSnapshot.k_d",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "s",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "kF",
+      "ordinal": 4,
+      "semantic_field": "GainSnapshot.k_f",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "1",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "precision",
+      "ordinal": 5,
+      "semantic_field": "GainSnapshot.precision",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "Precision"
+    },
+    {
+      "local_only": false,
+      "native_name": "cycleDigest",
+      "ordinal": 6,
+      "semantic_field": "GainSnapshot.cycle_digest",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "capturedMonoTimeNs",
+      "ordinal": 7,
+      "semantic_field": "GainSnapshot.captured_mono_time_ns",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "ns, explicit monotonic domain",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "sourceRevision",
+      "ordinal": 0,
+      "semantic_field": "AppliedGeometryContext.source_revision",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "Git commit SHA-1",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "vehicleContextDigest",
+      "ordinal": 1,
+      "semantic_field": "AppliedGeometryContext.vehicle_context_digest",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "generation",
+      "ordinal": 2,
+      "semantic_field": "AppliedGeometryContext.generation",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "appliedVmContextId",
+      "ordinal": 3,
+      "semantic_field": "AppliedGeometryContext.applied_vm_context_id",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "origin",
+      "ordinal": 4,
+      "semantic_field": "AppliedGeometryContext.origin",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "GeometryOrigin"
+    },
+    {
+      "local_only": false,
+      "native_name": "wheelbase",
+      "ordinal": 5,
+      "semantic_field": "AppliedGeometryContext.wheelbase",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "m",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "centerToFront",
+      "ordinal": 6,
+      "semantic_field": "AppliedGeometryContext.center_to_front",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "m",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "centerToFrontRatio",
+      "ordinal": 7,
+      "semantic_field": "AppliedGeometryContext.center_to_front_ratio",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "1",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "stiffnessFactor",
+      "ordinal": 8,
+      "semantic_field": "AppliedGeometryContext.stiffness_factor",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "1",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "effectiveSteerRatio",
+      "ordinal": 9,
+      "semantic_field": "AppliedGeometryContext.effective_steer_ratio",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "1",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "steerRatioRateRaw",
+      "ordinal": 10,
+      "semantic_field": "AppliedGeometryContext.steer_ratio_rate_raw",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "percent",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "steerRatioRateEffective",
+      "ordinal": 11,
+      "semantic_field": "AppliedGeometryContext.steer_ratio_rate_effective",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "multiplier",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "customSrRaw",
+      "ordinal": 12,
+      "semantic_field": "AppliedGeometryContext.custom_sr_raw",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "tenths of steer ratio",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "customSrEffective",
+      "ordinal": 13,
+      "semantic_field": "AppliedGeometryContext.custom_sr_effective",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "scaled custom override; 0 disabled, NOT effective VM ratio",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "precision",
+      "ordinal": 14,
+      "semantic_field": "AppliedGeometryContext.precision",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "Precision"
+    },
+    {
+      "local_only": false,
+      "native_name": "requestedCenterToFrontPercent",
+      "ordinal": 15,
+      "semantic_field": "AppliedGeometryContext.requested_center_to_front_percent",
+      "semantic_required": "OPTIONAL",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "percent intent; 0 vehicle default",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "paramsdTargetRatio",
+      "ordinal": 16,
+      "semantic_field": "AppliedGeometryContext.paramsd_target_ratio",
+      "semantic_required": "OPTIONAL",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "1, candidate only",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "liveParametersRatio",
+      "ordinal": 17,
+      "semantic_field": "AppliedGeometryContext.live_parameters_ratio",
+      "semantic_required": "OPTIONAL",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "1, candidate only",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "effectiveDelayS",
+      "ordinal": 0,
+      "semantic_field": "DelayContext.effective_delay_s",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "s",
+      "wire_type": "OptionalFloat64"
+    },
+    {
+      "local_only": false,
+      "native_name": "source",
+      "ordinal": 1,
+      "semantic_field": "DelayContext.source",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "DelaySource"
+    },
+    {
+      "local_only": false,
+      "native_name": "alignmentMethod",
+      "ordinal": 2,
+      "semantic_field": "DelayContext.alignment_method",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "AlignmentMethod"
+    },
+    {
+      "local_only": false,
+      "native_name": "alignmentVersion",
+      "ordinal": 3,
+      "semantic_field": "DelayContext.alignment_version",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "Text"
+    },
+    {
+      "local_only": false,
+      "native_name": "correctionCount",
+      "ordinal": 4,
+      "semantic_field": "DelayContext.correction_count",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "samplePairId",
+      "ordinal": 5,
+      "semantic_field": "DelayContext.sample_pair_id",
+      "semantic_required": "OPTIONAL",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "valuesAlreadyAligned",
+      "ordinal": 6,
+      "semantic_field": "DelayContext.values_already_aligned",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": false,
+      "native_name": "cycleDigest",
+      "ordinal": 0,
+      "semantic_field": "FrictionObservationContext.cycle_digest",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": "OptionalDigest"
+    },
+    {
+      "local_only": false,
+      "native_name": "snapshotTimeNs",
+      "ordinal": 1,
+      "semantic_field": "FrictionObservationContext.snapshot_time_ns",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "ns, explicit monotonic domain",
+      "wire_type": "OptionalUInt64"
+    },
+    {
+      "local_only": false,
+      "native_name": "installed",
+      "ordinal": 2,
+      "semantic_field": "FrictionObservationContext.installed",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "InstalledParameters"
+    },
+    {
+      "local_only": false,
+      "native_name": "gains",
+      "ordinal": 3,
+      "semantic_field": "FrictionObservationContext.gains",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "GainSnapshot"
+    },
+    {
+      "local_only": false,
+      "native_name": "geometry",
+      "ordinal": 4,
+      "semantic_field": "FrictionObservationContext.geometry",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "AppliedGeometryContext"
+    },
+    {
+      "local_only": false,
+      "native_name": "delay",
+      "ordinal": 5,
+      "semantic_field": "FrictionObservationContext.delay",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "ACTUALLY_LATCHED_OR_APPLIED_CONTEXT",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "DelayContext"
+    },
+    {
+      "local_only": false,
+      "native_name": "cycle",
+      "ordinal": 0,
+      "semantic_field": "LateralTorqueIdentificationReceipt.cycle",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "CycleIdentity"
+    },
+    {
+      "local_only": false,
+      "native_name": "callbackStage",
+      "ordinal": 1,
+      "semantic_field": "LateralTorqueIdentificationReceipt.callback_stage",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "CallbackStage"
+    },
+    {
+      "local_only": false,
+      "native_name": "controllerMode",
+      "ordinal": 2,
+      "semantic_field": "LateralTorqueIdentificationReceipt.controller_mode",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "ControllerMode"
+    },
+    {
+      "local_only": false,
+      "native_name": "callbackFamily",
+      "ordinal": 3,
+      "semantic_field": "LateralTorqueIdentificationReceipt.callback_family",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "CallbackFamily"
+    },
+    {
+      "local_only": false,
+      "native_name": "callbackFunction",
+      "ordinal": 4,
+      "semantic_field": "LateralTorqueIdentificationReceipt.callback_function",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "CallbackFunction"
+    },
+    {
+      "local_only": false,
+      "native_name": "callbackSite",
+      "ordinal": 5,
+      "semantic_field": "LateralTorqueIdentificationReceipt.callback_site",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "CallbackSite"
+    },
+    {
+      "local_only": false,
+      "native_name": "sources",
+      "ordinal": 6,
+      "semantic_field": "LateralTorqueIdentificationReceipt.sources",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "List(ConsumedSourceIdentity)"
+    },
+    {
+      "local_only": false,
+      "native_name": "signals",
+      "ordinal": 7,
+      "semantic_field": "LateralTorqueIdentificationReceipt.signals",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "ControllerCallbackSignals"
+    },
+    {
+      "local_only": false,
+      "native_name": "stages",
+      "ordinal": 8,
+      "semantic_field": "LateralTorqueIdentificationReceipt.stages",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "ControllerStageDecomposition"
+    },
+    {
+      "local_only": false,
+      "native_name": "context",
+      "ordinal": 9,
+      "semantic_field": "LateralTorqueIdentificationReceipt.context",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "FrictionObservationContext"
+    },
+    {
+      "local_only": false,
+      "native_name": "limits",
+      "ordinal": 10,
+      "semantic_field": "LateralTorqueIdentificationReceipt.limits",
+      "semantic_required": "STRUCTURAL",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "LimitState"
+    },
+    {
+      "local_only": false,
+      "native_name": "receiptSchemaVersion",
+      "ordinal": 11,
+      "semantic_field": "LateralTorqueIdentificationReceipt.receipt_schema_version",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "Text"
+    },
+    {
+      "local_only": false,
+      "native_name": "consumptionManifestComplete",
+      "ordinal": 12,
+      "semantic_field": "LateralTorqueIdentificationReceipt.consumption_manifest_complete",
+      "semantic_required": "ELIGIBILITY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": "OptionalBool"
+    },
+    {
+      "local_only": true,
+      "native_name": null,
+      "ordinal": null,
+      "semantic_field": "ObservationPolicy.receipt_versions",
+      "semantic_required": "LOCAL_EVALUATOR_ONLY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": null
+    },
+    {
+      "local_only": true,
+      "native_name": null,
+      "ordinal": null,
+      "semantic_field": "ObservationPolicy.source_revisions",
+      "semantic_required": "LOCAL_EVALUATOR_ONLY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": null
+    },
+    {
+      "local_only": true,
+      "native_name": null,
+      "ordinal": null,
+      "semantic_field": "ObservationEligibilityDecision.status",
+      "semantic_required": "LOCAL_EVALUATOR_ONLY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": null
+    },
+    {
+      "local_only": true,
+      "native_name": null,
+      "ordinal": null,
+      "semantic_field": "ObservationEligibilityDecision.reasons",
+      "semantic_required": "LOCAL_EVALUATOR_ONLY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": null
+    },
+    {
+      "local_only": true,
+      "native_name": null,
+      "ordinal": null,
+      "semantic_field": "ObservationEligibilityDecision.receipt_digest",
+      "semantic_required": "LOCAL_EVALUATOR_ONLY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": null
+    },
+    {
+      "local_only": true,
+      "native_name": null,
+      "ordinal": null,
+      "semantic_field": "ObservationEligibilityDecision.epoch_digest",
+      "semantic_required": "LOCAL_EVALUATOR_ONLY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "wire_type": null
+    },
+    {
+      "local_only": true,
+      "native_name": null,
+      "ordinal": null,
+      "semantic_field": "ObservationEligibilityDecision.candidate_generation_allowed",
+      "semantic_required": "LOCAL_EVALUATOR_ONLY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": null
+    },
+    {
+      "local_only": true,
+      "native_name": null,
+      "ordinal": null,
+      "semantic_field": "ObservationEligibilityDecision.application_authorized",
+      "semantic_required": "LOCAL_EVALUATOR_ONLY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": null
+    },
+    {
+      "local_only": true,
+      "native_name": null,
+      "ordinal": null,
+      "semantic_field": "ObservationEligibilityDecision.runtime_accepted",
+      "semantic_required": "LOCAL_EVALUATOR_ONLY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": null
+    },
+    {
+      "local_only": true,
+      "native_name": null,
+      "ordinal": null,
+      "semantic_field": "ObservationEligibilityDecision.owner_proposal_allowed",
+      "semantic_required": "LOCAL_EVALUATOR_ONLY",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "unit": "dimensionless identity/status/structure",
+      "wire_type": null
+    }
+  ],
+  "native_patch_implemented": false,
+  "optional_wrappers": {
+    "OptionalBool": {
+      "payload": "Bool",
+      "unavailable_ordinal": 0,
+      "value_ordinal": 1
+    },
+    "OptionalDigest": {
+      "payload": "Data",
+      "unavailable_ordinal": 0,
+      "value_ordinal": 1
+    },
+    "OptionalFloat64": {
+      "payload": "Float64",
+      "unavailable_ordinal": 0,
+      "value_ordinal": 1
+    },
+    "OptionalUInt64": {
+      "payload": "UInt64",
+      "unavailable_ordinal": 0,
+      "value_ordinal": 1
+    }
+  },
+  "primary_native_base": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "q_observed_policy": "UNAVAILABLE_ALWAYS_PASSIVE",
+  "required_presence": "WRAPPER_VALUE_ARM_OR_POINTER_PRESENT_AND_VALIDATED",
+  "schema": "carrot-friction-wire-proposal-v1",
+  "service": {
+    "activation_default": false,
+    "frequency_hz": 100,
+    "name": "lateralTorqueIdentification",
+    "should_log": false,
+    "transport_qualified": false
+  },
+  "slot": {
+    "event_ordinal": 110,
+    "existing_name": "customReserved3",
+    "proposed_name": "lateralTorqueIdentification",
+    "type_id": "0xda96579883444c35"
+  },
+  "source_registration": "NEW_EXACT_PATCH_SHA_REQUIRED_NO_OLD_PIN_SUBSTITUTION"
+}
