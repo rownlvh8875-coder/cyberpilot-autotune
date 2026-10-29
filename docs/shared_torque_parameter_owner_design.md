@@ -115,7 +115,9 @@ defense models the multi-producer owner boundary only.
 All times/durations are caller-supplied, finite, nonnegative logical monotonic
 times; durations are explicit positive policy inputs. There is no wall clock,
 default deadline or vehicle number. Mutating operations check for clock regression
-against the last operation and check deadlines before/after capabilities. snapshot
+against the last operation and check deadlines before/after capabilities. Forward
+transaction and rollback budgets start before the initial port read, including
+no-change/same-mode paths; a slow initial read cannot reset the operation budget. snapshot
 does not update a clock high-water; supplying a monotonic read clock remains a
 caller obligation, and PR #9 independently checks its own observation clock.
 

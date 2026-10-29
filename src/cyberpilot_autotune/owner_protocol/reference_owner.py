@@ -151,6 +151,15 @@ class ReferenceTorqueParameterOwner:
         self._check_active_lease(now, installed=False)
         return current, now
 
+    def _begin_forward(self) -> tuple[InstalledTuple, float, float]:
+        if self._state not in (OwnerState.READY, OwnerState.OWNED):
+            raise OwnerProtocolError(self._fault_reason or self._state.value)
+        started = self._operation_time()
+        current, now = self._preflight()
+        if now - started > self.policy.maximum_transaction_s:
+            self._fault("DEADLINE")
+        return current, started, now
+
     def _check_active_lease(self, now: float, *, installed: bool) -> None:
         if self._lease is not None and now >= self._lease.expires_at_s:
             self._fault_reason = "LEASE_EXPIRED"
@@ -227,7 +236,7 @@ class ReferenceTorqueParameterOwner:
     def commit(
         self, expected_revision: int, proposal: TorqueProposal, authority_context: AuthorityContext
     ) -> CommitAck | None:
-        current, started = self._preflight()
+        current, started, now = self._begin_forward()
         if type(proposal) is not TorqueProposal:
             raise OwnerProtocolError("INVALID_PROPOSAL")
         binding = next((b for b in self.policy.producers if b.producer is proposal.producer), None)
@@ -260,14 +269,14 @@ class ReferenceTorqueParameterOwner:
             proposal.expires_at_s, proposal.generated_at_s + self.policy.maximum_proposal_age_s
         )
         if (
-            proposal.generated_at_s > started
-            or started >= proposal_deadline
-            or (started - proposal.generated_at_s > self.policy.maximum_proposal_age_s)
+            proposal.generated_at_s > now
+            or now >= proposal_deadline
+            or (now - proposal.generated_at_s > self.policy.maximum_proposal_age_s)
         ):
             raise OwnerProtocolError("PROPOSAL_EXPIRED")
         if digest(proposal.candidate.lat_accel_offset) != digest(current.values.lat_accel_offset):
             raise OwnerProtocolError("OFFSET_PRESERVATION")
-        self._authorize(authority_context, proposal.digest, started)
+        self._authorize(authority_context, proposal.digest, now)
         refreshed, now = self._preflight()
         if refreshed.digest != current.digest:
             self._fault("FOREIGN_STATE")
@@ -337,7 +346,8 @@ class ReferenceTorqueParameterOwner:
         self._state = OwnerState.RECOVERING
         ack = None
         try:
-            current, started = self._read(), self._now()
+            started = self._now()
+            current = self._read()
             if self._lease is not None and started >= self._lease.expires_at_s:
                 was_faulted, self._fault_reason = True, "LEASE_EXPIRED"
             if current.mode is not self.baseline.mode:
@@ -428,13 +438,13 @@ class ReferenceTorqueParameterOwner:
     def transition_mode(
         self, expected_revision: int, mode: ControllerMode, authority_context: AuthorityContext
     ) -> CommitAck | None:
-        current, started = self._preflight()
+        current, started, now = self._begin_forward()
         if type(expected_revision) is not int or expected_revision != current.revision:
             raise OwnerProtocolError("CAS_CONFLICT")
         if type(mode) is not ControllerMode or mode is ControllerMode.UNKNOWN:
             raise OwnerProtocolError("UNSUPPORTED_MODE")
         self._authorize(
-            authority_context, self.mode_transition_digest(mode, expected_revision), started
+            authority_context, self.mode_transition_digest(mode, expected_revision), now
         )
         refreshed, now = self._preflight()
         if refreshed.digest != current.digest or now >= authority_context.expires_at_s:

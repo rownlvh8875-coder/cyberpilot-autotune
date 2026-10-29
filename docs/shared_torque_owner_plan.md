@@ -109,3 +109,20 @@ and readback remain permitted under their separate rollback budget, but no
 READY/DISARMED/STOPPED clean result can hide the expiry. Hold anchoring is explicitly
 post-commit completion, with a separately bounded installation/verification phase;
 no physical exposure guarantee is asserted from that duration alone.
+
+The fresh 575ff03 review reported C0/I1/M0: the first port read was performed
+before the transaction/recovery start sample, excluding its latency from the
+caller budget. Five RED cases reproduced successful late commit, no-change,
+mode, same-mode and baseline recovery. Forward operations now capture entry
+before the first read and keep that anchor through every later boundary;
+proposal/grant admission still uses the current post-read sample. Rollback
+likewise anchors before its first read. Eight regression cases additionally
+cover already-baseline recovery, disarm and stop, requiring a sticky fault and
+no late write/success. Existing scripted boundary tests retain their specific
+pre-CAS/post-CAS/final-return targets with the explicit new entry sample.
+
+Post-entry-budget correction: 1020 tests passed; overall statement/branch
+coverage 97.64%, owner protocol 99.41% (reference owner 99.01%). Clock regression
+during either forward read is also faulted before installation. Ruff, format,
+strict mypy, H2/H3 exact-source validators and four replay goldens pass. Fresh
+independent exact-head review and remote CI are still separate completion gates.

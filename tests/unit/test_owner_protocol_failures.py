@@ -154,7 +154,7 @@ def test_pre_install_post_install_and_final_grant_expiry_are_distinct(times, rea
     owner, port, clock, authority, _ = setup_owner()
     item = proposal(owner)
     auth = grant(owner, authority, item)
-    values = iter(times)
+    values = iter([times[0], *times])  # operation entry precedes the first port read
     clock.now_s = lambda: next(values)
     with pytest.raises(OwnerProtocolError, match=reason):
         owner.commit(7, item, auth)
@@ -315,7 +315,7 @@ def test_transaction_deadline_in_final_post_install_check_cannot_be_hidden_by_va
     owner, _, clock, authority, _ = setup_owner()
     item = proposal(owner)
     auth = grant(owner, authority, item)
-    times = iter([10.0, 10.0, 10.0, 10.0, 11.5])
+    times = iter([10.0, 10.0, 10.0, 10.0, 10.0, 11.5])
     clock.now_s = lambda: next(times)
     with pytest.raises(OwnerProtocolError, match="DEADLINE"):
         owner.commit(7, item, auth)
@@ -324,7 +324,7 @@ def test_transaction_deadline_in_final_post_install_check_cannot_be_hidden_by_va
 def test_mode_install_cannot_outlive_its_authorization_even_within_transaction_duration():
     owner, _, clock, authority, _ = setup_owner()
     auth = replace(mode_grant(owner, authority, ControllerMode.NN_TORQUE, 7), expires_at_s=10.1)
-    times = iter([10.0, 10.0, 10.0, 10.2, 10.2])
+    times = iter([10.0, 10.0, 10.0, 10.0, 10.2, 10.2])
     clock.now_s = lambda: next(times)
     with pytest.raises(OwnerProtocolError, match="DEADLINE"):
         owner.transition_mode(7, ControllerMode.NN_TORQUE, auth)
@@ -418,7 +418,7 @@ def test_old_lease_expiry_precedes_renewal_at_every_final_install_boundary(times
         expires_at_s=20.0,
     )
     authorization = replace(grant(owner, authority, second), expires_at_s=20.0)
-    samples = iter(times)
+    samples = iter([times[0], *times])  # operation entry precedes the first port read
     clock.now_s = lambda: next(samples)
     with pytest.raises(OwnerProtocolError, match="LEASE_EXPIRED"):
         owner.commit(8, second, authorization)
@@ -433,7 +433,7 @@ def test_old_lease_expiry_precedes_renewal_at_every_final_install_boundary(times
 def test_mode_final_clock_cannot_hide_transaction_overrun_behind_unexpired_grant():
     owner, port, clock, authority, _ = setup_owner()
     authorization = mode_grant(owner, authority, ControllerMode.NN_TORQUE, 7)
-    samples = iter([10.0, 10.0, 10.0, 10.0, 11.5])
+    samples = iter([10.0, 10.0, 10.0, 10.0, 10.0, 11.5])
     clock.now_s = lambda: next(samples)
     with pytest.raises(OwnerProtocolError, match="DEADLINE"):
         owner.transition_mode(7, ControllerMode.NN_TORQUE, authorization)
@@ -455,7 +455,7 @@ def test_known_expiry_at_final_pre_cas_sample_never_installs(expired):
         authorization = replace(
             mode_grant(owner, authority, ControllerMode.NN_TORQUE, 7), expires_at_s=10.1
         )
-    samples = iter([10.0, 10.0, 10.2, 10.2, 10.2])
+    samples = iter([10.0, 10.0, 10.0, 10.2, 10.2, 10.2])
     clock.now_s = lambda: next(samples)
     with pytest.raises(OwnerProtocolError):
         if expired == "mode_grant":
@@ -486,7 +486,7 @@ def test_hold_resolution_change_during_install_faults_instead_of_acknowledging_z
     owner.initialize()
     item = replace(proposal(owner), generated_at_s=15.999999999999998, expires_at_s=20.0)
     authorization = replace(grant(owner, authority, item), expires_at_s=20.0)
-    samples = iter([15.999999999999998] * 3 + [16.0, 16.0])
+    samples = iter([15.999999999999998] * 4 + [16.0, 16.0])
     clock.now_s = lambda: next(samples)
     with pytest.raises(OwnerProtocolError, match="LEASE_DURATION"):
         owner.commit(7, item, authorization)
@@ -512,7 +512,7 @@ def test_mode_grant_expiry_only_at_last_clock_is_still_a_fault():
     authorization = replace(
         mode_grant(owner, authority, ControllerMode.NN_TORQUE, 7), expires_at_s=10.1
     )
-    samples = iter([10.0, 10.0, 10.0, 10.0, 10.2])
+    samples = iter([10.0, 10.0, 10.0, 10.0, 10.0, 10.2])
     clock.now_s = lambda: next(samples)
     with pytest.raises(OwnerProtocolError, match="MODE_TRANSITION_FAULT"):
         owner.transition_mode(7, ControllerMode.NN_TORQUE, authorization)
@@ -554,3 +554,63 @@ def test_expiry_crossed_during_baseline_recovery_remains_latched_after_readback(
     result = owner.rollback()
     assert result.verified and result.values == base.values and result.revision == 9
     assert result.reason == "LEASE_EXPIRED" and result.state is OwnerState.FAULTED
+
+
+@pytest.mark.parametrize(
+    "operation",
+    ["commit", "no_change", "mode", "same_mode", "rollback", "baseline_rollback", "disarm", "stop"],
+)
+def test_initial_port_read_is_included_in_transaction_and_recovery_budgets(operation):
+    owner, port, clock, authority, base = setup_owner()
+    item = proposal(owner, candidate=base.values if operation == "no_change" else None)
+    authorization = grant(owner, authority, item)
+    mode = ControllerMode.LINEAR_TORQUE if operation == "same_mode" else ControllerMode.NN_TORQUE
+    mode_authorization = mode_grant(owner, authority, mode, 7)
+    if operation in {"rollback", "disarm", "stop"}:
+        owner.commit(7, item, authorization)
+    initial = port.read()
+    actual_read = port.read
+    first = True
+
+    def slow_initial_read():
+        nonlocal first
+        if first:
+            first = False
+            clock.value = 12.0
+        return actual_read()
+
+    port.read = slow_initial_read
+    if operation in {"rollback", "baseline_rollback", "disarm", "stop"}:
+        result = getattr(owner, "rollback" if operation == "baseline_rollback" else operation)()
+        assert not result.verified and result.values is None
+    else:
+        with pytest.raises(OwnerProtocolError, match="DEADLINE"):
+            if operation in {"mode", "same_mode"}:
+                owner.transition_mode(7, mode, mode_authorization)
+            else:
+                owner.commit(7, item, authorization)
+    assert owner.state is OwnerState.FAULTED
+    assert port.read() == initial
+
+
+@pytest.mark.parametrize("read_number", [1, 2])
+def test_clock_regression_during_a_forward_port_read_is_latched_without_install(read_number):
+    owner, port, clock, authority, _ = setup_owner()
+    item = proposal(owner)
+    authorization = grant(owner, authority, item)
+    initial = port.read()
+    actual_read = port.read
+    calls = 0
+
+    def regressing_read():
+        nonlocal calls
+        calls += 1
+        if calls == read_number:
+            clock.value = 8.0
+        return actual_read()
+
+    port.read = regressing_read
+    with pytest.raises(OwnerProtocolError, match="CLOCK_FAULT"):
+        owner.commit(7, item, authorization)
+    assert owner.state is OwnerState.FAULTED
+    assert port.read() == initial
