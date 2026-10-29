@@ -111,3 +111,11 @@ not another design — cost: one final independent review rather than per-task a
 
 Baseline:1435 tests pass, tree clean. pycapnp2.1.0 needed for real schema tests;
 no controller runtime/services or hardware dependencies will be started.
+
+Progress: schema/pin guards RED3→GREEN3; collector/codec/absence/immutability
+RED→GREEN16. Native PID tap RED19 PID_TAP_MISSING→GREEN19; actual lateral update
+FF-site RED5 capture missing→GREEN10 active/inactive mode cases. NN input preparation
+and Float32 error logging use explicit offline dependency doubles; these do not
+qualify actual NN models, transport or hardware. Full runnable native/hardware
+baseline is not available; CyberPilot baseline and extracted pinned method
+baselines are distinguished, never reported as a full openpilot native build.
