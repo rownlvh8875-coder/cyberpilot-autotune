@@ -1,0 +1,112 @@
+{
+  "application_authorized": false,
+  "candidate_generation_allowed": false,
+  "changed_files": [
+    {
+      "action": "M",
+      "after_git_blob": "c6414e53815aa0e7e886d1125e5f481a754362e4",
+      "before_git_blob": "295ee9c73a6bed2a1a04c47f9eb67be9342f441f",
+      "mode": "100644",
+      "path": "openpilot/cereal/custom.capnp",
+      "sha256": "ada09dff86e1b4db11b3074d7120415ca5c85ca186cbff1aff0a6667e80ee22d"
+    },
+    {
+      "action": "M",
+      "after_git_blob": "c8a3e91cd33781af7a0a515b67849701bf924f26",
+      "before_git_blob": "9c5cebe0eaa6fbfa077e9e8bfd0b5161367ef862",
+      "mode": "100644",
+      "path": "openpilot/cereal/log.capnp",
+      "sha256": "00ca3b61347659b2515d36efe26cedff57965ca9610e15fe6b2cafdeaefe3b77"
+    },
+    {
+      "action": "M",
+      "after_git_blob": "ebe3a7b67fcd2e684703f21e34abb62f5adac0f6",
+      "before_git_blob": "2b6d3e0b36341e7b30ce179d72744354c809a43f",
+      "mode": "100644",
+      "path": "openpilot/cereal/services.py",
+      "sha256": "3312401eeb4b8e1d994ed290f7622eea8a358dee6293c537bf53a9dc57f0a3a2"
+    },
+    {
+      "action": "M",
+      "after_git_blob": "029b1cb458faf0ef88df59b225f9f73c66fbc24e",
+      "before_git_blob": "a75aa42731640260b0f20202541171ec3838360b",
+      "mode": "100644",
+      "path": "openpilot/common/pid.py",
+      "sha256": "77892029af46c4821909ee4dbaa2a3c623e261fea1b46044aeb99d844a063a11"
+    },
+    {
+      "action": "M",
+      "after_git_blob": "99126d5f5465333621aa83f0cf999dc7541e8c3b",
+      "before_git_blob": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "mode": "100644",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "sha256": "27d3be24301b159c883e633ab67eb0feb65c4b677525cc1411d5c73a830d83d3"
+    },
+    {
+      "action": "M",
+      "after_git_blob": "b83c528991d9b6be4869001a1b525cdb5638106f",
+      "before_git_blob": "2378902ba077177b96dfb57f010e06c388241213",
+      "mode": "100644",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "sha256": "a253b4f7c2852545e6ad222a3c576e2f490c7efad2eb0030eac765f437f8b6ed"
+    },
+    {
+      "action": "A",
+      "after_git_blob": "9acb46225b8424cee615a6b4666e45aa5bb18377",
+      "before_git_blob": null,
+      "mode": "100644",
+      "path": "openpilot/selfdrive/controls/lib/friction_observation.py",
+      "sha256": "85546689832c38ef92c50b2a21e9c11ac48b8e22292c339e3fa278aedfe5f13f"
+    }
+  ],
+  "content_digest": "e2d524e0a672f27b2ed846d6bc13985692eae8b2b4ff013d487f3cf81c22edff",
+  "cyberpilot_patch_revision": "0d1d44c808050835aa5a52c3ddd76d51cb3300b0",
+  "deployment_performed": false,
+  "empirical_qualified": false,
+  "h7_source_allowlist_updated": false,
+  "native_applied_tree": "6185197d6f334f745a9c082519013b8fe0376f65",
+  "native_base_tree": "ffb213d9fdc0f9618264822bd2a4e26263abfe74",
+  "native_parent": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "native_revision_published": false,
+  "offline_candidate_revision": "9957868acc7459f515f1b79e9315cf93a878d933",
+  "owner_proposal_allowed": false,
+  "patch_sha256": "8aa8b63b16ad2050280b3d5e08bc8712111c29014338ef85020aa934787ee8ac",
+  "q_observed": null,
+  "receipt_schema_version": "friction-observation-v1",
+  "registration_scope": "OFFLINE_CONTENT_ONLY",
+  "runtime_accepted": false,
+  "runtime_qualified": false,
+  "schema": "passive-native-offline-registration-v1",
+  "schema_closure": [
+    {
+      "git_blob": "ee6b4fda19e2cdc6695757c1f690d05e9af85526",
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "sha256": "5b8a0b8a5eb89d663025b46e453a36521f47954249de6a0553e013f3739baba0"
+    },
+    {
+      "git_blob": "c6414e53815aa0e7e886d1125e5f481a754362e4",
+      "path": "openpilot/cereal/custom.capnp",
+      "sha256": "ada09dff86e1b4db11b3074d7120415ca5c85ca186cbff1aff0a6667e80ee22d"
+    },
+    {
+      "git_blob": "84a7ad966308e286802c2a6404fc3494462ffc52",
+      "path": "openpilot/cereal/deprecated.capnp",
+      "sha256": "65079ff035a29c4c267d07ef7240c316c7eaa81b52f795142ed7603489a61355"
+    },
+    {
+      "git_blob": "2bda54717920ab980bd3c2ff2c245d9a525685d3",
+      "path": "openpilot/cereal/include/c++.capnp",
+      "sha256": "fb306076cd38c27af1aed20fac6395e9a46fbe5b5df6a248b5f1b6845a079c44"
+    },
+    {
+      "git_blob": "c8a3e91cd33781af7a0a515b67849701bf924f26",
+      "path": "openpilot/cereal/log.capnp",
+      "sha256": "00ca3b61347659b2515d36efe26cedff57965ca9610e15fe6b2cafdeaefe3b77"
+    }
+  ],
+  "schema_closure_digest": "7e80fb64b6163be664f3fe4bd96bcf5ff8634d708c7ec2e867aa165b416f394e",
+  "semantic_wire_map_sha256": "c7d13174dfa4d09d4941bc544db656aa3dffd64703aff9baef09b1cce6e84440",
+  "source_schema_digest": "00ca3b61347659b2515d36efe26cedff57965ca9610e15fe6b2cafdeaefe3b77",
+  "source_schema_digest_semantics": "SHA256_EXACT_APPLIED_LOG_CAPNP_BYTES",
+  "synthetic_commit_payload": "tree 6185197d6f334f745a9c082519013b8fe0376f65\nparent c2130730239bcdb4cbde9361ab90c8d99aa4ff55\nauthor CyberPilot Offline Recipe <offline-recipe@example.invalid> 1793169536 +0000\ncommitter CyberPilot Offline Recipe <offline-recipe@example.invalid> 1793169536 +0000\n\nOffline passive friction receipt candidate\n\nSynthetic recipe object; not a native branch, deployment, or approval.\n"
+}
