@@ -1,0 +1,3034 @@
+{
+  "schema_version": 1,
+  "scope": "DESIGN_AUDIT_ONLY",
+  "application_architecture": "APPLICATION_ARCHITECTURE_REJECTED",
+  "advisory_authority": "ADVISORY_ONLY",
+  "external_ai": "NOT_AUTHORIZED",
+  "runtime_fingerprint": "UNCONFIRMED",
+  "episode_design_status": "EPISODE_OBSERVER_DESIGN_READY",
+  "supervisor_design_status": "AUTOTUNE_SUPERVISOR_DESIGN_READY",
+  "adoption": [
+    {
+      "concept": "telemetry concept",
+      "decision": "ADOPT_WITH_STRONGER_CONTRACT",
+      "evidence": [
+        "B:contract",
+        "H:telemetry"
+      ],
+      "gap_and_reason": "Reuse existing exact observations; never transplant latest-slot extraction.",
+      "future_layer": "read-only evidence consumer"
+    },
+    {
+      "concept": "latest-value log join",
+      "decision": "REJECT",
+      "evidence": [
+        "H:telemetry",
+        "B:adapter"
+      ],
+      "gap_and_reason": "Missing health/stamps and stale slots violate exact cohort contract.",
+      "future_layer": "none"
+    },
+    {
+      "concept": "episode taxonomy",
+      "decision": "ADOPT_WITH_STRONGER_CONTRACT",
+      "evidence": [
+        "H:episodes",
+        "B:snapshot"
+      ],
+      "gap_and_reason": "Versioned caller thresholds, bounded windows, explicit gaps and immutable facts.",
+      "future_layer": "Episode Observer"
+    },
+    {
+      "concept": "driver intervention event",
+      "decision": "ADOPT_WITH_STRONGER_CONTRACT",
+      "evidence": [
+        "H:episodes",
+        "A:prompt",
+        "B:gate"
+      ],
+      "gap_and_reason": "Transition is fact; dissatisfaction/cause requires separate feedback. Override veto stays.",
+      "future_layer": "Episode Observer"
+    },
+    {
+      "concept": "automatic dissatisfaction label",
+      "decision": "REJECT",
+      "evidence": [
+        "A:prompt",
+        "A:rules"
+      ],
+      "gap_and_reason": "No causal evidence that a pedal/steer transition expresses discomfort.",
+      "future_layer": "none"
+    },
+    {
+      "concept": "parameter knowledge descriptors",
+      "decision": "ADOPT_WITH_STRONGER_CONTRACT",
+      "evidence": [
+        "H:knowledge",
+        "P:clamp",
+        "G:policy"
+      ],
+      "gap_and_reason": "Pin unit/consumer/hash and ownership; UI ranges cannot be safety bounds.",
+      "future_layer": "offline descriptors"
+    },
+    {
+      "concept": "source-grounded explanation",
+      "decision": "ADOPT_WITH_STRONGER_CONTRACT",
+      "evidence": [
+        "H:snippet",
+        "C:sources",
+        "G:application"
+      ],
+      "gap_and_reason": "Structured pinned claims with explicit conditions, not stale raw snippets.",
+      "future_layer": "SourceKnowledgeDescriptor"
+    },
+    {
+      "concept": "built-in recommender",
+      "decision": "REFERENCE_ONLY",
+      "evidence": [
+        "A:rules",
+        "A:parse"
+      ],
+      "gap_and_reason": "Useful symptom vocabulary; fixed numbers and fabricated fallback values rejected.",
+      "future_layer": "advisory research only"
+    },
+    {
+      "concept": "external LLM recommender",
+      "decision": "DEFER",
+      "evidence": [
+        "A:network",
+        "A:prompt"
+      ],
+      "gap_and_reason": "No network approval, privacy contract or qualified identification.",
+      "future_layer": "future optional advisory backend"
+    },
+    {
+      "concept": "Apply endpoint",
+      "decision": "REJECT",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "G:coordinator",
+        "G:ports"
+      ],
+      "gap_and_reason": "No owner transaction, causal approval or verified recovery.",
+      "future_layer": "none"
+    },
+    {
+      "concept": "rollback visibility UX",
+      "decision": "ADOPT",
+      "evidence": [
+        "W:rollback",
+        "V:rollback",
+        "G:application"
+      ],
+      "gap_and_reason": "UX_CONCEPT_ONLY; distinguish requested, committed, verified and uncertain outcomes.",
+      "future_layer": "future operator presentation"
+    },
+    {
+      "concept": "AI provider configuration",
+      "decision": "REFERENCE_ONLY",
+      "evidence": [
+        "A:providers",
+        "A:config",
+        "H:config"
+      ],
+      "gap_and_reason": "Provider labels only; credential synchronization/persistence not adopted.",
+      "future_layer": "future reviewed advisory settings"
+    },
+    {
+      "concept": "longitudinal taxonomy",
+      "decision": "DEFER",
+      "evidence": [
+        "H:episodes",
+        "N:mpc",
+        "L:long"
+      ],
+      "gap_and_reason": "FUTURE_LONGITUDINAL_EPISODE vocabulary only; no roadmap activation.",
+      "future_layer": "deferred research taxonomy"
+    },
+    {
+      "concept": "readable before-after explanation",
+      "decision": "ADOPT",
+      "evidence": [
+        "V:results",
+        "V:rollback"
+      ],
+      "gap_and_reason": "Human-visible proposed differences are useful; default checked selection not authority.",
+      "future_layer": "future advisory report"
+    }
+  ],
+  "episodes": [
+    {
+      "name": "departure_start",
+      "formula": "previous.standstill AND NOT current.standstill AND current.hasLead",
+      "source_fields": [
+        "standstill",
+        "hasLead",
+        "vEgo",
+        "dRel",
+        "vLead",
+        "aTarget",
+        "aCmd"
+      ],
+      "units": "speed km/h; distance m; acceleration m/s^2",
+      "override": "No driver exclusion; isOverride=False is a label, not proof of automation",
+      "false_positive": "Manual departure or lost standstill bit looks automated",
+      "false_negative": "5Hz transition or skipped segment may hide start",
+      "cohort_risk": "Latest-value slots, event timestamp not source identity; adjacent sampled/disjoint segments are not a continuous synchronized episode.",
+      "threshold_role": "DIAGNOSTIC_HEURISTIC_ONLY",
+      "observed_fact": "SAMPLED_PREDICATE_MATCH",
+      "future_utility": "FUTURE_LONGITUDINAL_EPISODE",
+      "evidence": [
+        "H:episodes",
+        "H:telemetry",
+        "H:selection"
+      ]
+    },
+    {
+      "name": "harsh_catchup_accel",
+      "formula": "hasLead AND aTarget >= 1.4 AND NOT gas",
+      "source_fields": [
+        "hasLead",
+        "aTarget",
+        "gas",
+        "aCmd",
+        "jLead"
+      ],
+      "units": "acceleration m/s^2; jerk m/s^3",
+      "override": "Gas excluded only; brake/steer/engagement not gated",
+      "false_positive": "Ordinary required acceleration or stale lead looks harsh",
+      "false_negative": "Subsampled short pulse or unavailable target default hides surge",
+      "cohort_risk": "Latest-value slots, event timestamp not source identity; adjacent sampled/disjoint segments are not a continuous synchronized episode.",
+      "threshold_role": "DIAGNOSTIC_HEURISTIC_ONLY",
+      "observed_fact": "SAMPLED_PREDICATE_MATCH",
+      "future_utility": "FUTURE_LONGITUDINAL_EPISODE",
+      "evidence": [
+        "H:episodes",
+        "H:telemetry",
+        "H:selection"
+      ]
+    },
+    {
+      "name": "harsh_decel",
+      "formula": "(aTarget <= -1.8 OR aEgo <= -2.0) AND NOT brake",
+      "source_fields": [
+        "aTarget",
+        "aEgo",
+        "brake",
+        "hasLead",
+        "dRel"
+      ],
+      "units": "acceleration m/s^2; distance m",
+      "override": "Brake excluded only; steering/gas/engagement not gated",
+      "false_positive": "Traffic-required deceleration mislabeled discomfort",
+      "false_negative": "Brake override excludes genuine harsh automated lead-in",
+      "cohort_risk": "Latest-value slots, event timestamp not source identity; adjacent sampled/disjoint segments are not a continuous synchronized episode.",
+      "threshold_role": "DIAGNOSTIC_HEURISTIC_ONLY",
+      "observed_fact": "SAMPLED_PREDICATE_MATCH",
+      "future_utility": "FUTURE_LONGITUDINAL_EPISODE",
+      "evidence": [
+        "H:episodes",
+        "H:telemetry",
+        "H:selection"
+      ]
+    },
+    {
+      "name": "steering_tracking_error",
+      "formula": "vEgo >= 30 AND abs(desiredSteerAngle - steerAngle) >= 3 AND NOT steer",
+      "source_fields": [
+        "vEgo",
+        "desiredSteerAngle",
+        "steerAngle",
+        "steer",
+        "steerTorque"
+      ],
+      "units": "speed km/h; angle degree; normalized torque",
+      "override": "Steer excluded only; no lateral-active/controller-kind guard",
+      "false_positive": "Default/unsupported target angle or inactive controller creates apparent error",
+      "false_negative": "Brief errors between samples or intervention excludes a real deviation",
+      "cohort_risk": "Latest-value slots, event timestamp not source identity; adjacent sampled/disjoint segments are not a continuous synchronized episode.",
+      "threshold_role": "DIAGNOSTIC_HEURISTIC_ONLY",
+      "observed_fact": "SAMPLED_PREDICATE_MATCH",
+      "future_utility": "STEERING_DIAGNOSTIC_CANDIDATE",
+      "evidence": [
+        "H:episodes",
+        "H:telemetry",
+        "H:selection"
+      ]
+    },
+    {
+      "name": "curve_speed_mismatch",
+      "formula": "vEgo >= 30 AND max(abs(steerAngle),abs(desiredSteerAngle)) >= 15 AND 0 < abs(vTurnSpeed) < vEgo-5 AND (desiredSpeed >= vEgo-1 OR desiredSource != vturn)",
+      "source_fields": [
+        "vEgo",
+        "steerAngle",
+        "desiredSteerAngle",
+        "vTurnSpeed",
+        "desiredSpeed",
+        "desiredSource",
+        "cruiseTarget"
+      ],
+      "units": "speed km/h; angle degree",
+      "override": "No driver exclusion",
+      "false_positive": "A safer/lower model or route target still triggers source-not-vturn clause",
+      "false_negative": "Absent/default vTurnSpeed prevents detection; no chosen-source legitimacy",
+      "cohort_risk": "Latest-value slots, event timestamp not source identity; adjacent sampled/disjoint segments are not a continuous synchronized episode.",
+      "threshold_role": "DIAGNOSTIC_HEURISTIC_ONLY",
+      "observed_fact": "SAMPLED_PREDICATE_MATCH",
+      "future_utility": "FUTURE_LONGITUDINAL_EPISODE",
+      "evidence": [
+        "H:episodes",
+        "H:telemetry",
+        "H:selection"
+      ]
+    },
+    {
+      "name": "driver_brake_override",
+      "formula": "include_driver_override AND brake rising edge AND vEgo >= 5",
+      "source_fields": [
+        "brake",
+        "vEgo",
+        "previous.aTarget",
+        "aEgo",
+        "dRel"
+      ],
+      "units": "speed km/h; acceleration m/s^2; distance m",
+      "override": "Explicit inclusion; not an admissible learning sample",
+      "false_positive": "Ordinary takeover/obstacle/traffic becomes alleged dissatisfaction",
+      "false_negative": "At-rest intervention or sampling/segment gap loses transition",
+      "cohort_risk": "Latest-value slots, event timestamp not source identity; adjacent sampled/disjoint segments are not a continuous synchronized episode.",
+      "threshold_role": "DIAGNOSTIC_HEURISTIC_ONLY",
+      "observed_fact": "DRIVER_INPUT_TRANSITION",
+      "future_utility": "FUTURE_LONGITUDINAL_EPISODE",
+      "evidence": [
+        "H:episodes",
+        "H:telemetry",
+        "H:selection"
+      ]
+    },
+    {
+      "name": "driver_gas_override",
+      "formula": "include_driver_override AND gas rising edge AND vEgo <= 80",
+      "source_fields": [
+        "gas",
+        "vEgo",
+        "previous.aTarget",
+        "dRel",
+        "vLead"
+      ],
+      "units": "speed km/h; acceleration m/s^2; distance m",
+      "override": "Explicit inclusion; no engagement condition",
+      "false_positive": "Manual acceleration/preferences become alleged sluggish automation",
+      "false_negative": "Above-80 intervention or short pulse omitted",
+      "cohort_risk": "Latest-value slots, event timestamp not source identity; adjacent sampled/disjoint segments are not a continuous synchronized episode.",
+      "threshold_role": "DIAGNOSTIC_HEURISTIC_ONLY",
+      "observed_fact": "DRIVER_INPUT_TRANSITION",
+      "future_utility": "FUTURE_LONGITUDINAL_EPISODE",
+      "evidence": [
+        "H:episodes",
+        "H:telemetry",
+        "H:selection"
+      ]
+    },
+    {
+      "name": "driver_steer_override",
+      "formula": "include_driver_override AND steer rising edge AND vEgo >= 20",
+      "source_fields": [
+        "steer",
+        "vEgo",
+        "steerAngle",
+        "desiredSteerAngle"
+      ],
+      "units": "speed km/h; angle degree",
+      "override": "Explicit inclusion; no exact producer/active evidence",
+      "false_positive": "Lane positioning or unrelated takeover becomes alleged tracking fault",
+      "false_negative": "Low-speed intervention or short pulse omitted",
+      "cohort_risk": "Latest-value slots, event timestamp not source identity; adjacent sampled/disjoint segments are not a continuous synchronized episode.",
+      "threshold_role": "DIAGNOSTIC_HEURISTIC_ONLY",
+      "observed_fact": "DRIVER_INPUT_TRANSITION",
+      "future_utility": "STEERING_DIAGNOSTIC_CANDIDATE",
+      "evidence": [
+        "H:episodes",
+        "H:telemetry",
+        "H:selection"
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "name": "CruiseMaxVals0",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored hundredths of m/s^2; speed-bin interpolation and mode factor",
+      "consumer": "Carrot/MPC conditional consumer",
+      "catalog_present": true,
+      "ui_min": 1,
+      "ui_max": 250,
+      "ui_default": 160,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "N:accel",
+        "K:parameter:CruiseMaxVals0"
+      ]
+    },
+    {
+      "name": "CruiseMaxVals1",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored hundredths of m/s^2; speed-bin interpolation and mode factor",
+      "consumer": "Carrot/MPC conditional consumer",
+      "catalog_present": true,
+      "ui_min": 1,
+      "ui_max": 250,
+      "ui_default": 160,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "N:accel",
+        "K:parameter:CruiseMaxVals1"
+      ]
+    },
+    {
+      "name": "CruiseMaxVals2",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored hundredths of m/s^2; speed-bin interpolation and mode factor",
+      "consumer": "Carrot/MPC conditional consumer",
+      "catalog_present": true,
+      "ui_min": 1,
+      "ui_max": 250,
+      "ui_default": 120,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "N:accel",
+        "K:parameter:CruiseMaxVals2"
+      ]
+    },
+    {
+      "name": "CruiseMaxVals3",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored hundredths of m/s^2; speed-bin interpolation and mode factor",
+      "consumer": "Carrot/MPC conditional consumer",
+      "catalog_present": true,
+      "ui_min": 1,
+      "ui_max": 250,
+      "ui_default": 100,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "N:accel",
+        "K:parameter:CruiseMaxVals3"
+      ]
+    },
+    {
+      "name": "CruiseMaxVals4",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored hundredths of m/s^2; speed-bin interpolation and mode factor",
+      "consumer": "Carrot/MPC conditional consumer",
+      "catalog_present": true,
+      "ui_min": 1,
+      "ui_max": 250,
+      "ui_default": 80,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "N:accel",
+        "K:parameter:CruiseMaxVals4"
+      ]
+    },
+    {
+      "name": "CruiseMaxVals5",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored hundredths of m/s^2; speed-bin interpolation and mode factor",
+      "consumer": "Carrot/MPC conditional consumer",
+      "catalog_present": true,
+      "ui_min": 1,
+      "ui_max": 250,
+      "ui_default": 70,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "N:accel",
+        "K:parameter:CruiseMaxVals5"
+      ]
+    },
+    {
+      "name": "CruiseMaxVals6",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored hundredths of m/s^2; speed-bin interpolation and mode factor",
+      "consumer": "Carrot/MPC conditional consumer",
+      "catalog_present": true,
+      "ui_min": 1,
+      "ui_max": 250,
+      "ui_default": 60,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "N:accel",
+        "K:parameter:CruiseMaxVals6"
+      ]
+    },
+    {
+      "name": "DynamicTFollow",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored /100 seconds; additive lead.jLead-indexed time-gap adjustment",
+      "consumer": "CarrotPlanner gap methods -> LongitudinalMpc.update",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 100,
+      "ui_default": 0,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "K:parameter:DynamicTFollow"
+      ]
+    },
+    {
+      "name": "DynamicTFollowLC",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored /100 dimensionless time-gap and jerk-factor multiplier during lane-change branch",
+      "consumer": "CarrotPlanner gap methods -> LongitudinalMpc.update",
+      "catalog_present": true,
+      "ui_min": 20,
+      "ui_max": 100,
+      "ui_default": 100,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "K:parameter:DynamicTFollowLC"
+      ]
+    },
+    {
+      "name": "EnableSpeedTF",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "positive percent or negative speed-gap mode selector",
+      "consumer": "Carrot/MPC conditional consumer",
+      "catalog_present": true,
+      "ui_min": -3,
+      "ui_max": 50,
+      "ui_default": 0,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "K:parameter:EnableSpeedTF"
+      ]
+    },
+    {
+      "name": "TFollowGap1",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored /100 seconds base following gap, then mode/speed processing",
+      "consumer": "CarrotPlanner gap methods -> LongitudinalMpc.update",
+      "catalog_present": true,
+      "ui_min": 40,
+      "ui_max": 300,
+      "ui_default": 110,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "K:parameter:TFollowGap1"
+      ]
+    },
+    {
+      "name": "TFollowGap2",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored /100 seconds base following gap, then mode/speed processing",
+      "consumer": "CarrotPlanner gap methods -> LongitudinalMpc.update",
+      "catalog_present": true,
+      "ui_min": 40,
+      "ui_max": 300,
+      "ui_default": 120,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "K:parameter:TFollowGap2"
+      ]
+    },
+    {
+      "name": "TFollowGap3",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored /100 seconds base following gap, then mode/speed processing",
+      "consumer": "CarrotPlanner gap methods -> LongitudinalMpc.update",
+      "catalog_present": true,
+      "ui_min": 40,
+      "ui_max": 300,
+      "ui_default": 140,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "K:parameter:TFollowGap3"
+      ]
+    },
+    {
+      "name": "TFollowGap4",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored /100 seconds base following gap, then mode/speed processing",
+      "consumer": "CarrotPlanner gap methods -> LongitudinalMpc.update",
+      "catalog_present": true,
+      "ui_min": 40,
+      "ui_max": 300,
+      "ui_default": 160,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "K:parameter:TFollowGap4"
+      ]
+    },
+    {
+      "name": "TFollowDecelBoost",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored /100 multiplier of acceleration-indexed extra gap",
+      "consumer": "Carrot/MPC conditional consumer",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 100,
+      "ui_default": 50,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "K:parameter:TFollowDecelBoost"
+      ]
+    },
+    {
+      "name": "AChangeCostStarting",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "unscaled departure acceleration-change cost",
+      "consumer": "Carrot/MPC conditional consumer",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 200,
+      "ui_default": 10,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "N:cost",
+        "K:parameter:AChangeCostStarting"
+      ]
+    },
+    {
+      "name": "RadarReactionFactor",
+      "classification": "UNRESOLVED",
+      "unit_and_condition": "no catalog entry; no executable Python consumer found in scoped source search",
+      "consumer": "not proven",
+      "catalog_present": false,
+      "ui_min": null,
+      "ui_max": null,
+      "ui_default": null,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "K:settings",
+        "K:removed"
+      ]
+    },
+    {
+      "name": "LongitudinalPersonality",
+      "classification": "USER_PREFERENCE",
+      "unit_and_condition": "enum/mode, not continuous gain",
+      "consumer": "Carrot/MPC conditional consumer",
+      "catalog_present": false,
+      "ui_min": null,
+      "ui_max": null,
+      "ui_default": null,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc"
+      ]
+    },
+    {
+      "name": "LongTuningKpV",
+      "classification": "SAFETY_SENSITIVE",
+      "unit_and_condition": "stored *0.01",
+      "consumer": "LongControl conditional non-fixed tuning; Hyundai fixed gains",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 200,
+      "ui_default": 100,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "L:long",
+        "K:settings",
+        "H:knowledge",
+        "K:parameter:LongTuningKpV"
+      ]
+    },
+    {
+      "name": "LongTuningKiV",
+      "classification": "SAFETY_SENSITIVE",
+      "unit_and_condition": "stored *0.001 (UI title disagrees)",
+      "consumer": "LongControl conditional non-fixed tuning; Hyundai fixed gains",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 2000,
+      "ui_default": 0,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "L:long",
+        "K:settings",
+        "H:knowledge",
+        "K:parameter:LongTuningKiV"
+      ]
+    },
+    {
+      "name": "LongTuningKf",
+      "classification": "SAFETY_SENSITIVE",
+      "unit_and_condition": "stored *0.01",
+      "consumer": "LongControl conditional non-fixed tuning; Hyundai fixed gains",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 200,
+      "ui_default": 100,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "L:long",
+        "K:settings",
+        "H:knowledge",
+        "K:parameter:LongTuningKf"
+      ]
+    },
+    {
+      "name": "StoppingAccel",
+      "classification": "SAFETY_SENSITIVE",
+      "unit_and_condition": "stored *0.01 m/s^2; Hyundai zero remapped at startup",
+      "consumer": "LongControl",
+      "catalog_present": true,
+      "ui_min": -100,
+      "ui_max": 0,
+      "ui_default": -50,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "L:long",
+        "K:settings",
+        "K:parameter:StoppingAccel"
+      ]
+    },
+    {
+      "name": "StopDistanceCarrot",
+      "classification": "SAFETY_SENSITIVE",
+      "unit_and_condition": "stored /100 m; MPC behavior must be traced, UI description is not authority",
+      "consumer": "Carrot/MPC conditional consumer",
+      "catalog_present": true,
+      "ui_min": 400,
+      "ui_max": 1000,
+      "ui_default": 600,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "H:knowledge",
+        "A:prompt",
+        "A:parse",
+        "F:params",
+        "F:follow",
+        "N:mpc",
+        "K:parameter:StopDistanceCarrot"
+      ]
+    },
+    {
+      "name": "CarSelected3",
+      "classification": "NOT_SUITABLE",
+      "unit_and_condition": "manual vehicle/platform selection; never a tuning parameter",
+      "consumer": "opendbc car_helpers.get_car -> forced candidate",
+      "catalog_present": false,
+      "ui_min": null,
+      "ui_max": null,
+      "ui_default": null,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "K:selection",
+        "H:knowledge"
+      ]
+    },
+    {
+      "name": "LateralTorqueCustom",
+      "classification": "SAFETY_SENSITIVE",
+      "unit_and_condition": "integer custom-torque mode switch; positive selects custom Params path",
+      "consumer": "LatControlTorque.update every ten frames if custom enabled",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 1,
+      "ui_default": 1,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "L:torque",
+        "L:nn",
+        "K:settings",
+        "G:application",
+        "K:parameter:LateralTorqueCustom"
+      ]
+    },
+    {
+      "name": "LateralTorqueKpV",
+      "classification": "SAFETY_SENSITIVE",
+      "unit_and_condition": "stored *0.01 LateralTorqueKpV controller gain",
+      "consumer": "LatControlTorque.update every ten frames if custom enabled",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 200,
+      "ui_default": 100,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "L:torque",
+        "L:nn",
+        "K:settings",
+        "G:application",
+        "K:parameter:LateralTorqueKpV"
+      ]
+    },
+    {
+      "name": "LateralTorqueKiV",
+      "classification": "SAFETY_SENSITIVE",
+      "unit_and_condition": "stored *0.01 LateralTorqueKiV controller gain",
+      "consumer": "LatControlTorque.update every ten frames if custom enabled",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 200,
+      "ui_default": 10,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "L:torque",
+        "L:nn",
+        "K:settings",
+        "G:application",
+        "K:parameter:LateralTorqueKiV"
+      ]
+    },
+    {
+      "name": "LateralTorqueKf",
+      "classification": "SAFETY_SENSITIVE",
+      "unit_and_condition": "stored *0.01 LateralTorqueKf controller gain; UI title disagrees with actual scale",
+      "consumer": "LatControlTorque.update every ten frames if custom enabled",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 200,
+      "ui_default": 100,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "L:torque",
+        "L:nn",
+        "K:settings",
+        "G:application",
+        "K:parameter:LateralTorqueKf"
+      ]
+    },
+    {
+      "name": "LateralTorqueFriction",
+      "classification": "POTENTIAL_APPLICATION_FAMILY",
+      "unit_and_condition": "stored *0.001 in conditional custom torque path; no CyberPilot unit equivalence asserted",
+      "consumer": "LatControlTorque.update versus live torqued/NN ownership",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 1000,
+      "ui_default": 100,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "L:torque",
+        "K:linear",
+        "G:application",
+        "G:policy",
+        "K:parameter:LateralTorqueFriction"
+      ]
+    },
+    {
+      "name": "LateralTorqueAccelFactor",
+      "classification": "POTENTIAL_APPLICATION_FAMILY",
+      "unit_and_condition": "stored *0.001 in conditional custom torque path; no CyberPilot unit equivalence asserted",
+      "consumer": "LatControlTorque.update versus live torqued/NN ownership",
+      "catalog_present": true,
+      "ui_min": 1000,
+      "ui_max": 6000,
+      "ui_default": 2500,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "L:torque",
+        "K:linear",
+        "G:application",
+        "G:policy",
+        "K:parameter:LateralTorqueAccelFactor"
+      ]
+    },
+    {
+      "name": "SteerRatioRate",
+      "classification": "SAFETY_SENSITIVE",
+      "unit_and_condition": "percent, bypassed on MEB or by applicable CustomSR",
+      "consumer": "Controls -> resolve_vehicle_model_steer_ratio -> VM",
+      "catalog_present": true,
+      "ui_min": 30,
+      "ui_max": 200,
+      "ui_default": 100,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "U:ratio",
+        "U:vm",
+        "G:application",
+        "K:parameter:SteerRatioRate"
+      ]
+    },
+    {
+      "name": "SteerActuatorDelay",
+      "classification": "SAFETY_SENSITIVE",
+      "unit_and_condition": "stored *0.01 s; zero selects liveDelay",
+      "consumer": "Controls curvature shaping and torque lookahead",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 300,
+      "ui_default": 30,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "U:delay",
+        "L:torque",
+        "G:application",
+        "K:parameter:SteerActuatorDelay"
+      ]
+    },
+    {
+      "name": "TurnSpeedControlMode",
+      "classification": "USER_PREFERENCE",
+      "unit_and_condition": "source-selection enum; software has mode 4 despite UI maximum 3",
+      "consumer": "CarrotServ speed arbitration",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 3,
+      "ui_default": 1,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "C:sources",
+        "K:settings",
+        "K:parameter:TurnSpeedControlMode"
+      ]
+    },
+    {
+      "name": "AutoCurveSpeedFactor",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored *0.01 scale of predicted orientation rate",
+      "consumer": "CarrotMan.vturn_speed -> CarrotServ mode selection",
+      "catalog_present": true,
+      "ui_min": 50,
+      "ui_max": 300,
+      "ui_default": 100,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "M:vision",
+        "C:sources",
+        "K:parameter:AutoCurveSpeedFactor"
+      ]
+    },
+    {
+      "name": "ModelTurnSpeedFactor",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored *0.1 s future model interpolation; speed *1.2 then filtering",
+      "consumer": "DesireHelper._make_model_turn_speed -> model meta -> CarrotServ",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 80,
+      "ui_default": 0,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "D:model",
+        "C:sources",
+        "K:parameter:ModelTurnSpeedFactor"
+      ]
+    },
+    {
+      "name": "MapTurnSpeedFactor",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "stored *0.01 dimensionless route-speed multiplier before km/h floor",
+      "consumer": "CarrotServ speed arbitration",
+      "catalog_present": true,
+      "ui_min": 50,
+      "ui_max": 300,
+      "ui_default": 100,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "C:params",
+        "C:sources",
+        "K:parameter:MapTurnSpeedFactor"
+      ]
+    },
+    {
+      "name": "AutoCurveSpeedLowerLimit",
+      "classification": "FUTURE_LONGITUDINAL_RESEARCH",
+      "unit_and_condition": "unscaled km/h minimum speed floor for selected curve/route/model candidates",
+      "consumer": "CarrotServ speed arbitration",
+      "catalog_present": true,
+      "ui_min": 10,
+      "ui_max": 200,
+      "ui_default": 30,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "C:params",
+        "C:sources",
+        "K:parameter:AutoCurveSpeedLowerLimit"
+      ]
+    },
+    {
+      "name": "CruiseEcoControl",
+      "classification": "USER_PREFERENCE",
+      "unit_and_condition": "km/h overspeed target adjustment",
+      "consumer": "CarrotPlanner.cruise_eco_control then alive-carrotMan min",
+      "catalog_present": true,
+      "ui_min": 0,
+      "ui_max": 10,
+      "ui_default": 2,
+      "ui_metadata_role": "DESCRIPTIVE_ONLY",
+      "application_authorized": false,
+      "evidence": [
+        "F:eco",
+        "F:min",
+        "F:calls",
+        "K:parameter:CruiseEcoControl"
+      ]
+    }
+  ],
+  "additional_catalog_parameters": [
+    {
+      "name": "AdjustLaneOffset",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AlwaysLateral",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ApplyModelSpeed",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoCruiseControl",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoEngage",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoGasCancelSpeed",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoGasSyncSpeed",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoGasTokSpeed",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoNaviCountDownMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoNaviSpeedBumpSpeed",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoNaviSpeedBumpTime",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoNaviSpeedCtrlEnd",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoNaviSpeedCtrlMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoNaviSpeedDecelRate",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoNaviSpeedSafetyFactor",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoRoadSpeedAdjust",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoRoadSpeedLimitOffset",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoSpeedUptoRoadSpeedLimit",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoTurnControl",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoTurnControlSpeedTurn",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoTurnControlTurnEnd",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "AutoTurnMapChange",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CameraYawTrimDeg",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CancelButtonMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CanfdDebug",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CanfdHDA2",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CarrotCruiseAtcDecel",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CarrotCruiseDecel",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CarrotTireTrajectory",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CarrotYouTubeLive",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CarrotYouTubeQuality",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CarrotYouTubeTimestamp",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHud",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudBrightness",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudCameraViewMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudCoreMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudDebug",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudEncoder",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudLiveFps",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudMirror",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudOrientation",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudPanelLayout",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudPriority",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudRadarDisplay",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudRadarInfo",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudRadarSourceColor",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudScreenMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterHudTheme",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterNaviMapFps",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterNaviMapTheme",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ClusterNaviMapType",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseButtonLongDelay",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseButtonMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseButtonTest1",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseButtonTest2",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseButtonTest3",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseOnDist",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseSpeed1",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseSpeed2",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseSpeed3",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseSpeed4",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseSpeed5",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseSpeedUnit",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CruiseSpeedUnitBasic",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CustomSR",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CustomSteerDeltaDown",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CustomSteerDeltaDownLC",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CustomSteerDeltaUp",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CustomSteerDeltaUpLC",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "CustomSteerMax",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "DisableDM",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "DisableMinSteerSpeed",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "EnableCornerRadar",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "EnableRadarTracks",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "HDPuse",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "HapticFeedbackWhenSpeedCamera",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "HardwareC3xLite",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "HotspotOnBoot",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "HyundaiCameraSCC",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "IsLdwsCar",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LaneChangeBsd",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LaneChangeDelay",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LaneChangeNeedTorque",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LaneLineCheck",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LatMpcAccelCost",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LatMpcInputOffset",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LatMpcJerkCost",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LatMpcMotionCost",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LatMpcPathCost",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LatMpcSteeringRateCost",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LatSmoothSec",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LatSuspendAngleDeg",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LateralTorqueKd",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LeadAccelResponse",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LfaButtonMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "LongActuatorDelay",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "MapboxStyle",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "MaxAngleFrames",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "MaxTimeOffroadMin",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "MuteDoor",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "MuteSeatbelt",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "MyDrivingMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "MyDrivingModeAuto",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "PaddleMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "PathOffset",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "RecordRoadCam",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShareData",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowCameraWithCluster",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowCustomBrightness",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowDateTime",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowDebugUI",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowDeviceState",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowLaneInfo",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowModelView",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowPathColor",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowPathColorCruiseOff",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowPathColorLane",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowPathEnd",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowPathMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowPathModeLane",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowPlotMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowRadarInfo",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowRouteInfo",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "ShowTpms",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "SoftHoldOnCancel",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "SoftwareMenu",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "SoundLanguageSetting",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "SoundVolumeAdjust",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "SoundVolumeAdjustEngage",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "SpeedFromPCM",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "TrafficLightDetectMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "TrafficStopDistanceAdjust",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "UseLaneLineCurveSpeed",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "UseLaneLineSpeed",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "UseWideCamera",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "VEgoStopping",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "VehicleNaviCanControl",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "VehicleNaviSchoolZoneControl",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "VehicleSpeedCameraControlMode",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    },
+    {
+      "name": "VehicleSpeedCameraDistanceTime",
+      "classification": "UNRESOLVED",
+      "application_authorized": false,
+      "evidence": [
+        "K:settings",
+        "A:parse"
+      ],
+      "reason": "Catalog exposure/arbitrary JSON output is not a reviewed recommendation or consumer qualification."
+    }
+  ],
+  "unbounded_recommendation_names": "normalizeAiResult accepts arbitrary names; endpoint lacks a dedicated tuning-family allowlist. Unknown names are not authorized by this audit.",
+  "providers": [
+    {
+      "name": "free",
+      "kind": "DETERMINISTIC_LOCAL_RULES",
+      "adoption": "REFERENCE_ONLY",
+      "payload": "No external request in Free branch; UI still talks to device API",
+      "evidence": [
+        "A:providers",
+        "A:prompt",
+        "A:network",
+        "A:config"
+      ]
+    },
+    {
+      "name": "gemini",
+      "kind": "BROWSER_NETWORK",
+      "adoption": "DEFER",
+      "payload": "system/user prompt: route, stats, episodes, current params, descriptors, source synopsis and user complaint; telemetrySample is not serialized by buildUserPrompt",
+      "evidence": [
+        "A:providers",
+        "A:prompt",
+        "A:network",
+        "A:config"
+      ]
+    },
+    {
+      "name": "openai",
+      "kind": "BROWSER_NETWORK",
+      "adoption": "DEFER",
+      "payload": "system/user prompt: route, stats, episodes, current params, descriptors, source synopsis and user complaint; telemetrySample is not serialized by buildUserPrompt",
+      "evidence": [
+        "A:providers",
+        "A:prompt",
+        "A:network",
+        "A:config"
+      ]
+    },
+    {
+      "name": "claude",
+      "kind": "BROWSER_NETWORK",
+      "adoption": "DEFER",
+      "payload": "system/user prompt: route, stats, episodes, current params, descriptors, source synopsis and user complaint; telemetrySample is not serialized by buildUserPrompt",
+      "evidence": [
+        "A:providers",
+        "A:prompt",
+        "A:network",
+        "A:config"
+      ]
+    },
+    {
+      "name": "grok",
+      "kind": "BROWSER_NETWORK",
+      "adoption": "DEFER",
+      "payload": "system/user prompt: route, stats, episodes, current params, descriptors, source synopsis and user complaint; telemetrySample is not serialized by buildUserPrompt",
+      "evidence": [
+        "A:providers",
+        "A:prompt",
+        "A:network",
+        "A:config"
+      ]
+    },
+    {
+      "name": "custom",
+      "kind": "BROWSER_NETWORK",
+      "adoption": "DEFER",
+      "payload": "system/user prompt: route, stats, episodes, current params, descriptors, source synopsis and user complaint; telemetrySample is not serialized by buildUserPrompt",
+      "evidence": [
+        "A:providers",
+        "A:prompt",
+        "A:network",
+        "A:config"
+      ]
+    }
+  ],
+  "apply_requirements": [
+    {
+      "requirement": "exclusive writer ownership",
+      "hoya": "Absent; multiple Params writers/consumers",
+      "cyberpilot_pr9": "Mandatory trusted single-owner target",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:ports"
+      ]
+    },
+    {
+      "requirement": "expected revision / CAS",
+      "hoya": "Absent",
+      "cyberpilot_pr9": "Expected revision, exact +1 CAS contract",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "exact tuple commit",
+      "hoya": "Sequential per-key writes; partial success possible",
+      "cyberpilot_pr9": "Full selected immutable tuple atomic port contract",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:ports"
+      ]
+    },
+    {
+      "requirement": "coherent coupled parameters",
+      "hoya": "No coupled transaction",
+      "cyberpilot_pr9": "Preserve offset and untuned tuple values",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "readback",
+      "hoya": "Applied echoes intended val; no post-write readback",
+      "cyberpilot_pr9": "Independent full tuple/revision readback",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "baseline epoch",
+      "hoya": "Prior Params snapshot without epoch",
+      "cyberpilot_pr9": "Caller baseline/epoch binding",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:policy"
+      ]
+    },
+    {
+      "requirement": "source revision",
+      "hoya": "No application revision binding",
+      "cyberpilot_pr9": "Exact source/evidence/policy binding",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:policy"
+      ]
+    },
+    {
+      "requirement": "context binding",
+      "hoya": "No application context/fingerprint binding",
+      "cyberpilot_pr9": "Context digest/session/source/baseline required",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:policy"
+      ]
+    },
+    {
+      "requirement": "authorization",
+      "hoya": "UI selection/HTTP request; no independent qualified grant",
+      "cyberpilot_pr9": "Independent trusted ApplicationAuthority; no production allow-all supplied",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:ports"
+      ]
+    },
+    {
+      "requirement": "bounds",
+      "hoya": "Best-effort UI clamp; missing metadata still writes",
+      "cyberpilot_pr9": "Reject outside approved caller bounds; no automatic clipping",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "step",
+      "hoya": "Absent",
+      "cyberpilot_pr9": "Reviewed maximum delta from actual current tuple",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "elapsed rate",
+      "hoya": "Absent",
+      "cyberpilot_pr9": "Actual elapsed monotonic rate accounting",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "driver override veto",
+      "hoya": "Absent; engaged=False is history metadata",
+      "cyberpilot_pr9": "Explicit known-false override required",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "saturation veto",
+      "hoya": "Absent",
+      "cyberpilot_pr9": "Explicit known-false saturation required",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "source freshness",
+      "hoya": "Absent",
+      "cyberpilot_pr9": "Observation/target/evidence/grant current-time screening",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "deadline",
+      "hoya": "No application deadline; analysis UI timeout unrelated",
+      "cyberpilot_pr9": "Transaction/grant/hold/recovery deadlines, synchronous limitations explicit",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:application"
+      ]
+    },
+    {
+      "requirement": "rollback verification",
+      "hoya": "Same write endpoint; browser snapshot is intent backup",
+      "cyberpilot_pr9": "Owned cohort CAS plus baseline readback; timing/ack faults exposed",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "uncertain write handling",
+      "hoya": "Per-key errors, no compensating verified recovery",
+      "cyberpilot_pr9": "Exact expected/pending cohort only; foreign/partial owner not overwritten",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "sticky fault",
+      "hoya": "No application fault state",
+      "cyberpilot_pr9": "Fault latches; no auto rearm",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "watchdog",
+      "hoya": "Absent",
+      "cyberpilot_pr9": "Caller-driven hold/source watchdog; external guarantee required",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:application"
+      ]
+    },
+    {
+      "requirement": "one-shot proposal identity",
+      "hoya": "Absent",
+      "cyberpilot_pr9": "Session sequence/canonical ID consumption and high-water",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:coordinator"
+      ]
+    },
+    {
+      "requirement": "physical effect claim",
+      "hoya": "Params/UI success cannot prove physical response",
+      "cyberpilot_pr9": "Host readback explicitly not physical actuation proof",
+      "evidence": [
+        "H:apply",
+        "P:write",
+        "J:history",
+        "G:application"
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "subsystem": "Episode taxonomy",
+      "architectural_value": 4,
+      "evidence_quality": 2,
+      "safety_compatibility": 3,
+      "reuse_value": 4,
+      "implementation_coupling": 2,
+      "risk": 2,
+      "evidence": [
+        "H:episodes",
+        "B:gate"
+      ],
+      "rationale": "Useful vocabulary; synchronized inputs and causal labels need stronger contracts."
+    },
+    {
+      "subsystem": "Parameter knowledge",
+      "architectural_value": 5,
+      "evidence_quality": 2,
+      "safety_compatibility": 3,
+      "reuse_value": 5,
+      "implementation_coupling": 2,
+      "risk": 2,
+      "evidence": [
+        "H:knowledge",
+        "K:settings",
+        "L:torque"
+      ],
+      "rationale": "Descriptors are reusable; defaults and some unit labels disagree with consumers."
+    },
+    {
+      "subsystem": "AI explanation UX",
+      "architectural_value": 3,
+      "evidence_quality": 1,
+      "safety_compatibility": 2,
+      "reuse_value": 3,
+      "implementation_coupling": 3,
+      "risk": 4,
+      "evidence": [
+        "A:prompt",
+        "A:parse"
+      ],
+      "rationale": "Readable hypotheses useful; certainty and numeric fallback not evidence."
+    },
+    {
+      "subsystem": "Rollback UX",
+      "architectural_value": 4,
+      "evidence_quality": 2,
+      "safety_compatibility": 2,
+      "reuse_value": 4,
+      "implementation_coupling": 2,
+      "risk": 3,
+      "evidence": [
+        "V:rollback",
+        "W:rollback",
+        "G:application"
+      ],
+      "rationale": "Diff/confirmation useful; snapshot replay is not verified recovery."
+    },
+    {
+      "subsystem": "Log extraction",
+      "architectural_value": 2,
+      "evidence_quality": 1,
+      "safety_compatibility": 0,
+      "reuse_value": 1,
+      "implementation_coupling": 5,
+      "risk": 5,
+      "evidence": [
+        "H:telemetry",
+        "H:sampling",
+        "B:contract"
+      ],
+      "rationale": "Latest slots/default coercion and route coupling unsuitable for exact runtime."
+    },
+    {
+      "subsystem": "AI recommender",
+      "architectural_value": 2,
+      "evidence_quality": 1,
+      "safety_compatibility": 0,
+      "reuse_value": 1,
+      "implementation_coupling": 3,
+      "risk": 5,
+      "evidence": [
+        "A:rules",
+        "A:network"
+      ],
+      "rationale": "Fixed targets and free-text defaults lack qualification and privacy gates."
+    },
+    {
+      "subsystem": "Direct Apply",
+      "architectural_value": 1,
+      "evidence_quality": 1,
+      "safety_compatibility": 0,
+      "reuse_value": 0,
+      "implementation_coupling": 5,
+      "risk": 5,
+      "evidence": [
+        "H:apply",
+        "G:ports",
+        "G:coordinator"
+      ],
+      "rationale": "Independent policy/owner/revision/readback/recovery requirements absent."
+    }
+  ],
+  "score_scale": "0..5 ordinal architecture judgment, not measured safety; larger coupling/risk is worse, larger other axes is better.",
+  "source_grounding_checks": [
+    {
+      "concept": "eco then carrotMan calls",
+      "verdict": "PARTIAL_SOURCE_MATCH",
+      "evidence": [
+        "H:snippet",
+        "F:calls",
+        "F:min"
+      ],
+      "reason": "Call/min expressions exist; alive guard and full eco state omitted."
+    },
+    {
+      "concept": "mode 3 excludes vturn",
+      "verdict": "CONDITIONAL_NOT_NO_CURVE_DECEL",
+      "evidence": [
+        "H:snippet",
+        "A:prompt",
+        "C:sources"
+      ],
+      "reason": "Vision candidate excluded but independent model and other candidates remain, even mode 0."
+    },
+    {
+      "concept": "eco state machine",
+      "verdict": "SYNOPSIS_NOT_VERBATIM",
+      "evidence": [
+        "H:snippet",
+        "F:eco"
+      ],
+      "reason": "Additional speed >20, target reset and exit guards absent from synopsis."
+    },
+    {
+      "concept": "final minimum",
+      "verdict": "OVERCLAIM_REJECTED",
+      "evidence": [
+        "A:prompt",
+        "C:sources",
+        "C:gas"
+      ],
+      "reason": "At the shown min point lower candidate wins; later intentional gas-floor changes target/source."
+    },
+    {
+      "concept": "torque factor increase",
+      "verdict": "UNIVERSAL_DIRECTION_REJECTED",
+      "evidence": [
+        "A:rules",
+        "K:linear",
+        "L:nn"
+      ],
+      "reason": "Default linear consumer divides factor; NN/brand modes prevent universal direction."
+    },
+    {
+      "concept": "UI/prompt units and defaults",
+      "verdict": "NOT_PARAMETER_AUTHORITY",
+      "evidence": [
+        "A:prompt",
+        "K:settings",
+        "L:long",
+        "L:torque"
+      ],
+      "reason": "CruiseMaxVals1 prompt fallback 200 vs catalog160; DynamicTFollow30 vs0; StopDistance450 vs600; Ki/Kf title scaling differs from consumers."
+    }
+  ],
+  "future_longitudinal_taxonomy": [
+    {
+      "name": "departure_sluggishness",
+      "status": "FUTURE_LONGITUDINAL_EPISODE",
+      "implementation": "DEFERRED",
+      "input_status": "UNRESOLVED_INPUT"
+    },
+    {
+      "name": "catchup_surge",
+      "status": "FUTURE_LONGITUDINAL_EPISODE",
+      "implementation": "DEFERRED",
+      "input_status": "UNRESOLVED_INPUT"
+    },
+    {
+      "name": "harsh_deceleration",
+      "status": "FUTURE_LONGITUDINAL_EPISODE",
+      "implementation": "DEFERRED",
+      "input_status": "UNRESOLVED_INPUT"
+    },
+    {
+      "name": "brake_intervention",
+      "status": "FUTURE_LONGITUDINAL_EPISODE",
+      "implementation": "DEFERRED",
+      "input_status": "UNRESOLVED_INPUT"
+    },
+    {
+      "name": "gas_intervention",
+      "status": "FUTURE_LONGITUDINAL_EPISODE",
+      "implementation": "DEFERRED",
+      "input_status": "UNRESOLVED_INPUT"
+    },
+    {
+      "name": "lead_response_anomaly",
+      "status": "FUTURE_LONGITUDINAL_EPISODE",
+      "implementation": "DEFERRED",
+      "input_status": "UNRESOLVED_INPUT"
+    },
+    {
+      "name": "curve_speed_mismatch",
+      "status": "FUTURE_LONGITUDINAL_EPISODE",
+      "implementation": "DEFERRED",
+      "input_status": "UNRESOLVED_INPUT"
+    }
+  ]
+}

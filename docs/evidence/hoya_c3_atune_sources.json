@@ -1,0 +1,2255 @@
+{
+  "schema_version": 1,
+  "scope": "DESIGN_AUDIT_ONLY",
+  "pins": {
+    "target_base": "b24ef18e4270af5ab4f731aca31cf95f4f4b0cce",
+    "pr8_head": "e4361678ed176cbd7c0bb6f838d3daa7174caf22",
+    "pr9_head": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+    "hoya_head": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+    "initial_ai_commit": "c1006caadfd7b47d528ab466338da223aa79dd8e",
+    "carrot_wip_head": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+    "previous_carrot_wip": "bfc3ebb44f24e99e2d46e65ef091c4cf27627be9"
+  },
+  "copied_source_bodies": false,
+  "required_files": [
+    "autotune",
+    "params",
+    "history",
+    "settings",
+    "ai",
+    "controller",
+    "view",
+    "index",
+    "server-tests",
+    "web-tests"
+  ],
+  "files": [
+    {
+      "id": "autotune",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/server/features/autotune.py",
+      "blob_sha": "2f028090d00fafc13599713d09adc04c7bb36142",
+      "sha256": "9bba5adc0e25fc54164e88a62654494cc5f830270190192464d87d915e543d14",
+      "line_count": 607,
+      "ranges": [
+        {
+          "id": "H:telemetry",
+          "start": 21,
+          "end": 145,
+          "symbol": "_extract_telemetry_from_log",
+          "claim": "5Hz event-time sampling of latest topic slots; no per-topic health/age/cohort validation.",
+          "confidence": "PROVEN",
+          "sha256": "1f930779e2a96a695a4ba0504de3fea948534cdabd28a1dad28a7eaeea95db02"
+        },
+        {
+          "id": "H:episodes",
+          "start": 148,
+          "end": 284,
+          "symbol": "_detect_key_episodes",
+          "claim": "Eight frame predicates with heuristic constants, no engagement gate or true duration clustering.",
+          "confidence": "HEURISTIC",
+          "sha256": "1cd5603ee1330fa5595fc46658e4e978c1a8864aca19457bc7aeb5f618e617bd"
+        },
+        {
+          "id": "H:selection",
+          "start": 287,
+          "end": 304,
+          "symbol": "_extract_all_frames_sync",
+          "claim": "Independent segments concatenate; per-file extraction errors disappear.",
+          "confidence": "PROVEN",
+          "sha256": "ab40aab311352c7f27ec104d630eb0bda391b093442e951134250113bc47e137"
+        },
+        {
+          "id": "H:snippet",
+          "start": 307,
+          "end": 340,
+          "symbol": "CORE_CONTROL_SOURCE_CODE",
+          "claim": "Commented source synopsis, not a verbatim or revision-bound consumer copy.",
+          "confidence": "CONDITIONAL",
+          "sha256": "59d884cd7fd94a284d130c6220a530e2d6be8e2f304fc8c6e2a6c95c91c366cc"
+        },
+        {
+          "id": "H:sampling",
+          "start": 343,
+          "end": 453,
+          "symbol": "api_autotune_extract_telemetry",
+          "claim": "At most four selected segments; integer-step point/episode reductions are not strict caps.",
+          "confidence": "PROVEN",
+          "sha256": "948b918b9e73cb55b9869706e1609ee4d02fc591908547e8ca1a56b9648cb0e1"
+        },
+        {
+          "id": "H:knowledge",
+          "start": 414,
+          "end": 481,
+          "symbol": "api_autotune_extract_telemetry",
+          "claim": "Current catalog Params and descriptions are separate from historical log parameter cohorts.",
+          "confidence": "PROVEN",
+          "sha256": "2400c4109bed6a6e3287c503dd2ff42237455dc877009f7493eb8fe14443e9fc"
+        },
+        {
+          "id": "H:apply",
+          "start": 484,
+          "end": 549,
+          "symbol": "api_autotune_apply_params",
+          "claim": "Per-key sequential setting writes and pre-write snapshot; no coherent owner transaction.",
+          "confidence": "PROVEN",
+          "sha256": "1f533d93d9845e9f0a6567b713cd3408b50aaebefb6315b596cb2ba53e722dd1"
+        },
+        {
+          "id": "H:config",
+          "start": 552,
+          "end": 607,
+          "symbol": "api_autotune_get_config / api_autotune_set_config / register",
+          "claim": "AI configuration persisted in device Params/file; analysis and write routes separate.",
+          "confidence": "PROVEN",
+          "sha256": "f02ea6f0dac527df2a2220f8a040fdca0eab52a38d2ccc0ab5252d9750effc34"
+        }
+      ]
+    },
+    {
+      "id": "params",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/server/services/params.py",
+      "blob_sha": "52448df1a020858e8ff7dda4fd2df7d191a92106",
+      "sha256": "1979e1bbe705b2d3ed60daf77a5ab011169305377802bb82b05f4d84782b5e97",
+      "line_count": 1313,
+      "ranges": [
+        {
+          "id": "P:clamp",
+          "start": 73,
+          "end": 110,
+          "symbol": "infer_type_from_setting / clamp_numeric",
+          "claim": "UI metadata inference/clamp, not approved application policy.",
+          "confidence": "PROVEN",
+          "sha256": "10d4f8b649186f03e1637dc2af4b83b98b5045c8bd7aa112101e1185db9641a1"
+        },
+        {
+          "id": "P:read",
+          "start": 124,
+          "end": 217,
+          "symbol": "_read_param_value / get_param_values",
+          "claim": "Missing read fallbacks may become caller default, empty text or numeric zero.",
+          "confidence": "PROVEN",
+          "sha256": "311bb1c00ab3fb62d1bf012a7c6b4a1576f49ba5699a90b1413313417d8ce9df"
+        },
+        {
+          "id": "P:write",
+          "start": 241,
+          "end": 375,
+          "symbol": "put_typed / set_param_value",
+          "claim": "Native typed Params and per-key fallback filesystem writes; no batch revision/readback.",
+          "confidence": "PROVEN",
+          "sha256": "d526bf02e678671b0ded0ebacdb1232dc781a90e98b4dd1b5d3d7cc5a470bd1f"
+        }
+      ]
+    },
+    {
+      "id": "history",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/server/services/param_changes.py",
+      "blob_sha": "ee39b5b96d409078067a530ec172f5abd14eadeb",
+      "sha256": "0e364572ad85c868134683656a3d89ab91a63952c42b27f82efe2d0d42443984",
+      "line_count": 315,
+      "ranges": [
+        {
+          "id": "J:history",
+          "start": 34,
+          "end": 154,
+          "symbol": "PARAM_CHANGE_SOURCES / append_param_change",
+          "claim": "autotuner is absent from allowed source labels; normalized to unknown. Wall-clock hash-chain history can fail without failing write.",
+          "confidence": "PROVEN",
+          "sha256": "19eca97d706f4150ac9fe2035b751a9fd6163e1517e2e5808bc6923fff3bb516"
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/server/services/settings.py",
+      "blob_sha": "edef383964ef43789c4575a179ac87b5eb2ba42c",
+      "sha256": "e92d1bcf6fef6e0fd8b1ddb19202b631d426088caf6ca79d3d060ca69e22f239",
+      "line_count": 234,
+      "ranges": [
+        {
+          "id": "S:catalog",
+          "start": 58,
+          "end": 93,
+          "symbol": "read_settings_file / group_index",
+          "claim": "Settings catalog indexed by name; descriptions and UI ranges are not safety policy.",
+          "confidence": "PROVEN",
+          "sha256": "d9d68630d21db4f855b6354e49ba803685f6c90c4e28373b739755480c1e0f8f"
+        },
+        {
+          "id": "S:cache",
+          "start": 214,
+          "end": 234,
+          "symbol": "get_settings_cached",
+          "claim": "mtime cache, no software commit binding.",
+          "confidence": "PROVEN",
+          "sha256": "7f93a5be59a1f295c1f44b3b66289d0901b39cfe08804c86178f80731fd8c010"
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/web/src/features/logs/autotuner/ai_client.js",
+      "blob_sha": "ad816e13e4760842f61a7a5e842fd2acce5819e5",
+      "sha256": "8d6a015d7b51678ba153871e442c0f8d6066343d3b75555a8ff87cda168d3714",
+      "line_count": 1119,
+      "ranges": [
+        {
+          "id": "A:providers",
+          "start": 8,
+          "end": 50,
+          "symbol": "AI_PROVIDERS",
+          "claim": "Free rules and five configurable provider kinds.",
+          "confidence": "PROVEN",
+          "sha256": "f4fa33b8d2eb4ca2d8d76d3f569f4f5051dd8b29082c40069a60574647caa9c0"
+        },
+        {
+          "id": "A:config",
+          "start": 52,
+          "end": 205,
+          "symbol": "loadAiConfig / saveAiConfig / saveRollbackSnapshot",
+          "claim": "Browser key/config synchronization and single prior-value rollback snapshot persistence.",
+          "confidence": "PROVEN",
+          "sha256": "57dd012b6d09151c6157e6a4fc183187420b66c07e32049516ddb25719bcbc3c"
+        },
+        {
+          "id": "A:prompt",
+          "start": 303,
+          "end": 434,
+          "symbol": "buildSystemPrompt / buildUserPrompt",
+          "claim": "Prompts include route, stats, episodes, current Params, metadata, source synopsis and complaint, not telemetrySample; unproven dissatisfaction assertion.",
+          "confidence": "PROVEN",
+          "sha256": "3dbaf91117ede46ca240f526d9b3eefa82ab3c38768601e39f4825a391176c90"
+        },
+        {
+          "id": "A:rules",
+          "start": 436,
+          "end": 809,
+          "symbol": "analyzeWithBuiltinEngine",
+          "claim": "Keywords/statistics select fixed numeric recommendations; no online estimation.",
+          "confidence": "HEURISTIC",
+          "sha256": "fa976cc53f2d2a23d78af87ff5b119593bb4666e62573c6db018d58681138925"
+        },
+        {
+          "id": "A:parse",
+          "start": 811,
+          "end": 981,
+          "symbol": "normalizeAiResult / parseFreeformTextToResult",
+          "claim": "Arbitrary JSON parameter names, regex free-text parsing and fabricated fallback recommendations are not qualification.",
+          "confidence": "REJECTED",
+          "sha256": "41ceb7a685058673935bc45977351a127c61ced6a36ae10f3d8094a63640660b"
+        },
+        {
+          "id": "A:network",
+          "start": 984,
+          "end": 1119,
+          "symbol": "callAiTuner",
+          "claim": "Browser sends composed prompt to selected provider; custom endpoint is caller-controlled.",
+          "confidence": "PROVEN",
+          "sha256": "3328807e95ac00ac580aa640b2237b9adcf486ef864d815dbe0c3b73a9c79acc"
+        }
+      ]
+    },
+    {
+      "id": "controller",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/web/src/features/logs/autotuner/controller.js",
+      "blob_sha": "7efca3b605895fcbd91dbae396d362f170c0ad72",
+      "sha256": "d16072cb2706ef6ba06666adb917bc248c3f4ebf259f908ade01ee412bf39281",
+      "line_count": 827,
+      "ranges": [
+        {
+          "id": "W:flow",
+          "start": 519,
+          "end": 600,
+          "symbol": "bindEvents",
+          "claim": "User triggers saved-log extraction then rule/LLM analysis.",
+          "confidence": "PROVEN",
+          "sha256": "6127df6c23de216e102b77e830b4bc46a6f1d47abda7cca91cb6c80249318e3b"
+        },
+        {
+          "id": "W:apply",
+          "start": 606,
+          "end": 667,
+          "symbol": "bindResultActions",
+          "claim": "Checked recommendations submitted; partial-error response throws before storing rollback backup.",
+          "confidence": "PROVEN",
+          "sha256": "c345262496cf1f4f9b3da18ede11be3ffe85d7709f610ac7f53c3cb245b6bcde"
+        },
+        {
+          "id": "W:rollback",
+          "start": 686,
+          "end": 826,
+          "symbol": "showRollbackConfirmModal",
+          "claim": "Before/after selection modal uses same write endpoint; success is not owner readback verification.",
+          "confidence": "PROVEN",
+          "sha256": "f59877456139f4dfd60759cb75c119b51c6fc5cce65625b61476ba41ddd15023"
+        }
+      ]
+    },
+    {
+      "id": "view",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/web/src/features/logs/autotuner/view.js",
+      "blob_sha": "c85e6ac5e36807248617566140b1dbb3b38ad0b2",
+      "sha256": "ec1d674c1102d98f40c7e953ced44aad812f6699feb0c317dd0f2ece0e8fdff2",
+      "line_count": 404,
+      "ranges": [
+        {
+          "id": "V:results",
+          "start": 269,
+          "end": 339,
+          "symbol": "renderResultsHtml",
+          "claim": "Escaped before/after recommendation table; recommendation checkboxes default checked.",
+          "confidence": "PROVEN",
+          "sha256": "e813ace0cd72109daca0919ffc879d70d19760200cd0ec448ebcfcceb0a3bb2e"
+        },
+        {
+          "id": "V:rollback",
+          "start": 342,
+          "end": 403,
+          "symbol": "renderRollbackModalHtml",
+          "claim": "Prior/current value comparison, selected restoration and confirmation UX.",
+          "confidence": "PROVEN",
+          "sha256": "cc50cb28920813713830c3253e4a65c43b7d189083180d7b337cbaadfc5405e1"
+        }
+      ]
+    },
+    {
+      "id": "index",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/web/src/features/logs/autotuner/index.js",
+      "blob_sha": "fc99875a60813bc368c77e5015f1f0cf1c23be73",
+      "sha256": "90cb02eea295ff090dd821b5b0ca1ff34c36579edddc5ff7afa44a071c78c2b1",
+      "line_count": 1,
+      "ranges": [
+        {
+          "id": "I:index",
+          "start": 1,
+          "end": 1,
+          "symbol": "module export",
+          "claim": "Exports UI entry only.",
+          "confidence": "PROVEN",
+          "sha256": "90cb02eea295ff090dd821b5b0ca1ff34c36579edddc5ff7afa44a071c78c2b1"
+        }
+      ]
+    },
+    {
+      "id": "server-tests",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/server/tests/test_autotune_telemetry.py",
+      "blob_sha": "3d58a0783d8bfaa506b1de20517963bfec2d112a",
+      "sha256": "eb6712fdda4ac5bab0be18e1b5b39b96fc72f9138dd8f0ea551f31529ed81d1d",
+      "line_count": 186,
+      "ranges": [
+        {
+          "id": "T:server",
+          "start": 1,
+          "end": 186,
+          "symbol": "four pytest tests",
+          "claim": "Synthetic dictionaries/mock writes and payload shape; no exact cohort, readback, ownership or unit qualification.",
+          "confidence": "PROVEN",
+          "sha256": "eb6712fdda4ac5bab0be18e1b5b39b96fc72f9138dd8f0ea551f31529ed81d1d"
+        }
+      ]
+    },
+    {
+      "id": "web-tests",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/web/tests/autotuner_contract.test.mjs",
+      "blob_sha": "0ca133ac9546964f2048848991e07c5f217ece65",
+      "sha256": "87004bcede33e374ec8fd910c595652140f18b0ddafc4df96ca19aed125c3e07",
+      "line_count": 370,
+      "ranges": [
+        {
+          "id": "T:web",
+          "start": 1,
+          "end": 370,
+          "symbol": "Node UI contract tests",
+          "claim": "Rendering/localized rules/prompt expectations, not controller safety evidence.",
+          "confidence": "PROVEN",
+          "sha256": "87004bcede33e374ec8fd910c595652140f18b0ddafc4df96ca19aed125c3e07"
+        }
+      ]
+    },
+    {
+      "id": "carrot-functions",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/carrot_functions.py",
+      "blob_sha": "80e188b8d25915d571803fc7db2d631bcba1e3fa",
+      "sha256": "86016bade9dee3ba9940f1270b307ffbf1a0407059a82489a96714592a92dd4c",
+      "line_count": 738,
+      "ranges": [
+        {
+          "id": "F:params",
+          "start": 180,
+          "end": 214,
+          "symbol": "CarrotPlanner.update_params / get_carrot_accel",
+          "claim": "Hundredths scaling of gaps/acceleration/stopping distance; mode-scaled interpolated limits.",
+          "confidence": "PROVEN",
+          "sha256": "5d61242d77122a87ea181f7299b6ba27ba9a99b166c4fbbc8ca6e5af2cfdc554"
+        },
+        {
+          "id": "F:follow",
+          "start": 216,
+          "end": 369,
+          "symbol": "_get_base_t_follow / dynamic_t_follow",
+          "claim": "Speed/personality/lead/lane-change conditional gap logic; prompt simplifications are not full behavior.",
+          "confidence": "PROVEN",
+          "sha256": "69c66270a4dbf2992ce40282fbbf32c2843d410a9b516f90dd1747ba4c98b0dc"
+        },
+        {
+          "id": "F:eco",
+          "start": 454,
+          "end": 474,
+          "symbol": "cruise_eco_control",
+          "claim": "Stateful eco target, current-speed and set-speed guards omitted from synopsis.",
+          "confidence": "PROVEN",
+          "sha256": "8a0f01df2c173fff998f176f47447f294740ee43e69ccb88df39dbd68ee2eaa0"
+        },
+        {
+          "id": "F:min",
+          "start": 421,
+          "end": 452,
+          "symbol": "_update_carrot_man",
+          "claim": "min with desiredSpeed only in alive-carrotMan branch.",
+          "confidence": "PROVEN",
+          "sha256": "7864601e5080cb66097f7c8dceed0377f0b1e18b3c109527adc327c28e33eb72"
+        },
+        {
+          "id": "F:calls",
+          "start": 500,
+          "end": 513,
+          "symbol": "update",
+          "claim": "Eco before carrotMan arbitration.",
+          "confidence": "PROVEN",
+          "sha256": "5f148410f47c88e59ac3f4d2e1206c23aa45988231f9a3a65fa5dec34f638795"
+        }
+      ]
+    },
+    {
+      "id": "carrot-serv",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/carrot_serv.py",
+      "blob_sha": "21b4c1f20a224509a7bb078e9d190b1399d1a130",
+      "sha256": "ddd319a4dedc755a72e1a95559386ba13d589f53d6fbc7cc4ed6d3ea6e5f71d7",
+      "line_count": 1762,
+      "ranges": [
+        {
+          "id": "C:params",
+          "start": 223,
+          "end": 243,
+          "symbol": "CarrotServ.update_params",
+          "claim": "Mode/map factor/lower limit Params consumption.",
+          "confidence": "PROVEN",
+          "sha256": "7abd5dbc176bcbb38ecf2f1744fa43b5b3936335c92a01eddfe5f2081878d14b"
+        },
+        {
+          "id": "C:gas",
+          "start": 461,
+          "end": 522,
+          "symbol": "_apply_speed_source_gas_floor",
+          "claim": "Post-min intentional accelerator floor can change desiredSpeed/source.",
+          "confidence": "PROVEN",
+          "sha256": "a2f7d9054f5562c0de8ac64f09cad155c7dedbdfa827fa6506fd34c568fdc741"
+        },
+        {
+          "id": "C:sources",
+          "start": 1404,
+          "end": 1437,
+          "symbol": "CarrotServ update speed selection",
+          "claim": "Mode controls vision/route inclusion, independent model candidate and later gas-floor transformation.",
+          "confidence": "PROVEN",
+          "sha256": "bae6337501be715ab1b7ca9a96f90dc6dc185a65b31e9249aa4208cafbaaff07"
+        },
+        {
+          "id": "C:publish",
+          "start": 1468,
+          "end": 1487,
+          "symbol": "carrotMan publication",
+          "claim": "Selected target and source published after arbitration.",
+          "confidence": "PROVEN",
+          "sha256": "4738f8853fd4e179ed033d663c95f714bfede0f107a1135ee60db82788bd14a9"
+        }
+      ]
+    },
+    {
+      "id": "carrot-man",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/carrot_man.py",
+      "blob_sha": "8db3fe58e881ffeb6bb5ae5fff1d601b91959660",
+      "sha256": "4cff9ad424a8a693177a34b55bbc2d0dfce03a1186f51baed2e03cb683f0fe00",
+      "line_count": 2358,
+      "ranges": [
+        {
+          "id": "M:vision",
+          "start": 1428,
+          "end": 1465,
+          "symbol": "carrot_curve_speed_params / vturn_speed",
+          "claim": "AutoCurveSpeedFactor scales model orientation rates before diagnostic vision turn speed.",
+          "confidence": "PROVEN",
+          "sha256": "913f51a71b4b0da3911d2b2b66565b112e881df17f1c75ed817224ee36044683"
+        }
+      ]
+    },
+    {
+      "id": "desire",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/controls/lib/desire_helper.py",
+      "blob_sha": "e5a2c05b9ae983432a3c93f08527dbd7172b37fd",
+      "sha256": "29504e6bb2e778b3543020cdda9ff3ac589fb84b63ad2f3636c929db01477c04",
+      "line_count": 491,
+      "ranges": [
+        {
+          "id": "D:model",
+          "start": 76,
+          "end": 91,
+          "symbol": "_update_params_periodic / _make_model_turn_speed",
+          "claim": "ModelTurnSpeedFactor selects future time, scales speed 1.2 and filters it.",
+          "confidence": "PROVEN",
+          "sha256": "ab3487c3118e68fd00a1d0bdcab896149aeba476d850136bbf08afeae132610c"
+        }
+      ]
+    },
+    {
+      "id": "torque",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "line_count": 307,
+      "ranges": [
+        {
+          "id": "L:torque",
+          "start": 134,
+          "end": 164,
+          "symbol": "update_live_torque_params / update",
+          "claim": "Custom mode gates setter and overwrites tuple/gains every ten frames; factor/friction use 0.001, gains 0.01.",
+          "confidence": "PROVEN",
+          "sha256": "df26d13b8e70b468278f78babdb26ec57ae44b9891f57342202f4fd4ddd7af67"
+        },
+        {
+          "id": "L:nn",
+          "start": 174,
+          "end": 195,
+          "symbol": "update",
+          "claim": "VM versus alternate/NN input modes differ.",
+          "confidence": "PROVEN",
+          "sha256": "f4b1b63bfddae0506c616f8e0210ad81a032784108c1563f3a9cdb882ae1ef15"
+        }
+      ]
+    },
+    {
+      "id": "longcontrol",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/controls/lib/longcontrol.py",
+      "blob_sha": "38683cde0f939417aca9536b9bbcf5ae518a10c7",
+      "sha256": "8a5a1bda39804ff75ba080a4a82cc62100464a44ea59de18a90eadd1dfb57bd0",
+      "line_count": 187,
+      "ranges": [
+        {
+          "id": "L:long",
+          "start": 69,
+          "end": 133,
+          "symbol": "LongControl / _refresh_longitudinal_tuning",
+          "claim": "Hyundai fixed gains; otherwise gain scaling differs, stopping target has startup and periodic behavior.",
+          "confidence": "PROVEN",
+          "sha256": "017ba820ebe9865e3163202263f7f185615fe56740e78b055ca4e3eb0c008faf"
+        }
+      ]
+    },
+    {
+      "id": "ratio",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "blob_sha": "94f014fa4ad01c72796b8c673507776421819397",
+      "sha256": "09b1a3b1ea9d3d4d6eb756328cd81ac46b08916fb8a428353341f42d6aa71d2b",
+      "line_count": 23,
+      "ranges": [
+        {
+          "id": "U:ratio",
+          "start": 1,
+          "end": 23,
+          "symbol": "resolve_vehicle_model_steer_ratio",
+          "claim": "MEB bypass and custom ratio override precede rate scaling.",
+          "confidence": "PROVEN",
+          "sha256": "09b1a3b1ea9d3d4d6eb756328cd81ac46b08916fb8a428353341f42d6aa71d2b"
+        }
+      ]
+    },
+    {
+      "id": "controls",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "blob_sha": "d0adba6a80659424a907683d14d8292475ced76b",
+      "sha256": "f0d6476cf6b0f8c87feb7062ff5b7b80c0bd4d64e4a7fd5d1421fbdba8adb79a",
+      "line_count": 451,
+      "ranges": [
+        {
+          "id": "U:vm",
+          "start": 106,
+          "end": 126,
+          "symbol": "Controls.state_control",
+          "claim": "VM effective parameters and liveTorqueParameters ownership.",
+          "confidence": "PROVEN",
+          "sha256": "b1c9bd27584814b93e2e4b4387dcc7d0d3c08aa611dd8fd1648f3af9db776d44"
+        },
+        {
+          "id": "U:delay",
+          "start": 168,
+          "end": 175,
+          "symbol": "Controls.state_control",
+          "claim": "Hundredths actuator delay; zero selects liveDelay.",
+          "confidence": "PROVEN",
+          "sha256": "089336429cc40ca237106023a472681e3ba81d88b584b23b5bed1978bf44021c"
+        }
+      ]
+    },
+    {
+      "id": "mpc",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/controls/lib/longitudinal_mpc_lib/long_mpc.py",
+      "blob_sha": "7d0c112243be92f555b2441cfe07b2658dc53567",
+      "sha256": "c0f09f69788e79350f601df55a8a390f3207c913b488e906cb33ba609f9c45e4",
+      "line_count": 621,
+      "ranges": [
+        {
+          "id": "N:mpc",
+          "start": 401,
+          "end": 445,
+          "symbol": "LongitudinalMpc.update",
+          "claim": "Actual gap methods/lead cohorts and stop distance consumed by MPC.",
+          "confidence": "PROVEN",
+          "sha256": "fa69a73655074a18c1c07b0b60c820f2ab3807481f4c217ac6e07d58c9298fc8"
+        }
+      ]
+    },
+    {
+      "id": "longplan",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/controls/lib/longitudinal_planner.py",
+      "blob_sha": "2e81d3c2b33ca602572d05b5f79ef27270f2d592",
+      "sha256": "5dbedbeefcaf4320ef3b04d49b74853813d946899484db24f89bf394ff85b97c",
+      "line_count": 445,
+      "ranges": [
+        {
+          "id": "N:accel",
+          "start": 193,
+          "end": 210,
+          "symbol": "LongitudinalPlanner.update",
+          "claim": "Planner consumes Carrot mode-scaled acceleration limit.",
+          "confidence": "PROVEN",
+          "sha256": "0533e8257a5773da2c6582141ce6152ff60092757c91e846859acde9d6da91b5"
+        },
+        {
+          "id": "N:cost",
+          "start": 270,
+          "end": 284,
+          "symbol": "LongitudinalPlanner.update",
+          "claim": "Passes departure cost into MPC weights.",
+          "confidence": "PROVEN",
+          "sha256": "c3b108823cb69fe0cfe68573b426f1feb27084b8659d375047e27b5924af9f30"
+        }
+      ]
+    },
+    {
+      "id": "interfaces",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "blob_sha": "7fb351a27a5821347cf0a7cc779b790b997d3a61",
+      "sha256": "4eb4aeb8d572d024a07cf10c301fa9d45d6f35137658c3e9308b7d177a2e5117",
+      "line_count": 871,
+      "ranges": [
+        {
+          "id": "K:linear",
+          "start": 593,
+          "end": 600,
+          "symbol": "torque_from_lateral_accel_linear",
+          "claim": "Default linear torque divides by latAccelFactor; cannot justify universal increase-means-stronger recommendation.",
+          "confidence": "PROVEN",
+          "sha256": "eedfa04486a3981b1062362530753a65e84b9b6126914a9e232304c45fabd349"
+        }
+      ]
+    },
+    {
+      "id": "catalog",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "blob_sha": "67aa63ddf4ffef32a6cdef34f1bdcd017749e855",
+      "sha256": "7560127d5e6c325eec987bad5a6087c09961738351e79c9f4df5109994989312",
+      "line_count": 3641,
+      "ranges": [
+        {
+          "id": "K:settings",
+          "start": 1,
+          "end": 1,
+          "symbol": "JSON catalog identity",
+          "claim": "Catalog identity; individual named UI entry ranges and hashes follow, without granting safety authority.",
+          "confidence": "PROVEN",
+          "sha256": "a6fb08fda1acb957b6116bd37811a1fe41a01611c0631edbf786d6889a27a55c"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals0",
+          "start": 1089,
+          "end": 1104,
+          "symbol": "params[CruiseMaxVals0]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals0; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "982ccae12b3b9e1af4c5c97d1f7acb937c1fc8bffd242a7b550ae04bc3aaad21"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals1",
+          "start": 1105,
+          "end": 1120,
+          "symbol": "params[CruiseMaxVals1]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals1; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "7a779bc521eee26bd3f6741f14ed05ffe41f4eba0fe92ad423a687ea0275b082"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals2",
+          "start": 1121,
+          "end": 1136,
+          "symbol": "params[CruiseMaxVals2]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals2; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "1eaf4100f34ee5a8a5f5bda3a7780cfebcdec98d3a53500a713f0f7011c5aea4"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals3",
+          "start": 1137,
+          "end": 1152,
+          "symbol": "params[CruiseMaxVals3]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals3; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "a49122decd068dca3f25c874a5a04ff04265386025fcf09ece83549e3a4b71d2"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals4",
+          "start": 1153,
+          "end": 1168,
+          "symbol": "params[CruiseMaxVals4]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals4; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "f77ac65ac77c088b465a295d5679c1a6f91cb7967f0ef0ea6865ce16aaeee352"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals5",
+          "start": 1169,
+          "end": 1184,
+          "symbol": "params[CruiseMaxVals5]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals5; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "186b68f460cc65fa3f88f406bbc016fbcb4303f34559bdcfa4a8799859dbf468"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals6",
+          "start": 1185,
+          "end": 1200,
+          "symbol": "params[CruiseMaxVals6]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals6; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "1efbc0fb4e02ad61f41d7a820ddfa89f2e45e4b938455c23621c7925a2b88f79"
+        },
+        {
+          "id": "K:parameter:DynamicTFollow",
+          "start": 2709,
+          "end": 2725,
+          "symbol": "params[DynamicTFollow]",
+          "claim": "Descriptive UI min/max/default for DynamicTFollow; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "e956f217c3152b3c79b8d2bb052bdda96cf230ea83f5d68fce99d06d03f93ca5"
+        },
+        {
+          "id": "K:parameter:DynamicTFollowLC",
+          "start": 2785,
+          "end": 2801,
+          "symbol": "params[DynamicTFollowLC]",
+          "claim": "Descriptive UI min/max/default for DynamicTFollowLC; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "f0e04e7e3cb819148fb006f9ac33633c2fc93ef88e573905b93f8343cd6cf414"
+        },
+        {
+          "id": "K:parameter:EnableSpeedTF",
+          "start": 2769,
+          "end": 2784,
+          "symbol": "params[EnableSpeedTF]",
+          "claim": "Descriptive UI min/max/default for EnableSpeedTF; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "8661f0b8dfaef1ec393d9fc10f6092b943092e5e800643028b9164a81d177f53"
+        },
+        {
+          "id": "K:parameter:TFollowGap1",
+          "start": 2645,
+          "end": 2660,
+          "symbol": "params[TFollowGap1]",
+          "claim": "Descriptive UI min/max/default for TFollowGap1; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "40e40ad07dd3086d397336e523b068d9e2b8bb5b01dff5d98ea18afc25ee57f6"
+        },
+        {
+          "id": "K:parameter:TFollowGap2",
+          "start": 2661,
+          "end": 2676,
+          "symbol": "params[TFollowGap2]",
+          "claim": "Descriptive UI min/max/default for TFollowGap2; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "9a5186d29c7e76419d7d94520d96c5d6fd01b6f300bf711ecdffe90cc496a8ec"
+        },
+        {
+          "id": "K:parameter:TFollowGap3",
+          "start": 2677,
+          "end": 2692,
+          "symbol": "params[TFollowGap3]",
+          "claim": "Descriptive UI min/max/default for TFollowGap3; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "8c858de7905592c449a36d1835e8a464e83a8ce39410d36cdcc059d27c5be998"
+        },
+        {
+          "id": "K:parameter:TFollowGap4",
+          "start": 2693,
+          "end": 2708,
+          "symbol": "params[TFollowGap4]",
+          "claim": "Descriptive UI min/max/default for TFollowGap4; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "832d33b169cb1dc354df9d9384cf8291916fb473e5bc555e7711d320c9912b15"
+        },
+        {
+          "id": "K:parameter:TFollowDecelBoost",
+          "start": 2802,
+          "end": 2818,
+          "symbol": "params[TFollowDecelBoost]",
+          "claim": "Descriptive UI min/max/default for TFollowDecelBoost; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "2efb22bb2865e4c1202cd9087499e803c949a2549a6a1508430bf7021b794dd6"
+        },
+        {
+          "id": "K:parameter:AChangeCostStarting",
+          "start": 1218,
+          "end": 1233,
+          "symbol": "params[AChangeCostStarting]",
+          "claim": "Descriptive UI min/max/default for AChangeCostStarting; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "b874c3df5a77a5cc6cdbeb98ee8e9bcdab28abe242d3ea62cdbb264f1d80b681"
+        },
+        {
+          "id": "K:parameter:LongTuningKpV",
+          "start": 1251,
+          "end": 1267,
+          "symbol": "params[LongTuningKpV]",
+          "claim": "Descriptive UI min/max/default for LongTuningKpV; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "0a8327876d3273a2dee262e9f457e5a7b5f3025433b3ec8add4c5822995aa2f0"
+        },
+        {
+          "id": "K:parameter:LongTuningKiV",
+          "start": 1285,
+          "end": 1301,
+          "symbol": "params[LongTuningKiV]",
+          "claim": "Descriptive UI min/max/default for LongTuningKiV; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "e07c300ba5e1d4c98e319a762e5fcc229a32e8130f542cab92a5430589cb4c0a"
+        },
+        {
+          "id": "K:parameter:LongTuningKf",
+          "start": 1268,
+          "end": 1284,
+          "symbol": "params[LongTuningKf]",
+          "claim": "Descriptive UI min/max/default for LongTuningKf; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "6914e681692fdec60d63471e2e221b694eb1a596ea07298c00aa1e44f61778df"
+        },
+        {
+          "id": "K:parameter:StoppingAccel",
+          "start": 2836,
+          "end": 2851,
+          "symbol": "params[StoppingAccel]",
+          "claim": "Descriptive UI min/max/default for StoppingAccel; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "b06270da045b75936ee212907e6bd80d27da64c752b77289ed4dbbe993ae83b1"
+        },
+        {
+          "id": "K:parameter:StopDistanceCarrot",
+          "start": 1201,
+          "end": 1217,
+          "symbol": "params[StopDistanceCarrot]",
+          "claim": "Descriptive UI min/max/default for StopDistanceCarrot; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "a1f33d5fbfdbf3e8762d7abb87a6ef9ac6005a96adfcc02c42e44a435815c8e5"
+        },
+        {
+          "id": "K:parameter:LateralTorqueCustom",
+          "start": 654,
+          "end": 669,
+          "symbol": "params[LateralTorqueCustom]",
+          "claim": "Descriptive UI min/max/default for LateralTorqueCustom; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "60f03b1f6c5da5719362657f333578018e81a1dd3028c089832a17ec30510063"
+        },
+        {
+          "id": "K:parameter:LateralTorqueKpV",
+          "start": 702,
+          "end": 717,
+          "symbol": "params[LateralTorqueKpV]",
+          "claim": "Descriptive UI min/max/default for LateralTorqueKpV; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "de454805ef623e2a987957ba5f07fa8746112956f52cd4e35d680f7eb1e4d70f"
+        },
+        {
+          "id": "K:parameter:LateralTorqueKiV",
+          "start": 718,
+          "end": 733,
+          "symbol": "params[LateralTorqueKiV]",
+          "claim": "Descriptive UI min/max/default for LateralTorqueKiV; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "db958a988af92decafea2b488ec9d0534a84ffec5ee861ef747b4b7749c8b211"
+        },
+        {
+          "id": "K:parameter:LateralTorqueKf",
+          "start": 734,
+          "end": 749,
+          "symbol": "params[LateralTorqueKf]",
+          "claim": "Descriptive UI min/max/default for LateralTorqueKf; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "a3909a2a1c30f2865dea026e9e7180f416ab87c38a61f8d0509385c1905917fc"
+        },
+        {
+          "id": "K:parameter:LateralTorqueFriction",
+          "start": 686,
+          "end": 701,
+          "symbol": "params[LateralTorqueFriction]",
+          "claim": "Descriptive UI min/max/default for LateralTorqueFriction; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "206e214b9aa38c25f0081acb932f0819d8ca9b7222218f4ea2c891daa810bb52"
+        },
+        {
+          "id": "K:parameter:LateralTorqueAccelFactor",
+          "start": 670,
+          "end": 685,
+          "symbol": "params[LateralTorqueAccelFactor]",
+          "claim": "Descriptive UI min/max/default for LateralTorqueAccelFactor; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "01a4d209aa010c020038d561990b6e176ffbbecc000cbf7a954edd5542f4fdb7"
+        },
+        {
+          "id": "K:parameter:SteerRatioRate",
+          "start": 1072,
+          "end": 1088,
+          "symbol": "params[SteerRatioRate]",
+          "claim": "Descriptive UI min/max/default for SteerRatioRate; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "b971ebc4baa4011248b280487a3f11011ca7cda65b117ebe6f9686a158290643"
+        },
+        {
+          "id": "K:parameter:SteerActuatorDelay",
+          "start": 942,
+          "end": 957,
+          "symbol": "params[SteerActuatorDelay]",
+          "claim": "Descriptive UI min/max/default for SteerActuatorDelay; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "b2efc06e486a73cae32a1a77686413f3f37989142aa885c9bbe00d7d9448056c"
+        },
+        {
+          "id": "K:parameter:TurnSpeedControlMode",
+          "start": 3105,
+          "end": 3120,
+          "symbol": "params[TurnSpeedControlMode]",
+          "claim": "Descriptive UI min/max/default for TurnSpeedControlMode; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "fb36d9756473ba675f6744aab8a03038002ebe81ce9c01c9458acc5c58ff1e75"
+        },
+        {
+          "id": "K:parameter:AutoCurveSpeedFactor",
+          "start": 1334,
+          "end": 1350,
+          "symbol": "params[AutoCurveSpeedFactor]",
+          "claim": "Descriptive UI min/max/default for AutoCurveSpeedFactor; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "d7fe543a97e48c016ab71ba061be2e9761d9ed35299b5c93bf715110ee728b26"
+        },
+        {
+          "id": "K:parameter:ModelTurnSpeedFactor",
+          "start": 3138,
+          "end": 3153,
+          "symbol": "params[ModelTurnSpeedFactor]",
+          "claim": "Descriptive UI min/max/default for ModelTurnSpeedFactor; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "71e708130c143585c91ec17c4d57a3f5061d23aa2a9334d0c09df84b5b370303"
+        },
+        {
+          "id": "K:parameter:MapTurnSpeedFactor",
+          "start": 3121,
+          "end": 3137,
+          "symbol": "params[MapTurnSpeedFactor]",
+          "claim": "Descriptive UI min/max/default for MapTurnSpeedFactor; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "f7a8215cf0dfcc91a848302bdbd610b381fa8751d8f61c93d75abb3564eb1d0b"
+        },
+        {
+          "id": "K:parameter:AutoCurveSpeedLowerLimit",
+          "start": 2819,
+          "end": 2835,
+          "symbol": "params[AutoCurveSpeedLowerLimit]",
+          "claim": "Descriptive UI min/max/default for AutoCurveSpeedLowerLimit; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "8fdc5bb644fca13b46fd6290323fe7db20ec9be9012693e61c4f92bd1a1606be"
+        },
+        {
+          "id": "K:parameter:CruiseEcoControl",
+          "start": 1007,
+          "end": 1023,
+          "symbol": "params[CruiseEcoControl]",
+          "claim": "Descriptive UI min/max/default for CruiseEcoControl; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "588a4df2360e264e79664f6459f5d8d49d4b454b970fc042cddfdfc2f85bc337"
+        }
+      ]
+    },
+    {
+      "id": "keys",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/common/params_keys.h",
+      "blob_sha": "685671e76b7168a4e032d3f64efa7cf8749f6490",
+      "sha256": "0a9b38fd6cbc96302cb8194155a73cc3e8f34384189ec5d38ca9e7c44405802a",
+      "line_count": 398,
+      "ranges": [
+        {
+          "id": "K:keys",
+          "start": 1,
+          "end": 1,
+          "symbol": "Params key registry identity",
+          "claim": "Key registry is neither an application safety policy nor authority.",
+          "confidence": "PROVEN",
+          "sha256": "b3adf106d95b8934f690943f2921308b90be5b766c4c8ba250c792de56400201"
+        }
+      ]
+    },
+    {
+      "id": "log-schema",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/cereal/log.capnp",
+      "blob_sha": "03f5b98cc953ee3382d2e9713e4f999548a9c9e1",
+      "sha256": "56cd322cbc23b7f577833ed55183ef7226c99e97ca2c11ca5c14c072cef0ff3a",
+      "line_count": 2768,
+      "ranges": [
+        {
+          "id": "Q:plan",
+          "start": 1190,
+          "end": 1219,
+          "symbol": "LongitudinalPlan",
+          "claim": "Plan target/accel fields are scalar, not availability evidence.",
+          "confidence": "PROVEN",
+          "sha256": "75338018db55b5512b3b64f9ff12209d9513b5f218c207d2c7d41ccd753ad953"
+        }
+      ]
+    },
+    {
+      "id": "car-schema",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "blob_sha": "e212a057f8e0bc6bea40e85b92081fbd853c7423",
+      "sha256": "5782f973e26bab8132715e82d80706689f4d97dd9b369b249a2a8e1f3b3dfe48",
+      "line_count": 843,
+      "ranges": [
+        {
+          "id": "Q:car",
+          "start": 183,
+          "end": 206,
+          "symbol": "CarState",
+          "claim": "Scalar speed/angle/driver inputs need producer/health provenance.",
+          "confidence": "PROVEN",
+          "sha256": "480935e07a243322a84f78ed13e2c396243b4506b53e1bb77319ab3bd8638413"
+        },
+        {
+          "id": "Q:actuators",
+          "start": 424,
+          "end": 438,
+          "symbol": "CarControl.Actuators",
+          "claim": "Torque and steering-angle wire fields do not carry cohort/availability alone.",
+          "confidence": "PROVEN",
+          "sha256": "7fd2c58f670c6c45316e3e870ed2839fa0e60e49d3c4c741439666d9d8e7c7a3"
+        }
+      ]
+    },
+    {
+      "id": "custom-schema",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/cereal/custom.capnp",
+      "blob_sha": "be400f1a1c9744cb42d0426a524ed508759d9b41",
+      "sha256": "ec80175cbd08ea865d3b8a7ef0f1a1867b5f593819fb9de8a0165a1b9b22891f",
+      "line_count": 271,
+      "ranges": [
+        {
+          "id": "Q:carrot",
+          "start": 14,
+          "end": 34,
+          "symbol": "CarrotMan",
+          "claim": "Navigation target/source scalar fields; no cross-topic join identity.",
+          "confidence": "PROVEN",
+          "sha256": "43de5d0419c526322181f30532c2dcc72f6083c172022f41bf555b27f13fc1f7"
+        }
+      ]
+    },
+    {
+      "id": "license",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "LICENSE",
+      "blob_sha": "7dafa9443b1545980b261dddd4184a8daec16758",
+      "sha256": "716ce815a0467219c59ec2433e6bce7f32efc45240725c6d3141a52b111d2558",
+      "line_count": 7,
+      "ranges": [
+        {
+          "id": "Z:license",
+          "start": 1,
+          "end": 7,
+          "symbol": "repository license",
+          "claim": "Comma MIT-style repository permission evidence; no separate feature attribution conclusion.",
+          "confidence": "PROVEN",
+          "sha256": "716ce815a0467219c59ec2433e6bce7f32efc45240725c6d3141a52b111d2558"
+        }
+      ]
+    },
+    {
+      "id": "baseline-observation",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "branch": "main",
+      "commit": "b24ef18e4270af5ab4f731aca31cf95f4f4b0cce",
+      "path": "src/cyberpilot_autotune/contracts/observation.py",
+      "blob_sha": "2606064b420386a4548a307f2c295547bfb076c8",
+      "sha256": "7c5764418b5be0debbc72eb36f9828658c595d4570edada245d8c403af28da42",
+      "line_count": 43,
+      "ranges": [
+        {
+          "id": "B:snapshot",
+          "start": 1,
+          "end": 43,
+          "symbol": "ObservationSnapshot",
+          "claim": "Immutable canonical observations retain unavailable tri-states.",
+          "confidence": "PROVEN",
+          "sha256": "7c5764418b5be0debbc72eb36f9828658c595d4570edada245d8c403af28da42"
+        }
+      ]
+    },
+    {
+      "id": "baseline-gate",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "branch": "main",
+      "commit": "b24ef18e4270af5ab4f731aca31cf95f4f4b0cce",
+      "path": "src/cyberpilot_autotune/safety/gate.py",
+      "blob_sha": "41666865ddcdd52d4c78beea38d8974ed40b6183",
+      "sha256": "def9d7f3c5bca6a66338a4eeb7a9773dde1580f7d3db20a21297e40bd9f20645",
+      "line_count": 234,
+      "ranges": [
+        {
+          "id": "B:gate",
+          "start": 1,
+          "end": 220,
+          "symbol": "SafetyGate",
+          "claim": "Structural/freshness/override/saturation and policy gates precede learning/proposal admission.",
+          "confidence": "PROVEN",
+          "sha256": "3be011a183d7bcd1e1f3287cdc6ab2deba7377f0133fee7ab4cc5c7da1e7aedd"
+        }
+      ]
+    },
+    {
+      "id": "baseline-learner",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "branch": "main",
+      "commit": "b24ef18e4270af5ab4f731aca31cf95f4f4b0cce",
+      "path": "src/cyberpilot_autotune/core/residual.py",
+      "blob_sha": "8f4ea54d0c4c71d0922bc121e586c0784fcda95b",
+      "sha256": "395f6d45295928544b9f5a2d85a3c35c9cc5e41fcdcf11127b5ad00ed37e26ea",
+      "line_count": 234,
+      "ranges": [
+        {
+          "id": "B:learner",
+          "start": 1,
+          "end": 219,
+          "symbol": "ResidualStatisticsLearner",
+          "claim": "Research residual statistics; not qualified parameter identification.",
+          "confidence": "PROVEN",
+          "sha256": "b5df5f2421f14b9d0e5e2d3e61a19199a67246e7f1bb9a1ec8e043bf63f33fee"
+        }
+      ]
+    },
+    {
+      "id": "baseline-contract",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "branch": "main",
+      "commit": "b24ef18e4270af5ab4f731aca31cf95f4f4b0cce",
+      "path": "src/cyberpilot_autotune/adapters/carrot_receipt_contract.py",
+      "blob_sha": "2faec21eebbe447de36926338c13c58a5ced7d3e",
+      "sha256": "ce06a71852b0a6b1b6e54210df4dbfe5bced4a196c2fc62ebd241f1f04463199",
+      "line_count": 534,
+      "ranges": [
+        {
+          "id": "B:contract",
+          "start": 1,
+          "end": 491,
+          "symbol": "evaluate",
+          "claim": "Pinned exact receipt/source CC/CS, clock domains and caller context/baseline policy.",
+          "confidence": "PROVEN",
+          "sha256": "06c45b4f6bcb4aa65846a0c6a852db77e42a7494a536fb6dd2ff69b05a9da9da"
+        }
+      ]
+    },
+    {
+      "id": "baseline-adapter",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "branch": "main",
+      "commit": "b24ef18e4270af5ab4f731aca31cf95f4f4b0cce",
+      "path": "src/cyberpilot_autotune/integrations/carrot/adapter.py",
+      "blob_sha": "feb3a4b14fad9728ef16bd86bca3dbadb68bb151",
+      "sha256": "21ce38a0990a0fc489dbc6e5af2c02b377b7d43a3877047ab24fd3a75a9ef393",
+      "line_count": 428,
+      "ranges": [
+        {
+          "id": "B:adapter",
+          "start": 1,
+          "end": 428,
+          "symbol": "CarrotReadOnlyAdapter",
+          "claim": "Exact bounded caches, consumed attempts and session-required fault latches.",
+          "confidence": "PROVEN",
+          "sha256": "21ce38a0990a0fc489dbc6e5af2c02b377b7d43a3877047ab24fd3a75a9ef393"
+        }
+      ]
+    },
+    {
+      "id": "pr8-source",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "branch": "feat/carrot-live-readonly-sidecar",
+      "commit": "e4361678ed176cbd7c0bb6f838d3daa7174caf22",
+      "path": "src/cyberpilot_autotune/integrations/carrot/sidecar/source.py",
+      "blob_sha": "60a7c4643e634351699aa55186775b9589b94f6c",
+      "sha256": "18613394faf6c6927970f4621fd3c84076ecf09b8eadc4176edea0bc61d5f1a0",
+      "line_count": 124,
+      "ranges": [
+        {
+          "id": "R:source",
+          "start": 1,
+          "end": 124,
+          "symbol": "receive-only SubMaster bridge",
+          "claim": "Source bridge copies updated readers into existing adapter; parked qualification pending.",
+          "confidence": "PROVEN",
+          "sha256": "18613394faf6c6927970f4621fd3c84076ecf09b8eadc4176edea0bc61d5f1a0"
+        }
+      ]
+    },
+    {
+      "id": "pr8-runner",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "branch": "feat/carrot-live-readonly-sidecar",
+      "commit": "e4361678ed176cbd7c0bb6f838d3daa7174caf22",
+      "path": "src/cyberpilot_autotune/integrations/carrot/sidecar/runner.py",
+      "blob_sha": "250db2c19499291f781aa8fd094c9dbed9adab97",
+      "sha256": "5489547c7a160a2cee7717a03d617a496c768b7332ac56b0244312b9793086bc",
+      "line_count": 203,
+      "ranges": [
+        {
+          "id": "R:sidecar",
+          "start": 1,
+          "end": 203,
+          "symbol": "SidecarRunner",
+          "claim": "MappingDecision and sanitized diagnostics only; no downstream engine authority.",
+          "confidence": "PROVEN",
+          "sha256": "5489547c7a160a2cee7717a03d617a496c768b7332ac56b0244312b9793086bc"
+        }
+      ]
+    },
+    {
+      "id": "pr9-contract",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "branch": "feat/steering-bounded-application",
+      "commit": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+      "path": "docs/steering_application_contract.md",
+      "blob_sha": "6942582c190f9f74b013e1a0a23dbc986e2e8693",
+      "sha256": "d1076595096286501b6169b8360686c4929426fab1f9dcbdfb646c5f2c37d151",
+      "line_count": 149,
+      "ranges": [
+        {
+          "id": "G:application",
+          "start": 1,
+          "end": 149,
+          "symbol": "steering application contract",
+          "claim": "Mandatory independent authority/owner, unresolved writer gates, no real Carrot writer.",
+          "confidence": "PROVEN",
+          "sha256": "d1076595096286501b6169b8360686c4929426fab1f9dcbdfb646c5f2c37d151"
+        }
+      ]
+    },
+    {
+      "id": "pr9-coordinator",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "branch": "feat/steering-bounded-application",
+      "commit": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+      "path": "src/cyberpilot_autotune/application/coordinator.py",
+      "blob_sha": "b71aedc8cc5c546b1f677a53b3a8959be9e4599a",
+      "sha256": "7a95709d7a08cabffea3e5ecf23db3c400677d199936ecf37052f9106253c8f3",
+      "line_count": 453,
+      "ranges": [
+        {
+          "id": "G:coordinator",
+          "start": 1,
+          "end": 453,
+          "symbol": "BoundedSteeringApplicator",
+          "claim": "Actual injected CAS/readback/recovery with current deadlines; no concrete vehicle target.",
+          "confidence": "PROVEN",
+          "sha256": "7a95709d7a08cabffea3e5ecf23db3c400677d199936ecf37052f9106253c8f3"
+        }
+      ]
+    },
+    {
+      "id": "pr9-policy",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "branch": "feat/steering-bounded-application",
+      "commit": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+      "path": "src/cyberpilot_autotune/application/contracts.py",
+      "blob_sha": "13e36c20989ade27a7ec6c2f1c0f31647880b3bd",
+      "sha256": "c6dc619468f3c7f3209bd7383e8ecc8c4c2134e7bb09dbd26c7a4df1814989d6",
+      "line_count": 290,
+      "ranges": [
+        {
+          "id": "G:policy",
+          "start": 1,
+          "end": 290,
+          "symbol": "SteeringPolicy / SteeringRequest / AuthorizationGrant",
+          "claim": "Caller-approved policy, identity/evidence/grant contracts are separate from descriptors.",
+          "confidence": "PROVEN",
+          "sha256": "c6dc619468f3c7f3209bd7383e8ecc8c4c2134e7bb09dbd26c7a4df1814989d6"
+        }
+      ]
+    },
+    {
+      "id": "pr9-ports",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "branch": "feat/steering-bounded-application",
+      "commit": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+      "path": "src/cyberpilot_autotune/application/ports.py",
+      "blob_sha": "6dc2f42bb0028c4112b522e3db7b9ae1f69d61df",
+      "sha256": "985548c49662455f0b2814ad2c6203387aee719c6f5d9153cd0a8d48d04a593c",
+      "line_count": 32,
+      "ranges": [
+        {
+          "id": "G:ports",
+          "start": 1,
+          "end": 32,
+          "symbol": "SteeringTarget / ApplicationAuthority",
+          "claim": "External trusted single-owner and independent one-shot authorization obligations.",
+          "confidence": "PROVEN",
+          "sha256": "985548c49662455f0b2814ad2c6203387aee719c6f5d9153cd0a8d48d04a593c"
+        }
+      ]
+    },
+    {
+      "id": "car-helpers",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "opendbc_repo/opendbc/car/car_helpers.py",
+      "blob_sha": "a53272d68e74bf8f71c457a5931bea6dfb713d37",
+      "sha256": "73a53a26dd60353114ae23f8e2fc7721387aefb4d6db2a2ff032164ef4344036",
+      "line_count": 196,
+      "ranges": [
+        {
+          "id": "K:selection",
+          "start": 157,
+          "end": 180,
+          "symbol": "get_car",
+          "claim": "CarSelected3 can force the candidate platform; it is not an autotuning parameter and does not independently confirm runtime fingerprint.",
+          "confidence": "PROVEN",
+          "sha256": "aef1cf575fadca4b525cf92f34cdae118015ebdd32381d14050eaf90d01950f0"
+        }
+      ]
+    },
+    {
+      "id": "settings-tests",
+      "repository": "ajouatom/openpilot",
+      "branch": "hoya/c3-atune",
+      "commit": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/server/tests/test_settings_schema.py",
+      "blob_sha": "b15d3935f53e21a2634a694e734a5a85942a54a3",
+      "sha256": "b8d3c0dc5a34959378cc14b506e5a0f2e590487f4b9ff93817831e6566c755e5",
+      "line_count": 458,
+      "ranges": [
+        {
+          "id": "K:removed",
+          "start": 59,
+          "end": 67,
+          "symbol": "test_obsolete_lead_response_settings_are_removed",
+          "claim": "RadarReactionFactor is explicitly absent from the settings catalog.",
+          "confidence": "PROVEN",
+          "sha256": "1d8a0a13553b30a7bc1d0d656b168e212900df87a17afab127b0b29904666ccd"
+        }
+      ]
+    }
+  ],
+  "inventory": {
+    "python_scope": [
+      "autotune",
+      "params",
+      "history",
+      "settings"
+    ],
+    "getattr_defaults": [
+      {
+        "file": "autotune",
+        "line": 57,
+        "end": 57,
+        "field": "vEgo",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 58,
+        "end": 58,
+        "field": "aEgo",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 59,
+        "end": 59,
+        "field": "gasPressed",
+        "default_kind": "FALSE",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 60,
+        "end": 60,
+        "field": "brakePressed",
+        "default_kind": "FALSE",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 61,
+        "end": 61,
+        "field": "steeringPressed",
+        "default_kind": "FALSE",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 62,
+        "end": 62,
+        "field": "standstill",
+        "default_kind": "FALSE",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 63,
+        "end": 63,
+        "field": "steeringAngleDeg",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 80,
+        "end": 80,
+        "field": "accel",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 81,
+        "end": 81,
+        "field": "torque",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 82,
+        "end": 82,
+        "field": "steerAngleDeg",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 92,
+        "end": 92,
+        "field": "status",
+        "default_kind": "FALSE",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 94,
+        "end": 94,
+        "field": "dRel",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 95,
+        "end": 95,
+        "field": "vLead",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 96,
+        "end": 96,
+        "field": "aLead",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 97,
+        "end": 97,
+        "field": "jLead",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 106,
+        "end": 106,
+        "field": "desiredSpeed",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 108,
+        "end": 108,
+        "field": "vTurnSpeed",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 109,
+        "end": 109,
+        "field": "activeCarrot",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 110,
+        "end": 110,
+        "field": "xDistToTurn",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      },
+      {
+        "file": "autotune",
+        "line": 114,
+        "end": 114,
+        "field": "cruiseTarget",
+        "default_kind": "ZERO",
+        "verdict": "UNAVAILABLE_COLLAPSED"
+      }
+    ],
+    "silent_handlers": [
+      {
+        "file": "autotune",
+        "line": 142,
+        "end": 143,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "autotune",
+        "line": 302,
+        "end": 303,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "autotune",
+        "line": 355,
+        "end": 356,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "autotune",
+        "line": 468,
+        "end": 469,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "autotune",
+        "line": 521,
+        "end": 522,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "autotune",
+        "line": 538,
+        "end": 539,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "autotune",
+        "line": 563,
+        "end": 564,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "autotune",
+        "line": 572,
+        "end": 573,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "autotune",
+        "line": 589,
+        "end": 590,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "autotune",
+        "line": 595,
+        "end": 596,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "params",
+        "line": 31,
+        "end": 32,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "params",
+        "line": 108,
+        "end": 109,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "params",
+        "line": 144,
+        "end": 145,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "params",
+        "line": 153,
+        "end": 154,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "params",
+        "line": 323,
+        "end": 324,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "params",
+        "line": 515,
+        "end": 516,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "params",
+        "line": 817,
+        "end": 818,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "params",
+        "line": 968,
+        "end": 969,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "settings",
+        "line": 44,
+        "end": 45,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      }
+    ],
+    "js_empty_catches": [
+      {
+        "file": "ai",
+        "line": 57,
+        "end": 57,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "ai",
+        "line": 142,
+        "end": 142,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "ai",
+        "line": 171,
+        "end": 171,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "ai",
+        "line": 183,
+        "end": 183,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "ai",
+        "line": 198,
+        "end": 198,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "ai",
+        "line": 205,
+        "end": 205,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "ai",
+        "line": 299,
+        "end": 299,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "ai",
+        "line": 976,
+        "end": 976,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "controller",
+        "line": 40,
+        "end": 40,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "controller",
+        "line": 156,
+        "end": 156,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      },
+      {
+        "file": "controller",
+        "line": 718,
+        "end": 718,
+        "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY"
+      }
+    ],
+    "explicit_telemetry_initializers": [
+      66,
+      74,
+      75,
+      76,
+      85,
+      86,
+      87,
+      88,
+      89,
+      100,
+      101,
+      102,
+      103,
+      104,
+      112
+    ],
+    "scope_note": "Complete AST inventory for four server feature/service files; JS empty catches for ai/controller/view/index. Controller and unrelated repository code are not claimed globally inventoried."
+  },
+  "named_parameter_universe": [
+    "CruiseMaxVals0",
+    "CruiseMaxVals1",
+    "CruiseMaxVals2",
+    "CruiseMaxVals3",
+    "CruiseMaxVals4",
+    "CruiseMaxVals5",
+    "CruiseMaxVals6",
+    "DynamicTFollow",
+    "DynamicTFollowLC",
+    "EnableSpeedTF",
+    "TFollowGap1",
+    "TFollowGap2",
+    "TFollowGap3",
+    "TFollowGap4",
+    "TFollowDecelBoost",
+    "AChangeCostStarting",
+    "RadarReactionFactor",
+    "LongitudinalPersonality",
+    "LongTuningKpV",
+    "LongTuningKiV",
+    "LongTuningKf",
+    "StoppingAccel",
+    "StopDistanceCarrot",
+    "CarSelected3",
+    "LateralTorqueCustom",
+    "LateralTorqueKpV",
+    "LateralTorqueKiV",
+    "LateralTorqueKf",
+    "LateralTorqueFriction",
+    "LateralTorqueAccelFactor",
+    "SteerRatioRate",
+    "SteerActuatorDelay",
+    "TurnSpeedControlMode",
+    "AutoCurveSpeedFactor",
+    "ModelTurnSpeedFactor",
+    "MapTurnSpeedFactor",
+    "AutoCurveSpeedLowerLimit",
+    "CruiseEcoControl"
+  ],
+  "catalog_parameter_count": 175,
+  "catalog_parameter_names_sha256": "3a60eb89a224babe64a0a162c1730ac6e41c6629082203da51e9a3ecdac0bf32",
+  "catalog_other_names": [
+    "AdjustLaneOffset",
+    "AlwaysLateral",
+    "ApplyModelSpeed",
+    "AutoCruiseControl",
+    "AutoEngage",
+    "AutoGasCancelSpeed",
+    "AutoGasSyncSpeed",
+    "AutoGasTokSpeed",
+    "AutoNaviCountDownMode",
+    "AutoNaviSpeedBumpSpeed",
+    "AutoNaviSpeedBumpTime",
+    "AutoNaviSpeedCtrlEnd",
+    "AutoNaviSpeedCtrlMode",
+    "AutoNaviSpeedDecelRate",
+    "AutoNaviSpeedSafetyFactor",
+    "AutoRoadSpeedAdjust",
+    "AutoRoadSpeedLimitOffset",
+    "AutoSpeedUptoRoadSpeedLimit",
+    "AutoTurnControl",
+    "AutoTurnControlSpeedTurn",
+    "AutoTurnControlTurnEnd",
+    "AutoTurnMapChange",
+    "CameraYawTrimDeg",
+    "CancelButtonMode",
+    "CanfdDebug",
+    "CanfdHDA2",
+    "CarrotCruiseAtcDecel",
+    "CarrotCruiseDecel",
+    "CarrotTireTrajectory",
+    "CarrotYouTubeLive",
+    "CarrotYouTubeQuality",
+    "CarrotYouTubeTimestamp",
+    "ClusterHud",
+    "ClusterHudBrightness",
+    "ClusterHudCameraViewMode",
+    "ClusterHudCoreMode",
+    "ClusterHudDebug",
+    "ClusterHudEncoder",
+    "ClusterHudLiveFps",
+    "ClusterHudMirror",
+    "ClusterHudOrientation",
+    "ClusterHudPanelLayout",
+    "ClusterHudPriority",
+    "ClusterHudRadarDisplay",
+    "ClusterHudRadarInfo",
+    "ClusterHudRadarSourceColor",
+    "ClusterHudScreenMode",
+    "ClusterHudTheme",
+    "ClusterNaviMapFps",
+    "ClusterNaviMapTheme",
+    "ClusterNaviMapType",
+    "CruiseButtonLongDelay",
+    "CruiseButtonMode",
+    "CruiseButtonTest1",
+    "CruiseButtonTest2",
+    "CruiseButtonTest3",
+    "CruiseOnDist",
+    "CruiseSpeed1",
+    "CruiseSpeed2",
+    "CruiseSpeed3",
+    "CruiseSpeed4",
+    "CruiseSpeed5",
+    "CruiseSpeedUnit",
+    "CruiseSpeedUnitBasic",
+    "CustomSR",
+    "CustomSteerDeltaDown",
+    "CustomSteerDeltaDownLC",
+    "CustomSteerDeltaUp",
+    "CustomSteerDeltaUpLC",
+    "CustomSteerMax",
+    "DisableDM",
+    "DisableMinSteerSpeed",
+    "EnableCornerRadar",
+    "EnableRadarTracks",
+    "HDPuse",
+    "HapticFeedbackWhenSpeedCamera",
+    "HardwareC3xLite",
+    "HotspotOnBoot",
+    "HyundaiCameraSCC",
+    "IsLdwsCar",
+    "LaneChangeBsd",
+    "LaneChangeDelay",
+    "LaneChangeNeedTorque",
+    "LaneLineCheck",
+    "LatMpcAccelCost",
+    "LatMpcInputOffset",
+    "LatMpcJerkCost",
+    "LatMpcMotionCost",
+    "LatMpcPathCost",
+    "LatMpcSteeringRateCost",
+    "LatSmoothSec",
+    "LatSuspendAngleDeg",
+    "LateralTorqueKd",
+    "LeadAccelResponse",
+    "LfaButtonMode",
+    "LongActuatorDelay",
+    "MapboxStyle",
+    "MaxAngleFrames",
+    "MaxTimeOffroadMin",
+    "MuteDoor",
+    "MuteSeatbelt",
+    "MyDrivingMode",
+    "MyDrivingModeAuto",
+    "PaddleMode",
+    "PathOffset",
+    "RecordRoadCam",
+    "ShareData",
+    "ShowCameraWithCluster",
+    "ShowCustomBrightness",
+    "ShowDateTime",
+    "ShowDebugUI",
+    "ShowDeviceState",
+    "ShowLaneInfo",
+    "ShowModelView",
+    "ShowPathColor",
+    "ShowPathColorCruiseOff",
+    "ShowPathColorLane",
+    "ShowPathEnd",
+    "ShowPathMode",
+    "ShowPathModeLane",
+    "ShowPlotMode",
+    "ShowRadarInfo",
+    "ShowRouteInfo",
+    "ShowTpms",
+    "SoftHoldOnCancel",
+    "SoftwareMenu",
+    "SoundLanguageSetting",
+    "SoundVolumeAdjust",
+    "SoundVolumeAdjustEngage",
+    "SpeedFromPCM",
+    "TrafficLightDetectMode",
+    "TrafficStopDistanceAdjust",
+    "UseLaneLineCurveSpeed",
+    "UseLaneLineSpeed",
+    "UseWideCamera",
+    "VEgoStopping",
+    "VehicleNaviCanControl",
+    "VehicleNaviSchoolZoneControl",
+    "VehicleSpeedCameraControlMode",
+    "VehicleSpeedCameraDistanceTime"
+  ],
+  "preserved_files": {
+    "src/cyberpilot_autotune/__init__.py": "1638311894ccd6a0980a03d7e9dfc8a8a7572dad577370b79364c4299bb031be",
+    "src/cyberpilot_autotune/adapters/__init__.py": "6f1d8d4cf4dd4b6f7e6244c789cc2f6b3687306e80ad81572af4543c8bf563e0",
+    "src/cyberpilot_autotune/adapters/base.py": "3a40fc6099a84026d3a335c8aca38137138574a790651645013936d89c4ff0bf",
+    "src/cyberpilot_autotune/adapters/carrot_receipt_contract.py": "ce06a71852b0a6b1b6e54210df4dbfe5bced4a196c2fc62ebd241f1f04463199",
+    "src/cyberpilot_autotune/contracts/__init__.py": "b3cb8d5aaba1a96b2050d9925a543f83ef30041035718f9ee70d587accc725d2",
+    "src/cyberpilot_autotune/contracts/decision.py": "204ddb8981bf259648f99adb3371d28700eed9c2980a0b3c889055c1f26e6466",
+    "src/cyberpilot_autotune/contracts/observation.py": "7c5764418b5be0debbc72eb36f9828658c595d4570edada245d8c403af28da42",
+    "src/cyberpilot_autotune/contracts/parameter.py": "4808908ad42f15ab13634f8e2887f3bfd8b12a115b1349ff48709a22a7730319",
+    "src/cyberpilot_autotune/contracts/proposal.py": "b63ff3fe88fd5560856f93a6e49c94901a2a8f33602a20ee76d2a3798f9dc9f2",
+    "src/cyberpilot_autotune/contracts/result.py": "cc587d9f32085cb72aab4dd27494c0c008f1eeb1eb92576ecc6f5f76af4e5c30",
+    "src/cyberpilot_autotune/contracts/validation.py": "5c3fff59d4be3ff82abbdbabd213f33af86c1bdbc7d493c1b794f755d782a872",
+    "src/cyberpilot_autotune/core/__init__.py": "689ececce49e100af58f5eb4fb2413e7cefb407ec0652c49a15a18eb170a7130",
+    "src/cyberpilot_autotune/core/learner.py": "09a948f65f07c3887744fe3386c9be3186054a21aa5e377d42e3ef607094cda6",
+    "src/cyberpilot_autotune/core/no_op.py": "7723e8ab95ffcc840236adc6d36628d72399ee480567fec248808c18ce2a532e",
+    "src/cyberpilot_autotune/core/residual.py": "395f6d45295928544b9f5a2d85a3c35c9cc5e41fcdcf11127b5ad00ed37e26ea",
+    "src/cyberpilot_autotune/integrations/__init__.py": "1b70659b93b5f05e54f58896767e6e9f81289ff6c80fec999ea08ff4a19de61c",
+    "src/cyberpilot_autotune/integrations/carrot/__init__.py": "72b330002ee56a0ab3be5605ce3c4166301f23376601fc5332b26ffdba656e3c",
+    "src/cyberpilot_autotune/integrations/carrot/adapter.py": "21ce38a0990a0fc489dbc6e5af2c02b377b7d43a3877047ab24fd3a75a9ef393",
+    "src/cyberpilot_autotune/integrations/carrot/availability.py": "9f99168d79261e472f96641b0e4be064ceeeec01ed865da2e245f9590709df3b",
+    "src/cyberpilot_autotune/integrations/carrot/cache.py": "3455306717a492362afad4ccd684acbef58ea150ba16dd46e9b1411ca5f8e6fd",
+    "src/cyberpilot_autotune/integrations/carrot/errors.py": "55f06ce43ef8ab4cd98978a0175f3eff8c0e752c86b161fdb3a56a835b852d6b",
+    "src/cyberpilot_autotune/integrations/carrot/extraction.py": "a1259f3db55f76bfceac0b1315bb0887b061a60998fd76a7bbb27a9b2e75658f",
+    "src/cyberpilot_autotune/integrations/carrot/health.py": "adaa0eb8f625c6ae9c98af4e0fe94469a0279242a6e3c98a351edc5bb1736584",
+    "src/cyberpilot_autotune/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/cyberpilot_autotune/replay/__init__.py": "79a2fc56912ed7e0b1ec788b452e85a5bd38d8600255cc25f824c9ea938a15cf",
+    "src/cyberpilot_autotune/replay/canonical.py": "e12594cc67d115ebcfc4bc36cbda1e3235c1efa93a3ab57d5d6750b68cbba679",
+    "src/cyberpilot_autotune/replay/cli.py": "e5e266207d7e17e599977125441218867655a5e216a52c64263e720870850e89",
+    "src/cyberpilot_autotune/replay/runner.py": "8f2f7efdac14eadda1ed32555b1db8c4145725675fd92d5763c177ae391f53c5",
+    "src/cyberpilot_autotune/replay/schema.py": "498f04b4b7bd22be98f56dcaa9724ce52e4d61531f9263a6fdcf8ff65c73b473",
+    "src/cyberpilot_autotune/runtime/__init__.py": "25ddf8753ae363db2f6449f3e0834fb7d9cc9055ac92b874f63b17e5f67e6a96",
+    "src/cyberpilot_autotune/runtime/clock.py": "548b6b74704693738d0523f32614e237552194fbb16a915cc0e403cb2027d33d",
+    "src/cyberpilot_autotune/runtime/engine.py": "46834be9a8be8e33f2ad3fbc44a59a924e1c2ba0595fdc5aeb78705b1bf096e6",
+    "src/cyberpilot_autotune/runtime/mode.py": "77393646b015045078a1aec53335ad72e041af6197b56707e13fb81fe9bb145a",
+    "src/cyberpilot_autotune/safety/__init__.py": "b270f043692cf6c70a1429da3aa4eaf0771e9458fdd3c5e5466d43492a3f69ff",
+    "src/cyberpilot_autotune/safety/bounds.py": "7c1b9a71d8373e01e8a7f7a71581795f7ebf7f8d29d70b4d63d4352f96107d7e",
+    "src/cyberpilot_autotune/safety/gate.py": "def9d7f3c5bca6a66338a4eeb7a9773dde1580f7d3db20a21297e40bd9f20645",
+    "src/cyberpilot_autotune/safety/rate_limiter.py": "1a9e6054c57918aabd48bfcbde4ea4df7573c456c3c7e26564cd2bc854c2d195",
+    "src/cyberpilot_autotune/safety/reasons.py": "f21607e45646cfc8955c24271edb2a4f14f6e8b4660e1e37cd0fdd3d44df53b4",
+    "src/cyberpilot_autotune/safety/sanitizer.py": "569e81de5bdfe564845b98fa3f7093524ca2f1b7e04c3c3ac257e8f2e47b76bd",
+    "src/cyberpilot_autotune/telemetry/__init__.py": "3e01fe531fcbf5cac1fff48b3d23d751329bab7870f29abebade24fe61b6d576",
+    "src/cyberpilot_autotune/telemetry/events.py": "6c487d6fe4f45d8b06d7c852322e4bf14a0911d9a8f4581729e5bd9dd0c0a5ff",
+    "tests/fixtures/replay/admission_reset_v1.expected.json": "6351414be8014366117e84f3f822323ec7684a3e384c37ebdb1f7529b430185e",
+    "tests/fixtures/replay/admission_reset_v1.json": "16b5311048e55fa66a6252fc97f097da72b746e1b791004795082b03cf69d92d",
+    "tests/fixtures/replay/constant_residual_v1.expected.json": "5229ea0d7225d5fa7bfa41d1d55b7fcc50cd9d15db71848abdcb3f7c3d238b62",
+    "tests/fixtures/replay/constant_residual_v1.json": "1bcb07d4da039b64699bf6fa4788be8b9a8bb909886f400b0cf9d72df835246c",
+    "tests/fixtures/replay/golden_v1.expected.json": "8e031da66159225c539e65f1ee955b262371ef6736951c39e060934bea33adff",
+    "tests/fixtures/replay/golden_v1.json": "d8e3ad8ef931a10ee1ff78a9d2018fe6bfe11e57e371c828a7148224001704b3",
+    "tests/fixtures/replay/ordering_high_water_v1.expected.json": "44699cef5f9b97db41bb56e12e0fa780d3813d60c17dd670af2b548f3c637ce2",
+    "tests/fixtures/replay/ordering_high_water_v1.json": "47ab3d406751d30e22142b894a4448261768b75f10a142585693f8f09395f61c"
+  },
+  "history": {
+    "merge_base": "9bd031e12759dac4332eb47b920a6d156253c296",
+    "hoya_only_commits": 10,
+    "carrot_only_commits": 1013,
+    "hoya_unique_commits": [
+      "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "066883ba098ba38e2f5ede0dd3ef308e3cf40031",
+      "5deb83e813f7d22e232b2d39f9ba2e5544adca76",
+      "99c3295dfdfddb66544a6d76b29d1cae5383551e",
+      "7075d2d1c4dfbde21192235d0608d476dfda6b49",
+      "ab7188790dd71087786a9749b1c29a9375ac13cf",
+      "af9f409e54c04c6ddaecaac7aa1ac09747381f36",
+      "f76cd14a4610f1d5d128b92423948c3bb1e2191d",
+      "c1006caadfd7b47d528ab466338da223aa79dd8e",
+      "7b4d41f9e5ad7d887458adb7e1d0d5ee4a0d7cc5"
+    ],
+    "carrot_since_previous": [
+      "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3 Apply center-of-gravity tuning live with vehicle-default zero",
+      "1ef27534f8bf2ee2c488c854b62b2167e1c7bdd0 Add optional center-of-gravity ratio tuning for all vehicle brands"
+    ],
+    "carrot_since_previous_files": [
+      "docs/user/en/settings.md",
+      "docs/user/ko/settings.md",
+      "opendbc_repo/opendbc/car/lateral_geometry.py",
+      "opendbc_repo/opendbc/car/tests/test_lateral_geometry.py",
+      "opendbc_repo/opendbc/car/vehicle_model.py",
+      "openpilot/cereal/log.capnp",
+      "openpilot/common/lateral_geometry_params.py",
+      "openpilot/common/params_keys.h",
+      "openpilot/selfdrive/carrot/server/services/params.py",
+      "openpilot/selfdrive/carrot/server/tests/test_settings_schema.py",
+      "openpilot/selfdrive/carrot/web/js/pages/setting.js",
+      "openpilot/selfdrive/carrot/web/tests/settings_parent_navigation.test.mjs",
+      "openpilot/selfdrive/carrot_settings.json",
+      "openpilot/selfdrive/controls/controlsd.py",
+      "openpilot/selfdrive/controls/lib/lateral_planner.py",
+      "openpilot/selfdrive/controls/tests/test_lane_model_speed_planner.py",
+      "openpilot/selfdrive/controls/tests/test_live_lateral_geometry.py",
+      "openpilot/selfdrive/locationd/paramsd.py",
+      "openpilot/system/manager/manager.py",
+      "tools/docs/wiki_settings/tests/test_ci_check.py",
+      "tools/docs/wiki_settings/tests/test_generate.py"
+    ]
+  },
+  "license": {
+    "evidence": "Z:license",
+    "copied_code": false,
+    "target_license_added": false,
+    "attribution": "Repository MIT-style evidence only; Hoya additions have no independently resolved file-specific attribution in this audit. No source bodies copied."
+  },
+  "source_grounding_pairs": [
+    {
+      "snippet_line": 309,
+      "file": "carrot-functions",
+      "source_line": 512,
+      "equal": true,
+      "snippet_normalized_sha256": "5e5b1ea5f1a093c676f828b732f237a534a8ecc5d0942dfce8dc0ea28071220e",
+      "source_normalized_sha256": "5e5b1ea5f1a093c676f828b732f237a534a8ecc5d0942dfce8dc0ea28071220e"
+    },
+    {
+      "snippet_line": 310,
+      "file": "carrot-functions",
+      "source_line": 513,
+      "equal": true,
+      "snippet_normalized_sha256": "3012163eba9d406ba804e040296ab38e3f263db86d4e5feed33d411d78893a12",
+      "source_normalized_sha256": "3012163eba9d406ba804e040296ab38e3f263db86d4e5feed33d411d78893a12"
+    },
+    {
+      "snippet_line": 312,
+      "file": "carrot-functions",
+      "source_line": 450,
+      "equal": true,
+      "snippet_normalized_sha256": "43068342acefc3ddd9ca478b05fd249b979e27a7d68b1191ff87c2b89df9f7f7",
+      "source_normalized_sha256": "43068342acefc3ddd9ca478b05fd249b979e27a7d68b1191ff87c2b89df9f7f7"
+    },
+    {
+      "snippet_line": 318,
+      "file": "carrot-serv",
+      "source_line": 1417,
+      "equal": true,
+      "snippet_normalized_sha256": "986dd55358791f2f718ad11f930a1e537294c4f255986065cc65d117f4fe21c7",
+      "source_normalized_sha256": "986dd55358791f2f718ad11f930a1e537294c4f255986065cc65d117f4fe21c7"
+    },
+    {
+      "snippet_line": 319,
+      "file": "carrot-serv",
+      "source_line": 1418,
+      "equal": true,
+      "snippet_normalized_sha256": "2576c004772562e372a3462f8c0175d7c50c988a9237907b1a7a851c339714e6",
+      "source_normalized_sha256": "2576c004772562e372a3462f8c0175d7c50c988a9237907b1a7a851c339714e6"
+    },
+    {
+      "snippet_line": 320,
+      "file": "carrot-serv",
+      "source_line": 1420,
+      "equal": true,
+      "snippet_normalized_sha256": "ac2bd68799602ffaf73350088983d03c88cc47c4ba8bea8934c09b553b6a34bb",
+      "source_normalized_sha256": "ac2bd68799602ffaf73350088983d03c88cc47c4ba8bea8934c09b553b6a34bb"
+    },
+    {
+      "snippet_line": 321,
+      "file": "carrot-serv",
+      "source_line": 1421,
+      "equal": true,
+      "snippet_normalized_sha256": "5b6998b9c6032727c6648a271ecba1b9ce6d86ae7d9da7221ac7e7f8eab8f093",
+      "source_normalized_sha256": "5b6998b9c6032727c6648a271ecba1b9ce6d86ae7d9da7221ac7e7f8eab8f093"
+    },
+    {
+      "snippet_line": 322,
+      "file": "carrot-serv",
+      "source_line": 1422,
+      "equal": false,
+      "snippet_normalized_sha256": "4e7063daa111b055df7a9d4305428384c282a616887302eb359c8c27495129ff",
+      "source_normalized_sha256": "82b50e36d3057f7fa68c3caa37459af9a9b1938b98c5b9b5d7cc9e5f607d93e0"
+    },
+    {
+      "snippet_line": 323,
+      "file": "carrot-serv",
+      "source_line": 1424,
+      "equal": true,
+      "snippet_normalized_sha256": "44266ed4d0ed125ff040248891f818b95b35c848fd6a6287adee7302217a81f9",
+      "source_normalized_sha256": "44266ed4d0ed125ff040248891f818b95b35c848fd6a6287adee7302217a81f9"
+    },
+    {
+      "snippet_line": 324,
+      "file": "carrot-serv",
+      "source_line": 1425,
+      "equal": true,
+      "snippet_normalized_sha256": "e34294a233aaa8f0fa336405f618034571e248f10cd7d2feb9b2faf232429d53",
+      "source_normalized_sha256": "e34294a233aaa8f0fa336405f618034571e248f10cd7d2feb9b2faf232429d53"
+    },
+    {
+      "snippet_line": 325,
+      "file": "carrot-serv",
+      "source_line": 1428,
+      "equal": true,
+      "snippet_normalized_sha256": "e6660779ca0862277441ab08589d33ef3473cfa063605d819ade5f79222f1bd4",
+      "source_normalized_sha256": "e6660779ca0862277441ab08589d33ef3473cfa063605d819ade5f79222f1bd4"
+    },
+    {
+      "snippet_line": 326,
+      "file": "carrot-serv",
+      "source_line": 1429,
+      "equal": true,
+      "snippet_normalized_sha256": "01474b87354939812e3302a32f243c7a45922647f6128e1f3878f7384fb7e61b",
+      "source_normalized_sha256": "01474b87354939812e3302a32f243c7a45922647f6128e1f3878f7384fb7e61b"
+    },
+    {
+      "snippet_line": 327,
+      "file": "carrot-serv",
+      "source_line": 1430,
+      "equal": true,
+      "snippet_normalized_sha256": "d91a6b74efbfec1b75e86efecd406bf9ec9feda96552f14595f796761ccfef92",
+      "source_normalized_sha256": "d91a6b74efbfec1b75e86efecd406bf9ec9feda96552f14595f796761ccfef92"
+    },
+    {
+      "snippet_line": 328,
+      "file": "carrot-serv",
+      "source_line": 1432,
+      "equal": true,
+      "snippet_normalized_sha256": "d74b239dbc93890bdf76174f3c9c64da39ca1331389094e15f793eb1b1fc07ca",
+      "source_normalized_sha256": "d74b239dbc93890bdf76174f3c9c64da39ca1331389094e15f793eb1b1fc07ca"
+    },
+    {
+      "snippet_line": 333,
+      "file": "carrot-functions",
+      "source_line": 456,
+      "equal": true,
+      "snippet_normalized_sha256": "586443eb4a5d3220004c3e7568103d28d7fd70c1f2bdb45061fe5e90f83d473e",
+      "source_normalized_sha256": "586443eb4a5d3220004c3e7568103d28d7fd70c1f2bdb45061fe5e90f83d473e"
+    },
+    {
+      "snippet_line": 334,
+      "file": "carrot-functions",
+      "source_line": 462,
+      "equal": false,
+      "snippet_normalized_sha256": "744b18523ae35bd61e3e53e8c49885afbf5c011418eb800e54b1999164f6265c",
+      "source_normalized_sha256": "45d6daba5f76b6dc74297bccb8a0d7556836ccd031b99ce2b65ad67890582a21"
+    },
+    {
+      "snippet_line": 335,
+      "file": "carrot-functions",
+      "source_line": 463,
+      "equal": true,
+      "snippet_normalized_sha256": "3da73e26611b53e48f2f3d33a9b3e5194dfc793624400c0b46f4c9785931a163",
+      "source_normalized_sha256": "3da73e26611b53e48f2f3d33a9b3e5194dfc793624400c0b46f4c9785931a163"
+    },
+    {
+      "snippet_line": 336,
+      "file": "carrot-functions",
+      "source_line": 465,
+      "equal": true,
+      "snippet_normalized_sha256": "dbd3cc37dc957a1d48ed1365794df6ea56a46e0b6839bcf68f1e30029f720bf1",
+      "source_normalized_sha256": "dbd3cc37dc957a1d48ed1365794df6ea56a46e0b6839bcf68f1e30029f720bf1"
+    },
+    {
+      "snippet_line": 337,
+      "file": "carrot-functions",
+      "source_line": 469,
+      "equal": true,
+      "snippet_normalized_sha256": "51f80b2d0d565cf39434028619eb84ead543a2aa3a3aacd16fcb965b992d1b70",
+      "source_normalized_sha256": "51f80b2d0d565cf39434028619eb84ead543a2aa3a3aacd16fcb965b992d1b70"
+    }
+  ]
+}
