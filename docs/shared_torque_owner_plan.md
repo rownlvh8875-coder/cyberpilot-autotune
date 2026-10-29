@@ -80,3 +80,23 @@ even when pre-install rejection is followed by direct recovery. Mode's final
 clock checks both duration and grant expiry. Four adversarial timing cases plus
 the sticky-recovery assertion passed after their observed failures. Full-suite
 and fresh final-head review results are reported after the correction commit.
+
+The next fresh review of c71da2014f97584c6fa1ce1ba5e303cc88ae4a91 reported
+C0/I1/M0: the final pre-CAS clock also needed the current grant/proposal absolute
+expiry, not only duration and old lease checks. Four RED cases (grant expiry,
+proposal expiry, original proposal-age deadline and mode grant) demonstrated a
+late install before a later fault. The install boundary now receives that exact
+absolute validity bound and checks it before CAS and after return. Baseline
+recovery has no adaptation-grant deadline and retains its own rollback duration.
+Existing post-CAS fault semantics remain explicit; a correct install before expiry
+can still become faulted if the callback returns after it.
+Two additional RED regressions reject/fault a positive hold that rounds to zero
+duration at the current logical clock, including a resolution change during
+install. No default duration or Float32 parameter encoding is introduced.
+
+Post-correction local verification: 1006 passed; overall coverage 97.68%, owner
+protocol combined coverage 99.70%. Mode's final grant-only expiry, no-change
+authority overrun and nonbaseline stop serialization are also exercised. The
+only unexecuted reference-owner line is the defensive changed-expected-state
+guard outside the declared single-caller/non-reentrant capability assumption.
+Final fresh independent review and exact-head remote CI follow this correction.

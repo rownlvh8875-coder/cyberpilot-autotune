@@ -186,13 +186,14 @@ class ReferenceTorqueParameterOwner:
         duration: float,
         *,
         guard_active_lease: bool,
+        valid_until_s: float | None,
     ) -> CommitAck:
         if current.revision == UINT64_MAX:
             self._fault("REVISION_EXHAUSTED")
         now = self._operation_time()
         if guard_active_lease:
             self._check_active_lease(now, installed=False)
-        if now - started > duration:
+        if now - started > duration or (valid_until_s is not None and now >= valid_until_s):
             self._fault("DEADLINE")
         # Exactly one complete transition at the injected serialized boundary.
         update = InstalledTuple(
@@ -209,7 +210,9 @@ class ReferenceTorqueParameterOwner:
         finished = self._operation_time()
         if guard_active_lease:
             self._check_active_lease(finished, installed=True)
-        if finished - started > duration:
+        if finished - started > duration or (
+            valid_until_s is not None and finished >= valid_until_s
+        ):
             self._fault("DEADLINE")
         return CommitAck(
             current.revision,
@@ -276,6 +279,8 @@ class ReferenceTorqueParameterOwner:
             self._fault("DEADLINE")
         if proposal.candidate.digest == current.values.digest:
             return None
+        if now + self.policy.maximum_lease_s <= now:
+            raise OwnerProtocolError("LEASE_DURATION_UNREPRESENTABLE")
         ack = self._install(
             current,
             proposal.candidate,
@@ -284,6 +289,7 @@ class ReferenceTorqueParameterOwner:
             started,
             self.policy.maximum_transaction_s,
             guard_active_lease=True,
+            valid_until_s=min(authority_context.expires_at_s, proposal_deadline),
         )
         finished = self._operation_time()
         self._check_active_lease(finished, installed=True)
@@ -292,16 +298,19 @@ class ReferenceTorqueParameterOwner:
             or finished - proposal.generated_at_s > self.policy.maximum_proposal_age_s
         ):
             self._fault("DEADLINE")
+        lease_deadline = min(
+            finished + self.policy.maximum_lease_s,
+            authority_context.expires_at_s,
+            proposal_deadline,
+        )
+        if lease_deadline <= finished:
+            self._fault("LEASE_DURATION_UNREPRESENTABLE")
         self._lease = OwnerLease(
             ack.new_revision,
             proposal.producer,
             proposal.proposal_id,
             finished,
-            min(
-                finished + self.policy.maximum_lease_s,
-                authority_context.expires_at_s,
-                proposal_deadline,
-            ),
+            lease_deadline,
             self.identity.baseline_epoch,
         )
         self._state = OwnerState.OWNED
@@ -341,6 +350,7 @@ class ReferenceTorqueParameterOwner:
                     started,
                     self.policy.maximum_rollback_s,
                     guard_active_lease=False,
+                    valid_until_s=None,
                 )
             readback = self.snapshot()
             if readback.values.digest != self.baseline.values.digest or (
@@ -446,6 +456,7 @@ class ReferenceTorqueParameterOwner:
             started,
             self.policy.maximum_transaction_s,
             guard_active_lease=True,
+            valid_until_s=authority_context.expires_at_s,
         )
         finished = self._operation_time()
         if finished - started > self.policy.maximum_transaction_s:

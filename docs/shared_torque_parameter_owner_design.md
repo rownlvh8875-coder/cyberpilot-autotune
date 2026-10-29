@@ -125,6 +125,9 @@ samples do not refresh the original proposal's age. Rejected/no-change proposals
 cannot renew it. The proposal-age deadline is exclusive. Expiry prevents a new
 commit and requires a recovery watchdog tick; it cannot be masked by a mode or
 new proposal event. Recovery itself has a separate caller rollback deadline.
+If a positive hold cannot be represented as an expiry later than the logical
+clock sample, reject/fault rather than acknowledge an already-expired lease.
+This is a numeric representability check, not a vehicle minimum duration.
 
 ## Baseline, recovery and restart
 

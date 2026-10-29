@@ -326,8 +326,9 @@ def test_mode_install_cannot_outlive_its_authorization_even_within_transaction_d
     auth = replace(mode_grant(owner, authority, ControllerMode.NN_TORQUE, 7), expires_at_s=10.1)
     times = iter([10.0, 10.0, 10.0, 10.2, 10.2])
     clock.now_s = lambda: next(times)
-    with pytest.raises(OwnerProtocolError, match="MODE_TRANSITION_FAULT"):
+    with pytest.raises(OwnerProtocolError, match="DEADLINE"):
         owner.transition_mode(7, ControllerMode.NN_TORQUE, auth)
+    assert owner.state is OwnerState.FAULTED
 
 
 def test_failure_of_independent_initial_snapshot_does_not_leave_ready_state():
@@ -437,3 +438,93 @@ def test_mode_final_clock_cannot_hide_transaction_overrun_behind_unexpired_grant
     with pytest.raises(OwnerProtocolError, match="DEADLINE"):
         owner.transition_mode(7, ControllerMode.NN_TORQUE, authorization)
     assert owner.state is OwnerState.FAULTED and port.read().revision == 8
+
+
+@pytest.mark.parametrize("expired", ["grant", "proposal", "proposal_age", "mode_grant"])
+def test_known_expiry_at_final_pre_cas_sample_never_installs(expired):
+    owner, port, clock, authority, _ = setup_owner()
+    item = proposal(owner)
+    if expired == "proposal":
+        item = replace(item, expires_at_s=10.1)
+    elif expired == "proposal_age":
+        item = replace(item, generated_at_s=7.1)
+    authorization = grant(owner, authority, item)
+    if expired == "grant":
+        authorization = replace(authorization, expires_at_s=10.1)
+    if expired == "mode_grant":
+        authorization = replace(
+            mode_grant(owner, authority, ControllerMode.NN_TORQUE, 7), expires_at_s=10.1
+        )
+    samples = iter([10.0, 10.0, 10.2, 10.2, 10.2])
+    clock.now_s = lambda: next(samples)
+    with pytest.raises(OwnerProtocolError):
+        if expired == "mode_grant":
+            owner.transition_mode(7, ControllerMode.NN_TORQUE, authorization)
+        else:
+            owner.commit(7, item, authorization)
+    assert port.read().revision == 7 and port.read().mode is ControllerMode.LINEAR_TORQUE
+    assert owner.state is OwnerState.FAULTED
+
+
+def test_positive_but_unrepresentable_hold_cannot_create_an_already_expired_lease():
+    previous, _, clock, authority, base = setup_owner()
+    policy = replace(previous.policy, maximum_lease_s=5e-324)
+    port = MemoryTuplePort(base.installed)
+    owner = ReferenceTorqueParameterOwner(previous.identity, base, policy, clock, authority, port)
+    owner.initialize()
+    item = proposal(owner)
+    with pytest.raises(OwnerProtocolError, match="LEASE_DURATION"):
+        owner.commit(7, item, grant(owner, authority, item))
+    assert port.read().revision == 7
+
+
+def test_hold_resolution_change_during_install_faults_instead_of_acknowledging_zero_hold():
+    previous, _, clock, authority, base = setup_owner()
+    policy = replace(previous.policy, maximum_lease_s=1e-15)
+    port = MemoryTuplePort(base.installed)
+    owner = ReferenceTorqueParameterOwner(previous.identity, base, policy, clock, authority, port)
+    owner.initialize()
+    item = replace(proposal(owner), generated_at_s=15.999999999999998, expires_at_s=20.0)
+    authorization = replace(grant(owner, authority, item), expires_at_s=20.0)
+    samples = iter([15.999999999999998] * 3 + [16.0, 16.0])
+    clock.now_s = lambda: next(samples)
+    with pytest.raises(OwnerProtocolError, match="LEASE_DURATION"):
+        owner.commit(7, item, authorization)
+    assert owner.state is OwnerState.FAULTED and port.read().revision == 8
+
+
+def test_same_mode_no_change_cannot_mask_authority_transaction_overrun():
+    owner, port, clock, authority, _ = setup_owner()
+    authorization = mode_grant(owner, authority, ControllerMode.LINEAR_TORQUE, 7)
+
+    def slow_authority(*args):
+        clock.value = 12.0
+        return True
+
+    authority.approve = slow_authority
+    with pytest.raises(OwnerProtocolError, match="DEADLINE"):
+        owner.transition_mode(7, ControllerMode.LINEAR_TORQUE, authorization)
+    assert owner.state is OwnerState.FAULTED and port.read().revision == 7
+
+
+def test_mode_grant_expiry_only_at_last_clock_is_still_a_fault():
+    owner, port, clock, authority, _ = setup_owner()
+    authorization = replace(
+        mode_grant(owner, authority, ControllerMode.NN_TORQUE, 7), expires_at_s=10.1
+    )
+    samples = iter([10.0, 10.0, 10.0, 10.0, 10.2])
+    clock.now_s = lambda: next(samples)
+    with pytest.raises(OwnerProtocolError, match="MODE_TRANSITION_FAULT"):
+        owner.transition_mode(7, ControllerMode.NN_TORQUE, authorization)
+    assert owner.state is OwnerState.FAULTED and port.read().revision == 8
+
+
+def test_clean_stop_rejects_nonbaseline_independent_snapshot_serialization():
+    owner, port, *_ = setup_owner()
+    owner.disarm()
+    before = port.read()
+    actual = owner.snapshot()
+    owner.snapshot = lambda: replace(actual, values=TorqueParameterTuple(9.0, 0.2, -0.125))
+    with pytest.raises(OwnerProtocolError, match="STOP_UNVERIFIED"):
+        owner.stop()
+    assert owner.state is OwnerState.FAULTED and port.read() == before
