@@ -141,6 +141,34 @@ class ControllerCallbackSignals:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
+class DownstreamStageIdentity:
+    stage: Stage
+    source_event_id: str
+    source_command_event_id: str
+    source_time_ns: int
+    clock_domain: ClockDomain
+    controller_cycle_digest: str
+    exact_source_command_reference: bool | None
+    source_valid: bool | None = None
+    source_transport_healthy: bool | None = None
+
+    def __post_init__(self) -> None:
+        enum_value(self.stage, Stage)
+        require(
+            self.stage in {Stage.REQUESTED_TORQUE, Stage.HOST_OUTPUT, Stage.APPLIED_TORQUE},
+            "DOWNSTREAM_STAGE",
+        )
+        sha(self.source_event_id)
+        sha(self.source_command_event_id)
+        sha(self.controller_cycle_digest)
+        uint64(self.source_time_ns)
+        enum_value(self.clock_domain, ClockDomain)
+        boolean(self.exact_source_command_reference)
+        boolean(self.source_valid)
+        boolean(self.source_transport_healthy)
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
 class ControllerStageDecomposition:
     callback_output_raw: ScalarObservation | None = None
     pid_p: ScalarObservation | None = None
@@ -153,11 +181,26 @@ class ControllerStageDecomposition:
     host_output: ScalarObservation | None = None
     applied_torque: ScalarObservation | None = None
     downstream_cycle_id: str | None = None
+    downstream_identities: tuple[DownstreamStageIdentity, ...] = ()
 
     def __post_init__(self) -> None:
         for item in fields(self):
             value = getattr(self, item.name)
-            if item.name == "downstream_cycle_id":
+            if item.name == "downstream_identities":
+                identities = tuple(value)
+                require(
+                    all(type(i) is DownstreamStageIdentity for i in identities),
+                    "DOWNSTREAM_IDENTITY_TYPE",
+                )
+                require(
+                    len({i.stage for i in identities}) == len(identities)
+                    and len({i.source_event_id for i in identities}) == len(identities),
+                    "DUPLICATE_DOWNSTREAM_IDENTITY",
+                )
+                object.__setattr__(
+                    self, item.name, tuple(sorted(identities, key=lambda i: i.stage.value))
+                )
+            elif item.name == "downstream_cycle_id":
                 sha(value, optional=True)
             else:
                 require(value is None or type(value) is ScalarObservation, "SCALAR_TYPE")

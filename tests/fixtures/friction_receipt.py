@@ -65,8 +65,9 @@ def scalar(
 
 def complete(number=10, *, error=0.5, q=1.0, compensation=True):
     identity = cycle(number)
-    actual = 1.0 - error
-    raw = 0.5 + 0.125 * q
+    desired = 1.0 if error == 0.5 else 0.0
+    actual = desired - error
+    raw = desired / 2.0 + 0.125 * q
     f = raw * 0.5
     total = 0.02 + 0.01 + 0.0 + f
     sources = tuple(
@@ -94,11 +95,11 @@ def complete(number=10, *, error=0.5, q=1.0, compensation=True):
         )
     )
     signals = c.ControllerCallbackSignals(
-        desired_lateral_accel=scalar(identity, Signal.DESIRED_ACCEL, 1.0),
+        desired_lateral_accel=scalar(identity, Signal.DESIRED_ACCEL, desired),
         actual_lateral_accel=scalar(identity, Signal.ACTUAL_ACCEL, actual),
         roll=scalar(identity, Signal.ROLL, 0.0),
         roll_compensation=scalar(identity, Signal.ROLL_COMPENSATION, 0.0),
-        callback_acceleration=scalar(identity, Signal.CALLBACK_ACCEL, 1.0),
+        callback_acceleration=scalar(identity, Signal.CALLBACK_ACCEL, desired),
         friction_input=scalar(identity, Signal.FRICTION_INPUT, error),
         friction_deadzone=scalar(identity, Signal.DEADZONE, 0.06),
         friction_threshold=scalar(identity, Signal.THRESHOLD, 0.3),
@@ -110,6 +111,19 @@ def complete(number=10, *, error=0.5, q=1.0, compensation=True):
     )
     stages = c.ControllerStageDecomposition(
         downstream_cycle_id=identity.digest,
+        downstream_identities=(
+            c.DownstreamStageIdentity(
+                stage=Stage.REQUESTED_TORQUE,
+                source_event_id=f"{number * 100 + 99:064x}",
+                source_command_event_id=f"{number * 100 + 99:064x}",
+                source_time_ns=identity.control_event_mono_time_ns,
+                clock_domain=ClockDomain.MONOTONIC,
+                controller_cycle_digest=identity.digest,
+                exact_source_command_reference=True,
+                source_valid=True,
+                source_transport_healthy=True,
+            ),
+        ),
         callback_output_raw=scalar(identity, Signal.CALLBACK_OUTPUT, raw, Stage.RAW_CALLBACK),
         pid_p=scalar(identity, Signal.PID_P, 0.02, Stage.PID_P),
         pid_i=scalar(identity, Signal.PID_I, 0.01, Stage.PID_I),
@@ -136,7 +150,14 @@ def complete(number=10, *, error=0.5, q=1.0, compensation=True):
         custom_selector=0,
     )
     gains = x.GainSnapshot(
-        generation=2, k_p=0.2, k_i=0.05, k_d=0.0, k_f=0.5, precision=Precision.BINARY64
+        generation=2,
+        k_p=0.2,
+        k_i=0.05,
+        k_d=0.0,
+        k_f=0.5,
+        precision=Precision.BINARY64,
+        cycle_digest=identity.digest,
+        captured_mono_time_ns=identity.control_event_mono_time_ns,
     )
     geom = x.AppliedGeometryContext(
         source_revision=CURRENT,

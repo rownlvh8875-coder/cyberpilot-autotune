@@ -10,7 +10,9 @@ Base: a5d3514f23797829eb58d08c638b22cf4dd30c8a.
 
 ## Global constraints
 
-All existing files unchanged except additive CI verification. No schema/native/Params/
+All existing source/evidence/goldens unchanged; additive CI and the exact historical
+namespace inventory extensions recorded below are the only compatibility exceptions.
+No schema/native/Params/
 runtime/application/estimator edits; H6 preserved. PR8/9 unchanged. All new output
 authority absent or fixed false. No empirical thresholds. No external AI or real data.
 Existing managed checkout, no extra worktree or new dependencies.
@@ -32,7 +34,7 @@ Inputs: H6 authoritative docs/manifests, guarded PR15 merge, full baseline.
 Outputs: frozen intended API and acceptance basis before implementation.
 - [x] Read H6 basis and inspect architecture/source.
 - [x] Verify baseline 1261 tests; PR15 guarded merge, parent/ancestor/tree proof.
-- [ ] Commit freeze before new Python code.
+- [x] Commit freeze before new Python code (83c2170d699894a8044b1e82d453281ccd495d5d).
 Expected: first H7 commit contains only these two documents.
 
 ### Task 2 — immutable contracts, wrong-stage test-first boundary
@@ -110,5 +112,33 @@ filesystem paths, so this tracked plan is the durable ledger.
 
 ## Progress
 
-Task1: baseline and merge checks complete; freeze commit next.
-Tasks2–6: not started. No H7 model/receipt implementation or fixtures exist yet.
+Task 1: complete, freeze 83c2170; no new Python existed at freeze.
+Task 2: complete, tests 065eee6 then implementation 6eb4c68. Missing-package RED,
+then 31 basic tests GREEN; added causal adversaries RED->GREEN. Full suite 1302
+passed before the latest 41 additional primitive/adversarial cases.
+Task 3: complete. Latest targeted suite 99 passed; package 818 statements /
+256 branches 100% each. Direct LINEAR a/error/roll arithmetic uses exact binary64
+equality, including one-ulp boundary adversary RED->GREEN. Separate gain actual-use
+time binding and exact downstream command/event lineage also pinned RED->GREEN.
+Task 4: complete. Schema absent-module/enum-inventory/source-auditor RED->GREEN;
+41 source files, 30 semantic claims, 44 isolated math cases, 142 schema fields,
+18 enums, all 20 requested synthetic fixtures pass. History protects 264 original
+files (three exact namespace amendments included); H6 validator other AST unchanged.
+Full suite 1360 passed, overall coverage 98.51%, lint/format/mypy/build pass.
+Task 5: wire/capture/source compatibility/v2 mapping written; result publication next.
+Task 6: CI additive checks and fresh-wheel script written; wheel/review/PR CI pending.
+
+Ruling: three historical namespace inventory tests require observability as an
+additional isolated namespace. Their original source/golden hashes remain intact.
+H6 history validator now accepts only those exact byte substitutions (or original
+bytes), tested against unrelated edits and removed hash guards. No H6 candidate,
+numeric/source result, policy or other validator semantics changes. Cost: a narrow
+compatibility amendment to historical inventory preservation, not a generic hash
+exemption. Full regression first exposed these three failures; all 1302 then passed.
+
+Source clarification: pinned LINEAR feedforward always passes compensation=True.
+A disabled-compensation synthetic receipt remains a valid raw diagnostic with q=0,
+but is rejected for pinned call-site eligibility, not treated as unavailable.
+Observed q is still never filled from reconstruction or installed C.
+Transient downstream sample-pair IDs and unapplied candidate/request values change
+content identity but not installed/applied epoch state; RED tests pinned this.

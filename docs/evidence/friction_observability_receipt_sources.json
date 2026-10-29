@@ -1,0 +1,1259 @@
+{
+  "schema": "friction-observability-source-v1",
+  "base": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+  "freeze_commit": "83c2170d699894a8044b1e82d453281ccd495d5d",
+  "primary_pins": {
+    "R": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+    "C": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3"
+  },
+  "carrot_wip_start": {
+    "observed_head": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+    "moved": false,
+    "relevant_commits": [],
+    "auto_promoted": false
+  },
+  "files": [
+    {
+      "id": "runtime_callback",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "git_blob": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "line_count": 690,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 690,
+          "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10"
+        },
+        {
+          "name": "CarInterfaceBase.torque_from_lateral_accel_linear",
+          "start": 411,
+          "end": 415,
+          "sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f"
+        }
+      ]
+    },
+    {
+      "id": "runtime_friction",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "git_blob": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "line_count": 443,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 443,
+          "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e"
+        },
+        {
+          "name": "apply_center_deadzone",
+          "start": 281,
+          "end": 284,
+          "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e"
+        },
+        {
+          "name": "get_friction",
+          "start": 291,
+          "end": 299,
+          "sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c"
+        }
+      ]
+    },
+    {
+      "id": "runtime_other_friction",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/lateral.py",
+      "git_blob": "3e0cd5a51cdf6f472948134fbb28d374c3201892",
+      "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d",
+      "line_count": 205,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 205,
+          "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d"
+        },
+        {
+          "name": "get_friction",
+          "start": 159,
+          "end": 166,
+          "sha256": "5d92161f29817e5ceb92b6f5a4a9b7592ccdd0fc5045f8e5f36059d6400d3eed"
+        }
+      ]
+    },
+    {
+      "id": "runtime_controller",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "git_blob": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49",
+      "line_count": 310,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 310,
+          "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49"
+        },
+        {
+          "name": "LatControlTorque.update",
+          "start": 143,
+          "end": 310,
+          "sha256": "8930581509973e7a2342b96dd320b5c30670c6cd8bf55fca7437c260638e3448"
+        },
+        {
+          "name": "LatControlTorque.update_live_torque_params",
+          "start": 135,
+          "end": 141,
+          "sha256": "fcc92cb040e249df3e63eebda4427e96bf162f1248b8e0cf25dd7e6b4fd2a3d9"
+        }
+      ]
+    },
+    {
+      "id": "runtime_controlsd",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "git_blob": "2378902ba077177b96dfb57f010e06c388241213",
+      "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
+      "line_count": 480,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 480,
+          "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5"
+        }
+      ]
+    },
+    {
+      "id": "runtime_paramsd",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/locationd/paramsd.py",
+      "git_blob": "a17c7c2c013ee0a5d29b2e1d877fbd4d070c5207",
+      "sha256": "d973bcb4ed39f4828af09b8edf830450ec0e938adef90d76ac6ab59fec3d428b",
+      "line_count": 326,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 326,
+          "sha256": "d973bcb4ed39f4828af09b8edf830450ec0e938adef90d76ac6ab59fec3d428b"
+        }
+      ]
+    },
+    {
+      "id": "runtime_vehicle_model",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "git_blob": "c7d0494be6d5f59684257dad119e620880d1950e",
+      "sha256": "f8ca23c2b85c2fc20d7e08271f2e692f26ae38a4fbadfcb621f9998cb65ea39e",
+      "line_count": 229,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 229,
+          "sha256": "f8ca23c2b85c2fc20d7e08271f2e692f26ae38a4fbadfcb621f9998cb65ea39e"
+        },
+        {
+          "name": "VehicleModel",
+          "start": 23,
+          "end": 148,
+          "sha256": "42d2824140deb0a2159116732213652aa9172e4ee0fc8bfe02a4296f5ba97e7f"
+        },
+        {
+          "name": "create_dyn_state_matrices",
+          "start": 170,
+          "end": 204,
+          "sha256": "71990898652669e6651810914bf2ee11c7e52ca561d1e43e4971c63c70180db4"
+        },
+        {
+          "name": "calc_slip_factor",
+          "start": 225,
+          "end": 229,
+          "sha256": "54f55b7dec2f548c3911a8bdb4ee4ab2da580402e3e9500c628f9df98ecb9b65"
+        }
+      ]
+    },
+    {
+      "id": "runtime_gm",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/gm/interface.py",
+      "git_blob": "a3a8c401d6e5f3234013905dcbc1eade4253331c",
+      "sha256": "b6c32ab75b126f2ada730033d166c071a2e1fc8835e402b09daa2d5ce7873008",
+      "line_count": 399,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 399,
+          "sha256": "b6c32ab75b126f2ada730033d166c071a2e1fc8835e402b09daa2d5ce7873008"
+        }
+      ]
+    },
+    {
+      "id": "runtime_pid",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/pid.py",
+      "git_blob": "a75aa42731640260b0f20202541171ec3838360b",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+      "line_count": 155,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 155,
+          "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65"
+        },
+        {
+          "name": "PIDController.update",
+          "start": 49,
+          "end": 70,
+          "sha256": "d29d2e74de600292dbdf15fcdbc3e4eaa41e3e40c871447a62e0f95d89aa7f5a"
+        }
+      ]
+    },
+    {
+      "id": "runtime_steer_ratio",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "git_blob": "e679268b3e488a7eac11720a37f43d4a8fa2bb7a",
+      "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee",
+      "line_count": 20,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 20,
+          "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee"
+        },
+        {
+          "name": "resolve_vehicle_model_steer_ratio",
+          "start": 10,
+          "end": 20,
+          "sha256": "d4407c097aadf0e0345e838f0fe6ba1089afe59f5802185bca8b87045b51c6f2"
+        }
+      ]
+    },
+    {
+      "id": "runtime_schema",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/cereal/log.capnp",
+      "git_blob": "9c5cebe0eaa6fbfa077e9e8bfd0b5161367ef862",
+      "sha256": "7d5c19cc2a534fb6918ba51d393eff288f096b68b6c13fd5608c46d17454ba35",
+      "line_count": 2814,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 2814,
+          "sha256": "7d5c19cc2a534fb6918ba51d393eff288f096b68b6c13fd5608c46d17454ba35"
+        }
+      ]
+    },
+    {
+      "id": "runtime_params_keys",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/params_keys.h",
+      "git_blob": "0a5285bcf0d1f292919a20d07ae319497dc86be4",
+      "sha256": "8c440512d6ed414719d3b28902782d54ca77fa8bdfc01c0521b2aaa586121cd5",
+      "line_count": 433,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 433,
+          "sha256": "8c440512d6ed414719d3b28902782d54ca77fa8bdfc01c0521b2aaa586121cd5"
+        }
+      ]
+    },
+    {
+      "id": "current_callback",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "git_blob": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "line_count": 690,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 690,
+          "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10"
+        },
+        {
+          "name": "CarInterfaceBase.torque_from_lateral_accel_linear",
+          "start": 411,
+          "end": 415,
+          "sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f"
+        }
+      ]
+    },
+    {
+      "id": "current_friction",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "git_blob": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "line_count": 443,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 443,
+          "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e"
+        },
+        {
+          "name": "apply_center_deadzone",
+          "start": 281,
+          "end": 284,
+          "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e"
+        },
+        {
+          "name": "get_friction",
+          "start": 291,
+          "end": 299,
+          "sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c"
+        }
+      ]
+    },
+    {
+      "id": "current_other_friction",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/lateral.py",
+      "git_blob": "3e0cd5a51cdf6f472948134fbb28d374c3201892",
+      "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d",
+      "line_count": 205,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 205,
+          "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d"
+        },
+        {
+          "name": "get_friction",
+          "start": 159,
+          "end": 166,
+          "sha256": "5d92161f29817e5ceb92b6f5a4a9b7592ccdd0fc5045f8e5f36059d6400d3eed"
+        }
+      ]
+    },
+    {
+      "id": "current_controller",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "git_blob": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "line_count": 307,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 307,
+          "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc"
+        },
+        {
+          "name": "LatControlTorque.update",
+          "start": 142,
+          "end": 307,
+          "sha256": "dd9a614bea1a1eb0541c3db10cea9377f94f88d6877e4cc9d5a2612973dcacaf"
+        },
+        {
+          "name": "LatControlTorque.update_live_torque_params",
+          "start": 134,
+          "end": 140,
+          "sha256": "fcc92cb040e249df3e63eebda4427e96bf162f1248b8e0cf25dd7e6b4fd2a3d9"
+        }
+      ]
+    },
+    {
+      "id": "current_controlsd",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "git_blob": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d",
+      "line_count": 481,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 481,
+          "sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d"
+        }
+      ]
+    },
+    {
+      "id": "current_paramsd",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/locationd/paramsd.py",
+      "git_blob": "4770cdda323e3d24165ab7ced3e1220b1b10b78a",
+      "sha256": "a02c430b5e7d59b70f265bd34d01b5ca2045d6a234b262f477d8c92ae58a8765",
+      "line_count": 352,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 352,
+          "sha256": "a02c430b5e7d59b70f265bd34d01b5ca2045d6a234b262f477d8c92ae58a8765"
+        }
+      ]
+    },
+    {
+      "id": "current_vehicle_model",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "git_blob": "a2260e2259416acfdd81a3612a311ed5358ac425",
+      "sha256": "00fbe6da9b17723932988e5b3be5e29a2302296e0bcdaf914154906c6162489b",
+      "line_count": 240,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 240,
+          "sha256": "00fbe6da9b17723932988e5b3be5e29a2302296e0bcdaf914154906c6162489b"
+        },
+        {
+          "name": "VehicleModel",
+          "start": 24,
+          "end": 159,
+          "sha256": "4c9d69ed6ae343bfb560d3b001e52e84fea10a7ff959b314a37d180a366c19fc"
+        },
+        {
+          "name": "create_dyn_state_matrices",
+          "start": 181,
+          "end": 215,
+          "sha256": "71990898652669e6651810914bf2ee11c7e52ca561d1e43e4971c63c70180db4"
+        },
+        {
+          "name": "calc_slip_factor",
+          "start": 236,
+          "end": 240,
+          "sha256": "54f55b7dec2f548c3911a8bdb4ee4ab2da580402e3e9500c628f9df98ecb9b65"
+        }
+      ]
+    },
+    {
+      "id": "current_gm",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/gm/interface.py",
+      "git_blob": "a3a8c401d6e5f3234013905dcbc1eade4253331c",
+      "sha256": "b6c32ab75b126f2ada730033d166c071a2e1fc8835e402b09daa2d5ce7873008",
+      "line_count": 399,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 399,
+          "sha256": "b6c32ab75b126f2ada730033d166c071a2e1fc8835e402b09daa2d5ce7873008"
+        }
+      ]
+    },
+    {
+      "id": "current_pid",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/pid.py",
+      "git_blob": "a75aa42731640260b0f20202541171ec3838360b",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+      "line_count": 155,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 155,
+          "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65"
+        },
+        {
+          "name": "PIDController.update",
+          "start": 49,
+          "end": 70,
+          "sha256": "d29d2e74de600292dbdf15fcdbc3e4eaa41e3e40c871447a62e0f95d89aa7f5a"
+        }
+      ]
+    },
+    {
+      "id": "current_steer_ratio",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "git_blob": "e679268b3e488a7eac11720a37f43d4a8fa2bb7a",
+      "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee",
+      "line_count": 20,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 20,
+          "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee"
+        },
+        {
+          "name": "resolve_vehicle_model_steer_ratio",
+          "start": 10,
+          "end": 20,
+          "sha256": "d4407c097aadf0e0345e838f0fe6ba1089afe59f5802185bca8b87045b51c6f2"
+        }
+      ]
+    },
+    {
+      "id": "current_schema",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/cereal/log.capnp",
+      "git_blob": "609cb5892185f11cb0ee6d2e91c081170d40d7e9",
+      "sha256": "0d546ea5f37bc26a16f71ae0433a9a617728c78d77de872c1d327a10cf0fe1db",
+      "line_count": 2812,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 2812,
+          "sha256": "0d546ea5f37bc26a16f71ae0433a9a617728c78d77de872c1d327a10cf0fe1db"
+        }
+      ]
+    },
+    {
+      "id": "current_params_keys",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/params_keys.h",
+      "git_blob": "5583afd70bfbd215869e3ee92412e8b750c9fde7",
+      "sha256": "9215b2beddc787ea26ce7c94769b4997f047e6880911c4f1dd9cc2c5b9eb171c",
+      "line_count": 436,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 436,
+          "sha256": "9215b2beddc787ea26ce7c94769b4997f047e6880911c4f1dd9cc2c5b9eb171c"
+        }
+      ]
+    },
+    {
+      "id": "current_geometry",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/lateral_geometry.py",
+      "git_blob": "0cb43efd004e3a02a2d7e1437cbeaa142d915a5b",
+      "sha256": "f8691383a1c3bc5eeb6318c02ceee3430fd896fdb98cab0c917b2519ceb4472a",
+      "line_count": 45,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 45,
+          "sha256": "f8691383a1c3bc5eeb6318c02ceee3430fd896fdb98cab0c917b2519ceb4472a"
+        },
+        {
+          "name": "requested_center_to_front_ratio",
+          "start": 7,
+          "end": 12,
+          "sha256": "bb61b07e4397b60cfa7d5a2ae2eba1dc793452533b9ecc732a7177cd882c51c9"
+        },
+        {
+          "name": "LateralGeometry",
+          "start": 15,
+          "end": 45,
+          "sha256": "e1fdf40209e43e79a22c42ec6ff843d8c7ffddd318ad488206fa45c16f10451b"
+        }
+      ]
+    },
+    {
+      "id": "current_geometry_migration",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/lateral_geometry_params.py",
+      "git_blob": "72a2273eb7e26440837e128429fa0c3219d6b07e",
+      "sha256": "57bd1fbf57aceb01904b4979a1333e277a3e1f12313c2c77e19ce679332b7b2b",
+      "line_count": 6,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 6,
+          "sha256": "57bd1fbf57aceb01904b4979a1333e277a3e1f12313c2c77e19ce679332b7b2b"
+        }
+      ]
+    },
+    {
+      "id": "current_geometry_test",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/tests/test_live_lateral_geometry.py",
+      "git_blob": "03b61f5f0e4f2faad95c823a3a22683436134aae",
+      "sha256": "a1d3c3c176b43b0e424e9fe495684785839667a198521b936275e7b6e1e73393",
+      "line_count": 127,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 127,
+          "sha256": "a1d3c3c176b43b0e424e9fe495684785839667a198521b936275e7b6e1e73393"
+        }
+      ]
+    },
+    {
+      "id": "current_vehicle_test",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/tests/test_vehicle_model.py",
+      "git_blob": "b88a8dab4e0ab81924d6e806de0f87f26af6d6cf",
+      "sha256": "229382b077f3f6719e6079883644519f548c1eefea7b933289bfd1037cd7eb10",
+      "line_count": 67,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 67,
+          "sha256": "229382b077f3f6719e6079883644519f548c1eefea7b933289bfd1037cd7eb10"
+        }
+      ]
+    },
+    {
+      "id": "observation_v2",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "path": "src/cyberpilot_autotune/adapters/carrot_receipt_contract.py",
+      "git_blob": "2faec21eebbe447de36926338c13c58a5ced7d3e",
+      "sha256": "ce06a71852b0a6b1b6e54210df4dbfe5bced4a196c2fc62ebd241f1f04463199",
+      "line_count": 534,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 534,
+          "sha256": "ce06a71852b0a6b1b6e54210df4dbfe5bced4a196c2fc62ebd241f1f04463199"
+        }
+      ]
+    },
+    {
+      "id": "snapshot",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "path": "src/cyberpilot_autotune/contracts/observation.py",
+      "git_blob": "2606064b420386a4548a307f2c295547bfb076c8",
+      "sha256": "7c5764418b5be0debbc72eb36f9828658c595d4570edada245d8c403af28da42",
+      "line_count": 43,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 43,
+          "sha256": "7c5764418b5be0debbc72eb36f9828658c595d4570edada245d8c403af28da42"
+        }
+      ]
+    },
+    {
+      "id": "runtime_car_schema",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "git_blob": "ee6b4fda19e2cdc6695757c1f690d05e9af85526",
+      "sha256": "5b8a0b8a5eb89d663025b46e453a36521f47954249de6a0553e013f3739baba0",
+      "line_count": 1017,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 1017,
+          "sha256": "5b8a0b8a5eb89d663025b46e453a36521f47954249de6a0553e013f3739baba0"
+        }
+      ]
+    },
+    {
+      "id": "current_car_schema",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "git_blob": "9a4df1956e204054311ec999be6173a101f6ffc0",
+      "sha256": "490441669fd68462b1f59bcaf59d802b23437ce022430d19cb14a4e09f998131",
+      "line_count": 900,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 900,
+          "sha256": "490441669fd68462b1f59bcaf59d802b23437ce022430d19cb14a4e09f998131"
+        }
+      ]
+    },
+    {
+      "id": "h6_basis_0",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "path": "docs/friction_observation_contract.md",
+      "git_blob": "0e5c76f8c76235678646bc0864eaa69cc2d95bcc",
+      "sha256": "45d13b1bf98fbe1be7a84ccde556d59fed98c946505c4cea9acf3f8473e4d5bb",
+      "line_count": 106,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 106,
+          "sha256": "45d13b1bf98fbe1be7a84ccde556d59fed98c946505c4cea9acf3f8473e4d5bb"
+        }
+      ]
+    },
+    {
+      "id": "h6_basis_1",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "path": "docs/friction_observability_gap_matrix.md",
+      "git_blob": "ee2e9d44ed53c0fa0ed59f2298fd989e1060b1db",
+      "sha256": "ec3d47db8b530a7a7d36022444bda62d0b041b1869395849d213bd5b3e76ef8a",
+      "line_count": 53,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 53,
+          "sha256": "ec3d47db8b530a7a7d36022444bda62d0b041b1869395849d213bd5b3e76ef8a"
+        }
+      ]
+    },
+    {
+      "id": "h6_basis_2",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "path": "docs/friction_model_estimand.md",
+      "git_blob": "2de598d431f404c5a19c07d195cbe1c01da80b22",
+      "sha256": "688824a42d048d47b6f1f98fb2ada493188e8ed283fd417290a9d7d439fa5244",
+      "line_count": 60,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 60,
+          "sha256": "688824a42d048d47b6f1f98fb2ada493188e8ed283fd417290a9d7d439fa5244"
+        }
+      ]
+    },
+    {
+      "id": "h6_basis_3",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "path": "docs/friction_model_identifiability.md",
+      "git_blob": "b1dd43893c60198d25f910f5b1b761e3faf5c09d",
+      "sha256": "fd4fe9a97a908e88e85e2f0c057ab83807278eee407326516b4b51195eac8da0",
+      "line_count": 90,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 90,
+          "sha256": "fd4fe9a97a908e88e85e2f0c057ab83807278eee407326516b4b51195eac8da0"
+        }
+      ]
+    },
+    {
+      "id": "h6_basis_4",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "path": "docs/torque_geometry_context.md",
+      "git_blob": "7660a8b2d129eda8bb02e29131e1c0b36f4b32fe",
+      "sha256": "7c1c4892527ee012a1919c2ed351bde76a10e78f89a01d7b120d5532d3caa507",
+      "line_count": 94,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 94,
+          "sha256": "7c1c4892527ee012a1919c2ed351bde76a10e78f89a01d7b120d5532d3caa507"
+        }
+      ]
+    },
+    {
+      "id": "h6_basis_5",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "path": "docs/friction_model_redesign_result.md",
+      "git_blob": "1eadd2c7a50f9ffb68dfe6df3e344abe87dbd271",
+      "sha256": "87cb8a683f6bfe3ab85b2893c52e4aa389ae101171ccfc423c9333ffd05aaa35",
+      "line_count": 197,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 197,
+          "sha256": "87cb8a683f6bfe3ab85b2893c52e4aa389ae101171ccfc423c9333ffd05aaa35"
+        }
+      ]
+    },
+    {
+      "id": "h6_basis_6",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "path": "docs/evidence/friction_model_policy.json",
+      "git_blob": "f17f040532cd362a8d678fa17d20d024004ea4b0",
+      "sha256": "9395bfe35cdea6199f5697de7aad39946617d7a687086b8b239e98ef6c9d407c",
+      "line_count": 222,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 222,
+          "sha256": "9395bfe35cdea6199f5697de7aad39946617d7a687086b8b239e98ef6c9d407c"
+        }
+      ]
+    },
+    {
+      "id": "h6_basis_7",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "path": "docs/evidence/friction_model_sources.json",
+      "git_blob": "36817707a13a21ecb635adbc9dafdd3851935ca4",
+      "sha256": "2f65a57f385434e13e79faaf44ddd601f063fc319305862ce30f5c05590f8658",
+      "line_count": 639,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 639,
+          "sha256": "2f65a57f385434e13e79faaf44ddd601f063fc319305862ce30f5c05590f8658"
+        }
+      ]
+    },
+    {
+      "id": "h6_basis_8",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "path": "docs/evidence/torque_geometry_context.json",
+      "git_blob": "f8bd373e8336ea3b02728cf5bed11666bcbc958e",
+      "sha256": "9a380b5b2b1f346d9de4c61ade1330f534a9698251c10f01e2a318977e96eb98",
+      "line_count": 107,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 107,
+          "sha256": "9a380b5b2b1f346d9de4c61ade1330f534a9698251c10f01e2a318977e96eb98"
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "runtime_linear_inputs",
+      "file_id": "runtime_controller",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update",
+      "start": 143,
+      "end": 310,
+      "git_blob": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "sha256": "8930581509973e7a2342b96dd320b5c30670c6cd8bf55fca7437c260638e3448",
+      "meaning": "a_cb=desired-roll*g; friction_input=desired-actual; ff call before PID; compensation=True/gravity_adjusted=True"
+    },
+    {
+      "id": "runtime_linear_return",
+      "file_id": "runtime_callback",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "CarInterfaceBase.torque_from_lateral_accel_linear",
+      "start": 411,
+      "end": 415,
+      "git_blob": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f",
+      "meaning": "a/float(F)+get_friction; installed offset not read"
+    },
+    {
+      "id": "runtime_deadzone",
+      "file_id": "runtime_friction",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "symbol": "apply_center_deadzone",
+      "start": 281,
+      "end": 284,
+      "git_blob": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e",
+      "meaning": "strict interior zero, endpoints survive, no width subtraction"
+    },
+    {
+      "id": "runtime_helper_interp",
+      "file_id": "runtime_friction",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "symbol": "get_friction",
+      "start": 291,
+      "end": 299,
+      "git_blob": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c",
+      "meaning": "np.interp centered error [-T,T] -> [-C,C]; flag gates term; NO independent q output"
+    },
+    {
+      "id": "runtime_threshold",
+      "file_id": "runtime_callback",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "whole_file",
+      "start": 1,
+      "end": 690,
+      "git_blob": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "meaning": "FRICTION_THRESHOLD=0.3 imported by executed callback"
+    },
+    {
+      "id": "runtime_pid_order",
+      "file_id": "runtime_pid",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/pid.py",
+      "symbol": "PIDController.update",
+      "start": 49,
+      "end": 70,
+      "git_blob": "a75aa42731640260b0f20202541171ec3838360b",
+      "sha256": "d29d2e74de600292dbdf15fcdbc3e4eaa41e3e40c871447a62e0f95d89aa7f5a",
+      "meaning": "latch speed, p/f/d, integrate/clip i, sum, output clip; f=ff*k_f"
+    },
+    {
+      "id": "runtime_pid_effective_gain_capture",
+      "file_id": "runtime_pid",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/pid.py",
+      "symbol": "whole_file",
+      "start": 1,
+      "end": 155,
+      "git_blob": "a75aa42731640260b0f20202541171ec3838360b",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+      "meaning": "speed-dependent interpolation means effective gains captured after current PID speed latch"
+    },
+    {
+      "id": "runtime_nn_lite_nn_custom",
+      "file_id": "runtime_controller",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update",
+      "start": 143,
+      "end": 310,
+      "git_blob": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "sha256": "8930581509973e7a2342b96dd320b5c30670c6cd8bf55fca7437c260638e3448",
+      "meaning": "NN_LITE accel/jerk input; NN path/override; custom selector and actual F/C/gain latch, no default inference"
+    },
+    {
+      "id": "runtime_installed_offset",
+      "file_id": "runtime_controller",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update_live_torque_params",
+      "start": 135,
+      "end": 141,
+      "git_blob": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "sha256": "fcc92cb040e249df3e63eebda4427e96bf162f1248b8e0cf25dd7e6b4fd2a3d9",
+      "meaning": "offset stored from live context; custom can bypass; LINEAR callback ignores offset"
+    },
+    {
+      "id": "runtime_return_sign",
+      "file_id": "runtime_controller",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update",
+      "start": 143,
+      "end": 310,
+      "git_blob": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "sha256": "8930581509973e7a2342b96dd320b5c30670c6cd8bf55fca7437c260638e3448",
+      "meaning": "internal PID output negated at return and log; existing logged values Float32"
+    },
+    {
+      "id": "runtime_existing_precision",
+      "file_id": "runtime_schema",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/cereal/log.capnp",
+      "symbol": "LateralTorqueState",
+      "start": 893,
+      "end": 909,
+      "git_blob": "9c5cebe0eaa6fbfa077e9e8bfd0b5161367ef862",
+      "sha256": "7069f1bab52a454d01b7334fc4f1a09770be5a219f9d7f452ed68affb3efd1c9",
+      "meaning": "p/i/d/f/output/actual/desired/error Float32, not exact local binary64 receipt"
+    },
+    {
+      "id": "runtime_parameter_precision",
+      "file_id": "runtime_car_schema",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "symbol": "LateralTorqueTuning",
+      "start": 821,
+      "end": 834,
+      "git_blob": "ee6b4fda19e2cdc6695757c1f690d05e9af85526",
+      "sha256": "e6e7de9be41158cec1332a09ed8eb7bac8d31f4bf7638e7b55f76f6f56de6527",
+      "meaning": "initial F/C/offset/gains Float32; Float64 capture preserves consumed value, cannot restore original intent precision"
+    },
+    {
+      "id": "runtime_geometry_apply",
+      "file_id": "runtime_controlsd",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "whole_file",
+      "start": 1,
+      "end": 480,
+      "git_blob": "2378902ba077177b96dfb57f010e06c388241213",
+      "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
+      "meaning": "R static CP geometry; C VM.update_geometry from consumed LP then update_params; actual applied snapshot required"
+    },
+    {
+      "id": "runtime_delay_and_requested",
+      "file_id": "runtime_controlsd",
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "whole_file",
+      "start": 1,
+      "end": 480,
+      "git_blob": "2378902ba077177b96dfb57f010e06c388241213",
+      "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
+      "meaning": "SAD/liveDelay branch; LaC return assigned torque; carControl publication later, not retroactive consumed input"
+    },
+    {
+      "id": "current_linear_inputs",
+      "file_id": "current_controller",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update",
+      "start": 142,
+      "end": 307,
+      "git_blob": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "dd9a614bea1a1eb0541c3db10cea9377f94f88d6877e4cc9d5a2612973dcacaf",
+      "meaning": "a_cb=desired-roll*g; friction_input=desired-actual; ff call before PID; compensation=True/gravity_adjusted=True"
+    },
+    {
+      "id": "current_linear_return",
+      "file_id": "current_callback",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "CarInterfaceBase.torque_from_lateral_accel_linear",
+      "start": 411,
+      "end": 415,
+      "git_blob": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f",
+      "meaning": "a/float(F)+get_friction; installed offset not read"
+    },
+    {
+      "id": "current_deadzone",
+      "file_id": "current_friction",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "symbol": "apply_center_deadzone",
+      "start": 281,
+      "end": 284,
+      "git_blob": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e",
+      "meaning": "strict interior zero, endpoints survive, no width subtraction"
+    },
+    {
+      "id": "current_helper_interp",
+      "file_id": "current_friction",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "symbol": "get_friction",
+      "start": 291,
+      "end": 299,
+      "git_blob": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c",
+      "meaning": "np.interp centered error [-T,T] -> [-C,C]; flag gates term; NO independent q output"
+    },
+    {
+      "id": "current_threshold",
+      "file_id": "current_callback",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "whole_file",
+      "start": 1,
+      "end": 690,
+      "git_blob": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "meaning": "FRICTION_THRESHOLD=0.3 imported by executed callback"
+    },
+    {
+      "id": "current_pid_order",
+      "file_id": "current_pid",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/pid.py",
+      "symbol": "PIDController.update",
+      "start": 49,
+      "end": 70,
+      "git_blob": "a75aa42731640260b0f20202541171ec3838360b",
+      "sha256": "d29d2e74de600292dbdf15fcdbc3e4eaa41e3e40c871447a62e0f95d89aa7f5a",
+      "meaning": "latch speed, p/f/d, integrate/clip i, sum, output clip; f=ff*k_f"
+    },
+    {
+      "id": "current_pid_effective_gain_capture",
+      "file_id": "current_pid",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/pid.py",
+      "symbol": "whole_file",
+      "start": 1,
+      "end": 155,
+      "git_blob": "a75aa42731640260b0f20202541171ec3838360b",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+      "meaning": "speed-dependent interpolation means effective gains captured after current PID speed latch"
+    },
+    {
+      "id": "current_nn_lite_nn_custom",
+      "file_id": "current_controller",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update",
+      "start": 142,
+      "end": 307,
+      "git_blob": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "dd9a614bea1a1eb0541c3db10cea9377f94f88d6877e4cc9d5a2612973dcacaf",
+      "meaning": "NN_LITE accel/jerk input; NN path/override; custom selector and actual F/C/gain latch, no default inference"
+    },
+    {
+      "id": "current_installed_offset",
+      "file_id": "current_controller",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update_live_torque_params",
+      "start": 134,
+      "end": 140,
+      "git_blob": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "fcc92cb040e249df3e63eebda4427e96bf162f1248b8e0cf25dd7e6b4fd2a3d9",
+      "meaning": "offset stored from live context; custom can bypass; LINEAR callback ignores offset"
+    },
+    {
+      "id": "current_return_sign",
+      "file_id": "current_controller",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update",
+      "start": 142,
+      "end": 307,
+      "git_blob": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "dd9a614bea1a1eb0541c3db10cea9377f94f88d6877e4cc9d5a2612973dcacaf",
+      "meaning": "internal PID output negated at return and log; existing logged values Float32"
+    },
+    {
+      "id": "current_existing_precision",
+      "file_id": "current_schema",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/cereal/log.capnp",
+      "symbol": "LateralTorqueState",
+      "start": 892,
+      "end": 907,
+      "git_blob": "609cb5892185f11cb0ee6d2e91c081170d40d7e9",
+      "sha256": "65ee2f17b2b15a4f5ab59a476f8b7a234644f9218cac7d14fabd7915b296ed9c",
+      "meaning": "p/i/d/f/output/actual/desired/error Float32, not exact local binary64 receipt"
+    },
+    {
+      "id": "current_parameter_precision",
+      "file_id": "current_car_schema",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "symbol": "LateralTorqueTuning",
+      "start": 704,
+      "end": 717,
+      "git_blob": "9a4df1956e204054311ec999be6173a101f6ffc0",
+      "sha256": "e6e7de9be41158cec1332a09ed8eb7bac8d31f4bf7638e7b55f76f6f56de6527",
+      "meaning": "initial F/C/offset/gains Float32; Float64 capture preserves consumed value, cannot restore original intent precision"
+    },
+    {
+      "id": "current_geometry_apply",
+      "file_id": "current_controlsd",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "whole_file",
+      "start": 1,
+      "end": 481,
+      "git_blob": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d",
+      "meaning": "R static CP geometry; C VM.update_geometry from consumed LP then update_params; actual applied snapshot required"
+    },
+    {
+      "id": "current_delay_and_requested",
+      "file_id": "current_controlsd",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "whole_file",
+      "start": 1,
+      "end": 481,
+      "git_blob": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d",
+      "meaning": "SAD/liveDelay branch; LaC return assigned torque; carControl publication later, not retroactive consumed input"
+    },
+    {
+      "id": "current_dynamic_geometry",
+      "file_id": "current_geometry",
+      "repository": "ajouatom/openpilot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/lateral_geometry.py",
+      "symbol": "LateralGeometry",
+      "start": 15,
+      "end": 45,
+      "git_blob": "0cb43efd004e3a02a2d7e1437cbeaa142d915a5b",
+      "sha256": "e1fdf40209e43e79a22c42ec6ff843d8c7ffddd318ad488206fa45c16f10451b",
+      "meaning": "coherent rate-limited geometry; Params zero is vehicle-default intent; not actual VM receipt"
+    },
+    {
+      "id": "observation_v2_mapping",
+      "file_id": "observation_v2",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "path": "src/cyberpilot_autotune/adapters/carrot_receipt_contract.py",
+      "symbol": "whole_file",
+      "start": 1,
+      "end": 534,
+      "git_blob": "2faec21eebbe447de36926338c13c58a5ced7d3e",
+      "sha256": "ce06a71852b0a6b1b6e54210df4dbfe5bced4a196c2fc62ebd241f1f04463199",
+      "meaning": "sourceCS/exact lookup/measurement receipts reusable only for specified stage; no q/raw ff/installed gain cohort"
+    }
+  ],
+  "neutral_schema_sha256": "a6da223aacf16d56f0b742dab7c049027d69894f2ae78552152fd5c2fe90fffc",
+  "h6_validator_compatibility_sha256": "aa27d15517e693b0288ed37893deae4515a7c1f88388bb29e871c9fe0e68d032",
+  "runtime_producer_implemented": false,
+  "native_runtime_imported": false,
+  "params_accessed": false,
+  "candidate_generation_allowed": false,
+  "application_authorized": false,
+  "runtime_accepted": false,
+  "owner_proposal_allowed": false
+}

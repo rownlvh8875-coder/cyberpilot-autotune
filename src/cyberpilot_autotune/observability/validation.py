@@ -4,13 +4,13 @@ import math
 from dataclasses import dataclass, field, fields
 from enum import StrEnum
 
+from .context import epoch_context
 from .contracts import (
     SOURCE_SCHEMA_DIGESTS,
     CycleIdentity,
     LateralTorqueIdentificationReceipt,
     ScalarObservation,
 )
-from .context import epoch_context
 from .types import (
     CURRENT,
     RUNTIME,
@@ -279,6 +279,11 @@ def _context(receipt: LateralTorqueIdentificationReceipt, reasons: list[Observat
         or gains.generation != cycle.installed_parameter_generation
         or any(getattr(gains, name) is None for name in ("k_p", "k_i", "k_d", "k_f"))
         or gains.precision != Precision.BINARY64
+        or gains.cycle_digest != cycle.digest
+        or gains.captured_mono_time_ns is None
+        or not cycle.callback_exit_mono_time_ns
+        <= gains.captured_mono_time_ns
+        <= cycle.control_event_mono_time_ns
     ):
         reasons.append(R.MISSING_GAIN_COHORT)
     geometry_fields = (
@@ -443,11 +448,7 @@ def _linear(receipt: LateralTorqueIdentificationReceipt, reasons: list[Observati
             and threshold is not None
             and observed_q is not None
         )
-        if not (
-            _equivalent(a, desired - rc)
-            and _equivalent(error, desired - actual)
-            and _equivalent(rc, roll * 9.81)
-        ):
+        if not (a == desired - rc and error == desired - actual and rc == roll * 9.81):
             reasons.append(R.LINEAR_INPUT_INCONSISTENT)
         if deadzone < 0 or threshold <= 0 or not _equivalent(threshold, 0.3):
             reasons.append(R.FRICTION_INPUT_DOMAIN_INVALID)
@@ -517,6 +518,27 @@ def _linear(receipt: LateralTorqueIdentificationReceipt, reasons: list[Observati
             )
         ):
             reasons.append(R.PID_STAGE_INCONSISTENT)
+    downstream = {i.stage: i for i in receipt.stages.downstream_identities}
+    command = downstream.get(Stage.REQUESTED_TORQUE)
+    for identity in downstream.values():
+        if identity.clock_domain != ClockDomain.MONOTONIC:
+            reasons.append(R.WRONG_CLOCK_DOMAIN)
+        if (
+            identity.controller_cycle_digest != receipt.cycle.digest
+            or identity.exact_source_command_reference is not True
+            or identity.source_valid is not True
+            or identity.source_transport_healthy is not True
+            or not receipt.cycle.callback_exit_mono_time_ns
+            <= identity.source_time_ns
+            <= receipt.cycle.receipt_complete_mono_time_ns
+        ):
+            reasons.append(R.DOWNSTREAM_COHORT_INCOMPLETE)
+        if (
+            command is None
+            or identity.source_command_event_id != command.source_event_id
+            or identity.source_time_ns < command.source_time_ns
+        ):
+            reasons.append(R.DOWNSTREAM_COHORT_INCOMPLETE)
     for signal, stage in (
         (Signal.REQUESTED_TORQUE, Stage.REQUESTED_TORQUE),
         (Signal.HOST_OUTPUT, Stage.HOST_OUTPUT),
@@ -532,6 +554,14 @@ def _linear(receipt: LateralTorqueIdentificationReceipt, reasons: list[Observati
         )
         if value is not None and receipt.stages.downstream_cycle_id != receipt.cycle.digest:
             reasons.append(R.DOWNSTREAM_COHORT_INCOMPLETE)
+        if value is not None:
+            observed_identity = downstream.get(stage)
+            observation = getattr(receipt.stages, signal.value)
+            if (
+                observed_identity is None
+                or observed_identity.source_time_ns != observation.captured_mono_time_ns
+            ):
+                reasons.append(R.DOWNSTREAM_COHORT_INCOMPLETE)
         pid_output = pid[Signal.PID_OUTPUT]
         if signal == Signal.REQUESTED_TORQUE and value is not None and pid_output is not None:
             if not _equivalent(value, -pid_output):
@@ -587,6 +617,11 @@ def _previous(
     prior_sources = {
         s.source_identity: s for s in previous.sources if s.source_identity is not None
     }
+    prior_downstream = {i.source_event_id: i for i in previous.stages.downstream_identities}
+    for identity in receipt.stages.downstream_identities:
+        before_event = prior_downstream.get(identity.source_event_id)
+        if before_event is not None and before_event != identity:
+            reasons.append(R.SOURCE_TIMESTAMP_MISMATCH)
     prior_sequences = {(s.role, s.sequence): s for s in previous.sources if s.sequence is not None}
     for source in receipt.sources:
         before_source = (

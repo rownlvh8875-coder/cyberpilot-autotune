@@ -335,7 +335,8 @@ def historical_inventory_equivalent(path, expected, actual):
             b'                "src/cyberpilot_autotune/observability/",\n',
         ),
         "tests/audit/test_carrot_writer_ownership.py": (
-            b'            ("src/cyberpilot_autotune/owner_protocol/", "src/cyberpilot_autotune/research/")\n',
+            b'            ("src/cyberpilot_autotune/owner_protocol/", '
+            b'"src/cyberpilot_autotune/research/")\n',
             b"            (\n"
             b'                "src/cyberpilot_autotune/owner_protocol/",\n'
             b'                "src/cyberpilot_autotune/research/",\n'

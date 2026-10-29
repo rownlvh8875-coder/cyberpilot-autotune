@@ -6,7 +6,6 @@ from dataclasses import asdict, replace
 from hypothesis import given, settings
 from hypothesis import strategies as st
 
-from cyberpilot_autotune.observability import contracts as c
 from cyberpilot_autotune.observability import validation as v
 from cyberpilot_autotune.observability.types import (
     CURRENT,

@@ -56,9 +56,13 @@ class GainSnapshot:
     k_d: float | None = None
     k_f: float | None = None
     precision: Precision = Precision.UNKNOWN
+    cycle_digest: str | None = None
+    captured_mono_time_ns: int | None = None
 
     def __post_init__(self) -> None:
         uint64(self.generation, optional=True)
+        sha(self.cycle_digest, optional=True)
+        uint64(self.captured_mono_time_ns, optional=True)
         for name in ("k_p", "k_i", "k_d", "k_f"):
             object.__setattr__(self, name, real(getattr(self, name)))
         enum_value(self.precision, Precision)
@@ -162,4 +166,7 @@ def epoch_context(context: FrictionObservationContext) -> dict[str, object]:
             result["geometry"].pop(name)
     if result["delay"] is not None:
         result["delay"].pop("sample_pair_id")
+    if result["gains"] is not None:
+        result["gains"].pop("cycle_digest")
+        result["gains"].pop("captured_mono_time_ns")
     return result

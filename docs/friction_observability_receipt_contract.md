@@ -181,3 +181,23 @@ FRICTION_EMPIRICAL_IDENTIFICATION_NOT_QUALIFIED,
 REPRESENTATION_ENCODING_RUNTIME_UNQUALIFIED,
 NO_EMPIRICAL_ESTIMATOR_BRIDGE and all existing frozen-artifact/factor/bounds/
 fingerprint/watchdog/external-executor/application/identification blockers.
+
+## Source-grounded implementation clarifications
+
+The entry context timestamp covers installed/applied context. Actual speed-effective
+PID gains are captured later, after current speed latching, with their own cycle
+digest and capture timestamp. One atomic receipt is one cycle, not a claim all
+stages existed at a single instant. Final sealing can occur after publication.
+
+Pinned LINEAR feedforward passes compensation=True. A known disabled-compensation
+receipt retains q=0 as a valid diagnostic, but is not eligible for that pinned
+call site; this is distinct from an unknown flag.
+
+Optional downstream values require actual command/event lineage, monotonic times,
+clock, source validity/transport health and exact-reference witnesses in addition
+to a cycle label. No future applied output is invented during core capture.
+
+Historical compatibility exception: only three old namespace inventory allowlists
+add observability. Original source/golden hash checks remain. H6 history accepts
+only those exact byte substitutions; its other AST and all candidate code/results/
+policy remain unchanged. This scoped amendment is separately mutation-tested.
