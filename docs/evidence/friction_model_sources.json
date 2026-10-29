@@ -1,0 +1,639 @@
+{
+  "schema": "friction-model-source-v1",
+  "base": "43ca6761749e71ec575906f099b02386bc76d994",
+  "policy_freeze_commit": "de42ce3ad6d7b8aa90133898a04685432972ec1a",
+  "policy_sha256": "503c1f9d07c4dda45edf55693ad4b25fde89f8f751998cef9cff8b84565cdc8c",
+  "files": [
+    {
+      "id": "runtime_callback",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "git_blob": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "line_count": 690,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 690,
+          "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10"
+        },
+        {
+          "name": "CarInterfaceBase.torque_from_lateral_accel_linear",
+          "start": 411,
+          "end": 415,
+          "sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f"
+        }
+      ]
+    },
+    {
+      "id": "runtime_friction",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "git_blob": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "line_count": 443,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 443,
+          "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e"
+        },
+        {
+          "name": "apply_center_deadzone",
+          "start": 281,
+          "end": 284,
+          "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e"
+        },
+        {
+          "name": "get_friction",
+          "start": 291,
+          "end": 299,
+          "sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c"
+        }
+      ]
+    },
+    {
+      "id": "runtime_other_friction",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/lateral.py",
+      "git_blob": "3e0cd5a51cdf6f472948134fbb28d374c3201892",
+      "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d",
+      "line_count": 205,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 205,
+          "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d"
+        },
+        {
+          "name": "get_friction",
+          "start": 159,
+          "end": 166,
+          "sha256": "5d92161f29817e5ceb92b6f5a4a9b7592ccdd0fc5045f8e5f36059d6400d3eed"
+        }
+      ]
+    },
+    {
+      "id": "runtime_controller",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "git_blob": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49",
+      "line_count": 310,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 310,
+          "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49"
+        },
+        {
+          "name": "LatControlTorque.update",
+          "start": 143,
+          "end": 310,
+          "sha256": "8930581509973e7a2342b96dd320b5c30670c6cd8bf55fca7437c260638e3448"
+        }
+      ]
+    },
+    {
+      "id": "runtime_controlsd",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "git_blob": "2378902ba077177b96dfb57f010e06c388241213",
+      "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
+      "line_count": 480,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 480,
+          "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5"
+        }
+      ]
+    },
+    {
+      "id": "runtime_paramsd",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/locationd/paramsd.py",
+      "git_blob": "a17c7c2c013ee0a5d29b2e1d877fbd4d070c5207",
+      "sha256": "d973bcb4ed39f4828af09b8edf830450ec0e938adef90d76ac6ab59fec3d428b",
+      "line_count": 326,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 326,
+          "sha256": "d973bcb4ed39f4828af09b8edf830450ec0e938adef90d76ac6ab59fec3d428b"
+        }
+      ]
+    },
+    {
+      "id": "runtime_vehicle_model",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "git_blob": "c7d0494be6d5f59684257dad119e620880d1950e",
+      "sha256": "f8ca23c2b85c2fc20d7e08271f2e692f26ae38a4fbadfcb621f9998cb65ea39e",
+      "line_count": 229,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 229,
+          "sha256": "f8ca23c2b85c2fc20d7e08271f2e692f26ae38a4fbadfcb621f9998cb65ea39e"
+        },
+        {
+          "name": "VehicleModel",
+          "start": 23,
+          "end": 148,
+          "sha256": "42d2824140deb0a2159116732213652aa9172e4ee0fc8bfe02a4296f5ba97e7f"
+        },
+        {
+          "name": "create_dyn_state_matrices",
+          "start": 170,
+          "end": 204,
+          "sha256": "71990898652669e6651810914bf2ee11c7e52ca561d1e43e4971c63c70180db4"
+        },
+        {
+          "name": "calc_slip_factor",
+          "start": 225,
+          "end": 229,
+          "sha256": "54f55b7dec2f548c3911a8bdb4ee4ab2da580402e3e9500c628f9df98ecb9b65"
+        }
+      ]
+    },
+    {
+      "id": "runtime_gm",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/gm/interface.py",
+      "git_blob": "a3a8c401d6e5f3234013905dcbc1eade4253331c",
+      "sha256": "b6c32ab75b126f2ada730033d166c071a2e1fc8835e402b09daa2d5ce7873008",
+      "line_count": 399,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 399,
+          "sha256": "b6c32ab75b126f2ada730033d166c071a2e1fc8835e402b09daa2d5ce7873008"
+        }
+      ]
+    },
+    {
+      "id": "runtime_pid",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/pid.py",
+      "git_blob": "a75aa42731640260b0f20202541171ec3838360b",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+      "line_count": 155,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 155,
+          "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65"
+        },
+        {
+          "name": "PIDController.update",
+          "start": 49,
+          "end": 70,
+          "sha256": "d29d2e74de600292dbdf15fcdbc3e4eaa41e3e40c871447a62e0f95d89aa7f5a"
+        }
+      ]
+    },
+    {
+      "id": "runtime_steer_ratio",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "git_blob": "e679268b3e488a7eac11720a37f43d4a8fa2bb7a",
+      "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee",
+      "line_count": 20,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 20,
+          "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee"
+        },
+        {
+          "name": "resolve_vehicle_model_steer_ratio",
+          "start": 10,
+          "end": 20,
+          "sha256": "d4407c097aadf0e0345e838f0fe6ba1089afe59f5802185bca8b87045b51c6f2"
+        }
+      ]
+    },
+    {
+      "id": "runtime_schema",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/cereal/log.capnp",
+      "git_blob": "9c5cebe0eaa6fbfa077e9e8bfd0b5161367ef862",
+      "sha256": "7d5c19cc2a534fb6918ba51d393eff288f096b68b6c13fd5608c46d17454ba35",
+      "line_count": 2814,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 2814,
+          "sha256": "7d5c19cc2a534fb6918ba51d393eff288f096b68b6c13fd5608c46d17454ba35"
+        }
+      ]
+    },
+    {
+      "id": "runtime_params_keys",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/params_keys.h",
+      "git_blob": "0a5285bcf0d1f292919a20d07ae319497dc86be4",
+      "sha256": "8c440512d6ed414719d3b28902782d54ca77fa8bdfc01c0521b2aaa586121cd5",
+      "line_count": 433,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 433,
+          "sha256": "8c440512d6ed414719d3b28902782d54ca77fa8bdfc01c0521b2aaa586121cd5"
+        }
+      ]
+    },
+    {
+      "id": "current_callback",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "git_blob": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "line_count": 690,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 690,
+          "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10"
+        },
+        {
+          "name": "CarInterfaceBase.torque_from_lateral_accel_linear",
+          "start": 411,
+          "end": 415,
+          "sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f"
+        }
+      ]
+    },
+    {
+      "id": "current_friction",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "git_blob": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "line_count": 443,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 443,
+          "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e"
+        },
+        {
+          "name": "apply_center_deadzone",
+          "start": 281,
+          "end": 284,
+          "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e"
+        },
+        {
+          "name": "get_friction",
+          "start": 291,
+          "end": 299,
+          "sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c"
+        }
+      ]
+    },
+    {
+      "id": "current_other_friction",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/lateral.py",
+      "git_blob": "3e0cd5a51cdf6f472948134fbb28d374c3201892",
+      "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d",
+      "line_count": 205,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 205,
+          "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d"
+        },
+        {
+          "name": "get_friction",
+          "start": 159,
+          "end": 166,
+          "sha256": "5d92161f29817e5ceb92b6f5a4a9b7592ccdd0fc5045f8e5f36059d6400d3eed"
+        }
+      ]
+    },
+    {
+      "id": "current_controller",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "git_blob": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "line_count": 307,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 307,
+          "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc"
+        },
+        {
+          "name": "LatControlTorque.update",
+          "start": 142,
+          "end": 307,
+          "sha256": "dd9a614bea1a1eb0541c3db10cea9377f94f88d6877e4cc9d5a2612973dcacaf"
+        }
+      ]
+    },
+    {
+      "id": "current_controlsd",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "git_blob": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d",
+      "line_count": 481,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 481,
+          "sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d"
+        }
+      ]
+    },
+    {
+      "id": "current_paramsd",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/locationd/paramsd.py",
+      "git_blob": "4770cdda323e3d24165ab7ced3e1220b1b10b78a",
+      "sha256": "a02c430b5e7d59b70f265bd34d01b5ca2045d6a234b262f477d8c92ae58a8765",
+      "line_count": 352,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 352,
+          "sha256": "a02c430b5e7d59b70f265bd34d01b5ca2045d6a234b262f477d8c92ae58a8765"
+        }
+      ]
+    },
+    {
+      "id": "current_vehicle_model",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "git_blob": "a2260e2259416acfdd81a3612a311ed5358ac425",
+      "sha256": "00fbe6da9b17723932988e5b3be5e29a2302296e0bcdaf914154906c6162489b",
+      "line_count": 240,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 240,
+          "sha256": "00fbe6da9b17723932988e5b3be5e29a2302296e0bcdaf914154906c6162489b"
+        },
+        {
+          "name": "VehicleModel",
+          "start": 24,
+          "end": 159,
+          "sha256": "4c9d69ed6ae343bfb560d3b001e52e84fea10a7ff959b314a37d180a366c19fc"
+        },
+        {
+          "name": "create_dyn_state_matrices",
+          "start": 181,
+          "end": 215,
+          "sha256": "71990898652669e6651810914bf2ee11c7e52ca561d1e43e4971c63c70180db4"
+        },
+        {
+          "name": "calc_slip_factor",
+          "start": 236,
+          "end": 240,
+          "sha256": "54f55b7dec2f548c3911a8bdb4ee4ab2da580402e3e9500c628f9df98ecb9b65"
+        }
+      ]
+    },
+    {
+      "id": "current_gm",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/gm/interface.py",
+      "git_blob": "a3a8c401d6e5f3234013905dcbc1eade4253331c",
+      "sha256": "b6c32ab75b126f2ada730033d166c071a2e1fc8835e402b09daa2d5ce7873008",
+      "line_count": 399,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 399,
+          "sha256": "b6c32ab75b126f2ada730033d166c071a2e1fc8835e402b09daa2d5ce7873008"
+        }
+      ]
+    },
+    {
+      "id": "current_pid",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/pid.py",
+      "git_blob": "a75aa42731640260b0f20202541171ec3838360b",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+      "line_count": 155,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 155,
+          "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65"
+        },
+        {
+          "name": "PIDController.update",
+          "start": 49,
+          "end": 70,
+          "sha256": "d29d2e74de600292dbdf15fcdbc3e4eaa41e3e40c871447a62e0f95d89aa7f5a"
+        }
+      ]
+    },
+    {
+      "id": "current_steer_ratio",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "git_blob": "e679268b3e488a7eac11720a37f43d4a8fa2bb7a",
+      "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee",
+      "line_count": 20,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 20,
+          "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee"
+        },
+        {
+          "name": "resolve_vehicle_model_steer_ratio",
+          "start": 10,
+          "end": 20,
+          "sha256": "d4407c097aadf0e0345e838f0fe6ba1089afe59f5802185bca8b87045b51c6f2"
+        }
+      ]
+    },
+    {
+      "id": "current_schema",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/cereal/log.capnp",
+      "git_blob": "609cb5892185f11cb0ee6d2e91c081170d40d7e9",
+      "sha256": "0d546ea5f37bc26a16f71ae0433a9a617728c78d77de872c1d327a10cf0fe1db",
+      "line_count": 2812,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 2812,
+          "sha256": "0d546ea5f37bc26a16f71ae0433a9a617728c78d77de872c1d327a10cf0fe1db"
+        }
+      ]
+    },
+    {
+      "id": "current_params_keys",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/params_keys.h",
+      "git_blob": "5583afd70bfbd215869e3ee92412e8b750c9fde7",
+      "sha256": "9215b2beddc787ea26ce7c94769b4997f047e6880911c4f1dd9cc2c5b9eb171c",
+      "line_count": 436,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 436,
+          "sha256": "9215b2beddc787ea26ce7c94769b4997f047e6880911c4f1dd9cc2c5b9eb171c"
+        }
+      ]
+    },
+    {
+      "id": "current_geometry",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/lateral_geometry.py",
+      "git_blob": "0cb43efd004e3a02a2d7e1437cbeaa142d915a5b",
+      "sha256": "f8691383a1c3bc5eeb6318c02ceee3430fd896fdb98cab0c917b2519ceb4472a",
+      "line_count": 45,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 45,
+          "sha256": "f8691383a1c3bc5eeb6318c02ceee3430fd896fdb98cab0c917b2519ceb4472a"
+        },
+        {
+          "name": "requested_center_to_front_ratio",
+          "start": 7,
+          "end": 12,
+          "sha256": "bb61b07e4397b60cfa7d5a2ae2eba1dc793452533b9ecc732a7177cd882c51c9"
+        },
+        {
+          "name": "LateralGeometry",
+          "start": 15,
+          "end": 45,
+          "sha256": "e1fdf40209e43e79a22c42ec6ff843d8c7ffddd318ad488206fa45c16f10451b"
+        }
+      ]
+    },
+    {
+      "id": "current_geometry_migration",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/lateral_geometry_params.py",
+      "git_blob": "72a2273eb7e26440837e128429fa0c3219d6b07e",
+      "sha256": "57bd1fbf57aceb01904b4979a1333e277a3e1f12313c2c77e19ce679332b7b2b",
+      "line_count": 6,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 6,
+          "sha256": "57bd1fbf57aceb01904b4979a1333e277a3e1f12313c2c77e19ce679332b7b2b"
+        }
+      ]
+    },
+    {
+      "id": "current_geometry_test",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/tests/test_live_lateral_geometry.py",
+      "git_blob": "03b61f5f0e4f2faad95c823a3a22683436134aae",
+      "sha256": "a1d3c3c176b43b0e424e9fe495684785839667a198521b936275e7b6e1e73393",
+      "line_count": 127,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 127,
+          "sha256": "a1d3c3c176b43b0e424e9fe495684785839667a198521b936275e7b6e1e73393"
+        }
+      ]
+    },
+    {
+      "id": "current_vehicle_test",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/tests/test_vehicle_model.py",
+      "git_blob": "b88a8dab4e0ab81924d6e806de0f87f26af6d6cf",
+      "sha256": "229382b077f3f6719e6079883644519f548c1eefea7b933289bfd1037cd7eb10",
+      "line_count": 67,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 67,
+          "sha256": "229382b077f3f6719e6079883644519f548c1eefea7b933289bfd1037cd7eb10"
+        }
+      ]
+    },
+    {
+      "id": "observation_v2",
+      "revision": "43ca6761749e71ec575906f099b02386bc76d994",
+      "path": "src/cyberpilot_autotune/adapters/carrot_receipt_contract.py",
+      "git_blob": "2faec21eebbe447de36926338c13c58a5ced7d3e",
+      "sha256": "ce06a71852b0a6b1b6e54210df4dbfe5bced4a196c2fc62ebd241f1f04463199",
+      "line_count": 534,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 534,
+          "sha256": "ce06a71852b0a6b1b6e54210df4dbfe5bced4a196c2fc62ebd241f1f04463199"
+        }
+      ]
+    },
+    {
+      "id": "snapshot",
+      "revision": "43ca6761749e71ec575906f099b02386bc76d994",
+      "path": "src/cyberpilot_autotune/contracts/observation.py",
+      "git_blob": "2606064b420386a4548a307f2c295547bfb076c8",
+      "sha256": "7c5764418b5be0debbc72eb36f9828658c595d4570edada245d8c403af28da42",
+      "line_count": 43,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 43,
+          "sha256": "7c5764418b5be0debbc72eb36f9828658c595d4570edada245d8c403af28da42"
+        }
+      ]
+    }
+  ],
+  "static_runtime_dynamic_geometry_absent": true,
+  "current_dynamic_geometry_path_present": true,
+  "absence_scope": [
+    "runtime_controlsd",
+    "runtime_paramsd",
+    "runtime_vehicle_model",
+    "runtime_schema",
+    "runtime_params_keys"
+  ],
+  "current_branch_review": {
+    "branch": "ajouatom/openpilot:carrot-wip",
+    "observed_start_head": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+    "drift": "UNCHANGED_AT_H6_START"
+  },
+  "runtime_imported": false,
+  "candidate_generation_allowed": false,
+  "runtime_accepted": false,
+  "owner_proposal_allowed": false,
+  "application_authorized": false
+}
