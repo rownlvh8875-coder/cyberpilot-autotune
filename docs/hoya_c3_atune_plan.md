@@ -55,18 +55,23 @@ carrot-wip moved from bfc3ebb to f5e4f8b. Full evidence is recorded in the audit
 
 - RED: 11 missing-validator/evidence tests failed before implementation. A further
   unsafe-adoption mutation failed before the validator rejected that promotion.
-- Audit tests: 20 passed. Full Windows Python 3.12.14 suite: 758 passed.
-- Linux Python 3.12.3 / actual pycapnp 2.1.0 combined suite: 895 passed.
+- Audit tests after source-range review corrections: 22 passed. Full Windows
+  Python 3.12.14 suite: 760 passed.
+- Linux Python 3.12.3 / actual pycapnp 2.1.0 combined suite: 897 passed.
   All runs have zero failures/skips. Native source branch-inclusive coverage:
   overall 98.82%, pure receipt contract and safety 100%.
 - Ruff check/format, strict mypy (40 unchanged source files), wheel/sdist build
   and all four historical replay goldens passed.
 - `python -m tests.audit.validate_hoya_c3_atune --reference-checkout <local-ref>`
-  verified 40 raw Git blobs, 69 ranges, Python default/exception inventory and
-  19 snippet comparisons. No reference module, log or provider was executed.
+  verified 40 raw Git blobs, 104 ranges, Python/JS exception inventory, all 35
+  catalog-present named UI values and 19 snippet comparisons. No reference module,
+  log or provider was executed.
 - Wheel inspection excludes audit/tests and unmerged application/sidecar modules;
   both evidence JSON files in the sdist are byte-identical to the checkout.
 - Frozen source/golden byte hashes match main. PR #8/#9 remain unchanged refs.
 
 Final independent review and remote CI are recorded on the Draft audit PR after
 the reviewed commit exists; this checkpoint does not predeclare those results.
+The first review at ded12bd reported C0/I0/M1: per-key unit descriptions reused
+alternatives. Each was resolved against its consumer. The append-only correction
+also adds 35 individually hashed catalog ranges and RED/GREEN source-value checks.

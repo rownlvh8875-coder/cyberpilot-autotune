@@ -135,6 +135,36 @@ def test_car_selection_is_excluded_and_catalog_is_not_a_tuning_allowlist():
     assert all(p["application_authorized"] is False for p in features["parameters"])
 
 
+def test_catalog_metadata_is_verified_against_source_not_a_second_ui_claim():
+    from tests.audit.validate_hoya_c3_atune import verify_catalog
+
+    raw = b'{"params":[{"name":"synthetic","min":0,"max":2,"default":1}]}'
+    row = {
+        "name": "synthetic",
+        "catalog_present": True,
+        "ui_min": 0,
+        "ui_max": 2,
+        "ui_default": 1,
+    }
+    verify_catalog([row], raw)
+    changed = dict(row, ui_max=3)
+    with pytest.raises(ValueError):
+        verify_catalog([changed], raw)
+    with pytest.raises(ValueError):
+        verify_catalog([dict(row, catalog_present=False)], raw)
+
+
+def test_named_catalog_facts_have_individual_hashed_source_ranges():
+    sources, features = evidence()
+    catalog = next(x for x in sources["files"] if x["id"] == "catalog")
+    entries = {x["id"]: x for x in catalog["ranges"]}
+    for parameter in features["parameters"]:
+        if parameter["catalog_present"]:
+            key = "K:parameter:" + parameter["name"]
+            assert key in parameter["evidence"]
+            assert entries[key]["start"] < entries[key]["end"]
+
+
 def test_adoption_table_decisions_and_score_axes_match_structured_evidence():
     from collections import Counter
 

@@ -255,7 +255,18 @@ def normalized_line(line):
     return "".join(line.lstrip().removeprefix("#").split("#", 1)[0].split()).encode()
 
 
-def verify_local_sources(sources, reference, target):
+def verify_catalog(parameters, data):
+    catalog = {p["name"]: p for p in json.loads(data)["params"]}
+    for parameter in parameters:
+        item = catalog.get(parameter["name"])
+        require((item is not None) is parameter["catalog_present"], "catalog presence mismatch")
+        for key in ("min", "max", "default"):
+            actual = item.get(key) if item is not None else None
+            claimed = parameter["ui_" + key]
+            require(type(actual) is type(claimed) and actual == claimed, "catalog value mismatch")
+
+
+def verify_local_sources(sources, reference, target, features):
     blobs = {}
     environment = dict(os.environ, GIT_NO_LAZY_FETCH="1", GIT_TERMINAL_PROMPT="0")
     for item in sources["files"]:
@@ -281,6 +292,20 @@ def verify_local_sources(sources, reference, target):
         handlers.extend(h)
     require(defaults == sources["inventory"]["getattr_defaults"], "default inventory mismatch")
     require(handlers == sources["inventory"]["silent_handlers"], "exception inventory mismatch")
+    verify_catalog(features["parameters"], blobs["catalog"])
+    catches = []
+    for file_id in ("ai", "controller", "view", "index"):
+        text = blobs[file_id].decode()
+        for match in re.finditer(r"catch(?:\s*\([^)]*\))?\s*\{\s*\}", text):
+            catches.append(
+                {
+                    "file": file_id,
+                    "line": text[: match.start()].count("\n") + 1,
+                    "end": text[: match.end()].count("\n") + 1,
+                    "verdict": "ERROR_SUPPRESSED_NOT_VALIDITY",
+                }
+            )
+    require(catches == sources["inventory"]["js_empty_catches"], "JS catch inventory mismatch")
     for pair in sources["source_grounding_pairs"]:
         left = normalized_line(blobs["autotune"].decode().splitlines()[pair["snippet_line"] - 1])
         right = normalized_line(blobs[pair["file"]].decode().splitlines()[pair["source_line"] - 1])
@@ -312,7 +337,7 @@ def main():
         result["raw_blobs_verified"] = 0
         if args.reference_checkout is not None:
             result["raw_blobs_verified"] = verify_local_sources(
-                sources, args.reference_checkout, args.target_checkout
+                sources, args.reference_checkout, args.target_checkout, features
             )
         print(json.dumps(result, sort_keys=True, separators=(",", ":")))
         return 0

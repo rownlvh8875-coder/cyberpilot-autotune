@@ -373,7 +373,8 @@
         "F:params",
         "F:follow",
         "N:mpc",
-        "N:accel"
+        "N:accel",
+        "K:parameter:CruiseMaxVals0"
       ]
     },
     {
@@ -394,7 +395,8 @@
         "F:params",
         "F:follow",
         "N:mpc",
-        "N:accel"
+        "N:accel",
+        "K:parameter:CruiseMaxVals1"
       ]
     },
     {
@@ -415,7 +417,8 @@
         "F:params",
         "F:follow",
         "N:mpc",
-        "N:accel"
+        "N:accel",
+        "K:parameter:CruiseMaxVals2"
       ]
     },
     {
@@ -436,7 +439,8 @@
         "F:params",
         "F:follow",
         "N:mpc",
-        "N:accel"
+        "N:accel",
+        "K:parameter:CruiseMaxVals3"
       ]
     },
     {
@@ -457,7 +461,8 @@
         "F:params",
         "F:follow",
         "N:mpc",
-        "N:accel"
+        "N:accel",
+        "K:parameter:CruiseMaxVals4"
       ]
     },
     {
@@ -478,7 +483,8 @@
         "F:params",
         "F:follow",
         "N:mpc",
-        "N:accel"
+        "N:accel",
+        "K:parameter:CruiseMaxVals5"
       ]
     },
     {
@@ -499,13 +505,14 @@
         "F:params",
         "F:follow",
         "N:mpc",
-        "N:accel"
+        "N:accel",
+        "K:parameter:CruiseMaxVals6"
       ]
     },
     {
       "name": "DynamicTFollow",
       "classification": "FUTURE_LONGITUDINAL_RESEARCH",
-      "unit_and_condition": "stored value /100; conditional time-gap adjustment or multiplier",
+      "unit_and_condition": "stored /100 seconds; additive lead.jLead-indexed time-gap adjustment",
       "consumer": "CarrotPlanner gap methods -> LongitudinalMpc.update",
       "catalog_present": true,
       "ui_min": 0,
@@ -519,13 +526,14 @@
         "A:parse",
         "F:params",
         "F:follow",
-        "N:mpc"
+        "N:mpc",
+        "K:parameter:DynamicTFollow"
       ]
     },
     {
       "name": "DynamicTFollowLC",
       "classification": "FUTURE_LONGITUDINAL_RESEARCH",
-      "unit_and_condition": "stored value /100; conditional time-gap adjustment or multiplier",
+      "unit_and_condition": "stored /100 dimensionless time-gap and jerk-factor multiplier during lane-change branch",
       "consumer": "CarrotPlanner gap methods -> LongitudinalMpc.update",
       "catalog_present": true,
       "ui_min": 20,
@@ -539,7 +547,8 @@
         "A:parse",
         "F:params",
         "F:follow",
-        "N:mpc"
+        "N:mpc",
+        "K:parameter:DynamicTFollowLC"
       ]
     },
     {
@@ -559,13 +568,14 @@
         "A:parse",
         "F:params",
         "F:follow",
-        "N:mpc"
+        "N:mpc",
+        "K:parameter:EnableSpeedTF"
       ]
     },
     {
       "name": "TFollowGap1",
       "classification": "FUTURE_LONGITUDINAL_RESEARCH",
-      "unit_and_condition": "stored value /100; conditional time-gap adjustment or multiplier",
+      "unit_and_condition": "stored /100 seconds base following gap, then mode/speed processing",
       "consumer": "CarrotPlanner gap methods -> LongitudinalMpc.update",
       "catalog_present": true,
       "ui_min": 40,
@@ -579,13 +589,14 @@
         "A:parse",
         "F:params",
         "F:follow",
-        "N:mpc"
+        "N:mpc",
+        "K:parameter:TFollowGap1"
       ]
     },
     {
       "name": "TFollowGap2",
       "classification": "FUTURE_LONGITUDINAL_RESEARCH",
-      "unit_and_condition": "stored value /100; conditional time-gap adjustment or multiplier",
+      "unit_and_condition": "stored /100 seconds base following gap, then mode/speed processing",
       "consumer": "CarrotPlanner gap methods -> LongitudinalMpc.update",
       "catalog_present": true,
       "ui_min": 40,
@@ -599,13 +610,14 @@
         "A:parse",
         "F:params",
         "F:follow",
-        "N:mpc"
+        "N:mpc",
+        "K:parameter:TFollowGap2"
       ]
     },
     {
       "name": "TFollowGap3",
       "classification": "FUTURE_LONGITUDINAL_RESEARCH",
-      "unit_and_condition": "stored value /100; conditional time-gap adjustment or multiplier",
+      "unit_and_condition": "stored /100 seconds base following gap, then mode/speed processing",
       "consumer": "CarrotPlanner gap methods -> LongitudinalMpc.update",
       "catalog_present": true,
       "ui_min": 40,
@@ -619,13 +631,14 @@
         "A:parse",
         "F:params",
         "F:follow",
-        "N:mpc"
+        "N:mpc",
+        "K:parameter:TFollowGap3"
       ]
     },
     {
       "name": "TFollowGap4",
       "classification": "FUTURE_LONGITUDINAL_RESEARCH",
-      "unit_and_condition": "stored value /100; conditional time-gap adjustment or multiplier",
+      "unit_and_condition": "stored /100 seconds base following gap, then mode/speed processing",
       "consumer": "CarrotPlanner gap methods -> LongitudinalMpc.update",
       "catalog_present": true,
       "ui_min": 40,
@@ -639,7 +652,8 @@
         "A:parse",
         "F:params",
         "F:follow",
-        "N:mpc"
+        "N:mpc",
+        "K:parameter:TFollowGap4"
       ]
     },
     {
@@ -659,7 +673,8 @@
         "A:parse",
         "F:params",
         "F:follow",
-        "N:mpc"
+        "N:mpc",
+        "K:parameter:TFollowDecelBoost"
       ]
     },
     {
@@ -680,7 +695,8 @@
         "F:params",
         "F:follow",
         "N:mpc",
-        "N:cost"
+        "N:cost",
+        "K:parameter:AChangeCostStarting"
       ]
     },
     {
@@ -735,7 +751,8 @@
       "evidence": [
         "L:long",
         "K:settings",
-        "H:knowledge"
+        "H:knowledge",
+        "K:parameter:LongTuningKpV"
       ]
     },
     {
@@ -752,7 +769,8 @@
       "evidence": [
         "L:long",
         "K:settings",
-        "H:knowledge"
+        "H:knowledge",
+        "K:parameter:LongTuningKiV"
       ]
     },
     {
@@ -769,7 +787,8 @@
       "evidence": [
         "L:long",
         "K:settings",
-        "H:knowledge"
+        "H:knowledge",
+        "K:parameter:LongTuningKf"
       ]
     },
     {
@@ -785,7 +804,8 @@
       "application_authorized": false,
       "evidence": [
         "L:long",
-        "K:settings"
+        "K:settings",
+        "K:parameter:StoppingAccel"
       ]
     },
     {
@@ -805,7 +825,8 @@
         "A:parse",
         "F:params",
         "F:follow",
-        "N:mpc"
+        "N:mpc",
+        "K:parameter:StopDistanceCarrot"
       ]
     },
     {
@@ -827,7 +848,7 @@
     {
       "name": "LateralTorqueCustom",
       "classification": "SAFETY_SENSITIVE",
-      "unit_and_condition": "mode switch or stored gain *0.01; Kf UI title disagrees",
+      "unit_and_condition": "integer custom-torque mode switch; positive selects custom Params path",
       "consumer": "LatControlTorque.update every ten frames if custom enabled",
       "catalog_present": true,
       "ui_min": 0,
@@ -839,13 +860,14 @@
         "L:torque",
         "L:nn",
         "K:settings",
-        "G:application"
+        "G:application",
+        "K:parameter:LateralTorqueCustom"
       ]
     },
     {
       "name": "LateralTorqueKpV",
       "classification": "SAFETY_SENSITIVE",
-      "unit_and_condition": "mode switch or stored gain *0.01; Kf UI title disagrees",
+      "unit_and_condition": "stored *0.01 LateralTorqueKpV controller gain",
       "consumer": "LatControlTorque.update every ten frames if custom enabled",
       "catalog_present": true,
       "ui_min": 0,
@@ -857,13 +879,14 @@
         "L:torque",
         "L:nn",
         "K:settings",
-        "G:application"
+        "G:application",
+        "K:parameter:LateralTorqueKpV"
       ]
     },
     {
       "name": "LateralTorqueKiV",
       "classification": "SAFETY_SENSITIVE",
-      "unit_and_condition": "mode switch or stored gain *0.01; Kf UI title disagrees",
+      "unit_and_condition": "stored *0.01 LateralTorqueKiV controller gain",
       "consumer": "LatControlTorque.update every ten frames if custom enabled",
       "catalog_present": true,
       "ui_min": 0,
@@ -875,13 +898,14 @@
         "L:torque",
         "L:nn",
         "K:settings",
-        "G:application"
+        "G:application",
+        "K:parameter:LateralTorqueKiV"
       ]
     },
     {
       "name": "LateralTorqueKf",
       "classification": "SAFETY_SENSITIVE",
-      "unit_and_condition": "mode switch or stored gain *0.01; Kf UI title disagrees",
+      "unit_and_condition": "stored *0.01 LateralTorqueKf controller gain; UI title disagrees with actual scale",
       "consumer": "LatControlTorque.update every ten frames if custom enabled",
       "catalog_present": true,
       "ui_min": 0,
@@ -893,7 +917,8 @@
         "L:torque",
         "L:nn",
         "K:settings",
-        "G:application"
+        "G:application",
+        "K:parameter:LateralTorqueKf"
       ]
     },
     {
@@ -911,7 +936,8 @@
         "L:torque",
         "K:linear",
         "G:application",
-        "G:policy"
+        "G:policy",
+        "K:parameter:LateralTorqueFriction"
       ]
     },
     {
@@ -929,7 +955,8 @@
         "L:torque",
         "K:linear",
         "G:application",
-        "G:policy"
+        "G:policy",
+        "K:parameter:LateralTorqueAccelFactor"
       ]
     },
     {
@@ -946,7 +973,8 @@
       "evidence": [
         "U:ratio",
         "U:vm",
-        "G:application"
+        "G:application",
+        "K:parameter:SteerRatioRate"
       ]
     },
     {
@@ -963,7 +991,8 @@
       "evidence": [
         "U:delay",
         "L:torque",
-        "G:application"
+        "G:application",
+        "K:parameter:SteerActuatorDelay"
       ]
     },
     {
@@ -979,7 +1008,8 @@
       "application_authorized": false,
       "evidence": [
         "C:sources",
-        "K:settings"
+        "K:settings",
+        "K:parameter:TurnSpeedControlMode"
       ]
     },
     {
@@ -995,7 +1025,8 @@
       "application_authorized": false,
       "evidence": [
         "M:vision",
-        "C:sources"
+        "C:sources",
+        "K:parameter:AutoCurveSpeedFactor"
       ]
     },
     {
@@ -1011,13 +1042,14 @@
       "application_authorized": false,
       "evidence": [
         "D:model",
-        "C:sources"
+        "C:sources",
+        "K:parameter:ModelTurnSpeedFactor"
       ]
     },
     {
       "name": "MapTurnSpeedFactor",
       "classification": "FUTURE_LONGITUDINAL_RESEARCH",
-      "unit_and_condition": "stored percent factor or km/h floor",
+      "unit_and_condition": "stored *0.01 dimensionless route-speed multiplier before km/h floor",
       "consumer": "CarrotServ speed arbitration",
       "catalog_present": true,
       "ui_min": 50,
@@ -1027,13 +1059,14 @@
       "application_authorized": false,
       "evidence": [
         "C:params",
-        "C:sources"
+        "C:sources",
+        "K:parameter:MapTurnSpeedFactor"
       ]
     },
     {
       "name": "AutoCurveSpeedLowerLimit",
       "classification": "FUTURE_LONGITUDINAL_RESEARCH",
-      "unit_and_condition": "stored percent factor or km/h floor",
+      "unit_and_condition": "unscaled km/h minimum speed floor for selected curve/route/model candidates",
       "consumer": "CarrotServ speed arbitration",
       "catalog_present": true,
       "ui_min": 10,
@@ -1043,7 +1076,8 @@
       "application_authorized": false,
       "evidence": [
         "C:params",
-        "C:sources"
+        "C:sources",
+        "K:parameter:AutoCurveSpeedLowerLimit"
       ]
     },
     {
@@ -1060,7 +1094,8 @@
       "evidence": [
         "F:eco",
         "F:min",
-        "F:calls"
+        "F:calls",
+        "K:parameter:CruiseEcoControl"
       ]
     }
   ],

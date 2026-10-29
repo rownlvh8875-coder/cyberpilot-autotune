@@ -732,9 +732,324 @@
           "start": 1,
           "end": 1,
           "symbol": "JSON catalog identity",
-          "claim": "Whole-file hash pins descriptive catalog; parameter spans recorded separately.",
+          "claim": "Catalog identity; individual named UI entry ranges and hashes follow, without granting safety authority.",
           "confidence": "PROVEN",
           "sha256": "a6fb08fda1acb957b6116bd37811a1fe41a01611c0631edbf786d6889a27a55c"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals0",
+          "start": 1089,
+          "end": 1104,
+          "symbol": "params[CruiseMaxVals0]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals0; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "982ccae12b3b9e1af4c5c97d1f7acb937c1fc8bffd242a7b550ae04bc3aaad21"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals1",
+          "start": 1105,
+          "end": 1120,
+          "symbol": "params[CruiseMaxVals1]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals1; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "7a779bc521eee26bd3f6741f14ed05ffe41f4eba0fe92ad423a687ea0275b082"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals2",
+          "start": 1121,
+          "end": 1136,
+          "symbol": "params[CruiseMaxVals2]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals2; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "1eaf4100f34ee5a8a5f5bda3a7780cfebcdec98d3a53500a713f0f7011c5aea4"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals3",
+          "start": 1137,
+          "end": 1152,
+          "symbol": "params[CruiseMaxVals3]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals3; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "a49122decd068dca3f25c874a5a04ff04265386025fcf09ece83549e3a4b71d2"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals4",
+          "start": 1153,
+          "end": 1168,
+          "symbol": "params[CruiseMaxVals4]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals4; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "f77ac65ac77c088b465a295d5679c1a6f91cb7967f0ef0ea6865ce16aaeee352"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals5",
+          "start": 1169,
+          "end": 1184,
+          "symbol": "params[CruiseMaxVals5]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals5; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "186b68f460cc65fa3f88f406bbc016fbcb4303f34559bdcfa4a8799859dbf468"
+        },
+        {
+          "id": "K:parameter:CruiseMaxVals6",
+          "start": 1185,
+          "end": 1200,
+          "symbol": "params[CruiseMaxVals6]",
+          "claim": "Descriptive UI min/max/default for CruiseMaxVals6; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "1efbc0fb4e02ad61f41d7a820ddfa89f2e45e4b938455c23621c7925a2b88f79"
+        },
+        {
+          "id": "K:parameter:DynamicTFollow",
+          "start": 2709,
+          "end": 2725,
+          "symbol": "params[DynamicTFollow]",
+          "claim": "Descriptive UI min/max/default for DynamicTFollow; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "e956f217c3152b3c79b8d2bb052bdda96cf230ea83f5d68fce99d06d03f93ca5"
+        },
+        {
+          "id": "K:parameter:DynamicTFollowLC",
+          "start": 2785,
+          "end": 2801,
+          "symbol": "params[DynamicTFollowLC]",
+          "claim": "Descriptive UI min/max/default for DynamicTFollowLC; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "f0e04e7e3cb819148fb006f9ac33633c2fc93ef88e573905b93f8343cd6cf414"
+        },
+        {
+          "id": "K:parameter:EnableSpeedTF",
+          "start": 2769,
+          "end": 2784,
+          "symbol": "params[EnableSpeedTF]",
+          "claim": "Descriptive UI min/max/default for EnableSpeedTF; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "8661f0b8dfaef1ec393d9fc10f6092b943092e5e800643028b9164a81d177f53"
+        },
+        {
+          "id": "K:parameter:TFollowGap1",
+          "start": 2645,
+          "end": 2660,
+          "symbol": "params[TFollowGap1]",
+          "claim": "Descriptive UI min/max/default for TFollowGap1; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "40e40ad07dd3086d397336e523b068d9e2b8bb5b01dff5d98ea18afc25ee57f6"
+        },
+        {
+          "id": "K:parameter:TFollowGap2",
+          "start": 2661,
+          "end": 2676,
+          "symbol": "params[TFollowGap2]",
+          "claim": "Descriptive UI min/max/default for TFollowGap2; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "9a5186d29c7e76419d7d94520d96c5d6fd01b6f300bf711ecdffe90cc496a8ec"
+        },
+        {
+          "id": "K:parameter:TFollowGap3",
+          "start": 2677,
+          "end": 2692,
+          "symbol": "params[TFollowGap3]",
+          "claim": "Descriptive UI min/max/default for TFollowGap3; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "8c858de7905592c449a36d1835e8a464e83a8ce39410d36cdcc059d27c5be998"
+        },
+        {
+          "id": "K:parameter:TFollowGap4",
+          "start": 2693,
+          "end": 2708,
+          "symbol": "params[TFollowGap4]",
+          "claim": "Descriptive UI min/max/default for TFollowGap4; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "832d33b169cb1dc354df9d9384cf8291916fb473e5bc555e7711d320c9912b15"
+        },
+        {
+          "id": "K:parameter:TFollowDecelBoost",
+          "start": 2802,
+          "end": 2818,
+          "symbol": "params[TFollowDecelBoost]",
+          "claim": "Descriptive UI min/max/default for TFollowDecelBoost; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "2efb22bb2865e4c1202cd9087499e803c949a2549a6a1508430bf7021b794dd6"
+        },
+        {
+          "id": "K:parameter:AChangeCostStarting",
+          "start": 1218,
+          "end": 1233,
+          "symbol": "params[AChangeCostStarting]",
+          "claim": "Descriptive UI min/max/default for AChangeCostStarting; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "b874c3df5a77a5cc6cdbeb98ee8e9bcdab28abe242d3ea62cdbb264f1d80b681"
+        },
+        {
+          "id": "K:parameter:LongTuningKpV",
+          "start": 1251,
+          "end": 1267,
+          "symbol": "params[LongTuningKpV]",
+          "claim": "Descriptive UI min/max/default for LongTuningKpV; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "0a8327876d3273a2dee262e9f457e5a7b5f3025433b3ec8add4c5822995aa2f0"
+        },
+        {
+          "id": "K:parameter:LongTuningKiV",
+          "start": 1285,
+          "end": 1301,
+          "symbol": "params[LongTuningKiV]",
+          "claim": "Descriptive UI min/max/default for LongTuningKiV; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "e07c300ba5e1d4c98e319a762e5fcc229a32e8130f542cab92a5430589cb4c0a"
+        },
+        {
+          "id": "K:parameter:LongTuningKf",
+          "start": 1268,
+          "end": 1284,
+          "symbol": "params[LongTuningKf]",
+          "claim": "Descriptive UI min/max/default for LongTuningKf; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "6914e681692fdec60d63471e2e221b694eb1a596ea07298c00aa1e44f61778df"
+        },
+        {
+          "id": "K:parameter:StoppingAccel",
+          "start": 2836,
+          "end": 2851,
+          "symbol": "params[StoppingAccel]",
+          "claim": "Descriptive UI min/max/default for StoppingAccel; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "b06270da045b75936ee212907e6bd80d27da64c752b77289ed4dbbe993ae83b1"
+        },
+        {
+          "id": "K:parameter:StopDistanceCarrot",
+          "start": 1201,
+          "end": 1217,
+          "symbol": "params[StopDistanceCarrot]",
+          "claim": "Descriptive UI min/max/default for StopDistanceCarrot; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "a1f33d5fbfdbf3e8762d7abb87a6ef9ac6005a96adfcc02c42e44a435815c8e5"
+        },
+        {
+          "id": "K:parameter:LateralTorqueCustom",
+          "start": 654,
+          "end": 669,
+          "symbol": "params[LateralTorqueCustom]",
+          "claim": "Descriptive UI min/max/default for LateralTorqueCustom; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "60f03b1f6c5da5719362657f333578018e81a1dd3028c089832a17ec30510063"
+        },
+        {
+          "id": "K:parameter:LateralTorqueKpV",
+          "start": 702,
+          "end": 717,
+          "symbol": "params[LateralTorqueKpV]",
+          "claim": "Descriptive UI min/max/default for LateralTorqueKpV; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "de454805ef623e2a987957ba5f07fa8746112956f52cd4e35d680f7eb1e4d70f"
+        },
+        {
+          "id": "K:parameter:LateralTorqueKiV",
+          "start": 718,
+          "end": 733,
+          "symbol": "params[LateralTorqueKiV]",
+          "claim": "Descriptive UI min/max/default for LateralTorqueKiV; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "db958a988af92decafea2b488ec9d0534a84ffec5ee861ef747b4b7749c8b211"
+        },
+        {
+          "id": "K:parameter:LateralTorqueKf",
+          "start": 734,
+          "end": 749,
+          "symbol": "params[LateralTorqueKf]",
+          "claim": "Descriptive UI min/max/default for LateralTorqueKf; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "a3909a2a1c30f2865dea026e9e7180f416ab87c38a61f8d0509385c1905917fc"
+        },
+        {
+          "id": "K:parameter:LateralTorqueFriction",
+          "start": 686,
+          "end": 701,
+          "symbol": "params[LateralTorqueFriction]",
+          "claim": "Descriptive UI min/max/default for LateralTorqueFriction; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "206e214b9aa38c25f0081acb932f0819d8ca9b7222218f4ea2c891daa810bb52"
+        },
+        {
+          "id": "K:parameter:LateralTorqueAccelFactor",
+          "start": 670,
+          "end": 685,
+          "symbol": "params[LateralTorqueAccelFactor]",
+          "claim": "Descriptive UI min/max/default for LateralTorqueAccelFactor; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "01a4d209aa010c020038d561990b6e176ffbbecc000cbf7a954edd5542f4fdb7"
+        },
+        {
+          "id": "K:parameter:SteerRatioRate",
+          "start": 1072,
+          "end": 1088,
+          "symbol": "params[SteerRatioRate]",
+          "claim": "Descriptive UI min/max/default for SteerRatioRate; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "b971ebc4baa4011248b280487a3f11011ca7cda65b117ebe6f9686a158290643"
+        },
+        {
+          "id": "K:parameter:SteerActuatorDelay",
+          "start": 942,
+          "end": 957,
+          "symbol": "params[SteerActuatorDelay]",
+          "claim": "Descriptive UI min/max/default for SteerActuatorDelay; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "b2efc06e486a73cae32a1a77686413f3f37989142aa885c9bbe00d7d9448056c"
+        },
+        {
+          "id": "K:parameter:TurnSpeedControlMode",
+          "start": 3105,
+          "end": 3120,
+          "symbol": "params[TurnSpeedControlMode]",
+          "claim": "Descriptive UI min/max/default for TurnSpeedControlMode; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "fb36d9756473ba675f6744aab8a03038002ebe81ce9c01c9458acc5c58ff1e75"
+        },
+        {
+          "id": "K:parameter:AutoCurveSpeedFactor",
+          "start": 1334,
+          "end": 1350,
+          "symbol": "params[AutoCurveSpeedFactor]",
+          "claim": "Descriptive UI min/max/default for AutoCurveSpeedFactor; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "d7fe543a97e48c016ab71ba061be2e9761d9ed35299b5c93bf715110ee728b26"
+        },
+        {
+          "id": "K:parameter:ModelTurnSpeedFactor",
+          "start": 3138,
+          "end": 3153,
+          "symbol": "params[ModelTurnSpeedFactor]",
+          "claim": "Descriptive UI min/max/default for ModelTurnSpeedFactor; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "71e708130c143585c91ec17c4d57a3f5061d23aa2a9334d0c09df84b5b370303"
+        },
+        {
+          "id": "K:parameter:MapTurnSpeedFactor",
+          "start": 3121,
+          "end": 3137,
+          "symbol": "params[MapTurnSpeedFactor]",
+          "claim": "Descriptive UI min/max/default for MapTurnSpeedFactor; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "f7a8215cf0dfcc91a848302bdbd610b381fa8751d8f61c93d75abb3564eb1d0b"
+        },
+        {
+          "id": "K:parameter:AutoCurveSpeedLowerLimit",
+          "start": 2819,
+          "end": 2835,
+          "symbol": "params[AutoCurveSpeedLowerLimit]",
+          "claim": "Descriptive UI min/max/default for AutoCurveSpeedLowerLimit; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "8fdc5bb644fca13b46fd6290323fe7db20ec9be9012693e61c4f92bd1a1606be"
+        },
+        {
+          "id": "K:parameter:CruiseEcoControl",
+          "start": 1007,
+          "end": 1023,
+          "symbol": "params[CruiseEcoControl]",
+          "claim": "Descriptive UI min/max/default for CruiseEcoControl; no application safety approval.",
+          "confidence": "PROVEN",
+          "sha256": "588a4df2360e264e79664f6459f5d8d49d4b454b970fc042cddfdfc2f85bc337"
         }
       ]
     },

@@ -292,8 +292,9 @@ owner/policy/evidence gates stay closed. No next task starts in H1.
 
 ## Evidence index
 
-All 69 inspected ranges across 40 source/reference files are linked below. Supporting
-full-file hashes do not qualify unrelated service behavior.
+All 104 inspected ranges across 40 source/reference files are linked below,
+including 35 individual named catalog entries. Supporting full-file hashes do
+not qualify unrelated service behavior.
 
 - [H:telemetry](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot/server/features/autotune.py#L21-L145): _extract_telemetry_from_log (PROVEN).
 - [H:episodes](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot/server/features/autotune.py#L148-L284): _detect_key_episodes (HEURISTIC).
@@ -345,6 +346,41 @@ full-file hashes do not qualify unrelated service behavior.
 - [N:cost](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/controls/lib/longitudinal_planner.py#L270-L284): LongitudinalPlanner.update (PROVEN).
 - [K:linear](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/opendbc_repo/opendbc/car/interfaces.py#L593-L600): torque_from_lateral_accel_linear (PROVEN).
 - [K:settings](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1-L1): JSON catalog identity (PROVEN).
+- [K:parameter:CruiseMaxVals0](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1089-L1104): params[CruiseMaxVals0] (PROVEN).
+- [K:parameter:CruiseMaxVals1](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1105-L1120): params[CruiseMaxVals1] (PROVEN).
+- [K:parameter:CruiseMaxVals2](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1121-L1136): params[CruiseMaxVals2] (PROVEN).
+- [K:parameter:CruiseMaxVals3](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1137-L1152): params[CruiseMaxVals3] (PROVEN).
+- [K:parameter:CruiseMaxVals4](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1153-L1168): params[CruiseMaxVals4] (PROVEN).
+- [K:parameter:CruiseMaxVals5](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1169-L1184): params[CruiseMaxVals5] (PROVEN).
+- [K:parameter:CruiseMaxVals6](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1185-L1200): params[CruiseMaxVals6] (PROVEN).
+- [K:parameter:DynamicTFollow](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L2709-L2725): params[DynamicTFollow] (PROVEN).
+- [K:parameter:DynamicTFollowLC](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L2785-L2801): params[DynamicTFollowLC] (PROVEN).
+- [K:parameter:EnableSpeedTF](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L2769-L2784): params[EnableSpeedTF] (PROVEN).
+- [K:parameter:TFollowGap1](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L2645-L2660): params[TFollowGap1] (PROVEN).
+- [K:parameter:TFollowGap2](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L2661-L2676): params[TFollowGap2] (PROVEN).
+- [K:parameter:TFollowGap3](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L2677-L2692): params[TFollowGap3] (PROVEN).
+- [K:parameter:TFollowGap4](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L2693-L2708): params[TFollowGap4] (PROVEN).
+- [K:parameter:TFollowDecelBoost](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L2802-L2818): params[TFollowDecelBoost] (PROVEN).
+- [K:parameter:AChangeCostStarting](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1218-L1233): params[AChangeCostStarting] (PROVEN).
+- [K:parameter:LongTuningKpV](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1251-L1267): params[LongTuningKpV] (PROVEN).
+- [K:parameter:LongTuningKiV](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1285-L1301): params[LongTuningKiV] (PROVEN).
+- [K:parameter:LongTuningKf](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1268-L1284): params[LongTuningKf] (PROVEN).
+- [K:parameter:StoppingAccel](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L2836-L2851): params[StoppingAccel] (PROVEN).
+- [K:parameter:StopDistanceCarrot](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1201-L1217): params[StopDistanceCarrot] (PROVEN).
+- [K:parameter:LateralTorqueCustom](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L654-L669): params[LateralTorqueCustom] (PROVEN).
+- [K:parameter:LateralTorqueKpV](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L702-L717): params[LateralTorqueKpV] (PROVEN).
+- [K:parameter:LateralTorqueKiV](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L718-L733): params[LateralTorqueKiV] (PROVEN).
+- [K:parameter:LateralTorqueKf](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L734-L749): params[LateralTorqueKf] (PROVEN).
+- [K:parameter:LateralTorqueFriction](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L686-L701): params[LateralTorqueFriction] (PROVEN).
+- [K:parameter:LateralTorqueAccelFactor](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L670-L685): params[LateralTorqueAccelFactor] (PROVEN).
+- [K:parameter:SteerRatioRate](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1072-L1088): params[SteerRatioRate] (PROVEN).
+- [K:parameter:SteerActuatorDelay](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L942-L957): params[SteerActuatorDelay] (PROVEN).
+- [K:parameter:TurnSpeedControlMode](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L3105-L3120): params[TurnSpeedControlMode] (PROVEN).
+- [K:parameter:AutoCurveSpeedFactor](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1334-L1350): params[AutoCurveSpeedFactor] (PROVEN).
+- [K:parameter:ModelTurnSpeedFactor](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L3138-L3153): params[ModelTurnSpeedFactor] (PROVEN).
+- [K:parameter:MapTurnSpeedFactor](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L3121-L3137): params[MapTurnSpeedFactor] (PROVEN).
+- [K:parameter:AutoCurveSpeedLowerLimit](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L2819-L2835): params[AutoCurveSpeedLowerLimit] (PROVEN).
+- [K:parameter:CruiseEcoControl](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/selfdrive/carrot_settings.json#L1007-L1023): params[CruiseEcoControl] (PROVEN).
 - [K:keys](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/common/params_keys.h#L1-L1): Params key registry identity (PROVEN).
 - [Q:plan](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/openpilot/cereal/log.capnp#L1190-L1219): LongitudinalPlan (PROVEN).
 - [Q:car](https://github.com/ajouatom/openpilot/blob/0e9c589c1b83027146f909a9cdc306c2c665ceaf/opendbc_repo/opendbc/car/car.capnp#L183-L206): CarState (PROVEN).
