@@ -1,0 +1,1885 @@
+{
+  "schema_version": 1,
+  "scope": "AUDIT_DESIGN_ONLY",
+  "pins": {
+    "runtime": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+    "current": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+    "hoya": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+    "pr9": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5"
+  },
+  "integration": "7a2f051b1f3847786318900444c88c2ba7a74a67",
+  "base": "66f4b79036560a11e7020af9cc214118dcbd4fba",
+  "pr11_merge": {
+    "merged_at": "2026-10-29T02:14:04Z",
+    "parents": [
+      "dd1d4232f3d151fe9bbf0808c1fbe5131618b09a",
+      "ea79157035e9c92076f3996cb5f4b65dbd8832a8"
+    ],
+    "ancestor": true,
+    "tree_equality": true
+  },
+  "preserved_prs": {
+    "8": "e4361678ed176cbd7c0bb6f838d3daa7174caf22",
+    "9": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5"
+  },
+  "files": [
+    {
+      "id": "current:opendbc_repo/opendbc/car/__init__.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "git_blob_sha": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "line_count": 443
+    },
+    {
+      "id": "current:opendbc_repo/opendbc/car/car.capnp",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "git_blob_sha": "9a4df1956e204054311ec999be6173a101f6ffc0",
+      "sha256": "490441669fd68462b1f59bcaf59d802b23437ce022430d19cb14a4e09f998131",
+      "line_count": 900
+    },
+    {
+      "id": "current:opendbc_repo/opendbc/car/gm/interface.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/gm/interface.py",
+      "git_blob_sha": "a3a8c401d6e5f3234013905dcbc1eade4253331c",
+      "sha256": "b6c32ab75b126f2ada730033d166c071a2e1fc8835e402b09daa2d5ce7873008",
+      "line_count": 399
+    },
+    {
+      "id": "current:opendbc_repo/opendbc/car/hyundai/carcontroller.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/hyundai/carcontroller.py",
+      "git_blob_sha": "8c9593b289d71023ea2c52f966642d9f07cd2991",
+      "sha256": "285fea414f09d7d09c9984ca33e7d80a2495247ba81da1d5fa8b50aad4d42179",
+      "line_count": 930
+    },
+    {
+      "id": "current:opendbc_repo/opendbc/car/hyundai/interface.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/hyundai/interface.py",
+      "git_blob_sha": "69026b53ab17e3884953c63df09b9eea94dac089",
+      "sha256": "8efd085dba3f4293448ccca6c7d9241000a2892b384ec1f892c58ba3f534deed",
+      "line_count": 323
+    },
+    {
+      "id": "current:opendbc_repo/opendbc/car/interfaces.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "git_blob_sha": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "line_count": 690
+    },
+    {
+      "id": "current:opendbc_repo/opendbc/car/lateral.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/lateral.py",
+      "git_blob_sha": "3e0cd5a51cdf6f472948134fbb28d374c3201892",
+      "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d",
+      "line_count": 205
+    },
+    {
+      "id": "current:opendbc_repo/opendbc/car/lateral_geometry.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/lateral_geometry.py",
+      "git_blob_sha": "0cb43efd004e3a02a2d7e1437cbeaa142d915a5b",
+      "sha256": "f8691383a1c3bc5eeb6318c02ceee3430fd896fdb98cab0c917b2519ceb4472a",
+      "line_count": 45
+    },
+    {
+      "id": "current:opendbc_repo/opendbc/car/vehicle_model.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "git_blob_sha": "a2260e2259416acfdd81a3612a311ed5358ac425",
+      "sha256": "00fbe6da9b17723932988e5b3be5e29a2302296e0bcdaf914154906c6162489b",
+      "line_count": 240
+    },
+    {
+      "id": "current:openpilot/cereal/log.capnp",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/cereal/log.capnp",
+      "git_blob_sha": "609cb5892185f11cb0ee6d2e91c081170d40d7e9",
+      "sha256": "0d546ea5f37bc26a16f71ae0433a9a617728c78d77de872c1d327a10cf0fe1db",
+      "line_count": 2812
+    },
+    {
+      "id": "current:openpilot/cereal/messaging/__init__.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/cereal/messaging/__init__.py",
+      "git_blob_sha": "6601c14904cbfa2ec374a39e09bad003b5aac257",
+      "sha256": "bb10c4a88e694d7c4e2fa500b92c6d8a9474363297afda3cfba880eea146ad68",
+      "line_count": 323
+    },
+    {
+      "id": "current:openpilot/cereal/services.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/cereal/services.py",
+      "git_blob_sha": "2b6d3e0b36341e7b30ce179d72744354c809a43f",
+      "sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1",
+      "line_count": 152
+    },
+    {
+      "id": "current:openpilot/common/filter_simple.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/filter_simple.py",
+      "git_blob_sha": "127888857c11bdab9c27181c7763654be9be7e90",
+      "sha256": "38d315a00635c4093cf6cbc3ed46a90d0f1708daf7662cba8a00d069c20dbfb3",
+      "line_count": 68
+    },
+    {
+      "id": "current:openpilot/common/params.cc",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/params.cc",
+      "git_blob_sha": "6af00fe95c0109e8cf43f645a9f52e73672058b9",
+      "sha256": "2947645ca30b57d23feeace0e88bead5709c1681dc21359fb1e5a225ca63b187",
+      "line_count": 242
+    },
+    {
+      "id": "current:openpilot/common/params_keys.h",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/params_keys.h",
+      "git_blob_sha": "5583afd70bfbd215869e3ee92412e8b750c9fde7",
+      "sha256": "9215b2beddc787ea26ce7c94769b4997f047e6880911c4f1dd9cc2c5b9eb171c",
+      "line_count": 436
+    },
+    {
+      "id": "current:openpilot/selfdrive/carrot/server/services/params.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/carrot/server/services/params.py",
+      "git_blob_sha": "f170137363da3357d2fead1f0442f5fe2af846d5",
+      "sha256": "a1065ee80c2feb835a864b5263e13c195744b5b69af110e35291e049d15bb507",
+      "line_count": 1366
+    },
+    {
+      "id": "current:openpilot/selfdrive/carrot_settings.json",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "git_blob_sha": "1d281b518bbaf321cce148fbcc0a6ca3432afc3c",
+      "sha256": "f235f2ec0b71be3190f0cb285f3c398c9da986933526961beae7b8a1f79cb6f0",
+      "line_count": 4500
+    },
+    {
+      "id": "current:openpilot/selfdrive/controls/controlsd.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "git_blob_sha": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d",
+      "line_count": 481
+    },
+    {
+      "id": "current:openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "git_blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "line_count": 307
+    },
+    {
+      "id": "current:openpilot/selfdrive/controls/tests/test_torqued_lat_accel_offset.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/tests/test_torqued_lat_accel_offset.py",
+      "git_blob_sha": "934eccd8c5cbc47a479b74e82afe86b9a3d91661",
+      "sha256": "b8e92481091a4c9aa53e7fd9190a44993e7f5acf9db646267cb506a9597d33b1",
+      "line_count": 70
+    },
+    {
+      "id": "current:openpilot/selfdrive/locationd/helpers.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/locationd/helpers.py",
+      "git_blob_sha": "fe7930c509f7d1cac7b234ea8e8cf9ebea2f069a",
+      "sha256": "a220a8fd710a390bde4ba5ed6d58315ce52fd769f0bdd5dddc55bb493a1cdfff",
+      "line_count": 183
+    },
+    {
+      "id": "current:openpilot/selfdrive/locationd/paramsd.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/locationd/paramsd.py",
+      "git_blob_sha": "4770cdda323e3d24165ab7ced3e1220b1b10b78a",
+      "sha256": "a02c430b5e7d59b70f265bd34d01b5ca2045d6a234b262f477d8c92ae58a8765",
+      "line_count": 352
+    },
+    {
+      "id": "current:openpilot/selfdrive/locationd/torqued.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "git_blob_sha": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "line_count": 280
+    },
+    {
+      "id": "current:openpilot/system/manager/process_config.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/system/manager/process_config.py",
+      "git_blob_sha": "e2d08455917daea095fe128aa5182ceea95f01ff",
+      "sha256": "5c881a28c4c368f055452d778b256cb20c63ffcdca82ee8e4353ac69022cf7e6",
+      "line_count": 201
+    },
+    {
+      "id": "hoya:openpilot/selfdrive/carrot/server/features/autotune.py",
+      "repository": "ajouatom/openpilot",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/server/features/autotune.py",
+      "git_blob_sha": "2f028090d00fafc13599713d09adc04c7bb36142",
+      "sha256": "9bba5adc0e25fc54164e88a62654494cc5f830270190192464d87d915e543d14",
+      "line_count": 607
+    },
+    {
+      "id": "pr9:docs/steering_application_contract.md",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "exact_revision": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+      "path": "docs/steering_application_contract.md",
+      "git_blob_sha": "6942582c190f9f74b013e1a0a23dbc986e2e8693",
+      "sha256": "d1076595096286501b6169b8360686c4929426fab1f9dcbdfb646c5f2c37d151",
+      "line_count": 149
+    },
+    {
+      "id": "pr9:docs/steering_application_design.md",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "exact_revision": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+      "path": "docs/steering_application_design.md",
+      "git_blob_sha": "319fb4f3c8a5bb40b358bf1caf976887d5cd05b2",
+      "sha256": "ed1beaf8b1ec567d0a0f717802fde004dad35e6024f4dd47998f31a477cd8f73",
+      "line_count": 142
+    },
+    {
+      "id": "pr9:src/cyberpilot_autotune/application/contracts.py",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "exact_revision": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+      "path": "src/cyberpilot_autotune/application/contracts.py",
+      "git_blob_sha": "13e36c20989ade27a7ec6c2f1c0f31647880b3bd",
+      "sha256": "c6dc619468f3c7f3209bd7383e8ecc8c4c2134e7bb09dbd26c7a4df1814989d6",
+      "line_count": 290
+    },
+    {
+      "id": "pr9:src/cyberpilot_autotune/application/coordinator.py",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "exact_revision": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+      "path": "src/cyberpilot_autotune/application/coordinator.py",
+      "git_blob_sha": "b71aedc8cc5c546b1f677a53b3a8959be9e4599a",
+      "sha256": "7a95709d7a08cabffea3e5ecf23db3c400677d199936ecf37052f9106253c8f3",
+      "line_count": 453
+    },
+    {
+      "id": "pr9:src/cyberpilot_autotune/application/cyberpilot.py",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "exact_revision": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+      "path": "src/cyberpilot_autotune/application/cyberpilot.py",
+      "git_blob_sha": "d7f72a1131a5ebf7758c9b3f062a130d9964b6be",
+      "sha256": "8dca0085cc30421279f81ec87e767e943d9f691f912a09bc24880c93fda33c54",
+      "line_count": 63
+    },
+    {
+      "id": "pr9:src/cyberpilot_autotune/application/ports.py",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "exact_revision": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+      "path": "src/cyberpilot_autotune/application/ports.py",
+      "git_blob_sha": "6dc2f42bb0028c4112b522e3db7b9ae1f69d61df",
+      "sha256": "985548c49662455f0b2814ad2c6203387aee719c6f5d9153cd0a8d48d04a593c",
+      "line_count": 32
+    },
+    {
+      "id": "pr9:src/cyberpilot_autotune/contracts/parameter.py",
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "exact_revision": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+      "path": "src/cyberpilot_autotune/contracts/parameter.py",
+      "git_blob_sha": "00e415de38e31f3cf1c91a5beae8636a5df3cb56",
+      "sha256": "4808908ad42f15ab13634f8e2887f3bfd8b12a115b1349ff48709a22a7730319",
+      "line_count": 37
+    },
+    {
+      "id": "runtime:opendbc_repo/opendbc/car/__init__.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "git_blob_sha": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "line_count": 443
+    },
+    {
+      "id": "runtime:opendbc_repo/opendbc/car/car.capnp",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/car.capnp",
+      "git_blob_sha": "ee6b4fda19e2cdc6695757c1f690d05e9af85526",
+      "sha256": "5b8a0b8a5eb89d663025b46e453a36521f47954249de6a0553e013f3739baba0",
+      "line_count": 1017
+    },
+    {
+      "id": "runtime:opendbc_repo/opendbc/car/gm/interface.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/gm/interface.py",
+      "git_blob_sha": "a3a8c401d6e5f3234013905dcbc1eade4253331c",
+      "sha256": "b6c32ab75b126f2ada730033d166c071a2e1fc8835e402b09daa2d5ce7873008",
+      "line_count": 399
+    },
+    {
+      "id": "runtime:opendbc_repo/opendbc/car/hyundai/carcontroller.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/hyundai/carcontroller.py",
+      "git_blob_sha": "8c9593b289d71023ea2c52f966642d9f07cd2991",
+      "sha256": "285fea414f09d7d09c9984ca33e7d80a2495247ba81da1d5fa8b50aad4d42179",
+      "line_count": 930
+    },
+    {
+      "id": "runtime:opendbc_repo/opendbc/car/hyundai/interface.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/hyundai/interface.py",
+      "git_blob_sha": "69026b53ab17e3884953c63df09b9eea94dac089",
+      "sha256": "8efd085dba3f4293448ccca6c7d9241000a2892b384ec1f892c58ba3f534deed",
+      "line_count": 323
+    },
+    {
+      "id": "runtime:opendbc_repo/opendbc/car/interfaces.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "git_blob_sha": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "line_count": 690
+    },
+    {
+      "id": "runtime:opendbc_repo/opendbc/car/lateral.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/lateral.py",
+      "git_blob_sha": "3e0cd5a51cdf6f472948134fbb28d374c3201892",
+      "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d",
+      "line_count": 205
+    },
+    {
+      "id": "runtime:opendbc_repo/opendbc/car/vehicle_model.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/vehicle_model.py",
+      "git_blob_sha": "c7d0494be6d5f59684257dad119e620880d1950e",
+      "sha256": "f8ca23c2b85c2fc20d7e08271f2e692f26ae38a4fbadfcb621f9998cb65ea39e",
+      "line_count": 229
+    },
+    {
+      "id": "runtime:openpilot/cereal/log.capnp",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/cereal/log.capnp",
+      "git_blob_sha": "9c5cebe0eaa6fbfa077e9e8bfd0b5161367ef862",
+      "sha256": "7d5c19cc2a534fb6918ba51d393eff288f096b68b6c13fd5608c46d17454ba35",
+      "line_count": 2814
+    },
+    {
+      "id": "runtime:openpilot/cereal/messaging/__init__.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/cereal/messaging/__init__.py",
+      "git_blob_sha": "6601c14904cbfa2ec374a39e09bad003b5aac257",
+      "sha256": "bb10c4a88e694d7c4e2fa500b92c6d8a9474363297afda3cfba880eea146ad68",
+      "line_count": 323
+    },
+    {
+      "id": "runtime:openpilot/cereal/services.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/cereal/services.py",
+      "git_blob_sha": "2b6d3e0b36341e7b30ce179d72744354c809a43f",
+      "sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1",
+      "line_count": 152
+    },
+    {
+      "id": "runtime:openpilot/common/filter_simple.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/filter_simple.py",
+      "git_blob_sha": "127888857c11bdab9c27181c7763654be9be7e90",
+      "sha256": "38d315a00635c4093cf6cbc3ed46a90d0f1708daf7662cba8a00d069c20dbfb3",
+      "line_count": 68
+    },
+    {
+      "id": "runtime:openpilot/common/params.cc",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/params.cc",
+      "git_blob_sha": "6af00fe95c0109e8cf43f645a9f52e73672058b9",
+      "sha256": "2947645ca30b57d23feeace0e88bead5709c1681dc21359fb1e5a225ca63b187",
+      "line_count": 242
+    },
+    {
+      "id": "runtime:openpilot/common/params_keys.h",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/params_keys.h",
+      "git_blob_sha": "0a5285bcf0d1f292919a20d07ae319497dc86be4",
+      "sha256": "8c440512d6ed414719d3b28902782d54ca77fa8bdfc01c0521b2aaa586121cd5",
+      "line_count": 433
+    },
+    {
+      "id": "runtime:openpilot/selfdrive/carrot/server/services/params.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/carrot/server/services/params.py",
+      "git_blob_sha": "c47770c7a9ac50dbcffda24714f8edcf3849e6a3",
+      "sha256": "c03e5bde751399103cb6926269b172f45a99175cba9f1dc4ae02917675f8c9a4",
+      "line_count": 1363
+    },
+    {
+      "id": "runtime:openpilot/selfdrive/carrot_settings.json",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "git_blob_sha": "b7e044a72f6acd254c82c88be8b4878f65237b93",
+      "sha256": "3ea7477fd615c4cac0f26c2964664194ba245ce3e9b658a0f30ef619784ed8d6",
+      "line_count": 4455
+    },
+    {
+      "id": "runtime:openpilot/selfdrive/controls/controlsd.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "git_blob_sha": "2378902ba077177b96dfb57f010e06c388241213",
+      "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
+      "line_count": 480
+    },
+    {
+      "id": "runtime:openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "git_blob_sha": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49",
+      "line_count": 310
+    },
+    {
+      "id": "runtime:openpilot/selfdrive/controls/tests/test_torqued_lat_accel_offset.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/tests/test_torqued_lat_accel_offset.py",
+      "git_blob_sha": "934eccd8c5cbc47a479b74e82afe86b9a3d91661",
+      "sha256": "b8e92481091a4c9aa53e7fd9190a44993e7f5acf9db646267cb506a9597d33b1",
+      "line_count": 70
+    },
+    {
+      "id": "runtime:openpilot/selfdrive/locationd/helpers.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/locationd/helpers.py",
+      "git_blob_sha": "fe7930c509f7d1cac7b234ea8e8cf9ebea2f069a",
+      "sha256": "a220a8fd710a390bde4ba5ed6d58315ce52fd769f0bdd5dddc55bb493a1cdfff",
+      "line_count": 183
+    },
+    {
+      "id": "runtime:openpilot/selfdrive/locationd/paramsd.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/locationd/paramsd.py",
+      "git_blob_sha": "a17c7c2c013ee0a5d29b2e1d877fbd4d070c5207",
+      "sha256": "d973bcb4ed39f4828af09b8edf830450ec0e938adef90d76ac6ab59fec3d428b",
+      "line_count": 326
+    },
+    {
+      "id": "runtime:openpilot/selfdrive/locationd/torqued.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "git_blob_sha": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "line_count": 280
+    },
+    {
+      "id": "runtime:openpilot/system/manager/process_config.py",
+      "repository": "rownlvh8875-coder/openpilot",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/system/manager/process_config.py",
+      "git_blob_sha": "e2d08455917daea095fe128aa5182ceea95f01ff",
+      "sha256": "5c881a28c4c368f055452d778b256cb20c63ffcdca82ee8e4353ac69022cf7e6",
+      "line_count": 201
+    }
+  ],
+  "claims": [
+    {
+      "id": "current:buckets",
+      "file_id": "current:openpilot/selfdrive/locationd/helpers.py",
+      "symbol": "PointBuckets",
+      "range_start": 70,
+      "range_end": 105,
+      "source_range_sha256": "aea8a717592798e14914f26bdaf940fe99687ba9f63bff0f1df938b6bf02c17b",
+      "semantic_claim": "Calculable and valid sample-bucket requirements differ; source thresholds are estimator heuristics, not application bounds.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:callback-init",
+      "file_id": "current:opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "CarInterfaceBase.__init__",
+      "range_start": 297,
+      "range_end": 316,
+      "source_range_sha256": "58274e59a1635319518b92ff17f296806b39129f82e79b7f78a9fbad9d899ffe",
+      "semantic_claim": "NN support/model and settings select full NN or NN-lite at interface construction; these are separate from per-frame model_good fallback.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:controller-compute",
+      "file_id": "current:openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update",
+      "range_start": 142,
+      "range_end": 307,
+      "source_range_sha256": "dd9a614bea1a1eb0541c3db10cea9377f94f88d6877e4cc9d5a2612973dcacaf",
+      "semantic_claim": "Every-ten-frame custom sampling precedes calculation, after controlsd live setter. Full NN, NN fallback and NN-lite have different coefficient roles. No effective tuple/revision is returned.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:controller-init",
+      "file_id": "current:openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.__init__",
+      "range_start": 69,
+      "range_end": 131,
+      "source_range_sha256": "62d3dadf216e13f7309f3c5f3e6f1078b9e294c11bab96a3d9a5417c7fe67506",
+      "semantic_claim": "CP tuple becomes a mutable controller builder; custom selector and NN flags/callback are captured, with CP defaults preserved internally.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:controlsd-frame",
+      "file_id": "current:openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.state_control",
+      "range_start": 116,
+      "range_end": 279,
+      "source_range_sha256": "5fe2a0568f57276b7f83c9b7516c1d5c05df0e0b8cf4cc61343b1956ac3cf54a",
+      "semantic_claim": "All-checks/useParams gates forward three filtered live fields before controller update; there is no liveValid check here. Custom may overwrite later in the same call.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:controlsd-init",
+      "file_id": "current:openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.__init__",
+      "range_start": 58,
+      "range_end": 106,
+      "source_range_sha256": "9d88cbc3f5b047920f2ad9008a149388008345064c1bae8d52dda80c65eca82e",
+      "semantic_claim": "CarParams selects angle/PID/torque; a generic brand or topic name alone does not establish active torque mode.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:controlsd-loop",
+      "file_id": "current:openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.run",
+      "range_start": 463,
+      "range_end": 469,
+      "source_range_sha256": "536a21782f8d560dd791bbca162a02f63b0af08f0bb907b201fe3645ce307c7b",
+      "semantic_claim": "Control loop updates subscriptions, calculates and publishes in order at nominal 100 Hz. No PR9 watchdog invocation is supplied.",
+      "category": "watchdog",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:controlsd-publish",
+      "file_id": "current:openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.publish",
+      "range_start": 281,
+      "range_end": 461,
+      "source_range_sha256": "0842e78accd8f79f37093c2ca83d483124a26f59ec7d47430bc3f8827e6ceadd",
+      "semantic_claim": "Controls/carControl telemetry describes calculations/actuators, not an independently versioned effective parameter tuple.",
+      "category": "readback",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:cp-schema",
+      "file_id": "current:opendbc_repo/opendbc/car/car.capnp",
+      "symbol": "struct LateralTorqueTuning",
+      "range_start": 716,
+      "range_end": 725,
+      "source_range_sha256": "2b8ceaee644971260e8acea1846c02967e446b8129c66fb6133156fe72ca8e20",
+      "semantic_claim": "CP torque tuple fields are Float32 factor/friction/offset without owner/revision/epoch.",
+      "category": "readback",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:cp-seed",
+      "file_id": "current:opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "CarInterfaceBase.configure_torque_tune",
+      "range_start": 455,
+      "range_end": 466,
+      "source_range_sha256": "8024315d073c86939d218e9c546988d4b48e9e9567e046a98bc609fe74ea2a27",
+      "semantic_claim": "Torque tune is initialized from table factor/friction and offset zero. This is startup configuration, never a trusted application baseline.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:default-linear",
+      "file_id": "current:opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "CarInterfaceBase.torque_from_lateral_accel_linear",
+      "range_start": 411,
+      "range_end": 415,
+      "source_range_sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f",
+      "semantic_claim": "Default callback divides acceleration by factor and adds get_friction. It directly uses neither offset nor physical torque in Nm.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:default-select",
+      "file_id": "current:opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "CarInterfaceBase.torque_from_lateral_accel",
+      "range_start": 417,
+      "range_end": 418,
+      "source_range_sha256": "583c42ddf448e286c9b2702d18d8691f2f7e7e911b48b11f9514f72a7417a186",
+      "semantic_claim": "Base callback selects the linear implementation; overridden brand dispatch must be inspected separately.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:estimator-init",
+      "file_id": "current:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.__init__",
+      "range_start": 54,
+      "range_end": 124,
+      "source_range_sha256": "4471003830577893b5e8d1663741450f49b3b16a47c34bcdda1ff4dbee8f52ee",
+      "semantic_claim": "Estimator seeds from CP and optional matching cache; useParams depends on brand/tuning, not custom mode.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:estimator-main",
+      "file_id": "current:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "main",
+      "range_start": 245,
+      "range_end": 271,
+      "source_range_sha256": "7f33e3a8d24c3d719ab3aa223025c0f282d8e79b8cffa749adb3ad9dcc8db65c",
+      "semantic_claim": "Poll livePose; publish every fifth SubMaster frame; cache to Params every 240th frame. Custom selection does not stop this process.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:event-clock",
+      "file_id": "current:openpilot/cereal/messaging/__init__.py",
+      "symbol": "new_message",
+      "range_start": 42,
+      "range_end": 54,
+      "source_range_sha256": "18a429ebaa63993d075fca856d316ce51373d25448ade6e6833b90e50c25d568",
+      "semantic_claim": "Event logMonoTime uses monotonic publication creation, not a parameter commit timestamp/revision.",
+      "category": "readback",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:filter-update",
+      "file_id": "current:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.update_params",
+      "range_start": 159,
+      "range_end": 163,
+      "source_range_sha256": "e5c7cc97ec393f07b81316c0914ff99edd02fd62f19ec0425f1533bb47c3e9f5",
+      "semantic_claim": "Values update separate first-order filters; filter decay is not an effective tuple revision.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:first-order",
+      "file_id": "current:openpilot/common/filter_simple.py",
+      "symbol": "FirstOrderFilter",
+      "range_start": 4,
+      "range_end": 20,
+      "source_range_sha256": "72160f4a80b2c0dc8ed5cdf84246aab11f030f1f6c4534e45b3bfc9bb0f4c66b",
+      "semantic_claim": "First-order filter stores previous numeric state and updates alpha; it does not certify source age or ownership.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:fit",
+      "file_id": "current:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.estimate_params",
+      "range_start": 145,
+      "range_end": 157,
+      "source_range_sha256": "efa2cbfcc4a36b428c93f053afc47ed750c95f6c9a2fa40e02e0ddba5362ea09",
+      "semantic_claim": "TLS on [normalized returned torque,1,roll-corrected lateral acceleration] yields slope/intercept; friction is perpendicular spread times the source factor. No general normalized-torque equivalence follows.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:friction",
+      "file_id": "current:opendbc_repo/opendbc/car/__init__.py",
+      "symbol": "get_friction",
+      "range_start": 291,
+      "range_end": 299,
+      "source_range_sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c",
+      "semantic_claim": "Imported production helper applies center deadzone then signed interpolation between +/-friction when compensation is enabled.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:geometry",
+      "file_id": "current:opendbc_repo/opendbc/car/lateral_geometry.py",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 45,
+      "source_range_sha256": "f8691383a1c3bc5eeb6318c02ceee3430fd896fdb98cab0c917b2519ceb4472a",
+      "semantic_claim": "Requested CG geometry changes axle stiffness and model state under explicit source guards; not imported as approved application values.",
+      "category": "drift",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:gm-neural",
+      "file_id": "current:opendbc_repo/opendbc/car/gm/interface.py",
+      "symbol": "CarInterface.torque_from_lateral_accel_neural",
+      "range_start": 81,
+      "range_end": 87,
+      "source_range_sha256": "5a0f9feb1b556a4e395a8842ab1d23226a6b6de00e99a6c222eb89b47e79b809",
+      "semantic_claim": "GM neural prediction plus friction bypasses the base factor division and adjusts gravity input conditionally.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:gm-select",
+      "file_id": "current:opendbc_repo/opendbc/car/gm/interface.py",
+      "symbol": "CarInterface.torque_from_lateral_accel",
+      "range_start": 89,
+      "range_end": 98,
+      "source_range_sha256": "61726ceb2911738e675579c9d661951b6aa448eac6548a13c0031e2606a8af98",
+      "semantic_claim": "GM can select neural or siglin callbacks, so a generic torque tuning kind is not a proof of the base equation.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:gm-siglin",
+      "file_id": "current:opendbc_repo/opendbc/car/gm/interface.py",
+      "symbol": "CarInterface.torque_from_lateral_accel_siglin",
+      "range_start": 59,
+      "range_end": 79,
+      "source_range_sha256": "70d7a4fdeb186542ef47e8935fd995e4a0e42174b67cf18eb3df88a0dad53fe5",
+      "semantic_claim": "GM siglin uses fingerprint-specific nonlinear coefficients plus friction, not the generic factor denominator.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:health",
+      "file_id": "current:openpilot/cereal/messaging/__init__.py",
+      "symbol": "SubMaster.all_checks",
+      "range_start": 300,
+      "range_end": 301,
+      "source_range_sha256": "484ae04ed1e9db6a05385ae0e54111d3d163237ba275c761c006fc8317334fb1",
+      "semantic_claim": "all_checks combines alive, frequency and Event valid; it is not torque-estimate liveValid or effective-value readback.",
+      "category": "readback",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:hyundai",
+      "file_id": "current:opendbc_repo/opendbc/car/hyundai/interface.py",
+      "symbol": "CarInterface",
+      "range_start": 26,
+      "range_end": 293,
+      "source_range_sha256": "06b34e58be6d7d42d6121bcfbe61501baafe6ef6d704bfb6891bf22beb6d7c84",
+      "semantic_claim": "Hyundai inherits the base callback without a torque_from_lateral_accel override in this class; runtime NN/mode still must be attested.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:hyundai-output",
+      "file_id": "current:opendbc_repo/opendbc/car/hyundai/carcontroller.py",
+      "symbol": "CarController.update",
+      "range_start": 247,
+      "range_end": 678,
+      "source_range_sha256": "82147e78186d217be5026b4dc7cddcd07ee872074675a02c1c769b5a7d152b47",
+      "semantic_claim": "Requested normalized torque is scaled to integer controller authority and returned after controller limits in normalized form. No Nm or physical actuation proof.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:key-types",
+      "file_id": "current:openpilot/common/params_keys.h",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 436,
+      "source_range_sha256": "9215b2beddc787ea26ce7c94769b4997f047e6880911c4f1dd9cc2c5b9eb171c",
+      "semantic_claim": "Native settings distinguish integer mode/coefficients and persistent cache keys; no effective torque owner revision is supplied.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:live-setter",
+      "file_id": "current:openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update_live_torque_params",
+      "range_start": 134,
+      "range_end": 140,
+      "source_range_sha256": "fcc92cb040e249df3e63eebda4427e96bf162f1248b8e0cf25dd7e6b4fd2a3d9",
+      "semantic_claim": "Cached positive custom mode returns without update; otherwise sequentially assigns factor, offset and friction, without CAS acknowledgement.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:offset-test",
+      "file_id": "current:openpilot/selfdrive/controls/tests/test_torqued_lat_accel_offset.py",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 70,
+      "source_range_sha256": "b8e92481091a4c9aa53e7fd9190a44993e7f5acf9db646267cb506a9597d33b1",
+      "semantic_claim": "Synthetic source tests check offset bias and explicitly leave factor/friction accuracy as TODO; they do not qualify parameter identification.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:old-test-helper",
+      "file_id": "current:opendbc_repo/opendbc/car/lateral.py",
+      "symbol": "get_friction",
+      "range_start": 159,
+      "range_end": 166,
+      "source_range_sha256": "5d92161f29817e5ceb92b6f5a4a9b7592ccdd0fc5045f8e5f36059d6400d3eed",
+      "semantic_claim": "A similarly named friction helper is used by the old offset test. Production interfaces imports opendbc.car.get_friction; test import identity must not replace that trace.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:params-put",
+      "file_id": "current:openpilot/common/params.cc",
+      "symbol": "int Params::put(",
+      "range_start": 130,
+      "range_end": 167,
+      "source_range_sha256": "efdccc1e669492310af791f9213377e6ad84ca911b15a45c7d34454b21a06d4a",
+      "semantic_claim": "Params::put uses file lock/rename/fsync for a single key. It is not expected-revision CAS over the controller tuple.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:paramsd",
+      "file_id": "current:openpilot/selfdrive/locationd/paramsd.py",
+      "symbol": "VehicleParamsLearner",
+      "range_start": 34,
+      "range_end": 212,
+      "source_range_sha256": "fe1cb8b4740aa19b12030f866cbfe00a48e74696848e9f51672b2aa2b781bb48",
+      "semantic_claim": "Current upstream learner changes model geometry globals; torqued sensor-based fit formula itself remains unchanged.",
+      "category": "drift",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:processes",
+      "file_id": "current:openpilot/system/manager/process_config.py",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 201,
+      "source_range_sha256": "5c881a28c4c368f055452d778b256cb20c63ffcdca82ee8e4353ac69022cf7e6",
+      "semantic_claim": "torqued is only_onroad; controlsd uses started/iscar/not_joystick conditions. This lifecycle is not rollback/watchdog ownership.",
+      "category": "watchdog",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:publish",
+      "file_id": "current:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.get_msg",
+      "range_start": 207,
+      "range_end": 242,
+      "source_range_sha256": "bb16b3ce08d5384e53575e7a64d58f7d197be853f1c96cd9ec9de373dc23bf87",
+      "semantic_claim": "Raw/filtered Float32 estimates and validity are published; liveValid false does not necessarily invalidate the Event or clear old filters.",
+      "category": "readback",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:reset",
+      "file_id": "current:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.reset",
+      "range_start": 134,
+      "range_end": 143,
+      "source_range_sha256": "952f4270a6619fff4eac49413596bdfc4410f94e6f8476d5976e6a76f12dc84c",
+      "semantic_claim": "Reset recreates sample/history buckets and decay; it does not reinitialize existing filtered parameter values.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:restore-key",
+      "file_id": "current:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.get_restore_key",
+      "range_start": 127,
+      "range_end": 132,
+      "source_range_sha256": "76cd96f69674ea9b435418092eff83b2a31daa5e8ae6f4851eb7dc938765cc3e",
+      "semantic_claim": "Restore key binds fingerprint, tuning, offline factor/friction and estimator version, not an owner epoch or effective revision.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:sample-inputs",
+      "file_id": "current:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.handle_log",
+      "range_start": 165,
+      "range_end": 205,
+      "source_range_sha256": "ef62067528c8fd4e7ae80dc6113110a44cec08b617611a7764ae4a5a3429dd0a",
+      "semantic_claim": "Samples negative returned torque, yaw-rate times speed minus sin(roll)*g, interpolated across topic histories; excludes observed override under source fit gates.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:schema",
+      "file_id": "current:openpilot/cereal/log.capnp",
+      "symbol": "struct LiveTorqueParametersData",
+      "range_start": 2375,
+      "range_end": 2390,
+      "source_range_sha256": "14671356ec6065f0ba48451a2bde026f7f788d6bd2bdf48c610673aa4b37d809",
+      "semantic_claim": "Live torque fields are Raw/Filtered Float32, version Int32 and useParams/liveValid. Version is cache schema, not transactional revision.",
+      "category": "readback",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:services",
+      "file_id": "current:openpilot/cereal/services.py",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 152,
+      "source_range_sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1",
+      "semantic_claim": "Service metadata declares liveTorqueParameters 4 Hz, livePose 20 Hz and control state 100 Hz; actual loop scheduling is not guaranteed.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:settings-catalog",
+      "file_id": "current:openpilot/selfdrive/carrot_settings.json",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 4500,
+      "source_range_sha256": "f235f2ec0b71be3190f0cb285f3c398c9da986933526961beae7b8a1f79cb6f0",
+      "semantic_claim": "UI ranges/defaults describe integer settings; they never authorize vehicle bounds.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:settings-write",
+      "file_id": "current:openpilot/selfdrive/carrot/server/services/params.py",
+      "symbol": "set_param_value",
+      "range_start": 396,
+      "range_end": 411,
+      "source_range_sha256": "601aca703e8436abc3f27be340f550c0ce917d6f7c2d183d1e9b8dd11d36b674",
+      "semantic_claim": "Settings performs per-key typed storage writes, without synchronizing the effective controller tuple.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:torque-tables",
+      "file_id": "current:opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "get_torque_params",
+      "range_start": 69,
+      "range_end": 95,
+      "source_range_sha256": "d82749ea661995b65d3bc8d9d294001cfa9a655db8bf3e2b69de1513b8ce50fd",
+      "semantic_claim": "Tables/substitutions/overrides are read to select CP defaults; table labels do not qualify identified runtime parameters.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "current:vm",
+      "file_id": "current:opendbc_repo/opendbc/car/vehicle_model.py",
+      "symbol": "VehicleModel",
+      "range_start": 24,
+      "range_end": 159,
+      "source_range_sha256": "4c9d69ed6ae343bfb560d3b001e52e84fea10a7ff959b314a37d180a366c19fc",
+      "semantic_claim": "VM curvature depends on vehicle geometry/learned parameters. Current upstream adds live geometry; c213 does not.",
+      "category": "drift",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "hoya:apply",
+      "file_id": "hoya:openpilot/selfdrive/carrot/server/features/autotune.py",
+      "symbol": "api_autotune_apply_params",
+      "range_start": 484,
+      "range_end": 549,
+      "source_range_sha256": "1f533d93d9845e9f0a6567b713cd3408b50aaebefb6315b596cb2ba53e722dd1",
+      "semantic_claim": "Apply reads prior stored values then loops per key with UI clamping, records engaged=False and returns rollback snapshot. It has no effective-tuple CAS/readback/watchdog.",
+      "category": "comparison",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "pr9:contract-doc",
+      "file_id": "pr9:docs/steering_application_contract.md",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 149,
+      "source_range_sha256": "d1076595096286501b6169b8360686c4929426fab1f9dcbdfb646c5f2c37d151",
+      "semantic_claim": "Existing contract explicitly leaves ownership, friction equivalence, identification, vehicle bounds and watchdog guarantees unresolved.",
+      "category": "acceptance",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "pr9:contracts",
+      "file_id": "pr9:src/cyberpilot_autotune/application/contracts.py",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 290,
+      "source_range_sha256": "c6dc619468f3c7f3209bd7383e8ecc8c4c2134e7bb09dbd26c7a4df1814989d6",
+      "semantic_claim": "Policy/snapshot/request/evidence bind identity, epoch, time, source and revision; offset is not tunable.",
+      "category": "acceptance",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "pr9:coordinator",
+      "file_id": "pr9:src/cyberpilot_autotune/application/coordinator.py",
+      "symbol": "BoundedSteeringApplicator",
+      "range_start": 33,
+      "range_end": 453,
+      "source_range_sha256": "876b1c01dbb657e2ecccd100153128435728ede2dcf3aafa83262acb125e92c1",
+      "semantic_claim": "Commit ack is followed by independent readback; recovery refuses foreign/unknown revision and watchdog is caller-driven, non-preemptive.",
+      "category": "acceptance",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "pr9:design-doc",
+      "file_id": "pr9:docs/steering_application_design.md",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 142,
+      "source_range_sha256": "ed1beaf8b1ec567d0a0f717802fde004dad35e6024f4dd47998f31a477cd8f73",
+      "semantic_claim": "Existing design separates shared application transactions from independently qualified Carrot owners and scientific evidence.",
+      "category": "acceptance",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "pr9:parameter-spec",
+      "file_id": "pr9:src/cyberpilot_autotune/contracts/parameter.py",
+      "symbol": "ParameterSpec",
+      "range_start": 14,
+      "range_end": 37,
+      "source_range_sha256": "ff8b98548d313a722bbc903368c88ef823b368f83ef00e17fb02289e0ace5b9c",
+      "semantic_claim": "Units are a required caller-supplied string, not a qualified built-in vehicle unit registry.",
+      "category": "acceptance",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "pr9:ports",
+      "file_id": "pr9:src/cyberpilot_autotune/application/ports.py",
+      "symbol": "SteeringTarget",
+      "range_start": 9,
+      "range_end": 19,
+      "source_range_sha256": "5f569f0353d7fcdd08060663366462f7433426b3d4adff0adc7a0b5c7eb83997",
+      "semantic_claim": "Target contract requires owner-thread fresh snapshot and atomic complete selected tuple expected-revision commit, ack exactly +1.",
+      "category": "acceptance",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "pr9:research",
+      "file_id": "pr9:src/cyberpilot_autotune/application/cyberpilot.py",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 63,
+      "source_range_sha256": "8dca0085cc30421279f81ec87e767e943d9f691f912a09bc24880c93fda33c54",
+      "semantic_claim": "Research reports remain RESEARCH_ONLY; recognized exports do not retain/convert numerical estimates or authorize application.",
+      "category": "acceptance",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:buckets",
+      "file_id": "runtime:openpilot/selfdrive/locationd/helpers.py",
+      "symbol": "PointBuckets",
+      "range_start": 70,
+      "range_end": 105,
+      "source_range_sha256": "aea8a717592798e14914f26bdaf940fe99687ba9f63bff0f1df938b6bf02c17b",
+      "semantic_claim": "Calculable and valid sample-bucket requirements differ; source thresholds are estimator heuristics, not application bounds.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:callback-init",
+      "file_id": "runtime:opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "CarInterfaceBase.__init__",
+      "range_start": 297,
+      "range_end": 316,
+      "source_range_sha256": "58274e59a1635319518b92ff17f296806b39129f82e79b7f78a9fbad9d899ffe",
+      "semantic_claim": "NN support/model and settings select full NN or NN-lite at interface construction; these are separate from per-frame model_good fallback.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:controller-compute",
+      "file_id": "runtime:openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update",
+      "range_start": 143,
+      "range_end": 310,
+      "source_range_sha256": "8930581509973e7a2342b96dd320b5c30670c6cd8bf55fca7437c260638e3448",
+      "semantic_claim": "Every-ten-frame custom sampling precedes calculation, after controlsd live setter. Full NN, NN fallback and NN-lite have different coefficient roles. No effective tuple/revision is returned.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:controller-init",
+      "file_id": "runtime:openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.__init__",
+      "range_start": 70,
+      "range_end": 132,
+      "source_range_sha256": "62d3dadf216e13f7309f3c5f3e6f1078b9e294c11bab96a3d9a5417c7fe67506",
+      "semantic_claim": "CP tuple becomes a mutable controller builder; custom selector and NN flags/callback are captured, with CP defaults preserved internally.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:controlsd-frame",
+      "file_id": "runtime:openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.state_control",
+      "range_start": 119,
+      "range_end": 286,
+      "source_range_sha256": "103243c0eab5222733320364e58bef4ec9b0ab0d390a54506c75b557a38f8fd6",
+      "semantic_claim": "All-checks/useParams gates forward three filtered live fields before controller update; there is no liveValid check here. Custom may overwrite later in the same call.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:controlsd-init",
+      "file_id": "runtime:openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.__init__",
+      "range_start": 61,
+      "range_end": 109,
+      "source_range_sha256": "9d88cbc3f5b047920f2ad9008a149388008345064c1bae8d52dda80c65eca82e",
+      "semantic_claim": "CarParams selects angle/PID/torque; a generic brand or topic name alone does not establish active torque mode.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:controlsd-loop",
+      "file_id": "runtime:openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.run",
+      "range_start": 462,
+      "range_end": 468,
+      "source_range_sha256": "536a21782f8d560dd791bbca162a02f63b0af08f0bb907b201fe3645ce307c7b",
+      "semantic_claim": "Control loop updates subscriptions, calculates and publishes in order at nominal 100 Hz. No PR9 watchdog invocation is supplied.",
+      "category": "watchdog",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:controlsd-publish",
+      "file_id": "runtime:openpilot/selfdrive/controls/controlsd.py",
+      "symbol": "Controls.publish",
+      "range_start": 288,
+      "range_end": 460,
+      "source_range_sha256": "60f3770d3230e3b2da458c917b07e9fed28a0f846ab9c6557d6f242980de4be9",
+      "semantic_claim": "Controls/carControl telemetry describes calculations/actuators, not an independently versioned effective parameter tuple.",
+      "category": "readback",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:cp-schema",
+      "file_id": "runtime:opendbc_repo/opendbc/car/car.capnp",
+      "symbol": "struct LateralTorqueTuning",
+      "range_start": 833,
+      "range_end": 842,
+      "source_range_sha256": "2b8ceaee644971260e8acea1846c02967e446b8129c66fb6133156fe72ca8e20",
+      "semantic_claim": "CP torque tuple fields are Float32 factor/friction/offset without owner/revision/epoch.",
+      "category": "readback",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:cp-seed",
+      "file_id": "runtime:opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "CarInterfaceBase.configure_torque_tune",
+      "range_start": 455,
+      "range_end": 466,
+      "source_range_sha256": "8024315d073c86939d218e9c546988d4b48e9e9567e046a98bc609fe74ea2a27",
+      "semantic_claim": "Torque tune is initialized from table factor/friction and offset zero. This is startup configuration, never a trusted application baseline.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:default-linear",
+      "file_id": "runtime:opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "CarInterfaceBase.torque_from_lateral_accel_linear",
+      "range_start": 411,
+      "range_end": 415,
+      "source_range_sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f",
+      "semantic_claim": "Default callback divides acceleration by factor and adds get_friction. It directly uses neither offset nor physical torque in Nm.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:default-select",
+      "file_id": "runtime:opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "CarInterfaceBase.torque_from_lateral_accel",
+      "range_start": 417,
+      "range_end": 418,
+      "source_range_sha256": "583c42ddf448e286c9b2702d18d8691f2f7e7e911b48b11f9514f72a7417a186",
+      "semantic_claim": "Base callback selects the linear implementation; overridden brand dispatch must be inspected separately.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:estimator-init",
+      "file_id": "runtime:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.__init__",
+      "range_start": 54,
+      "range_end": 124,
+      "source_range_sha256": "4471003830577893b5e8d1663741450f49b3b16a47c34bcdda1ff4dbee8f52ee",
+      "semantic_claim": "Estimator seeds from CP and optional matching cache; useParams depends on brand/tuning, not custom mode.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:estimator-main",
+      "file_id": "runtime:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "main",
+      "range_start": 245,
+      "range_end": 271,
+      "source_range_sha256": "7f33e3a8d24c3d719ab3aa223025c0f282d8e79b8cffa749adb3ad9dcc8db65c",
+      "semantic_claim": "Poll livePose; publish every fifth SubMaster frame; cache to Params every 240th frame. Custom selection does not stop this process.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:event-clock",
+      "file_id": "runtime:openpilot/cereal/messaging/__init__.py",
+      "symbol": "new_message",
+      "range_start": 42,
+      "range_end": 54,
+      "source_range_sha256": "18a429ebaa63993d075fca856d316ce51373d25448ade6e6833b90e50c25d568",
+      "semantic_claim": "Event logMonoTime uses monotonic publication creation, not a parameter commit timestamp/revision.",
+      "category": "readback",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:filter-update",
+      "file_id": "runtime:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.update_params",
+      "range_start": 159,
+      "range_end": 163,
+      "source_range_sha256": "e5c7cc97ec393f07b81316c0914ff99edd02fd62f19ec0425f1533bb47c3e9f5",
+      "semantic_claim": "Values update separate first-order filters; filter decay is not an effective tuple revision.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:first-order",
+      "file_id": "runtime:openpilot/common/filter_simple.py",
+      "symbol": "FirstOrderFilter",
+      "range_start": 4,
+      "range_end": 20,
+      "source_range_sha256": "72160f4a80b2c0dc8ed5cdf84246aab11f030f1f6c4534e45b3bfc9bb0f4c66b",
+      "semantic_claim": "First-order filter stores previous numeric state and updates alpha; it does not certify source age or ownership.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:fit",
+      "file_id": "runtime:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.estimate_params",
+      "range_start": 145,
+      "range_end": 157,
+      "source_range_sha256": "efa2cbfcc4a36b428c93f053afc47ed750c95f6c9a2fa40e02e0ddba5362ea09",
+      "semantic_claim": "TLS on [normalized returned torque,1,roll-corrected lateral acceleration] yields slope/intercept; friction is perpendicular spread times the source factor. No general normalized-torque equivalence follows.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:friction",
+      "file_id": "runtime:opendbc_repo/opendbc/car/__init__.py",
+      "symbol": "get_friction",
+      "range_start": 291,
+      "range_end": 299,
+      "source_range_sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c",
+      "semantic_claim": "Imported production helper applies center deadzone then signed interpolation between +/-friction when compensation is enabled.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:gm-neural",
+      "file_id": "runtime:opendbc_repo/opendbc/car/gm/interface.py",
+      "symbol": "CarInterface.torque_from_lateral_accel_neural",
+      "range_start": 81,
+      "range_end": 87,
+      "source_range_sha256": "5a0f9feb1b556a4e395a8842ab1d23226a6b6de00e99a6c222eb89b47e79b809",
+      "semantic_claim": "GM neural prediction plus friction bypasses the base factor division and adjusts gravity input conditionally.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:gm-select",
+      "file_id": "runtime:opendbc_repo/opendbc/car/gm/interface.py",
+      "symbol": "CarInterface.torque_from_lateral_accel",
+      "range_start": 89,
+      "range_end": 98,
+      "source_range_sha256": "61726ceb2911738e675579c9d661951b6aa448eac6548a13c0031e2606a8af98",
+      "semantic_claim": "GM can select neural or siglin callbacks, so a generic torque tuning kind is not a proof of the base equation.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:gm-siglin",
+      "file_id": "runtime:opendbc_repo/opendbc/car/gm/interface.py",
+      "symbol": "CarInterface.torque_from_lateral_accel_siglin",
+      "range_start": 59,
+      "range_end": 79,
+      "source_range_sha256": "70d7a4fdeb186542ef47e8935fd995e4a0e42174b67cf18eb3df88a0dad53fe5",
+      "semantic_claim": "GM siglin uses fingerprint-specific nonlinear coefficients plus friction, not the generic factor denominator.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:health",
+      "file_id": "runtime:openpilot/cereal/messaging/__init__.py",
+      "symbol": "SubMaster.all_checks",
+      "range_start": 300,
+      "range_end": 301,
+      "source_range_sha256": "484ae04ed1e9db6a05385ae0e54111d3d163237ba275c761c006fc8317334fb1",
+      "semantic_claim": "all_checks combines alive, frequency and Event valid; it is not torque-estimate liveValid or effective-value readback.",
+      "category": "readback",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:hyundai",
+      "file_id": "runtime:opendbc_repo/opendbc/car/hyundai/interface.py",
+      "symbol": "CarInterface",
+      "range_start": 26,
+      "range_end": 293,
+      "source_range_sha256": "06b34e58be6d7d42d6121bcfbe61501baafe6ef6d704bfb6891bf22beb6d7c84",
+      "semantic_claim": "Hyundai inherits the base callback without a torque_from_lateral_accel override in this class; runtime NN/mode still must be attested.",
+      "category": "modes",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:hyundai-output",
+      "file_id": "runtime:opendbc_repo/opendbc/car/hyundai/carcontroller.py",
+      "symbol": "CarController.update",
+      "range_start": 247,
+      "range_end": 678,
+      "source_range_sha256": "82147e78186d217be5026b4dc7cddcd07ee872074675a02c1c769b5a7d152b47",
+      "semantic_claim": "Requested normalized torque is scaled to integer controller authority and returned after controller limits in normalized form. No Nm or physical actuation proof.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:key-types",
+      "file_id": "runtime:openpilot/common/params_keys.h",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 433,
+      "source_range_sha256": "8c440512d6ed414719d3b28902782d54ca77fa8bdfc01c0521b2aaa586121cd5",
+      "semantic_claim": "Native settings distinguish integer mode/coefficients and persistent cache keys; no effective torque owner revision is supplied.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:live-setter",
+      "file_id": "runtime:openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "symbol": "LatControlTorque.update_live_torque_params",
+      "range_start": 135,
+      "range_end": 141,
+      "source_range_sha256": "fcc92cb040e249df3e63eebda4427e96bf162f1248b8e0cf25dd7e6b4fd2a3d9",
+      "semantic_claim": "Cached positive custom mode returns without update; otherwise sequentially assigns factor, offset and friction, without CAS acknowledgement.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:offset-test",
+      "file_id": "runtime:openpilot/selfdrive/controls/tests/test_torqued_lat_accel_offset.py",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 70,
+      "source_range_sha256": "b8e92481091a4c9aa53e7fd9190a44993e7f5acf9db646267cb506a9597d33b1",
+      "semantic_claim": "Synthetic source tests check offset bias and explicitly leave factor/friction accuracy as TODO; they do not qualify parameter identification.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:old-test-helper",
+      "file_id": "runtime:opendbc_repo/opendbc/car/lateral.py",
+      "symbol": "get_friction",
+      "range_start": 159,
+      "range_end": 166,
+      "source_range_sha256": "5d92161f29817e5ceb92b6f5a4a9b7592ccdd0fc5045f8e5f36059d6400d3eed",
+      "semantic_claim": "A similarly named friction helper is used by the old offset test. Production interfaces imports opendbc.car.get_friction; test import identity must not replace that trace.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:params-put",
+      "file_id": "runtime:openpilot/common/params.cc",
+      "symbol": "int Params::put(",
+      "range_start": 130,
+      "range_end": 167,
+      "source_range_sha256": "efdccc1e669492310af791f9213377e6ad84ca911b15a45c7d34454b21a06d4a",
+      "semantic_claim": "Params::put uses file lock/rename/fsync for a single key. It is not expected-revision CAS over the controller tuple.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:paramsd",
+      "file_id": "runtime:openpilot/selfdrive/locationd/paramsd.py",
+      "symbol": "VehicleParamsLearner",
+      "range_start": 33,
+      "range_end": 197,
+      "source_range_sha256": "d8cc286b1700e3a47c99895a795cfdee052433bb075f98492907d64da76ac135",
+      "semantic_claim": "Current upstream learner changes model geometry globals; torqued sensor-based fit formula itself remains unchanged.",
+      "category": "drift",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:processes",
+      "file_id": "runtime:openpilot/system/manager/process_config.py",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 201,
+      "source_range_sha256": "5c881a28c4c368f055452d778b256cb20c63ffcdca82ee8e4353ac69022cf7e6",
+      "semantic_claim": "torqued is only_onroad; controlsd uses started/iscar/not_joystick conditions. This lifecycle is not rollback/watchdog ownership.",
+      "category": "watchdog",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:publish",
+      "file_id": "runtime:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.get_msg",
+      "range_start": 207,
+      "range_end": 242,
+      "source_range_sha256": "bb16b3ce08d5384e53575e7a64d58f7d197be853f1c96cd9ec9de373dc23bf87",
+      "semantic_claim": "Raw/filtered Float32 estimates and validity are published; liveValid false does not necessarily invalidate the Event or clear old filters.",
+      "category": "readback",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:reset",
+      "file_id": "runtime:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.reset",
+      "range_start": 134,
+      "range_end": 143,
+      "source_range_sha256": "952f4270a6619fff4eac49413596bdfc4410f94e6f8476d5976e6a76f12dc84c",
+      "semantic_claim": "Reset recreates sample/history buckets and decay; it does not reinitialize existing filtered parameter values.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:restore-key",
+      "file_id": "runtime:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.get_restore_key",
+      "range_start": 127,
+      "range_end": 132,
+      "source_range_sha256": "76cd96f69674ea9b435418092eff83b2a31daa5e8ae6f4851eb7dc938765cc3e",
+      "semantic_claim": "Restore key binds fingerprint, tuning, offline factor/friction and estimator version, not an owner epoch or effective revision.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:sample-inputs",
+      "file_id": "runtime:openpilot/selfdrive/locationd/torqued.py",
+      "symbol": "TorqueEstimator.handle_log",
+      "range_start": 165,
+      "range_end": 205,
+      "source_range_sha256": "ef62067528c8fd4e7ae80dc6113110a44cec08b617611a7764ae4a5a3429dd0a",
+      "semantic_claim": "Samples negative returned torque, yaw-rate times speed minus sin(roll)*g, interpolated across topic histories; excludes observed override under source fit gates.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:schema",
+      "file_id": "runtime:openpilot/cereal/log.capnp",
+      "symbol": "struct LiveTorqueParametersData",
+      "range_start": 2377,
+      "range_end": 2392,
+      "source_range_sha256": "14671356ec6065f0ba48451a2bde026f7f788d6bd2bdf48c610673aa4b37d809",
+      "semantic_claim": "Live torque fields are Raw/Filtered Float32, version Int32 and useParams/liveValid. Version is cache schema, not transactional revision.",
+      "category": "readback",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:services",
+      "file_id": "runtime:openpilot/cereal/services.py",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 152,
+      "source_range_sha256": "2bb8305cce4070d7fba5caa00ec928bedf13a40da3424d8e16ce23ab632e4ab1",
+      "semantic_claim": "Service metadata declares liveTorqueParameters 4 Hz, livePose 20 Hz and control state 100 Hz; actual loop scheduling is not guaranteed.",
+      "category": "lifecycle",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:settings-catalog",
+      "file_id": "runtime:openpilot/selfdrive/carrot_settings.json",
+      "symbol": "module",
+      "range_start": 1,
+      "range_end": 4455,
+      "source_range_sha256": "3ea7477fd615c4cac0f26c2964664194ba245ce3e9b658a0f30ef619784ed8d6",
+      "semantic_claim": "UI ranges/defaults describe integer settings; they never authorize vehicle bounds.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:settings-write",
+      "file_id": "runtime:openpilot/selfdrive/carrot/server/services/params.py",
+      "symbol": "set_param_value",
+      "range_start": 393,
+      "range_end": 408,
+      "source_range_sha256": "601aca703e8436abc3f27be340f550c0ce917d6f7c2d183d1e9b8dd11d36b674",
+      "semantic_claim": "Settings performs per-key typed storage writes, without synchronizing the effective controller tuple.",
+      "category": "ownership",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:torque-tables",
+      "file_id": "runtime:opendbc_repo/opendbc/car/interfaces.py",
+      "symbol": "get_torque_params",
+      "range_start": 69,
+      "range_end": 95,
+      "source_range_sha256": "d82749ea661995b65d3bc8d9d294001cfa9a655db8bf3e2b69de1513b8ce50fd",
+      "semantic_claim": "Tables/substitutions/overrides are read to select CP defaults; table labels do not qualify identified runtime parameters.",
+      "category": "units",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    },
+    {
+      "id": "runtime:vm",
+      "file_id": "runtime:opendbc_repo/opendbc/car/vehicle_model.py",
+      "symbol": "VehicleModel",
+      "range_start": 23,
+      "range_end": 148,
+      "source_range_sha256": "42d2824140deb0a2159116732213652aa9172e4ee0fc8bfe02a4296f5ba97e7f",
+      "semantic_claim": "VM curvature depends on vehicle geometry/learned parameters. Current upstream adds live geometry; c213 does not.",
+      "category": "drift",
+      "conditions": [
+        "Only the exact inspected source and named path; no vehicle approval"
+      ],
+      "confidence": "PROVEN"
+    }
+  ],
+  "preserved_files": {
+    "src/cyberpilot_autotune/__init__.py": "1638311894ccd6a0980a03d7e9dfc8a8a7572dad577370b79364c4299bb031be",
+    "src/cyberpilot_autotune/adapters/__init__.py": "6f1d8d4cf4dd4b6f7e6244c789cc2f6b3687306e80ad81572af4543c8bf563e0",
+    "src/cyberpilot_autotune/adapters/base.py": "3a40fc6099a84026d3a335c8aca38137138574a790651645013936d89c4ff0bf",
+    "src/cyberpilot_autotune/adapters/carrot_receipt_contract.py": "ce06a71852b0a6b1b6e54210df4dbfe5bced4a196c2fc62ebd241f1f04463199",
+    "src/cyberpilot_autotune/contracts/__init__.py": "b3cb8d5aaba1a96b2050d9925a543f83ef30041035718f9ee70d587accc725d2",
+    "src/cyberpilot_autotune/contracts/decision.py": "204ddb8981bf259648f99adb3371d28700eed9c2980a0b3c889055c1f26e6466",
+    "src/cyberpilot_autotune/contracts/observation.py": "7c5764418b5be0debbc72eb36f9828658c595d4570edada245d8c403af28da42",
+    "src/cyberpilot_autotune/contracts/parameter.py": "4808908ad42f15ab13634f8e2887f3bfd8b12a115b1349ff48709a22a7730319",
+    "src/cyberpilot_autotune/contracts/proposal.py": "b63ff3fe88fd5560856f93a6e49c94901a2a8f33602a20ee76d2a3798f9dc9f2",
+    "src/cyberpilot_autotune/contracts/result.py": "cc587d9f32085cb72aab4dd27494c0c008f1eeb1eb92576ecc6f5f76af4e5c30",
+    "src/cyberpilot_autotune/contracts/validation.py": "5c3fff59d4be3ff82abbdbabd213f33af86c1bdbc7d493c1b794f755d782a872",
+    "src/cyberpilot_autotune/core/__init__.py": "689ececce49e100af58f5eb4fb2413e7cefb407ec0652c49a15a18eb170a7130",
+    "src/cyberpilot_autotune/core/learner.py": "09a948f65f07c3887744fe3386c9be3186054a21aa5e377d42e3ef607094cda6",
+    "src/cyberpilot_autotune/core/no_op.py": "7723e8ab95ffcc840236adc6d36628d72399ee480567fec248808c18ce2a532e",
+    "src/cyberpilot_autotune/core/residual.py": "395f6d45295928544b9f5a2d85a3c35c9cc5e41fcdcf11127b5ad00ed37e26ea",
+    "src/cyberpilot_autotune/integrations/__init__.py": "1b70659b93b5f05e54f58896767e6e9f81289ff6c80fec999ea08ff4a19de61c",
+    "src/cyberpilot_autotune/integrations/carrot/__init__.py": "72b330002ee56a0ab3be5605ce3c4166301f23376601fc5332b26ffdba656e3c",
+    "src/cyberpilot_autotune/integrations/carrot/adapter.py": "21ce38a0990a0fc489dbc6e5af2c02b377b7d43a3877047ab24fd3a75a9ef393",
+    "src/cyberpilot_autotune/integrations/carrot/availability.py": "9f99168d79261e472f96641b0e4be064ceeeec01ed865da2e245f9590709df3b",
+    "src/cyberpilot_autotune/integrations/carrot/cache.py": "3455306717a492362afad4ccd684acbef58ea150ba16dd46e9b1411ca5f8e6fd",
+    "src/cyberpilot_autotune/integrations/carrot/errors.py": "55f06ce43ef8ab4cd98978a0175f3eff8c0e752c86b161fdb3a56a835b852d6b",
+    "src/cyberpilot_autotune/integrations/carrot/extraction.py": "a1259f3db55f76bfceac0b1315bb0887b061a60998fd76a7bbb27a9b2e75658f",
+    "src/cyberpilot_autotune/integrations/carrot/health.py": "adaa0eb8f625c6ae9c98af4e0fe94469a0279242a6e3c98a351edc5bb1736584",
+    "src/cyberpilot_autotune/knowledge/__init__.py": "0c10c702c7c1c7d123b5e78add221eb9ec072a0a97faf894f4af35a3677663e2",
+    "src/cyberpilot_autotune/knowledge/_catalog_data.py": "51b4bd71aed063133dde43c25c4c3c1baef0d6806c0860be32797571e8b483fc",
+    "src/cyberpilot_autotune/knowledge/canonical.py": "f71bb897f15c08e456aefe2c4cbd52e65de54dad90ea9c1dfa648f550ca67dff",
+    "src/cyberpilot_autotune/knowledge/contracts.py": "eed411574c84241e8b5404aa0cc12a0e086c0c96249c8a00f33640285f1a2ff4",
+    "src/cyberpilot_autotune/knowledge/steering.py": "5ca44497a9296add0be4ce5223ebc3990f576f523d09a7716735652f5454b931",
+    "src/cyberpilot_autotune/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/cyberpilot_autotune/replay/__init__.py": "79a2fc56912ed7e0b1ec788b452e85a5bd38d8600255cc25f824c9ea938a15cf",
+    "src/cyberpilot_autotune/replay/canonical.py": "e12594cc67d115ebcfc4bc36cbda1e3235c1efa93a3ab57d5d6750b68cbba679",
+    "src/cyberpilot_autotune/replay/cli.py": "e5e266207d7e17e599977125441218867655a5e216a52c64263e720870850e89",
+    "src/cyberpilot_autotune/replay/runner.py": "8f2f7efdac14eadda1ed32555b1db8c4145725675fd92d5763c177ae391f53c5",
+    "src/cyberpilot_autotune/replay/schema.py": "498f04b4b7bd22be98f56dcaa9724ce52e4d61531f9263a6fdcf8ff65c73b473",
+    "src/cyberpilot_autotune/runtime/__init__.py": "25ddf8753ae363db2f6449f3e0834fb7d9cc9055ac92b874f63b17e5f67e6a96",
+    "src/cyberpilot_autotune/runtime/clock.py": "548b6b74704693738d0523f32614e237552194fbb16a915cc0e403cb2027d33d",
+    "src/cyberpilot_autotune/runtime/engine.py": "46834be9a8be8e33f2ad3fbc44a59a924e1c2ba0595fdc5aeb78705b1bf096e6",
+    "src/cyberpilot_autotune/runtime/mode.py": "77393646b015045078a1aec53335ad72e041af6197b56707e13fb81fe9bb145a",
+    "src/cyberpilot_autotune/safety/__init__.py": "b270f043692cf6c70a1429da3aa4eaf0771e9458fdd3c5e5466d43492a3f69ff",
+    "src/cyberpilot_autotune/safety/bounds.py": "7c1b9a71d8373e01e8a7f7a71581795f7ebf7f8d29d70b4d63d4352f96107d7e",
+    "src/cyberpilot_autotune/safety/gate.py": "def9d7f3c5bca6a66338a4eeb7a9773dde1580f7d3db20a21297e40bd9f20645",
+    "src/cyberpilot_autotune/safety/rate_limiter.py": "1a9e6054c57918aabd48bfcbde4ea4df7573c456c3c7e26564cd2bc854c2d195",
+    "src/cyberpilot_autotune/safety/reasons.py": "f21607e45646cfc8955c24271edb2a4f14f6e8b4660e1e37cd0fdd3d44df53b4",
+    "src/cyberpilot_autotune/safety/sanitizer.py": "569e81de5bdfe564845b98fa3f7093524ca2f1b7e04c3c3ac257e8f2e47b76bd",
+    "src/cyberpilot_autotune/telemetry/__init__.py": "3e01fe531fcbf5cac1fff48b3d23d751329bab7870f29abebade24fe61b6d576",
+    "src/cyberpilot_autotune/telemetry/events.py": "6c487d6fe4f45d8b06d7c852322e4bf14a0911d9a8f4581729e5bd9dd0c0a5ff",
+    "tests/fixtures/replay/admission_reset_v1.expected.json": "6351414be8014366117e84f3f822323ec7684a3e384c37ebdb1f7529b430185e",
+    "tests/fixtures/replay/admission_reset_v1.json": "16b5311048e55fa66a6252fc97f097da72b746e1b791004795082b03cf69d92d",
+    "tests/fixtures/replay/constant_residual_v1.expected.json": "5229ea0d7225d5fa7bfa41d1d55b7fcc50cd9d15db71848abdcb3f7c3d238b62",
+    "tests/fixtures/replay/constant_residual_v1.json": "1bcb07d4da039b64699bf6fa4788be8b9a8bb909886f400b0cf9d72df835246c",
+    "tests/fixtures/replay/golden_v1.expected.json": "8e031da66159225c539e65f1ee955b262371ef6736951c39e060934bea33adff",
+    "tests/fixtures/replay/golden_v1.json": "d8e3ad8ef931a10ee1ff78a9d2018fe6bfe11e57e371c828a7148224001704b3",
+    "tests/fixtures/replay/ordering_high_water_v1.expected.json": "44699cef5f9b97db41bb56e12e0fa780d3813d60c17dd670af2b548f3c637ce2",
+    "tests/fixtures/replay/ordering_high_water_v1.json": "47ab3d406751d30e22142b894a4448261768b75f10a142585693f8f09395f61c"
+  },
+  "copied_source_bodies": false,
+  "reference_execution": false,
+  "network_or_vehicle_runtime": false
+}
