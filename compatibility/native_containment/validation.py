@@ -69,6 +69,25 @@ class SyntheticContainmentDecision:
     runtime_accepted: bool = field(default=False, init=False)
     owner_proposal_allowed: bool = field(default=False, init=False)
 
+    def __post_init__(self) -> None:
+        if not isinstance(self.status, str) or not isinstance(self.mode, str):
+            raise ValueError("expected synthetic status and mode")
+        object.__setattr__(self, "status", SyntheticStatus(self.status))
+        object.__setattr__(self, "mode", PolicyMode(self.mode))
+        _digest(self.case_digest)
+        if type(self.reasons) not in (list, tuple):
+            raise ValueError("expected reason array")
+        normalized = set()
+        for reason in self.reasons:
+            if not isinstance(reason, str):
+                raise ValueError("expected reason enum")
+            normalized.add(RejectionReason(reason))
+        object.__setattr__(self, "reasons", tuple(r for r in RejectionReason if r in normalized))
+        if (self.status == SyntheticStatus.REJECTED) != bool(self.reasons):
+            raise ValueError("status must agree with rejection reasons")
+        if self.mode == PolicyMode.STRICT_NO_DEVICE_ATTEMPT and not self.reasons:
+            raise ValueError("strict security-event cases cannot be diagnostic successes")
+
 
 def evaluate_synthetic(
     case: SyntheticContainmentCase, policy: SyntheticPolicyContext
