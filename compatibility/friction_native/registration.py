@@ -151,7 +151,7 @@ def prepare(reference):
         env = _environment()
         env["GIT_OBJECT_DIRECTORY"] = str(objects)
         # Git's C-quoted path syntax handles spaces/path-list separator characters.
-        env["GIT_ALTERNATE_OBJECT_DIRECTORIES"] = json.dumps(original_objects)
+        env["GIT_ALTERNATE_OBJECT_DIRECTORIES"] = json.dumps(original_objects, ensure_ascii=False)
 
         def git(*args, data=None):
             return _git(reference, *args, data=data, env=env)

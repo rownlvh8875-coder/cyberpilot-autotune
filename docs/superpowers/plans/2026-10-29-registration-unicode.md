@@ -34,11 +34,11 @@ FRICTION_NATIVE_REFERENCE and the existing committed content record; temporary
 bare references have physical Unicode directories and objects/info/alternates.
 No symlink-to-reference that Path.resolve would collapse back to ASCII.
 
-- [ ] Add six path cases and two CLI/Unicode-temp cases. Assert actual complete
+- [x] Add six path cases and two CLI/Unicode-temp cases. Assert actual complete
   record equality, unchanged source/backing metadata and cleanup; no source mocks.
-- [ ] Run against old code: observe Git path parsing failures, ASCII case passes.
-- [ ] Change only json.dumps(original_objects) to preserve Unicode.
-- [ ] GREEN focused/native/core suites, lint; commit the fix and regression tests.
+- [x] Run against old code: observe Git path parsing failures, ASCII case passes.
+- [x] Change only json.dumps(original_objects) to preserve Unicode.
+- [x] GREEN focused/native/core suites, lint; commit the fix and regression tests.
 
 ## Task2 — final proof and delivery
 
@@ -58,3 +58,10 @@ behavioral evidence Task2 reports; no new production interface or dependency.
 Ruling: continue approved minimal fix inline in existing managed checkout with
 tracked ledger — preserve environment/no unsolicited worktree — cost: manual
 bookkeeping and one final independent review, not per-task review.
+
+Task1 complete: baseline1494 core pass; RED7 Unicode/CLI cases fail with Git
+"unable to normalize alternate object path"/CLI return1, ASCII-space case passes.
+One-line ensure_ascii=False fix → GREEN8; mandatory native192/no skips and full
+core1494 pass. Lint/format/mypy71 and whitespace pass. Exact existing complete
+record and reference/cache size/mtime snapshots unchanged; Unicode overlay cleanup
+passes. Native source/patch/registration identity and permissions are untouched.
