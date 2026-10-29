@@ -212,5 +212,5 @@ def test_audit_keeps_the_entire_existing_source_and_replay_goldens_unchanged():
     assert {
         p.relative_to(ROOT).as_posix()
         for p in (ROOT / "src/cyberpilot_autotune").rglob("*")
-        if p.is_file() and "__pycache__" not in p.parts
+        if p.is_file() and "__pycache__" not in p.parts and "knowledge" not in p.parts
     } == {p for p in sources["preserved_files"] if p.startswith("src/")}

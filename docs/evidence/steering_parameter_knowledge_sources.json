@@ -1,0 +1,2739 @@
+{
+  "schema_version": 1,
+  "scope": "STEERING_DESCRIPTIVE_KNOWLEDGE_ONLY",
+  "pins": {
+    "hoya": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+    "runtime": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+    "upstream": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3"
+  },
+  "integration_revision": "7a2f051b1f3847786318900444c88c2ba7a74a67",
+  "target_base": "dd1d4232f3d151fe9bbf0808c1fbe5131618b09a",
+  "audit_merge": {
+    "merged_at": "2026-10-29T01:11:52Z",
+    "parents": [
+      "b24ef18e4270af5ab4f731aca31cf95f4f4b0cce",
+      "8a3f6f5bfb35021e20dc5730f6650f12d53d571d"
+    ],
+    "tree_equality": true
+  },
+  "files": [
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "git_blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "line_count": 307
+    },
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "git_blob_sha": "d0adba6a80659424a907683d14d8292475ced76b",
+      "sha256": "f0d6476cf6b0f8c87feb7062ff5b7b80c0bd4d64e4a7fd5d1421fbdba8adb79a",
+      "line_count": 451
+    },
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "git_blob_sha": "7fb351a27a5821347cf0a7cc779b790b997d3a61",
+      "sha256": "4eb4aeb8d572d024a07cf10c301fa9d45d6f35137658c3e9308b7d177a2e5117",
+      "line_count": 871
+    },
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "git_blob_sha": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "line_count": 443
+    },
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/common/pid.py",
+      "git_blob_sha": "a75aa42731640260b0f20202541171ec3838360b",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+      "line_count": 155
+    },
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "git_blob_sha": "94f014fa4ad01c72796b8c673507776421819397",
+      "sha256": "09b1a3b1ea9d3d4d6eb756328cd81ac46b08916fb8a428353341f42d6aa71d2b",
+      "line_count": 23
+    },
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/modeld/modeld.py",
+      "git_blob_sha": "e4de3eb2236f6bb0c54c87666099147311602f4f",
+      "sha256": "8ec5cdfbc62f35d078ba8cdb1ded9a604ae5949736270880a8b5b1d9ea93d69c",
+      "line_count": 563
+    },
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "git_blob_sha": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "line_count": 280
+    },
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/cereal/log.capnp",
+      "git_blob_sha": "03f5b98cc953ee3382d2e9713e4f999548a9c9e1",
+      "sha256": "56cd322cbc23b7f577833ed55183ef7226c99e97ca2c11ca5c14c072cef0ff3a",
+      "line_count": 2768
+    },
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot/server/services/params.py",
+      "git_blob_sha": "52448df1a020858e8ff7dda4fd2df7d191a92106",
+      "sha256": "1979e1bbe705b2d3ed60daf77a5ab011169305377802bb82b05f4d84782b5e97",
+      "line_count": 1313
+    },
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/common/params_keys.h",
+      "git_blob_sha": "685671e76b7168a4e032d3f64efa7cf8749f6490",
+      "sha256": "0a9b38fd6cbc96302cb8194155a73cc3e8f34384189ec5d38ca9e7c44405802a",
+      "line_count": 398
+    },
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "git_blob_sha": "67aa63ddf4ffef32a6cdef34f1bdcd017749e855",
+      "sha256": "7560127d5e6c325eec987bad5a6087c09961738351e79c9f4df5109994989312",
+      "line_count": 3641
+    },
+    {
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "path": "opendbc_repo/opendbc/car/car_helpers.py",
+      "git_blob_sha": "a53272d68e74bf8f71c457a5931bea6dfb713d37",
+      "sha256": "73a53a26dd60353114ae23f8e2fc7721387aefb4d6db2a2ff032164ef4344036",
+      "line_count": 196
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "git_blob_sha": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49",
+      "line_count": 310
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "git_blob_sha": "2378902ba077177b96dfb57f010e06c388241213",
+      "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
+      "line_count": 480
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "git_blob_sha": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "line_count": 690
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "git_blob_sha": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "line_count": 443
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/pid.py",
+      "git_blob_sha": "a75aa42731640260b0f20202541171ec3838360b",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+      "line_count": 155
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "git_blob_sha": "e679268b3e488a7eac11720a37f43d4a8fa2bb7a",
+      "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee",
+      "line_count": 20
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/modeld/modeld.py",
+      "git_blob_sha": "b800432ccc6ff7013fd0ed10131124518dfb2381",
+      "sha256": "6a37f8a139d5225530950a24d1c75d502a5f3ff7a85b3fe49b3ff300d4e02bb1",
+      "line_count": 667
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "git_blob_sha": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "line_count": 280
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/cereal/log.capnp",
+      "git_blob_sha": "9c5cebe0eaa6fbfa077e9e8bfd0b5161367ef862",
+      "sha256": "7d5c19cc2a534fb6918ba51d393eff288f096b68b6c13fd5608c46d17454ba35",
+      "line_count": 2814
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/carrot/server/services/params.py",
+      "git_blob_sha": "c47770c7a9ac50dbcffda24714f8edcf3849e6a3",
+      "sha256": "c03e5bde751399103cb6926269b172f45a99175cba9f1dc4ae02917675f8c9a4",
+      "line_count": 1363
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/params_keys.h",
+      "git_blob_sha": "0a5285bcf0d1f292919a20d07ae319497dc86be4",
+      "sha256": "8c440512d6ed414719d3b28902782d54ca77fa8bdfc01c0521b2aaa586121cd5",
+      "line_count": 433
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "git_blob_sha": "b7e044a72f6acd254c82c88be8b4878f65237b93",
+      "sha256": "3ea7477fd615c4cac0f26c2964664194ba245ce3e9b658a0f30ef619784ed8d6",
+      "line_count": 4455
+    },
+    {
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/car_helpers.py",
+      "git_blob_sha": "f0c1c22ab5d035746f94e813a9a30fb3eb7f4ad0",
+      "sha256": "3b98668708d2026ca53ed18026defb8ba6afb46bc317b086bfe599993f43a049",
+      "line_count": 213
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "git_blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "line_count": 307
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "git_blob_sha": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d",
+      "line_count": 481
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "git_blob_sha": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "line_count": 690
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "git_blob_sha": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "line_count": 443
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/pid.py",
+      "git_blob_sha": "a75aa42731640260b0f20202541171ec3838360b",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+      "line_count": 155
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "git_blob_sha": "e679268b3e488a7eac11720a37f43d4a8fa2bb7a",
+      "sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee",
+      "line_count": 20
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/modeld/modeld.py",
+      "git_blob_sha": "b800432ccc6ff7013fd0ed10131124518dfb2381",
+      "sha256": "6a37f8a139d5225530950a24d1c75d502a5f3ff7a85b3fe49b3ff300d4e02bb1",
+      "line_count": 667
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "git_blob_sha": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "line_count": 280
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/cereal/log.capnp",
+      "git_blob_sha": "609cb5892185f11cb0ee6d2e91c081170d40d7e9",
+      "sha256": "0d546ea5f37bc26a16f71ae0433a9a617728c78d77de872c1d327a10cf0fe1db",
+      "line_count": 2812
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/carrot/server/services/params.py",
+      "git_blob_sha": "f170137363da3357d2fead1f0442f5fe2af846d5",
+      "sha256": "a1065ee80c2feb835a864b5263e13c195744b5b69af110e35291e049d15bb507",
+      "line_count": 1366
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/common/params_keys.h",
+      "git_blob_sha": "5583afd70bfbd215869e3ee92412e8b750c9fde7",
+      "sha256": "9215b2beddc787ea26ce7c94769b4997f047e6880911c4f1dd9cc2c5b9eb171c",
+      "line_count": 436
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "git_blob_sha": "1d281b518bbaf321cce148fbcc0a6ca3432afc3c",
+      "sha256": "f235f2ec0b71be3190f0cb285f3c398c9da986933526961beae7b8a1f79cb6f0",
+      "line_count": 4500
+    },
+    {
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/car_helpers.py",
+      "git_blob_sha": "f0c1c22ab5d035746f94e813a9a30fb3eb7f4ad0",
+      "sha256": "3b98668708d2026ca53ed18026defb8ba6afb46bc317b086bfe599993f43a049",
+      "line_count": 213
+    }
+  ],
+  "entries": [
+    {
+      "claim_id": "hoya:custom",
+      "conditions": [
+        "CP lateral tuning is torque",
+        "Custom Params branch sampled every ten controller frames"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "range_end": 162,
+      "range_start": 144,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "A positive sampled custom mode assigns stored factor/friction times 0.001 and Kp/Ki/Kf times 0.01; it preserves the captured default offset. The prior cached mode also controls live updates.",
+      "source_range_sha256": "55f7a8e7862b0ac88021ea905ff1e96b14e3fd2ad30aa81e039898b81da8c99a",
+      "supersedes_claim_id": null,
+      "symbol": "LatControlTorque.update",
+      "source_sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueAccelFactor",
+        "hoya:LateralTorqueFriction",
+        "hoya:LateralTorqueKpV",
+        "hoya:LateralTorqueKiV",
+        "hoya:LateralTorqueKf",
+        "hoya:LateralTorqueCustom",
+        "hoya:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "hoya:live-tuple",
+      "conditions": [
+        "Cached custom mode permits live setter",
+        "Torque controller selected"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "range_end": 140,
+      "range_start": 134,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "When the cached custom mode is not positive, the supplied factor, offset and friction are assigned as a tuple. This setter has no owner revision or CAS contract.",
+      "source_range_sha256": "fcc92cb040e249df3e63eebda4427e96bf162f1248b8e0cf25dd7e6b4fd2a3d9",
+      "supersedes_claim_id": null,
+      "symbol": "LatControlTorque.update_live_torque_params",
+      "source_sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueAccelFactor",
+        "hoya:LateralTorqueFriction",
+        "hoya:LateralTorqueCustom",
+        "hoya:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "hoya:controlsd-live",
+      "conditions": [
+        "SubMaster all_checks and useParams pass",
+        "Torque lateral tuning selected"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "d0adba6a80659424a907683d14d8292475ced76b",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueFriction",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "range_end": 126,
+      "range_start": 122,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The liveTorqueParameters factorFiltered, offsetFiltered and frictionCoefficientFiltered are passed to the lateral torque setter after all_checks and useParams. No descriptive claim proves writer exclusivity.",
+      "source_range_sha256": "4243e06bf84c65290ff8e710ebd5997385a9c16cee62956df0769fa241f3c612",
+      "supersedes_claim_id": null,
+      "symbol": "Controls.state_control",
+      "source_sha256": "f0d6476cf6b0f8c87feb7062ff5b7b80c0bd4d64e4a7fd5d1421fbdba8adb79a",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueAccelFactor",
+        "hoya:LateralTorqueFriction",
+        "hoya:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "hoya:linear",
+      "conditions": [
+        "Default linear torque conversion callback is actually selected"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "7fb351a27a5821347cf0a7cc779b790b997d3a61",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueFriction",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "range_end": 597,
+      "range_start": 593,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The default linear callback divides lateral acceleration by latAccelFactor and adds friction compensation. This does not establish equivalence for every brand or NN callback.",
+      "source_range_sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f",
+      "supersedes_claim_id": null,
+      "symbol": "CarInterfaceBase.torque_from_lateral_accel_linear",
+      "source_sha256": "4eb4aeb8d572d024a07cf10c301fa9d45d6f35137658c3e9308b7d177a2e5117",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueAccelFactor",
+        "hoya:LateralTorqueFriction",
+        "hoya:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "hoya:friction",
+      "conditions": [
+        "Callback uses this helper",
+        "Friction compensation flag is true"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "parameter_ids": [
+        "LateralTorqueFriction"
+      ],
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "range_end": 299,
+      "range_start": 291,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Friction compensation interpolates between negative and positive torque_params.friction around the acceleration-error deadzone; the value is disabled when friction_compensation is false.",
+      "source_range_sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c",
+      "supersedes_claim_id": null,
+      "symbol": "get_friction",
+      "source_sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueFriction"
+      ]
+    },
+    {
+      "claim_id": "hoya:pid",
+      "conditions": [
+        "The ordinary PIDController is used",
+        "Torque controller error/feedforward domain remains mode-dependent"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "a75aa42731640260b0f20202541171ec3838360b",
+      "parameter_ids": [
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV"
+      ],
+      "path": "openpilot/common/pid.py",
+      "range_end": 70,
+      "range_start": 49,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The proportional term multiplies error by k_p, feedforward multiplies its input by k_f and the integral increment uses error times k_i times the controller time step. These are software coefficients, not vehicle-approved gains.",
+      "source_range_sha256": "d29d2e74de600292dbdf15fcdbc3e4eaa41e3e40c871447a62e0f95d89aa7f5a",
+      "supersedes_claim_id": null,
+      "symbol": "PIDController.update",
+      "source_sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueKpV",
+        "hoya:LateralTorqueKiV",
+        "hoya:LateralTorqueKf"
+      ]
+    },
+    {
+      "claim_id": "hoya:nn",
+      "conditions": [
+        "Actual brand callback and NN/NN-lite context must be known"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "range_end": 307,
+      "range_start": 69,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Initialization captures the CP torque tuple as defaults. NN and NN-lite flags select alternative feedforward/error paths; controller gains and torque coefficients do not imply a universal physical torque response or identification result.",
+      "source_range_sha256": "421d9dbd2101ece4df1f8ce601334bbb7dd186797bd60842a382fe0e497ba6a7",
+      "supersedes_claim_id": null,
+      "symbol": "LatControlTorque.__init__ / update",
+      "source_sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueAccelFactor",
+        "hoya:LateralTorqueFriction",
+        "hoya:LateralTorqueKpV",
+        "hoya:LateralTorqueKiV",
+        "hoya:LateralTorqueKf",
+        "hoya:LateralTorqueCustom",
+        "hoya:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "hoya:ratio",
+      "conditions": [
+        "Exact revision helper and CustomSR/platform conditions must be retained"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "94f014fa4ad01c72796b8c673507776421819397",
+      "parameter_ids": [
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "range_end": 23,
+      "range_start": 10,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "MEB returns the learned ratio directly before manual override/rate scaling; non-MEB applies a valid CustomSR override or learned ratio times stored rate times 0.01, with source fallback/floor.",
+      "source_range_sha256": "d7cd8fbdbae9d517821109e09e54635403b4ee9516a56e6ebb2e0a12ca70b939",
+      "supersedes_claim_id": null,
+      "symbol": "resolve_vehicle_model_steer_ratio",
+      "source_sha256": "09b1a3b1ea9d3d4d6eb756328cd81ac46b08916fb8a428353341f42d6aa71d2b",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:SteerRatioRate"
+      ]
+    },
+    {
+      "claim_id": "hoya:vm",
+      "conditions": [
+        "Source-specific vehicle model context is required"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "d0adba6a80659424a907683d14d8292475ced76b",
+      "parameter_ids": [
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "range_end": 116,
+      "range_start": 112,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The resolved ratio is passed to VehicleModel.update_params. Current upstream additionally updates live geometry; helper conversion equivalence does not prove equal VM output.",
+      "source_range_sha256": "c8e2f3dc3a7783df451b94b0ba95ce55dfdbfd39efed9594bc4b5e38f42241b4",
+      "supersedes_claim_id": null,
+      "symbol": "Controls.state_control",
+      "source_sha256": "f0d6476cf6b0f8c87feb7062ff5b7b80c0bd4d64e4a7fd5d1421fbdba8adb79a",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:SteerRatioRate"
+      ]
+    },
+    {
+      "claim_id": "hoya:delay",
+      "conditions": [
+        "Keep source-specific control-flow guard",
+        "Not a measured actuator delay or guaranteed response"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "d0adba6a80659424a907683d14d8292475ced76b",
+      "parameter_ids": [
+        "SteerActuatorDelay"
+      ],
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "range_end": 176,
+      "range_start": 171,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The stored delay is converted by 0.01 seconds and a zero result selects liveDelay in this controlsd path. The path is unconditional here in historical Hoya but lane-plan/active conditional in runtime/current upstream.",
+      "source_range_sha256": "88c50cf45e27d50b7444adc07208e6ff0cd107cd9a7b7e08c8fb25d1ace4d764",
+      "supersedes_claim_id": null,
+      "symbol": "Controls.state_control",
+      "source_sha256": "f0d6476cf6b0f8c87feb7062ff5b7b80c0bd4d64e4a7fd5d1421fbdba8adb79a",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "hoya:delay-nn",
+      "conditions": [
+        "NN or NN-lite initialization branch"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "parameter_ids": [
+        "SteerActuatorDelay"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "range_end": 109,
+      "range_start": 106,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "NN/NN-lite initialization caches stored delay times 0.01 plus 0.3 seconds for desired lateral jerk timing; a raw zero is not a liveDelay substitution in this expression.",
+      "source_range_sha256": "69b8da38580c0adf799fe7bc3a08bb0db2dd8d320e239f5a02706331e00738fe",
+      "supersedes_claim_id": null,
+      "symbol": "LatControlTorque.__init__",
+      "source_sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "hoya:delay-model",
+      "conditions": [
+        "Model processing branch reaches the delay selection"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "e4de3eb2236f6bb0c54c87666099147311602f4f",
+      "parameter_ids": [
+        "SteerActuatorDelay"
+      ],
+      "path": "openpilot/selfdrive/modeld/modeld.py",
+      "range_end": 507,
+      "range_start": 504,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The model timing path selects positive custom delay or liveDelay, adding dynamic smoothing time. This is separate from the NN constructor and controlsd paths.",
+      "source_range_sha256": "61c961fbdefec40ef2a383ff31208e8d1f6db3518e2ee97567c824751d88c74e",
+      "supersedes_claim_id": null,
+      "symbol": "modeld_thread",
+      "source_sha256": "8ec5cdfbc62f35d078ba8cdb1ded9a604ae5949736270880a8b5b1d9ea93d69c",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "hoya:offset-fit",
+      "conditions": [
+        "Valid estimator point bucket and source-specific calculation"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "parameter_ids": [
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "range_end": 157,
+      "range_start": 145,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The estimator produces an offset alongside slope and spread-based friction. This audit does not establish a universal canonical unit or qualified identification for that offset.",
+      "source_range_sha256": "efa2cbfcc4a36b428c93f053afc47ed750c95f6c9a2fa40e02e0ddba5362ea09",
+      "supersedes_claim_id": null,
+      "symbol": "TorqueEstimator.estimate_params",
+      "source_sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "hoya:offset-publish",
+      "conditions": [
+        "Actual source message/validity is a separate future input"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueFriction",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "range_end": 242,
+      "range_start": 207,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The filtered internal offset is copied to latAccelOffsetFiltered with factor/friction and version/useParams/validity evidence; no current value is read by the knowledge package.",
+      "source_range_sha256": "bb16b3ce08d5384e53575e7a64d58f7d197be853f1c96cd9ec9de373dc23bf87",
+      "supersedes_claim_id": null,
+      "symbol": "TorqueEstimator.get_msg",
+      "source_sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueAccelFactor",
+        "hoya:LateralTorqueFriction",
+        "hoya:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "hoya:wire",
+      "conditions": [
+        "Legacy scalar defaults are never interpreted as available state"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "03f5b98cc953ee3382d2e9713e4f999548a9c9e1",
+      "parameter_ids": [
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/cereal/log.capnp",
+      "range_end": 2349,
+      "range_start": 2334,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The schema names latAccelOffsetRaw and latAccelOffsetFiltered, not a literal latAccelOffset member. The catalog logical offset ID refers to the filtered consumed member; scalar default zero is not availability.",
+      "source_range_sha256": "14671356ec6065f0ba48451a2bde026f7f788d6bd2bdf48c610673aa4b37d809",
+      "supersedes_claim_id": null,
+      "symbol": "LiveTorqueParametersData",
+      "source_sha256": "56cd322cbc23b7f577833ed55183ef7226c99e97ca2c11ca5c14c072cef0ff3a",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "hoya:settings-write",
+      "conditions": [
+        "Reference source only; never invoked by knowledge"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "52448df1a020858e8ff7dda4fd2df7d191a92106",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "SteerActuatorDelay",
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/carrot/server/services/params.py",
+      "range_end": 375,
+      "range_start": 365,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The device settings service delegates typed writes to Params and has a metadata fallback for unregistered settings. This is a descriptive storage writer, not this package or an exclusive owner.",
+      "source_range_sha256": "7c141738aa219da6c17f197d8d111bd04389b110cfb36e683861b9664c4e47fc",
+      "supersedes_claim_id": null,
+      "symbol": "set_param_value",
+      "source_sha256": "1979e1bbe705b2d3ed60daf77a5ab011169305377802bb82b05f4d84782b5e97",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueAccelFactor",
+        "hoya:LateralTorqueFriction",
+        "hoya:LateralTorqueKpV",
+        "hoya:LateralTorqueKiV",
+        "hoya:LateralTorqueKf",
+        "hoya:LateralTorqueCustom",
+        "hoya:SteerRatioRate",
+        "hoya:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "hoya:settings-type",
+      "conditions": [
+        "Native Params type information or explicit fallback source"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "52448df1a020858e8ff7dda4fd2df7d191a92106",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "SteerActuatorDelay",
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/carrot/server/services/params.py",
+      "range_end": 362,
+      "range_start": 327,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Native integer keys use typed integer serialization; inferred catalog types are fallback behavior. UI values and stored defaults are descriptive, never trusted baselines.",
+      "source_range_sha256": "9bf4cdd7c85b80b4768693b11fc462ecb2e8dde67628888f16023e0864f86c0e",
+      "supersedes_claim_id": null,
+      "symbol": "put_typed",
+      "source_sha256": "1979e1bbe705b2d3ed60daf77a5ab011169305377802bb82b05f4d84782b5e97",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueAccelFactor",
+        "hoya:LateralTorqueFriction",
+        "hoya:LateralTorqueKpV",
+        "hoya:LateralTorqueKiV",
+        "hoya:LateralTorqueKf",
+        "hoya:LateralTorqueCustom",
+        "hoya:SteerRatioRate",
+        "hoya:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "hoya:key-defaults",
+      "conditions": [
+        "Descriptive registered source defaults only"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "685671e76b7168a4e032d3f64efa7cf8749f6490",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "SteerActuatorDelay",
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/common/params_keys.h",
+      "range_end": 387,
+      "range_start": 280,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The eight steering keys are persistent integer-text settings. Native key defaults for custom mode and delay are zero while the catalog UI defaults differ. They are not baselines.",
+      "source_range_sha256": "d28d87187e0edcb26473e8e3331d228f1b31bdc4a75da9fb8164ea665e70bbcb",
+      "supersedes_claim_id": null,
+      "symbol": "Params key declarations",
+      "source_sha256": "0a9b38fd6cbc96302cb8194155a73cc3e8f34384189ec5d38ca9e7c44405802a",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueAccelFactor",
+        "hoya:LateralTorqueFriction",
+        "hoya:LateralTorqueKpV",
+        "hoya:LateralTorqueKiV",
+        "hoya:LateralTorqueKf",
+        "hoya:LateralTorqueCustom",
+        "hoya:SteerRatioRate",
+        "hoya:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "hoya:ui-LateralTorqueAccelFactor",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "67aa63ddf4ffef32a6cdef34f1bdcd017749e855",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 685,
+      "range_start": 670,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueAccelFactor is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "01a4d209aa010c020038d561990b6e176ffbbecc000cbf7a954edd5542f4fdb7",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueAccelFactor]",
+      "source_sha256": "7560127d5e6c325eec987bad5a6087c09961738351e79c9f4df5109994989312",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueAccelFactor"
+      ]
+    },
+    {
+      "claim_id": "hoya:ui-LateralTorqueFriction",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "67aa63ddf4ffef32a6cdef34f1bdcd017749e855",
+      "parameter_ids": [
+        "LateralTorqueFriction"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 701,
+      "range_start": 686,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueFriction is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "206e214b9aa38c25f0081acb932f0819d8ca9b7222218f4ea2c891daa810bb52",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueFriction]",
+      "source_sha256": "7560127d5e6c325eec987bad5a6087c09961738351e79c9f4df5109994989312",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueFriction"
+      ]
+    },
+    {
+      "claim_id": "hoya:ui-LateralTorqueKpV",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "67aa63ddf4ffef32a6cdef34f1bdcd017749e855",
+      "parameter_ids": [
+        "LateralTorqueKpV"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 717,
+      "range_start": 702,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueKpV is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "de454805ef623e2a987957ba5f07fa8746112956f52cd4e35d680f7eb1e4d70f",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueKpV]",
+      "source_sha256": "7560127d5e6c325eec987bad5a6087c09961738351e79c9f4df5109994989312",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueKpV"
+      ]
+    },
+    {
+      "claim_id": "hoya:ui-LateralTorqueKiV",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "67aa63ddf4ffef32a6cdef34f1bdcd017749e855",
+      "parameter_ids": [
+        "LateralTorqueKiV"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 733,
+      "range_start": 718,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueKiV is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "db958a988af92decafea2b488ec9d0534a84ffec5ee861ef747b4b7749c8b211",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueKiV]",
+      "source_sha256": "7560127d5e6c325eec987bad5a6087c09961738351e79c9f4df5109994989312",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueKiV"
+      ]
+    },
+    {
+      "claim_id": "hoya:ui-LateralTorqueKf",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "67aa63ddf4ffef32a6cdef34f1bdcd017749e855",
+      "parameter_ids": [
+        "LateralTorqueKf"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 749,
+      "range_start": 734,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueKf is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "a3909a2a1c30f2865dea026e9e7180f416ab87c38a61f8d0509385c1905917fc",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueKf]",
+      "source_sha256": "7560127d5e6c325eec987bad5a6087c09961738351e79c9f4df5109994989312",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueKf"
+      ]
+    },
+    {
+      "claim_id": "hoya:ui-LateralTorqueCustom",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "67aa63ddf4ffef32a6cdef34f1bdcd017749e855",
+      "parameter_ids": [
+        "LateralTorqueCustom"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 669,
+      "range_start": 654,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueCustom is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "60f03b1f6c5da5719362657f333578018e81a1dd3028c089832a17ec30510063",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueCustom]",
+      "source_sha256": "7560127d5e6c325eec987bad5a6087c09961738351e79c9f4df5109994989312",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:LateralTorqueCustom"
+      ]
+    },
+    {
+      "claim_id": "hoya:ui-SteerRatioRate",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "67aa63ddf4ffef32a6cdef34f1bdcd017749e855",
+      "parameter_ids": [
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 1088,
+      "range_start": 1072,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for SteerRatioRate is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "b971ebc4baa4011248b280487a3f11011ca7cda65b117ebe6f9686a158290643",
+      "supersedes_claim_id": null,
+      "symbol": "params[SteerRatioRate]",
+      "source_sha256": "7560127d5e6c325eec987bad5a6087c09961738351e79c9f4df5109994989312",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:SteerRatioRate"
+      ]
+    },
+    {
+      "claim_id": "hoya:ui-SteerActuatorDelay",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "git_blob_sha": "67aa63ddf4ffef32a6cdef34f1bdcd017749e855",
+      "parameter_ids": [
+        "SteerActuatorDelay"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 957,
+      "range_start": 942,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for SteerActuatorDelay is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "b2efc06e486a73cae32a1a77686413f3f37989142aa885c9bbe00d7d9448056c",
+      "supersedes_claim_id": null,
+      "symbol": "params[SteerActuatorDelay]",
+      "source_sha256": "7560127d5e6c325eec987bad5a6087c09961738351e79c9f4df5109994989312",
+      "source_role": "hoya",
+      "related_descriptors": [
+        "hoya:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "runtime:custom",
+      "conditions": [
+        "CP lateral tuning is torque",
+        "Custom Params branch sampled every ten controller frames"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "range_end": 163,
+      "range_start": 145,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "A positive sampled custom mode assigns stored factor/friction times 0.001 and Kp/Ki/Kf times 0.01; it preserves the captured default offset. The prior cached mode also controls live updates.",
+      "source_range_sha256": "55f7a8e7862b0ac88021ea905ff1e96b14e3fd2ad30aa81e039898b81da8c99a",
+      "supersedes_claim_id": null,
+      "symbol": "LatControlTorque.update",
+      "source_sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueAccelFactor",
+        "runtime:LateralTorqueFriction",
+        "runtime:LateralTorqueKpV",
+        "runtime:LateralTorqueKiV",
+        "runtime:LateralTorqueKf",
+        "runtime:LateralTorqueCustom",
+        "runtime:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "runtime:live-tuple",
+      "conditions": [
+        "Cached custom mode permits live setter",
+        "Torque controller selected"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "range_end": 141,
+      "range_start": 135,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "When the cached custom mode is not positive, the supplied factor, offset and friction are assigned as a tuple. This setter has no owner revision or CAS contract.",
+      "source_range_sha256": "fcc92cb040e249df3e63eebda4427e96bf162f1248b8e0cf25dd7e6b4fd2a3d9",
+      "supersedes_claim_id": null,
+      "symbol": "LatControlTorque.update_live_torque_params",
+      "source_sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueAccelFactor",
+        "runtime:LateralTorqueFriction",
+        "runtime:LateralTorqueCustom",
+        "runtime:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "runtime:controlsd-live",
+      "conditions": [
+        "SubMaster all_checks and useParams pass",
+        "Torque lateral tuning selected"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "2378902ba077177b96dfb57f010e06c388241213",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueFriction",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "range_end": 142,
+      "range_start": 138,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The liveTorqueParameters factorFiltered, offsetFiltered and frictionCoefficientFiltered are passed to the lateral torque setter after all_checks and useParams. No descriptive claim proves writer exclusivity.",
+      "source_range_sha256": "4243e06bf84c65290ff8e710ebd5997385a9c16cee62956df0769fa241f3c612",
+      "supersedes_claim_id": null,
+      "symbol": "Controls.state_control",
+      "source_sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueAccelFactor",
+        "runtime:LateralTorqueFriction",
+        "runtime:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "runtime:linear",
+      "conditions": [
+        "Default linear torque conversion callback is actually selected"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueFriction",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "range_end": 415,
+      "range_start": 411,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The default linear callback divides lateral acceleration by latAccelFactor and adds friction compensation. This does not establish equivalence for every brand or NN callback.",
+      "source_range_sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f",
+      "supersedes_claim_id": null,
+      "symbol": "CarInterfaceBase.torque_from_lateral_accel_linear",
+      "source_sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueAccelFactor",
+        "runtime:LateralTorqueFriction",
+        "runtime:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "runtime:friction",
+      "conditions": [
+        "Callback uses this helper",
+        "Friction compensation flag is true"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "parameter_ids": [
+        "LateralTorqueFriction"
+      ],
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "range_end": 299,
+      "range_start": 291,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Friction compensation interpolates between negative and positive torque_params.friction around the acceleration-error deadzone; the value is disabled when friction_compensation is false.",
+      "source_range_sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c",
+      "supersedes_claim_id": null,
+      "symbol": "get_friction",
+      "source_sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueFriction"
+      ]
+    },
+    {
+      "claim_id": "runtime:pid",
+      "conditions": [
+        "The ordinary PIDController is used",
+        "Torque controller error/feedforward domain remains mode-dependent"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "a75aa42731640260b0f20202541171ec3838360b",
+      "parameter_ids": [
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV"
+      ],
+      "path": "openpilot/common/pid.py",
+      "range_end": 70,
+      "range_start": 49,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The proportional term multiplies error by k_p, feedforward multiplies its input by k_f and the integral increment uses error times k_i times the controller time step. These are software coefficients, not vehicle-approved gains.",
+      "source_range_sha256": "d29d2e74de600292dbdf15fcdbc3e4eaa41e3e40c871447a62e0f95d89aa7f5a",
+      "supersedes_claim_id": null,
+      "symbol": "PIDController.update",
+      "source_sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueKpV",
+        "runtime:LateralTorqueKiV",
+        "runtime:LateralTorqueKf"
+      ]
+    },
+    {
+      "claim_id": "runtime:nn",
+      "conditions": [
+        "Actual brand callback and NN/NN-lite context must be known"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "range_end": 310,
+      "range_start": 70,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Initialization captures the CP torque tuple as defaults. NN and NN-lite flags select alternative feedforward/error paths; controller gains and torque coefficients do not imply a universal physical torque response or identification result.",
+      "source_range_sha256": "b83edec1ca8e087f517abf0535228b088ed63e615d5c711fe16ff6beaae4e410",
+      "supersedes_claim_id": null,
+      "symbol": "LatControlTorque.__init__ / update",
+      "source_sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueAccelFactor",
+        "runtime:LateralTorqueFriction",
+        "runtime:LateralTorqueKpV",
+        "runtime:LateralTorqueKiV",
+        "runtime:LateralTorqueKf",
+        "runtime:LateralTorqueCustom",
+        "runtime:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "runtime:ratio",
+      "conditions": [
+        "Exact revision helper and CustomSR/platform conditions must be retained"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "e679268b3e488a7eac11720a37f43d4a8fa2bb7a",
+      "parameter_ids": [
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "range_end": 20,
+      "range_start": 10,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "All platforms use the helper manual CustomSR override or learned ratio times stored rate times 0.01, with source fallback/floor. There is no MEB bypass in this helper.",
+      "source_range_sha256": "d4407c097aadf0e0345e838f0fe6ba1089afe59f5802185bca8b87045b51c6f2",
+      "supersedes_claim_id": null,
+      "symbol": "resolve_vehicle_model_steer_ratio",
+      "source_sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:SteerRatioRate"
+      ]
+    },
+    {
+      "claim_id": "runtime:vm",
+      "conditions": [
+        "Source-specific vehicle model context is required"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "2378902ba077177b96dfb57f010e06c388241213",
+      "parameter_ids": [
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "range_end": 131,
+      "range_start": 128,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The resolved ratio is passed to VehicleModel.update_params. Current upstream additionally updates live geometry; helper conversion equivalence does not prove equal VM output.",
+      "source_range_sha256": "2cd8c0320dbfc8aff61be9678749d731ab5ea8bc70a0179abd7e1155190c6c1a",
+      "supersedes_claim_id": null,
+      "symbol": "Controls.state_control",
+      "source_sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:SteerRatioRate"
+      ]
+    },
+    {
+      "claim_id": "runtime:delay",
+      "conditions": [
+        "Keep source-specific control-flow guard",
+        "Not a measured actuator delay or guaranteed response"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "2378902ba077177b96dfb57f010e06c388241213",
+      "parameter_ids": [
+        "SteerActuatorDelay"
+      ],
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "range_end": 205,
+      "range_start": 200,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The stored delay is converted by 0.01 seconds and a zero result selects liveDelay in this controlsd path. The path is unconditional here in historical Hoya but lane-plan/active conditional in runtime/current upstream.",
+      "source_range_sha256": "944f5276d05ad4f6cacb7524d2dcb54c9a5e7b9ea0304f98cc9d12bcc6c69ba5",
+      "supersedes_claim_id": null,
+      "symbol": "Controls.state_control",
+      "source_sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "runtime:delay-nn",
+      "conditions": [
+        "NN or NN-lite initialization branch"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "parameter_ids": [
+        "SteerActuatorDelay"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "range_end": 110,
+      "range_start": 107,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "NN/NN-lite initialization caches stored delay times 0.01 plus 0.3 seconds for desired lateral jerk timing; a raw zero is not a liveDelay substitution in this expression.",
+      "source_range_sha256": "69b8da38580c0adf799fe7bc3a08bb0db2dd8d320e239f5a02706331e00738fe",
+      "supersedes_claim_id": null,
+      "symbol": "LatControlTorque.__init__",
+      "source_sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "runtime:delay-model",
+      "conditions": [
+        "Model processing branch reaches the delay selection"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "b800432ccc6ff7013fd0ed10131124518dfb2381",
+      "parameter_ids": [
+        "SteerActuatorDelay"
+      ],
+      "path": "openpilot/selfdrive/modeld/modeld.py",
+      "range_end": 564,
+      "range_start": 561,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The model timing path selects positive custom delay or liveDelay, adding dynamic smoothing time. This is separate from the NN constructor and controlsd paths.",
+      "source_range_sha256": "61c961fbdefec40ef2a383ff31208e8d1f6db3518e2ee97567c824751d88c74e",
+      "supersedes_claim_id": null,
+      "symbol": "modeld_thread",
+      "source_sha256": "6a37f8a139d5225530950a24d1c75d502a5f3ff7a85b3fe49b3ff300d4e02bb1",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "runtime:offset-fit",
+      "conditions": [
+        "Valid estimator point bucket and source-specific calculation"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "parameter_ids": [
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "range_end": 157,
+      "range_start": 145,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The estimator produces an offset alongside slope and spread-based friction. This audit does not establish a universal canonical unit or qualified identification for that offset.",
+      "source_range_sha256": "efa2cbfcc4a36b428c93f053afc47ed750c95f6c9a2fa40e02e0ddba5362ea09",
+      "supersedes_claim_id": null,
+      "symbol": "TorqueEstimator.estimate_params",
+      "source_sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "runtime:offset-publish",
+      "conditions": [
+        "Actual source message/validity is a separate future input"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueFriction",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "range_end": 242,
+      "range_start": 207,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The filtered internal offset is copied to latAccelOffsetFiltered with factor/friction and version/useParams/validity evidence; no current value is read by the knowledge package.",
+      "source_range_sha256": "bb16b3ce08d5384e53575e7a64d58f7d197be853f1c96cd9ec9de373dc23bf87",
+      "supersedes_claim_id": null,
+      "symbol": "TorqueEstimator.get_msg",
+      "source_sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueAccelFactor",
+        "runtime:LateralTorqueFriction",
+        "runtime:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "runtime:wire",
+      "conditions": [
+        "Legacy scalar defaults are never interpreted as available state"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "9c5cebe0eaa6fbfa077e9e8bfd0b5161367ef862",
+      "parameter_ids": [
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/cereal/log.capnp",
+      "range_end": 2392,
+      "range_start": 2377,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The schema names latAccelOffsetRaw and latAccelOffsetFiltered, not a literal latAccelOffset member. The catalog logical offset ID refers to the filtered consumed member; scalar default zero is not availability.",
+      "source_range_sha256": "14671356ec6065f0ba48451a2bde026f7f788d6bd2bdf48c610673aa4b37d809",
+      "supersedes_claim_id": null,
+      "symbol": "LiveTorqueParametersData",
+      "source_sha256": "7d5c19cc2a534fb6918ba51d393eff288f096b68b6c13fd5608c46d17454ba35",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "runtime:settings-write",
+      "conditions": [
+        "Reference source only; never invoked by knowledge"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "c47770c7a9ac50dbcffda24714f8edcf3849e6a3",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "SteerActuatorDelay",
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/carrot/server/services/params.py",
+      "range_end": 408,
+      "range_start": 393,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The device settings service delegates typed writes to Params and has a metadata fallback for unregistered settings. This is a descriptive storage writer, not this package or an exclusive owner.",
+      "source_range_sha256": "601aca703e8436abc3f27be340f550c0ce917d6f7c2d183d1e9b8dd11d36b674",
+      "supersedes_claim_id": null,
+      "symbol": "set_param_value",
+      "source_sha256": "c03e5bde751399103cb6926269b172f45a99175cba9f1dc4ae02917675f8c9a4",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueAccelFactor",
+        "runtime:LateralTorqueFriction",
+        "runtime:LateralTorqueKpV",
+        "runtime:LateralTorqueKiV",
+        "runtime:LateralTorqueKf",
+        "runtime:LateralTorqueCustom",
+        "runtime:SteerRatioRate",
+        "runtime:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "runtime:settings-type",
+      "conditions": [
+        "Native Params type information or explicit fallback source"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "c47770c7a9ac50dbcffda24714f8edcf3849e6a3",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "SteerActuatorDelay",
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/carrot/server/services/params.py",
+      "range_end": 370,
+      "range_start": 335,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Native integer keys use typed integer serialization; inferred catalog types are fallback behavior. UI values and stored defaults are descriptive, never trusted baselines.",
+      "source_range_sha256": "9bf4cdd7c85b80b4768693b11fc462ecb2e8dde67628888f16023e0864f86c0e",
+      "supersedes_claim_id": null,
+      "symbol": "put_typed",
+      "source_sha256": "c03e5bde751399103cb6926269b172f45a99175cba9f1dc4ae02917675f8c9a4",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueAccelFactor",
+        "runtime:LateralTorqueFriction",
+        "runtime:LateralTorqueKpV",
+        "runtime:LateralTorqueKiV",
+        "runtime:LateralTorqueKf",
+        "runtime:LateralTorqueCustom",
+        "runtime:SteerRatioRate",
+        "runtime:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "runtime:key-defaults",
+      "conditions": [
+        "Descriptive registered source defaults only"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "0a5285bcf0d1f292919a20d07ae319497dc86be4",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "SteerActuatorDelay",
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/common/params_keys.h",
+      "range_end": 416,
+      "range_start": 292,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The eight steering keys are persistent integer-text settings. Native key defaults for custom mode and delay are zero while the catalog UI defaults differ. They are not baselines.",
+      "source_range_sha256": "e6ff0d9572c6516d7151310cea0e8048c57ac070c441afa30898f9fe25ba86fb",
+      "supersedes_claim_id": null,
+      "symbol": "Params key declarations",
+      "source_sha256": "8c440512d6ed414719d3b28902782d54ca77fa8bdfc01c0521b2aaa586121cd5",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueAccelFactor",
+        "runtime:LateralTorqueFriction",
+        "runtime:LateralTorqueKpV",
+        "runtime:LateralTorqueKiV",
+        "runtime:LateralTorqueKf",
+        "runtime:LateralTorqueCustom",
+        "runtime:SteerRatioRate",
+        "runtime:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "runtime:ui-LateralTorqueAccelFactor",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "b7e044a72f6acd254c82c88be8b4878f65237b93",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 730,
+      "range_start": 715,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueAccelFactor is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "01a4d209aa010c020038d561990b6e176ffbbecc000cbf7a954edd5542f4fdb7",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueAccelFactor]",
+      "source_sha256": "3ea7477fd615c4cac0f26c2964664194ba245ce3e9b658a0f30ef619784ed8d6",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueAccelFactor"
+      ]
+    },
+    {
+      "claim_id": "runtime:ui-LateralTorqueFriction",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "b7e044a72f6acd254c82c88be8b4878f65237b93",
+      "parameter_ids": [
+        "LateralTorqueFriction"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 746,
+      "range_start": 731,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueFriction is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "206e214b9aa38c25f0081acb932f0819d8ca9b7222218f4ea2c891daa810bb52",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueFriction]",
+      "source_sha256": "3ea7477fd615c4cac0f26c2964664194ba245ce3e9b658a0f30ef619784ed8d6",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueFriction"
+      ]
+    },
+    {
+      "claim_id": "runtime:ui-LateralTorqueKpV",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "b7e044a72f6acd254c82c88be8b4878f65237b93",
+      "parameter_ids": [
+        "LateralTorqueKpV"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 762,
+      "range_start": 747,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueKpV is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "de454805ef623e2a987957ba5f07fa8746112956f52cd4e35d680f7eb1e4d70f",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueKpV]",
+      "source_sha256": "3ea7477fd615c4cac0f26c2964664194ba245ce3e9b658a0f30ef619784ed8d6",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueKpV"
+      ]
+    },
+    {
+      "claim_id": "runtime:ui-LateralTorqueKiV",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "b7e044a72f6acd254c82c88be8b4878f65237b93",
+      "parameter_ids": [
+        "LateralTorqueKiV"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 778,
+      "range_start": 763,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueKiV is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "db958a988af92decafea2b488ec9d0534a84ffec5ee861ef747b4b7749c8b211",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueKiV]",
+      "source_sha256": "3ea7477fd615c4cac0f26c2964664194ba245ce3e9b658a0f30ef619784ed8d6",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueKiV"
+      ]
+    },
+    {
+      "claim_id": "runtime:ui-LateralTorqueKf",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "b7e044a72f6acd254c82c88be8b4878f65237b93",
+      "parameter_ids": [
+        "LateralTorqueKf"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 794,
+      "range_start": 779,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueKf is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "a3909a2a1c30f2865dea026e9e7180f416ab87c38a61f8d0509385c1905917fc",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueKf]",
+      "source_sha256": "3ea7477fd615c4cac0f26c2964664194ba245ce3e9b658a0f30ef619784ed8d6",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueKf"
+      ]
+    },
+    {
+      "claim_id": "runtime:ui-LateralTorqueCustom",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "b7e044a72f6acd254c82c88be8b4878f65237b93",
+      "parameter_ids": [
+        "LateralTorqueCustom"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 714,
+      "range_start": 699,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueCustom is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "60f03b1f6c5da5719362657f333578018e81a1dd3028c089832a17ec30510063",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueCustom]",
+      "source_sha256": "3ea7477fd615c4cac0f26c2964664194ba245ce3e9b658a0f30ef619784ed8d6",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:LateralTorqueCustom"
+      ]
+    },
+    {
+      "claim_id": "runtime:ui-SteerRatioRate",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "b7e044a72f6acd254c82c88be8b4878f65237b93",
+      "parameter_ids": [
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 1150,
+      "range_start": 1134,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for SteerRatioRate is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "b971ebc4baa4011248b280487a3f11011ca7cda65b117ebe6f9686a158290643",
+      "supersedes_claim_id": null,
+      "symbol": "params[SteerRatioRate]",
+      "source_sha256": "3ea7477fd615c4cac0f26c2964664194ba245ce3e9b658a0f30ef619784ed8d6",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:SteerRatioRate"
+      ]
+    },
+    {
+      "claim_id": "runtime:ui-SteerActuatorDelay",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "git_blob_sha": "b7e044a72f6acd254c82c88be8b4878f65237b93",
+      "parameter_ids": [
+        "SteerActuatorDelay"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 1002,
+      "range_start": 987,
+      "repository": "rownlvh8875-coder/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for SteerActuatorDelay is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "b2efc06e486a73cae32a1a77686413f3f37989142aa885c9bbe00d7d9448056c",
+      "supersedes_claim_id": null,
+      "symbol": "params[SteerActuatorDelay]",
+      "source_sha256": "3ea7477fd615c4cac0f26c2964664194ba245ce3e9b658a0f30ef619784ed8d6",
+      "source_role": "runtime",
+      "related_descriptors": [
+        "runtime:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "upstream:custom",
+      "conditions": [
+        "CP lateral tuning is torque",
+        "Custom Params branch sampled every ten controller frames"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "range_end": 162,
+      "range_start": 144,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "A positive sampled custom mode assigns stored factor/friction times 0.001 and Kp/Ki/Kf times 0.01; it preserves the captured default offset. The prior cached mode also controls live updates.",
+      "source_range_sha256": "55f7a8e7862b0ac88021ea905ff1e96b14e3fd2ad30aa81e039898b81da8c99a",
+      "supersedes_claim_id": null,
+      "symbol": "LatControlTorque.update",
+      "source_sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueAccelFactor",
+        "upstream:LateralTorqueFriction",
+        "upstream:LateralTorqueKpV",
+        "upstream:LateralTorqueKiV",
+        "upstream:LateralTorqueKf",
+        "upstream:LateralTorqueCustom",
+        "upstream:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "upstream:live-tuple",
+      "conditions": [
+        "Cached custom mode permits live setter",
+        "Torque controller selected"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "range_end": 140,
+      "range_start": 134,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "When the cached custom mode is not positive, the supplied factor, offset and friction are assigned as a tuple. This setter has no owner revision or CAS contract.",
+      "source_range_sha256": "fcc92cb040e249df3e63eebda4427e96bf162f1248b8e0cf25dd7e6b4fd2a3d9",
+      "supersedes_claim_id": null,
+      "symbol": "LatControlTorque.update_live_torque_params",
+      "source_sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueAccelFactor",
+        "upstream:LateralTorqueFriction",
+        "upstream:LateralTorqueCustom",
+        "upstream:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "upstream:controlsd-live",
+      "conditions": [
+        "SubMaster all_checks and useParams pass",
+        "Torque lateral tuning selected"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueFriction",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "range_end": 139,
+      "range_start": 135,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The liveTorqueParameters factorFiltered, offsetFiltered and frictionCoefficientFiltered are passed to the lateral torque setter after all_checks and useParams. No descriptive claim proves writer exclusivity.",
+      "source_range_sha256": "4243e06bf84c65290ff8e710ebd5997385a9c16cee62956df0769fa241f3c612",
+      "supersedes_claim_id": null,
+      "symbol": "Controls.state_control",
+      "source_sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueAccelFactor",
+        "upstream:LateralTorqueFriction",
+        "upstream:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "upstream:linear",
+      "conditions": [
+        "Default linear torque conversion callback is actually selected"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueFriction",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "range_end": 415,
+      "range_start": 411,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The default linear callback divides lateral acceleration by latAccelFactor and adds friction compensation. This does not establish equivalence for every brand or NN callback.",
+      "source_range_sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f",
+      "supersedes_claim_id": null,
+      "symbol": "CarInterfaceBase.torque_from_lateral_accel_linear",
+      "source_sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueAccelFactor",
+        "upstream:LateralTorqueFriction",
+        "upstream:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "upstream:friction",
+      "conditions": [
+        "Callback uses this helper",
+        "Friction compensation flag is true"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "parameter_ids": [
+        "LateralTorqueFriction"
+      ],
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "range_end": 299,
+      "range_start": 291,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Friction compensation interpolates between negative and positive torque_params.friction around the acceleration-error deadzone; the value is disabled when friction_compensation is false.",
+      "source_range_sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c",
+      "supersedes_claim_id": null,
+      "symbol": "get_friction",
+      "source_sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueFriction"
+      ]
+    },
+    {
+      "claim_id": "upstream:pid",
+      "conditions": [
+        "The ordinary PIDController is used",
+        "Torque controller error/feedforward domain remains mode-dependent"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "a75aa42731640260b0f20202541171ec3838360b",
+      "parameter_ids": [
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV"
+      ],
+      "path": "openpilot/common/pid.py",
+      "range_end": 70,
+      "range_start": 49,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The proportional term multiplies error by k_p, feedforward multiplies its input by k_f and the integral increment uses error times k_i times the controller time step. These are software coefficients, not vehicle-approved gains.",
+      "source_range_sha256": "d29d2e74de600292dbdf15fcdbc3e4eaa41e3e40c871447a62e0f95d89aa7f5a",
+      "supersedes_claim_id": null,
+      "symbol": "PIDController.update",
+      "source_sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueKpV",
+        "upstream:LateralTorqueKiV",
+        "upstream:LateralTorqueKf"
+      ]
+    },
+    {
+      "claim_id": "upstream:nn",
+      "conditions": [
+        "Actual brand callback and NN/NN-lite context must be known"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "range_end": 307,
+      "range_start": 69,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Initialization captures the CP torque tuple as defaults. NN and NN-lite flags select alternative feedforward/error paths; controller gains and torque coefficients do not imply a universal physical torque response or identification result.",
+      "source_range_sha256": "421d9dbd2101ece4df1f8ce601334bbb7dd186797bd60842a382fe0e497ba6a7",
+      "supersedes_claim_id": null,
+      "symbol": "LatControlTorque.__init__ / update",
+      "source_sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueAccelFactor",
+        "upstream:LateralTorqueFriction",
+        "upstream:LateralTorqueKpV",
+        "upstream:LateralTorqueKiV",
+        "upstream:LateralTorqueKf",
+        "upstream:LateralTorqueCustom",
+        "upstream:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "upstream:ratio",
+      "conditions": [
+        "Exact revision helper and CustomSR/platform conditions must be retained"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "e679268b3e488a7eac11720a37f43d4a8fa2bb7a",
+      "parameter_ids": [
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/steer_ratio.py",
+      "range_end": 20,
+      "range_start": 10,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "All platforms use the helper manual CustomSR override or learned ratio times stored rate times 0.01, with source fallback/floor. There is no MEB bypass in this helper.",
+      "source_range_sha256": "d4407c097aadf0e0345e838f0fe6ba1089afe59f5802185bca8b87045b51c6f2",
+      "supersedes_claim_id": null,
+      "symbol": "resolve_vehicle_model_steer_ratio",
+      "source_sha256": "87fc3c01b2c3cfdd0e9df0deacd5dc2416df6edf76b18536d7d2f014d1ce77ee",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:SteerRatioRate"
+      ]
+    },
+    {
+      "claim_id": "upstream:vm",
+      "conditions": [
+        "Source-specific vehicle model context is required"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "parameter_ids": [
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "range_end": 129,
+      "range_start": 125,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The resolved ratio is passed to VehicleModel.update_params. Current upstream additionally updates live geometry; helper conversion equivalence does not prove equal VM output.",
+      "source_range_sha256": "d08282329f6b28a73e7a156e112848cd1f1f97332445ff805e337b78cb5a0d46",
+      "supersedes_claim_id": null,
+      "symbol": "Controls.state_control",
+      "source_sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:SteerRatioRate"
+      ]
+    },
+    {
+      "claim_id": "upstream:delay",
+      "conditions": [
+        "Keep source-specific control-flow guard",
+        "Not a measured actuator delay or guaranteed response"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
+      "parameter_ids": [
+        "SteerActuatorDelay"
+      ],
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "range_end": 202,
+      "range_start": 197,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The stored delay is converted by 0.01 seconds and a zero result selects liveDelay in this controlsd path. The path is unconditional here in historical Hoya but lane-plan/active conditional in runtime/current upstream.",
+      "source_range_sha256": "944f5276d05ad4f6cacb7524d2dcb54c9a5e7b9ea0304f98cc9d12bcc6c69ba5",
+      "supersedes_claim_id": null,
+      "symbol": "Controls.state_control",
+      "source_sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "upstream:delay-nn",
+      "conditions": [
+        "NN or NN-lite initialization branch"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "parameter_ids": [
+        "SteerActuatorDelay"
+      ],
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "range_end": 109,
+      "range_start": 106,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "NN/NN-lite initialization caches stored delay times 0.01 plus 0.3 seconds for desired lateral jerk timing; a raw zero is not a liveDelay substitution in this expression.",
+      "source_range_sha256": "69b8da38580c0adf799fe7bc3a08bb0db2dd8d320e239f5a02706331e00738fe",
+      "supersedes_claim_id": null,
+      "symbol": "LatControlTorque.__init__",
+      "source_sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "upstream:delay-model",
+      "conditions": [
+        "Model processing branch reaches the delay selection"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "b800432ccc6ff7013fd0ed10131124518dfb2381",
+      "parameter_ids": [
+        "SteerActuatorDelay"
+      ],
+      "path": "openpilot/selfdrive/modeld/modeld.py",
+      "range_end": 564,
+      "range_start": 561,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The model timing path selects positive custom delay or liveDelay, adding dynamic smoothing time. This is separate from the NN constructor and controlsd paths.",
+      "source_range_sha256": "61c961fbdefec40ef2a383ff31208e8d1f6db3518e2ee97567c824751d88c74e",
+      "supersedes_claim_id": null,
+      "symbol": "modeld_thread",
+      "source_sha256": "6a37f8a139d5225530950a24d1c75d502a5f3ff7a85b3fe49b3ff300d4e02bb1",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "upstream:offset-fit",
+      "conditions": [
+        "Valid estimator point bucket and source-specific calculation"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "parameter_ids": [
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "range_end": 157,
+      "range_start": 145,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The estimator produces an offset alongside slope and spread-based friction. This audit does not establish a universal canonical unit or qualified identification for that offset.",
+      "source_range_sha256": "efa2cbfcc4a36b428c93f053afc47ed750c95f6c9a2fa40e02e0ddba5362ea09",
+      "supersedes_claim_id": null,
+      "symbol": "TorqueEstimator.estimate_params",
+      "source_sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "upstream:offset-publish",
+      "conditions": [
+        "Actual source message/validity is a separate future input"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueFriction",
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "range_end": 242,
+      "range_start": 207,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The filtered internal offset is copied to latAccelOffsetFiltered with factor/friction and version/useParams/validity evidence; no current value is read by the knowledge package.",
+      "source_range_sha256": "bb16b3ce08d5384e53575e7a64d58f7d197be853f1c96cd9ec9de373dc23bf87",
+      "supersedes_claim_id": null,
+      "symbol": "TorqueEstimator.get_msg",
+      "source_sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueAccelFactor",
+        "upstream:LateralTorqueFriction",
+        "upstream:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "upstream:wire",
+      "conditions": [
+        "Legacy scalar defaults are never interpreted as available state"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "609cb5892185f11cb0ee6d2e91c081170d40d7e9",
+      "parameter_ids": [
+        "liveTorqueParameters.latAccelOffset"
+      ],
+      "path": "openpilot/cereal/log.capnp",
+      "range_end": 2390,
+      "range_start": 2375,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The schema names latAccelOffsetRaw and latAccelOffsetFiltered, not a literal latAccelOffset member. The catalog logical offset ID refers to the filtered consumed member; scalar default zero is not availability.",
+      "source_range_sha256": "14671356ec6065f0ba48451a2bde026f7f788d6bd2bdf48c610673aa4b37d809",
+      "supersedes_claim_id": null,
+      "symbol": "LiveTorqueParametersData",
+      "source_sha256": "0d546ea5f37bc26a16f71ae0433a9a617728c78d77de872c1d327a10cf0fe1db",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:liveTorqueParameters.latAccelOffset"
+      ]
+    },
+    {
+      "claim_id": "upstream:settings-write",
+      "conditions": [
+        "Reference source only; never invoked by knowledge"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "f170137363da3357d2fead1f0442f5fe2af846d5",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "SteerActuatorDelay",
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/carrot/server/services/params.py",
+      "range_end": 411,
+      "range_start": 396,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The device settings service delegates typed writes to Params and has a metadata fallback for unregistered settings. This is a descriptive storage writer, not this package or an exclusive owner.",
+      "source_range_sha256": "601aca703e8436abc3f27be340f550c0ce917d6f7c2d183d1e9b8dd11d36b674",
+      "supersedes_claim_id": null,
+      "symbol": "set_param_value",
+      "source_sha256": "a1065ee80c2feb835a864b5263e13c195744b5b69af110e35291e049d15bb507",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueAccelFactor",
+        "upstream:LateralTorqueFriction",
+        "upstream:LateralTorqueKpV",
+        "upstream:LateralTorqueKiV",
+        "upstream:LateralTorqueKf",
+        "upstream:LateralTorqueCustom",
+        "upstream:SteerRatioRate",
+        "upstream:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "upstream:settings-type",
+      "conditions": [
+        "Native Params type information or explicit fallback source"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "f170137363da3357d2fead1f0442f5fe2af846d5",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "SteerActuatorDelay",
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/carrot/server/services/params.py",
+      "range_end": 373,
+      "range_start": 338,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Native integer keys use typed integer serialization; inferred catalog types are fallback behavior. UI values and stored defaults are descriptive, never trusted baselines.",
+      "source_range_sha256": "9bf4cdd7c85b80b4768693b11fc462ecb2e8dde67628888f16023e0864f86c0e",
+      "supersedes_claim_id": null,
+      "symbol": "put_typed",
+      "source_sha256": "a1065ee80c2feb835a864b5263e13c195744b5b69af110e35291e049d15bb507",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueAccelFactor",
+        "upstream:LateralTorqueFriction",
+        "upstream:LateralTorqueKpV",
+        "upstream:LateralTorqueKiV",
+        "upstream:LateralTorqueKf",
+        "upstream:LateralTorqueCustom",
+        "upstream:SteerRatioRate",
+        "upstream:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "upstream:key-defaults",
+      "conditions": [
+        "Descriptive registered source defaults only"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "5583afd70bfbd215869e3ee92412e8b750c9fde7",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor",
+        "LateralTorqueCustom",
+        "LateralTorqueFriction",
+        "LateralTorqueKf",
+        "LateralTorqueKiV",
+        "LateralTorqueKpV",
+        "SteerActuatorDelay",
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/common/params_keys.h",
+      "range_end": 419,
+      "range_start": 293,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "The eight steering keys are persistent integer-text settings. Native key defaults for custom mode and delay are zero while the catalog UI defaults differ. They are not baselines.",
+      "source_range_sha256": "d88202211ed7dc50b04770fe1dfb40cd0e6e2d8ae85d8d7d4c2b2252f511d295",
+      "supersedes_claim_id": null,
+      "symbol": "Params key declarations",
+      "source_sha256": "9215b2beddc787ea26ce7c94769b4997f047e6880911c4f1dd9cc2c5b9eb171c",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueAccelFactor",
+        "upstream:LateralTorqueFriction",
+        "upstream:LateralTorqueKpV",
+        "upstream:LateralTorqueKiV",
+        "upstream:LateralTorqueKf",
+        "upstream:LateralTorqueCustom",
+        "upstream:SteerRatioRate",
+        "upstream:SteerActuatorDelay"
+      ]
+    },
+    {
+      "claim_id": "upstream:ui-LateralTorqueAccelFactor",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "1d281b518bbaf321cce148fbcc0a6ca3432afc3c",
+      "parameter_ids": [
+        "LateralTorqueAccelFactor"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 732,
+      "range_start": 717,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueAccelFactor is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "01a4d209aa010c020038d561990b6e176ffbbecc000cbf7a954edd5542f4fdb7",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueAccelFactor]",
+      "source_sha256": "f235f2ec0b71be3190f0cb285f3c398c9da986933526961beae7b8a1f79cb6f0",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueAccelFactor"
+      ]
+    },
+    {
+      "claim_id": "upstream:ui-LateralTorqueFriction",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "1d281b518bbaf321cce148fbcc0a6ca3432afc3c",
+      "parameter_ids": [
+        "LateralTorqueFriction"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 748,
+      "range_start": 733,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueFriction is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "206e214b9aa38c25f0081acb932f0819d8ca9b7222218f4ea2c891daa810bb52",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueFriction]",
+      "source_sha256": "f235f2ec0b71be3190f0cb285f3c398c9da986933526961beae7b8a1f79cb6f0",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueFriction"
+      ]
+    },
+    {
+      "claim_id": "upstream:ui-LateralTorqueKpV",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "1d281b518bbaf321cce148fbcc0a6ca3432afc3c",
+      "parameter_ids": [
+        "LateralTorqueKpV"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 764,
+      "range_start": 749,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueKpV is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "de454805ef623e2a987957ba5f07fa8746112956f52cd4e35d680f7eb1e4d70f",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueKpV]",
+      "source_sha256": "f235f2ec0b71be3190f0cb285f3c398c9da986933526961beae7b8a1f79cb6f0",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueKpV"
+      ]
+    },
+    {
+      "claim_id": "upstream:ui-LateralTorqueKiV",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "1d281b518bbaf321cce148fbcc0a6ca3432afc3c",
+      "parameter_ids": [
+        "LateralTorqueKiV"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 780,
+      "range_start": 765,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueKiV is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "db958a988af92decafea2b488ec9d0534a84ffec5ee861ef747b4b7749c8b211",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueKiV]",
+      "source_sha256": "f235f2ec0b71be3190f0cb285f3c398c9da986933526961beae7b8a1f79cb6f0",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueKiV"
+      ]
+    },
+    {
+      "claim_id": "upstream:ui-LateralTorqueKf",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "1d281b518bbaf321cce148fbcc0a6ca3432afc3c",
+      "parameter_ids": [
+        "LateralTorqueKf"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 796,
+      "range_start": 781,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueKf is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "a3909a2a1c30f2865dea026e9e7180f416ab87c38a61f8d0509385c1905917fc",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueKf]",
+      "source_sha256": "f235f2ec0b71be3190f0cb285f3c398c9da986933526961beae7b8a1f79cb6f0",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueKf"
+      ]
+    },
+    {
+      "claim_id": "upstream:ui-LateralTorqueCustom",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "1d281b518bbaf321cce148fbcc0a6ca3432afc3c",
+      "parameter_ids": [
+        "LateralTorqueCustom"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 716,
+      "range_start": 701,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for LateralTorqueCustom is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "60f03b1f6c5da5719362657f333578018e81a1dd3028c089832a17ec30510063",
+      "supersedes_claim_id": null,
+      "symbol": "params[LateralTorqueCustom]",
+      "source_sha256": "f235f2ec0b71be3190f0cb285f3c398c9da986933526961beae7b8a1f79cb6f0",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:LateralTorqueCustom"
+      ]
+    },
+    {
+      "claim_id": "upstream:ui-SteerRatioRate",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "1d281b518bbaf321cce148fbcc0a6ca3432afc3c",
+      "parameter_ids": [
+        "SteerRatioRate"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 1176,
+      "range_start": 1160,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for SteerRatioRate is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "b971ebc4baa4011248b280487a3f11011ca7cda65b117ebe6f9686a158290643",
+      "supersedes_claim_id": null,
+      "symbol": "params[SteerRatioRate]",
+      "source_sha256": "f235f2ec0b71be3190f0cb285f3c398c9da986933526961beae7b8a1f79cb6f0",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:SteerRatioRate"
+      ]
+    },
+    {
+      "claim_id": "upstream:ui-SteerActuatorDelay",
+      "conditions": [
+        "UI metadata only, not consumer unit proof"
+      ],
+      "confidence": "PROVEN",
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "git_blob_sha": "1d281b518bbaf321cce148fbcc0a6ca3432afc3c",
+      "parameter_ids": [
+        "SteerActuatorDelay"
+      ],
+      "path": "openpilot/selfdrive/carrot_settings.json",
+      "range_end": 1004,
+      "range_start": 989,
+      "repository": "ajouatom/openpilot",
+      "schema_revision": "steering-source-knowledge-v1",
+      "schema_version": 1,
+      "semantic_claim": "Catalog UI range/default/label for SteerActuatorDelay is descriptive; no application bounds or current value is established.",
+      "source_range_sha256": "65a1b87ab757409d91b24e7278c7860f4819fe038f4acb59a21a528388326bcf",
+      "supersedes_claim_id": null,
+      "symbol": "params[SteerActuatorDelay]",
+      "source_sha256": "f235f2ec0b71be3190f0cb285f3c398c9da986933526961beae7b8a1f79cb6f0",
+      "source_role": "upstream",
+      "related_descriptors": [
+        "upstream:SteerActuatorDelay"
+      ]
+    }
+  ],
+  "excluded_parameters": [
+    {
+      "parameter_id": "CarSelected3",
+      "classification": [
+        "PLATFORM_SELECTOR",
+        "NOT_SUITABLE"
+      ],
+      "exact_revision": "0e9c589c1b83027146f909a9cdc306c2c665ceaf",
+      "repository": "ajouatom/openpilot",
+      "path": "opendbc_repo/opendbc/car/car_helpers.py",
+      "symbol": "get_car",
+      "range_start": 157,
+      "range_end": 189,
+      "git_blob_sha": "a53272d68e74bf8f71c457a5931bea6dfb713d37",
+      "source_range_sha256": "42976f37b260eb22a828d5099ed064ce1efae42cc5c64148d736053bb2abbaef",
+      "semantic_claim": "Manual platform selection can force a candidate; excluded from every steering descriptor registry."
+    },
+    {
+      "parameter_id": "CarSelected3",
+      "classification": [
+        "PLATFORM_SELECTOR",
+        "NOT_SUITABLE"
+      ],
+      "exact_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "repository": "rownlvh8875-coder/openpilot",
+      "path": "opendbc_repo/opendbc/car/car_helpers.py",
+      "symbol": "get_car",
+      "range_start": 172,
+      "range_end": 206,
+      "git_blob_sha": "f0c1c22ab5d035746f94e813a9a30fb3eb7f4ad0",
+      "source_range_sha256": "f6e6fc7a2b87a2dbdabd847b626e5971046f2da848cb80e09c32c2a39cedde13",
+      "semantic_claim": "Manual platform selection can force a candidate; excluded from every steering descriptor registry."
+    },
+    {
+      "parameter_id": "CarSelected3",
+      "classification": [
+        "PLATFORM_SELECTOR",
+        "NOT_SUITABLE"
+      ],
+      "exact_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "repository": "ajouatom/openpilot",
+      "path": "opendbc_repo/opendbc/car/car_helpers.py",
+      "symbol": "get_car",
+      "range_start": 172,
+      "range_end": 206,
+      "git_blob_sha": "f0c1c22ab5d035746f94e813a9a30fb3eb7f4ad0",
+      "source_range_sha256": "f6e6fc7a2b87a2dbdabd847b626e5971046f2da848cb80e09c32c2a39cedde13",
+      "semantic_claim": "Manual platform selection can force a candidate; excluded from every steering descriptor registry."
+    }
+  ],
+  "copied_source_bodies": false,
+  "preserved_prs": {
+    "8": "e4361678ed176cbd7c0bb6f838d3daa7174caf22",
+    "9": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5"
+  }
+}
