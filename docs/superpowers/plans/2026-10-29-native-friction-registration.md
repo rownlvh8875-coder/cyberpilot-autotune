@@ -58,9 +58,9 @@ Interfaces: evidence is exactly prepare(reference), verified by CLI and mandator
 source tests discovered by the existing runner/CI; no CI edits needed.
 
 - [x] Generate record using --print-record and add via apply_patch.
-- [ ] CLI verify, source suite/no skips, coverage, all old audits, pytest, lint,
+- [x] CLI verify, source suite/no skips, coverage, all old audits, pytest, lint,
   format, mypy, build/fresh wheel, replay and knowledge/owner/science smokes.
-- [ ] Document provenance/limits, synthetic identity and all retained blockers.
+- [x] Document provenance/limits, synthetic identity and all retained blockers.
 - [ ] Commit final result, one fresh exact-head review; C/I RED→GREEN fix pass only.
 - [ ] Publish a stacked Draft PR against PR18; exact-head push/PR CI; preserve
   PR8/9/16/17/18 and main; attach PR URL. No merge or automatic next task.
@@ -102,3 +102,11 @@ format, tamper/CLI and additive-history cases. Final focused21/21, native126/126
 without skips, core1494/1494; lint/format/mypy pass. New offline tool coverage
 119/125 statements (95.20%),32/38 branches (84.21%), combined92.64%; defensive
 Git corruption/error guards remain unexercised, not claimed100%. Old H7 unchanged.
+
+Task2 local completion: CLI/content evidence verified; mandatory126 native/no
+skips; full1494 core pass with98.52% installed-source coverage. H7 retains100%
+statements/branches. All H2–H7/design source/history and coverage audits pass;
+build/fresh wheel imports70 neutral modules with no NumPy/cereal; H7/H6 six hashes
+each, replay11/four fixture digests, knowledge/owner/science/research/optional
+smokes pass. No old/base tracked file modification. Review/publication and final
+head/check results will be appended externally to the Draft PR, not to this head.
