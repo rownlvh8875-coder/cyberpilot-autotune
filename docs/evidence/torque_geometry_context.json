@@ -1,0 +1,107 @@
+{
+  "schema": "torque-geometry-context-v1",
+  "classification": "GEOMETRY_CONTEXT_PARAMETER",
+  "profiles": {
+    "c213": {
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "source": "STATIC_CP",
+      "dynamic": false,
+      "effective_ratio": null,
+      "unavailable_reason": "NO_USER_VEHICLE_EVIDENCE; never substitute toy/default values"
+    },
+    "f5e4": {
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "source": "APPLIED_VM",
+      "dynamic": true,
+      "effective_ratio": null,
+      "unavailable_reason": "NO_APPLIED_VM_COHORT_OBSERVATION"
+    }
+  },
+  "raw_zero": {
+    "intent": "VEHICLE_DEFAULT",
+    "physical_ratio": null,
+    "resolution": "requires actual CP.centerToFront/CP.wheelbase; request is not applied state"
+  },
+  "required_identity": [
+    "source_revision",
+    "vehicle_context_digest",
+    "wheelbase",
+    "center_to_front",
+    "center_to_front_ratio",
+    "steer_ratio_effective",
+    "stiffness_factor",
+    "controller_mode",
+    "geometry_generation",
+    "snapshot_time_ns",
+    "cohort",
+    "geometry_source",
+    "steer_ratio_rate",
+    "custom_sr",
+    "delay_source",
+    "effective_delay_s",
+    "custom_torque_mode",
+    "factor_installed",
+    "friction_installed"
+  ],
+  "epoch_policy": "GEOMETRY_CONTEXT_CHANGED closes epoch and changes context digest; any other confounder changes context as well",
+  "diagnostic": {
+    "verdict": "GEOMETRY_CONTEXT_MATERIAL",
+    "scope": "GENERIC_COHERENT_BICYCLE_TRANSIENT_NOT_VEHICLE_QUALIFICATION",
+    "coherent_steady_invariant": true,
+    "comparisons": [
+      {
+        "ratio": 0.43,
+        "center_to_front_m": 1.1739,
+        "front_stiffness": 66500,
+        "rear_stiffness": 85500,
+        "steady_curvature_inv_m": 0.0003674066581876524,
+        "steady_acceleration_mps2": 0.11903975725279937,
+        "roll_compensation_inv_m": -0.0002068393350623095,
+        "transient_yaw_rate_rad_s": 0.007090629865139785,
+        "transient_lateral_velocity_mps": -0.016624523806296046,
+        "max_transient_acceleration_delta_mps2": 0,
+        "naive_wrong_cohort_factor": 2.400000000000001,
+        "naive_wrong_cohort_friction": 0.1699999999999999,
+        "naive_fit_claim": "UNADMITTED_GEOMETRY_MISMATCH_NEGATIVE_CONTROL"
+      },
+      {
+        "ratio": 0.44,
+        "center_to_front_m": 1.2012,
+        "front_stiffness": 65333.33333333333,
+        "rear_stiffness": 87488.37209302325,
+        "steady_curvature_inv_m": 0.0003674066581876524,
+        "steady_acceleration_mps2": 0.11903975725279937,
+        "roll_compensation_inv_m": -0.00020683933506230952,
+        "transient_yaw_rate_rad_s": 0.007103319071565777,
+        "transient_lateral_velocity_mps": -0.016845289226676736,
+        "max_transient_acceleration_delta_mps2": 0.0022510354763191076,
+        "naive_wrong_cohort_factor": 2.4400394858969796,
+        "naive_wrong_cohort_friction": 0.16999969568800619,
+        "naive_fit_claim": "UNADMITTED_GEOMETRY_MISMATCH_NEGATIVE_CONTROL"
+      },
+      {
+        "ratio": 0.51,
+        "center_to_front_m": 1.3923,
+        "front_stiffness": 57166.66666666666,
+        "rear_stiffness": 101406.97674418605,
+        "steady_curvature_inv_m": 0.0003674066581876526,
+        "steady_acceleration_mps2": 0.11903975725279944,
+        "roll_compensation_inv_m": -0.0002068393350623095,
+        "transient_yaw_rate_rad_s": 0.007137360793808283,
+        "transient_lateral_velocity_mps": -0.018278235182303634,
+        "max_transient_acceleration_delta_mps2": 0.018008283810552875,
+        "naive_wrong_cohort_factor": 2.7035636242700396,
+        "naive_wrong_cohort_friction": 0.1699976766082124,
+        "naive_fit_claim": "UNADMITTED_GEOMETRY_MISMATCH_NEGATIVE_CONTROL"
+      }
+    ],
+    "mixed_epoch_status": "GEOMETRY_CONTEXT_CHANGED",
+    "vehicle_safe_range_claim": false
+  },
+  "scientific_comparison_with_missing_context": false,
+  "vehicle_safe_range_claim": false,
+  "candidate_generation_allowed": false,
+  "runtime_accepted": false,
+  "owner_proposal_allowed": false,
+  "application_authorized": false
+}

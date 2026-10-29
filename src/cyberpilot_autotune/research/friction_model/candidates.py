@@ -1,6 +1,6 @@
 """Conditional OLS prototypes; numerical rank is not physical qualification."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from .contracts import Sample, finite, require
 from .geometry import epoch_boundary
@@ -21,10 +21,10 @@ def normalize_state(error: float, deadzone: float, threshold: float, enabled: bo
 
 
 @dataclass(frozen=True, slots=True)
-class Fit:
+class ControllerFrictionEstimate:
     status: str
     factor: float | None = None
-    friction: float | None = None
+    estimate: float | None = None
     intercept: float | None = None
     rank: int | None = None
     condition_number: float | None = None
@@ -32,6 +32,17 @@ class Fit:
     zero_count: int = 0
     positive_count: int = 0
     target_claim: str = "CALLBACK_CONDITIONAL_ONLY"
+    estimand: str = "CONDITIONAL_CONTROLLER_DOMAIN_C_NOT_OPTIMAL_PHYSICAL_FRICTION"
+    scope_mode: str = "LINEAR_TORQUE_SYNTHETIC_ONLY"
+    factor_dependency: str = "UNAVAILABLE"
+    uncertainty_diagnostic: str = "NUMERICAL_RANK_CONDITION_ONLY_NOT_CI"
+    observation_completeness: bool = False
+    geometry_context_digest: str | None = None
+    model_family: str = "UNSPECIFIED"
+    candidate_generation_allowed: bool = field(default=False, init=False)
+    application_authorized: bool = field(default=False, init=False)
+    runtime_accepted: bool = field(default=False, init=False)
+    owner_proposal_allowed: bool = field(default=False, init=False)
 
 
 def fit(
@@ -41,39 +52,39 @@ def fit(
     factor: float | None = None,
     target: str = "callback",
     q_observed: bool = True,
-) -> Fit:
+) -> ControllerFrictionEstimate:
     require(family in {"controller", "inverse", "branch", "explicit"}, "MODEL")
     require(target in {"callback", "total", "pid_subtracted"}, "TARGET")
     require(type(samples) is tuple and all(type(s) is Sample for s in samples), "SAMPLES")
     require(type(q_observed) is bool, "Q_OBSERVED_FLAG")
     if factor is not None and (not finite(factor) or factor <= 0):
-        return Fit("INVALID_FACTOR_CONTEXT")
+        return ControllerFrictionEstimate("INVALID_FACTOR_CONTEXT")
     if len(samples) < 3:
-        return Fit("INSUFFICIENT_POINTS")
+        return ControllerFrictionEstimate("INSUFFICIENT_POINTS")
     if not q_observed:
-        return Fit("Q_STATE_UNOBSERVED")
+        return ControllerFrictionEstimate("Q_STATE_UNOBSERVED")
     first = samples[0].context
     for sample in samples:
         boundary = epoch_boundary(first, sample.context)
         if boundary != "SAME_CONTEXT":
-            return Fit(boundary)
+            return ControllerFrictionEstimate(boundary)
     if first.controller_mode != "LINEAR_TORQUE":
-        return Fit("MODE_OUTSIDE_LINEAR_SCOPE")
+        return ControllerFrictionEstimate("MODE_OUTSIDE_LINEAR_SCOPE")
     if any(s.saturated or s.override for s in samples):
-        return Fit("SATURATION_OR_OVERRIDE")
+        return ControllerFrictionEstimate("SATURATION_OR_OVERRIDE")
     if any(a.time_ns >= b.time_ns for a, b in zip(samples[:-1], samples[1:], strict=True)):
-        return Fit("NONINCREASING_TIME")
+        return ControllerFrictionEstimate("NONINCREASING_TIME")
     if family == "branch":
         if any(s.q != 0 for s in samples) and not any(abs(s.q) == 1 for s in samples):
-            return Fit("BRANCH_REQUIRES_SATURATED_STATES")
+            return ControllerFrictionEstimate("BRANCH_REQUIRES_SATURATED_STATES")
         samples = tuple(s for s in samples if abs(s.q) == 1)
     negative = sum(s.q < 0 for s in samples)
     positive = sum(s.q > 0 for s in samples)
     zero = len(samples) - negative - positive
     if not negative and not positive:
-        return Fit("FRICTION_UNOBSERVABLE_IN_DEADZONE")
+        return ControllerFrictionEstimate("FRICTION_UNOBSERVABLE_IN_DEADZONE")
     if not negative or not positive or len(samples) < 3:
-        return Fit("FRICTION_EXCITATION_INSUFFICIENT")
+        return ControllerFrictionEstimate("FRICTION_EXCITATION_INSUFFICIENT")
     try:
         import numpy as np
     except ImportError as exc:
@@ -104,7 +115,7 @@ def fit(
         design, y = np.column_stack((u, q > 0, q < 0)), a
     beta, _, rank, singular = np.linalg.lstsq(design, y, rcond=None)
     if rank < design.shape[1]:
-        return Fit("NONIDENTIFIABLE_DESIGN_MATRIX", rank=int(rank))
+        return ControllerFrictionEstimate("NONIDENTIFIABLE_DESIGN_MATRIX", rank=int(rank))
     condition = float(singular[0] / singular[-1])
     if family == "explicit":
         f, c, intercept = None, float(beta[0]), float(beta[1])
@@ -114,7 +125,9 @@ def fit(
         intercept = float(beta[1])
     else:
         if beta[0] <= 0:
-            return Fit("NONPOSITIVE_FACTOR", rank=int(rank), condition_number=condition)
+            return ControllerFrictionEstimate(
+                "NONPOSITIVE_FACTOR", rank=int(rank), condition_number=condition
+            )
         f = 1 / float(beta[0]) if family == "controller" else float(beta[0])
         c = (
             float(beta[1])
@@ -134,7 +147,27 @@ def fit(
         "total": "WRONG_STAGE_DIAGNOSTIC_ONLY",
         "pid_subtracted": "UNCLIPPED_SYNTHETIC_SUBTRACTION_ONLY",
     }[target]
-    return Fit(status, f, c, intercept, int(rank), condition, negative, zero, positive, claim)
+    dependency = (
+        "NONE_FOR_CONSTRUCTED_TERM_CONSISTENCY_ONLY"
+        if family == "explicit"
+        else ("KNOWN_F_SYNTHETIC_ORACLE" if factor is not None else "JOINT_F_C_FULL_RANK")
+    )
+    return ControllerFrictionEstimate(
+        status,
+        f,
+        c,
+        intercept,
+        int(rank),
+        condition,
+        negative,
+        zero,
+        positive,
+        claim,
+        factor_dependency=dependency,
+        observation_completeness=True,
+        geometry_context_digest=first.digest,
+        model_family=family,
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -150,7 +183,7 @@ def factor_sensitivity(samples: tuple[Sample, ...], interval: tuple[float, float
     if not finite(low) or not finite(high) or not 0 < low <= high:
         return Sensitivity("INVALID_FACTOR_INTERVAL")
     endpoints = [fit(samples, "controller", factor=f) for f in interval]
-    values = [r.friction for r in endpoints if r.friction is not None]
+    values = [r.estimate for r in endpoints if r.estimate is not None]
     if len(values) != 2:
         return Sensitivity(endpoints[0].status)
     return Sensitivity("DETERMINISTIC_FACTOR_SENSITIVITY_NOT_CI", min(values), max(values))

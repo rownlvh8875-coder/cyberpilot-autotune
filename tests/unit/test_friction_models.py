@@ -1,5 +1,6 @@
 """Behavioral contracts: wrong sign/stage, latent q and mixed epochs must not pass."""
 
+import builtins
 from dataclasses import FrozenInstanceError, replace
 
 import pytest
@@ -39,7 +40,7 @@ def rows(**changes):
 @pytest.mark.parametrize("family", ["controller", "inverse", "branch", "explicit"])
 def test_four_models_recover_synthetic_coefficient_with_correct_inverse_sign(family):
     result = candidates.fit(rows(), family)
-    assert result.friction == pytest.approx(0.17, abs=1e-10)
+    assert result.estimate == pytest.approx(0.17, abs=1e-10)
     if family == "explicit":
         assert result.status == "IMPLEMENTED_COEFFICIENT_CONSISTENCY_ONLY"
         assert result.factor is None
@@ -51,7 +52,7 @@ def test_four_models_recover_synthetic_coefficient_with_correct_inverse_sign(fam
 @pytest.mark.parametrize("family", ["controller", "inverse", "branch"])
 def test_zero_friction_and_nonzero_bias_are_not_confused(family):
     result = candidates.fit(rows(friction=0.0, offset=0.19), family)
-    assert result.friction == pytest.approx(0, abs=1e-10)
+    assert result.estimate == pytest.approx(0, abs=1e-10)
     assert result.factor == pytest.approx(2.4)
 
 
@@ -59,7 +60,7 @@ def test_zero_friction_and_nonzero_bias_are_not_confused(family):
 def test_known_factor_is_distinct_from_joint_unknown_factor(family):
     result = candidates.fit(rows(), family, factor=2.4)
     assert result.factor == 2.4
-    assert result.friction == pytest.approx(0.17)
+    assert result.estimate == pytest.approx(0.17)
     assert candidates.fit(rows(), family, factor=0).status == "INVALID_FACTOR_CONTEXT"
 
 
@@ -106,11 +107,11 @@ def test_pid_contamination_is_exposed_not_hidden_by_low_error_selection():
     raw = candidates.fit(sample, "controller")
     contaminated = candidates.fit(sample, "controller", target="total")
     subtracted = candidates.fit(sample, "controller", target="pid_subtracted")
-    assert raw.friction == pytest.approx(0.17)
-    assert contaminated.friction == pytest.approx(0.40)
+    assert raw.estimate == pytest.approx(0.17)
+    assert contaminated.estimate == pytest.approx(0.40)
     assert contaminated.factor != pytest.approx(2.4)
     assert contaminated.target_claim == "WRONG_STAGE_DIAGNOSTIC_ONLY"
-    assert subtracted.friction == pytest.approx(0.17)
+    assert subtracted.estimate == pytest.approx(0.17)
     assert subtracted.target_claim == "UNCLIPPED_SYNTHETIC_SUBTRACTION_ONLY"
 
 
@@ -118,7 +119,7 @@ def test_pid_contamination_is_exposed_not_hidden_by_low_error_selection():
 def test_noise_is_applied_to_observations_not_to_truth_labels(field):
     sample = rows(**{field: 0.08})
     result = candidates.fit(sample, "controller")
-    assert result.friction != pytest.approx(0.17, abs=1e-8)
+    assert result.estimate != pytest.approx(0.17, abs=1e-8)
     assert result.condition_number is not None
 
 
@@ -128,8 +129,8 @@ def test_factor_interval_propagates_covarying_a_q_without_claiming_confidence():
     high = candidates.fit(sample, "controller", factor=2.7)
     interval = candidates.factor_sensitivity(sample, (2.1, 2.7))
     assert interval.status == "DETERMINISTIC_FACTOR_SENSITIVITY_NOT_CI"
-    assert interval.lower == pytest.approx(min(low.friction, high.friction))
-    assert interval.upper == pytest.approx(max(low.friction, high.friction))
+    assert interval.lower == pytest.approx(min(low.estimate, high.estimate))
+    assert interval.upper == pytest.approx(max(low.estimate, high.estimate))
     assert interval.lower < 0.17 < interval.upper
     assert candidates.factor_sensitivity(sample, (2.7, 2.1)).status == "INVALID_FACTOR_INTERVAL"
     assert candidates.factor_sensitivity(rows(state="deadzone"), (2.1, 2.7)).lower is None
@@ -137,7 +138,7 @@ def test_factor_interval_propagates_covarying_a_q_without_claiming_confidence():
 
 def test_branch_excludes_transition_and_handles_unequal_occupancy_without_zero_intercept():
     result = candidates.fit(rows(state="asymmetric"), "branch")
-    assert result.friction == pytest.approx(0.17)
+    assert result.estimate == pytest.approx(0.17)
     assert result.positive_count != result.negative_count
     assert (
         candidates.fit(rows(state="transition"), "branch").status
@@ -145,7 +146,7 @@ def test_branch_excludes_transition_and_handles_unequal_occupancy_without_zero_i
     )
     # An asymmetric physical response yields an average branch separation, not a single optimum C.
     asym = candidates.fit(rows(negative_friction=0.27), "branch")
-    assert asym.friction == pytest.approx(0.22)
+    assert asym.estimate == pytest.approx(0.22)
 
 
 @pytest.mark.parametrize(
@@ -274,7 +275,7 @@ def test_delay_roll_and_all_noise_stressors_are_reproducible_and_not_recovered_a
         first = synthetic.generate(scenario, context())
         assert first == synthetic.generate(scenario, context())
         result = candidates.fit(first, "controller")
-        assert result.friction != pytest.approx(0.17, abs=1e-5)
+        assert result.estimate != pytest.approx(0.17, abs=1e-5)
 
 
 def test_an_unobserved_q_has_observationally_equivalent_friction_values():
@@ -340,6 +341,50 @@ def test_source_geometry_redistribution_preserves_steady_slip_but_changes_transi
     assert other.roll_compensation == pytest.approx(base.roll_compensation, abs=1e-12)
     assert abs(other.yaw_rate - base.yaw_rate) > 1e-5
     assert len(other.acceleration_series) == 200
+
+
+def test_candidate_report_binds_estimand_context_and_unpromotable_authority():
+    result = candidates.fit(rows(), "controller")
+    assert type(result).__name__ == "ControllerFrictionEstimate"
+    assert result.estimand == "CONDITIONAL_CONTROLLER_DOMAIN_C_NOT_OPTIMAL_PHYSICAL_FRICTION"
+    assert result.scope_mode == "LINEAR_TORQUE_SYNTHETIC_ONLY"
+    assert result.factor_dependency == "JOINT_F_C_FULL_RANK"
+    assert result.observation_completeness
+    assert result.geometry_context_digest == context().digest
+    assert result.estimate == pytest.approx(0.17)
+    assert result.uncertainty_diagnostic == "NUMERICAL_RANK_CONDITION_ONLY_NOT_CI"
+    for field in (
+        "candidate_generation_allowed",
+        "application_authorized",
+        "runtime_accepted",
+        "owner_proposal_allowed",
+    ):
+        assert getattr(result, field) is False
+        with pytest.raises(ValueError):
+            replace(result, **{field: True})
+
+
+def test_replayed_duplicate_samples_are_not_independent_evidence():
+    sample = rows()
+    duplicated = tuple(sorted(sample + sample, key=lambda r: r.time_ns))
+    assert candidates.fit(duplicated, "controller").status == "NONINCREASING_TIME"
+
+
+def test_optional_numpy_dependency_is_explicit_and_unknown_ratio_never_completed(monkeypatch):
+    original = builtins.__import__
+
+    def without_numpy(name, *args, **kwargs):
+        if name == "numpy":
+            raise ModuleNotFoundError("numpy", name="numpy")
+        return original(name, *args, **kwargs)
+
+    with monkeypatch.context() as patch:
+        patch.setattr(builtins, "__import__", without_numpy)
+        with pytest.raises(ValueError, match="RESEARCH_EXTRA_REQUIRED"):
+            candidates.fit(rows(), "controller")
+    unknown = context(center_to_front_ratio=None)
+    assert not unknown.complete
+    assert geometry.epoch_boundary(context(), unknown) == "CONTEXT_UNAVAILABLE"
 
 
 def test_selection_is_current_signal_gated_even_for_perfect_synthetic_recovery():

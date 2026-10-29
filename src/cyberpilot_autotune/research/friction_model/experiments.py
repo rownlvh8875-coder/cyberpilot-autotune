@@ -65,7 +65,7 @@ def _geometry_comparison() -> dict[str, object]:
                     )
                 ),
                 "naive_wrong_cohort_factor": naive.factor,
-                "naive_wrong_cohort_friction": naive.friction,
+                "naive_wrong_cohort_friction": naive.estimate,
                 "naive_fit_claim": "UNADMITTED_GEOMETRY_MISMATCH_NEGATIVE_CONTROL",
             }
         )
@@ -179,6 +179,7 @@ def run_experiments(policy_json: str) -> dict[str, object]:
                 "encoding_qualified",
                 "watchdog_qualified",
                 "external_executor_qualified",
+                "owner_proposal_allowed",
                 "application_authorized",
             )
         },
