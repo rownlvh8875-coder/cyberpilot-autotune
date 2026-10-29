@@ -99,6 +99,19 @@ acceptance does not authorize learner state storage or real replay data.
 License selection is pending. No LICENSE file is provided. Source references do
 not establish a license for this independent repository.
 
+## Offline torque identification research
+
+H5 separates scientific estimands from raw numerical parity and from the H4 owner
+protocol. Use `python -m pip install -e ".[dev,research]"` for the optional NumPy
+analysis dependency. Importing the package without that extra remains supported;
+executing a fit requires it. The research package has no runtime/application path.
+
+See [qualification and limitations](docs/torque_identification_qualification.md).
+Native spread is not directly identified controller friction. The specified
+frozen development artifact was not located, so real route/epoch statistics are
+unavailable; historical counts are not promoted to recomputed evidence. Neither
+synthetic success nor a scientific report authorizes candidates or vehicle use.
+
 ## Deterministic synthetic replay
 
 `cyberpilot_autotune.replay.load_replay(json_string)` validates a bounded synthetic

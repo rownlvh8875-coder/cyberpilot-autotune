@@ -73,7 +73,7 @@ route/epoch/side/residual/LOO/jackknife diagnostics; qualify -> immutable report
 - [x] Implement validation, canonical ordering, per-epoch native validity, all-route
   LOO and descriptive jackknife; do not invent physical acceptance thresholds.
 - [x] Run deterministic/permutation/relabeling and zero-friction-noise properties.
-- [ ] Full regression and commit independently tested research implementation.
+- [x] Full regression and commit independently tested research implementation.
 
 ### Task 3: D read-only evidence inventory/reproduction and E decisions
 
@@ -81,13 +81,13 @@ Files: audit validator/reproducer, sources/results JSON, five requested result d
 Interfaces: exact Git blobs -> verified source/range manifest; explicitly allowed
 development artifact -> FrozenDevelopment, or unavailable with exact gap reason.
 
-- [ ] Only after C: inventory frozen development artifact paths/roles/provenance;
+- [x] Only after C: inventory frozen development artifact paths/roles/provenance;
   never read holdout/evaluation/raw logs or unhashed route labels.
-- [ ] Reproduce pinned native/CyberPilot mathematical functions without importing
+- [x] Reproduce pinned native/CyberPilot mathematical functions without importing
   their runtime modules; compare raw numeric outputs on identical frozen rows.
-- [ ] Execute full/route/epoch/side diagnostics if artifacts exist. If missing,
+- [x] Execute full/route/epoch/side diagnostics if artifacts exist. If missing,
   report unavailable counts/metrics and exhaust safe metadata/source alternatives.
-- [ ] Publish separate factor/friction/joint verdicts and retained gates.
+- [x] Publish separate factor/friction/joint verdicts and retained gates.
 - [ ] Full tests, strict types, sources, coverage, build/fresh wheel and goldens.
 
 ### Task 4: Final review, Draft PR and exact-head CI
@@ -120,3 +120,22 @@ existing development artifact. Public GitHub releases had no assets; Actions lis
 code search including forks returned0. HF CyberPilot/cyber-autotune/author queries
 returned0 datasets. Broader torque/steering metadata has unrelated datasets; no
 raw/holdout/evaluation payload has been read, nor substitute evidence admitted.
+
+Task 3:24 source files/50 ranges independently verified; native exact-math and
+CyberPilot frozen TLS parity on identical affine/noisy rows passes (max error0),
+and18 actual imported helper enabled/disabled boundary cases pass.66 protected
+pre-H5 source/evidence/replay/owner-test files are checked against Git base bytes,
+not only an editable manifest. Synthetic execution is43 cases. Development fits,
+route counts, native-valid epochs, duplicates, LOO and uncertainties remain
+UNAVAILABLE; only historical reported counts are separately labeled unrecomputed.
+The user-authorized GitHub/HF search is recorded in a dedicated metadata receipt;
+public steering zips are not substituted for the missing frozen selection.
+
+New source/policy/report integrity tests were observed RED, including changing
+truth, estimate, scenario identity, missing cases, scope and protected-file set;
+all now pass. Stored numerical reports are recomputed with the frozen2e-12
+allowance, without claiming bit identity across different BLAS stacks. Coverage
+has separate98% statement/95% branch gates (both locally100%). A zero-command
+sign diagnostic case was also RED: complement-of-negative wrongly meant
+nonnegative. Explicit x<0/x>0 subsets fix that without changing native admission.
+Full-suite and wheel verification are rerun after this final boundary correction.
