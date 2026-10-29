@@ -71,8 +71,8 @@ misleading offset alias/default, and controller-mode/ownership overclaims.
 - RED/GREEN: 48 missing-contract tests, UI-unit separation, source manifest
   validator, mode live-gate linkage, offset linear non-use and CP-constructor
   provenance linkage. Each failed before the corresponding implementation/data.
-- Windows Python 3.12.14: 841 passed; overall branch-inclusive coverage 97.21%.
-- Linux Python 3.12.3 / actual pycapnp 2.1.0: 978 passed, 0 failed/skipped;
+- Windows Python 3.12.14: 843 passed; overall branch-inclusive coverage 97.21%.
+- Linux Python 3.12.3 / actual pycapnp 2.1.0: 980 passed, 0 failed/skipped;
   overall 98.93%; knowledge 99.71% (branch-only 100%), pure receipt/safety 100%.
 - Separate coverage files are required when Windows/Linux checks share a checkout.
   A first concurrent local report mixed path names; a fresh isolated native
@@ -86,3 +86,15 @@ misleading offset alias/default, and controller-mode/ownership overclaims.
   all source bytes/blob/range hashes plus UI/native defaults verified.
 - Exact-head review and remote CI results are recorded in the Draft PR/final
   report after these commits; no development PR Ready/merge is authorized.
+
+## Review correction
+
+Fresh independent whole-branch review at
+3adc7c39c335578bfa5e7ea9d587d24a6184bd24 found Critical 0 / Important 0 /
+Minor 1: Custom getter metadata said get_float despite the actual get_int calls.
+A failing catalog regression and missing AST-getter check were reproduced, then
+all three profiles/catalog identities corrected. Audit-only AST checks now pin
+get_int for the selector and get_float for the five coefficients without running
+reference code. The correction also states available-zero semantics without
+inferring availability or an application bound. Final-head review confirmation
+and remote CI are recorded in the Draft PR/final report.

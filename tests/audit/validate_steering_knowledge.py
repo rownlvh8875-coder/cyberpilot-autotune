@@ -1,6 +1,7 @@
 """Audit-only metadata/Git verification; never imports or runs reference code."""
 
 import argparse
+import ast
 import hashlib
 import json
 import os
@@ -123,6 +124,31 @@ def verify_blob(file, ranges, data):
         )
 
 
+def verify_getters(data):
+    expected = {
+        key: "get_float"
+        for key in (
+            "LateralTorqueAccelFactor",
+            "LateralTorqueFriction",
+            "LateralTorqueKpV",
+            "LateralTorqueKiV",
+            "LateralTorqueKf",
+        )
+    } | {"LateralTorqueCustom": "get_int"}
+    calls = {
+        (node.args[0].value, node.func.attr)
+        for node in ast.walk(ast.parse(data.decode("utf-8")))
+        if isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Attribute)
+        and node.args
+        and isinstance(node.args[0], ast.Constant)
+        and type(node.args[0].value) is str
+    }
+    require(
+        all((key, getter) in calls for key, getter in expected.items()), "consumer getter differs"
+    )
+
+
 def verify_reference(sources, reference):
     def git(*args):
         return subprocess.check_output(
@@ -146,6 +172,8 @@ def verify_reference(sources, reference):
         data = git("show", f"{revision}:{path}")
         verify_blob(file, ranges, data)
         registry = next(r for r in CATALOGS if r.source_revision == revision)
+        if path.endswith("latcontrol_torque.py"):
+            verify_getters(data)
         if path.endswith("carrot_settings.json"):
             items = {p["name"]: p for p in json.loads(data)["params"]}
             for p in registry.parameters:

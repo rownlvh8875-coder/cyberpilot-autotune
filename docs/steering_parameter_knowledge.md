@@ -38,6 +38,9 @@ All eight UI keys are native PERSISTENT **INT** settings encoded as integer text
 The settings service uses the native type to perform a typed write. The reference
 controller often reads them with get_float; that does not change their native
 storage type. These are observations of reference code, never calls by this package.
+LateralTorqueCustom is read with **get_int**, both in initialization and sampled
+updates; the five coefficient settings use get_float. The audit validator parses
+these calls without executing the reference module.
 
 | ID | Classification / evidence | UI min..max; UI default / native default | Consumer conversion and software unit | Source claims |
 |---|---|---|---|---|
@@ -75,6 +78,16 @@ Brand/NN alternatives and unqualified identification prevent promotion to a
 universal canonical unit or PR #9 equivalence. Factor/friction are magnitudes or
 coefficients, not left/right commands; the sign of the resulting correction is
 consumer/error dependent. No global steering sign is assigned by this catalog.
+
+Available zero and unavailable metadata remain distinct. In the scoped default
+linear callback, factor zero would be a zero divisor; this observation is not a
+new application bound. Friction zero contributes zero compensation. Zero Kp/Kf
+nulls the corresponding multiplication; zero Ki gives no new error-driven integral
+increment, without claiming an existing integrator is reset. Custom zero is not
+positive and does not select the custom assignment branch; cached-mode timing
+still matters. Ratio zero takes the helper's invalid-rate fallback outside Hoya's
+MEB bypass. Delay zero has the separate consumer rules below. A filtered offset
+of zero can be real source evidence, but no current availability is inferred here.
 
 PID gains multiply the callback-dependent error/feedforward domain. The ordinary
 PID uses proportional error×Kp, integral increments error×Ki×dt, and feedforward×Kf,

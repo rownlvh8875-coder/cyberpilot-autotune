@@ -112,3 +112,12 @@ def test_mode_ownership_and_offset_nonuse_claims_have_direct_consumer_evidence()
             and offset.parameter_id in c.parameter_ids
             for c in r.claims
         )
+
+
+def test_custom_selector_getter_is_integer_separate_from_float_coefficients():
+    from cyberpilot_autotune.knowledge.steering import get_registry
+
+    for revision in REVISIONS:
+        registry = get_registry(revision)
+        assert "Params.get_int" in registry.get_proven("LateralTorqueCustom").consumer_value_source
+        assert "Params.get_float" in registry.get_proven("LateralTorqueKpV").consumer_value_source

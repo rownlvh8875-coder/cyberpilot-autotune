@@ -89,3 +89,21 @@ def test_hash_check_uses_exact_blob_bytes_and_lf_inclusive_line_ranges():
         verify_blob(file, ranges, data + b"changed\n")
     with pytest.raises(ValueError):
         verify_blob(file, [ranges[0] | {"source_range_sha256": "0" * 64}], data)
+
+
+def test_getter_check_parses_actual_consumer_without_executing_reference():
+    from tests.audit.validate_steering_knowledge import verify_getters
+
+    data = b"""raise RuntimeError("reference must not execute")
+self.params.get_int("LateralTorqueCustom")
+self.params.get_float("LateralTorqueAccelFactor")
+self.params.get_float("LateralTorqueFriction")
+self.params.get_float("LateralTorqueKpV")
+self.params.get_float("LateralTorqueKiV")
+self.params.get_float("LateralTorqueKf")
+"""
+    verify_getters(data)
+    with pytest.raises(ValueError):
+        verify_getters(
+            data.replace(b'get_int("LateralTorqueCustom")', b'get_float("LateralTorqueCustom")')
+        )

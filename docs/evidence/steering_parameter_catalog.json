@@ -77,7 +77,7 @@
         ],
         "consumer_transform_description": "Positive sampled integer enables custom tuple/gain reads every ten frames; cached previous mode gates the live setter.",
         "consumer_unit": "integer mode selector",
-        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "consumer_value_source": "Reference consumer reads Params.get_int; this package reads no values.",
         "default_sources": [
           "pinned UI catalog and native key registry; neither is a baseline"
         ],
@@ -116,7 +116,7 @@
         "ui_default": 1,
         "ui_unit_description": "Integer selector; UI default 1 differs from native key default 0."
       },
-      "descriptor_digest": "5c7ef42bfa9bdbc2049176e20880b1d3eef2fa44f9530e4b17140a0e5e4a21df",
+      "descriptor_digest": "dea0b560a8fdcf02fa8a656914144c113b16434b754220a17ae8e53ba354f538",
       "source_role": "hoya",
       "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
       "application_policy": "APPLICATION_POLICY_UNRESOLVED"
@@ -602,7 +602,7 @@
         ],
         "consumer_transform_description": "Positive sampled integer enables custom tuple/gain reads every ten frames; cached previous mode gates the live setter.",
         "consumer_unit": "integer mode selector",
-        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "consumer_value_source": "Reference consumer reads Params.get_int; this package reads no values.",
         "default_sources": [
           "pinned UI catalog and native key registry; neither is a baseline"
         ],
@@ -641,7 +641,7 @@
         "ui_default": 1,
         "ui_unit_description": "Integer selector; UI default 1 differs from native key default 0."
       },
-      "descriptor_digest": "011eaaf9fd38971b5bdb2c2b95c7b4248de9dfa341af0dd77ee9b08b82c03456",
+      "descriptor_digest": "83fcbda758d56b0852452b9244d2ae215f2f9110a44d23e03c29e8a7e945cf00",
       "source_role": "runtime",
       "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
       "application_policy": "APPLICATION_POLICY_UNRESOLVED"
@@ -1127,7 +1127,7 @@
         ],
         "consumer_transform_description": "Positive sampled integer enables custom tuple/gain reads every ten frames; cached previous mode gates the live setter.",
         "consumer_unit": "integer mode selector",
-        "consumer_value_source": "Reference consumer reads Params.get_float; this package reads no values.",
+        "consumer_value_source": "Reference consumer reads Params.get_int; this package reads no values.",
         "default_sources": [
           "pinned UI catalog and native key registry; neither is a baseline"
         ],
@@ -1166,7 +1166,7 @@
         "ui_default": 1,
         "ui_unit_description": "Integer selector; UI default 1 differs from native key default 0."
       },
-      "descriptor_digest": "d9fdc55d11e907ff3d39160ae53eef4a8c3edaa3218cb58a0fd97f27988de836",
+      "descriptor_digest": "6d9491440e7dd177102db570cab3bb068f85c0af4e9a229fc68e438fcd5e8e71",
       "source_role": "upstream",
       "compatibility_verdict": "SEMANTICALLY_EQUIVALENT",
       "application_policy": "APPLICATION_POLICY_UNRESOLVED"

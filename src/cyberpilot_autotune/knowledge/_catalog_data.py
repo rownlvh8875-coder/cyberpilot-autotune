@@ -768,7 +768,7 @@ HOYA_PARAMETERS: tuple[ParameterDescriptor, ...] = (
         storage_registry_default=0,
         default_sources=("pinned UI catalog and native key registry; neither is a baseline",),
         consumer_value_source=(
-            "Reference consumer reads Params.get_float; this package reads no values."
+            "Reference consumer reads Params.get_int; this package reads no values."
         ),
         runtime_field="LatControlTorque.lateralTorqueCustom",
         descriptive_owner=(
@@ -1932,7 +1932,7 @@ RUNTIME_PARAMETERS: tuple[ParameterDescriptor, ...] = (
         storage_registry_default=0,
         default_sources=("pinned UI catalog and native key registry; neither is a baseline",),
         consumer_value_source=(
-            "Reference consumer reads Params.get_float; this package reads no values."
+            "Reference consumer reads Params.get_int; this package reads no values."
         ),
         runtime_field="LatControlTorque.lateralTorqueCustom",
         descriptive_owner=(
@@ -3095,7 +3095,7 @@ UPSTREAM_PARAMETERS: tuple[ParameterDescriptor, ...] = (
         storage_registry_default=0,
         default_sources=("pinned UI catalog and native key registry; neither is a baseline",),
         consumer_value_source=(
-            "Reference consumer reads Params.get_float; this package reads no values."
+            "Reference consumer reads Params.get_int; this package reads no values."
         ),
         runtime_field="LatControlTorque.lateralTorqueCustom",
         descriptive_owner=(
