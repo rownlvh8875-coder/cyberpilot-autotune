@@ -116,7 +116,7 @@ Task 1: complete, freeze 83c2170; no new Python existed at freeze.
 Task 2: complete, tests 065eee6 then implementation 6eb4c68. Missing-package RED,
 then 31 basic tests GREEN; added causal adversaries RED->GREEN. Full suite 1302
 passed before the latest 41 additional primitive/adversarial cases.
-Task 3: complete. Latest targeted suite 111 passed; package 829 statements /
+Task 3: complete. Latest targeted suite 119 passed; package 829 statements /
 264 branches 100% each. Direct LINEAR a/error/roll arithmetic uses exact binary64
 equality, including one-ulp boundary adversary RED->GREEN. Separate gain actual-use
 time binding and exact downstream command/event lineage also pinned RED->GREEN.
@@ -124,7 +124,7 @@ Task 4: complete. Schema absent-module/enum-inventory/source-auditor RED->GREEN;
 41 source files, 30 semantic claims, 44 isolated math cases, 143 schema fields,
 18 enums, all 20 requested synthetic fixtures pass. History protects 264 original
 files (three exact namespace amendments included); H6 validator other AST unchanged.
-Full suite 1372 passed after review fixes, overall coverage 98.51%,
+Full suite 1380 passed after review fixes, overall coverage 98.51%,
 lint/format/mypy/build pass.
 Task 5: complete, wire/capture/source compatibility/v2 mapping and final result
 written. No native patch or empirical threshold.
@@ -156,3 +156,10 @@ explicit current-cycle binding for consumed local objects and same-instance loca
 identity/sequence nonreuse, retaining valid wire reuse and local LP fallback.
 New source-AST mutation test also observed RED->GREEN. Full suite 1372 and
 targeted111/100%-100% rerun; new exact-head review required, no finding waived.
+
+Review round 2: exact head 2f45eed49969989b924675dfe08e5daa11b98a3e, C0/I1/M0.
+RED reproduced command Event earlier than control publication and PID observations
+after publication; fixed the control/PID/downstream partial order without equating
+distinct t_ctl/t_cmd. Native source-AST publication-order mutation also RED->GREEN.
+Full suite 1380, targeted119 and coverage100/100 rerun; no old-head approval carried
+forward. Another new fresh exact-head review is required before completion.

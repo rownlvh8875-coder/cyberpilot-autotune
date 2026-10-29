@@ -65,8 +65,12 @@ latches current speed, with their own cycle digest/time; querying them before
 that would observe the previous speed. Installed configuration generation is
 still bound to the entry snapshot.
 
-control_event_mono_time_ns is actual cycle publication metadata, which can
-follow callback execution. The cycle's deterministic IDs are assigned within
+control_event_mono_time_ns is the actual controlsState Event timestamp t_ctl,
+which follows callback/PID execution. The requested carControl Event t_cmd is
+distinct and cannot precede t_ctl in either pin. PID scalar/gain captures must
+not follow t_ctl; requested/host/applied Event and scalar captures must not precede
+t_ctl (or their linked source command). The cycle's deterministic IDs are assigned
+within
 the trusted future call chain; final content digests can be sealed after the
 publication time is known. Sealing is not an assertion that a future timestamp
 was already known at callback entry.
@@ -76,7 +80,8 @@ published carControl Event. It requires an explicit current controller-cycle
 digest and a non-reused source identity/sequence within the controller instance.
 carState must be wire-origin under R/C. The source-specific local liveParameters
 fallback is represented separately, with the same local-cycle binding; legitimate
-unchanged wire-sample reuse remains allowed. Requested/host/applied stages require distinct
+unchanged wire-sample reuse remains allowed. Requested/host/applied stages require
+distinct
 DownstreamStageIdentity entries with actual event ID, exact source-command
 event ID, monotonic time/domain, controller-cycle digest, exact-reference flag
 and valid/transport health. A cycle label alone is insufficient.

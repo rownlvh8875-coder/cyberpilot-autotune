@@ -373,6 +373,25 @@ def check_consumed_source_fragments(raw):
         and ("cc_send.carControl", "CC") in published,
         "PUBLISHED_CC_NOT_CONSUMED_EVENT",
     )
+    event_order = (
+        "messaging.new_message('controlsState')",
+        "self.pm.send('controlsState', dat)",
+        "messaging.new_message('carControl')",
+        "self.pm.send('carControl', cc_send)",
+    )
+    call_lines = {
+        ast.unparse(item): item.lineno
+        for item in ast.walk(publication)
+        if isinstance(item, ast.Call)
+    }
+    require(
+        all(call in call_lines for call in event_order)
+        and all(
+            call_lines[a] < call_lines[b]
+            for a, b in zip(event_order[:-1], event_order[1:], strict=True)
+        ),
+        "CONTROL_AND_COMMAND_EVENT_ORDER",
+    )
 
 
 def check_callback_fragments(raw):

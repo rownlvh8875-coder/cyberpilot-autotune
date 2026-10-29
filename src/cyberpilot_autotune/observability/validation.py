@@ -203,12 +203,16 @@ def _scalar(
         lower = (
             cycle.callback_enter_mono_time_ns
             if stage in {Stage.CALLBACK_INPUT, Stage.HELPER_Q, Stage.RAW_CALLBACK}
+            else cycle.control_event_mono_time_ns
+            if optional
             else cycle.callback_exit_mono_time_ns
         )
         upper = (
             cycle.callback_exit_mono_time_ns
             if stage in {Stage.CALLBACK_INPUT, Stage.HELPER_Q, Stage.RAW_CALLBACK}
             else cycle.receipt_complete_mono_time_ns
+            if optional
+            else cycle.control_event_mono_time_ns
         )
         if not lower <= s.captured_mono_time_ns <= upper:
             reasons.append(R.TIME_ORDER_INVALID)
@@ -542,7 +546,7 @@ def _linear(receipt: LateralTorqueIdentificationReceipt, reasons: list[Observati
             or identity.exact_source_command_reference is not True
             or identity.source_valid is not True
             or identity.source_transport_healthy is not True
-            or not receipt.cycle.callback_exit_mono_time_ns
+            or not receipt.cycle.control_event_mono_time_ns
             <= identity.source_time_ns
             <= receipt.cycle.receipt_complete_mono_time_ns
         ):

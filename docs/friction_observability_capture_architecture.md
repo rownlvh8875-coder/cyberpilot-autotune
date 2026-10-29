@@ -54,8 +54,11 @@ do not outweigh missing causal observability in B/C/D alone.
    and actual-use capture time are separate facts.
 5. Preserve timer-qualified saturation separately from instantaneous clip/limit
    flags, steeringPressed/override and source health.
-6. Finalize one immutable envelope once the actual control Event publication time
-   is known. A cycle-scoped stack capture is not a background collector or
+6. Finalize one immutable envelope once the actual controlsState Event timestamp
+   t_ctl is known. Capture PID/gains before it; the separate requested carControl
+   Event t_cmd and downstream events cannot precede it. Do not equate t_ctl and
+   t_cmd or fabricate a future command timestamp. A cycle-scoped stack capture
+   is not a background collector or
    persistent joiner. controlsd's finalization is plumbing for A, not a second
    preferred alternative. H7 implements neither taps nor finalizer.
 7. Normally leave host/applied torque unavailable. Future downstream companion

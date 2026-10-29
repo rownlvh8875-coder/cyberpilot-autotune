@@ -188,8 +188,8 @@ generation changes, None versus zero/false, defensive copies, q independence,
 exact boundary arithmetic, duplicate/reused source/downstream IDs, future times,
 wrong clocks, post-speed-latch gains, epoch splits and authority/import barriers.
 
-- Full regression after review fixes: 1372 tests passed; prior baseline was 1261.
-- H7 targeted: 111 tests; 829/829 statements and 264/264 branches (100% each).
+- Full regression after review fixes: 1380 tests passed; prior baseline was 1261.
+- H7 targeted: 119 tests; 829/829 statements and 264/264 branches (100% each).
 - Overall combined coverage: 98.51%; all historical coverage gates pass.
 - Source audit: 41 files / 30 claims / 44 isolated helper/callback/PID math cases,
   plus H6 exact-source geometry parity. H2/H3/H4/H5/H6 audits remain green.
@@ -217,6 +217,17 @@ mutation test pins CS/CC/LP origins, call arguments and later publication withou
 executing native code. Full regression, 100/100 H7 coverage, source/history audit,
 lint/type/build/wheel are rerun before the new exact-head review. No issue is
 waived and no old-head approval is carried forward.
+
+Second review at 2f45eed49969989b924675dfe08e5daa11b98a3e returned C0/I1/M0:
+an otherwise internally consistent requested command could predate the actual
+control Event. Its RED regression and six post-publication PID capture REDs
+now pass. PID/gain observations are bounded by controlsState Event time t_ctl;
+command/downstream observations cannot precede it. t_cmd remains distinct and
+can be later, never forced equal. The source-AST guard now verifies the pinned
+controlsState creation/publication then carControl creation/publication order;
+its reordering mutation also failed RED before the fix. The full 1380-test suite,
+119 H7 tests, 100/100 coverage, all source/history audits, build and wheel checks
+are rerun before another new exact-head review. No timing exception is waived.
 
 ## Execution rulings / costs
 

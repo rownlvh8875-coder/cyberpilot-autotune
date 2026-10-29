@@ -95,6 +95,8 @@ def state_control(self):
   CC = car.CarControl.new_message()
   steer, angle, log = self.LaC.update(CC.latActive, CS, self.VM, lp, limited, desired, CC, limited)
 def publish(self, CC):
+  dat = messaging.new_message('controlsState')
+  self.pm.send('controlsState', dat)
   cc_send = messaging.new_message('carControl')
   cc_send.carControl = CC
   self.pm.send('carControl', cc_send)
@@ -106,6 +108,10 @@ def publish(self, CC):
         (b"desired, CC, limited", b"desired, self.sm['carControl'], limited"),
         (b"cc_send.carControl = CC", b"cc_send.carControl = other"),
         (b"lateral_vehicle_parameters(self.sm, self.CP)", b"other(self.sm, self.CP)"),
+        (
+            b"self.pm.send('controlsState', dat)\n  cc_send = messaging.new_message('carControl')",
+            b"cc_send = messaging.new_message('carControl')\n  self.pm.send('controlsState', dat)",
+        ),
     ):
         with pytest.raises(ValueError):
             audit.check_consumed_source_fragments(raw.replace(old, new))

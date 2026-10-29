@@ -68,8 +68,12 @@ proof that a declared producer or fallback is authentic or active.
 Every core scalar has value-or-None, observed stage, precision, origin, cycle
 binding and capture time. Source cohort duplicates, future consumed times,
 wrong clocks, mixed snapshot/cycle IDs and generation mismatches fail closed.
-Event publication may follow callback execution; source time <= callback entry,
-callback entry <= exit <= control publication <= receipt completion. Snapshot
+control_event_mono_time_ns is the controlsState Event timestamp (t_ctl), distinct
+from the later requested carControl Event timestamp (t_cmd). Pinned R/C create
+and publish controlsState before creating/publishing carControl. Source time <=
+callback entry; callback entry <= exit <= PID/gain capture <= t_ctl <= t_cmd <=
+downstream events <= receipt completion. Optional downstream observations use
+their actual Event times; t_ctl and t_cmd need not be equal. Snapshot
 evidence is captured within the cycle; downstream values require their own
 exact causal references. Unavailable downstream stages stay None.
 

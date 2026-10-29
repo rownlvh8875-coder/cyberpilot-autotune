@@ -402,6 +402,44 @@ def test_downstream_values_need_exact_command_event_lineage_not_just_a_cycle_lab
     assert "DOWNSTREAM_COHORT_INCOMPLETE" in reasons(bad)
 
 
+def test_requested_command_event_cannot_precede_actual_control_event_publication():
+    receipt = complete()
+    early = receipt.cycle.callback_exit_mono_time_ns
+    stages = replace(
+        receipt.stages,
+        requested_torque=replace(receipt.stages.requested_torque, captured_mono_time_ns=early),
+        downstream_identities=(
+            replace(receipt.stages.downstream_identities[0], source_time_ns=early),
+        ),
+    )
+    assert "DOWNSTREAM_COHORT_INCOMPLETE" in reasons(replace(receipt, stages=stages))
+
+
+def test_control_and_command_events_remain_distinct_with_causally_ordered_timestamps():
+    receipt = complete()
+    later = receipt.cycle.control_event_mono_time_ns + 1
+    stages = replace(
+        receipt.stages,
+        requested_torque=replace(receipt.stages.requested_torque, captured_mono_time_ns=later),
+        downstream_identities=(
+            replace(receipt.stages.downstream_identities[0], source_time_ns=later),
+        ),
+    )
+    assert reasons(replace(receipt, stages=stages)) == set()
+
+
+@pytest.mark.parametrize("name", ["pid_p", "pid_i", "pid_d", "pid_f", "pid_sum", "post_pid_output"])
+def test_pid_decomposition_must_be_captured_before_control_event_publication(name):
+    receipt = complete()
+    changed = replace(
+        getattr(receipt.stages, name),
+        captured_mono_time_ns=receipt.cycle.control_event_mono_time_ns + 1,
+    )
+    assert "TIME_ORDER_INVALID" in reasons(
+        replace(receipt, stages=replace(receipt.stages, **{name: changed}))
+    )
+
+
 def test_neutral_geometry_h6_projection_keeps_required_semantics_without_a_runtime_bridge():
     from cyberpilot_autotune.research.friction_model.contracts import SteeringGeometryContext
 
