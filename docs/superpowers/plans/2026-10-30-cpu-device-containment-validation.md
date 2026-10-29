@@ -55,8 +55,10 @@ recursively immutable and defensive-copied. No active guard/executable policy.
   NaN/Inf, invalid sequence/time/generation, unsupported schema and nested mutation.
 - [ ] Implement the minimal parser/immutable types without native/application,
   openpilot/cereal/Params or execution imports. Reject missing/ambiguous fields.
-- [ ] Write/run canonical identity tests: stable key order; source/mode/generation
-  differences change digest; null differs from0/false; digest grants no authority.
+- [ ] Write/run canonical identity tests: stable key order; case source/generation
+  differences change digest; null differs from0/false. Mode is external policy
+  context: changing only mode leaves case digest stable and is tested through
+  mode-dependent evaluation in Task2. Digest grants no authority.
 - [ ] Run the new tests and full `python -m pytest -q`; commit only on green.
 
 ### Task 2: Pure synthetic decision matrix
