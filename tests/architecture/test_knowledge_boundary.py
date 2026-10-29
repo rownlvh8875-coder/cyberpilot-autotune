@@ -134,7 +134,7 @@ def test_import_catalog_and_digests_have_no_added_side_effects(monkeypatch):
             assert all(len(p.digest) == 64 for p in registry.parameters)
 
 
-def test_new_production_namespace_is_only_knowledge():
+def test_new_namespaces_are_only_knowledge_and_isolated_reference_protocol():
     import json
 
     base = ROOT.parents[1]
@@ -146,4 +146,9 @@ def test_new_production_namespace_is_only_knowledge():
         if p.is_file() and "__pycache__" not in p.parts
     }
     assert original <= current
-    assert all(p.startswith("src/cyberpilot_autotune/knowledge/") for p in current - original)
+    assert all(
+        p.startswith(
+            ("src/cyberpilot_autotune/knowledge/", "src/cyberpilot_autotune/owner_protocol/")
+        )
+        for p in current - original
+    )

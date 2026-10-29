@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "protocol_version": "torque-owner-v1",
+  "scope": "VEHICLE_INDEPENDENT_REFERENCE_ONLY",
+  "h4_base": "b0de6b4032d587c818f3d47389ae1afc37f2009c",
+  "h3_head": "040b6500aeef47d486cf11895c1bca1b1b8e2282",
+  "pr9_head": "6a5ccc6732c8cd0b0fd123c23c98e4407c7213c5",
+  "pr8_head": "e4361678ed176cbd7c0bb6f838d3daa7174caf22",
+  "source_manifest": "carrot_writer_ownership_sources.json",
+  "source_pins": {
+    "runtime": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+    "integration": "7a2f051b1f3847786318900444c88c2ba7a74a67",
+    "current": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+    "hoya": "0e9c589c1b83027146f909a9cdc306c2c665ceaf"
+  },
+  "states": [
+    "UNINITIALIZED",
+    "READY",
+    "OWNED",
+    "RECOVERING",
+    "DISARMED",
+    "FAULTED",
+    "STOPPED"
+  ],
+  "operations": [
+    "initialize",
+    "snapshot",
+    "commit",
+    "rollback",
+    "watchdog",
+    "transition_mode",
+    "disarm",
+    "stop",
+    "fault",
+    "restart"
+  ],
+  "transition_ids": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09",
+    "T10",
+    "T11",
+    "T12",
+    "T13",
+    "T14",
+    "T15",
+    "T16",
+    "T17",
+    "T18",
+    "T19",
+    "T20",
+    "T21",
+    "T22",
+    "T23",
+    "T24",
+    "T25"
+  ],
+  "tuple_fields": [
+    "lat_accel_factor",
+    "friction",
+    "lat_accel_offset"
+  ],
+  "tunable_fields": [
+    "lat_accel_factor",
+    "friction"
+  ],
+  "logical_representation": "FINITE_PYTHON_FLOAT_EXACT_CANONICAL_IDENTITY",
+  "encoded_controller_representation": null,
+  "initial_revision": "EXPLICIT_CALLER_INPUT",
+  "revision_limit": "UINT64",
+  "commit_ack_is_readback": false,
+  "no_change": {
+    "revision_increment": 0,
+    "lease_renewal": false,
+    "proposal_identity_consumed": true
+  },
+  "replay_identity": "OWNER_SESSION/PRODUCER/GENERATION/SEQUENCE",
+  "replay_storage": "FIXED_PRODUCER_HIGH_WATER",
+  "concurrency": "SINGLE_CALLER_SERIALIZED_NON_REENTRANT",
+  "thread_safe": false,
+  "application_authorized": false,
+  "real_writer_implemented": false,
+  "application_bounds": null,
+  "application_rates": null,
+  "default_deadlines": null,
+  "scientific_conversion": false,
+  "proposal_ranking": false,
+  "selected_execution_direction": "HYBRID_CONTROLSDSOLEOWNER_MANAGERLIVENESS",
+  "native_watchdog_execution_accepted": false,
+  "invariants": [
+    "REVISION_NEVER_DECREASES_WITHIN_EPOCH",
+    "MUTATING_INSTALL_INCREMENTS_EXACTLY_ONE",
+    "REJECTED_PROPOSAL_DOES_NOT_INSTALL",
+    "COMPLETE_IMMUTABLE_TUPLE",
+    "OFFSET_PRESERVED_EXACTLY",
+    "OLD_EPOCH_REJECTED",
+    "CONSUMED_ID_NOT_REAPPLIED",
+    "FAULTED_NEVER_AUTOMATICALLY_READY",
+    "DISARMED_REJECTS_FORWARD_COMMIT",
+    "READ_HAS_NO_OWNER_MUTATION",
+    "UNKNOWN_NEVER_REPORTED_AS_BASELINE",
+    "ROLLBACK_SUCCESS_REQUIRES_INDEPENDENT_READBACK",
+    "NO_CHANGE_NEVER_RENEWS_LEASE",
+    "FOREIGN_CONTEXT_FORBIDS_OLD_BASELINE_OVERWRITE"
+  ],
+  "failure_priority": [
+    "OWNER_CORRUPTION_OR_CLOSED_DOMAIN",
+    "LEASE_EXPIRED",
+    "ACTUAL_CONTEXT_SOURCE_OWNER_LOST",
+    "UNSUPPORTED_MODE_OR_MODE_HANDOFF",
+    "RECOVERY_REQUIRED",
+    "CAS_CONFLICT",
+    "PROPOSAL_INVALID",
+    "NO_CHANGE"
+  ],
+  "pr9_mapping": [
+    {
+      "requirement": "snapshot",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "owner_identity",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "scope",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "STILL_BLOCKED"
+    },
+    {
+      "requirement": "context",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "baseline_epoch",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "monotonic_timestamp",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "revision",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "expected_revision_cas",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "atomic_selected_tuple",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "revision_plus_one_ack",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "independent_readback",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "unrelated_preservation",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "exclusive_ownership",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "rollback",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "failure_semantics",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "SOURCE_CHANGE_REQUIRED"
+    },
+    {
+      "requirement": "watchdog",
+      "logical_status": "PROTOCOL_DEFINED",
+      "native_status": "STILL_BLOCKED"
+    }
+  ],
+  "status": [
+    "SHARED_TORQUE_OWNER_PROTOCOL_READY",
+    "OWNER_STATE_MACHINE_READY",
+    "WATCHDOG_EXECUTION_MODEL_UNRESOLVED",
+    "PR9_TARGET_MAPPING_READY",
+    "CARROT_SOURCE_CHANGE_DESIGN_READY"
+  ],
+  "retained_blockers": [
+    "FACTOR_UNIT_EQUIVALENCE_UNRESOLVED",
+    "FRICTION_UNIT_EQUIVALENCE_UNRESOLVED",
+    "VEHICLE_APPLICATION_BOUNDS_UNRESOLVED",
+    "PARAMETER_IDENTIFICATION_QUALIFICATION_UNRESOLVED",
+    "RUNTIME_FINGERPRINT_UNCONFIRMED",
+    "APPLICATION_NOT_AUTHORIZED",
+    "REPRESENTATION_ENCODING_UNRESOLVED"
+  ],
+  "next_single_task": "FACTOR_FRICTION_SCIENTIFIC_IDENTIFICATION_QUALIFICATION"
+}
