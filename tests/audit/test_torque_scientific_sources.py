@@ -146,3 +146,12 @@ def test_research_statement_and_branch_coverage_are_separate_gates(lines, branch
     else:
         with pytest.raises(ValueError):
             check_coverage({"totals": totals})
+
+
+def test_result_binding_error_identifies_the_mismatched_field():
+    from tests.audit.validate_torque_science import _same_result
+
+    with pytest.raises(ValueError, match=r"report.cases\[0\].scenario_digest"):
+        _same_result(
+            {"cases": [{"scenario_digest": "changed"}]}, {"cases": [{"scenario_digest": "frozen"}]}
+        )

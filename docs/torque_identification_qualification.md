@@ -119,10 +119,18 @@ package, then verifies hashes/parity with networking disabled. The installed-whe
 smoke runs outside the checkout, checks the missing optional dependency first,
 then exercises actual float64 fitting and the authority-free scientific report.
 
-Local verification before final review:1157 tests passed; research statement
+Local verification before final review:1159 tests passed; research statement
 coverage100%, branch coverage100%; overall combined97.92%. Final exact-head CI,
 fresh independent review and wheel verification are completion gates recorded
 in the Draft PR/final report, not inferred from these local counts.
+
+The first remote run exposed a Windows input-hash mismatch. A1-ULP alternative
+libm sine result reproduces it. The original float64 sine command trajectory is
+now materialized as exact hexadecimal inputs, preserving every scenario hash in
+the already recorded results. Policy, numerical tolerances and result JSON are
+unchanged. This is input freezing, not acceptance of mismatched input hashes or
+rounding of controller parameters. A RED/GREEN regression covers library variation;
+validation errors also identify the exact mismatched field for diagnosis.
 
 Recommended next single task: **A — friction estimator redesign / identifiable
 friction model**. Do not begin it automatically and do not recommend a combined

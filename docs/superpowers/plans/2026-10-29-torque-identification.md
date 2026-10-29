@@ -92,7 +92,7 @@ development artifact -> FrozenDevelopment, or unavailable with exact gap reason.
 
 ### Task 4: Final review, Draft PR and exact-head CI
 
-- [ ] Push append-only H5 branch; create Draft PR with requested title.
+- [x] Push append-only H5 branch; create Draft PR with requested title.
 - [ ] Fresh independent exact-head C0/I0 review; C/I fixes RED -> full rerun -> NEW
   reviewer as explicitly required by the user (overrides skill's no-re-review rule).
 - [ ] Verify exact-head push and PR CI, preserve PR8/9, clean tree, final report.
@@ -139,3 +139,19 @@ has separate98% statement/95% branch gates (both locally100%). A zero-command
 sign diagnostic case was also RED: complement-of-negative wrongly meant
 nonnegative. Explicit x<0/x>0 subsets fix that without changing native admission.
 Full-suite and wheel verification are rerun after this final boundary correction.
+
+Initial independent review of64830dde195d5cba0758fa4de9af1aadff051ed3 was C0/I0/M0
+and independently verified1157 tests and24files/50ranges. Draft PR #14 was created.
+Remote Windows CI then failed RESULT_BINDING (some matrix jobs were fail-fast
+cancelled, not separate scientific failures). A1-ULP alternative libm sine result
+reproduced a changed frozen scenario hash. Materializing the ORIGINAL240 float64
+commands as hexadecimal inputs preserves all recorded scenario hashes; no policy,
+2e-12 allowance or result JSON changed. A separate RED/GREEN test adds field paths
+to binding errors. Full1159 tests pass; research statement/branch100%/100%, overall
+97.92%; source/history parity and four goldens pass. A NEW independent reviewer,
+exact-head wheel and remote CI follow the portability correction.
+
+Ruling: freeze the original synthetic input bits instead of tolerating changed
+input hashes — the experiment must remain the same across math libraries — the
+cost is maintaining one explicit240-value diagnostic input fixture, not new data
+or a post-hoc scientific criterion.

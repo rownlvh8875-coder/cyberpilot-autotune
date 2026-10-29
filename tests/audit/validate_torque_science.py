@@ -532,24 +532,24 @@ def validate_results(results, sources, policy):
     }
 
 
-def _same_result(actual, expected):
+def _same_result(actual, expected, path="report"):
     if type(expected) is float:
         require(
             type(actual) in (float, int)
             and math.isfinite(actual)
             and math.isclose(actual, expected, abs_tol=2e-12, rel_tol=0.0),
-            "RESULT_NUMERICS",
+            f"RESULT_NUMERICS:{path}",
         )
     elif type(expected) is dict:
-        require(type(actual) is dict and set(actual) == set(expected), "RESULT_SHAPE")
+        require(type(actual) is dict and set(actual) == set(expected), f"RESULT_SHAPE:{path}")
         for key, value in expected.items():
-            _same_result(actual[key], value)
+            _same_result(actual[key], value, f"{path}.{key}")
     elif type(expected) is list:
-        require(type(actual) is list and len(actual) == len(expected), "RESULT_SHAPE")
-        for a, e in zip(actual, expected, strict=True):
-            _same_result(a, e)
+        require(type(actual) is list and len(actual) == len(expected), f"RESULT_SHAPE:{path}")
+        for index, (a, e) in enumerate(zip(actual, expected, strict=True)):
+            _same_result(a, e, f"{path}[{index}]")
     else:
-        require(type(actual) is type(expected) and actual == expected, "RESULT_BINDING")
+        require(type(actual) is type(expected) and actual == expected, f"RESULT_BINDING:{path}")
 
 
 def check_coverage(payload):

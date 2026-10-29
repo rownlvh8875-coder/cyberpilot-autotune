@@ -5,6 +5,7 @@ from math import sin
 
 from .cluster_stats import FitDiagnostic, diagnostic
 from .synthetic import SyntheticScenario, generate
+from .trajectories import FROZEN_SINE_COMMANDS
 
 
 @dataclass(frozen=True, slots=True)
@@ -44,7 +45,7 @@ def catalog() -> tuple[SyntheticScenario, ...]:
         17,
     )
     balanced = replace(base, controller_friction=0.1, errors=(-0.3, 0.3) * 40)
-    sine = tuple(0.4 * sin(i * 0.4) for i in range(240))
+    sine = FROZEN_SINE_COMMANDS
     lag = replace(
         base,
         commands=sine,

@@ -54,6 +54,9 @@ Canonical sorting fixes allowed point permutation and route/epoch ordering;
 duplicate identities or within-epoch nonincreasing times reject. Results bind
 input, policy, source and analysis implementation. Byte determinism applies to
 the same numerical stack; floating-point cross-BLAS bit identity is not claimed.
+The original sine-trajectory float64 inputs are stored exactly as hexadecimal
+values so platform libm rounding does not silently redefine a frozen experiment.
+The existing scenario digests and result artifact remain unchanged.
 Unavailable evidence returns null metrics with exact blockers, not fake zeros.
 Reports are frozen and cannot be dataclass-replaced into application authority.
 

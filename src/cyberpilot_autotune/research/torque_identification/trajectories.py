@@ -1,0 +1,92 @@
+"""Frozen original float64 diagnostic inputs, not vehicle parameter values.
+
+These are the exact sine-trajectory values used by the first H5 result artifact.
+Materializing their hexadecimal representations preserves existing input hashes
+across libm implementations without changing policy, thresholds or observations.
+"""
+
+FROZEN_SINE_COMMANDS: tuple[float, ...] = tuple(
+    float.fromhex(value)
+    for value in """
+    0x0.0p+0 0x1.3f02f20ef85f0p-3 0x1.25d43ceffff0bp-2
+    0x1.7dc361b48449ep-2 0x1.996ce3980356bp-2 0x1.7472bef0e29d2p-2
+    0x1.14ab72b030e13p-2 0x1.126c1b5e4b7cdp-3 -0x1.7e8f8fb202428p-6
+    -0x1.6a834365a418ep-3 -0x1.35fc7e4b0188cp-2 -0x1.85c6b5a9dba59p-2
+    -0x1.98076e1a364ccp-2 -0x1.69dcef561b713p-2 -0x1.02911ac78c490p-2
+    -0x1.c9cb5aab4379ap-4 0x1.7de88f290ee8ap-5 0x1.94c7148bb40d4p-3
+    0x1.45161b7e96da6p-2 0x1.8c75bbda72cd9p-2 0x1.953dbb353d930p-2
+    0x1.5e0b30c24c614p-2 0x1.df2a06ade1e2fp-3 0x1.6d2ece4aae2bcp-4
+    -0x1.1d9df39aaf8edp-4 -0x1.bda97efebb21dp-3 -0x1.5313e59260ae6p-2
+    -0x1.91ca9e6c27c71p-2 -0x1.91123a05e1e00p-2 -0x1.5107d4e8f77e3p-2
+    -0x1.b78f7f2f23c3cp-3 -0x1.0f536cf0d781dp-4 0x1.7b4e42301697dp-4
+    0x1.e506d0c7fc274p-3 0x1.5fe9a55ad95bdp-2 0x1.95c0b5b96b1d1p-2
+    0x1.8b888e8f0d32cp-2 0x1.42de38509c35cp-2 0x1.8e7532c49f34ap-3
+    0x1.611650a1edaebp-5 -0x1.d7b3673cb67f4p-4 -0x1.055e55d345053p-2
+    -0x1.6b8c262395a01p-2 -0x1.98548c61a56f8p-2 -0x1.84a58e8c139cep-2
+    -0x1.339ab8675b1b8p-2 -0x1.63ff042f3f398p-3 -0x1.44a303c18296cp-6
+    0x1.193e5be4d504ep-3 0x1.1755118868350p-2 0x1.75f13f77dca4dp-2
+    0x1.9983e24e379b5p-2 0x1.7c6f3d38115f4p-2 0x1.234aa8b74da3cp-2
+    0x1.385205ea5fc16p-3 -0x1.d0104324ac320p-9 -0x1.45ad783781709p-3
+    -0x1.2857ec79a8f8fp-2 -0x1.7f0fde010c7c8p-2 -0x1.994daea97297fp-2
+    -0x1.72ecc60e0dcd9p-2 -0x1.11fc4743feb46p-2 -0x1.0b9459cde71c7p-3
+    0x1.b8746f5a37b6ap-6 0x1.71003d43d9fdap-3 0x1.38580c89c1e03p-2
+    0x1.86e00b730cdd6p-2 0x1.97b220c5cfeafp-2 0x1.6826768678470p-2
+    0x1.ff7d603658efap-3 0x1.bbda1f86e87bdp-4 -0x1.9ab324c161718p-5
+    -0x1.9b10d7f79247fp-3 -0x1.4747797f6e6efp-2 -0x1.8d5af57fe5263p-2
+    -0x1.94b29ff4a0cfep-2 -0x1.5c25b6d776630p-2 -0x1.d943a0475d797p-3
+    -0x1.5f08075765929p-4 0x1.2be2bfbfd0b95p-4 0x1.c3ba8e86a3bd7p-3
+    0x1.55192937baa85p-2 0x1.927af3cc63e94p-2 0x1.9051ca4c58281p-2
+    0x1.4ef501be57710p-2 0x1.b16cae6c0c902p-3 0x1.01037523371d0p-4
+    -0x1.89661a83d9f9cp-4 -0x1.ead9e07bc672cp-3 -0x1.61c10b0874788p-2
+    -0x1.963b8ce0a4e37p-2 -0x1.8a93725f81194p-2 -0x1.409fdb595906ep-2
+    -0x1.881b5315718efp-3 -0x1.443cfd280cc1cp-5 0x1.e591fdd3f5dc8p-4
+    0x1.082652dbac39fp-2 0x1.6d341248ce524p-2 0x1.98997a10255a8p-2
+    0x1.837c9be6611a7p-2 0x1.3132c719b98cdp-2 0x1.5d73a11663555p-3
+    0x1.0aaff4f2d331cp-6 -0x1.200af85b46086p-3 -0x1.19f91620d1f22p-2
+    -0x1.77683ff700cbep-2 -0x1.9992aa55fdb4dp-2 -0x1.7b13775e2f6bap-2
+    -0x1.20bb3cd6dfeebp-2 -0x1.319ad624d331fp-3 0x1.d00b9bc2f8068p-8
+    0x1.4c517629b9b34p-3 0x1.2ad5aa6b3d51fp-2 0x1.8054ab727efacp-2
+    0x1.99264422c10b3p-2 0x1.715f5ca1b46f4p-2 0x1.0f479d0c2276ep-2
+    0x1.04b73a562851fp-3 -0x1.f25079776defdp-6 -0x1.7775d0797e220p-3
+    -0x1.3aad57089d934p-2 -0x1.87f18a431ee26p-2 -0x1.9754a61a6f6ddp-2
+    -0x1.6668c48008b44p-2 -0x1.f9ce4896e199cp-3 -0x1.addffd661660dp-4
+    0x1.b7757d962ae05p-5 0x1.a1525cbecb8c8p-3 0x1.49724710c2e89p-2
+    0x1.8e3836e66ba37p-2 0x1.941f66c1d50a0p-2 0x1.5a3941570cafbp-2
+    0x1.d353bbdfad47cp-3 0x1.50da35ff9d44ep-4 -0x1.3a21881cb6719p-4
+    -0x1.c9c28ea093faap-3 -0x1.5717957918723p-2 -0x1.9323369d310b6p-2
+    -0x1.8f89531b9e4fcp-2 -0x1.4cdb76b80e40ep-2 -0x1.ab412c36e8e90p-3
+    -0x1.e55cab5d5beb0p-5 0x1.97760ee943524p-4 0x1.f0a317e14e0f0p-3
+    0x1.63915856b299dp-2 0x1.96ae3e342f83fp-2 0x1.89966c3656ff8p-2
+    0x1.3e5b101de7d89p-2 0x1.81b9961a51c30p-3 0x1.275d28dbd7c5ap-5
+    -0x1.f366d73a49ad0p-4 -0x1.0ae903990219fp-2 -0x1.6ed4ab451d7c1p-2
+    -0x1.98d635c3cb314p-2 -0x1.824be3ad76a2bp-2 -0x1.2ec4b6bcb56a6p-2
+    -0x1.56e13bb571c9ep-3 -0x1.a16f19a2fb03fp-7 0x1.26d1cdd857846p-3
+    0x1.1c9772ea5f9a5p-2 0x1.78d7b8e8d67e0p-2 0x1.99993b63704bcp-2
+    0x1.79b0172087cdep-2 0x1.1e26067404346p-2 0x1.2add853998318p-3
+    -0x1.5c02e3a40b6b4p-7 -0x1.52eec9cce9f32p-3 -0x1.2d4d69fa36437p-2
+    -0x1.8191c38523bb8p-2 -0x1.98f6a4ce51210p-2 -0x1.6fca8aa45fb2ap-2
+    -0x1.0c8d81ed243b6p-2 -0x1.fba9c06a3c030p-4 0x1.1611427a26138p-5
+    0x1.7de3dbdc2e057p-3 0x1.3cfc51ccc0a0ep-2 0x1.88fb2c9dca400p-2
+    0x1.96eefff80e5c9p-2 0x1.64a3e23340324p-2 0x1.f4150bdff5c9ap-3
+    0x1.9fdd3c0cf39d2p-4 -0x1.d42f05fcfc472p-5 -0x1.a78b82c246aefp-3
+    -0x1.4b967911e88bfp-2 -0x1.8f0d7b9df9722p-2 -0x1.93841290c7cfbp-2
+    -0x1.5845da219f0ecp-2 -0x1.cd5a77f2ccbc0p-3 -0x1.42a5a310dc348p-4
+    0x1.485a038cbe4cdp-4 0x1.cfc16054c77f7p-3 0x1.590f2019adaafp-2
+    0x1.93c3637e9cd5ap-2 0x1.8eb8d87901f1fp-2 0x1.4abb3e9e285eap-2
+    0x1.a50d183dcee15p-3 0x1.c8a8b0552751cp-5 -0x1.a57dd72c21347p-4
+    -0x1.f66259432cf35p-3 -0x1.655a83f596ea9p-2 -0x1.9718c767256bbp-2
+    -0x1.88918126b9e6cp-2 -0x1.3c0fe244680c9p-2 -0x1.7b501c97c7db1p-3
+    -0x1.0a7767ff1e6c6p-5 0x1.0098d6357dbf5p-3 0x1.0da659debad3bp-2
+    0x1.706de8bd7735dp-2 0x1.990abe44c04d3p-2 0x1.81136bfdee527p-2
+    0x1.2c5093ca556d6p-2 0x1.5047f5cac8c7cp-3 0x1.2d75ea0902b86p-7
+    -0x1.2d92b9906c55ep-3 -0x1.1f301a730c8d8p-2 -0x1.7a3fa2ee8e4a1p-2
+    -0x1.99979554d7e80p-2 -0x1.7845239fcdb94p-2 -0x1.1b8b12d1c3e28p-2
+    -0x1.241a35c36d36bp-3 0x1.cff8fe83d6c74p-7 0x1.5985512a9429ep-3
+    0x1.2fbf1e7ad388ep-2 0x1.82c71fdcd719fp-2 0x1.98bed1a0a7ffbp-2
+    0x1.6e2e5834a2d1fp-2 0x1.09ce03e77c03ep-2 0x1.eddadd8760b1dp-4
+    -0x1.32f4b4776577ap-5 -0x1.844a3e68319ddp-3 -0x1.3f44f0fbbf185p-2
+    -0x1.89fced2f249adp-2 -0x1.9681306898fe0p-2 -0x1.62d7d8b57b3c8p-2
+    -0x1.ee51c774efb67p-3 -0x1.91d2236bebc10p-4 0x1.f0df2a78a89f7p-5
+    0x1.adbc2a0de4cf7p-3 0x1.4db40484210cdp-2 0x1.8fdabf5f844b1p-2
+    """.split()
+)

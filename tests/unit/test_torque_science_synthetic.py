@@ -175,3 +175,30 @@ def test_generator_and_estimator_are_deterministic_with_explicit_groups_and_seed
     assert generate(case) == generate(case)
     assert len(set(generate(case).groups)) == 4
     assert measured(case) == measured(case)
+
+
+def test_libm_rounding_does_not_change_previously_frozen_experiment_input_hashes(monkeypatch):
+    import json
+    from dataclasses import asdict
+    from math import inf, nextafter
+    from pathlib import Path
+
+    from cyberpilot_autotune.research.torque_identification import experiments
+    from cyberpilot_autotune.research.torque_identification.contracts import digest
+
+    results = json.loads(
+        (
+            Path(__file__).resolve().parents[2] / "docs/evidence/torque_identification_results.json"
+        ).read_text()
+    )
+    names = {"lag_error", "delay_correct", "delay_positive"}
+    frozen = {
+        c["name"]: c["scenario_digest"]
+        for c in results["report"]["synthetic_recovery_summary"]
+        if c["name"] in names
+    }
+    actual_sine = experiments.sin
+    # Model an allowed last-bit difference between platform math libraries.
+    monkeypatch.setattr(experiments, "sin", lambda x: nextafter(actual_sine(x), inf))
+    observed = {c.name: digest(asdict(c)) for c in experiments.catalog() if c.name in names}
+    assert observed == frozen
