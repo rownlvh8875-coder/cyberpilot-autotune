@@ -85,6 +85,7 @@ class ConsumedSourceIdentity:
     valid: bool | None = None
     alive: bool | None = None
     origin: SourceOrigin = SourceOrigin.UNKNOWN
+    controller_cycle_digest: str | None = None
 
     def __post_init__(self) -> None:
         enum_value(self.role, SourceRole)
@@ -93,6 +94,7 @@ class ConsumedSourceIdentity:
         uint64(self.source_time_ns, optional=True)
         uint64(self.sequence, optional=True)
         sha(self.source_identity, optional=True)
+        sha(self.controller_cycle_digest, optional=True)
         for value in (self.consumed, self.valid, self.alive):
             boolean(value)
 

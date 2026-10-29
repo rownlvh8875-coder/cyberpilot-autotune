@@ -1036,7 +1036,7 @@
       "end": 480,
       "git_blob": "2378902ba077177b96dfb57f010e06c388241213",
       "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
-      "meaning": "SAD/liveDelay branch; LaC return assigned torque; carControl publication later, not retroactive consumed input"
+      "meaning": "SAD/liveDelay branch; LaC return assigned torque; carControl publication later, not retroactive consumed input; CS is wire carState, CC freshly allocated per state_control invocation; LP may use local fallback"
     },
     {
       "id": "current_linear_inputs",
@@ -1218,7 +1218,7 @@
       "end": 481,
       "git_blob": "7c52bf491a9fddd5faaa7c168414f1c00c322ff3",
       "sha256": "20ea264d9a776d8c4fa850266330eb9e2c0cafa9aa3c95bc30fc7205aa89567d",
-      "meaning": "SAD/liveDelay branch; LaC return assigned torque; carControl publication later, not retroactive consumed input"
+      "meaning": "SAD/liveDelay branch; LaC return assigned torque; carControl publication later, not retroactive consumed input; CS is wire carState, CC freshly allocated per state_control invocation; LP may use local fallback"
     },
     {
       "id": "current_dynamic_geometry",
@@ -1247,7 +1247,7 @@
       "meaning": "sourceCS/exact lookup/measurement receipts reusable only for specified stage; no q/raw ff/installed gain cohort"
     }
   ],
-  "neutral_schema_sha256": "a6da223aacf16d56f0b742dab7c049027d69894f2ae78552152fd5c2fe90fffc",
+  "neutral_schema_sha256": "885696e620eeb45edf7e1652b9e4eca2d585ee15eadf4e815f393ba74dcb8788",
   "h6_validator_compatibility_sha256": "aa27d15517e693b0288ed37893deae4515a7c1f88388bb29e871c9fe0e68d032",
   "runtime_producer_implemented": false,
   "native_runtime_imported": false,

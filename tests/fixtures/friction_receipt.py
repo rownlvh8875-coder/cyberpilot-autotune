@@ -83,6 +83,7 @@ def complete(number=10, *, error=0.5, q=1.0, compensation=True):
             origin=SourceOrigin.LOCAL_CYCLE_OBJECT
             if role is SourceRole.CAR_CONTROL
             else SourceOrigin.WIRE_EVENT,
+            controller_cycle_digest=identity.digest if role is SourceRole.CAR_CONTROL else None,
         )
         for i, role in enumerate(
             (

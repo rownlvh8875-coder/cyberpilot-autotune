@@ -116,15 +116,16 @@ Task 1: complete, freeze 83c2170; no new Python existed at freeze.
 Task 2: complete, tests 065eee6 then implementation 6eb4c68. Missing-package RED,
 then 31 basic tests GREEN; added causal adversaries RED->GREEN. Full suite 1302
 passed before the latest 41 additional primitive/adversarial cases.
-Task 3: complete. Latest targeted suite 99 passed; package 818 statements /
-256 branches 100% each. Direct LINEAR a/error/roll arithmetic uses exact binary64
+Task 3: complete. Latest targeted suite 111 passed; package 829 statements /
+264 branches 100% each. Direct LINEAR a/error/roll arithmetic uses exact binary64
 equality, including one-ulp boundary adversary RED->GREEN. Separate gain actual-use
 time binding and exact downstream command/event lineage also pinned RED->GREEN.
 Task 4: complete. Schema absent-module/enum-inventory/source-auditor RED->GREEN;
-41 source files, 30 semantic claims, 44 isolated math cases, 142 schema fields,
+41 source files, 30 semantic claims, 44 isolated math cases, 143 schema fields,
 18 enums, all 20 requested synthetic fixtures pass. History protects 264 original
 files (three exact namespace amendments included); H6 validator other AST unchanged.
-Full suite 1360 passed, overall coverage 98.51%, lint/format/mypy/build pass.
+Full suite 1372 passed after review fixes, overall coverage 98.51%,
+lint/format/mypy/build pass.
 Task 5: complete, wire/capture/source compatibility/v2 mapping and final result
 written. No native patch or empirical threshold.
 Task 6: CI additive checks and fresh-wheel script complete. Fresh vanilla wheel
@@ -147,3 +148,11 @@ but is rejected for pinned call-site eligibility, not treated as unavailable.
 Observed q is still never filled from reconstruction or installed C.
 Transient downstream sample-pair IDs and unapplied candidate/request values change
 content identity but not installed/applied epoch state; RED tests pinned this.
+
+Review round 1: exact head ad8dfe78392a3c966777fe724493e0b4c23e7725, C0/I2/M0.
+Both source-cohort findings reproduced RED: incompatible source origin and stale
+local carControl reused across cycles. Added source-specific role/origin checks,
+explicit current-cycle binding for consumed local objects and same-instance local
+identity/sequence nonreuse, retaining valid wire reuse and local LP fallback.
+New source-AST mutation test also observed RED->GREEN. Full suite 1372 and
+targeted111/100%-100% rerun; new exact-head review required, no finding waived.

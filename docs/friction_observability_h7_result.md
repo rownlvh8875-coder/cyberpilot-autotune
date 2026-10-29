@@ -42,7 +42,7 @@ Current carrot-wip re-read at H7 start: still C; no movement to promote.
 The nine required H6 authoritative documents/manifests are pinned as acceptance
 basis. The H7 source manifest pins 41 files and 30 semantic claims, including
 repo/revision/path/symbol/range/blob SHA/range SHA-256. Canonical source-manifest
-SHA-256: d2b4ad2d44ecf15a18d50e6f950084436883b734eadab795f4e0dc85ad220145.
+SHA-256: c1c6697eea57a9024e3178c82a87a3011cc9ed8866c4efb570d874f39269975a.
 
 R/C share LINEAR, helper, NN_LITE/NN, custom-latching and PID stage semantics.
 C additionally needs actual dynamic VM geometry, distinct from requested
@@ -68,6 +68,11 @@ observability package files import only stdlib and their neutral sibling types.
   source timestamp/domain/sequence or opaque identity, origin, valid and alive.
   carState/livePose/liveParameters/carControl are declared even when a role is
   explicitly unused. LOCAL_CYCLE_OBJECT carControl is not a later published Event.
+  R/C role origins are enforced for local carControl and wire carState; every
+  consumed local object binds the current cycle digest. Local source IDs/sequences
+  cannot be reused across distinct cycles within one session/controller instance;
+  unchanged wire samples may be reused. LP's source-specific local fallback is
+  allowed only with the same explicit current-cycle binding.
 - Stage/mode: executed family, function and call site, not just a CUSTOM selector.
   Only pinned LINEAR feedforward is eligible. NN_LITE/NN/GM/other receipts remain
   diagnostic and IDENTIFICATION_MODEL_UNSUPPORTED, never fallback to LINEAR.
@@ -126,7 +131,7 @@ Later companion evidence does not mutate the immutable core.
 
 ## Wire, precision and capture design
 
-The neutral semantic schema lists 142 fields in 15 records and 18 enums, with
+The neutral semantic schema lists 143 fields in 15 records and 18 enums, with
 type/unit/stage/presence/source/qualification meaning. It is not cereal schema.
 Proposed wire encoding: Float64 continuous values, UInt64 times/IDs/generations,
 explicit enums and Bool with availability, bounded typed source/stage records.
@@ -183,8 +188,8 @@ generation changes, None versus zero/false, defensive copies, q independence,
 exact boundary arithmetic, duplicate/reused source/downstream IDs, future times,
 wrong clocks, post-speed-latch gains, epoch splits and authority/import barriers.
 
-- Full regression: 1360 tests passed; prior baseline was 1261.
-- H7 targeted: 99 tests; 818/818 statements and 256/256 branches (100% each).
+- Full regression after review fixes: 1372 tests passed; prior baseline was 1261.
+- H7 targeted: 111 tests; 829/829 statements and 264/264 branches (100% each).
 - Overall combined coverage: 98.51%; all historical coverage gates pass.
 - Source audit: 41 files / 30 claims / 44 isolated helper/callback/PID math cases,
   plus H6 exact-source geometry parity. H2/H3/H4/H5/H6 audits remain green.
@@ -201,6 +206,17 @@ wrong clocks, post-speed-latch gains, epoch splits and authority/import barriers
 Final exact-head independent review and remote CI must be read from their fresh
 results, not inferred from this pre-publication verification ledger. Any C/I
 finding requires RED test, append-only fix, full rerun and a new fresh reviewer.
+
+First final-head review at ad8dfe78392a3c966777fe724493e0b4c23e7725 returned
+C0/I2/M0. It independently reproduced role-incompatible source origins and stale
+cycle-local carControl reuse passing admission. Regression tests were observed
+RED, then role-origin rules, explicit local-object cycle binding and same-instance
+cross-cycle local-ID/sequence nonreuse were added; unchanged wire-sample reuse
+and the source-specific local LP fallback remain representable. A new source-AST
+mutation test pins CS/CC/LP origins, call arguments and later publication without
+executing native code. Full regression, 100/100 H7 coverage, source/history audit,
+lint/type/build/wheel are rerun before the new exact-head review. No issue is
+waived and no old-head approval is carried forward.
 
 ## Execution rulings / costs
 

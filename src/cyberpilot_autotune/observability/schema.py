@@ -258,6 +258,8 @@ def semantic_schema() -> dict[str, object]:
             )
             if cls is ConsumedSourceIdentity and item.name != "role":
                 required = "CONDITIONAL_ON_ACTUAL_CONSUMPTION"
+                if item.name == "controller_cycle_digest":
+                    required = "CONDITIONAL_ON_CONSUMED_LOCAL_CYCLE_OBJECT"
             if cls is ControllerStageDecomposition and item.name in {
                 "downstream_cycle_id",
                 "downstream_identities",

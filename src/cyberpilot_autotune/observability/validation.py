@@ -234,6 +234,20 @@ def _sources(receipt: LateralTorqueIdentificationReceipt, reasons: list[Observat
         ):
             reasons.append(R.SOURCE_COHORT_INCOMPLETE)
         if source.consumed:
+            # Both pinned controlsd profiles consume wire CS but a fresh local CC.
+            # liveParameters can also be a source-specific local fallback.
+            expected_origin = {
+                SourceRole.CAR_STATE: SourceOrigin.WIRE_EVENT,
+                SourceRole.CAR_CONTROL: SourceOrigin.LOCAL_CYCLE_OBJECT,
+            }.get(source.role)
+            if receipt.cycle.source_revision in {RUNTIME, CURRENT} and (
+                expected_origin is not None and source.origin != expected_origin
+            ):
+                reasons.append(R.SOURCE_COHORT_INCOMPLETE)
+            if source.origin == SourceOrigin.LOCAL_CYCLE_OBJECT and (
+                source.controller_cycle_digest != receipt.cycle.digest
+            ):
+                reasons.append(R.SOURCE_COHORT_INCOMPLETE)
             if (
                 source.source_time_ns is None
                 or (source.sequence is None and source.source_identity is None)
@@ -639,6 +653,14 @@ def _previous(
             if source.sequence is not None
             else None
         )
+        if (
+            same_instance
+            and receipt.cycle.controller_cycle_id != previous.cycle.controller_cycle_id
+            and source.consumed is True
+            and source.origin == SourceOrigin.LOCAL_CYCLE_OBJECT
+            and (before_source is not None or before_sequence is not None)
+        ):
+            reasons.append(R.SOURCE_TIMESTAMP_MISMATCH)
         if before_sequence is not None and any(
             getattr(before_sequence, name) != getattr(source, name)
             for name in ("source_time_ns", "clock_domain", "origin", "source_identity")

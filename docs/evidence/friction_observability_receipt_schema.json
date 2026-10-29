@@ -272,6 +272,17 @@
       "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
     },
     {
+      "field": "ConsumedSourceIdentity.controller_cycle_digest",
+      "python_type": "str | None",
+      "type": "Text/opaque digest + explicit presence",
+      "unit": "SHA-256 opaque content identity, NOT authenticity",
+      "stage": "CAUSAL_IDENTITY_OR_METADATA",
+      "required": "CONDITIONAL_ON_CONSUMED_LOCAL_CYCLE_OBJECT",
+      "source": "exact actually consumed event/object identity and clock; not latest-seen",
+      "availability": "EVENT_TIMES_EXIST_CONSUMPTION_LINKAGE_NOT_PUBLISHED",
+      "qualification_meaning": "STRUCTURAL_OBSERVATION_ONLY_NOT_ESTIMATOR_QUALIFICATION"
+    },
+    {
       "field": "ScalarObservation.signal",
       "python_type": "<enum 'Signal'>",
       "type": "Enum/Struct/List + explicit presence: <enum 'Signal'>",

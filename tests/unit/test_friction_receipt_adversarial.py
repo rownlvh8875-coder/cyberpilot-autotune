@@ -14,11 +14,100 @@ from cyberpilot_autotune.observability.types import (
     GeometryOrigin,
     ScalarOrigin,
     SourceOrigin,
+    SourceRole,
     Stage,
     canonical,
 )
 from tests.fixtures.friction_receipt import complete
 from tests.unit.test_friction_receipt import reasons
+
+
+@pytest.mark.parametrize(
+    ("role", "origin"),
+    [
+        (SourceRole.CAR_CONTROL, SourceOrigin.WIRE_EVENT),
+        (SourceRole.CAR_STATE, SourceOrigin.LOCAL_CYCLE_OBJECT),
+    ],
+)
+def test_pinned_consumed_source_role_cannot_be_relabelled_with_another_origin(role, origin):
+    receipt = complete()
+    changed = replace(
+        receipt,
+        sources=tuple(replace(s, origin=origin) if s.role == role else s for s in receipt.sources),
+    )
+    assert "SOURCE_COHORT_INCOMPLETE" in reasons(changed)
+
+
+@pytest.mark.parametrize("with_previous", [False, True])
+def test_prior_cycle_local_builder_is_not_a_consumed_source_of_this_cycle(with_previous):
+    previous, current = complete(10), complete(11)
+    old = next(s for s in previous.sources if s.role == SourceRole.CAR_CONTROL)
+    changed = replace(
+        current,
+        sources=tuple(old if s.role == SourceRole.CAR_CONTROL else s for s in current.sources),
+    )
+    assert "SOURCE_COHORT_INCOMPLETE" in reasons(changed, previous if with_previous else None)
+
+
+@pytest.mark.parametrize("binding", [None, "f" * 64])
+def test_consumed_local_object_requires_explicit_current_cycle_binding(binding):
+    receipt = complete()
+    changed = replace(
+        receipt,
+        sources=tuple(
+            replace(s, controller_cycle_digest=binding) if s.role == SourceRole.CAR_CONTROL else s
+            for s in receipt.sources
+        ),
+    )
+    assert "SOURCE_COHORT_INCOMPLETE" in reasons(changed)
+
+
+@pytest.mark.parametrize("reused", ["source_identity", "sequence"])
+def test_local_object_identity_or_sequence_cannot_be_reused_even_after_cycle_rebinding(reused):
+    previous, current = complete(10), complete(11)
+    old = next(s for s in previous.sources if s.role == SourceRole.CAR_CONTROL)
+    changed = replace(
+        current,
+        sources=tuple(
+            replace(s, **{reused: getattr(old, reused)}) if s.role == SourceRole.CAR_CONTROL else s
+            for s in current.sources
+        ),
+    )
+    assert "SOURCE_TIMESTAMP_MISMATCH" in reasons(changed, previous)
+
+
+def test_identical_local_object_metadata_cannot_be_reused_with_only_a_new_cycle_label():
+    previous, current = complete(10), complete(11)
+    old = next(s for s in previous.sources if s.role == SourceRole.CAR_CONTROL)
+    rebound = replace(old, controller_cycle_digest=current.cycle.digest)
+    changed = replace(
+        current,
+        sources=tuple(rebound if s.role == SourceRole.CAR_CONTROL else s for s in current.sources),
+    )
+    assert "SOURCE_TIMESTAMP_MISMATCH" in reasons(changed, previous)
+
+
+def test_unchanged_wire_sample_can_be_consumed_across_successive_cycles():
+    previous, current = complete(10), complete(11)
+    old = next(s for s in previous.sources if s.role == SourceRole.CAR_STATE)
+    changed = replace(
+        current,
+        sources=tuple(old if s.role == SourceRole.CAR_STATE else s for s in current.sources),
+    )
+    assert reasons(changed, previous) == set()
+
+
+def test_source_specific_local_live_parameters_fallback_requires_current_cycle_binding():
+    receipt = complete()
+    sources = tuple(
+        replace(
+            s, origin=SourceOrigin.LOCAL_CYCLE_OBJECT, controller_cycle_digest=receipt.cycle.digest
+        )
+        if s.role == SourceRole.LIVE_PARAMETERS
+        else s
+        for s in receipt.sources
+    )
+    assert reasons(replace(receipt, sources=sources)) == set()
 
 
 @pytest.mark.parametrize(
@@ -258,7 +347,15 @@ def test_r_profile_requires_static_geometry_and_no_dynamic_field_inference():
             replace(i, controller_cycle_digest=cycle.digest) for i in stages.downstream_identities
         ),
     )
-    static = replace(receipt, cycle=cycle, signals=signals, stages=stages, context=context)
+    sources = tuple(
+        replace(s, controller_cycle_digest=cycle.digest)
+        if s.origin == SourceOrigin.LOCAL_CYCLE_OBJECT
+        else s
+        for s in receipt.sources
+    )
+    static = replace(
+        receipt, cycle=cycle, signals=signals, stages=stages, context=context, sources=sources
+    )
     assert v.evaluate(static, v.ObservationPolicy()).status.value == "ELIGIBLE"
     assert static.context.geometry.live_parameters_ratio is None
 

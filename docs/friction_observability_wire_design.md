@@ -8,7 +8,7 @@ publisher or runtime producer implemented.
 
 ## Semantic inventory
 
-evidence/friction_observability_receipt_schema.json enumerates 142 fields in 15
+evidence/friction_observability_receipt_schema.json enumerates 143 fields in 15
 neutral records and 18 enums. It is a semantic proposal, NOT a cereal schema.
 The pure schema builder and mutation validator reproduce it without any native
 or optional dependency. Policy/eligibility-decision entries are local evaluator
@@ -72,7 +72,11 @@ publication time is known. Sealing is not an assertion that a future timestamp
 was already known at callback entry.
 
 A carControl builder consumed by the callback is LOCAL_CYCLE_OBJECT, not a later
-published carControl Event. Requested/host/applied stages require distinct
+published carControl Event. It requires an explicit current controller-cycle
+digest and a non-reused source identity/sequence within the controller instance.
+carState must be wire-origin under R/C. The source-specific local liveParameters
+fallback is represented separately, with the same local-cycle binding; legitimate
+unchanged wire-sample reuse remains allowed. Requested/host/applied stages require distinct
 DownstreamStageIdentity entries with actual event ID, exact source-command
 event ID, monotonic time/domain, controller-cycle digest, exact-reference flag
 and valid/transport health. A cycle label alone is insufficient.

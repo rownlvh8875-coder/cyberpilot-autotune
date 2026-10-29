@@ -55,6 +55,15 @@ Required role declarations cover carState/livePose/liveParameters/carControl;
 model/control inputs are declared if actually read. Latest-seen is not consumed.
 Local cycle carControl builders are labeled LOCAL_CYCLE_OBJECT; a later published
 carControl Event is never retroactively called a consumed input.
+For both pinned profiles, carState origin must be WIRE_EVENT and carControl
+origin must be LOCAL_CYCLE_OBJECT. Every consumed local object additionally
+binds controller_cycle_digest to the exact current CycleIdentity.digest; source
+identity/sequence cannot be reused across distinct cycles in the same session
+and controller instance. Unchanged wire samples may legitimately be consumed
+again. liveParameters is not blanket-classified as wire: the pinned source has
+a lateral_vehicle_parameters local fallback, which requires the same explicit
+local-cycle binding when represented. This is structural provenance only, not
+proof that a declared producer or fallback is authentic or active.
 
 Every core scalar has value-or-None, observed stage, precision, origin, cycle
 binding and capture time. Source cohort duplicates, future consumed times,

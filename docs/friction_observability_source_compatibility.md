@@ -7,7 +7,7 @@ automatic promotion. H7 primary profiles remain the H6 pins.
 
 evidence/friction_observability_receipt_sources.json pins 41 files, 30 semantic
 claims, file/blob/range hashes and H6 acceptance-basis content. Its canonical
-digest is d2b4ad2d44ecf15a18d50e6f950084436883b734eadab795f4e0dc85ad220145.
+digest is c1c6697eea57a9024e3178c82a87a3011cc9ed8866c4efb570d874f39269975a.
 Explicit source audit runs isolated exact helper/callback/PID/VM math only:
 44 helper/callback/PID cases plus H6 geometry parity, no native imports or Params.
 Exact source archives are audit inputs outside the installed package.
@@ -34,6 +34,7 @@ Exact source archives are audit inputs outside the installed package.
 | effective SR | live/rate/CustomSR resolver | same, plus geometry update | separate SR context from CG and delay |
 | delay | SAD/liveDelay branches and NN initialization/lookahead | same | source/branch/effective value and pair metadata explicit |
 | source timestamps | Event times but no atomic callback receipt | same | consumed IDs/capture receipt still missing |
+| consumed object origin | wire CS, fresh local CC; LP can be local fallback | same | role/origin pinned; consumed local objects bind current cycle; no cross-cycle local-ID reuse |
 
 ## Source details not inferred from comments
 

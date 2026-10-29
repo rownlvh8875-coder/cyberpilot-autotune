@@ -36,7 +36,7 @@ BASE = "a5d3514f23797829eb58d08c638b22cf4dd30c8a"
 FREEZE = "83c2170d699894a8044b1e82d453281ccd495d5d"
 SOURCE_PATH = "docs/evidence/friction_observability_receipt_sources.json"
 SCHEMA_PATH = "docs/evidence/friction_observability_receipt_schema.json"
-SOURCE_MANIFEST_SHA256 = "d2b4ad2d44ecf15a18d50e6f950084436883b734eadab795f4e0dc85ad220145"
+SOURCE_MANIFEST_SHA256 = "c1c6697eea57a9024e3178c82a87a3011cc9ed8866c4efb570d874f39269975a"
 COMPATIBILITY = (
     "tests/architecture/test_knowledge_boundary.py",
     "tests/audit/test_carrot_writer_ownership.py",
@@ -237,7 +237,8 @@ def build_sources(reference):
                 "whole_file",
                 (
                     "SAD/liveDelay branch; LaC return assigned torque; carControl "
-                    "publication later, not retroactive consumed input"
+                    "publication later, not retroactive consumed input; CS is wire carState, "
+                    "CC freshly allocated per state_control invocation; LP may use local fallback"
                 ),
             ),
         ):
@@ -319,6 +320,61 @@ def validate_sources(source, reference=None):
         verify_source_equations(reference)
 
 
+def check_consumed_source_fragments(raw):
+    """Read source AST only; never import/execute controlsd or access Params."""
+    tree = ast.parse(raw)
+    state = next(
+        node
+        for node in ast.walk(tree)
+        if isinstance(node, ast.FunctionDef) and node.name == "state_control"
+    )
+    publication = next(
+        node
+        for node in ast.walk(tree)
+        if isinstance(node, ast.FunctionDef) and node.name == "publish"
+    )
+
+    def assignments(node):
+        return {
+            (ast.unparse(target), ast.unparse(item.value))
+            for item in ast.walk(node)
+            if isinstance(item, ast.Assign)
+            for target in item.targets
+        }
+
+    pairs = assignments(state)
+    require(("CS", "self.sm['carState']") in pairs, "CONSUMED_CS_WIRE_ORIGIN")
+    require(("CC", "car.CarControl.new_message()") in pairs, "CONSUMED_CC_LOCAL_ORIGIN")
+    require(
+        (
+            "lp",
+            "self.sm['liveParameters'] if lateral_ready else "
+            "lateral_vehicle_parameters(self.sm, self.CP)",
+        )
+        in pairs,
+        "CONSUMED_LP_SOURCE_ALTERNATIVES",
+    )
+    calls = [
+        item
+        for item in ast.walk(state)
+        if isinstance(item, ast.Call) and ast.unparse(item.func) == "self.LaC.update"
+    ]
+    require(
+        len(calls) == 1
+        and len(calls[0].args) > 6
+        and ast.unparse(calls[0].args[1]) == "CS"
+        and ast.unparse(calls[0].args[3]) == "lp"
+        and ast.unparse(calls[0].args[6]) == "CC",
+        "CONSUMED_LOCAL_CC_CALL_ARGUMENT",
+    )
+    published = assignments(publication)
+    require(
+        ("cc_send", "messaging.new_message('carControl')") in published
+        and ("cc_send.carControl", "CC") in published,
+        "PUBLISHED_CC_NOT_CONSUMED_EVENT",
+    )
+
+
 def check_callback_fragments(raw):
     tree = ast.parse(raw)
     pairs = {
@@ -360,6 +416,9 @@ def verify_source_equations(reference):
 
     cases = 0
     for revision in (RUNTIME, CURRENT):
+        check_consumed_source_fragments(
+            h6.git_bytes(reference, revision, "openpilot/selfdrive/controls/controlsd.py")
+        )
         controller = h6.git_bytes(
             reference, revision, "openpilot/selfdrive/controls/lib/latcontrol_torque.py"
         )

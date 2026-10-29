@@ -85,3 +85,27 @@ ff = self.torque_from_lateral_accel(
     ):
         with pytest.raises(ValueError):
             audit.check_callback_fragments(raw.replace(old, new))
+
+
+def test_consumed_source_ast_pins_local_builder_wire_state_and_fallback_without_execution():
+    raw = b"""raise RuntimeError("never execute this file")
+def state_control(self):
+  CS = self.sm['carState']
+  lp = self.sm['liveParameters'] if lateral_ready else lateral_vehicle_parameters(self.sm, self.CP)
+  CC = car.CarControl.new_message()
+  steer, angle, log = self.LaC.update(CC.latActive, CS, self.VM, lp, limited, desired, CC, limited)
+def publish(self, CC):
+  cc_send = messaging.new_message('carControl')
+  cc_send.carControl = CC
+  self.pm.send('carControl', cc_send)
+"""
+    audit.check_consumed_source_fragments(raw)
+    for old, new in (
+        (b"CS = self.sm['carState']", b"CS = car.CarState.new_message()"),
+        (b"CC = car.CarControl.new_message()", b"CC = self.sm['carControl']"),
+        (b"desired, CC, limited", b"desired, self.sm['carControl'], limited"),
+        (b"cc_send.carControl = CC", b"cc_send.carControl = other"),
+        (b"lateral_vehicle_parameters(self.sm, self.CP)", b"other(self.sm, self.CP)"),
+    ):
+        with pytest.raises(ValueError):
+            audit.check_consumed_source_fragments(raw.replace(old, new))

@@ -40,6 +40,10 @@ do not outweigh missing causal observability in B/C/D alone.
    applied VM/installed-context snapshot, not later Params or LP lookups.
    A non-identifying session nonce and deterministic cycle/invocation IDs identify
    the cycle; no wall clock, Python id() or object address.
+   Bind every consumed local object explicitly to this cycle. R/C carControl is
+   a newly allocated local builder, carState is wire-origin, and liveParameters
+   can be a source-specific local fallback. Do not replace these origins, reuse
+   a local builder's ID/sequence across cycles, or prohibit valid wire reuse.
 2. After controller parameter latching, capture installed F/C/optional offset,
    actual mode/function/site, source/vehicle/controller/gain/geometry generation.
    Offset is stored-but-unused for pinned LINEAR; no regressor is added.
