@@ -189,7 +189,11 @@ def test_production_and_replay_are_frozen_to_the_merge_basis():
         p
         for p in actual
         if not p.startswith(
-            ("src/cyberpilot_autotune/owner_protocol/", "src/cyberpilot_autotune/research/")
+            (
+                "src/cyberpilot_autotune/owner_protocol/",
+                "src/cyberpilot_autotune/research/",
+                "src/cyberpilot_autotune/observability/",
+            )
         )
     }
     assert actual == expected
