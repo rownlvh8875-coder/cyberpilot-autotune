@@ -1,0 +1,336 @@
+{
+  "claims": [
+    {
+      "blob_sha": "656d4b44bf86a4d4db3819adce38fa22878ca27a",
+      "file_sha256": "833619a666effbd784aba847dd40ae79f0c37480fb194e78983d9bc8228efcc0",
+      "path": "SConstruct",
+      "range": {
+        "end": 325,
+        "sha256": "833619a666effbd784aba847dd40ae79f0c37480fb194e78983d9bc8228efcc0",
+        "start": 1
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "whole_file"
+    },
+    {
+      "blob_sha": "9b7faacb246f01c9fdcf07353a71296eefb1c035",
+      "file_sha256": "44521b59c3f0f781c67e8e4b94d6703c8f4b08d193ed2904a2be690d08d36d5b",
+      "path": "panda/SConscript",
+      "range": {
+        "end": 190,
+        "sha256": "44521b59c3f0f781c67e8e4b94d6703c8f4b08d193ed2904a2be690d08d36d5b",
+        "start": 1
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "whole_file"
+    },
+    {
+      "blob_sha": "dc961062f092e75a23af848803b114e0cc4f0264",
+      "file_sha256": "2336fdadedd5a6288ee8864164fdd8d62eea707bd8c27794a0bd16302cb77898",
+      "path": "openpilot/selfdrive/modeld/SConscript",
+      "range": {
+        "end": 37,
+        "sha256": "dc3926abed543e34db6d4caa0d6c6526f9494c2e65ddd579d1aeceda04300ea5",
+        "start": 34
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "probe_devices"
+    },
+    {
+      "blob_sha": "dc961062f092e75a23af848803b114e0cc4f0264",
+      "file_sha256": "2336fdadedd5a6288ee8864164fdd8d62eea707bd8c27794a0bd16302cb77898",
+      "path": "openpilot/selfdrive/modeld/SConscript",
+      "range": {
+        "end": 159,
+        "sha256": "2336fdadedd5a6288ee8864164fdd8d62eea707bd8c27794a0bd16302cb77898",
+        "start": 1
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "whole_file"
+    },
+    {
+      "blob_sha": "6fb5e12d732bb2f50f0a979f8465f701acdfdd05",
+      "file_sha256": "7c28ae3854a3f009fc6eddfb52f03b3d382a23b581d94a3c4741a12bdc79f008",
+      "path": "tinygrad_repo/tinygrad/device.py",
+      "range": {
+        "end": 40,
+        "sha256": "920b7b103affdddf35d7910c841e1e40f09a07351d4f9515568d583a0a6b0129",
+        "start": 38
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "_Device.get_available_devices"
+    },
+    {
+      "blob_sha": "6fb5e12d732bb2f50f0a979f8465f701acdfdd05",
+      "file_sha256": "7c28ae3854a3f009fc6eddfb52f03b3d382a23b581d94a3c4741a12bdc79f008",
+      "path": "tinygrad_repo/tinygrad/device.py",
+      "range": {
+        "end": 35,
+        "sha256": "3a0066ab8082922291e9000482f635afe62327d3bbad7c2ed41e23f5c701424d",
+        "start": 27
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "_Device.__get_canonicalized_item"
+    },
+    {
+      "blob_sha": "8a55f5168758b805642b8f8f5c983fd2155dc2f6",
+      "file_sha256": "24c347d2137c92e1dc35d78cd9df45b38d31cc4d34729a35215f8822b3f2f6fb",
+      "path": "tinygrad_repo/tinygrad/helpers.py",
+      "range": {
+        "end": 237,
+        "sha256": "d433351299180b7aa4bd3bd28ff7fb0f562c3a7b874e05e202af82bddaa305fb",
+        "start": 234
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "_DEV.target"
+    },
+    {
+      "blob_sha": "8a55f5168758b805642b8f8f5c983fd2155dc2f6",
+      "file_sha256": "24c347d2137c92e1dc35d78cd9df45b38d31cc4d34729a35215f8822b3f2f6fb",
+      "path": "tinygrad_repo/tinygrad/helpers.py",
+      "range": {
+        "end": 153,
+        "sha256": "359d7ef88a323cefbf5f9ff2e91559803371a20b1bc3191e61745fbed9f25cb6",
+        "start": 144
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "select_first_inited"
+    },
+    {
+      "blob_sha": "9d87005226f4141a77eb956abb38c50c3d2fb203",
+      "file_sha256": "86ccce42fce7fe59f4cd2e345d9186b7241e44a00763ee51712c16a10b521bff",
+      "path": "tinygrad_repo/tinygrad/runtime/support/hcq.py",
+      "range": {
+        "end": 501,
+        "sha256": "6023f8f7a459427c678cf9b3802c9c36683b9256a5c87ea95718199096c7708f",
+        "start": 493
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "HCQCompiled._select_iface"
+    },
+    {
+      "blob_sha": "9d87005226f4141a77eb956abb38c50c3d2fb203",
+      "file_sha256": "86ccce42fce7fe59f4cd2e345d9186b7241e44a00763ee51712c16a10b521bff",
+      "path": "tinygrad_repo/tinygrad/runtime/support/hcq.py",
+      "range": {
+        "end": 30,
+        "sha256": "1601e2290ecb5f22a4cad80aae3fedb249ad822c8f680522440052452e37be87",
+        "start": 28
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "FileIOInterface.__init__"
+    },
+    {
+      "blob_sha": "c94f78ebb52c0d329ab43f085413aa8a75eb7a46",
+      "file_sha256": "4df3d5e1b6a748241ccb18559bedb81f0609c5939ec27851f368a39f614abc48",
+      "path": "tinygrad_repo/tinygrad/runtime/ops_amd.py",
+      "range": {
+        "end": 1051,
+        "sha256": "b447d6e59b95ac716efac20b5d7a32a56e493f07cc1cc81f0d9576602c6e6833",
+        "start": 969
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "AMDDevice.__init__"
+    },
+    {
+      "blob_sha": "c94f78ebb52c0d329ab43f085413aa8a75eb7a46",
+      "file_sha256": "4df3d5e1b6a748241ccb18559bedb81f0609c5939ec27851f368a39f614abc48",
+      "path": "tinygrad_repo/tinygrad/runtime/ops_amd.py",
+      "range": {
+        "end": 757,
+        "sha256": "79c8a07db6a44d74128fb0e003f90f85ded0c902af09db7a06deddd3a913048e",
+        "start": 714
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "KFDIface.__init__"
+    },
+    {
+      "blob_sha": "b60e1b540baf17af8cfb4344befd949b315ccf48",
+      "file_sha256": "673ad6f3160884e32ea5b9793561774f6ce0516ac5a36830915c163869187a91",
+      "path": "tinygrad_repo/tinygrad/runtime/ops_nv.py",
+      "range": {
+        "end": 638,
+        "sha256": "08e5306b20d9d51e91de9644a635f52935afca6eda6c8e07c2f541d400d43bdc",
+        "start": 587
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "NVDevice.__init__"
+    },
+    {
+      "blob_sha": "b60e1b540baf17af8cfb4344befd949b315ccf48",
+      "file_sha256": "673ad6f3160884e32ea5b9793561774f6ce0516ac5a36830915c163869187a91",
+      "path": "tinygrad_repo/tinygrad/runtime/ops_nv.py",
+      "range": {
+        "end": 411,
+        "sha256": "8bffc8363344603baabd496a0464fd8750ef75958234dcc1d6aaf1ce2e94634d",
+        "start": 382
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "NVKIface.__init__"
+    },
+    {
+      "blob_sha": "6eb3dc25b576385db6574aec7a9660deaa489ec3",
+      "file_sha256": "0a82b324bcc613aef17b2ef4be6c5d474f83daffd1272d3c3ee3a4012a0c75a2",
+      "path": "tinygrad_repo/tinygrad/runtime/ops_qcom.py",
+      "range": {
+        "end": 373,
+        "sha256": "91beeee3d3b7927a8f712709662f3aa30d0c58fdbf686e9850627bd1b14f0925",
+        "start": 342
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "QCOMDevice.__init__"
+    },
+    {
+      "blob_sha": "ac14db8ef5e2348a7bef8f9c4ce17e85c12ccf4e",
+      "file_sha256": "5e7034f3bebfc10874d3adf3ee23c24ffca22da1e810edba10b254a563202e33",
+      "path": "tinygrad_repo/tinygrad/runtime/support/system.py",
+      "range": {
+        "end": 189,
+        "sha256": "a932d2f0b2edcb5fdf04d712df7bd154040496c1a3dda4e08981c6bedd941cf8",
+        "start": 159
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "PCIDevice.__init__"
+    },
+    {
+      "blob_sha": "ac14db8ef5e2348a7bef8f9c4ce17e85c12ccf4e",
+      "file_sha256": "5e7034f3bebfc10874d3adf3ee23c24ffca22da1e810edba10b254a563202e33",
+      "path": "tinygrad_repo/tinygrad/runtime/support/system.py",
+      "range": {
+        "end": 86,
+        "sha256": "a80cfe7b6bc49bb22aa093b62685cf92cc5866cfbdcba53df99f7f5b6a972b09",
+        "start": 83
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "_System.pci_probe_device"
+    },
+    {
+      "blob_sha": "e4c173957a7cf2f92bd8f58f95ac4e8badb3614c",
+      "file_sha256": "2cbaa92e12016e911911e3bd403366d6202fc5bc41f5834eb2c8e733dd1678bf",
+      "path": "openpilot/selfdrive/modeld/get_model_metadata.py",
+      "range": {
+        "end": 47,
+        "sha256": "6db7ea0d9739b4364d675ce8e4938f84d364a5b221011319281c9fb6b1581faf",
+        "start": 38
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "make_metadata_dict"
+    },
+    {
+      "blob_sha": "48ab1e14995cd5413dc704c6967106008af6709f",
+      "file_sha256": "88279cceb1fdb92aec024ee9c83a16193c9d78e9682330f82b2285e252c6b584",
+      "path": "openpilot/common/big_model_catalog.py",
+      "range": {
+        "end": 98,
+        "sha256": "ff8bdc0eb623c912691c056922424897cd1bf06c38ef63aebb3ebafa6d22a4a2",
+        "start": 94
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "effective_id"
+    },
+    {
+      "blob_sha": "80bc36af311f28aea8940338d57a4a6f14a754d0",
+      "file_sha256": "d779fdc936d231f1bd9b9743b5831faef8c463ada36817767dbd673253674f3a",
+      "path": "openpilot/selfdrive/assets/fonts/process.py",
+      "range": {
+        "end": 149,
+        "sha256": "d779fdc936d231f1bd9b9743b5831faef8c463ada36817767dbd673253674f3a",
+        "start": 1
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "whole_file"
+    },
+    {
+      "blob_sha": "b74ff5b27364f8739a1fecc2714f89d8364cc1f6",
+      "file_sha256": "0904f14432ccf7deb870e7755b583d8538649e6dc06d6f8e9fd5097627b58301",
+      "path": "openpilot/selfdrive/controls/lib/lateral_mpc_lib/lat_mpc.py",
+      "range": {
+        "end": 210,
+        "sha256": "0904f14432ccf7deb870e7755b583d8538649e6dc06d6f8e9fd5097627b58301",
+        "start": 1
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "whole_file"
+    },
+    {
+      "blob_sha": "917982b9e3c691000e422ea8e583311ae1a55260",
+      "file_sha256": "c5b4acd9bf7baf034c0953747c278102108271b9640f4d22851593f418cd33f8",
+      "path": "openpilot/common/scons_cache_lock.py",
+      "range": {
+        "end": 63,
+        "sha256": "c5b4acd9bf7baf034c0953747c278102108271b9640f4d22851593f418cd33f8",
+        "start": 1
+      },
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "symbol": "whole_file"
+    }
+  ],
+  "full_transitive_audit_complete": false,
+  "scope": "STATIC_ONLY_NO_NATIVE_IMPORT_OR_EXECUTION",
+  "verdict": "REJECTED_EARLY_DEVICE_PROBE_CONTAINMENT_UNRESOLVED",
+  "source_profile": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "source_is_unchanged": true,
+  "producer_or_device_probe_executed": false,
+  "findings": [
+    {
+      "code": "DEVICE_ENUMERATION_IS_CONSTRUCTOR_EXECUTION",
+      "status": "BLOCKING",
+      "trace": [
+        "SConstruct -> openpilot/selfdrive/modeld/SConscript",
+        "probe_devices() -> child Python Device.get_available_devices()",
+        "_Device.__getitem__ -> __get_canonicalized_item -> backend constructor",
+        "AMDDevice/NVDevice -> HCQCompiled._select_iface -> KFDIface/NVKIface",
+        "QCOMDevice.__init__ -> FileIOInterface('/dev/kgsl-3d0', O_RDWR)",
+        "FileIOInterface.__init__ -> os.open"
+      ],
+      "notes": [
+        "get_available_devices loops ALL_DEVICES and suppresses exceptions, not a passive presence query.",
+        "DEV.target(AMD/NV) falls back to that device's default Target when DEV=CPU; it is not an enumeration filter.",
+        "Successful access/PCI mutation depends on actual imports, exposed nodes, matching hardware and privileges. None was tested or performed.",
+        "No devices mounted/no GPU on host was NOT observed as a qualification substitute."
+      ]
+    },
+    {
+      "code": "CONDITIONAL_PCI_SYSFS_MUTATION",
+      "status": "BLOCKING_CONTAINMENT_REVIEW",
+      "detail": "PCIDevice.__init__ opens sysfs enable O_RDWR and can unbind an existing driver. Reachability is conditional; not executed."
+    },
+    {
+      "code": "SOURCE_SHIM_INSTALL_NETWORK",
+      "status": "FUTURE_PREPARATION_REQUIRED",
+      "detail": "14 VCS shims fetch release wheels during build_py without a source-pinned checksum. Acquired14 assets now have release/asset ID+SHA256 records, but no hook/cache build was run."
+    },
+    {
+      "code": "MODEL_METADATA_PICKLE_LOADING",
+      "status": "ADDITIONAL_REVIEW_REQUIRED_BEFORE_EXECUTION",
+      "detail": "make_metadata_dict uses pickle.loads on output_slices metadata; compiler code also loads its generated pickles. Model payload hashes are captured, not unpickled or treated as harmless inert inputs."
+    }
+  ],
+  "constraints": [
+    "No native import, model pickle loading, setup hook, SCons help/dry-run, container, service, Params/SubMaster, device or vehicle execution.",
+    "No source change, skip, mock GPU or privilege escalation used to turn rejection into approval.",
+    "Full transitive audit remains incomplete; this is a rejected-path evidence record, not a full allowlist."
+  ]
+}
