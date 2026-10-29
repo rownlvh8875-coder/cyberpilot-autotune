@@ -85,8 +85,9 @@ new application bound. Friction zero contributes zero compensation. Zero Kp/Kf
 nulls the corresponding multiplication; zero Ki gives no new error-driven integral
 increment, without claiming an existing integrator is reset. Custom zero is not
 positive and does not select the custom assignment branch; cached-mode timing
-still matters. Ratio zero takes the helper's invalid-rate fallback outside Hoya's
-MEB bypass. Delay zero has the separate consumer rules below. A filtered offset
+still matters. When no valid CustomSR override is selected, ratio zero takes the
+helper's invalid-rate fallback outside Hoya's MEB bypass. Delay zero has the
+separate consumer rules below. A filtered offset
 of zero can be real source evidence, but no current availability is inferred here.
 
 PID gains multiply the callback-dependent error/feedforward domain. The ordinary
