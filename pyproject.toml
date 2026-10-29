@@ -11,6 +11,7 @@ requires-python = ">=3.12.3,<3.13"
 dependencies = []
 
 [project.optional-dependencies]
+research = ["numpy>=2.2,<3"]
 dev = [
   "pytest>=8,<10", "pytest-cov>=5,<8", "hypothesis>=6,<7",
   "ruff>=0.17.3,<0.18", "mypy>=1.15,<3", "build>=1,<2",

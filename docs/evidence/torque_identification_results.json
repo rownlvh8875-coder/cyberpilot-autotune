@@ -1,0 +1,1075 @@
+{
+  "schema_version": 1,
+  "scientific_sources_digest": "38a6cb650136a7abd75e38c1bf1380e1d913264b43f0b89ab5a942b83b4009fe",
+  "development_fit_executed": false,
+  "historical_claims_recomputed": false,
+  "historical_claims_source_id": "research_aggregation_doc",
+  "historically_reported": {
+    "epochs": 19,
+    "nonempty_epochs": 15,
+    "points": 31595,
+    "bucket_counts": [
+      104,
+      608,
+      2709,
+      11591,
+      10588,
+      4443,
+      1194,
+      358
+    ],
+    "point_manifest_sha256": "27ed097453beeb075b133cc492b8462d5b5c2de7bf36e2f1d94e145f95b846d8"
+  },
+  "source_verification": {
+    "files": 24,
+    "ranges": 50,
+    "source_bytes_verified": true,
+    "application_authorized": false
+  },
+  "native_numerical_parity": {
+    "status": "NATIVE_NUMERICAL_PARITY_PASS",
+    "cases": 2,
+    "maximum_absolute_error": 0,
+    "actual_imported_friction_helper_cases": 18,
+    "native_bucket_sampling_reproduced": false,
+    "scientific_identification_pass": false
+  },
+  "report": {
+    "source_revisions": [
+      [
+        "runtime",
+        "c2130730239bcdb4cbde9361ab90c8d99aa4ff55"
+      ],
+      [
+        "integration",
+        "7a2f051b1f3847786318900444c88c2ba7a74a67"
+      ],
+      [
+        "current",
+        "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3"
+      ],
+      [
+        "research",
+        "02652a441c1c39b4a9c3bfaf1132217f0e57b384"
+      ]
+    ],
+    "estimand_version": "h5-linear-factor-controller-friction-v1",
+    "statistical_policy_digest": "5ee040a5ad7af8bcf8c56422da3ae8ed7794c5b77f52ddd380e5aa24df95b94b",
+    "preregistration_commit": "da2f9a082018285dd706e49aad61d3783233a29d",
+    "development_evidence_digest": null,
+    "cluster_count": null,
+    "epoch_count": null,
+    "point_count": null,
+    "status": "TORQUE_IDENTIFICATION_BLOCKED_FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE",
+    "factor_verdict": "FACTOR_IDENTIFICATION_UNQUALIFIED_FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE",
+    "friction_verdict": "FRICTION_NATIVE_ESTIMATOR_NOT_DIRECT_IDENTIFICATION",
+    "joint_identifiability": "NONIDENTIFIABLE",
+    "synthetic_recovery_summary": [
+      {
+        "name": "ideal_factor",
+        "scenario_digest": "5cfb15760796d162e5cdedc7d3d6df355b1eb1a8fed9e980cbd9b16a87cb3364",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999991,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 2.3420139499485873e-16,
+            "residual_rmse_mps2": 2.633125101432526e-16,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 8.881784197001252e-16,
+        "native_coefficient_absolute_bias": 2.3420139499485873e-16,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "factor_offset",
+        "scenario_digest": "88c867576b0712ddcee93a3bba7b6663690e165e285a856214fe254bc2c52479",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999984,
+            "lat_accel_offset_mps2": 0.12500000000000003,
+            "native_residual_spread_coefficient": 3.390308341338007e-16,
+            "residual_rmse_mps2": 5.266250202865052e-16,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 1.5543122344752192e-15,
+        "native_coefficient_absolute_bias": 3.390308341338007e-16,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "symmetric_friction",
+        "scenario_digest": "33cb3b6acc89733ad712b9c7f80900963d8058afc9c06d5d358d3c0947834c45",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.1624404748406683,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.13000687028653168,
+            "residual_rmse_mps2": 0.206491381870155,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.16244047484066826,
+        "native_coefficient_absolute_bias": 0.03000687028653168,
+        "native_coefficient_relative_bias": 0.3000687028653168,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "multiple_friction",
+        "scenario_digest": "c2efe978d248cb947990dbb142dafa1095497699038a2f7651316a9a61817f29",
+        "true_factor": 2,
+        "true_controller_friction": 0.05,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.040158092887998,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.06654966716971782,
+            "residual_rmse_mps2": 0.10080311127361151,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.0401580928879981,
+        "native_coefficient_absolute_bias": 0.016549667169717813,
+        "native_coefficient_relative_bias": 0.33099334339435627,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "x_noise",
+        "scenario_digest": "e84f2caf3623b718f8312669c1e32730deebd8609ce4181c0a5e044d2581010e",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0.02,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9878265032130564,
+            "lat_accel_offset_mps2": 0.006936610049738547,
+            "native_residual_spread_coefficient": 0.03115407637413072,
+            "residual_rmse_mps2": 0.046215750028259936,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.012173496786943572,
+        "native_coefficient_absolute_bias": 0.03115407637413072,
+        "native_coefficient_relative_bias": null,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "y_noise",
+        "scenario_digest": "6e5f2be8beb2a7c81a3949cfd0da22a4ce8241861a999746fdef4c1487d78544",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0.02,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9976563363408126,
+            "lat_accel_offset_mps2": -0.0000064892024345646175,
+            "native_residual_spread_coefficient": 0.01251998240788691,
+            "residual_rmse_mps2": 0.0186461933168881,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.002343663659187367,
+        "native_coefficient_absolute_bias": 0.01251998240788691,
+        "native_coefficient_relative_bias": null,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "both_noise",
+        "scenario_digest": "e8b14b774f7f3e3e2c4530658a66b85304c1bf6edd3a759e609ef0a922c58206",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0.02,
+        "y_noise_std": 0.02,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9858064158274744,
+            "lat_accel_offset_mps2": 0.006923854297923106,
+            "native_residual_spread_coefficient": 0.035008002535444276,
+            "residual_rmse_mps2": 0.05189077318339114,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.014193584172525586,
+        "native_coefficient_absolute_bias": 0.035008002535444276,
+        "native_coefficient_relative_bias": null,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "unbalanced_excitation",
+        "scenario_digest": "6c677f2dd5f60749eb7d57708e197ef7f76e8030ae54b57277a00602da82aa16",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.422180503381115,
+            "lat_accel_offset_mps2": -0.05313623818585044,
+            "native_residual_spread_coefficient": 0.1241198928099061,
+            "residual_rmse_mps2": 0.2168367810617133,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.422180503381115,
+        "native_coefficient_absolute_bias": 0.02411989280990609,
+        "native_coefficient_relative_bias": 0.2411989280990609,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "lag_error",
+        "scenario_digest": "995c061e9cf10036f5b67f6b7ef9713f741c93e63cb9389a9ed00abcec3dd35b",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 238,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.0988400127734517,
+            "lat_accel_offset_mps2": -0.0030084534875489347,
+            "native_residual_spread_coefficient": 0.15013323077313645,
+            "residual_rmse_mps2": 0.23269584185764708,
+            "point_count": 238
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.09884001277345167,
+        "native_coefficient_absolute_bias": 0.15013323077313645,
+        "native_coefficient_relative_bias": null,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "roll_bias",
+        "scenario_digest": "82bf115738d0b226776a118f7e1a4287ce114a745c219111a2165ee004945121",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999998,
+            "lat_accel_offset_mps2": -0.09809836500817505,
+            "native_residual_spread_coefficient": 6.520806856012869e-17,
+            "residual_rmse_mps2": 9.614813431917819e-17,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 2.220446049250313e-16,
+        "native_coefficient_absolute_bias": 6.520806856012869e-17,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "deadzone",
+        "scenario_digest": "c077d44d0fefaa8a693aec0ba1b89d8c1f0435afb508a88e62a07483227895fc",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999991,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 2.3420139499485873e-16,
+            "residual_rmse_mps2": 2.633125101432526e-16,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 8.881784197001252e-16,
+        "native_coefficient_absolute_bias": 0.09999999999999977,
+        "native_coefficient_relative_bias": -0.9999999999999977,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "threshold_transition",
+        "scenario_digest": "0b09b1a48dd29fd2da06c2f4a8a977f228c42c3fac237755cf7ac951b0011ee2",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.004446417121293,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.022340821278943223,
+            "residual_rmse_mps2": 0.033362976090762095,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.004446417121292789,
+        "native_coefficient_absolute_bias": 0.07765917872105678,
+        "native_coefficient_relative_bias": -0.7765917872105678,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "low_excitation",
+        "scenario_digest": "0a3d2c8dd4a299f5af9b1bcdc1ca3a883cb339f170d99d89b8fe556e706a4bf8",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999993,
+            "lat_accel_offset_mps2": -5.152681612512371e-18,
+            "native_residual_spread_coefficient": 3.166960213641154e-20,
+            "residual_rmse_mps2": 5.150245627764264e-18,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 6.661338147750939e-16,
+        "native_coefficient_absolute_bias": 3.166960213641154e-20,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "degenerate",
+        "scenario_digest": "e9faa7e315afc0bf2387ce587a7a8e0b3b8d33c1238778379b81d17bb91451c3",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": null,
+          "reason": "DEGENERATE_TLS"
+        },
+        "factor_absolute_bias": null,
+        "native_coefficient_absolute_bias": null,
+        "native_coefficient_relative_bias": null,
+        "verdict": "EXPECTED_DEGENERACY"
+      },
+      {
+        "name": "mild_nonlinearity",
+        "scenario_digest": "3182311db5fc67ff2f0f77fa05af5fe2e44e0310e2ea2ed5223f90794c1c23ea",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.0272365644299377,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.0020145054520802935,
+            "residual_rmse_mps2": 0.00303580857363467,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.027236564429937715,
+        "native_coefficient_absolute_bias": 0.0020145054520802935,
+        "native_coefficient_relative_bias": null,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "factor_axis_0.5",
+        "scenario_digest": "a77d247b3a02321f9d4b43f9a00d4da3dc0d4d55858f2c0192d2e4d586f7932d",
+        "true_factor": 0.5,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 0.4999999999999999,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 3.810694445445357e-17,
+            "residual_rmse_mps2": 4.3885418357208765e-17,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 1.1102230246251565e-16,
+        "native_coefficient_absolute_bias": 3.810694445445357e-17,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "friction_factor_axis_0.5",
+        "scenario_digest": "f91a6596cb83cc1ae3a64b9cd46fc95c5b03cb52291a64956b41628656de7eb6",
+        "true_factor": 0.5,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 0.5101619327035625,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.06694611692136604,
+            "residual_rmse_mps2": 0.05010315845959387,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.01016193270356247,
+        "native_coefficient_absolute_bias": 0.03305388307863397,
+        "native_coefficient_relative_bias": -0.33053883078633967,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "factor_axis_1.0",
+        "scenario_digest": "0f0f4d5b7b626eb38d531accd711c5fdb6c44e56e86968581e6a0ebe80d4fb79",
+        "true_factor": 1,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 0.9999999999999997,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 9.761275919233031e-17,
+            "residual_rmse_mps2": 8.777083671441753e-17,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 3.3306690738754696e-16,
+        "native_coefficient_absolute_bias": 9.761275919233031e-17,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "friction_factor_axis_1.0",
+        "scenario_digest": "a3daf7ef85988a3e3adbc0d5254e02f15aff90c057c7a3817ec5916ffa32233b",
+        "true_factor": 1,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.0512492197250392,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.10473263847467111,
+            "residual_rmse_mps2": 0.10130472966373552,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.05124921972503915,
+        "native_coefficient_absolute_bias": 0.004732638474671105,
+        "native_coefficient_relative_bias": 0.04732638474671105,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "factor_axis_2.0",
+        "scenario_digest": "d9f1181268c8e8c4827ff50b8f8e75e390ca245f3830b2ef765f9197386b4407",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999991,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 2.3420139499485873e-16,
+            "residual_rmse_mps2": 2.633125101432526e-16,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 8.881784197001252e-16,
+        "native_coefficient_absolute_bias": 2.3420139499485873e-16,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "friction_factor_axis_2.0",
+        "scenario_digest": "8307984bf3c99f81651903034cfb3c7d1931604bc1c7a58cfb1830419a742a21",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.1624404748406683,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.13000687028653168,
+            "residual_rmse_mps2": 0.206491381870155,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.16244047484066826,
+        "native_coefficient_absolute_bias": 0.03000687028653168,
+        "native_coefficient_relative_bias": 0.3000687028653168,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "factor_axis_4.0",
+        "scenario_digest": "dac377c3f894bfe3fdadab2f0a6ba1953a0e44a5a3f666e89cb0e2d6748f0841",
+        "true_factor": 4,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 3.9999999999999996,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 6.50419422124797e-17,
+            "residual_rmse_mps2": 1.7554167342883506e-16,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 4.440892098500626e-16,
+        "native_coefficient_absolute_bias": 6.50419422124797e-17,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "friction_factor_axis_4.0",
+        "scenario_digest": "187f2edc5f356b9d408c840f947733e177dc39aae39fd13f6e3f9a91290a5e23",
+        "true_factor": 4,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 4.378394234602492,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.13944600696239817,
+            "residual_rmse_mps2": 0.4175143346976731,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.3783942346024922,
+        "native_coefficient_absolute_bias": 0.03944600696239817,
+        "native_coefficient_relative_bias": 0.39446006962398167,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "friction_axis_0.0",
+        "scenario_digest": "68a9aabdb386ef3699d5379be64b42ed650b01c1945ccf24f4375cc2596042ff",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999991,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 2.3420139499485873e-16,
+            "residual_rmse_mps2": 2.633125101432526e-16,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 8.881784197001252e-16,
+        "native_coefficient_absolute_bias": 2.3420139499485873e-16,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "friction_axis_0.01",
+        "scenario_digest": "0bc558d51a471b3541d69f208ee5ffbf0797a501c38b7353f56bd21f72cecf29",
+        "true_factor": 2,
+        "true_controller_friction": 0.01,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.0016002558771535,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.013412115988211945,
+            "residual_rmse_mps2": 0.02000640102285359,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.0016002558771535114,
+        "native_coefficient_absolute_bias": 0.003412115988211945,
+        "native_coefficient_relative_bias": 0.34121159882119445,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "friction_axis_0.05",
+        "scenario_digest": "05d6ac4490dba4562ed2c5b95123d17663a1a40bb4ecb62b5f7e05d12f1730cc",
+        "true_factor": 2,
+        "true_controller_friction": 0.05,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.040158092887998,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.06654966716971782,
+            "residual_rmse_mps2": 0.10080311127361151,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.0401580928879981,
+        "native_coefficient_absolute_bias": 0.016549667169717813,
+        "native_coefficient_relative_bias": 0.33099334339435627,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "friction_axis_0.1",
+        "scenario_digest": "eadb2ada81ca4739c5dfa341ff0ed41054d095dc928eb5e683e2ed688742122b",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.1624404748406683,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.13000687028653168,
+            "residual_rmse_mps2": 0.206491381870155,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.16244047484066826,
+        "native_coefficient_absolute_bias": 0.03000687028653168,
+        "native_coefficient_relative_bias": 0.3000687028653168,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "offset_axis_-0.125",
+        "scenario_digest": "202a6a395c2cfdb8747e09a533845dbd4ac64db8f9af3f5ad622f6bb8f8942bd",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999991,
+            "lat_accel_offset_mps2": -0.12499999999999992,
+            "native_residual_spread_coefficient": 2.306334270038603e-16,
+            "residual_rmse_mps2": 2.7755575615628914e-16,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 8.881784197001252e-16,
+        "native_coefficient_absolute_bias": 2.306334270038603e-16,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "offset_axis_0.0",
+        "scenario_digest": "f01213447fe726830eb7a48f3dce14e626c78042b73307fe67e03dd385826baf",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999991,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 2.3420139499485873e-16,
+            "residual_rmse_mps2": 2.633125101432526e-16,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 8.881784197001252e-16,
+        "native_coefficient_absolute_bias": 2.3420139499485873e-16,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "offset_axis_0.125",
+        "scenario_digest": "e427941620531b58dab4dfadfb95521fb3a7f2af0838df187abe8ede2c064b45",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999984,
+            "lat_accel_offset_mps2": 0.12500000000000003,
+            "native_residual_spread_coefficient": 3.390308341338007e-16,
+            "residual_rmse_mps2": 5.266250202865052e-16,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 1.5543122344752192e-15,
+        "native_coefficient_absolute_bias": 3.390308341338007e-16,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "count_axis_80",
+        "scenario_digest": "b2e8934814808630a99c3774f0bf66e82e5a97e4b617939d0c97f26a887446ad",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999991,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 2.3420139499485873e-16,
+            "residual_rmse_mps2": 2.633125101432526e-16,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 8.881784197001252e-16,
+        "native_coefficient_absolute_bias": 2.3420139499485873e-16,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "count_axis_160",
+        "scenario_digest": "9e526e39bf014407bf85624d0e5f19c9aea65fc2a76012c6ddc319cc1306b6ab",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 160,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999991,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 2.3420139499485873e-16,
+            "residual_rmse_mps2": 2.633125101432526e-16,
+            "point_count": 160
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 8.881784197001252e-16,
+        "native_coefficient_absolute_bias": 2.3420139499485873e-16,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "count_axis_240",
+        "scenario_digest": "a962fd0da03c9454d7a2008f8b7addde72c64d4eee2922de17dacf7538c54461",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 240,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.0000000000000013,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 3.319205018131344e-16,
+            "residual_rmse_mps2": 4.388541835720876e-16,
+            "point_count": 240
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 1.3322676295501878e-15,
+        "native_coefficient_absolute_bias": 3.319205018131344e-16,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "occupancy_constant_positive",
+        "scenario_digest": "28fd967b37d97f3347942da75d5a1cbbb44837eab6bd13e81f7b6b3b8f4faa23",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2,
+            "lat_accel_offset_mps2": -0.2000000000000001,
+            "native_residual_spread_coefficient": 3.452056130901701e-17,
+            "residual_rmse_mps2": 1.3092278833360675e-16,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0,
+        "native_coefficient_absolute_bias": 0.09999999999999998,
+        "native_coefficient_relative_bias": -0.9999999999999998,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "occupancy_zero",
+        "scenario_digest": "4bdddcbf1a488cbc771e2441934ad897a50f32bc7095dcd9225d5eacc6008e71",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 1.9999999999999991,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 2.3420139499485873e-16,
+            "residual_rmse_mps2": 2.633125101432526e-16,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 8.881784197001252e-16,
+        "native_coefficient_absolute_bias": 0.09999999999999977,
+        "native_coefficient_relative_bias": -0.9999999999999977,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "excitation_half_amplitude",
+        "scenario_digest": "8af33b321030cf06c5d3acc810ff9171df2f7b990d66b7a8100f5e048d59adbc",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.673975065412816,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.11907058890027411,
+            "residual_rmse_mps2": 0.22661875412232602,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.673975065412816,
+        "native_coefficient_absolute_bias": 0.019070588900274105,
+        "native_coefficient_relative_bias": 0.19070588900274105,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "friction_and_x_noise",
+        "scenario_digest": "141ecdd4c35d12f56a7e0b2bfeccf5a393d68853cfc8328696e409c1cb8ac5d9",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0.02,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.155321825830126,
+            "lat_accel_offset_mps2": 0.007583889496760233,
+            "native_residual_spread_coefficient": 0.1399765444732982,
+            "residual_rmse_mps2": 0.22172356662748088,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.15532182583012588,
+        "native_coefficient_absolute_bias": 0.03997654447329818,
+        "native_coefficient_relative_bias": 0.3997654447329818,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "friction_and_y_noise",
+        "scenario_digest": "07fb817057e6714025c3cf8c621d70d6daebe3cdfc1383d74b6916c6b62f8624",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0.02,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.1597343001765674,
+            "lat_accel_offset_mps2": -0.000006538238088335544,
+            "native_residual_spread_coefficient": 0.13049975047910697,
+            "residual_rmse_mps2": 0.2070605590307229,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.15973430017656742,
+        "native_coefficient_absolute_bias": 0.03049975047910697,
+        "native_coefficient_relative_bias": 0.3049975047910697,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "friction_and_both_noise",
+        "scenario_digest": "77eeb518ddf56b40471dbe96354efca9a6c23115a52634df2c61c62eca4badad",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0.02,
+        "y_noise_std": 0.02,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.1529947978372066,
+            "lat_accel_offset_mps2": 0.007569912100439994,
+            "native_residual_spread_coefficient": 0.1407704100587238,
+            "residual_rmse_mps2": 0.22278297213761436,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.1529947978372066,
+        "native_coefficient_absolute_bias": 0.04077041005872378,
+        "native_coefficient_relative_bias": 0.4077041005872378,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "threshold_saturated",
+        "scenario_digest": "210544c9c3c746c86eb101af65ff1d4b88d9040e56eb24ad43e3cab189b93713",
+        "true_factor": 2,
+        "true_controller_friction": 0.1,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.1624404748406683,
+            "lat_accel_offset_mps2": 0,
+            "native_residual_spread_coefficient": 0.13000687028653168,
+            "residual_rmse_mps2": 0.206491381870155,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.16244047484066826,
+        "native_coefficient_absolute_bias": 0.03000687028653168,
+        "native_coefficient_relative_bias": 0.3000687028653168,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "delay_correct",
+        "scenario_digest": "66009de0f28441bf94971138c745c3ddd5ae2f20fba4483162965770b4919690",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 238,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.0000000000000013,
+            "lat_accel_offset_mps2": 4.151994557001659e-17,
+            "native_residual_spread_coefficient": 2.7982570427850943e-16,
+            "residual_rmse_mps2": 3.8416826687259097e-16,
+            "point_count": 238
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 1.3322676295501878e-15,
+        "native_coefficient_absolute_bias": 2.7982570427850943e-16,
+        "native_coefficient_relative_bias": null,
+        "verdict": "IDEAL_AFFINE_RECOVERY_PASS"
+      },
+      {
+        "name": "delay_positive",
+        "scenario_digest": "e0935914090b588da8834cd2ee2653fb92a7ff64da7944afc07fb8664a54e075",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 237,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.107498702612666,
+            "lat_accel_offset_mps2": 0.0017694801800230812,
+            "native_residual_spread_coefficient": 0.1499377054736672,
+            "residual_rmse_mps2": 0.23317444185785524,
+            "point_count": 237
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.10749870261266592,
+        "native_coefficient_absolute_bias": 0.1499377054736672,
+        "native_coefficient_relative_bias": null,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      },
+      {
+        "name": "roll_varying",
+        "scenario_digest": "7a974df9af058e8a0b823f3b423e8d96d5e29a636adaed6e4137da2acf374870",
+        "true_factor": 2,
+        "true_controller_friction": 0,
+        "x_noise_std": 0,
+        "y_noise_std": 0,
+        "point_count": 80,
+        "numerical": {
+          "fit": {
+            "linear_mode_tls_lat_accel_slope": 2.0766065865556684,
+            "lat_accel_offset_mps2": -0.049114359232836975,
+            "native_residual_spread_coefficient": 0.054655232619710475,
+            "residual_rmse_mps2": 0.08398112872745937,
+            "point_count": 80
+          },
+          "reason": null
+        },
+        "factor_absolute_bias": 0.07660658655566843,
+        "native_coefficient_absolute_bias": 0.054655232619710475,
+        "native_coefficient_relative_bias": null,
+        "verdict": "SENSITIVITY_DIAGNOSTIC"
+      }
+    ],
+    "cluster_statistics": null,
+    "evidence_gaps": [
+      "FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE",
+      "SCIENTIFIC_CLUSTER_STRUCTURE_UNAVAILABLE"
+    ],
+    "blockers": [
+      "FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE",
+      "SCIENTIFIC_CLUSTER_STRUCTURE_UNAVAILABLE",
+      "THRESHOLD_NOT_JUSTIFIED",
+      "FRICTION_NATIVE_ESTIMATOR_NOT_DIRECT_IDENTIFICATION",
+      "VEHICLE_APPLICATION_BOUNDS_UNRESOLVED",
+      "RUNTIME_FINGERPRINT_UNCONFIRMED",
+      "REPRESENTATION_ENCODING_UNRESOLVED",
+      "APPLICATION_NOT_AUTHORIZED",
+      "WATCHDOG_EXECUTION_MODEL_UNRESOLVED",
+      "EXTERNAL_INHIBITION_EXECUTOR_ACCEPTANCE_UNRESOLVED",
+      "PARAMETER_IDENTIFICATION_QUALIFICATION_UNRESOLVED"
+    ],
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "parameter_identification_qualified": false
+  }
+}

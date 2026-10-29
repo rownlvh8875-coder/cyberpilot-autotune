@@ -1,0 +1,652 @@
+{
+  "schema_version": 1,
+  "scope": "OFFLINE_SCIENTIFIC_DIAGNOSTIC_ONLY",
+  "h5_base": "3ded3dec7011f24b7f1195f0c73bbed290891ff3",
+  "pins": {
+    "runtime": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+    "integration": "7a2f051b1f3847786318900444c88c2ba7a74a67",
+    "current": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+    "research": "02652a441c1c39b4a9c3bfaf1132217f0e57b384"
+  },
+  "policy_freeze_commit": "da2f9a082018285dd706e49aad61d3783233a29d",
+  "policy_sha256": "5ee040a5ad7af8bcf8c56422da3ae8ed7794c5b77f52ddd380e5aa24df95b94b",
+  "files": [
+    {
+      "id": "runtime_torqued",
+      "repository": "carrot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "git_blob": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "line_count": 280,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 280,
+          "sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb"
+        },
+        {
+          "name": "slope2rot",
+          "start": 39,
+          "end": 42,
+          "sha256": "b3ea067644213a817d3674fab9519ab7e630740c5dbd16cca81c6f8ce6653393"
+        },
+        {
+          "name": "TorqueEstimator.estimate_params",
+          "start": 145,
+          "end": 157,
+          "sha256": "efa2cbfcc4a36b428c93f053afc47ed750c95f6c9a2fa40e02e0ddba5362ea09"
+        },
+        {
+          "name": "TorqueEstimator.handle_log",
+          "start": 165,
+          "end": 205,
+          "sha256": "ef62067528c8fd4e7ae80dc6113110a44cec08b617611a7764ae4a5a3429dd0a"
+        },
+        {
+          "name": "TorqueEstimator.get_msg",
+          "start": 207,
+          "end": 242,
+          "sha256": "bb16b3ce08d5384e53575e7a64d58f7d197be853f1c96cd9ec9de373dc23bf87"
+        }
+      ]
+    },
+    {
+      "id": "runtime_callback",
+      "repository": "carrot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "git_blob": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "line_count": 690,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 690,
+          "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10"
+        },
+        {
+          "name": "CarInterfaceBase.torque_from_lateral_accel_linear",
+          "start": 411,
+          "end": 415,
+          "sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f"
+        }
+      ]
+    },
+    {
+      "id": "runtime_friction",
+      "repository": "carrot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "git_blob": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "line_count": 443,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 443,
+          "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e"
+        },
+        {
+          "name": "apply_center_deadzone",
+          "start": 281,
+          "end": 284,
+          "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e"
+        },
+        {
+          "name": "get_friction",
+          "start": 291,
+          "end": 299,
+          "sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c"
+        }
+      ]
+    },
+    {
+      "id": "runtime_other_friction",
+      "repository": "carrot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "opendbc_repo/opendbc/car/lateral.py",
+      "git_blob": "3e0cd5a51cdf6f472948134fbb28d374c3201892",
+      "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d",
+      "line_count": 205,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 205,
+          "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d"
+        },
+        {
+          "name": "apply_center_deadzone",
+          "start": 153,
+          "end": 156,
+          "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e"
+        },
+        {
+          "name": "get_friction",
+          "start": 159,
+          "end": 166,
+          "sha256": "5d92161f29817e5ceb92b6f5a4a9b7592ccdd0fc5045f8e5f36059d6400d3eed"
+        }
+      ]
+    },
+    {
+      "id": "runtime_consumer",
+      "repository": "carrot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "git_blob": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49",
+      "line_count": 310,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 310,
+          "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49"
+        },
+        {
+          "name": "LatControlTorque.update",
+          "start": 143,
+          "end": 310,
+          "sha256": "8930581509973e7a2342b96dd320b5c30670c6cd8bf55fca7437c260638e3448"
+        }
+      ]
+    },
+    {
+      "id": "runtime_buckets",
+      "repository": "carrot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/locationd/helpers.py",
+      "git_blob": "fe7930c509f7d1cac7b234ea8e8cf9ebea2f069a",
+      "sha256": "a220a8fd710a390bde4ba5ed6d58315ce52fd769f0bdd5dddc55bb493a1cdfff",
+      "line_count": 183,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 183,
+          "sha256": "a220a8fd710a390bde4ba5ed6d58315ce52fd769f0bdd5dddc55bb493a1cdfff"
+        },
+        {
+          "name": "PointBuckets",
+          "start": 70,
+          "end": 105,
+          "sha256": "aea8a717592798e14914f26bdaf940fe99687ba9f63bff0f1df938b6bf02c17b"
+        }
+      ]
+    },
+    {
+      "id": "runtime_native_test",
+      "repository": "carrot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/controls/tests/test_torqued_lat_accel_offset.py",
+      "git_blob": "934eccd8c5cbc47a479b74e82afe86b9a3d91661",
+      "sha256": "b8e92481091a4c9aa53e7fd9190a44993e7f5acf9db646267cb506a9597d33b1",
+      "line_count": 70,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 70,
+          "sha256": "b8e92481091a4c9aa53e7fd9190a44993e7f5acf9db646267cb506a9597d33b1"
+        },
+        {
+          "name": "generate_inputs",
+          "start": 23,
+          "end": 32,
+          "sha256": "ac55a4328c13b741628850d6da903f5533503f66d9c341c76ebfc5fe25c9f090"
+        },
+        {
+          "name": "test_estimated_offset",
+          "start": 58,
+          "end": 63,
+          "sha256": "991a1665cd041be3ef327755e5476f2063e0b3e7257c9bc252db87a1e94e4b8d"
+        }
+      ]
+    },
+    {
+      "id": "current_torqued",
+      "repository": "carrot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/locationd/torqued.py",
+      "git_blob": "3a01d1b36b9d1b9ac23936cfb59e1a5373088809",
+      "sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb",
+      "line_count": 280,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 280,
+          "sha256": "c486912d2ff7d5024043ebf1adfd7ae49dc287679c65fd7be37901bd3a9287cb"
+        },
+        {
+          "name": "slope2rot",
+          "start": 39,
+          "end": 42,
+          "sha256": "b3ea067644213a817d3674fab9519ab7e630740c5dbd16cca81c6f8ce6653393"
+        },
+        {
+          "name": "TorqueEstimator.estimate_params",
+          "start": 145,
+          "end": 157,
+          "sha256": "efa2cbfcc4a36b428c93f053afc47ed750c95f6c9a2fa40e02e0ddba5362ea09"
+        },
+        {
+          "name": "TorqueEstimator.handle_log",
+          "start": 165,
+          "end": 205,
+          "sha256": "ef62067528c8fd4e7ae80dc6113110a44cec08b617611a7764ae4a5a3429dd0a"
+        },
+        {
+          "name": "TorqueEstimator.get_msg",
+          "start": 207,
+          "end": 242,
+          "sha256": "bb16b3ce08d5384e53575e7a64d58f7d197be853f1c96cd9ec9de373dc23bf87"
+        }
+      ]
+    },
+    {
+      "id": "current_callback",
+      "repository": "carrot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "git_blob": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+      "line_count": 690,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 690,
+          "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10"
+        },
+        {
+          "name": "CarInterfaceBase.torque_from_lateral_accel_linear",
+          "start": 411,
+          "end": 415,
+          "sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f"
+        }
+      ]
+    },
+    {
+      "id": "current_friction",
+      "repository": "carrot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "git_blob": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+      "line_count": 443,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 443,
+          "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e"
+        },
+        {
+          "name": "apply_center_deadzone",
+          "start": 281,
+          "end": 284,
+          "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e"
+        },
+        {
+          "name": "get_friction",
+          "start": 291,
+          "end": 299,
+          "sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c"
+        }
+      ]
+    },
+    {
+      "id": "current_other_friction",
+      "repository": "carrot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "opendbc_repo/opendbc/car/lateral.py",
+      "git_blob": "3e0cd5a51cdf6f472948134fbb28d374c3201892",
+      "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d",
+      "line_count": 205,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 205,
+          "sha256": "ce12b728727ebba5b2d42ed85d07fa42841b774c07bfe35e0783d3165431b49d"
+        },
+        {
+          "name": "apply_center_deadzone",
+          "start": 153,
+          "end": 156,
+          "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e"
+        },
+        {
+          "name": "get_friction",
+          "start": 159,
+          "end": 166,
+          "sha256": "5d92161f29817e5ceb92b6f5a4a9b7592ccdd0fc5045f8e5f36059d6400d3eed"
+        }
+      ]
+    },
+    {
+      "id": "current_consumer",
+      "repository": "carrot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "git_blob": "10c93b526fee645cba9dc1a6442ed118bf9eeff9",
+      "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc",
+      "line_count": 307,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 307,
+          "sha256": "67fb6ecafc4d0ce999e2bbf1b729b5f6cf58a5f787c054e770162e7f2f3629cc"
+        },
+        {
+          "name": "LatControlTorque.update",
+          "start": 142,
+          "end": 307,
+          "sha256": "dd9a614bea1a1eb0541c3db10cea9377f94f88d6877e4cc9d5a2612973dcacaf"
+        }
+      ]
+    },
+    {
+      "id": "current_buckets",
+      "repository": "carrot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/locationd/helpers.py",
+      "git_blob": "fe7930c509f7d1cac7b234ea8e8cf9ebea2f069a",
+      "sha256": "a220a8fd710a390bde4ba5ed6d58315ce52fd769f0bdd5dddc55bb493a1cdfff",
+      "line_count": 183,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 183,
+          "sha256": "a220a8fd710a390bde4ba5ed6d58315ce52fd769f0bdd5dddc55bb493a1cdfff"
+        },
+        {
+          "name": "PointBuckets",
+          "start": 70,
+          "end": 105,
+          "sha256": "aea8a717592798e14914f26bdaf940fe99687ba9f63bff0f1df938b6bf02c17b"
+        }
+      ]
+    },
+    {
+      "id": "current_native_test",
+      "repository": "carrot",
+      "revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+      "path": "openpilot/selfdrive/controls/tests/test_torqued_lat_accel_offset.py",
+      "git_blob": "934eccd8c5cbc47a479b74e82afe86b9a3d91661",
+      "sha256": "b8e92481091a4c9aa53e7fd9190a44993e7f5acf9db646267cb506a9597d33b1",
+      "line_count": 70,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 70,
+          "sha256": "b8e92481091a4c9aa53e7fd9190a44993e7f5acf9db646267cb506a9597d33b1"
+        },
+        {
+          "name": "generate_inputs",
+          "start": 23,
+          "end": 32,
+          "sha256": "ac55a4328c13b741628850d6da903f5533503f66d9c341c76ebfc5fe25c9f090"
+        },
+        {
+          "name": "test_estimated_offset",
+          "start": 58,
+          "end": 63,
+          "sha256": "991a1665cd041be3ef327755e5476f2063e0b3e7257c9bc252db87a1e94e4b8d"
+        }
+      ]
+    },
+    {
+      "id": "research_identification",
+      "repository": "research",
+      "revision": "02652a441c1c39b4a9c3bfaf1132217f0e57b384",
+      "path": "openpilot/tools/cyber_autotune/torque_identification.py",
+      "git_blob": "939c93e7d2f3b72836bd90f99420c7a9faf6a22b",
+      "sha256": "9f3d9c2f62c76c70ee16888b00904e2be434fd3f38838239d3cb12c98f81fb6b",
+      "line_count": 123,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 123,
+          "sha256": "9f3d9c2f62c76c70ee16888b00904e2be434fd3f38838239d3cb12c98f81fb6b"
+        }
+      ]
+    },
+    {
+      "id": "research_aggregation",
+      "repository": "research",
+      "revision": "02652a441c1c39b4a9c3bfaf1132217f0e57b384",
+      "path": "openpilot/tools/cyber_autotune/torque_aggregation.py",
+      "git_blob": "213310969f67b8cab79099f78696dab456b99386",
+      "sha256": "1115a4142d62e4cfdd682e8d946fad58a3729a4599c2d48f98721b9d529843ac",
+      "line_count": 242,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 242,
+          "sha256": "1115a4142d62e4cfdd682e8d946fad58a3729a4599c2d48f98721b9d529843ac"
+        }
+      ]
+    },
+    {
+      "id": "research_identification_tests",
+      "repository": "research",
+      "revision": "02652a441c1c39b4a9c3bfaf1132217f0e57b384",
+      "path": "openpilot/tools/cyber_autotune/tests/test_torque_identification.py",
+      "git_blob": "e30d474727a66f69b146114c1fb534247ec847a5",
+      "sha256": "60f4d08807f60ca33765bad614fb420518f2812265f3640cb5a8c04cd49d9ade",
+      "line_count": 161,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 161,
+          "sha256": "60f4d08807f60ca33765bad614fb420518f2812265f3640cb5a8c04cd49d9ade"
+        }
+      ]
+    },
+    {
+      "id": "research_aggregation_tests",
+      "repository": "research",
+      "revision": "02652a441c1c39b4a9c3bfaf1132217f0e57b384",
+      "path": "openpilot/tools/cyber_autotune/tests/test_torque_aggregation.py",
+      "git_blob": "59a6827701c785fa669830d1818b0a1c9367a2ad",
+      "sha256": "e72665320ebae2cd0c8f6416b3c23178ff7dd1bed7227c9f1dccec2972f22e39",
+      "line_count": 216,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 216,
+          "sha256": "e72665320ebae2cd0c8f6416b3c23178ff7dd1bed7227c9f1dccec2972f22e39"
+        }
+      ]
+    },
+    {
+      "id": "research_identification_doc",
+      "repository": "research",
+      "revision": "02652a441c1c39b4a9c3bfaf1132217f0e57b384",
+      "path": "docs/cyberpilot/changes/cyber-autotune-torque-identification.md",
+      "git_blob": "5ce9629a16e28d7d715a5345362f33e4f90bda89",
+      "sha256": "898fa959a94769ffd1d5c5dabe6766c315f584af21347f225aba15770b560cb9",
+      "line_count": 71,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 71,
+          "sha256": "898fa959a94769ffd1d5c5dabe6766c315f584af21347f225aba15770b560cb9"
+        }
+      ]
+    },
+    {
+      "id": "research_aggregation_doc",
+      "repository": "research",
+      "revision": "02652a441c1c39b4a9c3bfaf1132217f0e57b384",
+      "path": "docs/cyberpilot/changes/cyber-autotune-torque-aggregation.md",
+      "git_blob": "672461e993c710048121c7de7a021a03394db3fc",
+      "sha256": "9c53d20afeb51950d63855c709c11dd92b1b7014214b5468a053d2c3219dfb5d",
+      "line_count": 80,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 80,
+          "sha256": "9c53d20afeb51950d63855c709c11dd92b1b7014214b5468a053d2c3219dfb5d"
+        }
+      ]
+    },
+    {
+      "id": "research_contracts",
+      "repository": "research",
+      "revision": "02652a441c1c39b4a9c3bfaf1132217f0e57b384",
+      "path": "openpilot/tools/cyber_autotune/contracts.py",
+      "git_blob": "fe131783ae7a8a2398ee766a6efcfb4fb0eb6ed7",
+      "sha256": "991891f87fd7f585f0f9e71767164db7be1ca2740c68cffa292c8c6876ba7001",
+      "line_count": 100,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 100,
+          "sha256": "991891f87fd7f585f0f9e71767164db7be1ca2740c68cffa292c8c6876ba7001"
+        }
+      ]
+    },
+    {
+      "id": "research_evidence",
+      "repository": "research",
+      "revision": "02652a441c1c39b4a9c3bfaf1132217f0e57b384",
+      "path": "openpilot/tools/cyber_autotune/evidence.py",
+      "git_blob": "247e09d81c42f64cee9403c830eb8ccf83b4fae8",
+      "sha256": "e67824c72995fa5a8af86323f139368b0f2d8b1b9b25e2093ae8fdb0ccf4ecbd",
+      "line_count": 204,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 204,
+          "sha256": "e67824c72995fa5a8af86323f139368b0f2d8b1b9b25e2093ae8fdb0ccf4ecbd"
+        }
+      ]
+    },
+    {
+      "id": "research_cluster_tls",
+      "repository": "research",
+      "revision": "02652a441c1c39b4a9c3bfaf1132217f0e57b384",
+      "path": "openpilot/tools/cyber_autotune/torque_cluster_tls.py",
+      "git_blob": "7a543e76cd757ad109e757f59d640e0f155afd34",
+      "sha256": "157aa3807d285f7beb11b2c68ad95ccb34b8e2af4ba33049e2380a46fb69dc80",
+      "line_count": 304,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 304,
+          "sha256": "157aa3807d285f7beb11b2c68ad95ccb34b8e2af4ba33049e2380a46fb69dc80"
+        }
+      ]
+    },
+    {
+      "id": "research_cluster_stability",
+      "repository": "research",
+      "revision": "02652a441c1c39b4a9c3bfaf1132217f0e57b384",
+      "path": "openpilot/tools/cyber_autotune/torque_cluster_stability.py",
+      "git_blob": "37535ddaa7693dacbe8281d00558766a81d95477",
+      "sha256": "a2a8dc98e2e8722ff934a58857bad83152601018ca13947e59dba79480ebfe0a",
+      "line_count": 216,
+      "ranges": [
+        {
+          "name": "whole_file",
+          "start": 1,
+          "end": 216,
+          "sha256": "a2a8dc98e2e8722ff934a58857bad83152601018ca13947e59dba79480ebfe0a"
+        }
+      ]
+    }
+  ],
+  "preserved_files": {
+    "docs/evidence/carrot_writer_ownership_sources.json": "fafc27e7ee5a14704ecdfb95153d7fd260db9577e967e89f4f8ecf003fc0ce70",
+    "docs/evidence/shared_torque_owner_contract.json": "ff7ccb2744e097a81bb4f7d9d7b92fd9cc9c532ee5743fb5ad40346c730ff256",
+    "docs/evidence/steering_parameter_knowledge_sources.json": "ef08606522e0268ecacda0f5540e18c5dc1a425638e9a273e85b9f8f83482264",
+    "src/cyberpilot_autotune/__init__.py": "1638311894ccd6a0980a03d7e9dfc8a8a7572dad577370b79364c4299bb031be",
+    "src/cyberpilot_autotune/adapters/__init__.py": "6f1d8d4cf4dd4b6f7e6244c789cc2f6b3687306e80ad81572af4543c8bf563e0",
+    "src/cyberpilot_autotune/adapters/base.py": "3a40fc6099a84026d3a335c8aca38137138574a790651645013936d89c4ff0bf",
+    "src/cyberpilot_autotune/adapters/carrot_receipt_contract.py": "ce06a71852b0a6b1b6e54210df4dbfe5bced4a196c2fc62ebd241f1f04463199",
+    "src/cyberpilot_autotune/contracts/__init__.py": "b3cb8d5aaba1a96b2050d9925a543f83ef30041035718f9ee70d587accc725d2",
+    "src/cyberpilot_autotune/contracts/decision.py": "204ddb8981bf259648f99adb3371d28700eed9c2980a0b3c889055c1f26e6466",
+    "src/cyberpilot_autotune/contracts/observation.py": "7c5764418b5be0debbc72eb36f9828658c595d4570edada245d8c403af28da42",
+    "src/cyberpilot_autotune/contracts/parameter.py": "4808908ad42f15ab13634f8e2887f3bfd8b12a115b1349ff48709a22a7730319",
+    "src/cyberpilot_autotune/contracts/proposal.py": "b63ff3fe88fd5560856f93a6e49c94901a2a8f33602a20ee76d2a3798f9dc9f2",
+    "src/cyberpilot_autotune/contracts/result.py": "cc587d9f32085cb72aab4dd27494c0c008f1eeb1eb92576ecc6f5f76af4e5c30",
+    "src/cyberpilot_autotune/contracts/validation.py": "5c3fff59d4be3ff82abbdbabd213f33af86c1bdbc7d493c1b794f755d782a872",
+    "src/cyberpilot_autotune/core/__init__.py": "689ececce49e100af58f5eb4fb2413e7cefb407ec0652c49a15a18eb170a7130",
+    "src/cyberpilot_autotune/core/learner.py": "09a948f65f07c3887744fe3386c9be3186054a21aa5e377d42e3ef607094cda6",
+    "src/cyberpilot_autotune/core/no_op.py": "7723e8ab95ffcc840236adc6d36628d72399ee480567fec248808c18ce2a532e",
+    "src/cyberpilot_autotune/core/residual.py": "395f6d45295928544b9f5a2d85a3c35c9cc5e41fcdcf11127b5ad00ed37e26ea",
+    "src/cyberpilot_autotune/integrations/__init__.py": "1b70659b93b5f05e54f58896767e6e9f81289ff6c80fec999ea08ff4a19de61c",
+    "src/cyberpilot_autotune/integrations/carrot/__init__.py": "72b330002ee56a0ab3be5605ce3c4166301f23376601fc5332b26ffdba656e3c",
+    "src/cyberpilot_autotune/integrations/carrot/adapter.py": "21ce38a0990a0fc489dbc6e5af2c02b377b7d43a3877047ab24fd3a75a9ef393",
+    "src/cyberpilot_autotune/integrations/carrot/availability.py": "9f99168d79261e472f96641b0e4be064ceeeec01ed865da2e245f9590709df3b",
+    "src/cyberpilot_autotune/integrations/carrot/cache.py": "3455306717a492362afad4ccd684acbef58ea150ba16dd46e9b1411ca5f8e6fd",
+    "src/cyberpilot_autotune/integrations/carrot/errors.py": "55f06ce43ef8ab4cd98978a0175f3eff8c0e752c86b161fdb3a56a835b852d6b",
+    "src/cyberpilot_autotune/integrations/carrot/extraction.py": "a1259f3db55f76bfceac0b1315bb0887b061a60998fd76a7bbb27a9b2e75658f",
+    "src/cyberpilot_autotune/integrations/carrot/health.py": "adaa0eb8f625c6ae9c98af4e0fe94469a0279242a6e3c98a351edc5bb1736584",
+    "src/cyberpilot_autotune/knowledge/__init__.py": "0c10c702c7c1c7d123b5e78add221eb9ec072a0a97faf894f4af35a3677663e2",
+    "src/cyberpilot_autotune/knowledge/_catalog_data.py": "51b4bd71aed063133dde43c25c4c3c1baef0d6806c0860be32797571e8b483fc",
+    "src/cyberpilot_autotune/knowledge/canonical.py": "f71bb897f15c08e456aefe2c4cbd52e65de54dad90ea9c1dfa648f550ca67dff",
+    "src/cyberpilot_autotune/knowledge/contracts.py": "eed411574c84241e8b5404aa0cc12a0e086c0c96249c8a00f33640285f1a2ff4",
+    "src/cyberpilot_autotune/knowledge/steering.py": "5ca44497a9296add0be4ce5223ebc3990f576f523d09a7716735652f5454b931",
+    "src/cyberpilot_autotune/owner_protocol/__init__.py": "3a2071c54394245957f6f453e8fdcebb204de76357ff72978d9841ee6e1af58c",
+    "src/cyberpilot_autotune/owner_protocol/contracts.py": "4deb8f1297747f08508284fd711eef0eade302b910c7a6dcd605d457f65c0bf3",
+    "src/cyberpilot_autotune/owner_protocol/ports.py": "187e5e066a982ece735f11868df4808acea2dd59fad3cc2fda698d065bbcede9",
+    "src/cyberpilot_autotune/owner_protocol/reference_owner.py": "ca0c58538643f23e9a6196ab94b7b6d9c32d7ecf97dc9f541cb201708afe4dc6",
+    "src/cyberpilot_autotune/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/cyberpilot_autotune/replay/__init__.py": "79a2fc56912ed7e0b1ec788b452e85a5bd38d8600255cc25f824c9ea938a15cf",
+    "src/cyberpilot_autotune/replay/canonical.py": "e12594cc67d115ebcfc4bc36cbda1e3235c1efa93a3ab57d5d6750b68cbba679",
+    "src/cyberpilot_autotune/replay/cli.py": "e5e266207d7e17e599977125441218867655a5e216a52c64263e720870850e89",
+    "src/cyberpilot_autotune/replay/runner.py": "8f2f7efdac14eadda1ed32555b1db8c4145725675fd92d5763c177ae391f53c5",
+    "src/cyberpilot_autotune/replay/schema.py": "498f04b4b7bd22be98f56dcaa9724ce52e4d61531f9263a6fdcf8ff65c73b473",
+    "src/cyberpilot_autotune/runtime/__init__.py": "25ddf8753ae363db2f6449f3e0834fb7d9cc9055ac92b874f63b17e5f67e6a96",
+    "src/cyberpilot_autotune/runtime/clock.py": "548b6b74704693738d0523f32614e237552194fbb16a915cc0e403cb2027d33d",
+    "src/cyberpilot_autotune/runtime/engine.py": "46834be9a8be8e33f2ad3fbc44a59a924e1c2ba0595fdc5aeb78705b1bf096e6",
+    "src/cyberpilot_autotune/runtime/mode.py": "77393646b015045078a1aec53335ad72e041af6197b56707e13fb81fe9bb145a",
+    "src/cyberpilot_autotune/safety/__init__.py": "b270f043692cf6c70a1429da3aa4eaf0771e9458fdd3c5e5466d43492a3f69ff",
+    "src/cyberpilot_autotune/safety/bounds.py": "7c1b9a71d8373e01e8a7f7a71581795f7ebf7f8d29d70b4d63d4352f96107d7e",
+    "src/cyberpilot_autotune/safety/gate.py": "def9d7f3c5bca6a66338a4eeb7a9773dde1580f7d3db20a21297e40bd9f20645",
+    "src/cyberpilot_autotune/safety/rate_limiter.py": "1a9e6054c57918aabd48bfcbde4ea4df7573c456c3c7e26564cd2bc854c2d195",
+    "src/cyberpilot_autotune/safety/reasons.py": "f21607e45646cfc8955c24271edb2a4f14f6e8b4660e1e37cd0fdd3d44df53b4",
+    "src/cyberpilot_autotune/safety/sanitizer.py": "569e81de5bdfe564845b98fa3f7093524ca2f1b7e04c3c3ac257e8f2e47b76bd",
+    "src/cyberpilot_autotune/telemetry/__init__.py": "3e01fe531fcbf5cac1fff48b3d23d751329bab7870f29abebade24fe61b6d576",
+    "src/cyberpilot_autotune/telemetry/events.py": "6c487d6fe4f45d8b06d7c852322e4bf14a0911d9a8f4581729e5bd9dd0c0a5ff",
+    "tests/architecture/test_owner_protocol_boundary.py": "ba58d8659affcd780ca133cab64134532ef39cb03e37326d9ed135088dcdebd3",
+    "tests/audit/test_shared_torque_owner_contract.py": "13850fff1e1eb52432d13c4c5b3bbccb900854dd24f5281175869c7042bcb7b1",
+    "tests/fixtures/replay/admission_reset_v1.expected.json": "6351414be8014366117e84f3f822323ec7684a3e384c37ebdb1f7529b430185e",
+    "tests/fixtures/replay/admission_reset_v1.json": "16b5311048e55fa66a6252fc97f097da72b746e1b791004795082b03cf69d92d",
+    "tests/fixtures/replay/constant_residual_v1.expected.json": "5229ea0d7225d5fa7bfa41d1d55b7fcc50cd9d15db71848abdcb3f7c3d238b62",
+    "tests/fixtures/replay/constant_residual_v1.json": "1bcb07d4da039b64699bf6fa4788be8b9a8bb909886f400b0cf9d72df835246c",
+    "tests/fixtures/replay/golden_v1.expected.json": "8e031da66159225c539e65f1ee955b262371ef6736951c39e060934bea33adff",
+    "tests/fixtures/replay/golden_v1.json": "d8e3ad8ef931a10ee1ff78a9d2018fe6bfe11e57e371c828a7148224001704b3",
+    "tests/fixtures/replay/ordering_high_water_v1.expected.json": "44699cef5f9b97db41bb56e12e0fa780d3813d60c17dd670af2b548f3c637ce2",
+    "tests/fixtures/replay/ordering_high_water_v1.json": "47ab3d406751d30e22142b894a4448261768b75f10a142585693f8f09395f61c",
+    "tests/property/test_owner_protocol_properties.py": "92042e75e1cebbcff6bf65a92041db30cec4c4bd12e38658dcc27836d7701940",
+    "tests/unit/test_owner_protocol.py": "fe175cc6de95b1f319cf28583e3fd52c0342c47ee4fed93a47cfcc7676a3aaa4",
+    "tests/unit/test_owner_protocol_failures.py": "0f18a5bd9aab7b81939bff72ce59d41c57f003ae5b2ec330e892362f67a72fc9"
+  },
+  "reference_execution": "ISOLATED_EXACT_SOURCE_MATH_FUNCTIONS_ONLY",
+  "runtime_construction": false,
+  "candidate_generation_allowed": false,
+  "application_authorized": false,
+  "runtime_accepted": false
+}

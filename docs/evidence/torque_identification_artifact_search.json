@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "observed_date_utc": "2026-10-29",
+  "scope": "EXISTING_FROZEN_DEVELOPMENT_ARTIFACT_METADATA_ONLY",
+  "user_followup": "Search GitHub and Hugging Face for the existing artifact",
+  "expected_manifest_sha256": "27ed097453beeb075b133cc492b8462d5b5c2de7bf36e2f1d94e145f95b846d8",
+  "github": {
+    "repository": "rownlvh8875-coder/CyberPilot",
+    "release_assets_found": 0,
+    "actions_artifacts_inspected": 90,
+    "artifact_name_matches_torque_frozen_identification_aggregation_point": 0,
+    "exact_hash_indexed_code_matches_including_forks": 0,
+    "recursive_trees_checked": [
+      "02652a441c1c39b4a9c3bfaf1132217f0e57b384",
+      "588d6b21c21089065a7d9165d6e7a438e8aa6297",
+      "c8fb906815530460ed156f14e09e1f312bb0f851",
+      "c4328011f5f15a0cb0319a4547df5cf8ee1e1d7c",
+      "deeb6442394468b4759081aa74e6e889f78357da",
+      "08eaf10250b6a005fd9bc74f74d2ec7f67c61e79"
+    ],
+    "recursive_tree_responses_truncated": false,
+    "matching_manifest_point_cluster_artifacts": 0,
+    "non_data_layout_matches_excluded": ["max-torque-debug.json", "torque-controller.json"],
+    "autotune_repository_release_assets_found": 0
+  },
+  "hugging_face": {
+    "CyberPilot_dataset_search_matches": 0,
+    "cyber_autotune_dataset_search_matches": 0,
+    "rownlvh8875_coder_author_dataset_matches": 0,
+    "torque_dataset_identifiers_reviewed": 72,
+    "broad_steering_search_limit": 100,
+    "source_configured_lfs_repository": "commaai/openpilot-lfs",
+    "lfs_tree_entries_inspected": 273,
+    "lfs_expected_hash_or_torque_manifest_matches": 0,
+    "other_public_steering_dataset": "commaai/commaSteeringControl",
+    "other_dataset_revision": "647fe063d1a955ed0acb3601c2e71e108fdce18b",
+    "other_dataset_payload_downloaded": false,
+    "other_dataset_not_admitted_reason": "No binding to the preregistered frozen development selection, its role, route epochs or provenance"
+  },
+  "data_payloads_downloaded": 0,
+  "raw_data_or_holdout_payloads_read": false,
+  "substitute_dataset_admitted": false,
+  "conclusion": "FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE",
+  "limitations": [
+    "Metadata/index searches do not prove global absence or private artifact availability",
+    "GitHub code indexing may omit historical/nondefault branch contents; exact scientific and other relevant trees were checked separately",
+    "Generic public steering/torque datasets cannot substitute for the specified frozen selection without separate authorization and a new pre-analysis contract"
+  ]
+}

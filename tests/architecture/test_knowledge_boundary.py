@@ -148,7 +148,11 @@ def test_new_namespaces_are_only_knowledge_and_isolated_reference_protocol():
     assert original <= current
     assert all(
         p.startswith(
-            ("src/cyberpilot_autotune/knowledge/", "src/cyberpilot_autotune/owner_protocol/")
+            (
+                "src/cyberpilot_autotune/knowledge/",
+                "src/cyberpilot_autotune/owner_protocol/",
+                "src/cyberpilot_autotune/research/",
+            )
         )
         for p in current - original
     )
