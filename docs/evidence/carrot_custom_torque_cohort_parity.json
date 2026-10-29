@@ -1,0 +1,491 @@
+{
+  "schema": "custom-torque-cohort-parity-v1",
+  "cyberpilot_base": "f0fc6cdcab10447c2b855c9c65e7acafe7e3c2a9",
+  "native_revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "comparative_revision": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+  "native_applied_tree": "6185197d6f334f745a9c082519013b8fe0376f65",
+  "offline_candidate_revision": "9957868acc7459f515f1b79e9315cf93a878d933",
+  "patch_sha256": "8aa8b63b16ad2050280b3d5e08bc8712111c29014338ef85020aa934787ee8ac",
+  "native_patch_changed": false,
+  "sources": [
+    {
+      "blob_sha": "9202ab152e2e6f4e938e6870ca6db850dd33a309",
+      "id": "R_helper",
+      "path": "opendbc_repo/opendbc/car/__init__.py",
+      "ranges": [
+        {
+          "end": 443,
+          "name": "whole_file",
+          "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e",
+          "start": 1
+        },
+        {
+          "end": 284,
+          "name": "apply_center_deadzone",
+          "sha256": "493c76b480a6e1559078a5d71db85547dedb7fcfd9d09316b77a60f900c09b8e",
+          "start": 281
+        },
+        {
+          "end": 299,
+          "name": "get_friction",
+          "sha256": "fff4a395d7d7ddaee0b1f614681823cba5e84f25c22807e2ce5bdadec24bfc3c",
+          "start": 291
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "f56a23742d37395f5869f9c63a367375e038e2b47966efaed7a9679307c01e5e"
+    },
+    {
+      "blob_sha": "43a3e9f952c7a7b9fb01dcc37aeb6a2291cc3ddf",
+      "id": "R_callback",
+      "path": "opendbc_repo/opendbc/car/interfaces.py",
+      "ranges": [
+        {
+          "end": 690,
+          "name": "whole_file",
+          "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10",
+          "start": 1
+        },
+        {
+          "end": 415,
+          "name": "CarInterfaceBase.torque_from_lateral_accel_linear",
+          "sha256": "30b1c1707d6360b6bc7970049ae1480d4276a37561293bdd89b190d04acdd88f",
+          "start": 411
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "c6ac888f2c2a85413f98413e5f603cbf4daf3749ed6e3d9c122328656952ca10"
+    },
+    {
+      "blob_sha": "a75aa42731640260b0f20202541171ec3838360b",
+      "id": "R_pid",
+      "path": "openpilot/common/pid.py",
+      "ranges": [
+        {
+          "end": 155,
+          "name": "whole_file",
+          "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65",
+          "start": 1
+        },
+        {
+          "end": 70,
+          "name": "PIDController.update",
+          "sha256": "d29d2e74de600292dbdf15fcdbc3e4eaa41e3e40c871447a62e0f95d89aa7f5a",
+          "start": 49
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "552286210f964e7fe0c2879219c0f958ea9514be11a0da78eb793cd8bbc40c65"
+    },
+    {
+      "blob_sha": "25cc7913dd62602dcc518b3d647069174919fe25",
+      "id": "R_controller",
+      "path": "openpilot/selfdrive/controls/lib/latcontrol_torque.py",
+      "ranges": [
+        {
+          "end": 310,
+          "name": "whole_file",
+          "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49",
+          "start": 1
+        },
+        {
+          "end": 310,
+          "name": "LatControlTorque.update",
+          "sha256": "8930581509973e7a2342b96dd320b5c30670c6cd8bf55fca7437c260638e3448",
+          "start": 143
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "959a372e5f50448ef3fbf6435954c884da999283d9c5916725f4ae0100abae49"
+    },
+    {
+      "blob_sha": "2378902ba077177b96dfb57f010e06c388241213",
+      "id": "R_controlsd",
+      "path": "openpilot/selfdrive/controls/controlsd.py",
+      "ranges": [
+        {
+          "end": 480,
+          "name": "whole_file",
+          "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5",
+          "start": 1
+        },
+        {
+          "end": 117,
+          "name": "Controls.update",
+          "sha256": "b901d84d14d66faea609bee818495d87474c0e1638caca62fcdaf17b1b9692c9",
+          "start": 111
+        },
+        {
+          "end": 286,
+          "name": "Controls.state_control",
+          "sha256": "103243c0eab5222733320364e58bef4ec9b0ab0d390a54506c75b557a38f8fd6",
+          "start": 119
+        },
+        {
+          "end": 460,
+          "name": "Controls.publish",
+          "sha256": "60f3770d3230e3b2da458c917b07e9fed28a0f846ab9c6557d6f242980de4be9",
+          "start": 288
+        },
+        {
+          "end": 468,
+          "name": "Controls.run",
+          "sha256": "536a21782f8d560dd791bbca162a02f63b0af08f0bb907b201fe3645ce307c7b",
+          "start": 462
+        }
+      ],
+      "repository": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "sha256": "531734d22e8594121770ac1b56685e797f52a2b46e2d871ae9d78d882ae227e5"
+    }
+  ],
+  "checkpoints": {
+    "selector1": [
+      {
+        "frame": 1,
+        "custom_latched": false,
+        "installed_factor_friction_offset": [
+          2.5,
+          0.125,
+          0.0625
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.125,
+          0.0625,
+          0.03125,
+          0.5
+        ]
+      },
+      {
+        "frame": 9,
+        "custom_latched": false,
+        "installed_factor_friction_offset": [
+          2.5,
+          0.125,
+          0.0625
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.125,
+          0.0625,
+          0.03125,
+          0.5
+        ]
+      },
+      {
+        "frame": 10,
+        "custom_latched": true,
+        "installed_factor_friction_offset": [
+          1.75,
+          0.125,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.25,
+          0.125,
+          0.0625,
+          0.5
+        ]
+      },
+      {
+        "frame": 11,
+        "custom_latched": true,
+        "installed_factor_friction_offset": [
+          1.75,
+          0.125,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.25,
+          0.125,
+          0.0625,
+          0.5
+        ]
+      },
+      {
+        "frame": 19,
+        "custom_latched": true,
+        "installed_factor_friction_offset": [
+          1.75,
+          0.125,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.25,
+          0.125,
+          0.0625,
+          0.5
+        ]
+      },
+      {
+        "frame": 20,
+        "custom_latched": true,
+        "installed_factor_friction_offset": [
+          2,
+          0.25,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.5,
+          0.25,
+          0.125,
+          0.75
+        ]
+      },
+      {
+        "frame": 21,
+        "custom_latched": true,
+        "installed_factor_friction_offset": [
+          2,
+          0.25,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.5,
+          0.25,
+          0.125,
+          0.75
+        ]
+      },
+      {
+        "frame": 29,
+        "custom_latched": true,
+        "installed_factor_friction_offset": [
+          2,
+          0.25,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.5,
+          0.25,
+          0.125,
+          0.75
+        ]
+      },
+      {
+        "frame": 30,
+        "custom_latched": false,
+        "installed_factor_friction_offset": [
+          2,
+          0.25,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.5,
+          0.25,
+          0.125,
+          0.75
+        ]
+      },
+      {
+        "frame": 31,
+        "custom_latched": false,
+        "installed_factor_friction_offset": [
+          3,
+          0.1875,
+          0.125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.5,
+          0.25,
+          0.125,
+          0.75
+        ]
+      }
+    ],
+    "selector_ge2": [
+      {
+        "frame": 1,
+        "custom_latched": false,
+        "installed_factor_friction_offset": [
+          2.5,
+          0.125,
+          0.0625
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.125,
+          0.0625,
+          0.03125,
+          0.5
+        ]
+      },
+      {
+        "frame": 9,
+        "custom_latched": false,
+        "installed_factor_friction_offset": [
+          2.5,
+          0.125,
+          0.0625
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.125,
+          0.0625,
+          0.03125,
+          0.5
+        ]
+      },
+      {
+        "frame": 10,
+        "custom_latched": true,
+        "installed_factor_friction_offset": [
+          1.75,
+          0.125,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.25,
+          0.125,
+          0.0625,
+          0.5
+        ]
+      },
+      {
+        "frame": 11,
+        "custom_latched": true,
+        "installed_factor_friction_offset": [
+          1.75,
+          0.125,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.25,
+          0.125,
+          0.0625,
+          0.5
+        ]
+      },
+      {
+        "frame": 19,
+        "custom_latched": true,
+        "installed_factor_friction_offset": [
+          1.75,
+          0.125,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.25,
+          0.125,
+          0.0625,
+          0.5
+        ]
+      },
+      {
+        "frame": 20,
+        "custom_latched": true,
+        "installed_factor_friction_offset": [
+          2,
+          0.25,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.5,
+          0.25,
+          0.125,
+          0.75
+        ]
+      },
+      {
+        "frame": 21,
+        "custom_latched": true,
+        "installed_factor_friction_offset": [
+          2,
+          0.25,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.5,
+          0.25,
+          0.125,
+          0.75
+        ]
+      },
+      {
+        "frame": 29,
+        "custom_latched": true,
+        "installed_factor_friction_offset": [
+          2,
+          0.25,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.5,
+          0.25,
+          0.125,
+          0.75
+        ]
+      },
+      {
+        "frame": 30,
+        "custom_latched": false,
+        "installed_factor_friction_offset": [
+          2,
+          0.0625,
+          0.03125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.5,
+          0.25,
+          0.125,
+          0.75
+        ]
+      },
+      {
+        "frame": 31,
+        "custom_latched": false,
+        "installed_factor_friction_offset": [
+          3,
+          0.1875,
+          0.125
+        ],
+        "gains_kp_ki_kd_kf": [
+          0.5,
+          0.25,
+          0.125,
+          0.75
+        ]
+      }
+    ]
+  },
+  "matrix": {
+    "positive_selectors": [
+      1,
+      2,
+      3
+    ],
+    "families": [
+      "LINEAR",
+      "NN_LITE"
+    ],
+    "observer_kinds": [
+      "absent",
+      "disabled",
+      "enabled",
+      "failing"
+    ],
+    "continuous_frames": 31,
+    "normal_cases": 24,
+    "inactive_cases": 16,
+    "frozen_integrator_cases": 4,
+    "settings_failure_cases": 2
+  },
+  "in_memory_mutants_detected": [
+    "cadence",
+    "reset",
+    "live_bypass",
+    "extra_read",
+    "installed_capture",
+    "gain_capture"
+  ],
+  "status": "OFFLINE_CUSTOM_COHORT_PARITY_VERIFIED",
+  "q_observed": null,
+  "runtime_qualified": false,
+  "empirical_qualified": false,
+  "deployment_performed": false,
+  "candidate_generation_allowed": false,
+  "application_authorized": false,
+  "runtime_accepted": false,
+  "owner_proposal_allowed": false
+}

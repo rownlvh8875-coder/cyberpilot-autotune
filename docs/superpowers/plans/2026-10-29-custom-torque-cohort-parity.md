@@ -38,23 +38,23 @@ inactive=()), assert_parity(before,after), assert_cohorts(result,selector,family
 Returns scalar snapshots/callback-read traces/immutable receipts, not estimator
 observations. Hand-derived expected table lives in source-backed tests.
 
-- [ ] Write missing-harness tests; run and observe CUSTOM_COHORT_HARNESS_MISSING.
-- [ ] Implement exact hash-validated callback/helper AST load,31-cycle fixture;
+- [x] Write missing-harness tests; run and observe CUSTOM_COHORT_HARNESS_MISSING.
+- [x] Implement exact hash-validated callback/helper AST load,31-cycle fixture;
   inspect actual baseline/patched state/bit/reader traces and literal assertions.
-- [ ] Add latch cadence, reset condition, live bypass and wrong capture mutants;
+- [x] Add latch cadence, reset condition, live bypass and wrong capture mutants;
   demonstrate actual failing assertions in subprocesses/in-memory sources only.
-- [ ] Run focused/native/full core tests and lint; commit GREEN harness/tests.
+- [x] Run focused/native/full core tests and lint; commit GREEN harness/tests.
 
 ## Task2 — evidence, regressions and final delivery
 
 Create docs/evidence/carrot_custom_torque_cohort_parity.json and
 docs/carrot_custom_torque_cohort_parity_result.md. Add no old CI/test changes.
 
-- [ ] Pin source file/blob/range hashes, scenario/coverage/mutation observations
+- [x] Pin source file/blob/range hashes, scenario/coverage/mutation observations
   and unchanged patch/tree identities; test evidence against observed scenarios.
 - [ ] Full core/native/source/history/coverage, lint/format/mypy/build/fresh wheel,
   replay and knowledge/owner/science/research smokes. No native/full NN claim.
-- [ ] Test reusable setup with eleven warmed R blobs; save necessary environment
+- [x] Test reusable setup with eleven warmed R blobs; save necessary environment
   draft fields for user review/Publish, not runtime activation.
 - [ ] Commit final candidate; one independent exact-head review; C/I RED→GREEN
   fixes only, minors deferred. Record final review externally to preserve head.
@@ -78,3 +78,17 @@ Baseline1494 core pass, clean tree. PR19 OPEN/Draft/f0fc6cd and12 successful che
 carrot-wip unchanged at f5e4. Two already hash-pinned source blobs copied into the
 bare dependency cache from the existing read-only exact-R source cache during
 setup; no source tree or native ref modified. New tests remain network-free.
+
+Task1: complete — dedicated body test RED CUSTOM_COHORT_HARNESS_MISSING then
+GREEN53 scenarios/checks. Evidence assertion RED CUSTOM_COHORT_EVIDENCE_MISSING
+then GREEN58; six in-memory mutants all killed by actual parity/literal cohort
+assertions. New harness124 statements/22 branches100%/100%, NOT whole-controller
+coverage. Mandatory native184 pass/no skips; core1494 pass; lint/format/mypy pass.
+Actual Cap'n Proto tuning/log fields are used, including original Float32 error
+readback, not a Python replacement for the native callback equation.
+
+Ruling: include evidence in the harness commit — source tests consume the frozen
+checkpoint record — cost: regenerate it if the scoped scenario semantics change.
+Setup tested successfully with eleven exact-R blobs, core1494/native184; only
+install_script/start_skill drafts updated for review/Publish. No network/secrets,
+repository ref selection or actual runtime behavior changed by the setup draft.
