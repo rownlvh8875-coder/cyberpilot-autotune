@@ -183,9 +183,15 @@ def test_production_and_replay_are_frozen_to_the_merge_basis():
         if p.is_file() and "__pycache__" not in p.parts and ".egg-info" not in str(p)
     }
     expected = {p for p in sources["preserved_files"] if p.startswith("src/")}
-    # H4 adds only a separately isolated reference namespace. Existing source
+    # H4/H5 add separately isolated reference/research namespaces. Existing source
     # and replay bytes remain protected by the original hashes above.
-    actual = {p for p in actual if not p.startswith("src/cyberpilot_autotune/owner_protocol/")}
+    actual = {
+        p
+        for p in actual
+        if not p.startswith(
+            ("src/cyberpilot_autotune/owner_protocol/", "src/cyberpilot_autotune/research/")
+        )
+    }
     assert actual == expected
 
 

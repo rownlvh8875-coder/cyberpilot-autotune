@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: python -m pip install --upgrade pip
-      - run: python -m pip install -e ".[dev]"
+      - run: python -m pip install -e ".[dev,research]"
       - run: python -m ruff check .
       - run: python -m ruff format --check .
       - run: python -m mypy src/cyberpilot_autotune
@@ -67,7 +67,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12.3'
-      - run: python -m pip install -e ".[dev]"
+      - run: python -m pip install -e ".[dev,research]"
       - name: Prepare exact Git objects outside package source during setup
         shell: bash
         run: |
@@ -104,7 +104,7 @@ jobs:
       - name: Install explicit schema test dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e ".[dev]" pycapnp==2.1.0
+          python -m pip install -e ".[dev,research]" pycapnp==2.1.0
       - name: Prepare exact integration checkout outside package source
         shell: bash
         run: |
