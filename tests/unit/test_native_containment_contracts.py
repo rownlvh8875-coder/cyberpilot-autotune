@@ -2,6 +2,7 @@
 
 import importlib
 import json
+from collections import UserString
 from dataclasses import FrozenInstanceError, replace
 
 import pytest
@@ -158,3 +159,20 @@ def test_canonical_digest_preserves_unknown_and_source_generation_identity():
     changed = synthetic_case()
     changed["events"][0]["effect_observed"] = None
     assert base != digest(changed)
+
+
+@pytest.mark.parametrize(
+    "field", ["schema_version", "evidence_kind", "clock_domain", "cpu_backend"]
+)
+def test_direct_literal_fields_reject_mutable_string_wrappers(field):
+    contract = api()
+    case = contract.parse_synthetic_case(json.dumps(synthetic_case()))
+    original = getattr(case, field)
+    label = UserString(original)
+    with pytest.raises(ValueError):
+        replace(case, **{field: label})
+    label.data = "OBSERVED"
+    assert getattr(case, field) == original
+    assert contract.canonical_digest(case) == contract.canonical_digest(
+        contract.parse_synthetic_case(json.dumps(synthetic_case()))
+    )

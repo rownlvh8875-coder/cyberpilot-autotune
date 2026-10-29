@@ -62,7 +62,7 @@ TDD: Task1 RED51 then GREEN; Task2 RED48 then GREEN; Task3 initially exposed
 eight mutable/inconsistent direct-decision failures, then a strict-mode direct
 decision inconsistency. All were fixed with their failing tests retained.
 
-Final focused suite: **220 passed**, **286/286 statements, 128/128 branches**.
+Final focused suite: **224 passed**, **290/290 statements, 132/132 branches**.
 Fixtures are hand-authored dictionaries only; no fake device nodes/syscalls.
 Adversarial cases cover null versus zero/false, source drift, process/exec and
 clock mismatch, duplicate/reordered timestamps/sequences, incomplete modeled
@@ -72,7 +72,7 @@ Pyc/preload/clone/capture loss are represented by failed/unknown modeled claims;
 these tests **do not detect those conditions on a real host**.
 
 Architecture guards reject non-neutral imports and IO/execution calls; the
-installed package has no bridge to the checker. Full regression: **1714 passed**. Lint/format,
+installed package has no bridge to the checker. Full regression: **1718 passed**. Lint/format,
 strict mypy (including compatibility code), history/source audits and final
 exact-head CI/reviewer results are recorded in the PR. The existing native offline
 suite passed **192/192**, without skips or native execution. A prior full core
@@ -90,6 +90,16 @@ or evidence was patched to hide this. Local manifest/history audits passed;
 the existing CI's independent exact-source job is required before handoff.
 
 ## Preserved state and non-goals
+
+Independent review at `be5620bac2dd684cc1dfaaf68b224c24169a1c58` found C0/I1/M1.
+The important finding was mutable string wrappers accepted by literal-field
+direct constructors. Four RED regressions now require exact immutable strings
+for schema_version/evidence_kind/clock_domain/cpu_backend; the append-only fix
+and final test/CI results are recorded in the PR, with no second review claimed.
+Deferred minor: an escaped lone surrogate in a nonliteral text field can parse,
+then canonical UTF-8 encoding raises `UnicodeEncodeError` (a `ValueError` subtype).
+It produces no digest/decision/authority. Rejecting it earlier is future robustness
+work; callers must treat such canonicalization failure as invalid input.
 
 PR24's manifest remains an immutable historical design snapshot, including its
 then-false implementation-exists field. Its canonical digest remains

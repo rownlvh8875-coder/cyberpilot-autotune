@@ -142,6 +142,10 @@ class SyntheticContainmentCase:
     owner_proposal_allowed: bool
 
     def __post_init__(self) -> None:
+        for label in (self.schema_version, self.evidence_kind, self.clock_domain):
+            _text(label)
+        if self.cpu_backend is not None:
+            _text(self.cpu_backend)
         if self.schema_version != "synthetic-native-containment-case-v1":
             raise ValueError("unsupported synthetic schema")
         if self.evidence_kind != "SYNTHETIC":
