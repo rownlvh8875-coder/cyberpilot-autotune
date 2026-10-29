@@ -68,11 +68,11 @@ Files: contracts.py, cluster_stats.py, qualification.py and new unit/property te
 Interfaces: FrozenDevelopment -> canonical validated data; analyze_clusters ->
 route/epoch/side/residual/LOO/jackknife diagnostics; qualify -> immutable report.
 
-- [ ] RED rejection tests for role/sign/stage/lag/unit/source/identity/time errors,
+- [x] RED rejection tests for role/sign/stage/lag/unit/source/identity/time errors,
   policy mismatch and dataclass authority replacement.
-- [ ] Implement validation, canonical ordering, per-epoch native validity, all-route
+- [x] Implement validation, canonical ordering, per-epoch native validity, all-route
   LOO and descriptive jackknife; do not invent physical acceptance thresholds.
-- [ ] Run deterministic/permutation/relabeling and zero-friction-noise properties.
+- [x] Run deterministic/permutation/relabeling and zero-friction-noise properties.
 - [ ] Full regression and commit independently tested research implementation.
 
 ### Task 3: D read-only evidence inventory/reproduction and E decisions
@@ -107,3 +107,16 @@ cloud onboarding explicitly requires this — no user files or branches are remo
 Ruling: no real-data percentage cutoff can be justified from available prior
 evidence — preserve THRESHOLD_NOT_JUSTIFIED rather than tune it after results —
 the cost is a legitimately blocked scientific qualification, not a false PASS.
+
+Task 2 progress: 34 cluster/report tests RED -> GREEN, eight property tests and
+30 adversarial cases. Two bounded-q variance cases were RED before restricting
+q variance to <=1, consistent with the source helper's [-1,1] shape. Full suite
+1130 passed. Initial research combined coverage99.56%, branches100%; final
+separate statement/branch coverage will be recalculated after audit tooling.
+
+User follow-up explicitly authorizes searching GitHub/Hugging Face for the missing
+existing development artifact. Public GitHub releases had no assets; Actions lists
+90 artifacts, none named torque/frozen/identification/aggregation/point; exact-hash
+code search including forks returned0. HF CyberPilot/cyber-autotune/author queries
+returned0 datasets. Broader torque/steering metadata has unrelated datasets; no
+raw/holdout/evaluation payload has been read, nor substitute evidence admitted.

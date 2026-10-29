@@ -22,7 +22,10 @@ def projected_coefficient(
         "FINITE_MODEL_REQUIRED",
     )
     require(
-        factor > 0 and min(controller_friction, q_variance, noise_variance) >= 0, "FRICTION_DOMAIN"
+        factor > 0
+        and min(controller_friction, q_variance, noise_variance) >= 0
+        and q_variance <= 1,
+        "FRICTION_DOMAIN",
     )
     return (
         1.5
@@ -44,7 +47,10 @@ def symmetric_tls_prediction(
         "FINITE_MODEL_REQUIRED",
     )
     require(
-        factor > 0 and command_variance > 0 and min(controller_friction, q_variance) >= 0,
+        factor > 0
+        and command_variance > 0
+        and min(controller_friction, q_variance) >= 0
+        and q_variance <= 1,
         "MOMENT_DOMAIN",
     )
     vx = command_variance
