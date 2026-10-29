@@ -44,12 +44,12 @@ Tests tests/unit/test_friction_receipt.py and tests/fixtures/friction_receipt.py
 Interfaces: LateralTorqueIdentificationReceipt / SourceIdentity / CycleIdentity /
 ScalarObservation / InstalledParameters / GainSnapshot / AppliedGeometryContext /
 DelayContext / ControllerStageDecomposition / LimitState; frozen typed records.
-- [ ] Write tests for full receipt, missing/zero/False, finite/UInt64 validation,
+- [x] Write tests for full receipt, missing/zero/False, finite/UInt64 validation,
   defensive copies, provenance/stages/precision/digest.
-- [ ] Run tests RED for missing contracts, then minimal implementation GREEN.
-- [ ] Add pure evaluate(receipt, ObservationPolicy(), previous=None) ->
+- [x] Run tests RED for missing contracts, then minimal implementation GREEN.
+- [x] Add pure evaluate(receipt, ObservationPolicy(), previous=None) ->
   ObservationEligibilityDecision with enum reasons, status ELIGIBLE/REJECTED.
-- [ ] Run twenty adversarial cases RED->GREEN; no producer/bridge imports.
+- [x] Run twenty adversarial cases RED->GREEN; no producer/bridge imports.
 Expected: targeted pytest pass, mypy clean; commit contract/tests.
 
 ### Task 3 — causal consistency and adversarial properties
@@ -57,9 +57,9 @@ Expected: targeted pytest pass, mypy clean; commit contract/tests.
 Files tests/property/test_friction_receipt_properties.py,
 tests/architecture/test_friction_receipt_boundary.py and new package only.
 Consumes Task2 API; produces complete structural guard/properties.
-- [ ] RED->GREEN for every context drift, wrong clock/future source, duplicate
+- [x] RED->GREEN for every context drift, wrong clock/future source, duplicate
   source/cycle, source value stage substitution, q reconstruction and Float32.
-- [ ] Full targeted coverage >=98/95; all decision reasons exercised.
+- [x] Full targeted coverage >=98/95; all decision reasons exercised.
 Expected: deterministic digests, immutable defensive copy, no authority/import/IO.
 Commit append-only.
 
@@ -69,9 +69,9 @@ Create tests/audit/{validate_friction_receipt,test_friction_receipt_audit}.py an
 docs/evidence/friction_observability_receipt_{sources,schema}.json.
 Consume source refs /tmp/carrot-audit and frozen Task1. Produce exact file/blob/
 claim-range digests, R/C source-equation behavior checks, complete schema fields.
-- [ ] Mutation/adversarial audit tests RED first.
-- [ ] Implement validator without runtime imports/Params; exact-source math only.
-- [ ] Verify protected pre-H7 files, history and schema reproduction.
+- [x] Mutation/adversarial audit tests RED first.
+- [x] Implement validator without runtime imports/Params; exact-source math only.
+- [x] Verify protected pre-H7 files, history and schema reproduction.
 Expected: all exact source claims + semantic schema pass; append-only audit commit.
 
 ### Task 5 — wire, capture, source compatibility and mapping documents
@@ -90,8 +90,8 @@ clarifications, not post-hoc acceptance relaxation. Commit docs.
 
 Modify only .github/workflows/ci.yml add H7 tests/coverage/source/wheel checks.
 Create tests/wheel_friction_receipt_smoke.py.
-- [ ] Full pytest/coverage; old H2-H6 audits/goldens, lint/format/mypy/build.
-- [ ] Fresh vanilla wheel with no schema/NumPy required for H7; old smokes,
+- [x] Full pytest/coverage; old H2-H6 audits/goldens, lint/format/mypy/build.
+- [x] Fresh vanilla wheel with no schema/NumPy required for H7; old smokes,
   H6 optional+research smoke; content hashes and H7 synthetic evaluation.
 - [ ] Commit final result, fresh independent review on final exact head.
 - [ ] C/I if any: RED fix -> full rerun -> NEW fresh review.
@@ -125,8 +125,13 @@ Task 4: complete. Schema absent-module/enum-inventory/source-auditor RED->GREEN;
 18 enums, all 20 requested synthetic fixtures pass. History protects 264 original
 files (three exact namespace amendments included); H6 validator other AST unchanged.
 Full suite 1360 passed, overall coverage 98.51%, lint/format/mypy/build pass.
-Task 5: wire/capture/source compatibility/v2 mapping written; result publication next.
-Task 6: CI additive checks and fresh-wheel script written; wheel/review/PR CI pending.
+Task 5: complete, wire/capture/source compatibility/v2 mapping and final result
+written. No native patch or empirical threshold.
+Task 6: CI additive checks and fresh-wheel script complete. Fresh vanilla wheel
+passes 70 imports without NumPy/native schemas, six H7 hashes and complete/partial
+receipts/schema. All replay/knowledge/owner/optional smokes pass; separate research
+wheel passes H5's 43 and H6's 26 cases. Final reviewed head/PR/CI publication is
+recorded in the PR body and handoff, avoiding post-review local edits.
 
 Ruling: three historical namespace inventory tests require observability as an
 additional isolated namespace. Their original source/golden hashes remain intact.
