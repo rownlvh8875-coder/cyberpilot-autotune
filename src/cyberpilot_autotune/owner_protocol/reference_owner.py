@@ -338,6 +338,8 @@ class ReferenceTorqueParameterOwner:
         ack = None
         try:
             current, started = self._read(), self._now()
+            if self._lease is not None and started >= self._lease.expires_at_s:
+                was_faulted, self._fault_reason = True, "LEASE_EXPIRED"
             if current.mode is not self.baseline.mode:
                 raise OwnerProtocolError("FOREIGN_CONTEXT")
             if current.values.digest != self.baseline.values.digest:
@@ -357,7 +359,10 @@ class ReferenceTorqueParameterOwner:
                 ack is not None and readback.revision != ack.new_revision
             ):
                 raise OwnerProtocolError("READBACK_FAULT")
-            if self._now() - started > self.policy.maximum_rollback_s:
+            finished = self._now()
+            if self._lease is not None and finished >= self._lease.expires_at_s:
+                was_faulted, self._fault_reason = True, "LEASE_EXPIRED"
+            if finished - started > self.policy.maximum_rollback_s:
                 raise OwnerProtocolError("ROLLBACK_DEADLINE")
             self._pending, self._lease = None, None
             self._state = (

@@ -528,3 +528,29 @@ def test_clean_stop_rejects_nonbaseline_independent_snapshot_serialization():
     with pytest.raises(OwnerProtocolError, match="STOP_UNVERIFIED"):
         owner.stop()
     assert owner.state is OwnerState.FAULTED and port.read() == before
+
+
+@pytest.mark.parametrize("operation", ["rollback", "disarm", "stop"])
+def test_direct_late_recovery_cannot_erase_expiry_and_rearm_same_domain(operation):
+    owner, _, clock, authority, base = setup_owner()
+    item = proposal(owner)
+    owner.commit(7, item, grant(owner, authority, item))
+    clock.value = 15.0
+    result = getattr(owner, operation)()
+    assert result.verified and result.values == base.values and result.revision == 9
+    assert result.reason == "LEASE_EXPIRED" and result.state is OwnerState.FAULTED
+    next_item = replace(proposal(owner, sequence=2), generated_at_s=15.0, expires_at_s=20.0)
+    authorization = replace(grant(owner, authority, next_item), issued_at_s=15.0, expires_at_s=20.0)
+    with pytest.raises(OwnerProtocolError, match="LEASE_EXPIRED"):
+        owner.commit(9, next_item, authorization)
+
+
+def test_expiry_crossed_during_baseline_recovery_remains_latched_after_readback():
+    owner, _, clock, authority, base = setup_owner()
+    item = proposal(owner)
+    owner.commit(7, item, grant(owner, authority, item))
+    samples = iter([12.9, 12.9, 13.0, 13.0, 13.0])
+    clock.now_s = lambda: next(samples)
+    result = owner.rollback()
+    assert result.verified and result.values == base.values and result.revision == 9
+    assert result.reason == "LEASE_EXPIRED" and result.state is OwnerState.FAULTED

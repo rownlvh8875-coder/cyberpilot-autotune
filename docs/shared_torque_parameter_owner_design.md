@@ -125,6 +125,12 @@ samples do not refresh the original proposal's age. Rejected/no-change proposals
 cannot renew it. The proposal-age deadline is exclusive. Expiry prevents a new
 commit and requires a recovery watchdog tick; it cannot be masked by a mode or
 new proposal event. Recovery itself has a separate caller rollback deadline.
+Direct rollback/disarm/stop also check the existing lease before restoration
+and after readback: verified baseline does not erase an observed expiry fault.
+maximum_lease_s is a post-commit-completion hold, matching the reference lease's
+issued_at_s; the installation/verification interval has its separate transaction
+bound. It is not a physical exposure limit measured from first installation.
+Native policy acceptance must account for both intervals and absolute deadlines.
 If a positive hold cannot be represented as an expiry later than the logical
 clock sample, reject/fault rather than acknowledge an already-expired lease.
 This is a numeric representability check, not a vehicle minimum duration.

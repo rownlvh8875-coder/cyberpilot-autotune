@@ -100,3 +100,12 @@ authority overrun and nonbaseline stop serialization are also exercised. The
 only unexecuted reference-owner line is the defensive changed-expected-state
 guard outside the declared single-caller/non-reentrant capability assumption.
 Final fresh independent review and exact-head remote CI follow this correction.
+
+The fresh 9b9776b review reported C0/I1/M0: direct late rollback/disarm/stop could
+clear lease expiry before a watchdog/forward operation sampled it. Three direct
+late-recovery cases and an expiry-during-recovery case failed RED, then passed
+after recovery entry/completion retained expiry as a sticky fault. Baseline CAS
+and readback remain permitted under their separate rollback budget, but no
+READY/DISARMED/STOPPED clean result can hide the expiry. Hold anchoring is explicitly
+post-commit completion, with a separately bounded installation/verification phase;
+no physical exposure guarantee is asserted from that duration alone.

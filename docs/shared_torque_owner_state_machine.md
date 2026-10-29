@@ -16,7 +16,7 @@ describes logical in-memory behavior, not an installed vehicle capability.
 | T09 | watchdog expiry, stale source or active producer death in proven context | baseline recovery then FAULTED | +1 only if tuple changes |
 | T10 | watchdog actual context/mode/epoch/owner mismatch | FAULTED, unknown; no guessed overwrite | unchanged |
 | T11 | foreign/malformed port state, including simultaneous expiry | FAULTED, unknown | no owner install |
-| T12 | normal explicit baseline rollback and independent verification | READY | +1 if restoration changes tuple |
+| T12 | explicit baseline rollback and independent verification | READY only without a prior/observed expiry fault; otherwise FAULTED | +1 if restoration changes tuple |
 | T13 | rollback Ack/readback/deadline failure | FAULTED, unverified | actual revision may be unknown |
 | T14 | post-install Ack exception/bad revision or clock/deadline fault | FAULTED; pending/expected cohort retained | actual install may have occurred |
 | T15 | one explicit recovery from a faulted known cohort | FAULTED remains even if verified | +1 if tuple changed |
@@ -25,8 +25,8 @@ describes logical in-memory behavior, not an installed vehicle capability.
 | T18 | recovery after active mode request | DISARMED at original baseline/old mode | +1 if tuple changed |
 | T19 | READY baseline + authorized actual mode transition | DISARMED, new mode requires fresh epoch | +1 |
 | T20 | explicit same-mode request at READY | unchanged | unchanged |
-| T21 | normal disarm | DISARMED only after verified baseline | +1 only if recovery changes tuple |
-| T22 | normal stop | STOPPED only after verified baseline | +1 only if recovery changes tuple |
+| T21 | normal disarm | DISARMED only after verified baseline with no retained fault | +1 only if recovery changes tuple |
+| T22 | normal stop | STOPPED only after verified baseline with no retained fault | +1 only if recovery changes tuple |
 | T23 | missing/foreign state during stop | FAULTED; no clean stop | unknown where unobserved |
 | T24 | DISARMED/STOPPED/FAULTED + forward commit | rejected before capability calls | unchanged |
 | T25 | explicit restart handoff from terminal domain | new owner READY; old object remains terminal | new caller epoch and revision anchor |
