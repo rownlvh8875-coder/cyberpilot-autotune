@@ -1,0 +1,483 @@
+{
+  "schema": "offline-native-build-plan-evidence-v1",
+  "scope": "DESIGN_ONLY_NO_ACQUISITION_OR_BUILD",
+  "cyberpilot_base": "efdec237947bb47eebdbecebb2680114f085c3eb",
+  "native_parent": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+  "native_base_tree": "ffb213d9fdc0f9618264822bd2a4e26263abfe74",
+  "native_applied_tree": "6185197d6f334f745a9c082519013b8fe0376f65",
+  "offline_candidate_revision": "9957868acc7459f515f1b79e9315cf93a878d933",
+  "native_candidate_published": false,
+  "patch_sha256": "8aa8b63b16ad2050280b3d5e08bc8712111c29014338ef85020aa934787ee8ac",
+  "source_access": "Read-only GitHub Git-blob API; computed Git blob hash checked against exact-R ls-tree; no native code executed or lazy fetch. Whole-file raw SHA-256 ranges above.",
+  "source_closure_acquired": false,
+  "artifact_closure_acquired": false,
+  "image_pulled": false,
+  "container_started": false,
+  "native_build_executed": false,
+  "candidate_generation_allowed": false,
+  "application_authorized": false,
+  "runtime_accepted": false,
+  "owner_proposal_allowed": false,
+  "selected_future_profile": "PC_X86_64_ROOT_DEFAULT",
+  "input_selection": {
+    "os": "Ubuntu24.04",
+    "platform": "linux/amd64",
+    "python_range": ">=3.12.3,<3.13",
+    "dependency_extras": "all",
+    "scons": "root default extras enabled, no --minimal",
+    "initial_jobs": 2,
+    "image_digest": null,
+    "python_patch": null,
+    "uv_digest": null,
+    "toolchain_artifact_manifest": null,
+    "resource_qualified": false
+  },
+  "branch_observation": {
+    "observed_date_utc": "2026-10-29",
+    "repository": "ajouatom/openpilot",
+    "branch": "carrot-wip",
+    "previous_pin": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+    "queried_head": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+    "movement": "UNCHANGED",
+    "promoted_to_profile": false,
+    "relevant_new_commits": [],
+    "excluded_cross_repository_observation": {
+      "repository": "rownlvh8875-coder/openpilot",
+      "branch": "carrot-wip",
+      "head": "1ab3448148c936ea257389abaaf6e4ab26dd4af0",
+      "reason": "Different repository's same-named branch. Cannot infer movement of the designated ajouatom branch."
+    },
+    "interpretation": "Designated branch unchanged at comparative C. R remains primary. No vehicle/runtime state inferred."
+  },
+  "model_metadata": {
+    "repo": "rownlvh8875-coder/openpilot",
+    "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+    "tree": "d77de9958340d65029fae23833eabd7e4f5a50a7",
+    "payloads_downloaded": false,
+    "entries": [
+      {
+        "path": "openpilot/selfdrive/modeld/models/dmonitoring_model.onnx",
+        "blob_sha": "3edf5aa76b9637e13afd90d079993ebd4abcd5e1",
+        "bytes": 7844499,
+        "sha256": null
+      },
+      {
+        "path": "openpilot/selfdrive/modeld/models/driving_supercombo.onnx",
+        "blob_sha": "1aac351ca371f1f68c565470e07a530c7a65f185",
+        "bytes": 60792584,
+        "sha256": null
+      }
+    ]
+  },
+  "source_tree_metadata": {
+    "gitlinks": 0,
+    "symlink_paths": [
+      "docs/concepts/safety.md",
+      "msgq",
+      "opendbc",
+      "openpilot/system/hardware/comma/agnos.json",
+      "rednose",
+      "teleoprtc",
+      "tinygrad"
+    ],
+    "source_date_epoch": 1793169535
+  },
+  "host_observations": {
+    "scope": "point-in-time diagnostics, not sealed build requirements",
+    "os": "Debian13 trixie",
+    "architecture": "x86_64",
+    "python": "3.12.14",
+    "uv": "0.12.23",
+    "docker_daemon": "28.4.0",
+    "docker_storage_driver": "vfs",
+    "visible_cpus": 5,
+    "cgroup_cpu_quota": 4,
+    "cgroup_memory_bytes": 34359738368,
+    "workspace_free_gib_approx": 30,
+    "tmp_free_gib_approx": 16,
+    "docker_diagnostic": "local Unix socket info only, selector overrides removed",
+    "capacity_qualified": false
+  },
+  "sources": [
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "SConstruct",
+      "blob_sha": "656d4b44bf86a4d4db3819adce38fa22878ca27a",
+      "bytes": 10836,
+      "range": {
+        "start": 1,
+        "end": 325,
+        "sha256": "833619a666effbd784aba847dd40ae79f0c37480fb194e78983d9bc8228efcc0"
+      },
+      "claims": [
+        "root default target graph and extras",
+        "host/device architecture selection",
+        "compiler flags/link whitelist/cache mutation"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": ".github/workflows/native-cpu.yaml",
+      "blob_sha": "e6e10855ed488bbabd091232172d9ccbfd7b86a6",
+      "bytes": 2473,
+      "range": {
+        "start": 1,
+        "end": 60,
+        "sha256": "ef16e1f2dc55d7407240a2d7a70967808f545e0652e22d128eb261d794b12175"
+      },
+      "claims": [
+        "subset CI recipe, not observed full build",
+        "Cython3.2.9 versus project lock"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "tools/native_cpu/SConstruct",
+      "blob_sha": "44bc23a574f340186a8cdc7dd13844930cc04877",
+      "bytes": 560,
+      "range": {
+        "start": 1,
+        "end": 10,
+        "sha256": "6e4611aacf9ff36459ca494ff2dafd09e0769d50435b87ddf256ec1427ebaabe"
+      },
+      "claims": [
+        "radar/CAN/nativeUI subset only"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": ".github/workflows/tests.yaml",
+      "blob_sha": "38ae56394932534e3c25b0f20d89250bad20bbd0",
+      "bytes": 10259,
+      "range": {
+        "start": 1,
+        "end": 202,
+        "sha256": "7f601562b7b22f23646e4eebd3483bc3ec166f0099bff663d0e838464e59b9ff"
+      },
+      "claims": [
+        "declared Ubuntu24.04 setup/root scons recipe; not execution evidence"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "pyproject.toml",
+      "blob_sha": "1390231e13f6277140aff98d9d43065aaceb2262",
+      "bytes": 8639,
+      "range": {
+        "start": 1,
+        "end": 262,
+        "sha256": "393ce3bd5eb0c497bc0454a8336d0745b59c0253055864f94c89585a1cd81076"
+      },
+      "claims": [
+        "Python constraint, extras, dependency selection and build backend"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": ".gitattributes",
+      "blob_sha": "4c627305f9387153a20dc3e89f86e117834eeae8",
+      "bytes": 1041,
+      "range": {
+        "start": 1,
+        "end": 24,
+        "sha256": "c56ca7e79aeed1beea0754084ec94d8b001ef41952d385081ff19bf402b8a42e"
+      },
+      "claims": [
+        "extras marker and source attributes; not payload availability"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/cereal/SConscript",
+      "blob_sha": "bee7620b1ee5892cce890734fcd5a5b4746e2305",
+      "bytes": 1012,
+      "range": {
+        "start": 1,
+        "end": 22,
+        "sha256": "8e2deeff01b4e4aa0bee99b9917008f71e7d93a028c2491714154e9259905f43"
+      },
+      "claims": [
+        "generated C++ Cap'n Proto source/header/library build"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "panda/SConscript",
+      "blob_sha": "9b7faacb246f01c9fdcf07353a71296eefb1c035",
+      "bytes": 5240,
+      "range": {
+        "start": 1,
+        "end": 190,
+        "sha256": "44521b59c3f0f781c67e8e4b94d6703c8f4b08d193ed2904a2be690d08d36d5b"
+      },
+      "claims": [
+        "unconditional configuration writes",
+        "debug firmware/signing/ARM toolchain"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/scons_cache_lock.py",
+      "blob_sha": "917982b9e3c691000e422ea8e583311ae1a55260",
+      "bytes": 2265,
+      "range": {
+        "start": 1,
+        "end": 63,
+        "sha256": "c5b4acd9bf7baf034c0953747c278102108271b9640f4d22851593f418cd33f8"
+      },
+      "claims": [
+        "cache lock, timeout and inherited FD behavior"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/modeld/SConscript",
+      "blob_sha": "dc961062f092e75a23af848803b114e0cc4f0264",
+      "bytes": 7129,
+      "range": {
+        "start": 1,
+        "end": 159,
+        "sha256": "2336fdadedd5a6288ee8864164fdd8d62eea707bd8c27794a0bd16302cb77898"
+      },
+      "claims": [
+        "configuration-time subprocess device discovery",
+        "CPU:LLVM and model compilation"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/modeld/helpers.py",
+      "blob_sha": "93c4b6c071b87fb85f5460ca1531e168fda2469e",
+      "bytes": 7063,
+      "range": {
+        "start": 1,
+        "end": 209,
+        "sha256": "d5e2695beb1282f02bc7a53a4461a4cda50b82dda60b61241f9fb946fdad5af9"
+      },
+      "claims": [
+        "default local model path; optional USB path separate"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/modeld/big_model.py",
+      "blob_sha": "4e1b38d8450c045a0c6780e89fca5170e4a77acc",
+      "bytes": 20911,
+      "range": {
+        "start": 1,
+        "end": 491,
+        "sha256": "5510b81132e01225bb675c58d141dbcc5782e98b986c663d2fc15960d9853605"
+      },
+      "claims": [
+        "module catalog selection; delivery is separate and forbidden"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/common/big_model_catalog.py",
+      "blob_sha": "48ab1e14995cd5413dc704c6967106008af6709f",
+      "bytes": 3781,
+      "range": {
+        "start": 1,
+        "end": 134,
+        "sha256": "88279cceb1fdb92aec024ee9c83a16193c9d78e9682330f82b2285e252c6b584"
+      },
+      "claims": [
+        "catalog import/selection reads state; no complete purity claim"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/selfdrive/ui/SConscript",
+      "blob_sha": "6abe40d3e68a1abe8a71c86e964dea1014b8416f",
+      "bytes": 2169,
+      "range": {
+        "start": 1,
+        "end": 55,
+        "sha256": "e17132bfea5c0b7d26e95b791b83556ae080ddb5e811cd96ed38ba2dae3bbab3"
+      },
+      "claims": [
+        "font generation and conditional device installers"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/system/loggerd/SConscript",
+      "blob_sha": "ce500c3a043b18ae18964d966d19fa507f6686d7",
+      "bytes": 1870,
+      "range": {
+        "start": 1,
+        "end": 47,
+        "sha256": "8348cce2845e89fe95ab91ae7cbf701cf6d7e6c896747c5b1462d7294d002cf3"
+      },
+      "claims": [
+        "host multimedia link closure; build not launch"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/tools/replay/SConscript",
+      "blob_sha": "c1f56185239bfea1d158c58a53c977089f94b37a",
+      "bytes": 1019,
+      "range": {
+        "start": 1,
+        "end": 19,
+        "sha256": "3aa4683de3b43fb3ec52fd7a2ac2acb41471db8bdde7a81cb5cceb4ef4288edc"
+      },
+      "claims": [
+        "host replay target closure"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/tools/cabana/SConscript",
+      "blob_sha": "5864cfe15f366eb0144710a234aceb8840cf4809",
+      "bytes": 4237,
+      "range": {
+        "start": 1,
+        "end": 78,
+        "sha256": "3a105b0aad015a6a3fa344bc1cd7cbe21442002b30077f1f18aa0ebd5a0448b6"
+      },
+      "claims": [
+        "tools-extra wrapper requirements and generated assets"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/tools/jotpluggler/SConscript",
+      "blob_sha": "ae947efb639805c36488a65cb3f47f98d7703a55",
+      "bytes": 3757,
+      "range": {
+        "start": 1,
+        "end": 115,
+        "sha256": "1c7dfaee9ff99c66e919cbd3c987c5d2733474a74873a25aeed457d3fa2637e2"
+      },
+      "claims": [
+        "host default tools and schema-derived codegen"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "openpilot/system/hardware/__init__.py",
+      "blob_sha": "99079b5ef3b14525ab2b8af28e331833b7d17d3d",
+      "bytes": 375,
+      "range": {
+        "start": 1,
+        "end": 16,
+        "sha256": "7d04c34ebaa7158fb5e6c465f1b92a91c22aaa14bf6dc8a2140a8adfdb24c048"
+      },
+      "claims": [
+        "hardware selection import audit required"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "panda/firmware_version.py",
+      "blob_sha": "db5ad46ea04643b4b6a30b1208487a4769cad480",
+      "bytes": 1195,
+      "range": {
+        "start": 1,
+        "end": 24,
+        "sha256": "37be0788651d800e4f1dc9fbd0616bfef5007e0702dd814fa88bfd611bb7bfae"
+      },
+      "claims": [
+        "debug firmware content identity inputs"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "tools/op.sh",
+      "blob_sha": "73af5fa3af899e4160ddad95c20f98a0d2b92993",
+      "bytes": 14295,
+      "range": {
+        "start": 1,
+        "end": 483,
+        "sha256": "cfc17c59246daa5ccd645923dd06109f30761b384856b47c495cae65b669976e"
+      },
+      "claims": [
+        "Ubuntu/Darwin setup dispatch; not a safe immutable host bootstrap"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "tools/setup.sh",
+      "blob_sha": "dafd466ef92bd116f06f0f5a947437d17aa51f26",
+      "bytes": 4016,
+      "range": {
+        "start": 1,
+        "end": 144,
+        "sha256": "2abc2d99d5dc2211a7fa153103ef1e0b07eafc42231e305518d0e07e9fb7b5db"
+      },
+      "claims": [
+        "mutable upstream clone/hooks/aliases, not selected"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "tools/setup_dependencies.sh",
+      "blob_sha": "ec9f99d701c493ea278a4b59267a362953c641c3",
+      "bytes": 6015,
+      "range": {
+        "start": 1,
+        "end": 177,
+        "sha256": "bc4c56b7673788a7b6073a19be1940d9dec5686abe89213acc284f716f07efea"
+      },
+      "claims": [
+        "uv install/self-update, all-extras sync, host udev mutation"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "tinygrad_repo/tinygrad/runtime/support/compiler_cpu.py",
+      "blob_sha": "7732be280b0fafd30ca06079d21aa85a62d3306a",
+      "bytes": 6679,
+      "range": {
+        "start": 1,
+        "end": 109,
+        "sha256": "db106591197315ecf28f0e15de99d2841c9892e6e58290213c62c598e7014139"
+      },
+      "claims": [
+        "LLVM compiler/host CPU feature selection"
+      ]
+    },
+    {
+      "repo": "rownlvh8875-coder/openpilot",
+      "revision": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+      "path": "uv.lock",
+      "blob_sha": "9e9fcbc766a96dde5652e28f922fefe1b1111762",
+      "bytes": 227279,
+      "range": {
+        "start": 1,
+        "end": 1788,
+        "sha256": "3d3a7e31e04e654a86ed332fb8b97d67f5648905ee0b276bc53cfbc87fe5dcdf"
+      },
+      "claims": [
+        "parsed version1/revision3,121 records, selected immutable dependencies; no resolution/install"
+      ]
+    }
+  ]
+}
