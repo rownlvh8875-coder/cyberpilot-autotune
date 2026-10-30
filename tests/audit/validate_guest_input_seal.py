@@ -11,7 +11,7 @@ from typing import Any
 from compatibility.guest_input_seal.contracts import CASES
 from compatibility.guest_input_seal.evaluation import evaluate
 from compatibility.guest_input_seal.vm_runner import ROOT, validate_build_manifest
-from compatibility.guest_input_seal.wire import parse_capture
+from compatibility.guest_input_seal.wire import parse_guest_capture
 
 
 def validate_evidence(evidence: Any, manifest: dict[str, Any], manifest_raw: bytes) -> int:
@@ -36,13 +36,7 @@ def validate_evidence(evidence: Any, manifest: dict[str, Any], manifest_raw: byt
         if len(raw) != row["bytes"] or hashlib.sha256(raw).hexdigest() != row["sha256"]:
             raise ValueError("raw serial identity changed")
         text = raw.decode("utf-8", errors="strict")
-        if (
-            "ACTUAL_GUEST_KERNEL=6.12.113+deb13-cloud-amd64" not in text
-            or "INPUT_SEAL_PROBE_EXIT 0" not in text
-            or "INPUT_SEAL_GUEST_DONE" not in text
-        ):
-            raise ValueError("guest completion unavailable")
-        capture = parse_capture(text)
+        capture = parse_guest_capture(text)
         decision = evaluate(capture)
         if capture.case != row["case"] or not decision.scenario_recognized:
             raise ValueError("fixed diagnostic mismatch")

@@ -18,8 +18,8 @@ Linux6.12.113+deb13-cloud-amd64. No KVM, network, disk, host share, QMP or devic
 passthrough. Existing prepared VM/input cohort is byte checked, not repaired or
 downloaded. The180s timeout is bounded recovery, not a qualified watchdog.
 
-Probe ELF:773456 bytes, SHA256
-`319433a504ac1a6faf142386dc99690f5a63de0bf185e9f1939429723c46bd2b`.
+Probe ELF:773512 bytes, SHA256
+`1b879e954be351ec57ff9d68723242dadc2b1c8d363c108da93b9b37da45b4f7`.
 Prepared asset `/workspace/scratch/input-seal-producer.HKE6j9/input-seal-probe`
 is separate from temporary verification logs. Missing assets fail closed; normal
 CI replays committed captures and never starts a VM or rebuilds the probe.
@@ -40,7 +40,7 @@ execution. Full sealing belongs to the retained inode, not its pathname.
 | IS03 | FUTURE_WRITE-only mask55 blocks new writes but existing mapping mutates backing | no |
 | IS04 | two identical sealed objects; FD0 reused for wrong inode despite same hash/mask | no |
 | IS05 | chmod0444; drop groups/uid/gid65534, no_new_privs; existing writable descriptor still writes | no |
-| IS06 | pathname replacement returns different object/bytes while original sealed object stays unchanged | no |
+| IS06 | actual initial symlink→sealed-object BIND+SNAP; alias replacement returns different object/bytes while original stays unchanged | no |
 | IS07 | private COW mutation succeeds; backing bytes unchanged | yes, not private-memory immutability |
 | IS08 | read-only shared map from writable descriptor retains MAYWRITE; EBUSY until explicit unmap | yes, attempt2 only |
 
@@ -53,7 +53,7 @@ ordered events; later success cannot retroactively seal the failed epoch.
 
 Actual final-source captures matched all8 fixed diagnostics:4 scoped sealed
 object/read observations and4 unsafe/substitution controls. Record counts for
-IS01..IS08:14,13,11,9,10,10,9,10. Raw serial bytes are stored losslessly as base64
+IS01..IS08:14,13,11,9,10,12,9,10. Raw serial bytes are stored losslessly as base64
 inside deterministic gzip; no stdout repair, successful-flag inference or
 synthetic replacement of raw evidence. Kernel6files/12ranges passed exact
 file/blob/range hashes against the authenticated Linux6.12.113-1 source archive.
@@ -75,12 +75,22 @@ counts remain unavailable. Capture digest is content identity only.
 
 ## Verification checkpoint
 
-Baseline2454 tests passed. Pure contracts/wire/evaluation:156/156 statements,
-68/68 branches (100%/100%); C/native line or branch coverage is not claimed.
+Baseline2454 tests passed. Post-review pure contracts/wire/evaluation:
+176/176 statements,82/82 branches (100%/100%); C/native line/branch coverage is
+not claimed. Shared strict guest-envelope validation requires exact unique
+LF-terminated markers (CRLF accepted), rejects malformed/conflicting markers,
+and enforces kernel→capture BEGIN/END→exit0→DONE ordering.
 Installed source aggregate coverage98.52% (4350 statements/1192 branches,
-2523-test coverage run). Final current full suite2531 passed; focused77 passed,
-including8 published capture-bundle tampering cases. Independent review and
-fresh exact-head CRLF/remote CI are recorded separately, not presumed complete.
+2548-test post-review coverage run). Pre-review full2531/focused77 and fresh
+exact d3549ab CRLF2531 passed. Post-review full2548 and focused94 passed; source,
+all8 actual guests, -Werror static build, lint/format437,mypy71+7 and fresh
+vanilla+research wheel/replay/smokes/native192 reran green. Post-review CRLF and
+remote CI are recorded at the final checkpoint, not inferred from earlier heads.
+
+Independent review at exact `d3549abbff5b7873cf899ad5a24652cea3ed4891`:
+**C0/I2/M0**. Initial pathname binding and strict execution-envelope findings
+were reproduced RED, then fixed in one author TDD pass. No independent fix-head
+re-review or C0/I0 claim. See [review and retained boundaries](guest_input_seal_prototype_review.md).
 
 Source/native regressions: H2/H3/H4/H5/H6/H7 source/history validators,
 observation-v2, unchanged PR31 captures and192 passive native patch tests passed.

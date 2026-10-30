@@ -1,7 +1,9 @@
 """Catch fabricated/partial capture sets and mismatched source cohorts."""
 
+import base64
 import copy
 import gzip
+import hashlib
 import json
 from pathlib import Path
 
@@ -61,3 +63,38 @@ def test_complete_capture_bundle_tampering_rejected(change):
         evidence["captures"][0]["unknown"] = True
     with pytest.raises(ValueError):
         validate_evidence(evidence, manifest, raw)
+
+
+@pytest.mark.parametrize("bad", ["prefix", "exit01", "contradictory", "early", "truncated"])
+def test_published_replay_rejects_bad_execution_envelope_with_updated_hashes(bad):
+    root = Path(__file__).resolve().parents[2] / "compatibility/guest_input_seal"
+    manifest_raw = (root / "guest/build_manifest.json").read_bytes()
+    evidence = json.loads(gzip.decompress((root / "evidence/actual-captures.json.gz").read_bytes()))
+    row = evidence["captures"][0]
+    text = base64.b64decode(row["serial_base64"]).decode().replace("\r\n", "\n")
+    if bad == "prefix":
+        text = (
+            text.replace("ACTUAL_GUEST_KERNEL", "prefix ACTUAL_GUEST_KERNEL")
+            .replace("INPUT_SEAL_PROBE_EXIT", "prefix INPUT_SEAL_PROBE_EXIT")
+            .replace("INPUT_SEAL_GUEST_DONE", "prefix INPUT_SEAL_GUEST_DONE")
+        )
+    elif bad == "exit01":
+        text = text.replace("PROBE_EXIT 0", "PROBE_EXIT 01")
+    elif bad == "contradictory":
+        text = text.replace(
+            "INPUT_SEAL_PROBE_EXIT 0", "INPUT_SEAL_PROBE_EXIT 2\nINPUT_SEAL_PROBE_EXIT 0"
+        )
+    elif bad == "early":
+        text = text.replace("INPUT_SEAL_PROBE_EXIT 0\nINPUT_SEAL_GUEST_DONE\n", "").replace(
+            "SEAL {", "INPUT_SEAL_PROBE_EXIT 0\nINPUT_SEAL_GUEST_DONE\nSEAL {", 1
+        )
+    else:
+        text = text[: text.index("INPUT_SEAL_GUEST_DONE") + len("INPUT_SEAL_GUEST_DONE")]
+    raw = text.encode()
+    row.update(
+        bytes=len(raw),
+        sha256=hashlib.sha256(raw).hexdigest(),
+        serial_base64=base64.b64encode(raw).decode(),
+    )
+    with pytest.raises(ValueError):
+        validate_evidence(evidence, json.loads(manifest_raw), manifest_raw)

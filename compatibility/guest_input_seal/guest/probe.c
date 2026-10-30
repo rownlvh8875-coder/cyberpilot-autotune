@@ -68,14 +68,15 @@ static void map_denial(int fd)
 }
 static void local(const char *label,volatile unsigned char *p)
 { *p='X';begin("LOCAL",label);printf("%u",(unsigned)*p);end(); }
-static void bind_read(int expected,int actual)
+static void bind_named(const char *label,int expected,int actual)
 {
   /* Pin expected and actual through read. FD0 is an actual reused descriptor. */
   require(dup2(actual,0)==0);
   struct stat want,got;require(fstat(expected,&want)==0 && fstat(0,&got)==0);
-  begin("BIND","read");printf("%"PRIu64",%"PRIu64",%"PRIu64",%"PRIu64",0",(uint64_t)want.st_dev,(uint64_t)want.st_ino,(uint64_t)got.st_dev,(uint64_t)got.st_ino);end();
-  snapshot("read",0);
+  begin("BIND",label);printf("%"PRIu64",%"PRIu64",%"PRIu64",%"PRIu64",0",(uint64_t)want.st_dev,(uint64_t)want.st_ino,(uint64_t)got.st_dev,(uint64_t)got.st_ino);end();
+  snapshot(label,0);
 }
+static void bind_read(int expected,int actual) { bind_named("read",expected,actual); }
 static int guest_guard(void)
 {
   struct utsname u;char text[128];
@@ -123,10 +124,15 @@ int main(int argc,char **argv)
     write_byte("write_original",fd);snapshot("mutated",fd);bind_read(fd,fd);
   }else if(which==6){
     seal("seal1",fd,FULL);snapshot("sealed",fd);
+    char target[64];snprintf(target,sizeof(target),"/proc/self/fd/%d",fd);
+    require(symlink(target,"/lab/sealed-name")==0);
+    int initial=open("/lab/sealed-name",O_RDONLY|O_CLOEXEC);require(initial>=0);
+    struct stat a,b;require(fstat(fd,&a)==0 && fstat(initial,&b)==0 && a.st_dev==b.st_dev && a.st_ino==b.st_ino);
+    bind_named("initial_path",fd,initial);close(initial);
     int other=open("/lab/replacement",O_RDWR|O_CREAT|O_EXCL|O_CLOEXEC,0644);require(other>=0);
     require(write(other,"X123456789ABCDEF\n",17)==17);
-    errno=0;operation("replace",rename("/lab/replacement","/lab/chmod-input"));
-    int reopened=open("/lab/chmod-input",O_RDONLY|O_CLOEXEC);require(reopened>=0);
+    errno=0;operation("replace",rename("/lab/replacement","/lab/sealed-name"));
+    int reopened=open("/lab/sealed-name",O_RDONLY|O_CLOEXEC);require(reopened>=0);
     snapshot("replacement",reopened);bind_read(fd,reopened);snapshot("after",fd);close(other);close(reopened);
   }else if(which==7){
     seal("seal1",fd,FULL);snapshot("sealed",fd);

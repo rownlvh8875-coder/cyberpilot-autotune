@@ -49,3 +49,33 @@ def capture_digest(capture: SealCapture) -> str:
     return hashlib.sha256(
         json.dumps(asdict(capture), sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
     ).hexdigest()
+
+
+def parse_guest_capture(text: str) -> SealCapture:
+    """Require a unique, complete, ordered execution envelope; content only."""
+    capture = parse_capture(text)
+    lines = text.split("\n")
+    expected = {
+        "ACTUAL_GUEST_KERNEL": "ACTUAL_GUEST_KERNEL=6.12.113+deb13-cloud-amd64",
+        "INPUT_SEAL_PROBE_EXIT": "INPUT_SEAL_PROBE_EXIT 0",
+        "INPUT_SEAL_GUEST_DONE": "INPUT_SEAL_GUEST_DONE",
+    }
+    positions: dict[str, int] = {}
+    framed = []
+    for index, line in enumerate(lines):
+        if line.startswith("SEAL "):
+            framed.append(index)
+        for token, exact in expected.items():
+            if token not in line:
+                continue
+            if index == len(lines) - 1 or line.removesuffix("\r") != exact or token in positions:
+                raise ValueError("malformed/duplicate/unterminated execution marker")
+            positions[token] = index
+    if set(positions) != set(expected):
+        raise ValueError("execution envelope incomplete")
+    if not (
+        positions["ACTUAL_GUEST_KERNEL"] < framed[0]
+        and framed[-1] < positions["INPUT_SEAL_PROBE_EXIT"] < positions["INPUT_SEAL_GUEST_DONE"]
+    ):
+        raise ValueError("execution envelope order invalid")
+    return capture

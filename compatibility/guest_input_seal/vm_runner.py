@@ -15,7 +15,7 @@ from compatibility.guest_input_closure.inventory import snapshot_digest, unique_
 
 from .contracts import CASES, PERMISSIONS, SealCapture, uint
 from .image import build_image
-from .wire import parse_capture
+from .wire import parse_guest_capture
 
 ROOT = Path(__file__).resolve().parents[2]
 PACKAGE = Path(__file__).resolve().parent
@@ -200,14 +200,9 @@ def capture_cases(cases: tuple[str, ...]) -> tuple[tuple[SealCapture, bytes], ..
                 ) from error
         try:
             raw = process.stdout.decode("utf-8", errors="strict")
-            if (
-                process.returncode
-                or "ACTUAL_GUEST_KERNEL=6.12.113+deb13-cloud-amd64" not in raw
-                or "INPUT_SEAL_PROBE_EXIT 0" not in raw
-                or "INPUT_SEAL_GUEST_DONE" not in raw
-            ):
+            if process.returncode:
                 raise ValueError("guest window incomplete")
-            capture = parse_capture(raw)
+            capture = parse_guest_capture(raw)
             if capture.case != case:
                 raise ValueError("wrong case capture")
         except (ValueError, UnicodeError) as error:

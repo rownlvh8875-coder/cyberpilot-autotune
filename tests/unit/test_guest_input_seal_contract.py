@@ -83,6 +83,8 @@ def fixture(case="IS01"):
         "IS06": [
             before,
             *seal,
+            ("BIND", "initial_path", [1, 10, 1, 10, 0]),
+            snap("initial_path"),
             op("replace"),
             snap("replacement", 1, MUTATED, ino=11, mode=0o644),
             ("BIND", "read", [1, 10, 1, 11, 0]),
@@ -327,3 +329,83 @@ def test_parser_recursion_is_a_contract_error():
     text = "SEAL " + "[" * 10000 + "]" * 10000
     with pytest.raises(ValueError, match="nesting"):
         parse_capture(text)
+
+
+def envelope(capture=None):
+    return (
+        "ACTUAL_GUEST_KERNEL=6.12.113+deb13-cloud-amd64\n"
+        + wire(capture or fixture())
+        + "\nINPUT_SEAL_PROBE_EXIT 0\nINPUT_SEAL_GUEST_DONE\n"
+    )
+
+
+def test_exact_guest_envelope_accepts_lf_and_crlf():
+    from compatibility.guest_input_seal.wire import parse_guest_capture
+
+    text = envelope()
+    assert parse_guest_capture(text) == fixture()
+    assert parse_guest_capture(text.replace("\n", "\r\n")) == fixture()
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "prefix",
+        "exit01",
+        "conflicting_exit",
+        "early_completion",
+        "unterminated_done",
+        "duplicate_kernel",
+        "wrong_kernel",
+        "missing_done",
+    ],
+)
+def test_malformed_or_contradictory_guest_envelope_rejected(mutation):
+    from compatibility.guest_input_seal.wire import parse_guest_capture
+
+    text = envelope()
+    if mutation == "prefix":
+        text = (
+            text.replace("ACTUAL_GUEST_KERNEL", "prefix ACTUAL_GUEST_KERNEL")
+            .replace("INPUT_SEAL_PROBE_EXIT", "prefix INPUT_SEAL_PROBE_EXIT")
+            .replace("INPUT_SEAL_GUEST_DONE", "prefix INPUT_SEAL_GUEST_DONE")
+        )
+    elif mutation == "exit01":
+        text = text.replace("PROBE_EXIT 0", "PROBE_EXIT 01")
+    elif mutation == "conflicting_exit":
+        text = text.replace(
+            "INPUT_SEAL_PROBE_EXIT 0", "INPUT_SEAL_PROBE_EXIT 2\nINPUT_SEAL_PROBE_EXIT 0"
+        )
+    elif mutation == "early_completion":
+        text = text.replace("INPUT_SEAL_PROBE_EXIT 0\nINPUT_SEAL_GUEST_DONE\n", "").replace(
+            "SEAL {", "INPUT_SEAL_PROBE_EXIT 0\nINPUT_SEAL_GUEST_DONE\nSEAL {", 1
+        )
+    elif mutation == "unterminated_done":
+        text = text.rstrip("\n")
+    elif mutation == "duplicate_kernel":
+        text = "ACTUAL_GUEST_KERNEL=6.12.113+deb13-cloud-amd64\n" + text
+    elif mutation == "wrong_kernel":
+        text = text.replace("6.12.113", "6.12.112")
+    else:
+        text = text.replace("INPUT_SEAL_GUEST_DONE\n", "")
+    with pytest.raises(ValueError):
+        parse_guest_capture(text)
+
+
+@pytest.mark.parametrize(
+    "mutation", ["wrong_initial_object", "missing_initial_binding", "wrong_initial_snapshot"]
+)
+def test_path_replacement_requires_initial_sealed_path_binding(mutation):
+    events = list(fixture("IS06").events)
+    indices = [i for i, e in enumerate(events) if e.label == "initial_path"]
+    if mutation == "missing_initial_binding":
+        events = [
+            dataclasses.replace(e, seq=i)
+            for i, e in enumerate(e for i, e in enumerate(events) if i not in indices)
+        ]
+    else:
+        index = indices[0] if mutation == "wrong_initial_object" else indices[1]
+        values = list(events[index].values)
+        values[3 if mutation == "wrong_initial_object" else 1] = 11
+        events[index] = dataclasses.replace(events[index], values=values)
+    assert not evaluate(SealCapture(events)).scenario_recognized

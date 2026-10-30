@@ -56,5 +56,5 @@
 
 - [x] Test committed source/capture audit tamper rejection and architecture boundaries; run RED, then implement audit/manifests. Replay all eight captures and source ranges; expect eight recognized diagnostics, four scoped object-seal positives, all BLOCKED.
 - [ ] Run full pytest/coverage, ruff/format/mypy/build, vanilla wheel/replay and knowledge/owner/science/friction smokes, historical source/native192, fresh exact-head CRLF clone; expect green, report actual coverage.
-- [ ] Commit evidence/results, dispatch one fresh independent whole-branch review at exact head. C/I: author RED/GREEN fix pass and rerun full suite; minors deferred.
+- [x] Commit evidence/results, dispatch one fresh independent whole-branch review at exact head. C/I: author RED/GREEN fix pass and rerun full suite; minors deferred.
 - [ ] Publish own stacked Draft PR against feat/guest-consumption-prototype, wait exact-head push and PR matrix, record actual results without claiming qualified executor or old-PR merge. Commit append-only; handoff in Korean with all rulings/deferred minors.

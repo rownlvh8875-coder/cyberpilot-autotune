@@ -96,6 +96,8 @@ def evaluate(capture: SealCapture) -> SealDecision:
         "IS06": [
             before,
             *sealed,
+            ("BIND", "initial_path", (*base, *base, 0)),
+            snap("initial_path"),
             op("replace"),
             snap("replacement", 1, MUTATED, alternate, 0, 0o644),
             wrong_bind,
