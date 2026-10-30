@@ -62,3 +62,12 @@ The actual guards remain present/reviewed, and the binary path is not data-drive
 this is a test-quality gap, not a found permission escalation. It remains Minor,
 not artificially promoted to justify another fix. Cost: incomplete mutation
 coverage for those guards until a separate test-improvement task.
+
+## Remote verification continuation
+
+The first push/PR CI at5bde1cf failed one Windows path expectation (not a runtime
+mutation): `Path('/owned/new.cpio.gz')` renders native backslashes. The test now
+checks unchanged native argument propagation, including a space-containing path.
+No collector/runtime/source manifest/capture bytes changed and M1 was not fixed
+incidentally. Windows CI provided RED; local full2454 passed before the new push.
+The verification pass remains open until the final remote matrix is green.

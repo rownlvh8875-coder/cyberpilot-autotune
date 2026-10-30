@@ -118,6 +118,13 @@ audits/kernel7files11ranges/native192, build/fresh isolated vanilla+research whe
 and all smokes reran green. Final docs-only handoff does not change tested code;
 exact final push/PR CI identities are in the Draft comment, not a local assumption.
 
+Initial remote CI at5bde1cf found a test-only Windows portability defect:
+the QEMU initrd argument correctly preserved the supplied native Path, while the
+test expected a Linux slash literal. The test now compares the supplied Path's
+native string and includes a space-containing path. Runtime/collector/manifest/
+actual captures are unchanged; local full2454 passed. Final exact-head matrix is
+verified separately rather than treating the failed initial run as success.
+
 ## Retained blockers / next boundary
 
 FIXED_GUEST_CONSUMPTION_PROTOTYPE_IMPLEMENTED;

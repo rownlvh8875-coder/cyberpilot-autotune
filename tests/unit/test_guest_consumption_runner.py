@@ -52,15 +52,17 @@ def test_missing_guest_asset_or_nonelf_payload_does_not_create_an_image():
             image.build_image(assets, binary, "CP01")
 
 
-def test_qemu_recipe_has_no_network_disks_shares_monitor_or_passthrough():
-    args = module("vm_runner").qemu_arguments(Path("/owned/new.cpio.gz"))
+@pytest.mark.parametrize("image_name", ["/owned/new.cpio.gz", "/owned/with space.cpio.gz"])
+def test_qemu_recipe_has_no_network_disks_shares_monitor_or_passthrough(image_name):
+    image = Path(image_name)
+    args = module("vm_runner").qemu_arguments(image)
     for option, value in (
         ("-accel", "tcg,thread=single"),
         ("-smp", "1"),
         ("-m", "768M"),
         ("-nic", "none"),
         ("-monitor", "none"),
-        ("-initrd", "/owned/new.cpio.gz"),
+        ("-initrd", str(image)),
     ):
         assert args[args.index(option) + 1] == value
     assert not set(args) & {"-drive", "-hda", "-fsdev", "-virtfs", "-qmp", "-enable-kvm", "-device"}
