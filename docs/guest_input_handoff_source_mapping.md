@@ -25,6 +25,10 @@ are source references, not an execution-time input receipt or authentication.
 | PR32 kernel source manifest | exact Linux6.12.113 seal/mapping reference cohort | no new inherited-FD/CLOEXEC/FD-table/OFD backend qualification from those old ranges |
 
 None of these records is modified or passed into a new runtime adapter.
+Design v2 explicitly distinguishes bootstrap and post-exec consumer cohorts,
+with an observed predecessor/successor EXEC_TRANSITION. This fixes a proposal
+ambiguity; it does not qualify actual kernel inheritance, FD-table changes or
+slot/OFD preservation from existing PR31/32 evidence.
 PR31/PR32 capture sessions were separate; common-looking CLOCK_MONOTONIC values
 are not a shared session/context. No nearest-time/size-hash/path/FD join is allowed.
 New proposal IDs and digest domains do not upgrade the old observations.

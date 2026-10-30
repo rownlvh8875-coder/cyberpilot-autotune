@@ -1,5 +1,39 @@
 {
   "clock_domain": "GUEST_HANDOFF_OBSERVATION_MONOTONIC_NS",
+  "cohort_fields": [
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "exec_generation",
+      "required": true,
+      "stage": "COHORT",
+      "type": "UInt64",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "fd_table_generation",
+      "required": true,
+      "stage": "COHORT",
+      "type": "UInt64",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "image_digest",
+      "required": true,
+      "stage": "COHORT",
+      "type": "SHA256",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "task_generation",
+      "required": true,
+      "stage": "COHORT",
+      "type": "UInt64",
+      "unit": "none"
+    }
+  ],
   "context_fields": [
     {
       "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
@@ -7,6 +41,14 @@
       "required": true,
       "stage": "CONTEXT",
       "type": "OpaqueId",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "bootstrap_cohort",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "ConsumerCohort",
       "unit": "none"
     },
     {
@@ -135,6 +177,14 @@
       },
       {
         "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "cohort",
+        "required": true,
+        "stage": "BIND",
+        "type": "ConsumerCohort",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
         "field": "dev",
         "required": true,
         "stage": "BIND",
@@ -233,6 +283,14 @@
       },
       {
         "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "cohort",
+        "required": true,
+        "stage": "CLOSE",
+        "type": "ConsumerCohort",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
         "field": "fd",
         "required": true,
         "stage": "CLOSE",
@@ -257,7 +315,41 @@
       }
     ],
     "END": [],
+    "EXEC_TRANSITION": [
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "predecessor",
+        "required": true,
+        "stage": "EXEC_TRANSITION",
+        "type": "ConsumerCohort",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "successor",
+        "required": true,
+        "stage": "EXEC_TRANSITION",
+        "type": "ConsumerCohort",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "transfer_generation",
+        "required": true,
+        "stage": "EXEC_TRANSITION",
+        "type": "UInt64",
+        "unit": "none"
+      }
+    ],
     "FINISH": [
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "cohort",
+        "required": true,
+        "stage": "FINISH",
+        "type": "ConsumerCohort",
+        "unit": "none"
+      },
       {
         "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
         "field": "complete",
@@ -344,6 +436,14 @@
       },
       {
         "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "cohort",
+        "required": true,
+        "stage": "PREAD_FULL",
+        "type": "ConsumerCohort",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
         "field": "fd",
         "required": true,
         "stage": "PREAD_FULL",
@@ -406,6 +506,14 @@
         "required": true,
         "stage": "READY",
         "type": "SHA256",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "cohort",
+        "required": true,
+        "stage": "READY",
+        "type": "ConsumerCohort",
         "unit": "none"
       },
       {
@@ -536,6 +644,14 @@
     "STOPPED": [
       {
         "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "cohort",
+        "required": true,
+        "stage": "STOPPED",
+        "type": "ConsumerCohort",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
         "field": "complete",
         "required": true,
         "stage": "STOPPED",
@@ -570,6 +686,14 @@
       },
       {
         "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "cohort",
+        "required": true,
+        "stage": "TRANSFER",
+        "type": "ConsumerCohort",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
         "field": "members",
         "required": true,
         "stage": "TRANSFER",
@@ -587,7 +711,7 @@
     ]
   },
   "evidence_kind": "SYNTHETIC",
-  "graph_version": "guest-input-handoff-design-v1",
+  "graph_version": "guest-input-handoff-design-v2",
   "limits": {
     "bytes_per_member": 4096,
     "events": 1024,
@@ -711,6 +835,6 @@
   ],
   "runtime_producer_implemented": false,
   "runtime_qualified": false,
-  "schema": "guest-input-handoff-semantic-design-v1",
+  "schema": "guest-input-handoff-semantic-design-v2",
   "scope": "DATA_FD_ONLY"
 }

@@ -24,7 +24,7 @@ def document(kind):
 def test_published_design_is_not_a_runtime_backend():
     report = validate()
     assert report["synthetic_cases"] == len(CASES)
-    assert report["synthetic_consistent"] == 5
+    assert report["synthetic_consistent"] == 6
     assert report["overall"] == "BLOCKED"
     assert report["runtime_producer_implemented"] is False
     assert report["runtime_qualified"] is False

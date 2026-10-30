@@ -16,7 +16,7 @@
 - DATA_FD_ONLY, SYNTHETIC-only, overall BLOCKED/all9 permissions false.
 - No C/QEMU/guest/native target build, host policy, vehicle/Carrot/Params/application or PR30 bridge.
 - New oracle/audit under tests, not src/compatibility/tests/fixtures or wheel.
-- guest-input-handoff-design-v1; observer clock GUEST_HANDOFF_OBSERVATION_MONOTONIC_NS.
+- guest-input-handoff-design-v2 after reviewed cohort fix; observer clock GUEST_HANDOFF_OBSERVATION_MONOTONIC_NS.
 
 ## Review Focus
 
@@ -30,7 +30,7 @@
 
 **Files:** Create docs/guest_input_namespace_handoff_contract.md; tests/audit/guest_input_handoff_model.py; tests/audit/guest_input_handoff_examples.py; tests/unit/test_guest_input_handoff_model.py.
 
-**Interfaces:** evaluate(graph: Any) -> dict[str,Any], graph_digest(graph: dict[str,Any]) -> str; pure/test-only. complete() -> dict[str,Any], example(case: str) -> dict[str,Any] and literal CASES tuple(id,status,reason). Graph header/context/member/event fields exactly in spec. Events PIN,SEAL,STOPPED,TRANSFER,BIND,READY,PREAD_FULL,CLOSE,FINISH,RELEASE,END; strict arities/keys; END last.
+**Interfaces:** evaluate(graph: Any) -> dict[str,Any], graph_digest(graph: dict[str,Any]) -> str; pure/test-only. complete() -> dict[str,Any], example(case: str) -> dict[str,Any] and literal CASES tuple(id,status,reason). Graph header/context/member/event fields exactly in spec. Events PIN,SEAL,STOPPED,TRANSFER,EXEC_TRANSITION,BIND,READY,PREAD_FULL,CLOSE,FINISH,RELEASE,END; strict arities/keys; END last. v2 adds explicit bootstrap/post-exec cohorts and the controlled transition after review I1.
 
 - [x] Write independently derived fixtures/negative tests for every Review Focus line, exact false permissions, immutable inputs, canonical set ordering and literal expected reasons.
 - [x] Run `.venv/bin/python -m pytest tests/unit/test_guest_input_handoff_model.py -q`; expect missing-module RED.
@@ -54,6 +54,6 @@
 **Interfaces:** Consumes Task1/2; result statuses DESIGN_READY, RUNTIME_PRODUCER_NOT_IMPLEMENTED and all existing blockers.
 
 - [x] Run full pytest/coverage, ruff/format/mypy/build/fresh vanilla+research wheel/replay/smokes, old source/native192/PR32 replay and fresh exact-head CRLF. Report actual oracle coverage, not OS/C coverage.
-- [ ] Commit checkpoint; one fresh most-capable reviewer on exact whole branch, with Review Focus verbatim and ledger rulings. C/I author RED→GREEN fix pass/full rerun; Minor deferred, no second review.
+- [x] Commit checkpoint; one fresh most-capable reviewer on exact whole branch, with Review Focus verbatim and ledger rulings. C/I author RED→GREEN fix pass/full rerun; Minor deferred, no second review.
 - [ ] Publish own stacked Draft `Design guest input namespace and descriptor handoff` on feat/guest-input-seal-prototype; verify final exact-head push+PR CI and preserve old refs. Attach PR via app tool; report acknowledgement honestly.
 - [ ] Record final external results in PR handoff/owned ledger, preserve prepared old assets, recoverably archive only this plan workspace, Korean result with every ruling/cost and deferred minor. Recommend one next task, no real build/vehicle.

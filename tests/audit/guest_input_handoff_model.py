@@ -5,7 +5,7 @@ import json
 import re
 from typing import Any
 
-VERSION = "guest-input-handoff-design-v1"
+VERSION = "guest-input-handoff-design-v2"
 CLOCK = "GUEST_HANDOFF_OBSERVATION_MONOTONIC_NS"
 PERMISSIONS = (
     "build_execution_allowed",
@@ -23,21 +23,32 @@ MEMBER_FIELDS = frozenset(
 )
 PIN_FIELDS = frozenset(("object_id", "object_generation", "pin_generation", "dev", "ino"))
 FD_FIELDS = frozenset(("fd", "binding_generation", "ofd_id", "ofd_generation"))
+COHORT_FIELDS = frozenset(
+    ("task_generation", "exec_generation", "fd_table_generation", "image_digest")
+)
 EVENT_FIELDS = {
     "PIN": PIN_FIELDS,
     "SEAL": PIN_FIELDS | {"seal_mask", "bytes", "sha256"},
-    "STOPPED": frozenset(("inventory_digest", "complete", "extra_fd_count")),
-    "TRANSFER": frozenset(("transfer_generation", "bundle_digest", "members")),
+    "STOPPED": frozenset(("cohort", "inventory_digest", "complete", "extra_fd_count")),
+    "TRANSFER": frozenset(("cohort", "transfer_generation", "bundle_digest", "members")),
+    "EXEC_TRANSITION": frozenset(("transfer_generation", "predecessor", "successor")),
     "BIND": PIN_FIELDS
     | FD_FIELDS
-    | {"transfer_generation", "access_mode", "cloexec", "seal_mask", "bytes", "sha256"},
+    | {"cohort", "transfer_generation", "access_mode", "cloexec", "seal_mask", "bytes", "sha256"},
     "READY": frozenset(
-        ("transfer_generation", "bundle_digest", "inventory_digest", "complete", "extra_fd_count")
+        (
+            "cohort",
+            "transfer_generation",
+            "bundle_digest",
+            "inventory_digest",
+            "complete",
+            "extra_fd_count",
+        )
     ),
     "PREAD_FULL": FD_FIELDS
-    | {"transfer_generation", "offset", "returned_len", "returned_bytes_hex"},
-    "CLOSE": FD_FIELDS,
-    "FINISH": frozenset(("exit_kind", "exit_code", "complete", "drop_count")),
+    | {"cohort", "transfer_generation", "offset", "returned_len", "returned_bytes_hex"},
+    "CLOSE": FD_FIELDS | {"cohort"},
+    "FINISH": frozenset(("cohort", "exit_kind", "exit_code", "complete", "drop_count")),
     "RELEASE": frozenset(("object_id", "object_generation", "pin_generation")),
     "END": frozenset(),
 }
@@ -55,6 +66,7 @@ CONTEXT_FIELDS = frozenset(
         "consumer_fd_table_generation",
         "clock_domain",
         "manifest_digest",
+        "bootstrap_cohort",
     )
 )
 
@@ -97,13 +109,28 @@ def graph_digest(graph: dict[str, Any]) -> str:
     return _digest({**graph, "manifest": sorted(graph["manifest"], key=lambda m: m["name"])})
 
 
-def _inventory(context: str, bindings: list[dict[str, Any]]) -> str:
+def _inventory(context: str, bindings: list[dict[str, Any]], cohort: dict[str, Any]) -> str:
     return _digest(
         {
-            "schema": "guest-data-fd-inventory-v1",
+            "schema": "guest-data-fd-inventory-v2",
             "context_digest": context,
+            "cohort": cohort,
             "bindings": sorted(bindings, key=lambda b: b["fd"]),
         }
+    )
+
+
+def _cohort(value: Any) -> None:
+    _record(value, COHORT_FIELDS)
+    _require(
+        all(
+            _uint(value[field])
+            for field in ("task_generation", "exec_generation", "fd_table_generation")
+        )
+        and value["task_generation"] > 0
+        and value["fd_table_generation"] > 0
+        and _sha(value["image_digest"]),
+        "SCHEMA_INVALID",
     )
 
 
@@ -145,6 +172,15 @@ def _validate(graph: Any) -> None:
         "manifest_digest",
     ):
         _require(_sha(ctx[field]), "SCHEMA_INVALID")
+    bootstrap = ctx["bootstrap_cohort"]
+    consumer = {field: ctx["consumer_" + field] for field in COHORT_FIELDS}
+    _cohort(bootstrap)
+    _cohort(consumer)
+    _require(
+        bootstrap["task_generation"] == consumer["task_generation"]
+        and consumer["exec_generation"] == bootstrap["exec_generation"] + 1,
+        "COHORT_TRANSITION_INVALID",
+    )
     members = graph["manifest"]
     _require(type(members) is list and 1 <= len(members) <= 16, "MANIFEST_INVALID")
     names: set[str] = set()
@@ -208,6 +244,12 @@ def _validate(graph: Any) -> None:
         _require(type(kind) is str and kind in EVENT_FIELDS, "UNSUPPORTED_OPERATION")
         data = event["data"]
         _record(data, EVENT_FIELDS[kind])
+        if kind in ("STOPPED", "TRANSFER", "BIND", "READY", "PREAD_FULL", "CLOSE", "FINISH"):
+            _cohort(data["cohort"])
+            _require(
+                data["cohort"] == (bootstrap if kind in ("STOPPED", "TRANSFER") else consumer),
+                "COHORT_MISMATCH",
+            )
         if kind in ("PIN", "SEAL", "BIND", "RELEASE"):
             _require(
                 _opaque(data["object_id"])
@@ -221,7 +263,7 @@ def _validate(graph: Any) -> None:
                 and _opaque(data["ofd_id"]),
                 "SCHEMA_INVALID",
             )
-        if kind in ("TRANSFER", "BIND", "READY", "PREAD_FULL"):
+        if kind in ("TRANSFER", "EXEC_TRANSITION", "BIND", "READY", "PREAD_FULL"):
             _require(_uint(data["transfer_generation"]), "SCHEMA_INVALID")
         if kind in ("PIN", "SEAL", "BIND"):
             _require(_uint(data["dev"]) and _uint(data["ino"]), "SCHEMA_INVALID")
@@ -266,7 +308,9 @@ def _validate(graph: Any) -> None:
                 )
             _require(
                 data["inventory_digest"]
-                == _inventory(context, [] if kind == "STOPPED" else list(bound.values())),
+                == _inventory(
+                    context, [] if kind == "STOPPED" else list(bound.values()), data["cohort"]
+                ),
                 "INVENTORY_DIGEST_MISMATCH",
             )
             phase = "STOPPED" if kind == "STOPPED" else "ACTIVE"
@@ -284,6 +328,20 @@ def _validate(graph: Any) -> None:
             )
             _require(data["bundle_digest"] == expected, "TRANSFER_COHORT_MISMATCH")
             transfer = data
+            phase = "PRE_EXEC"
+        elif kind == "EXEC_TRANSITION":
+            _require(phase == "PRE_EXEC", "PHASE_ORDER")
+            _cohort(data["predecessor"])
+            _cohort(data["successor"])
+            _require(
+                data["predecessor"] == bootstrap and data["successor"] == consumer,
+                "COHORT_MISMATCH",
+            )
+            _require(
+                transfer is not None
+                and data["transfer_generation"] == transfer["transfer_generation"],
+                "TRANSFER_COHORT_MISMATCH",
+            )
             phase = "BINDING"
         elif kind == "BIND":
             _require(phase == "BINDING", "PHASE_ORDER")

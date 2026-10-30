@@ -34,7 +34,7 @@ cleared only on the explicit transfer allowlist before that exec; after exec the
 supervised bootstrap restores CLOEXEC, independently checked at BIND. dup does
 not turn O_RDWR into O_RDONLY: supervisor must obtain/verify actual read-only
 aliases of the pinned objects before transfer. No SCM_RIGHTS/socket implementation.
-Parent control/serial FDs are not consumer FDs; v1 consumer has only declared
+Parent control/serial FDs are not consumer FDs; the consumer has only declared
 data descriptors, no inherited stdin/out/err/control capabilities. FD0 is valid.
 Bootstrap executable/kernel loader bytes stay outside this DATA-only contract.
 
@@ -47,14 +47,18 @@ all9 operational permissions false, prohibited-handle/effect counts None.
 It never consumes actual PR30/31/32 objects or calls the OS. No boolean, digest
 or well-shaped graph establishes underlying truth, collector authenticity or trust.
 
-Graph version `guest-input-handoff-design-v1`; input-set digest domain
+Graph version `guest-input-handoff-design-v2`; input-set digest domain
 `guest-data-input-set-v1`; bundle `guest-data-fd-bundle-v1`; inventory
-`guest-data-fd-inventory-v1`. Explicit evidence_kind SYNTHETIC only.
+`guest-data-fd-inventory-v2` with explicit event cohort. Explicit evidence_kind SYNTHETIC only.
 
 Header context: session_id, attempt_id, namespace_generation, source_revision,
 vm_profile_digest, observer_profile_digest, consumer_image_digest,
 consumer_task_generation, consumer_exec_generation, consumer_fd_table_generation,
-clock_domain, manifest_digest. Each ordered event repeats context_digest.
+clock_domain, manifest_digest, bootstrap_cohort. bootstrap_cohort contains actual
+pre-exec task_generation/exec_generation/fd_table_generation/image_digest;
+consumer_* fields declare the final cohort, not an already-existing pre-exec
+actor. Consumer events repeat their applicable actual cohort as well as the
+attempt context_digest. Header expectations alone do not prove an event actor.
 Exact source SHA is separate from schema version. Object identity is supervisor
 object_id + object_generation + pin_generation plus observed dev/ino in this
 VM/session while the pin is held; never hash/path/PID/FD/address alone.
@@ -62,7 +66,7 @@ Each data binding also names fd, binding_generation, ofd_id + ofd_generation.
 
 Manifest members: name, object_id, object_generation, pin_generation, dev, ino,
 bytes, sha256. Names are lowercase ASCII relative logical keys, not host paths;
-no traversal, empty/dot segments, backslashes, control/Unicode aliases. v1 rejects
+no traversal, empty/dot segments, backslashes, control/Unicode aliases. The profile rejects
 duplicate names, duplicate object keys, same dev/ino aliases and duplicate OFDs.
 Distinct objects may have identical content. Manifest is a set sorted by name;
 stream events remain ordered. Canonical compact UTF8 JSON sorted keys, explicit
@@ -70,7 +74,7 @@ None; NaN/Inf/scalar coercions rejected. Digest means content identity only.
 
 ## Required sequence and lifetime rules
 
-`PIN_ALL/SEAL_ALL → STOPPED → TRANSFER_ALL → BIND_ALL → READY → PREAD_FULL/CLOSE → FINISH → RELEASE_ALL → END`
+`PIN_ALL/SEAL_ALL → STOPPED(pre) → TRANSFER_ALL(pre) → EXEC_TRANSITION(pre→post) → BIND_ALL(post) → READY(post) → PREAD_FULL/CLOSE(post) → FINISH(post) → RELEASE_ALL → END`
 
 Event: seq, time_ns, context_digest, kind, data. seq starts0 and is contiguous;
 single explicit observer MONOTONIC domain, nondecreasing timestamps; equal times
@@ -82,23 +86,28 @@ not a runtime state machine introduced here.
 - PIN: exact member object/generation/pin/dev/ino, kept through FINISH and all
   consumer closes. SEAL: same identity plus actual full seal snapshot47, exact
   bytes/hash. FUTURE_WRITE55, chmod1, unavailable, or post-hoc hash equality reject.
-- STOPPED: independent pre-transfer consumer inventory must be complete/empty,
+- STOPPED: independent actual bootstrap-cohort pre-transfer inventory must be complete/empty,
   zero unexpected descriptors and a matching inventory content reference.
 - TRANSFER: one transfer_generation, canonical bundle digest and the exact whole
-  manifest object-reference set. Partial/duplicate/extra transfer rejects.
+  manifest object-reference set in that same bootstrap. Partial/duplicate/extra transfer rejects.
+- EXEC_TRANSITION: required once after transfer, before binding; carries transfer
+  generation and actual predecessor/successor cohorts matching the header pair.
+  Same task generation, consecutive exec generation, exact declared image/table
+  identities. FD-table generation need not increment; it must be observed, not
+  inferred. Missing/mismatched/duplicate transition rejects; no v1 fallback.
 - BIND: actual post-exec consumer FD snapshot of exact transferred member and
   pin cohort, actual dev/ino, RDONLY, CLOEXEC true, seal47, bytes/hash and full
   FD/OFD identity. No lookup of the latest path/FD/time or inference from argv.
 - READY: exact complete BIND set and independently obtained actual FD inventory
   digest, complete coverage/zero extras, same bundle generation/digest; before
   any target consumption. Caller flags/digests only simulate these prerequisites.
-- PREAD_FULL: v1 only full-file pread at offset0 with actual returned byte hex
+- PREAD_FULL: only full-file pread at offset0 with actual returned byte hex
   and length; hash bytes independently against the active bound object. Empty
   file/zero returned bytes is actual zero, not unknown. Partial/stream reads,
   mmap presence/page touches, metadata and exec never substitute. Declared but
   unread objects may close; that is not observed consumption.
 - CLOSE: closes that exact active fd/binding/OFD generation. Reads after close,
-  stale generations and reused FD references reject. No BIND after READY; v1
+  stale generations and reused FD references reject. No BIND after READY; this profile
   dup/fork/exec/CLONE_FILES/path reopen are unsupported and abort the graph.
 - FINISH: active FDs empty, successful exit0, coverage true/drop0; failure/null/
   loss cannot be completed. RELEASE only after FINISH; END only after all pins

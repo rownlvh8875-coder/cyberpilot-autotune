@@ -23,16 +23,18 @@ loss accounting and enforcement before it can claim those facts.
 
 Context binds session/attempt/namespace generation, exact source revision,
 VM/observer/consumer-image digests, consumer task/exec/FD-table generations,
-clock and whole manifest. Each event carries the context content digest.
+clock, explicit bootstrap cohort and whole manifest. Actual bootstrap vs post-exec
+cohorts are carried on the applicable events, not inferred from header expectations.
+The graph/semantic schema is now v2; v1 has no silent fallback.
 Member binds logical name, object/pin generations, local held dev/ino and exact
 bytes/hash. Target binding additionally carries FD/binding generation, OFD
 id/generation and actual RDONLY/CLOEXEC/full-seal context. FD0 is an actual value.
 
-`PIN/SEAL_ALL → STOPPED → TRANSFER_ALL → BIND_ALL → READY → PREAD_FULL/CLOSE → FINISH → RELEASE_ALL → END`.
+`PIN/SEAL_ALL → STOPPED(pre) → TRANSFER_ALL(pre) → EXEC_TRANSITION(pre→post) → BIND_ALL(post) → READY(post) → PREAD_FULL/CLOSE(post) → FINISH(post) → RELEASE_ALL → END`.
 
 Atomic means barrier-consistent whole-set handoff, not a single syscall. Partial
 transfer, early reads, unexpected descriptors, wrong object with identical bytes,
-stale FD/OFD/transfer generations and premature release reject. v1 excludes dynamic
+stale FD/OFD/transfer generations and premature release reject. The profile excludes dynamic
 dup/fork/exec/reopen/rebind, mmap/metadata-as-read and partial/stream consumption.
 Empty-file zero is valid; None/Bool/Float cannot impersonate kernel integers.
 Declared-but-unread is not consumed. Standalone digests give no freshness/authenticity.
@@ -44,18 +46,18 @@ hashes/coverage bools are simulated claims, never proof of complete real FD clos
 
 ## Evidence and current verification checkpoint
 
-- 57 published synthetic cases:5 internally consistent,52 expected rejections.
+- 66 published synthetic v2 cases:6 internally consistent,60 expected rejections.
  These are not actual guest handoffs or empirical qualification.
 - 7 exact Git blobs/11 source ranges at the base, byte size/SHA256/blob/range SHA.
  Worktree CRLF text is not treated as consumed source; no lazy fetch/substitute.
-- Baseline2548; full2653 passed34.28s and coverage run2653 passed100.31s.
-- Focused105 including architecture and schema/source/counterexample mutations.
-- Pure oracle175/175 statements100%;47/48 branches97.92%. One closed-enum
+- Baseline2548; pre-review full2653/coverage2653 passed. Post-fix full2678 passed100.04s.
+- Post-fix focused130 including16 review RED→GREEN regressions and9 new published cases.
+- Post-fix pure oracle194/194 statements100%;51/52 branches98.08%. One closed-enum
  defensive branch remains unexecuted, not excluded. No OS/C/native coverage claim.
 - Existing installed src aggregate98.52% (4350 statements/1192 branches).
 - Fresh core.autocrlf=true clone exact `ca33788442dc9cbdd48120739cbd62986a3d1fb9`:
  full2653 passed36.89s.
-- Ruff/format447; strict mypy71 installed+3 new audit/model/example modules green.
+- Ruff/format450; strict mypy71 installed+3 new audit/model/example modules green.
 - Build/fresh isolated vanilla+research wheel/import/replay/Carrot-contract,
  knowledge/owner/science/friction/receipt smokes green. Wheel excludes tests,
  compatibility and, before research extras, NumPy.
@@ -67,12 +69,17 @@ TDD evidence: missing model/audit RED;9 kernel-identity numeric-coercion RED→G
 checked against numbered exact source before manifest publication. No old source
 or receipt was patched to make this design fit.
 
-Fresh independent review and final exact-head CRLF/push+PR matrix are recorded
-in the append-only review/handoff checkpoint once observed, not presumed here.
+Independent review exact `d45c002f23df62cb463836691cd2c1477f313747`: **C0/I1/M3**.
+I1 pre/post controlled-exec cohort ambiguity reproduced16 RED, fixed in one author
+pass with v2 and full2678 rerun; no independent fix-head re-review/C0I0 claim.
+M1 fixture lexical order, M2 float-equal resource metadata and M3 omitted generic
+event-envelope catalog are explicitly deferred; see [full review](guest_input_handoff_design_review.md).
+Final exact-head CRLF/push+PR matrix are recorded separately once observed.
 
 ## Status
 
-GUEST_INPUT_NAMESPACE_HANDOFF_DESIGN_READY, subject to final review/CI checkpoint.
+GUEST_INPUT_NAMESPACE_HANDOFF_DESIGN_READY (v2, with documented deferred minors;
+final exact-head CI checkpoint recorded separately).
 GUEST_INPUT_HANDOFF_RUNTIME_PRODUCER_NOT_IMPLEMENTED.
 FD_OFD_LIFETIME_OBSERVER_UNQUALIFIED.
 CONSUMER_FD_INVENTORY_PRODUCER_NOT_IMPLEMENTED.

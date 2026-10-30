@@ -10,6 +10,7 @@ from typing import Any
 from tests.audit.guest_input_handoff_examples import CASES, example
 from tests.audit.guest_input_handoff_model import (
     CLOCK,
+    COHORT_FIELDS,
     CONTEXT_FIELDS,
     EVENT_FIELDS,
     MEMBER_FIELDS,
@@ -53,6 +54,9 @@ WIRE_TYPES = {
             "returned_len",
             "exit_code",
             "drop_count",
+            "task_generation",
+            "exec_generation",
+            "fd_table_generation",
         )
     ),
     "SHA256": frozenset(
@@ -65,6 +69,7 @@ WIRE_TYPES = {
             "bundle_digest",
             "inventory_digest",
             "sha256",
+            "image_digest",
         )
     ),
     "OpaqueId": frozenset(("session_id", "attempt_id", "object_id", "ofd_id")),
@@ -74,6 +79,7 @@ WIRE_TYPES = {
     "ObjectRefSet": frozenset(("members",)),
     "HexBytes": frozenset(("returned_bytes_hex",)),
     "Enum": frozenset(("clock_domain", "access_mode", "exit_kind")),
+    "ConsumerCohort": frozenset(("bootstrap_cohort", "cohort", "predecessor", "successor")),
 }
 
 
@@ -149,12 +155,13 @@ def validate_schema(data: Any) -> None:
             "limits",
             "context_fields",
             "member_fields",
+            "cohort_fields",
             "event_fields",
             "proof_obligations",
         },
     )
     _check(
-        data["schema"] == "guest-input-handoff-semantic-design-v1"
+        data["schema"] == "guest-input-handoff-semantic-design-v2"
         and data["graph_version"] == VERSION
         and data["scope"] == "DATA_FD_ONLY"
         and data["evidence_kind"] == "SYNTHETIC"
@@ -172,6 +179,7 @@ def validate_schema(data: Any) -> None:
     )
     _fields(data["context_fields"], CONTEXT_FIELDS, "CONTEXT")
     _fields(data["member_fields"], MEMBER_FIELDS, "MANIFEST")
+    _fields(data["cohort_fields"], COHORT_FIELDS, "COHORT")
     _keys(data["event_fields"], set(EVENT_FIELDS))
     for kind, names in EVENT_FIELDS.items():
         _fields(data["event_fields"][kind], names, kind)

@@ -341,6 +341,60 @@
       "expected_status": "REJECTED",
       "id": "HD57",
       "variant": "release_missing"
+    },
+    {
+      "expected_reason": null,
+      "expected_status": "SYNTHETIC_GRAPH_CONSISTENT",
+      "id": "HD58",
+      "variant": "post_exec_table_changed"
+    },
+    {
+      "expected_reason": "PHASE_ORDER",
+      "expected_status": "REJECTED",
+      "id": "HD59",
+      "variant": "missing_exec_transition"
+    },
+    {
+      "expected_reason": "COHORT_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD60",
+      "variant": "wrong_exec_predecessor"
+    },
+    {
+      "expected_reason": "COHORT_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD61",
+      "variant": "wrong_exec_successor"
+    },
+    {
+      "expected_reason": "COHORT_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD62",
+      "variant": "stale_post_exec_cohort"
+    },
+    {
+      "expected_reason": "SCHEMA_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD63",
+      "variant": "missing_event_cohort"
+    },
+    {
+      "expected_reason": "COHORT_TRANSITION_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD64",
+      "variant": "nonconsecutive_exec"
+    },
+    {
+      "expected_reason": "COHORT_TRANSITION_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD65",
+      "variant": "wrong_exec_task"
+    },
+    {
+      "expected_reason": "PHASE_ORDER",
+      "expected_status": "REJECTED",
+      "id": "HD66",
+      "variant": "duplicate_exec_transition"
     }
   ],
   "evidence_kind": "SYNTHETIC",

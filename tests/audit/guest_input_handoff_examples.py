@@ -63,6 +63,15 @@ CASES = (
     ("manifest_digest_wrong", "REJECTED", "MANIFEST_DIGEST_MISMATCH"),
     ("bundle_digest_wrong", "REJECTED", "TRANSFER_COHORT_MISMATCH"),
     ("release_missing", "REJECTED", "PIN_LIFETIME_INVALID"),
+    ("post_exec_table_changed", "SYNTHETIC_GRAPH_CONSISTENT", None),
+    ("missing_exec_transition", "REJECTED", "PHASE_ORDER"),
+    ("wrong_exec_predecessor", "REJECTED", "COHORT_MISMATCH"),
+    ("wrong_exec_successor", "REJECTED", "COHORT_MISMATCH"),
+    ("stale_post_exec_cohort", "REJECTED", "COHORT_MISMATCH"),
+    ("missing_event_cohort", "REJECTED", "SCHEMA_INVALID"),
+    ("nonconsecutive_exec", "REJECTED", "COHORT_TRANSITION_INVALID"),
+    ("wrong_exec_task", "REJECTED", "COHORT_TRANSITION_INVALID"),
+    ("duplicate_exec_transition", "REJECTED", "PHASE_ORDER"),
 )
 
 
@@ -73,7 +82,9 @@ def _hash(value: Any) -> str:
     ).hexdigest()
 
 
-def complete(count: int = 1, *, empty: bool = False, read: bool = True) -> dict[str, Any]:
+def complete(
+    count: int = 1, *, empty: bool = False, read: bool = True, post_table: int = 1
+) -> dict[str, Any]:
     raw = b"" if empty else b"0123456789ABCDEF\n"
     members = [
         {
@@ -88,7 +99,7 @@ def complete(count: int = 1, *, empty: bool = False, read: bool = True) -> dict[
         }
         for i in range(count)
     ]
-    context = {
+    context: dict[str, Any] = {
         "session_id": "synthetic-session",
         "attempt_id": "synthetic-attempt",
         "namespace_generation": 0,
@@ -98,11 +109,22 @@ def complete(count: int = 1, *, empty: bool = False, read: bool = True) -> dict[
         "consumer_image_digest": "d" * 64,
         "consumer_task_generation": 1,
         "consumer_exec_generation": 1,
-        "consumer_fd_table_generation": 1,
+        "consumer_fd_table_generation": post_table,
+        "bootstrap_cohort": {
+            "task_generation": 1,
+            "exec_generation": 0,
+            "fd_table_generation": 1,
+            "image_digest": "e" * 64,
+        },
         "clock_domain": "GUEST_HANDOFF_OBSERVATION_MONOTONIC_NS",
         "manifest_digest": _hash({"schema": "guest-data-input-set-v1", "members": members}),
     }
     ctx = _hash(context)
+    bootstrap = copy.deepcopy(context["bootstrap_cohort"])
+    consumer = {
+        field: context["consumer_" + field]
+        for field in ("task_generation", "exec_generation", "fd_table_generation", "image_digest")
+    }
     refs = [{"object_id": m["object_id"], "object_generation": 0} for m in members]
     bundle = _hash(
         {
@@ -114,6 +136,7 @@ def complete(count: int = 1, *, empty: bool = False, read: bool = True) -> dict[
     )
     bindings = [
         {
+            "cohort": copy.deepcopy(consumer),
             "transfer_generation": 0,
             **{
                 k: m[k]
@@ -138,9 +161,14 @@ def complete(count: int = 1, *, empty: bool = False, read: bool = True) -> dict[
         for i, m in enumerate(members)
     ]
 
-    def inventory(rows: list[dict[str, Any]]) -> str:
+    def inventory(rows: list[dict[str, Any]], cohort: dict[str, Any]) -> str:
         return _hash(
-            {"schema": "guest-data-fd-inventory-v1", "context_digest": ctx, "bindings": rows}
+            {
+                "schema": "guest-data-fd-inventory-v2",
+                "context_digest": ctx,
+                "cohort": cohort,
+                "bindings": rows,
+            }
         )
 
     rows: list[tuple[str, dict[str, Any]]] = []
@@ -152,22 +180,48 @@ def complete(count: int = 1, *, empty: bool = False, read: bool = True) -> dict[
         pin = {k: m[k] for k in ("object_id", "object_generation", "pin_generation", "dev", "ino")}
         add("PIN", pin)
         add("SEAL", {**pin, "seal_mask": 47, "bytes": m["bytes"], "sha256": m["sha256"]})
-    add("STOPPED", {"inventory_digest": inventory([]), "complete": True, "extra_fd_count": 0})
-    add("TRANSFER", {"transfer_generation": 0, "bundle_digest": bundle, "members": refs})
+    add(
+        "STOPPED",
+        {
+            "cohort": copy.deepcopy(bootstrap),
+            "inventory_digest": inventory([], bootstrap),
+            "complete": True,
+            "extra_fd_count": 0,
+        },
+    )
+    add(
+        "TRANSFER",
+        {
+            "cohort": copy.deepcopy(bootstrap),
+            "transfer_generation": 0,
+            "bundle_digest": bundle,
+            "members": refs,
+        },
+    )
+    add(
+        "EXEC_TRANSITION",
+        {
+            "transfer_generation": 0,
+            "predecessor": copy.deepcopy(bootstrap),
+            "successor": copy.deepcopy(consumer),
+        },
+    )
     for b in bindings:
         add("BIND", b)
     add(
         "READY",
         {
+            "cohort": copy.deepcopy(consumer),
             "transfer_generation": 0,
             "bundle_digest": bundle,
-            "inventory_digest": inventory(bindings),
+            "inventory_digest": inventory(bindings, consumer),
             "complete": True,
             "extra_fd_count": 0,
         },
     )
     for b in bindings:
         ref = {k: b[k] for k in ("fd", "binding_generation", "ofd_id", "ofd_generation")}
+        ref["cohort"] = copy.deepcopy(consumer)
         if read:
             add(
                 "PREAD_FULL",
@@ -180,12 +234,21 @@ def complete(count: int = 1, *, empty: bool = False, read: bool = True) -> dict[
                 },
             )
         add("CLOSE", ref)
-    add("FINISH", {"exit_kind": "EXITED", "exit_code": 0, "complete": True, "drop_count": 0})
+    add(
+        "FINISH",
+        {
+            "cohort": copy.deepcopy(consumer),
+            "exit_kind": "EXITED",
+            "exit_code": 0,
+            "complete": True,
+            "drop_count": 0,
+        },
+    )
     for m in members:
         add("RELEASE", {k: m[k] for k in ("object_id", "object_generation", "pin_generation")})
     add("END", {})
     return {
-        "schema": "guest-input-handoff-design-v1",
+        "schema": "guest-input-handoff-design-v2",
         "evidence_kind": "SYNTHETIC",
         "context": context,
         "manifest": members,
@@ -210,6 +273,7 @@ def example(case: str) -> dict[str, Any]:
         else 1,
         empty=case == "empty_file",
         read=case != "declared_not_read",
+        post_table=2 if case == "post_exec_table_changed" else 1,
     )
     edits = {
         "future_write_only": ("SEAL", {"seal_mask": 55}),
@@ -312,4 +376,26 @@ def example(case: str) -> dict[str, Any]:
         event(g, "BIND", 1)["data"]["ofd_id"] = "ofd0"
     elif case == "manifest_digest_wrong":
         g["context"]["manifest_digest"] = "e" * 64
+    elif case == "missing_exec_transition":
+        g["events"].remove(event(g, "EXEC_TRANSITION"))
+        for i, e in enumerate(g["events"]):
+            e.update(seq=i, time_ns=i + 10)
+    elif case == "wrong_exec_predecessor":
+        event(g, "EXEC_TRANSITION")["data"]["predecessor"]["exec_generation"] = 7
+    elif case == "wrong_exec_successor":
+        event(g, "EXEC_TRANSITION")["data"]["successor"]["fd_table_generation"] = 7
+    elif case == "stale_post_exec_cohort":
+        event(g, "PREAD_FULL")["data"]["cohort"] = copy.deepcopy(g["context"]["bootstrap_cohort"])
+    elif case == "missing_event_cohort":
+        del event(g, "BIND")["data"]["cohort"]
+    elif case == "nonconsecutive_exec":
+        g["context"]["consumer_exec_generation"] = 3
+    elif case == "wrong_exec_task":
+        g["context"]["consumer_task_generation"] = 9
+    elif case == "duplicate_exec_transition":
+        g["events"].insert(
+            g["events"].index(event(g, "PREAD_FULL")), copy.deepcopy(event(g, "EXEC_TRANSITION"))
+        )
+        for i, e in enumerate(g["events"]):
+            e.update(seq=i, time_ns=i + 10)
     return g
