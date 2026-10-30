@@ -43,7 +43,7 @@ remain **unavailable**. REPLACE names the source dup-write path, not proof of an
 occupied destination; unknown old cookie is not an absence witness.
 
 Kernel `patched-bzImage`:1360896 bytes,
-SHA256 `5f4b2a28b6374c1f5b841ad33e30b61957672c04d69f962d3df96d2fb748e7ff`.
+SHA256 `61956f2ba7131b8d442d304194a7568732c0201cca0f0355db45955585684246`.
 Static driver:779416 bytes,
 SHA256 `032053b561af85a6a5f3b02bdf7eea6d2825289a1ba8f20aded85bf0ac142001`.
 Prepared assets remain at `/workspace/scratch/raw-lifetime-producer.mfFU7h`;
@@ -52,13 +52,18 @@ recorded source/config/tool/package/kernel/driver/image identities and commands.
 
 ## Validation
 
-- Baseline2950/35.43s; pre-final-doc full3011 passed35.73s.61 focused including
+- Baseline2950/35.43s; wire-v2 full3014 passed35.33s.64 focused including
   actual-byte/adversarial replay and two architecture guards.
-- Pure model/image105/105 statements,14/14 branches100/100%, no exclusions.
+- Pure model/image107/107 statements,14/14 branches100/100%, no exclusions.
   This is Python coverage, not kernel coverage or a lifetime correctness proof.
 - Actual pristine missing-interface RED; actual three-case source prototype GREEN.
 - Large fabricated count memory expansion RED→GREEN; FD/flags width2 RED→GREEN;
   runner and byte-audit missing APIs RED→GREEN.
+- Author pre-review hardening: unused/birth/free/CLOSE flag0 was ambiguous. Two
+  RED tests led to explicit unavailable-1/None, three real CLOEXEC stages0/1, a
+  raw wire v2 bump and complete kernel rebuild/three-case recapture. Old wire v1
+  is rejected. Linux release is intentionally separate; all kernel/patch/source
+  byte identities refreshed. Old development captures/kernel remain separately.
 - Pristine5/patched7 source files,22 ranges verified; explicit prepared-asset check
   verifies recorded compiler/tools/source/package/config/kernel/driver bytes and
   unchanged prepared QEMU cohort. Default offline audit reports assets/kernel source

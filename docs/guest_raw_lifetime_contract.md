@@ -47,10 +47,14 @@ linearization. Monotonic timestamps annotate hooks, not an alignment proof.
 
 ## Raw wire and accounting
 
-Fixed textual version1 source frames with exact key sets; metadata identifies case,
+Fixed textual version2 source frames with exact key sets; metadata identifies case,
 release, one-CPU profile and buffer capacity. Events carry emission ordinal, kind,
 optional namespace/OFD/old cookie, optional FD, flags and kernel monotonic ns.
-`fd=-1` means unavailable, FD0 remains actual0. Zero flags remain actual0.
+`fd=-1` means unavailable, FD0 remains actual0. `flags=-1` is unavailable for
+birth/free/CLOSE stages; INSTALL/FLAGS/REPLACE carry actual CLOEXEC0/1. Source wire
+v1's ambiguous unused zero flags are rejected, not silently upgraded. Wire version
+and Linux release are separate identities. Direct flags0 remains actual false only
+at a supported binding stage.
 Frames reject malformed/duplicate fields, unknown stage/version/case/release/CPU,
 out-of-range numbers, duplicate/reordered source sequence, truncation and oversize.
 Original serial, image, source, configuration, patch, compiler/kernel/driver/QEMU

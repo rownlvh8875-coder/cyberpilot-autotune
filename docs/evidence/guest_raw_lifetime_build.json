@@ -90,7 +90,7 @@
   "kernel": {
     "bytes": 1360896,
     "path": "patched-bzImage",
-    "sha256": "5f4b2a28b6374c1f5b841ad33e30b61957672c04d69f962d3df96d2fb748e7ff"
+    "sha256": "61956f2ba7131b8d442d304194a7568732c0201cca0f0355db45955585684246"
   },
   "patched_build_environment": {
     "BISON_PKGDATADIR": "/workspace/scratch/raw-lifetime-producer.mfFU7h/deps/usr/share/bison",
@@ -115,6 +115,7 @@
     "runtime_accepted": false,
     "runtime_qualified": false
   },
+  "raw_wire_version": 2,
   "runtime_qualified": false,
   "schema": "guest-raw-lifetime-build-v1",
   "scope": "FIXED_DISPOSABLE_GUEST_ONLY",
@@ -135,9 +136,9 @@
       "sha256": "42f0e7ccf423f71e8f8de238b9085cc353a5e03c615b71a8ffe60fe51defa3f2"
     },
     {
-      "bytes": 5344,
+      "bytes": 5524,
       "path": "tests/guest_raw_lifetime/model.py",
-      "sha256": "3c5295d7c5eb6ec9cbc7445de143327b2eb9cbe967740477d607def9ff614617"
+      "sha256": "360b0b4cf76c61a18afa57e00fe1e70d40096eb85aed258801fad424133f726a"
     },
     {
       "bytes": 1215,
@@ -147,7 +148,7 @@
     {
       "bytes": 4325,
       "path": "tests/guest_raw_lifetime/runner.py",
-      "sha256": "c804fe3c6c84238c347918b430f7ee7142afa77b969eeebf55bfec6027ce12b3"
+      "sha256": "8f99c1f1e002b768a9c997d1a1f1491e7ef7f04801810efb767180ecbbc548f0"
     },
     {
       "bytes": 2406,
@@ -155,9 +156,9 @@
       "sha256": "475682274dd43651f7ab5955650b70772a2dca681dc07e4da3d0d629166d5573"
     },
     {
-      "bytes": 11352,
+      "bytes": 11314,
       "path": "tests/guest_raw_lifetime/kernel.patch",
-      "sha256": "9c1c68d9bb99c2bf132cb21b30c2c40c80f011e7917842c7eec4580bab680c8c"
+      "sha256": "95276198613e05f6ea0bc7a94daccec21a8a1caba589fd97b768e51c22b9a4c4"
     },
     {
       "bytes": 738,

@@ -37,7 +37,7 @@ class RawEvent:
     file_id: int | None
     old_id: int | None
     fd: int | None
-    flags: int
+    flags: int | None
     mono_ns: int
 
 
@@ -90,7 +90,7 @@ def parse_serial(raw: bytes) -> Capture:
     require(lines[0] == "CPL_DRIVER ok=1 child=0", "DRIVER_WORKLOAD_FAILED")
     meta = _fields(lines[1], "CPL_META", {"version", "case", "release", "cpus", "capacity"})
     require(
-        meta["version"] == "1"
+        meta["version"] == "2"
         and meta["release"] == RELEASE
         and meta["cpus"] == "1"
         and meta["case"] in CASES,
@@ -110,11 +110,13 @@ def parse_serial(raw: bytes) -> Capture:
             line, "CPL_EVENT", {"seq", "kind", "table", "ofd", "old", "fd", "flags", "mono"}
         )
         require(row["kind"] in KINDS, "UNSUPPORTED_RAW_STAGE")
-        seq, table, ofd, old, flags, mono = (
-            _uint(row[n]) for n in ("seq", "table", "ofd", "old", "flags", "mono")
-        )
+        seq, table, ofd, old, mono = (_uint(row[n]) for n in ("seq", "table", "ofd", "old", "mono"))
         fd = None if row["fd"] == "-1" else _uint(row["fd"])
-        require((fd is None or fd < 2**31) and flags < 2**32, "RAW_INT_WIDTH")
+        flags = None if row["flags"] == "-1" else _uint(row["flags"])
+        require((fd is None or fd < 2**31) and (flags is None or flags <= 1), "RAW_INT_WIDTH")
+        require(
+            (flags is not None) == (row["kind"] in {"INSTALL", "FLAGS", "REPLACE"}), "FLAG_STAGE"
+        )
         require(seq > (events[-1].seq if events else 0), "DUPLICATE_OR_REORDERED_SOURCE_SEQ")
         events.append(
             RawEvent(seq, row["kind"], table or None, ofd or None, old or None, fd, flags, mono)

@@ -16,13 +16,13 @@ from .model import CASES, Capture, assess, parse_serial, require
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = Path("/workspace/scratch/raw-lifetime-producer.mfFU7h")
 VM = Path("/workspace/scratch/qemu-vm.Hkx9tc")
-KERNEL_SHA = "5f4b2a28b6374c1f5b841ad33e30b61957672c04d69f962d3df96d2fb748e7ff"
+KERNEL_SHA = "61956f2ba7131b8d442d304194a7568732c0201cca0f0355db45955585684246"
 INIT_SHA = "032053b561af85a6a5f3b02bdf7eea6d2825289a1ba8f20aded85bf0ac142001"
 SOURCE_INPUTS = {
     "guest/init.c": "475682274dd43651f7ab5955650b70772a2dca681dc07e4da3d0d629166d5573",
-    "kernel.patch": "9c1c68d9bb99c2bf132cb21b30c2c40c80f011e7917842c7eec4580bab680c8c",
+    "kernel.patch": "95276198613e05f6ea0bc7a94daccec21a8a1caba589fd97b768e51c22b9a4c4",
     "kernel.config": "5b806c70666ffdcdcdf3e3f6f87754ae0025863d3ff80657ba796ac80c75f9ac",
-    "model.py": "3c5295d7c5eb6ec9cbc7445de143327b2eb9cbe967740477d607def9ff614617",
+    "model.py": "360b0b4cf76c61a18afa57e00fe1e70d40096eb85aed258801fad424133f726a",
     "image.py": "5cf02b1f7125d997b92a95bee81f684a9010286b0b6254d4bff7ade3800cb495",
 }
 IMAGE_SHA = {

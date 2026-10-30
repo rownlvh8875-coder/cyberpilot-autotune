@@ -12,11 +12,11 @@ from tests.guest_raw_lifetime.model import assess, parse_serial
 def frame(case="NORMAL", failed=0, capacity=128):
     return (
         "boot noise\nCPL_DRIVER ok=1 child=0\n"
-        f"CPL_META version=1 case={case} release=6.12.113-cplife-v1 cpus=1 capacity={capacity}\n"
+        f"CPL_META version=2 case={case} release=6.12.113-cplife-v1 cpus=1 capacity={capacity}\n"
         f"CPL_COUNT attempted={2 + failed} reserved=2 committed=2 failed={failed} "
         "discarded=0 pending=0\n"
-        "CPL_EVENT seq=1 kind=FILE_NEW table=0 ofd=1 old=0 fd=-1 flags=0 mono=10\n"
-        f"CPL_EVENT seq={2 + failed} kind=FILE_FREE table=0 ofd=1 old=0 fd=-1 flags=0 mono=11\n"
+        "CPL_EVENT seq=1 kind=FILE_NEW table=0 ofd=1 old=0 fd=-1 flags=-1 mono=10\n"
+        f"CPL_EVENT seq={2 + failed} kind=FILE_FREE table=0 ofd=1 old=0 fd=-1 flags=-1 mono=11\n"
         "CPL_END\n"
     ).encode()
 
@@ -26,7 +26,7 @@ def test_partial_actual_format_preserves_unknown_context_and_denies_authority():
     assert capture.events[0].table_id is None
     assert capture.events[0].file_id == 1
     assert capture.events[0].fd is None
-    assert capture.events[0].flags == 0
+    assert capture.events[0].flags is None
     result = assess(capture)
     assert result.local_accounting_balanced is True
     assert result.local_loss_observed is False
@@ -70,12 +70,12 @@ def test_counter_or_transport_contradiction_cannot_be_considered_balanced(old, n
         (b"kind=FILE_NEW", b"kind=APPLIED_TORQUE"),
         (b"table=0", b"table=-1"),
         (b"ofd=1", b"ofd=True"),
-        (b"flags=0", b"flags=0.0"),
-        (b"flags=0", b"flags=4294967296"),
+        (b"flags=-1", b"flags=0.0"),
+        (b"flags=-1", b"flags=4294967296"),
         (b"fd=-1", b"fd=2147483648"),
         (b"mono=10", b"mono=18446744073709551616"),
         (b"cpus=1", b"cpus=2"),
-        (b"version=1", b"version=2"),
+        (b"version=2", b"version=1"),
         (b"case=NORMAL", b"case=ARBITRARY"),
         (b"release=6.12.113-cplife-v1", b"release=host-kernel"),
         (b"capacity=128", b"capacity=99999"),
@@ -118,3 +118,21 @@ def test_fabricated_large_attempt_counter_does_not_expand_a_sequence_vector():
         tracemalloc.stop()
     assert result.local_accounting_balanced is False
     assert peak < 100000  # memory resource regression, not an empirical admission threshold
+
+
+def test_nonbinding_flag_context_is_unavailable_not_an_actual_zero():
+    capture = parse_serial(frame())
+    assert capture.events[0].flags is None
+
+
+def test_nonbinding_stage_cannot_claim_a_fabricated_zero_flag():
+    with pytest.raises(ValueError, match="FLAG_STAGE"):
+        parse_serial(frame().replace(b"flags=-1", b"flags=0"))
+
+
+def test_actual_false_cloexec_and_fd_zero_remain_distinct_from_unavailable():
+    raw = frame().replace(b"kind=FILE_NEW", b"kind=INSTALL")
+    raw = raw.replace(b"fd=-1", b"fd=0", 1).replace(b"flags=-1", b"flags=0", 1)
+    event = parse_serial(raw).events[0]
+    assert event.fd == 0
+    assert event.flags == 0

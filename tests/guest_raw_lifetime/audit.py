@@ -18,8 +18,8 @@ from .runner import ASSETS, IMAGE_SHA, ROOT, VM
 BUILD = ROOT / "docs/evidence/guest_raw_lifetime_build.json"
 ACTUAL = ROOT / "docs/evidence/guest_raw_lifetime_actual.json"
 SOURCES = ROOT / "docs/evidence/guest_raw_lifetime_sources.json"
-BUILD_DIGEST = "99475c83f2b52bc8ae14f26fa70289a93c9a746c6d0d17a03b752c913ccdfac5"
-SOURCE_DIGEST = "1b9df1083bc06703ef4bd9057d9c9c91cb74bedce5af66a62c22508ac3cfa4de"
+BUILD_DIGEST = "e3db0744f01427cc2150e5ca9e539c1f6b8a211132fd8894aae8de7112c7a249"
+SOURCE_DIGEST = "f14b06311210aac38d4f9e17497cacb24ded52da259f162f1161244c4bc6749d"
 IMAGE_BYTES = (335986, 335992, 335995)
 
 
@@ -78,18 +78,18 @@ def _semantic(e: RawEvent) -> tuple[object, ...]:
 
 # Source/driver-specific expected effects, independently literal, not inferred IDs.
 NORMAL_EFFECTS = (
-    ("FILE_NEW", None, 1, None, None, 0),
+    ("FILE_NEW", None, 1, None, None, None),
     ("INSTALL", None, 1, None, 5, 1),
     ("REPLACE", None, 1, None, 40, 0),
     ("FLAGS", None, 1, None, 40, 1),
     ("REPLACE", None, 1, 1, 40, 1),
-    ("TABLE_NEW", 2, None, None, None, 0),
-    ("CLOSE", 2, 1, None, 5, 0),
-    ("CLOSE", 2, 1, None, 40, 0),
-    ("TABLE_FREE", 2, None, None, None, 0),
-    ("CLOSE", None, 1, None, 5, 0),
-    ("CLOSE", None, 1, None, 40, 0),
-    ("FILE_FREE", None, 1, None, None, 0),
+    ("TABLE_NEW", 2, None, None, None, None),
+    ("CLOSE", 2, 1, None, 5, None),
+    ("CLOSE", 2, 1, None, 40, None),
+    ("TABLE_FREE", 2, None, None, None, None),
+    ("CLOSE", None, 1, None, 5, None),
+    ("CLOSE", None, 1, None, 40, None),
+    ("FILE_FREE", None, 1, None, None, None),
 )
 
 

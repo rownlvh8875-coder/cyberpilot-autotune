@@ -1,14 +1,14 @@
 {
   "package_sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5",
   "patch": {
-    "bytes": 11352,
+    "bytes": 11314,
     "path": "tests/guest_raw_lifetime/kernel.patch",
-    "sha256": "9c1c68d9bb99c2bf132cb21b30c2c40c80f011e7917842c7eec4580bab680c8c"
+    "sha256": "95276198613e05f6ea0bc7a94daccec21a8a1caba589fd97b768e51c22b9a4c4"
   },
   "patched_files": [
     {
-      "bytes": 37784,
-      "git_blob_sha1": "8ef1beb139dd312c3bb6ec879516d7c1b1b8b07c",
+      "bytes": 37785,
+      "git_blob_sha1": "c4e835cb2bbf133f3a66ae7489ecfdf1ca4ae05e",
       "path": "fs/file.c",
       "ranges": [
         {
@@ -32,7 +32,7 @@
         {
           "claim": "slot removal callback",
           "end": 661,
-          "sha256": "24641216ec031dcc53a18fc3e8f264243c5937fc5a23f3df43ce9d4cc16f6010",
+          "sha256": "8cb01b78f8697d3fcd15050798d71755149c640ffaf3eb8f0770dc136131021b",
           "start": 642
         },
         {
@@ -42,7 +42,7 @@
           "start": 1192
         }
       ],
-      "sha256": "0c55aa66237fd71c04729df0d11a0f4c48bdf31942b96a424b45119b8193baba"
+      "sha256": "c224e2952a542c607f7fa408643cee33f32b3ec0783efd2bd42767c48c706263"
     },
     {
       "bytes": 15167,
@@ -79,32 +79,32 @@
       "sha256": "e65af5babcf5b8c800337e770cc2a6afe460c41153e683830dfdce1c1806d14c"
     },
     {
-      "bytes": 5679,
-      "git_blob_sha1": "3729e81908beea25e3631fc673ae0add6247ce52",
+      "bytes": 5650,
+      "git_blob_sha1": "01b839b0029c75dc865102c552192860743aab7d",
       "path": "fs/proc/cplife.c",
       "ranges": [
         {
           "claim": "whole finite diagnostic implementation",
-          "end": 191,
-          "sha256": "6c1ffdb0a8866a732c8ed5f9713185c1036ebc3ba86a11a599f29610def39011",
+          "end": 190,
+          "sha256": "44760996d467bc3ee040cb38f21edfec9c1465dd52491d07228f815d38b22a02",
           "start": 1
         }
       ],
-      "sha256": "6c1ffdb0a8866a732c8ed5f9713185c1036ebc3ba86a11a599f29610def39011"
+      "sha256": "44760996d467bc3ee040cb38f21edfec9c1465dd52491d07228f815d38b22a02"
     },
     {
-      "bytes": 513,
-      "git_blob_sha1": "67c19b6647e6a6887a83011bae07d0988d247b48",
+      "bytes": 504,
+      "git_blob_sha1": "b417340de839ff80e76ac9a3f2ad73430a10b0f4",
       "path": "include/linux/cplife.h",
       "ranges": [
         {
           "claim": "diagnostic source API",
           "end": 13,
-          "sha256": "58f3b064e21426404c7a33e3439bb51c7f9d34a22481e28ad601bf49cc60adb2",
+          "sha256": "c6dc6771e6cd1c4ad07b0712226d2f322ff1909a187e849da5e9cc207b68be3f",
           "start": 1
         }
       ],
-      "sha256": "58f3b064e21426404c7a33e3439bb51c7f9d34a22481e28ad601bf49cc60adb2"
+      "sha256": "c6dc6771e6cd1c4ad07b0712226d2f322ff1909a187e849da5e9cc207b68be3f"
     },
     {
       "bytes": 3524,
