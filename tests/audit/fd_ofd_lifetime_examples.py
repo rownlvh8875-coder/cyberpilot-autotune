@@ -246,6 +246,38 @@ def additional(scenario: str) -> dict[str, Any]:
     return frame(rows + [("END", counts)])
 
 
+def duplication_graph(method: str, destination: int, occupied: bool) -> dict[str, Any]:
+    """Closed literal-profile fixture; expected kernel allocation/replacement semantics."""
+    clo = method == "F_DUPFD_CLOEXEC"
+    generation = 1 if occupied else 0
+    if occupied:
+        closed = [[3, generation, OFD, True]] if clo else []
+        remaining = (
+            [[0, 0, OFD, False]] if clo else [[0, 0, OFD, False], [3, generation, OFD, False]]
+        )
+    else:
+        closed = [[3, 0, OFD, True]] + ([[destination, 0, OFD, True]] if clo else [])
+        remaining = [[0, 0, OFD, False]] + ([] if clo else [[destination, 0, OFD, False]])
+    epoch = 4 if closed else 3
+    rows = prefix() + [
+        ("DUP", [P, T, 2, 0, 0, destination, generation, method, clo]),
+        ("EXEC", [P, T, 3, T, 0, 1, closed]),
+        ("INVENTORY", [P, 1, T, epoch, remaining]),
+    ]
+    for fd, slot, ofd, _ in remaining:
+        rows.append(("CLOSE", [P, T, epoch, fd, slot, ofd]))
+        epoch += 1
+    rows += [
+        ("DETACH", [P, 1, T, epoch]),
+        ("TABLE_FREE", [T, epoch, []]),
+        ("REAP", [P, 1]),
+        ("UNPIN", [PIN, OFD]),
+        ("OFD_FREE", [OFD]),
+        ("END", [1, 1, 1, 1]),
+    ]
+    return frame(rows)
+
+
 def catalog() -> list[dict[str, Any]]:
     scenarios = ("basic", "share", "fork", "unshare", "exec_copy", "unshare_same", "reuse")
     extras = ("cloexec", "empty_exec", "dup_replace", "distinct_ofds", "table_task_reuse")
@@ -342,4 +374,13 @@ def catalog() -> list[dict[str, Any]]:
         item = rows.pop(at)
         rows.insert(next(i for i, r in enumerate(rows) if r[0] == b), item)
         add(name, frame(rows), False)
+    for method in ("DUP", "F_DUPFD", "F_DUPFD_CLOEXEC"):
+        add("occupied_destination_" + method.lower(), duplication_graph(method, 3, True), False)
+        add(
+            "unused_destination_" + method.lower(),
+            duplication_graph(method, 1 if method == "DUP" else 4, False),
+            True,
+        )
+    add("dup_nonlowest_unused", duplication_graph("DUP", 2, False), False)
+    add("closed_empty_no_activity", frame([("END", [0, 0, 0, 0])]), True)
     return out

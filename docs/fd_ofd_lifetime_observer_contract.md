@@ -75,7 +75,9 @@ Every event has `seq,time_ns,cpu,cpu_seq,context_digest,kind,data`:
 - `cpu_seq`: contiguous per-CPU source order; `cpu` must belong to declared cohort.
 - `time_ns`: exact UInt64 observer/source-clock value, not an ordering substitute.
   Cross-CPU arrival/clock order is not sorted into causal order; clock domain is
-  explicitly SYNTHETIC_KERNEL_MONOTONIC_NS in this design oracle.
+  explicitly SYNTHETIC_KERNEL_MONOTONIC_NS in this design oracle. No cross-event
+  monotonicity or timestamp-stage proof is provided: annotations cannot establish
+  latency, alignment or execution time.
 - `context_digest`: binds this frame to the whole context; mixed frames reject.
 - `kind/data`: closed kind and exact ordered semantic fields, cataloged separately.
 
@@ -107,7 +109,7 @@ on OFD_NEW is CONTEXT_ONLY; equal digests do not merge OFDs.
 | TASK_START(task,table) | sole managed root birth, local exec0, initial inventory barrier |
 | OFD_NEW(task,exec,ofd,object_digest) | explicit file allocation in this task/exec context; does not imply consumed bytes or installed FD |
 | INSTALL(task,table,epoch,fd,slot,ofd,cloexec) | FD absent; live OFD; first slot0 or prior binding+1; epoch+1 |
-| DUP(task,table,epoch,src_fd,src_slot,dst_fd,dst_slot,method,cloexec) | exact source binding; distinct destination, replace/rebind increments destination slot incarnation; epoch+1; DUP/DUP2/F_DUPFD clear CLOEXEC, F_DUPFD_CLOEXEC sets, DUP3 explicitly supplies it |
+| DUP(task,table,epoch,src_fd,src_slot,dst_fd,dst_slot,method,cloexec) | exact source binding; distinct destination; DUP/F_DUPFD/F_DUPFD_CLOEXEC require unused destination, only DUP2/3 may replace; DUP chooses lowest unused FD; bind/rebind increments destination incarnation, epoch+1; flags depend on method |
 | CLOEXEC(task,table,epoch,fd,slot,old,new) | exact existing flag changes; binding/OFD identity and slot generation unchanged; epoch+1 |
 | CLOSE(task,table,epoch,fd,slot,ofd) | exact consumed binding removed; slot history retained; epoch+1; not OFD destruction |
 | FORK(parent,table,epoch,child,child_table,share) | share=true requires identical namespace; copy requires explicitly fresh different table key, exact OFDs/flags, new slots0/epoch0; child local exec0 |
@@ -123,6 +125,12 @@ on OFD_NEW is CONTEXT_ONLY; equal digests do not merge OFDs.
 
 Canonical entries/close deltas: ordered `[fd,slot,[ofd_cookie,ofd_generation],cloexec]`
 rows, ascending unique FD. Exact UInt/Bool types required even in nested vectors.
+DUP/DUP2/F_DUPFD clear CLOEXEC, F_DUPFD_CLOEXEC sets it, DUP3 supplies it explicitly.
+The admitted protected cut excludes outstanding reserved-but-unpopulated slots;
+otherwise lowest-unused selection cannot be established from binding inventory.
+F_DUPFD's requested minimum is not part of this semantic effect vector: a future
+assembler must retain/check raw arguments and return provenance separately, not
+claim the oracle certifies syscall argument/result causation.
 Fork/copy does not copy old slot history: current inherited bindings start0 in the
 new table. Shared-table changes are visible to every owner; independent copies
 retain the same OFDs but have independent FD flags/slot history/epochs.
@@ -141,6 +149,10 @@ mutation through that namespace. This deliberate barrier profile rejects
 unrepresentable overlap. Snapshots alone still do not prove continuous coverage.
 Task-local exec ordinal does not attest executable bytes: that remains a separate
 actual executed-image receipt obligation, with no PR30/33/34 adapter in this work.
+A closed zero-allocation synthetic window can be internally consistent. It means
+no modeled activity, not proof a workload ran or an observer was available. A
+future handoff/consumer gate must separately establish actual root/consumption
+facts; empty consistency never substitutes for them or creates authority.
 
 ## Limits and retained blockers
 

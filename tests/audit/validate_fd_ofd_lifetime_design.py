@@ -159,7 +159,7 @@ def validate_catalog(data: Any) -> tuple[int, int]:
         "SYNTHETIC_FALSE_AUTHORITY_REQUIRED",
     )
     cases = data["cases"]
-    need(type(cases) is list and len(cases) == 43, "COMPLETE_COUNTEREXAMPLE_MATRIX_REQUIRED")
+    need(type(cases) is list and len(cases) == 51, "COMPLETE_COUNTEREXAMPLE_MATRIX_REQUIRED")
     positives = 0
     names = set()
     for i, row in enumerate(cases, 1):
@@ -182,7 +182,7 @@ def validate_catalog(data: Any) -> tuple[int, int]:
             "NO_QUALIFICATION_OR_AUTHORITY",
         )
         positives += int(result.model_consistent)
-    need(positives == 12, "COMPLETE_COUNTEREXAMPLE_MATRIX_REQUIRED")
+    need(positives == 16, "COMPLETE_COUNTEREXAMPLE_MATRIX_REQUIRED")
     return len(cases), positives
 
 

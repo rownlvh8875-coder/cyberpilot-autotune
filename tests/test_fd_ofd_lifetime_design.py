@@ -6,7 +6,7 @@ import json
 
 import pytest
 
-from tests.audit.fd_ofd_lifetime_examples import catalog, complete
+from tests.audit.fd_ofd_lifetime_examples import catalog, complete, duplication_graph, frame
 from tests.audit.fd_ofd_lifetime_model import context_digest, evaluate
 
 
@@ -159,3 +159,28 @@ def test_declared_small_cpu_cohort_can_use_full_uint32_id_range(base_cpu):
     for row in graph["coverage"]["cpus"]:
         row["cpu"] += base_cpu
     assert evaluate(graph).model_consistent is True
+
+
+@pytest.mark.parametrize(
+    "method,destination,occupied",
+    [
+        ("DUP", 3, True),
+        ("F_DUPFD", 3, True),
+        ("F_DUPFD_CLOEXEC", 3, True),
+        ("DUP", 2, False),
+    ],
+)
+def test_allocating_dup_cannot_replace_or_choose_nonlowest_for_dup(method, destination, occupied):
+    assert evaluate(duplication_graph(method, destination, occupied)).model_consistent is False
+
+
+@pytest.mark.parametrize("method,destination", [("DUP", 1), ("F_DUPFD", 4), ("F_DUPFD_CLOEXEC", 4)])
+def test_allocating_dup_unused_destination_controls_remain_consistent(method, destination):
+    assert evaluate(duplication_graph(method, destination, False)).model_consistent is True
+
+
+def test_empty_closed_model_is_not_activity_or_observer_availability_proof():
+    result = evaluate(frame([("END", [0, 0, 0, 0])]))
+    assert result.model_consistent is True and result.synthetic_tables == 0
+    assert result.status == "BLOCKED" and result.actual_dropped_events is None
+    assert evaluate(frame([("END", [1, 0, 0, 0])])).model_consistent is False

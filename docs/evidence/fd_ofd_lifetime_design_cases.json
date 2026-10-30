@@ -19392,6 +19392,3319 @@
         "schema": "fd-ofd-lifetime-design-v1"
       },
       "name": "reap_before_detach"
+    },
+    {
+      "case_id": "L044",
+      "expected_consistent": false,
+      "graph": {
+        "context": {
+          "boot_scope": "synthetic-boot",
+          "clock_domain": "SYNTHETIC_KERNEL_MONOTONIC_NS",
+          "cpus": [
+            0,
+            1
+          ],
+          "profile": "PROPOSED_KERNEL_SERIALIZED_LIFETIME_V1",
+          "scope_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "session_id": "synthetic-session",
+          "source_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "source_revision": "3a831fdd423aa98638082eba126519db19f432d6"
+        },
+        "coverage": {
+          "cpus": [
+            {
+              "armed": true,
+              "cpu": 0,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 19,
+              "last_source_seq": 19
+            },
+            {
+              "armed": true,
+              "cpu": 1,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 0,
+              "last_source_seq": 0
+            }
+          ],
+          "end_fence": 20,
+          "start_fence": 0
+        },
+        "events": [
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 1,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TABLE_NEW",
+            "seq": 1,
+            "time_ns": 10
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 2,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TASK_START",
+            "seq": 2,
+            "time_ns": 20
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 3,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              0,
+              []
+            ],
+            "kind": "INVENTORY",
+            "seq": 3,
+            "time_ns": 30
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 4,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ],
+            "kind": "OFD_NEW",
+            "seq": 4,
+            "time_ns": 40
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 5,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              0,
+              0,
+              0,
+              [
+                1,
+                0
+              ],
+              false
+            ],
+            "kind": "INSTALL",
+            "seq": 5,
+            "time_ns": 50
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 6,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "PIN",
+            "seq": 6,
+            "time_ns": 60
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 7,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              1,
+              0,
+              0,
+              3,
+              0,
+              "DUP3",
+              true
+            ],
+            "kind": "DUP",
+            "seq": 7,
+            "time_ns": 70
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 8,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              2,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ],
+                [
+                  3,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 8,
+            "time_ns": 80
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 9,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              2,
+              0,
+              0,
+              3,
+              1,
+              "DUP",
+              false
+            ],
+            "kind": "DUP",
+            "seq": 9,
+            "time_ns": 90
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 10,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              3,
+              [
+                1,
+                0
+              ],
+              0,
+              1,
+              []
+            ],
+            "kind": "EXEC",
+            "seq": 10,
+            "time_ns": 100
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 11,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              3,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ],
+                [
+                  3,
+                  1,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 11,
+            "time_ns": 110
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 12,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              3,
+              0,
+              0,
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "CLOSE",
+            "seq": 12,
+            "time_ns": 120
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 13,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              4,
+              3,
+              1,
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "CLOSE",
+            "seq": 13,
+            "time_ns": 130
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 14,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              5
+            ],
+            "kind": "DETACH",
+            "seq": 14,
+            "time_ns": 140
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 15,
+            "data": [
+              [
+                1,
+                0
+              ],
+              5,
+              []
+            ],
+            "kind": "TABLE_FREE",
+            "seq": 15,
+            "time_ns": 150
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 16,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1
+            ],
+            "kind": "REAP",
+            "seq": 16,
+            "time_ns": 160
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 17,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "UNPIN",
+            "seq": 17,
+            "time_ns": 170
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 18,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "OFD_FREE",
+            "seq": 18,
+            "time_ns": 180
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 19,
+            "data": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "kind": "END",
+            "seq": 19,
+            "time_ns": 190
+          }
+        ],
+        "evidence_class": "SYNTHETIC_ONLY",
+        "schema": "fd-ofd-lifetime-design-v1"
+      },
+      "name": "occupied_destination_dup"
+    },
+    {
+      "case_id": "L045",
+      "expected_consistent": true,
+      "graph": {
+        "context": {
+          "boot_scope": "synthetic-boot",
+          "clock_domain": "SYNTHETIC_KERNEL_MONOTONIC_NS",
+          "cpus": [
+            0,
+            1
+          ],
+          "profile": "PROPOSED_KERNEL_SERIALIZED_LIFETIME_V1",
+          "scope_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "session_id": "synthetic-session",
+          "source_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "source_revision": "3a831fdd423aa98638082eba126519db19f432d6"
+        },
+        "coverage": {
+          "cpus": [
+            {
+              "armed": true,
+              "cpu": 0,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 19,
+              "last_source_seq": 19
+            },
+            {
+              "armed": true,
+              "cpu": 1,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 0,
+              "last_source_seq": 0
+            }
+          ],
+          "end_fence": 20,
+          "start_fence": 0
+        },
+        "events": [
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 1,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TABLE_NEW",
+            "seq": 1,
+            "time_ns": 10
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 2,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TASK_START",
+            "seq": 2,
+            "time_ns": 20
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 3,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              0,
+              []
+            ],
+            "kind": "INVENTORY",
+            "seq": 3,
+            "time_ns": 30
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 4,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ],
+            "kind": "OFD_NEW",
+            "seq": 4,
+            "time_ns": 40
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 5,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              0,
+              0,
+              0,
+              [
+                1,
+                0
+              ],
+              false
+            ],
+            "kind": "INSTALL",
+            "seq": 5,
+            "time_ns": 50
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 6,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "PIN",
+            "seq": 6,
+            "time_ns": 60
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 7,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              1,
+              0,
+              0,
+              3,
+              0,
+              "DUP3",
+              true
+            ],
+            "kind": "DUP",
+            "seq": 7,
+            "time_ns": 70
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 8,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              2,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ],
+                [
+                  3,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 8,
+            "time_ns": 80
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 9,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              2,
+              0,
+              0,
+              1,
+              0,
+              "DUP",
+              false
+            ],
+            "kind": "DUP",
+            "seq": 9,
+            "time_ns": 90
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 10,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              3,
+              [
+                1,
+                0
+              ],
+              0,
+              1,
+              [
+                [
+                  3,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ]
+              ]
+            ],
+            "kind": "EXEC",
+            "seq": 10,
+            "time_ns": 100
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 11,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              4,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ],
+                [
+                  1,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 11,
+            "time_ns": 110
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 12,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              4,
+              0,
+              0,
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "CLOSE",
+            "seq": 12,
+            "time_ns": 120
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 13,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              5,
+              1,
+              0,
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "CLOSE",
+            "seq": 13,
+            "time_ns": 130
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 14,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              6
+            ],
+            "kind": "DETACH",
+            "seq": 14,
+            "time_ns": 140
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 15,
+            "data": [
+              [
+                1,
+                0
+              ],
+              6,
+              []
+            ],
+            "kind": "TABLE_FREE",
+            "seq": 15,
+            "time_ns": 150
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 16,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1
+            ],
+            "kind": "REAP",
+            "seq": 16,
+            "time_ns": 160
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 17,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "UNPIN",
+            "seq": 17,
+            "time_ns": 170
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 18,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "OFD_FREE",
+            "seq": 18,
+            "time_ns": 180
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 19,
+            "data": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "kind": "END",
+            "seq": 19,
+            "time_ns": 190
+          }
+        ],
+        "evidence_class": "SYNTHETIC_ONLY",
+        "schema": "fd-ofd-lifetime-design-v1"
+      },
+      "name": "unused_destination_dup"
+    },
+    {
+      "case_id": "L046",
+      "expected_consistent": false,
+      "graph": {
+        "context": {
+          "boot_scope": "synthetic-boot",
+          "clock_domain": "SYNTHETIC_KERNEL_MONOTONIC_NS",
+          "cpus": [
+            0,
+            1
+          ],
+          "profile": "PROPOSED_KERNEL_SERIALIZED_LIFETIME_V1",
+          "scope_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "session_id": "synthetic-session",
+          "source_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "source_revision": "3a831fdd423aa98638082eba126519db19f432d6"
+        },
+        "coverage": {
+          "cpus": [
+            {
+              "armed": true,
+              "cpu": 0,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 19,
+              "last_source_seq": 19
+            },
+            {
+              "armed": true,
+              "cpu": 1,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 0,
+              "last_source_seq": 0
+            }
+          ],
+          "end_fence": 20,
+          "start_fence": 0
+        },
+        "events": [
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 1,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TABLE_NEW",
+            "seq": 1,
+            "time_ns": 10
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 2,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TASK_START",
+            "seq": 2,
+            "time_ns": 20
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 3,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              0,
+              []
+            ],
+            "kind": "INVENTORY",
+            "seq": 3,
+            "time_ns": 30
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 4,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ],
+            "kind": "OFD_NEW",
+            "seq": 4,
+            "time_ns": 40
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 5,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              0,
+              0,
+              0,
+              [
+                1,
+                0
+              ],
+              false
+            ],
+            "kind": "INSTALL",
+            "seq": 5,
+            "time_ns": 50
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 6,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "PIN",
+            "seq": 6,
+            "time_ns": 60
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 7,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              1,
+              0,
+              0,
+              3,
+              0,
+              "DUP3",
+              true
+            ],
+            "kind": "DUP",
+            "seq": 7,
+            "time_ns": 70
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 8,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              2,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ],
+                [
+                  3,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 8,
+            "time_ns": 80
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 9,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              2,
+              0,
+              0,
+              3,
+              1,
+              "F_DUPFD",
+              false
+            ],
+            "kind": "DUP",
+            "seq": 9,
+            "time_ns": 90
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 10,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              3,
+              [
+                1,
+                0
+              ],
+              0,
+              1,
+              []
+            ],
+            "kind": "EXEC",
+            "seq": 10,
+            "time_ns": 100
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 11,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              3,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ],
+                [
+                  3,
+                  1,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 11,
+            "time_ns": 110
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 12,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              3,
+              0,
+              0,
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "CLOSE",
+            "seq": 12,
+            "time_ns": 120
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 13,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              4,
+              3,
+              1,
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "CLOSE",
+            "seq": 13,
+            "time_ns": 130
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 14,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              5
+            ],
+            "kind": "DETACH",
+            "seq": 14,
+            "time_ns": 140
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 15,
+            "data": [
+              [
+                1,
+                0
+              ],
+              5,
+              []
+            ],
+            "kind": "TABLE_FREE",
+            "seq": 15,
+            "time_ns": 150
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 16,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1
+            ],
+            "kind": "REAP",
+            "seq": 16,
+            "time_ns": 160
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 17,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "UNPIN",
+            "seq": 17,
+            "time_ns": 170
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 18,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "OFD_FREE",
+            "seq": 18,
+            "time_ns": 180
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 19,
+            "data": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "kind": "END",
+            "seq": 19,
+            "time_ns": 190
+          }
+        ],
+        "evidence_class": "SYNTHETIC_ONLY",
+        "schema": "fd-ofd-lifetime-design-v1"
+      },
+      "name": "occupied_destination_f_dupfd"
+    },
+    {
+      "case_id": "L047",
+      "expected_consistent": true,
+      "graph": {
+        "context": {
+          "boot_scope": "synthetic-boot",
+          "clock_domain": "SYNTHETIC_KERNEL_MONOTONIC_NS",
+          "cpus": [
+            0,
+            1
+          ],
+          "profile": "PROPOSED_KERNEL_SERIALIZED_LIFETIME_V1",
+          "scope_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "session_id": "synthetic-session",
+          "source_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "source_revision": "3a831fdd423aa98638082eba126519db19f432d6"
+        },
+        "coverage": {
+          "cpus": [
+            {
+              "armed": true,
+              "cpu": 0,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 19,
+              "last_source_seq": 19
+            },
+            {
+              "armed": true,
+              "cpu": 1,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 0,
+              "last_source_seq": 0
+            }
+          ],
+          "end_fence": 20,
+          "start_fence": 0
+        },
+        "events": [
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 1,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TABLE_NEW",
+            "seq": 1,
+            "time_ns": 10
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 2,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TASK_START",
+            "seq": 2,
+            "time_ns": 20
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 3,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              0,
+              []
+            ],
+            "kind": "INVENTORY",
+            "seq": 3,
+            "time_ns": 30
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 4,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ],
+            "kind": "OFD_NEW",
+            "seq": 4,
+            "time_ns": 40
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 5,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              0,
+              0,
+              0,
+              [
+                1,
+                0
+              ],
+              false
+            ],
+            "kind": "INSTALL",
+            "seq": 5,
+            "time_ns": 50
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 6,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "PIN",
+            "seq": 6,
+            "time_ns": 60
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 7,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              1,
+              0,
+              0,
+              3,
+              0,
+              "DUP3",
+              true
+            ],
+            "kind": "DUP",
+            "seq": 7,
+            "time_ns": 70
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 8,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              2,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ],
+                [
+                  3,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 8,
+            "time_ns": 80
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 9,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              2,
+              0,
+              0,
+              4,
+              0,
+              "F_DUPFD",
+              false
+            ],
+            "kind": "DUP",
+            "seq": 9,
+            "time_ns": 90
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 10,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              3,
+              [
+                1,
+                0
+              ],
+              0,
+              1,
+              [
+                [
+                  3,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ]
+              ]
+            ],
+            "kind": "EXEC",
+            "seq": 10,
+            "time_ns": 100
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 11,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              4,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ],
+                [
+                  4,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 11,
+            "time_ns": 110
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 12,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              4,
+              0,
+              0,
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "CLOSE",
+            "seq": 12,
+            "time_ns": 120
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 13,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              5,
+              4,
+              0,
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "CLOSE",
+            "seq": 13,
+            "time_ns": 130
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 14,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              6
+            ],
+            "kind": "DETACH",
+            "seq": 14,
+            "time_ns": 140
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 15,
+            "data": [
+              [
+                1,
+                0
+              ],
+              6,
+              []
+            ],
+            "kind": "TABLE_FREE",
+            "seq": 15,
+            "time_ns": 150
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 16,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1
+            ],
+            "kind": "REAP",
+            "seq": 16,
+            "time_ns": 160
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 17,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "UNPIN",
+            "seq": 17,
+            "time_ns": 170
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 18,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "OFD_FREE",
+            "seq": 18,
+            "time_ns": 180
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 19,
+            "data": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "kind": "END",
+            "seq": 19,
+            "time_ns": 190
+          }
+        ],
+        "evidence_class": "SYNTHETIC_ONLY",
+        "schema": "fd-ofd-lifetime-design-v1"
+      },
+      "name": "unused_destination_f_dupfd"
+    },
+    {
+      "case_id": "L048",
+      "expected_consistent": false,
+      "graph": {
+        "context": {
+          "boot_scope": "synthetic-boot",
+          "clock_domain": "SYNTHETIC_KERNEL_MONOTONIC_NS",
+          "cpus": [
+            0,
+            1
+          ],
+          "profile": "PROPOSED_KERNEL_SERIALIZED_LIFETIME_V1",
+          "scope_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "session_id": "synthetic-session",
+          "source_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "source_revision": "3a831fdd423aa98638082eba126519db19f432d6"
+        },
+        "coverage": {
+          "cpus": [
+            {
+              "armed": true,
+              "cpu": 0,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 18,
+              "last_source_seq": 18
+            },
+            {
+              "armed": true,
+              "cpu": 1,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 0,
+              "last_source_seq": 0
+            }
+          ],
+          "end_fence": 19,
+          "start_fence": 0
+        },
+        "events": [
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 1,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TABLE_NEW",
+            "seq": 1,
+            "time_ns": 10
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 2,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TASK_START",
+            "seq": 2,
+            "time_ns": 20
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 3,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              0,
+              []
+            ],
+            "kind": "INVENTORY",
+            "seq": 3,
+            "time_ns": 30
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 4,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ],
+            "kind": "OFD_NEW",
+            "seq": 4,
+            "time_ns": 40
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 5,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              0,
+              0,
+              0,
+              [
+                1,
+                0
+              ],
+              false
+            ],
+            "kind": "INSTALL",
+            "seq": 5,
+            "time_ns": 50
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 6,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "PIN",
+            "seq": 6,
+            "time_ns": 60
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 7,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              1,
+              0,
+              0,
+              3,
+              0,
+              "DUP3",
+              true
+            ],
+            "kind": "DUP",
+            "seq": 7,
+            "time_ns": 70
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 8,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              2,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ],
+                [
+                  3,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 8,
+            "time_ns": 80
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 9,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              2,
+              0,
+              0,
+              3,
+              1,
+              "F_DUPFD_CLOEXEC",
+              true
+            ],
+            "kind": "DUP",
+            "seq": 9,
+            "time_ns": 90
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 10,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              3,
+              [
+                1,
+                0
+              ],
+              0,
+              1,
+              [
+                [
+                  3,
+                  1,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ]
+              ]
+            ],
+            "kind": "EXEC",
+            "seq": 10,
+            "time_ns": 100
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 11,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              4,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 11,
+            "time_ns": 110
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 12,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              4,
+              0,
+              0,
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "CLOSE",
+            "seq": 12,
+            "time_ns": 120
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 13,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              5
+            ],
+            "kind": "DETACH",
+            "seq": 13,
+            "time_ns": 130
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 14,
+            "data": [
+              [
+                1,
+                0
+              ],
+              5,
+              []
+            ],
+            "kind": "TABLE_FREE",
+            "seq": 14,
+            "time_ns": 140
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 15,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1
+            ],
+            "kind": "REAP",
+            "seq": 15,
+            "time_ns": 150
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 16,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "UNPIN",
+            "seq": 16,
+            "time_ns": 160
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 17,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "OFD_FREE",
+            "seq": 17,
+            "time_ns": 170
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 18,
+            "data": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "kind": "END",
+            "seq": 18,
+            "time_ns": 180
+          }
+        ],
+        "evidence_class": "SYNTHETIC_ONLY",
+        "schema": "fd-ofd-lifetime-design-v1"
+      },
+      "name": "occupied_destination_f_dupfd_cloexec"
+    },
+    {
+      "case_id": "L049",
+      "expected_consistent": true,
+      "graph": {
+        "context": {
+          "boot_scope": "synthetic-boot",
+          "clock_domain": "SYNTHETIC_KERNEL_MONOTONIC_NS",
+          "cpus": [
+            0,
+            1
+          ],
+          "profile": "PROPOSED_KERNEL_SERIALIZED_LIFETIME_V1",
+          "scope_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "session_id": "synthetic-session",
+          "source_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "source_revision": "3a831fdd423aa98638082eba126519db19f432d6"
+        },
+        "coverage": {
+          "cpus": [
+            {
+              "armed": true,
+              "cpu": 0,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 18,
+              "last_source_seq": 18
+            },
+            {
+              "armed": true,
+              "cpu": 1,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 0,
+              "last_source_seq": 0
+            }
+          ],
+          "end_fence": 19,
+          "start_fence": 0
+        },
+        "events": [
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 1,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TABLE_NEW",
+            "seq": 1,
+            "time_ns": 10
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 2,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TASK_START",
+            "seq": 2,
+            "time_ns": 20
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 3,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              0,
+              []
+            ],
+            "kind": "INVENTORY",
+            "seq": 3,
+            "time_ns": 30
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 4,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ],
+            "kind": "OFD_NEW",
+            "seq": 4,
+            "time_ns": 40
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 5,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              0,
+              0,
+              0,
+              [
+                1,
+                0
+              ],
+              false
+            ],
+            "kind": "INSTALL",
+            "seq": 5,
+            "time_ns": 50
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 6,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "PIN",
+            "seq": 6,
+            "time_ns": 60
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 7,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              1,
+              0,
+              0,
+              3,
+              0,
+              "DUP3",
+              true
+            ],
+            "kind": "DUP",
+            "seq": 7,
+            "time_ns": 70
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 8,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              2,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ],
+                [
+                  3,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 8,
+            "time_ns": 80
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 9,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              2,
+              0,
+              0,
+              4,
+              0,
+              "F_DUPFD_CLOEXEC",
+              true
+            ],
+            "kind": "DUP",
+            "seq": 9,
+            "time_ns": 90
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 10,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              3,
+              [
+                1,
+                0
+              ],
+              0,
+              1,
+              [
+                [
+                  3,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ],
+                [
+                  4,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ]
+              ]
+            ],
+            "kind": "EXEC",
+            "seq": 10,
+            "time_ns": 100
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 11,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              4,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 11,
+            "time_ns": 110
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 12,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              4,
+              0,
+              0,
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "CLOSE",
+            "seq": 12,
+            "time_ns": 120
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 13,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              5
+            ],
+            "kind": "DETACH",
+            "seq": 13,
+            "time_ns": 130
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 14,
+            "data": [
+              [
+                1,
+                0
+              ],
+              5,
+              []
+            ],
+            "kind": "TABLE_FREE",
+            "seq": 14,
+            "time_ns": 140
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 15,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1
+            ],
+            "kind": "REAP",
+            "seq": 15,
+            "time_ns": 150
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 16,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "UNPIN",
+            "seq": 16,
+            "time_ns": 160
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 17,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "OFD_FREE",
+            "seq": 17,
+            "time_ns": 170
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 18,
+            "data": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "kind": "END",
+            "seq": 18,
+            "time_ns": 180
+          }
+        ],
+        "evidence_class": "SYNTHETIC_ONLY",
+        "schema": "fd-ofd-lifetime-design-v1"
+      },
+      "name": "unused_destination_f_dupfd_cloexec"
+    },
+    {
+      "case_id": "L050",
+      "expected_consistent": false,
+      "graph": {
+        "context": {
+          "boot_scope": "synthetic-boot",
+          "clock_domain": "SYNTHETIC_KERNEL_MONOTONIC_NS",
+          "cpus": [
+            0,
+            1
+          ],
+          "profile": "PROPOSED_KERNEL_SERIALIZED_LIFETIME_V1",
+          "scope_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "session_id": "synthetic-session",
+          "source_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "source_revision": "3a831fdd423aa98638082eba126519db19f432d6"
+        },
+        "coverage": {
+          "cpus": [
+            {
+              "armed": true,
+              "cpu": 0,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 19,
+              "last_source_seq": 19
+            },
+            {
+              "armed": true,
+              "cpu": 1,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 0,
+              "last_source_seq": 0
+            }
+          ],
+          "end_fence": 20,
+          "start_fence": 0
+        },
+        "events": [
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 1,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TABLE_NEW",
+            "seq": 1,
+            "time_ns": 10
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 2,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "TASK_START",
+            "seq": 2,
+            "time_ns": 20
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 3,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              0,
+              []
+            ],
+            "kind": "INVENTORY",
+            "seq": 3,
+            "time_ns": 30
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 4,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            ],
+            "kind": "OFD_NEW",
+            "seq": 4,
+            "time_ns": 40
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 5,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              0,
+              0,
+              0,
+              [
+                1,
+                0
+              ],
+              false
+            ],
+            "kind": "INSTALL",
+            "seq": 5,
+            "time_ns": 50
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 6,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "PIN",
+            "seq": 6,
+            "time_ns": 60
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 7,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              1,
+              0,
+              0,
+              3,
+              0,
+              "DUP3",
+              true
+            ],
+            "kind": "DUP",
+            "seq": 7,
+            "time_ns": 70
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 8,
+            "data": [
+              [
+                1,
+                0
+              ],
+              0,
+              [
+                1,
+                0
+              ],
+              2,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ],
+                [
+                  3,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 8,
+            "time_ns": 80
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 9,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              2,
+              0,
+              0,
+              2,
+              0,
+              "DUP",
+              false
+            ],
+            "kind": "DUP",
+            "seq": 9,
+            "time_ns": 90
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 10,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              3,
+              [
+                1,
+                0
+              ],
+              0,
+              1,
+              [
+                [
+                  3,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  true
+                ]
+              ]
+            ],
+            "kind": "EXEC",
+            "seq": 10,
+            "time_ns": 100
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 11,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              4,
+              [
+                [
+                  0,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ],
+                [
+                  2,
+                  0,
+                  [
+                    1,
+                    0
+                  ],
+                  false
+                ]
+              ]
+            ],
+            "kind": "INVENTORY",
+            "seq": 11,
+            "time_ns": 110
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 12,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              4,
+              0,
+              0,
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "CLOSE",
+            "seq": 12,
+            "time_ns": 120
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 13,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              5,
+              2,
+              0,
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "CLOSE",
+            "seq": 13,
+            "time_ns": 130
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 14,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1,
+              [
+                1,
+                0
+              ],
+              6
+            ],
+            "kind": "DETACH",
+            "seq": 14,
+            "time_ns": 140
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 15,
+            "data": [
+              [
+                1,
+                0
+              ],
+              6,
+              []
+            ],
+            "kind": "TABLE_FREE",
+            "seq": 15,
+            "time_ns": 150
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 16,
+            "data": [
+              [
+                1,
+                0
+              ],
+              1
+            ],
+            "kind": "REAP",
+            "seq": 16,
+            "time_ns": 160
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 17,
+            "data": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "UNPIN",
+            "seq": 17,
+            "time_ns": 170
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 18,
+            "data": [
+              [
+                1,
+                0
+              ]
+            ],
+            "kind": "OFD_FREE",
+            "seq": 18,
+            "time_ns": 180
+          },
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 19,
+            "data": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "kind": "END",
+            "seq": 19,
+            "time_ns": 190
+          }
+        ],
+        "evidence_class": "SYNTHETIC_ONLY",
+        "schema": "fd-ofd-lifetime-design-v1"
+      },
+      "name": "dup_nonlowest_unused"
+    },
+    {
+      "case_id": "L051",
+      "expected_consistent": true,
+      "graph": {
+        "context": {
+          "boot_scope": "synthetic-boot",
+          "clock_domain": "SYNTHETIC_KERNEL_MONOTONIC_NS",
+          "cpus": [
+            0,
+            1
+          ],
+          "profile": "PROPOSED_KERNEL_SERIALIZED_LIFETIME_V1",
+          "scope_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "session_id": "synthetic-session",
+          "source_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "source_revision": "3a831fdd423aa98638082eba126519db19f432d6"
+        },
+        "coverage": {
+          "cpus": [
+            {
+              "armed": true,
+              "cpu": 0,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 1,
+              "last_source_seq": 1
+            },
+            {
+              "armed": true,
+              "cpu": 1,
+              "drained": true,
+              "dropped": 0,
+              "emitted": 0,
+              "last_source_seq": 0
+            }
+          ],
+          "end_fence": 2,
+          "start_fence": 0
+        },
+        "events": [
+          {
+            "context_digest": "63846a1ce2b6ca23bb0bd92f5e4c660e9cf22f79e43e9c55f9982b344ce0df5a",
+            "cpu": 0,
+            "cpu_seq": 1,
+            "data": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "kind": "END",
+            "seq": 1,
+            "time_ns": 10
+          }
+        ],
+        "evidence_class": "SYNTHETIC_ONLY",
+        "schema": "fd-ofd-lifetime-design-v1"
+      },
+      "name": "closed_empty_no_activity"
     }
   ],
   "evidence_class": "SYNTHETIC_ONLY",

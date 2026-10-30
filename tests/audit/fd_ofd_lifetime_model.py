@@ -296,6 +296,13 @@ def check(graph: Any) -> tuple[int, int]:
                     need(
                         fd != dst and gen == current["last"].get(dst, -1) + 1, "DUP_BINDING_INVALID"
                     )
+                    if method in ("DUP", "F_DUPFD", "F_DUPFD_CLOEXEC"):
+                        need(dst not in slots, "ALLOCATING_DUP_DESTINATION_OCCUPIED")
+                        if method == "DUP":
+                            need(
+                                dst == next(i for i in range(64) if i not in slots),
+                                "DUP_LOWEST_UNUSED_FD_REQUIRED",
+                            )
                     need(
                         method == "DUP3" or clo == (method == "F_DUPFD_CLOEXEC"),
                         "DUP_CLOEXEC_MISMATCH",

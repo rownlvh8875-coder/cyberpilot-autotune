@@ -51,11 +51,12 @@ Critical remaining evidence gaps:
 - Full2870 passed35.09s with those CPU-ID regressions; focused113 including
   architecture. Installed-source coverage checkpoint2868 passed100.43s, with
   no src changes; exact final-head CI/source coverage is recorded separately.
-- Pure oracle262/262 statements100%,68/68 branches100%, no exclusions.
+- Post-review author fix full2886 passed35.36s, focused129 including architecture.
+- Pure oracle266/266 statements100%,72/72 branches100%, no exclusions.
   This is Python consistency coverage, not OS/C/kernel/VM coverage or correctness proof.
-- Published43 **SYNTHETIC_ONLY** graphs:12 internally consistent,31 rejected.
+- Published51 **SYNTHETIC_ONLY** graphs:16 internally consistent,35 rejected.
   No new actual observations; PR34's actual9 captures are unchanged/replayed only.
-- Four exact base Git blobs plus9 fresh authenticated Debian files,26 semantic
+- Four exact base Git blobs plus9 fresh authenticated Debian files,28 semantic
   ranges: complete size/SHA256/Git-blob/rangeSHA256 checked. Source archive/deb
   hashes match the preserved source cohort. Runtime source/BTF equivalence unqualified.
 - Ruff/format green and strict mypy71 installed+3 new audit/model/example modules.
@@ -75,6 +76,23 @@ The copy budget is100000 visited nodes,4MiB aggregate string characters and4MiB
 canonical bytes in addition to depth/field/vector bounds; no safety threshold.
 Two CPU-ID RED→GREEN regressions correct an unintended8-bit ID restriction to the
 declared UInt32 domain; the8-CPU cohort size bound is separate from logical ID values.
+
+## Independent review / single author fix pass
+
+Reviewed exact64a5c8cbd051cc6bd1c2b171c8a760b727a90005: **C0/I1/M0**.
+[Full review](fd_ofd_lifetime_design_review.md): allocating duplication methods
+could replace occupied FD destinations. Four complete-graph reproductions were
+RED. The author fix requires absent destination for DUP/F_DUPFD/F_DUPFD_CLOEXEC,
+and DUP's lowest unused FD in this no-reservation profile; dup2/dup3 replacement
+remains supported. Three positive allocation controls plus an empty-window
+characterization are published, with two more exact kernel source ranges.
+One author RED→GREEN/full-rerun pass; no second independent review or clean
+fix-head C0/I0 claim. No new Minor findings, prior deferred4 unchanged.
+
+Source ordinals, not timestamp monotonicity, define the graph's causal order;
+time annotations provide no latency/alignment guarantee. Empty closed models are
+consistent no-activity models, not workload/observer/consumer evidence. Actual
+source/runtime/transport/concurrency/authenticity qualification stays unavailable.
 
 ## Status / permissions
 

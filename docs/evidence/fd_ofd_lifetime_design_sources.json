@@ -136,6 +136,18 @@
           "end": 1388,
           "sha256": "0cb0bf5a4347e58e64465b0ff5b964d14860bf8a8ade96dd11dac3278b2ce713",
           "start": 1332
+        },
+        {
+          "claim": "dup and f_dupfd allocate unused slots, not replacement",
+          "end": 1417,
+          "sha256": "dc4be46af58bfcda9c696d47b519c55fe5a8602b9f86e6676b9790d90b53c3a7",
+          "start": 1389
+        },
+        {
+          "claim": "alloc_fd searches unused slots, get_unused_fd starts0",
+          "end": 552,
+          "sha256": "d5a4c12b4682137ccc8f097a149ab925292cd1e68e96a136050c7f156c24a970",
+          "start": 490
         }
       ],
       "sha256": "07cb3588c77a23709dfc746330cb0ac602445d647a14246ab5242bc389256169"

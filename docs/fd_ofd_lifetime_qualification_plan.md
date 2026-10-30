@@ -59,7 +59,7 @@ stay blockers. No device/model inference from the user's vehicle name.
 
 ## What the current design tests can establish
 
-The current43 SYNTHETIC graphs (12 internally consistent,31 rejected) exercise
+The current51 SYNTHETIC graphs (16 internally consistent,35 rejected) exercise
 shared/copy namespaces, conditional exec/unshare, slot/OFD/table/task generation,
 independent same-object OFDs, pin lifetime, exact close deltas, CPU/fence/loss and
 content/context/type contradictions. They test the contract's internal reasoning,
@@ -67,7 +67,7 @@ not whether any runtime producer supplies complete or authentic facts.
 
 The generated semantic catalog includes generic event envelope/context/coverage,
 per-CPU rows, binding vectors, all event fields and exact numeric metadata types.
-Source manifests bind4 exact base Git blobs and9 Debian files/26 ranges. Source
+Source manifests bind4 exact base Git blobs and9 Debian files/28 ranges. Source
 reference verification is read-only/offline; no host sealing or hostile-checkout
 security boundary is claimed. Real kernel equivalence remains unavailable.
 

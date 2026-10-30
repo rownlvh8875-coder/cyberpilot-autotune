@@ -53,7 +53,7 @@ def test_semantic_metadata_drift_not_silently_equivalent(mutate):
 
 
 def test_catalog_is_simulated_consistency_only():
-    assert audit.validate_catalog(bundle()) == (43, 12)
+    assert audit.validate_catalog(bundle()) == (51, 16)
     assert all(evaluate(c["graph"]).status == "BLOCKED" for c in catalog())
 
 
@@ -120,12 +120,12 @@ def test_source_profile_rejects_tampered_package_and_malformed_rows(monkeypatch,
 def test_published_catalogs_replay_without_runtime_assets():
     report = audit.validate()
     assert report == {
-        "synthetic_cases": 43,
-        "consistent_models": 12,
+        "synthetic_cases": 51,
+        "consistent_models": 16,
         "git_files": 4,
         "kernel_files": 9,
         "kernel_bytes_verified": False,
-        "ranges": 26,
+        "ranges": 28,
         "status": "BLOCKED",
         "runtime_qualified": False,
     }
