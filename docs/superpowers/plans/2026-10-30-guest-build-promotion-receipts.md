@@ -32,8 +32,8 @@
 
 **Interfaces:** Frozen BuildIdentity(session_id,attempt_id,source_digest,toolchain_digest,recipe_digest,environment_digest,observer_digest,clock_domain); BuildMaterial(material_id,generation,role,logical_path,size,sha256,cohort_digest,origin_digest=None); TaskImage(task_generation,exec_generation,parent_generation,image_id,image_generation,start_ns,finish_ns); InputUse(sequence,context_digest,task_generation,exec_generation,material_id,material_generation,kind,time_ns,offset,length,range_digest); BuildOutput(output_id,generation,logical_path,size,sha256,last_write_ns,writer_task_generation,writer_exec_generation); BuildCompletion(exit_kind,exit_code,term_signal,sequence_complete,dropped_events,input_seal_digest,task_trace_digest,input_trace_digest,writer_trace_digest); BuildReceipt(identity,materials,images,uses,outputs,start_ns,finish_ns,completion,evidence_kind); PromotionReceipt fields per spec. `receipt_digest(value) -> str`; `encode_receipt(value) -> str`; `parse_build(raw) -> BuildReceipt`; `parse_promotion(raw) -> PromotionReceipt`.
 
-- [ ] Write conforming literal receipt fixture and strict finite/enum/path/immutability/duplicate/canonical/version/None-versus-zero tests. RED missing APIs; implement only defined shapes/codecs, GREEN focused+full.
-- [ ] Commit `feat: define immutable guest build and promotion receipts`.
+- [x] Write conforming literal receipt fixture and strict finite/enum/path/immutability/duplicate/canonical/version/None-versus-zero tests. RED missing APIs; implement only defined shapes/codecs, GREEN focused+full.
+- [x] Commit `feat: define immutable guest build and promotion receipts`.
 
 ### Task2: Pure causal consistency evaluator
 
@@ -41,9 +41,9 @@
 
 **Interfaces:** `evaluate_receipts(build: BuildReceipt, promotions: tuple[PromotionReceipt,...]) -> ReceiptDecision`; decision contains diagnostic status/reasons/read/map/exec/metadata/promotion counts, fixed-false permissions and fixed blockers. No operational imports or mutable global state.
 
-- [ ] Write all five Review Focus adversaries: missing/cross-cohort/unknown generation, parent cycle/image gap/clock/time/sequence errors, read/hash/mmap semantics, missing witnesses/drop/exit, alias/mutated/cross-build/output-generation/phase-order/namespace promotion. Expected literal reasons and false permissions, not mirror assertions.
-- [ ] Run RED; implement identity/lineage/range/phase joins with deterministic all-reason output, GREEN focused+full; coverage statement>=98%,branch>=95%.
-- [ ] Commit `feat: validate diagnostic build consumption and promotion chains`.
+- [x] Write all five Review Focus adversaries: missing/cross-cohort/unknown generation, parent cycle/image gap/clock/time/sequence errors, read/hash/mmap semantics, missing witnesses/drop/exit, alias/mutated/cross-build/output-generation/phase-order/namespace promotion. Expected literal reasons and false permissions, not mirror assertions.
+- [x] Run RED; implement identity/lineage/range/phase joins with deterministic all-reason output, GREEN focused+full; coverage statement>=98%,branch>=95%.
+- [x] Commit `feat: validate diagnostic build consumption and promotion chains`.
 
 ### Task3: Automatically continue to reference-only preparation plan and handoff
 
@@ -51,9 +51,9 @@
 
 **Interfaces:** Frozen PreparationInputs with PR29 revision/snapshot reference and optional executor/producer/input-seal/promotion registrations; `assess_preparation(inputs) -> PreparationDecision` always reference-only/BLOCKED/no authority; `current_reference_plan() -> PreparationDecision`; `host_main.main(argv) -> int`, default2/no IO, only `--describe-plan` prints pure requirements then2. No arbitrary command/path or actual producer.
 
-- [ ] Before code write tests for missing registrations, digest-shaped fake registrations, reference-versus-observation, no IO/process/authority and preserved old packages; RED then implement pure planner. This is the automatically started safe next unit, not a request for another approval menu.
-- [ ] Publish semantic wire/capture architecture + synthetic evidence/known blockers, no actual producer/seal claim. Full pytest/coverage/ruff/format/mypy/build/fresh wheel/replay/source audits/native192 and fresh autocrlf, compare old protected bytes.
-- [ ] Commit result, dispatch one fresh exact-head independent reviewer with Review Focus/rulings; C/I one RED→GREEN pass/full rerun, minor defer.
+- [x] Before code write tests for missing registrations, digest-shaped fake registrations, reference-versus-observation, no IO/process/authority and preserved old packages; RED then implement pure planner. This is the automatically started safe next unit, not a request for another approval menu.
+- [x] Publish semantic wire/capture architecture + synthetic evidence/known blockers, no actual producer/seal claim. Full pytest/coverage/ruff/format/mypy/build/fresh wheel/replay/source audits/native192 and fresh autocrlf, compare old protected bytes.
+- [x] Commit result, dispatch one fresh exact-head independent reviewer with Review Focus/rulings; C/I one RED→GREEN pass/full rerun, minor defer.
 - [ ] Own stacked Draft basefeat/guest-input-closure-verifier, title `Define guest build consumption and output promotion receipts`; attach, exact-head push+PR CI success. Continue automatically only within authority/evidence; actual missing qualified producer/executor/seal is a blocker, never a fabricated next run.
 
 Self-review: Task1 exact shapes feed Task2 and Task3; current reference cannot
@@ -61,3 +61,8 @@ masquerade as observed build identity. Task2 digest links never trust witnesses;
 Task3 cannot execute even with all strings present. All five Review Focus classes
 have explicit tests. Current narrower generated-input DAG is unsupported, not
 silently qualified. No original native-build/device gate is reinterpreted.
+
+Source completion:58dd8ceb797958c10568fbb60cbefb038b6dbaf0; local final2342,
+CRLF2342, focused145, pure100/100. Independent C0/I1/M0 atfe2cc6e; I1 fixed
+one author pass, no fix-head independent re-review. Final forge checkbox is
+recorded by the exact-head CI/Draft handoff rather than a CI-triggering docs loop.

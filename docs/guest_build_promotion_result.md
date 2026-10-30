@@ -34,6 +34,14 @@ tasks), with three positive regressions. Full final rerun and exact-head CI are
 in the Draft handoff. No independent fix-head re-review/C0I0 claim. See
 [review/rulings](guest_build_promotion_review.md) for all decisions and costs.
 
+Final verified source: `58dd8ceb797958c10568fbb60cbefb038b6dbaf0`.
+Post-fix full2342 and fresh CRLF full2342 passed; focused145, pure626/626
+statements276/276 branches (100%/100%), installed aggregate98.52%; lint/format397,
+strict mypy71+6, build/fresh vanilla+research wheel and all smokes/source audits/
+native192 reran green. Final docs-only handoff changes no tested runtime code.
+Remote exact-head push/PR CI identities are recorded in the PR handoff comment,
+not inferred from these local checks.
+
 ## Retained boundaries and blockers
 
 BUILD_CONSUMPTION_PRODUCER_NOT_IMPLEMENTED; INPUT_SEAL_BACKEND_UNQUALIFIED;
