@@ -59,10 +59,13 @@ compiler-input qualification. Existing prepared assets are preserved.
 
 ## Verification checkpoint
 
-- Baseline2678 passed. New full2747 passed34.58s (69 additional tests).
+- Baseline2678 passed. New full2747 passed34.58s; after the offline portability
+  regression full2748 passed34.26s (70 additional tests). Actual execution still
+  requires anchored Linux input reads; offline replay has no execution authority.
 - Pure checker189/191 statements98.95%;44/44 branches100%, no exclusions.
   Two syntax-error exception lines remain uncovered. No C/kernel/VM coverage claim.
-- Focused model/audit/VM/architecture69 passed. Missing API, negative cases,
+- Focused model/audit/VM/architecture69 passed before the portability regression.
+  Missing API, negative cases,
   witness ordering, actual dup2 flags, process/timeout evidence preservation and
   kernel byte/range mutations have recorded RED→GREEN gates.
 - Eight exact authenticated Debian source files/twelve semantic ranges: complete

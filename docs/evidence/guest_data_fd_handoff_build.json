@@ -31,14 +31,14 @@
       "sha256": "80218dece6eed5434919f796910e0e609f37004fca5693fb4200079f3fa321ee"
     },
     {
-      "bytes": 5526,
+      "bytes": 5539,
       "path": "tests/experiments/guest_data_fd_handoff/runner.py",
-      "sha256": "54dda0a9a7cd9140b3c4ad3dd8c14ee44eae27cf20cc4c3594a040c5d75feb64"
+      "sha256": "b7a68b8869be70d380ff9e61235bc11f238817dc65271a9b8d8ec5610b2b75e8"
     },
     {
-      "bytes": 8572,
+      "bytes": 8918,
       "path": "tests/experiments/guest_data_fd_handoff/audit.py",
-      "sha256": "f54182165b04ee3b61a8a6a78d8a82746c0ac947b3475e4603c48dbbe52f4561"
+      "sha256": "42388e28d5a98a05b5bd57f8ec7ad5abc7adcaa6f506f2d30aa39338b1789860"
     },
     {
       "bytes": 16347,

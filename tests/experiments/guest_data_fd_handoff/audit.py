@@ -142,12 +142,21 @@ def validate_evidence(data: Any, manifest: dict[str, Any], manifest_raw: bytes) 
     return 7, positive
 
 
-def load_build() -> tuple[dict[str, Any], bytes]:
-    raw = read_regular(ROOT, BUILD, 1024 * 1024)
+def _read(root: Path, path: str, limit: int, anchored: bool = False) -> bytes:
+    if anchored:
+        return read_regular(root, path, limit)
+    # Offline replay, never execution-time sealing. Fixed manifest paths only.
+    value = (root / path).read_bytes()
+    require(len(value) <= limit, "offline input bound")
+    return value
+
+
+def load_build(*, anchored: bool = False) -> tuple[dict[str, Any], bytes]:
+    raw = _read(ROOT, BUILD, 1024 * 1024, anchored)
     data = json.loads(raw, object_pairs_hook=unique_object)
     validate_build(data)
     for row in data["sources"]:
-        value = read_regular(ROOT, row["path"], 4 * 1024 * 1024)
+        value = _read(ROOT, row["path"], 4 * 1024 * 1024, anchored)
         require(
             len(value) == row["bytes"] and hashlib.sha256(value).hexdigest() == row["sha256"],
             "producer source changed",
@@ -202,7 +211,7 @@ KERNEL_FILES = frozenset(
 
 def validate_kernel(root: Path | None) -> tuple[int, int]:
     data = json.loads(
-        read_regular(ROOT, "docs/evidence/guest_data_fd_handoff_sources.json", 1024 * 1024),
+        _read(ROOT, "docs/evidence/guest_data_fd_handoff_sources.json", 1024 * 1024),
         object_pairs_hook=unique_object,
     )
     require(
@@ -215,7 +224,7 @@ def validate_kernel(root: Path | None) -> tuple[int, int]:
     )
     if root is not None:
         for row in data["files"]:
-            validate_kernel_record(row, read_regular(root, row["path"], 4 * 1024 * 1024))
+            validate_kernel_record(row, _read(root, row["path"], 4 * 1024 * 1024))
     return len(data["files"]), sum(len(r["ranges"]) for r in data["files"])
 
 
@@ -235,7 +244,7 @@ def main() -> int:
     )
     manifest, raw = load_build()
     evidence = json.loads(
-        gzip.decompress(read_regular(ROOT, EVIDENCE, 1024 * 1024)), object_pairs_hook=unique_object
+        gzip.decompress(_read(ROOT, EVIDENCE, 1024 * 1024)), object_pairs_hook=unique_object
     )
     count, positive = validate_evidence(evidence, manifest, raw)
     print(

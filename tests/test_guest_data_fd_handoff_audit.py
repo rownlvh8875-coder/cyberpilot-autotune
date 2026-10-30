@@ -122,3 +122,14 @@ def test_published_original_actual_captures_match_current_bound_sources():
     )
     assert audit.validate_evidence(data, m, raw) == (7, 2)
     assert audit.validate_kernel(None) == (8, 12)
+
+
+def test_offline_replay_does_not_require_linux_anchored_runtime_reader(monkeypatch):
+    def unavailable(*args, **kwargs):
+        raise ValueError("Linux anchored runtime reader unavailable")
+
+    monkeypatch.setattr(audit, "read_regular", unavailable)
+    m, _ = audit.load_build()
+    assert m["schema"] == "guest-data-fd-handoff-build-v1"
+    with pytest.raises(ValueError, match="Linux anchored runtime reader unavailable"):
+        audit.load_build(anchored=True)

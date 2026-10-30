@@ -132,7 +132,7 @@ def capture_cases(cases: tuple[str, ...]) -> tuple[tuple[Capture, bytes, bytes],
         and all(type(c) is str and c in CASES for c in cases),
         "fixed unique case set",
     )
-    manifest, _ = load_build()
+    manifest, _ = load_build(anchored=True)
     binary = read_regular(ASSETS, "data-fd-handoff-probe", 4 * 1024 * 1024)
     require(
         len(binary) == manifest["binary"]["bytes"]
