@@ -185,6 +185,7 @@ def negative_rows(case):
         reused0[1] = "REUSED"
         reused0[4] = 1
         reused0[6] = 101
+        reused0[8] = 0
         reused3 = list(extra)
         reused3[1] = "REUSED"
         middle = [
@@ -219,3 +220,34 @@ def test_negative_case_cannot_hide_successful_read(case):
     r.insert(-5, ["READ", 1, 0, 0, 0, 17, 17, PAYLOAD.hex()])
     with pytest.raises(ValueError):
         model.check_case(model.parse_serial(serial(r), case), PROGRAM)
+
+
+@pytest.mark.parametrize("source,destination", [(5, 3), (7, 4), (9, 8), (12, 11), (1, 5)])
+def test_positive_witness_cannot_move_across_observation_point(source, destination):
+    events = rows()
+    events.insert(destination, events.pop(source))
+    with pytest.raises(ValueError):
+        model.check_case(model.parse_serial(serial(events), "HH01"), PROGRAM)
+
+
+def test_permission_result_is_not_an_operational_capability():
+    result = model.check_case(model.parse_serial(serial(rows()), "HH01"), PROGRAM)
+    assert dict(result.permissions) == {
+        "build_execution_allowed": False,
+        "promotion_authorized": False,
+        "runtime_qualified": False,
+        "device_class_qualified": False,
+        "policy_adopted": False,
+        "candidate_generation_allowed": False,
+        "application_authorized": False,
+        "runtime_accepted": False,
+        "owner_proposal_allowed": False,
+    }
+
+
+def test_actual_dup2_reuse_clears_target_cloexec_not_source_flag():
+    events = negative_rows("HH06")
+    reused0 = next(e for e in events if e[:4] == ["FD", "REUSED", 1, 0])
+    reused0[8] = 0
+    checked = model.check_case(model.parse_serial(serial(events), "HH06"), PROGRAM)
+    assert checked.transport_observed is False

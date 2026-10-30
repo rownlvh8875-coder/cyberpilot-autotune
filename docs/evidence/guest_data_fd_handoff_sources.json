@@ -1,0 +1,148 @@
+{
+  "authenticated_package": {
+    "bytes": 153094996,
+    "path": "/workspace/scratch/guest-backend.FY5icM/kernel-source/linux-source-6.12_6.12.113-1_all.deb",
+    "sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5"
+  },
+  "files": [
+    {
+      "bytes": 9343,
+      "git_blob_sha1": "92f0756394115b7719abd1aaf4c1bf56e7d690e4",
+      "path": "fs/proc/fd.c",
+      "ranges": [
+        {
+          "claim": "seq_show target file flags plus close_on_exec",
+          "end": 75,
+          "sha256": "f9f77364814ce4100ae031478a98803b8455461976230223dc73e906c1d8aae2",
+          "start": 24
+        }
+      ],
+      "sha256": "caa957010c563f8d4ebce0a5b7f2ea41428ce8180a5c1737b2369811187f41a8"
+    },
+    {
+      "bytes": 5547,
+      "git_blob_sha1": "b0639f21041f0720db9e0915c0e8559a785fec11",
+      "path": "kernel/kcmp.c",
+      "ranges": [
+        {
+          "claim": "kcmp_ptr equal0 ordered difference1or2",
+          "end": 59,
+          "sha256": "0aea98294746ba970d03c95b63f98204a330df55386940725d31255bf10240cc",
+          "start": 39
+        },
+        {
+          "claim": "kcmp permission check and KCMP_FILE actual pointers",
+          "end": 185,
+          "sha256": "968a55a653e72185a9e6b1f76ffa562a2df241d011cc3fd1240613885f73f69a",
+          "start": 137
+        }
+      ],
+      "sha256": "d2a3bca8c51977f8cf370648711e13a237bd843812a3c564975385f8c3336d00"
+    },
+    {
+      "bytes": 19245,
+      "git_blob_sha1": "8552cc7edca488fbc82c16ee6aa231dae10f09e4",
+      "path": "kernel/pid.c",
+      "ranges": [
+        {
+          "claim": "pidfd_getfd retained target struct file and ptrace permissions",
+          "end": 768,
+          "sha256": "dafec849f56ccb2ef6ab9fc2ab2dfc72b84bbbb498fbeb3687a03837f7cf7e4a",
+          "start": 668
+        }
+      ],
+      "sha256": "c6fc014785996084c52df570b21bb4770e8fa90865140d049bf0bf3baabb6427"
+    },
+    {
+      "bytes": 37233,
+      "git_blob_sha1": "c84bd5809358382df0332322dfce64a1749acab3",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "do_close_on_exec closes actual marked slots",
+          "end": 842,
+          "sha256": "6a1ce959121bb233c30b5ba2fe8ebefdf8f3e1bb90d03b56a3f48aadf1cf78b2",
+          "start": 804
+        },
+        {
+          "claim": "do_dup2 explicitly sets or clears CLOEXEC",
+          "end": 1249,
+          "sha256": "0acfc5951b18789e33f0f5f784b81e1457f6f64b54cd703c95be6ed9df80acda",
+          "start": 1206
+        },
+        {
+          "claim": "dup2 selects flags0 via ksys_dup3",
+          "end": 1388,
+          "sha256": "b8a0833b4e0e0017d493a12471731814d7172d07da5ae29b79eea3603db1c436",
+          "start": 1371
+        }
+      ],
+      "sha256": "07cb3588c77a23709dfc746330cb0ac602445d647a14246ab5242bc389256169"
+    },
+    {
+      "bytes": 54546,
+      "git_blob_sha1": "829c74c7690d8b511fc4630c4102f693050000a5",
+      "path": "fs/exec.c",
+      "ranges": [
+        {
+          "claim": "begin_new_exec unshares before CLOEXEC and image file binding",
+          "end": 1304,
+          "sha256": "b29dc6248ec1fda63cd0345d3d0a281c447a4d87f488bb94ced65704eda10466",
+          "start": 1280
+        }
+      ],
+      "sha256": "fb8c02ec8d88d8ad8d85ebbc84e88db5a863196277b96b7baaaa3b7711b45ae0"
+    },
+    {
+      "bytes": 537,
+      "git_blob_sha1": "ef130501092531b23148898efc08b0e521f3354c",
+      "path": "include/uapi/linux/kcmp.h",
+      "ranges": [
+        {
+          "claim": "KCMP_FILE selector",
+          "end": 20,
+          "sha256": "c5c2c4e65e7a4f0fa914cb1d8bebe41fe25a50a28faa5a41197e9f5a8a6f09a0",
+          "start": 7
+        }
+      ],
+      "sha256": "0e74ad59aefc2329d6d5f9bb5136efa9ee00022aa5b991c68e80e2cce8dc148a"
+    },
+    {
+      "bytes": 12563,
+      "git_blob_sha1": "3e5a014fdacc050b6d5195485bf7b7f5c047a965",
+      "path": "mm/memfd.c",
+      "ranges": [
+        {
+          "claim": "SEAL_EXEC executable mode implies FUTURE_WRITE",
+          "end": 281,
+          "sha256": "8dd9b7b943172909e83e739c36430a7e0b6791d14d206688e389e9c3e021be2b",
+          "start": 260
+        },
+        {
+          "claim": "MFD_NOEXEC_SEAL clears exec bits installs EXEC seal",
+          "end": 485,
+          "sha256": "8ed2318d44772f29d79611b54b508a22e4043149461b658d80c93666308eb19f",
+          "start": 467
+        }
+      ],
+      "sha256": "c20bc57fb0d0bad29c0a348c241f5480e169cb438719c71dd71bd99c8effd31e"
+    },
+    {
+      "bytes": 1482,
+      "git_blob_sha1": "273a4e15dfcffdf293a2f68f7df30b3d9b681733",
+      "path": "include/uapi/linux/memfd.h",
+      "ranges": [
+        {
+          "claim": "MFD_NOEXEC_SEAL explicit8",
+          "end": 14,
+          "sha256": "36a17ada2eab3659a094cd15f8e0d734f16ee1ea666681f548cb81ff428ee8ab",
+          "start": 7
+        }
+      ],
+      "sha256": "e8d31a91125828cee9e0c723c12e71011017047cf708278eeffc0ab23340eaeb"
+    }
+  ],
+  "runtime_qualified": false,
+  "source_archive_sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33",
+  "source_profile": "Debian linux6.12.113-1; runtime equivalence not qualified"
+}

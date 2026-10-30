@@ -179,9 +179,9 @@ def check_case(capture: Capture, program_sha: str) -> Check:
     require(primary[2] == (0 if capture.case == "HH07" else 17), "fixed input length")
     # Shape checks are intentionally closed to these fixed harmless programs.
     skeleton = [
-        (e.kind, e.values[0] if e.kind == "SNAP" else None)
+        (e.kind, e.values[0] if e.kind in ("SNAP", "FD") else None)
         for e in events
-        if e.kind not in ("OBJECT", "FD", "OFD_PIN", "RELEASE")
+        if e.kind not in ("OBJECT", "RELEASE")
     ]
     require(
         skeleton
@@ -189,10 +189,14 @@ def check_case(capture: Capture, program_sha: str) -> Check:
             ("BEGIN", None),
             ("BIRTH", None),
             ("SNAP", "PRE_TRANSFER"),
+            ("FD", "PRE_EXEC"),
             ("SNAP", "PRE_EXEC"),
+            ("OFD_PIN", None),
             ("EXEC", None),
+            ("FD", "POST_EXEC"),
             ("SNAP", "POST_EXEC"),
             ("READY", None),
+            ("FD", "READ_CHECK"),
             ("READ", None),
             ("CLOSE", None),
             ("SNAP", "CLOSED"),
@@ -202,6 +206,11 @@ def check_case(capture: Capture, program_sha: str) -> Check:
         "fixed control/barrier/lifetime order",
     )
     require(next(e.values for e in events if e.kind == "BIRTH") == (1,), "actual root birth")
+    birth = next(e.seq for e in events if e.kind == "BIRTH")
+    require(
+        all(1 < e.seq < birth for e in events if e.kind == "OBJECT"),
+        "actual held objects before root birth",
+    )
     snapshots = {e.values[0]: e.values for e in events if e.kind == "SNAP"}
     require(
         snapshots
@@ -371,7 +380,8 @@ def _check_negative(capture: Capture, program_sha: str) -> Check:
         )
         require(
             value[7] & 3 == 0
-            and bool(value[7] & 524288) == (stage != "PRE_EXEC" or case == "HH05"),
+            and bool(value[7] & 524288)
+            == ((stage != "PRE_EXEC" or case == "HH05") and not (stage == "REUSED" and fd == 0)),
             "actual negative FD flags",
         )
         same, error = value[11:]
