@@ -1,0 +1,153 @@
+{
+  "actual_dropped_events": null,
+  "evidence_class": "SOURCE_DESIGN_ONLY",
+  "permissions": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false
+  },
+  "rows": [
+    {
+      "blockers": [
+        "BOOT_ROOT_UNPROVEN",
+        "ALLOCATION_COOKIE_ISSUER_NOT_IMPLEMENTED"
+      ],
+      "claims": [
+        "NS_LAYOUT",
+        "NS_RESIZE",
+        "NS_COPY",
+        "NS_END"
+      ],
+      "current_source": "NO_GO_CURRENT_PROFILE",
+      "id": "namespace_lifetime",
+      "instrumented_design": "CONDITIONAL_DESIGN_ONLY"
+    },
+    {
+      "blockers": [
+        "ALLOCATION_FAILURE_PATH_COVERAGE_UNPROVEN",
+        "DEFERRED_TERMINAL_UNOBSERVED"
+      ],
+      "claims": [
+        "OFD_ALLOC",
+        "OFD_BACKING",
+        "OFD_FREE",
+        "OFD_FPUT"
+      ],
+      "current_source": "NO_GO_CURRENT_PROFILE",
+      "id": "ofd_lifetime",
+      "instrumented_design": "CONDITIONAL_DESIGN_ONLY"
+    },
+    {
+      "blockers": [
+        "LIFETIME_SOURCE_HOOK_COVERAGE_UNPROVEN",
+        "UNINSPECTED_EFFECT_PATHS_NOT_EXCLUDED"
+      ],
+      "claims": [
+        "FD_INSTALL",
+        "FD_CLOSE",
+        "FD_FLAGS",
+        "FD_REPLACE"
+      ],
+      "current_source": "NO_GO_CURRENT_PROFILE",
+      "id": "binding_mutations",
+      "instrumented_design": "CONDITIONAL_DESIGN_ONLY"
+    },
+    {
+      "blockers": [
+        "COPY_CUT_PROOF_UNAVAILABLE",
+        "INFLIGHT_INSTALL_QUIESCENCE_UNPROVEN"
+      ],
+      "claims": [
+        "NS_COPY",
+        "FD_INSTALL",
+        "FORK_FILES",
+        "UNSHARE"
+      ],
+      "current_source": "NO_GO_CURRENT_PROFILE",
+      "id": "copy_cut",
+      "instrumented_design": "CONDITIONAL_DESIGN_ONLY"
+    },
+    {
+      "blockers": [
+        "EXACT_CLOSE_DELTA_UNOBSERVED",
+        "RAW_TO_SEMANTIC_CUT_UNQUALIFIED"
+      ],
+      "claims": [
+        "EXEC_EFFECT",
+        "EXEC_CLOSE",
+        "EXEC_EVENT"
+      ],
+      "current_source": "NO_GO_CURRENT_PROFILE",
+      "id": "exec_cut",
+      "instrumented_design": "CONDITIONAL_DESIGN_ONLY"
+    },
+    {
+      "blockers": [
+        "HIDDEN_SHARERS_UNEXCLUDED",
+        "TASK_ALLOCATION_SCOPE_ISSUER_UNQUALIFIED"
+      ],
+      "claims": [
+        "SCHED_TASK",
+        "SCHED_FORK",
+        "SCHED_EXEC",
+        "FORK_EVENT",
+        "FORK_FILES"
+      ],
+      "current_source": "NO_GO_CURRENT_PROFILE",
+      "id": "task_and_scope",
+      "instrumented_design": "CONDITIONAL_DESIGN_ONLY"
+    },
+    {
+      "blockers": [
+        "PRE_RESERVATION_FAILURE_ACCOUNTING_NOT_IMPLEMENTED",
+        "LIFETIME_LOSS_ACCOUNTING_UNQUALIFIED"
+      ],
+      "claims": [
+        "RING_RESERVE",
+        "RING_COMMIT",
+        "RING_DOC"
+      ],
+      "current_source": "NO_GO_CURRENT_PROFILE",
+      "id": "loss_accounting",
+      "instrumented_design": "CONDITIONAL_DESIGN_ONLY"
+    },
+    {
+      "blockers": [
+        "GLOBAL_ARM_CUT_UNPROVEN",
+        "SOURCE_DRAIN_AND_HOTPLUG_COHORT_UNPROVEN"
+      ],
+      "claims": [
+        "TRACE_UNREGISTER",
+        "CPU_COHORT",
+        "RING_DOC"
+      ],
+      "current_source": "NO_GO_CURRENT_PROFILE",
+      "id": "arm_drain_cpu",
+      "instrumented_design": "CONDITIONAL_DESIGN_ONLY"
+    },
+    {
+      "blockers": [
+        "OBSERVER_PERTURBATION_UNQUANTIFIED",
+        "SAFE_HOOK_CONTEXT_UNQUALIFIED"
+      ],
+      "claims": [
+        "NS_COPY",
+        "UNSHARE",
+        "OFD_FPUT",
+        "CPU_COHORT"
+      ],
+      "current_source": "NO_GO_CURRENT_PROFILE",
+      "id": "perturbation",
+      "instrumented_design": "CONDITIONAL_DESIGN_ONLY"
+    }
+  ],
+  "runtime_qualified": false,
+  "schema": "kernel-lifetime-feasibility-matrix-v1",
+  "status": "BLOCKED"
+}
