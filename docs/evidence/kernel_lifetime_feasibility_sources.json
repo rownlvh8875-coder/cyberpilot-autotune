@@ -1,0 +1,248 @@
+{
+  "base_revision": "a982d1bec759916013981f9cbc76ced6679c71ea",
+  "files": [
+    {
+      "bytes": 3452,
+      "git_blob_sha1": "b1c5722f2b3ce4ba82e89716d5e27f85c67a8afd",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "NS_LAYOUT",
+          "end": 62,
+          "sha256": "42594b434533b7f79f8ba04dc81d494660800fac38939dfc770c109647987169",
+          "start": 26
+        }
+      ],
+      "sha256": "ab0233740bd825ed7705e378278f60a3a184a7ded81fea060ac4a2fbfe2abfdb"
+    },
+    {
+      "bytes": 37233,
+      "git_blob_sha1": "c84bd5809358382df0332322dfce64a1749acab3",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "NS_RESIZE",
+          "end": 214,
+          "sha256": "b17d2afa44bf2883a7354e046950708eea08bb3e8c3a8590c6db51cc38dea447",
+          "start": 174
+        },
+        {
+          "claim": "NS_COPY",
+          "end": 402,
+          "sha256": "ca92ca07e3162a67872066ffd9b54cbb26ff03979a0566c91774736a389cd517",
+          "start": 314
+        },
+        {
+          "claim": "NS_END",
+          "end": 459,
+          "sha256": "d4204f6490f98d332aa674cda098b4eaa0537dd1c294a4cdf8a562cc9e43724e",
+          "start": 405
+        },
+        {
+          "claim": "FD_INSTALL",
+          "end": 622,
+          "sha256": "29eecbd7f3a1824a0e514f29334c281a1d4fa00d831e65e9e7462c42e1b9ce6f",
+          "start": 595
+        },
+        {
+          "claim": "FD_CLOSE",
+          "end": 662,
+          "sha256": "2178bb84bc1ae24fb60e9355195cf890c89e45a32d06cc5151c732c06e518235",
+          "start": 635
+        },
+        {
+          "claim": "FD_FLAGS",
+          "end": 1196,
+          "sha256": "124da017acb51b9326417ddaf7f0764a6d54b17afed973288281b5c149a094bb",
+          "start": 1184
+        },
+        {
+          "claim": "FD_REPLACE",
+          "end": 1249,
+          "sha256": "0acfc5951b18789e33f0f5f784b81e1457f6f64b54cd703c95be6ed9df80acda",
+          "start": 1206
+        },
+        {
+          "claim": "EXEC_CLOSE",
+          "end": 842,
+          "sha256": "6a1ce959121bb233c30b5ba2fe8ebefdf8f3e1bb90d03b56a3f48aadf1cf78b2",
+          "start": 804
+        }
+      ],
+      "sha256": "07cb3588c77a23709dfc746330cb0ac602445d647a14246ab5242bc389256169"
+    },
+    {
+      "bytes": 15008,
+      "git_blob_sha1": "f78bcff79f1a0499bcc48390f032e785cf4b47f4",
+      "path": "fs/file_table.c",
+      "ranges": [
+        {
+          "claim": "OFD_ALLOC",
+          "end": 286,
+          "sha256": "2f9ee4d7dd9caae42a0d272752d8732b7a57ef61da04ced3c465a534b802dbe9",
+          "start": 214
+        },
+        {
+          "claim": "OFD_BACKING",
+          "end": 322,
+          "sha256": "2e22517a20cbc246edadb5d48f87e62fc8b3b9bdebc6f8cee67d9c9c86e577ea",
+          "start": 296
+        },
+        {
+          "claim": "OFD_FREE",
+          "end": 98,
+          "sha256": "042414400ab894bea2b87232ef8fa1f7f6e83ae005e9378ff1c5d16c93cd2e62",
+          "start": 80
+        },
+        {
+          "claim": "OFD_FPUT",
+          "end": 540,
+          "sha256": "f4571d50ffbf10d6b9058359e5e8c71f090ad527f0cb1a2139a5c38879d37f4e",
+          "start": 440
+        }
+      ],
+      "sha256": "853ad4b282453d6091944412fa5eae258e11e53292457b8be812afe4cc15320c"
+    },
+    {
+      "bytes": 87580,
+      "git_blob_sha1": "c36d69c40213b45d8792cdc3ee41d5ab07f36251",
+      "path": "kernel/fork.c",
+      "ranges": [
+        {
+          "claim": "FORK_FILES",
+          "end": 1831,
+          "sha256": "03ec11a1ede5a9a0ff1e21877732eb4243c8af9cd6ec03d197bce6dc7cf70baf",
+          "start": 1801
+        },
+        {
+          "claim": "UNSHARE",
+          "end": 3302,
+          "sha256": "b6bdc0039c0ca6a88cd047394d59d4e8df9bc554675674475c4956aa94c2e8e3",
+          "start": 3287
+        },
+        {
+          "claim": "FORK_EVENT",
+          "end": 2846,
+          "sha256": "2020f1235279cc503e713525057ecd4128b7216f63ad97e7235b295da9715c8b",
+          "start": 2838
+        }
+      ],
+      "sha256": "9ca6cce17959283738d9a010405c319d38397e698e6a6382a24bbbf29ef8b1fa"
+    },
+    {
+      "bytes": 54546,
+      "git_blob_sha1": "829c74c7690d8b511fc4630c4102f693050000a5",
+      "path": "fs/exec.c",
+      "ranges": [
+        {
+          "claim": "EXEC_EFFECT",
+          "end": 1300,
+          "sha256": "71f7b1a885797d1123463b9a69f18e18784106b1666cf83767a7da56e3e2d158",
+          "start": 1260
+        },
+        {
+          "claim": "EXEC_EVENT",
+          "end": 1874,
+          "sha256": "8cc21a3d68efead36c1990f544b86dab1519646b2f68f77393921ad935041c20",
+          "start": 1868
+        }
+      ],
+      "sha256": "fb8c02ec8d88d8ad8d85ebbc84e88db5a863196277b96b7baaaa3b7711b45ae0"
+    },
+    {
+      "bytes": 20500,
+      "git_blob_sha1": "9ea4c404bd4ef3efab26e0d1f135a329d21e69de",
+      "path": "include/trace/events/sched.h",
+      "ranges": [
+        {
+          "claim": "SCHED_TASK",
+          "end": 336,
+          "sha256": "b93c7b5f0c47a9daaac040be2966fac99e0b83c5d352be3c89b02a2fe0a4c9df",
+          "start": 301
+        },
+        {
+          "claim": "SCHED_FORK",
+          "end": 395,
+          "sha256": "d785e353b454ae291f107a72cd6596d867829f10da1c7c96bbfbce8bce4737f3",
+          "start": 372
+        },
+        {
+          "claim": "SCHED_EXEC",
+          "end": 421,
+          "sha256": "944ea4c799269e80f56f1e71a7ec4540561d609fc3067ee649bc22547b80d712",
+          "start": 400
+        }
+      ],
+      "sha256": "b0544fa22f209a0f439ebf75942c79d70fd0a5f1bd039f346ac24beae5231d32"
+    },
+    {
+      "bytes": 23549,
+      "git_blob_sha1": "9e6037d88bda0c9f6ae8a23a0952c03e2eb3b469",
+      "path": "kernel/bpf/ringbuf.c",
+      "ranges": [
+        {
+          "claim": "RING_RESERVE",
+          "end": 476,
+          "sha256": "89c9db65866fdf872601e1c96f17248f341dd8540e5d6027184aaa17c05475e4",
+          "start": 406
+        },
+        {
+          "claim": "RING_COMMIT",
+          "end": 532,
+          "sha256": "643bd87ef665304ec3049cd78d4f16b303ec5b68ff011d7a58dd6585e3403a07",
+          "start": 487
+        }
+      ],
+      "sha256": "abc755b0d9933a01c88bedb3ce9e0fc99875ec54fe3c8b108389724f868026c2"
+    },
+    {
+      "bytes": 11277,
+      "git_blob_sha1": "a99cd05d79d46a28e9f7f8e0be41f447908ef5f6",
+      "path": "Documentation/bpf/ringbuf.rst",
+      "ranges": [
+        {
+          "claim": "RING_DOC",
+          "end": 183,
+          "sha256": "96fa0e2992f95f1fed16e1bb70e65ca4686b5646b3044d91daf5f2ec1f1222e2",
+          "start": 146
+        }
+      ],
+      "sha256": "1ccf2275e68a3cb3035cc9cb17132a6338c5c5abb78b9611972a3d0292033f21"
+    },
+    {
+      "bytes": 19510,
+      "git_blob_sha1": "93a9f3070b481a7f30535d8f9cb5f8f0ba88b006",
+      "path": "include/linux/tracepoint.h",
+      "ranges": [
+        {
+          "claim": "TRACE_UNREGISTER",
+          "end": 119,
+          "sha256": "b90599f8fba317be3e2d28c33773deec9240220952fcafe2b1f35b9f17cee2f8",
+          "start": 104
+        }
+      ],
+      "sha256": "3fd991d4107e3cc5d1d78c63572ba82b44fb553790cb6fa7540068693093a515"
+    },
+    {
+      "bytes": 80256,
+      "git_blob_sha1": "7047e36092cee5b16b72e7daba4611c339e6c21e",
+      "path": "kernel/cpu.c",
+      "ranges": [
+        {
+          "claim": "CPU_COHORT",
+          "end": 515,
+          "sha256": "1b9b2081e46e15625d3a3e8d73ad682dd5e48402663e8c2a5021e0780c095adc",
+          "start": 475
+        }
+      ],
+      "sha256": "8379746c194e747d844e28bc098060e3cd98c245613628d398edbf047ea6e651"
+    }
+  ],
+  "package_bytes": 153094996,
+  "package_sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5",
+  "runtime_qualified": false,
+  "schema": "kernel-lifetime-feasibility-sources-v1",
+  "source_archive_sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33",
+  "source_package": "linux-source-6.12_6.12.113-1_all.deb",
+  "source_repository": "https://salsa.debian.org/kernel-team/linux"
+}
