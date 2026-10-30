@@ -1,0 +1,716 @@
+{
+  "clock_domain": "GUEST_HANDOFF_OBSERVATION_MONOTONIC_NS",
+  "context_fields": [
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "attempt_id",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "OpaqueId",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "clock_domain",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "Enum",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "consumer_exec_generation",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "UInt64",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "consumer_fd_table_generation",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "UInt64",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "consumer_image_digest",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "SHA256",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "consumer_task_generation",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "UInt64",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "manifest_digest",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "SHA256",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "namespace_generation",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "UInt64",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "observer_profile_digest",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "SHA256",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "session_id",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "OpaqueId",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "source_revision",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "GitCommitSha1",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "vm_profile_digest",
+      "required": true,
+      "stage": "CONTEXT",
+      "type": "SHA256",
+      "unit": "none"
+    }
+  ],
+  "encoding": "CANONICAL_JSON_DESIGN_NOT_RUNTIME_WIRE",
+  "event_fields": {
+    "BIND": [
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "access_mode",
+        "required": true,
+        "stage": "BIND",
+        "type": "Enum",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "binding_generation",
+        "required": true,
+        "stage": "BIND",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "bytes",
+        "required": true,
+        "stage": "BIND",
+        "type": "UInt64",
+        "unit": "bytes"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "cloexec",
+        "required": true,
+        "stage": "BIND",
+        "type": "Bool",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "dev",
+        "required": true,
+        "stage": "BIND",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "fd",
+        "required": true,
+        "stage": "BIND",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "ino",
+        "required": true,
+        "stage": "BIND",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "object_generation",
+        "required": true,
+        "stage": "BIND",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "object_id",
+        "required": true,
+        "stage": "BIND",
+        "type": "OpaqueId",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "ofd_generation",
+        "required": true,
+        "stage": "BIND",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "ofd_id",
+        "required": true,
+        "stage": "BIND",
+        "type": "OpaqueId",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "pin_generation",
+        "required": true,
+        "stage": "BIND",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "seal_mask",
+        "required": true,
+        "stage": "BIND",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "sha256",
+        "required": true,
+        "stage": "BIND",
+        "type": "SHA256",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "transfer_generation",
+        "required": true,
+        "stage": "BIND",
+        "type": "UInt64",
+        "unit": "none"
+      }
+    ],
+    "CLOSE": [
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "binding_generation",
+        "required": true,
+        "stage": "CLOSE",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "fd",
+        "required": true,
+        "stage": "CLOSE",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "ofd_generation",
+        "required": true,
+        "stage": "CLOSE",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "ofd_id",
+        "required": true,
+        "stage": "CLOSE",
+        "type": "OpaqueId",
+        "unit": "none"
+      }
+    ],
+    "END": [],
+    "FINISH": [
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "complete",
+        "required": true,
+        "stage": "FINISH",
+        "type": "Bool",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "drop_count",
+        "required": true,
+        "stage": "FINISH",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "exit_code",
+        "required": true,
+        "stage": "FINISH",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "exit_kind",
+        "required": true,
+        "stage": "FINISH",
+        "type": "Enum",
+        "unit": "none"
+      }
+    ],
+    "PIN": [
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "dev",
+        "required": true,
+        "stage": "PIN",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "ino",
+        "required": true,
+        "stage": "PIN",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "object_generation",
+        "required": true,
+        "stage": "PIN",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "object_id",
+        "required": true,
+        "stage": "PIN",
+        "type": "OpaqueId",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "pin_generation",
+        "required": true,
+        "stage": "PIN",
+        "type": "UInt64",
+        "unit": "none"
+      }
+    ],
+    "PREAD_FULL": [
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "binding_generation",
+        "required": true,
+        "stage": "PREAD_FULL",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "fd",
+        "required": true,
+        "stage": "PREAD_FULL",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "ofd_generation",
+        "required": true,
+        "stage": "PREAD_FULL",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "ofd_id",
+        "required": true,
+        "stage": "PREAD_FULL",
+        "type": "OpaqueId",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "offset",
+        "required": true,
+        "stage": "PREAD_FULL",
+        "type": "UInt64",
+        "unit": "bytes"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "returned_bytes_hex",
+        "required": true,
+        "stage": "PREAD_FULL",
+        "type": "HexBytes",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "returned_len",
+        "required": true,
+        "stage": "PREAD_FULL",
+        "type": "UInt64",
+        "unit": "bytes"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "transfer_generation",
+        "required": true,
+        "stage": "PREAD_FULL",
+        "type": "UInt64",
+        "unit": "none"
+      }
+    ],
+    "READY": [
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "bundle_digest",
+        "required": true,
+        "stage": "READY",
+        "type": "SHA256",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "complete",
+        "required": true,
+        "stage": "READY",
+        "type": "Bool",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "extra_fd_count",
+        "required": true,
+        "stage": "READY",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "inventory_digest",
+        "required": true,
+        "stage": "READY",
+        "type": "SHA256",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "transfer_generation",
+        "required": true,
+        "stage": "READY",
+        "type": "UInt64",
+        "unit": "none"
+      }
+    ],
+    "RELEASE": [
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "object_generation",
+        "required": true,
+        "stage": "RELEASE",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "object_id",
+        "required": true,
+        "stage": "RELEASE",
+        "type": "OpaqueId",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "pin_generation",
+        "required": true,
+        "stage": "RELEASE",
+        "type": "UInt64",
+        "unit": "none"
+      }
+    ],
+    "SEAL": [
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "bytes",
+        "required": true,
+        "stage": "SEAL",
+        "type": "UInt64",
+        "unit": "bytes"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "dev",
+        "required": true,
+        "stage": "SEAL",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "ino",
+        "required": true,
+        "stage": "SEAL",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "object_generation",
+        "required": true,
+        "stage": "SEAL",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "object_id",
+        "required": true,
+        "stage": "SEAL",
+        "type": "OpaqueId",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "pin_generation",
+        "required": true,
+        "stage": "SEAL",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "seal_mask",
+        "required": true,
+        "stage": "SEAL",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "sha256",
+        "required": true,
+        "stage": "SEAL",
+        "type": "SHA256",
+        "unit": "none"
+      }
+    ],
+    "STOPPED": [
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "complete",
+        "required": true,
+        "stage": "STOPPED",
+        "type": "Bool",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "extra_fd_count",
+        "required": true,
+        "stage": "STOPPED",
+        "type": "UInt64",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "inventory_digest",
+        "required": true,
+        "stage": "STOPPED",
+        "type": "SHA256",
+        "unit": "none"
+      }
+    ],
+    "TRANSFER": [
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "bundle_digest",
+        "required": true,
+        "stage": "TRANSFER",
+        "type": "SHA256",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "members",
+        "required": true,
+        "stage": "TRANSFER",
+        "type": "ObjectRefSet",
+        "unit": "none"
+      },
+      {
+        "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+        "field": "transfer_generation",
+        "required": true,
+        "stage": "TRANSFER",
+        "type": "UInt64",
+        "unit": "none"
+      }
+    ]
+  },
+  "evidence_kind": "SYNTHETIC",
+  "graph_version": "guest-input-handoff-design-v1",
+  "limits": {
+    "bytes_per_member": 4096,
+    "events": 1024,
+    "json_bytes": 2097152,
+    "members": 16
+  },
+  "member_fields": [
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "bytes",
+      "required": true,
+      "stage": "MANIFEST",
+      "type": "UInt64",
+      "unit": "bytes"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "dev",
+      "required": true,
+      "stage": "MANIFEST",
+      "type": "UInt64",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "ino",
+      "required": true,
+      "stage": "MANIFEST",
+      "type": "UInt64",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "name",
+      "required": true,
+      "stage": "MANIFEST",
+      "type": "LogicalName",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "object_generation",
+      "required": true,
+      "stage": "MANIFEST",
+      "type": "UInt64",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "object_id",
+      "required": true,
+      "stage": "MANIFEST",
+      "type": "OpaqueId",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "pin_generation",
+      "required": true,
+      "stage": "MANIFEST",
+      "type": "UInt64",
+      "unit": "none"
+    },
+    {
+      "availability": "EXPLICIT_UNKNOWN_REJECTED_FOR_CONSISTENCY",
+      "field": "sha256",
+      "required": true,
+      "stage": "MANIFEST",
+      "type": "SHA256",
+      "unit": "none"
+    }
+  ],
+  "permissions": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false
+  },
+  "preferred_transport": "CONTROLLED_INHERITANCE_POST_EXEC_BARRIER",
+  "proof_obligations": [
+    {
+      "id": "COMPLETE_DATA_SET",
+      "meaning": "Independent exact declared DATA capability set; not complete build input closure",
+      "runtime_status": "UNQUALIFIED"
+    },
+    {
+      "id": "PIN_SEAL_INTERVAL",
+      "meaning": "Continuously held actual object pins/full seals, not current hashes",
+      "runtime_status": "UNQUALIFIED"
+    },
+    {
+      "id": "CONSUMER_FD_OFD_COHORT",
+      "meaning": "Actual task/image/FD-table/FD/OFD generations and target flags, not reopened observer FD",
+      "runtime_status": "UNQUALIFIED"
+    },
+    {
+      "id": "EXEC_TRANSFER_BARRIER",
+      "meaning": "Explicit CLOEXEC bootstrap transfer and stopped pre-consumption barrier",
+      "runtime_status": "NOT_IMPLEMENTED"
+    },
+    {
+      "id": "INDEPENDENT_FD_INVENTORY",
+      "meaning": "Complete actual consumer FD inventory, not expected bind-set digest or caller bool",
+      "runtime_status": "NOT_IMPLEMENTED"
+    },
+    {
+      "id": "ACTUAL_CONSUMPTION_JOIN",
+      "meaning": "Returned bytes bound to exact active lifetime; no automatic PR31/PR32 join",
+      "runtime_status": "UNQUALIFIED"
+    },
+    {
+      "id": "AUTH_EXECUTOR_PROMOTION",
+      "meaning": "Independent authenticity/executor/watchdog/output qualification required",
+      "runtime_status": "UNQUALIFIED"
+    }
+  ],
+  "runtime_producer_implemented": false,
+  "runtime_qualified": false,
+  "schema": "guest-input-handoff-semantic-design-v1",
+  "scope": "DATA_FD_ONLY"
+}

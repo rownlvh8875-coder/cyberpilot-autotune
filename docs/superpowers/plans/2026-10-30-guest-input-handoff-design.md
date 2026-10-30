@@ -32,10 +32,10 @@
 
 **Interfaces:** evaluate(graph: Any) -> dict[str,Any], graph_digest(graph: dict[str,Any]) -> str; pure/test-only. complete() -> dict[str,Any], example(case: str) -> dict[str,Any] and literal CASES tuple(id,status,reason). Graph header/context/member/event fields exactly in spec. Events PIN,SEAL,STOPPED,TRANSFER,BIND,READY,PREAD_FULL,CLOSE,FINISH,RELEASE,END; strict arities/keys; END last.
 
-- [ ] Write independently derived fixtures/negative tests for every Review Focus line, exact false permissions, immutable inputs, canonical set ordering and literal expected reasons.
-- [ ] Run `.venv/bin/python -m pytest tests/unit/test_guest_input_handoff_model.py -q`; expect missing-module RED.
-- [ ] Implement minimum pure reference oracle and normative field/event tables; no OS observation. Restrict seal47/read-only/CLOEXEC, whole-set transfer, active exact FD/OFD references, complete inventory and barriers; reasoned failures, no inferred values.
-- [ ] Run focused and full pytest, expect green; commit `docs: define data-only namespace and FD handoff contract`.
+- [x] Write independently derived fixtures/negative tests for every Review Focus line, exact false permissions, immutable inputs, canonical set ordering and literal expected reasons.
+- [x] Run `.venv/bin/python -m pytest tests/unit/test_guest_input_handoff_model.py -q`; expect missing-module RED.
+- [x] Implement minimum pure reference oracle and normative field/event tables; no OS observation. Restrict seal47/read-only/CLOEXEC, whole-set transfer, active exact FD/OFD references, complete inventory and barriers; reasoned failures, no inferred values.
+- [x] Run focused and full pytest, expect green; commit `docs: define data-only namespace and FD handoff contract`.
 
 ### Task 2: Machine-readable acceptance and source mapping
 
@@ -43,9 +43,9 @@
 
 **Interfaces:** Consumes Task1 evaluate/example/CASES. Produces validate() -> dict[str,object]; default CLI reads only fixed repo manifests and pinned local Git blobs, no runtime execution. Source lookup exactbase/path/blob/range, never normalized worktree-as-consumed bytes.
 
-- [ ] Write failing published-audit/mutation/architecture tests; run RED for missing audit/evidence.
-- [ ] Implement semantic schema/counterexamples/proof obligations and exact Git source references; audit each literal example result and scope flags, unknown/duplicate fields and tampered bindings.
-- [ ] Run focused/full pytest and offline audit; expect all synthetic cases matched, permissions false, runtime unqualified. Commit `audit: pin handoff design sources and counterexamples`.
+- [x] Write failing published-audit/mutation/architecture tests; run RED for missing audit/evidence.
+- [x] Implement semantic schema/counterexamples/proof obligations and exact Git source references; audit each literal example result and scope flags, unknown/duplicate fields and tampered bindings.
+- [x] Run focused/full pytest and offline audit; expect all synthetic cases matched, permissions false, runtime unqualified. Commit `audit: pin handoff design sources and counterexamples`.
 
 ### Task 3: Verification, independent review and Draft handoff
 

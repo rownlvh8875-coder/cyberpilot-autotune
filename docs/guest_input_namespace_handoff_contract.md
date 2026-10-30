@@ -119,6 +119,9 @@ PIN/SEAL all → STOPPED → TRANSFER all → BIND all → READY
 ```
 
 The phases are **contract obligations**, not a new runtime state machine.
+Atomicity means a barrier-consistent whole-set snapshot, not one Linux syscall:
+target FD installation can be sequential only while consumer data consumption
+is stopped; intermediate reads cannot become a successful atomic handoff.
 Unsupported operations or loss must make a future supervisor stop/abort before
 claiming consistency; a retrospective graph rejection is not a proof that their
 side effects were prevented. Enforcement/executor/watchdog qualification remains
@@ -150,6 +153,8 @@ reject; no invented filesystem normalization.
 - graph digest = canonical whole graph with member-set sorting only.
 
 These are content references, never authenticity, access control or authorization.
+Each graph is standalone; it provides no global registry, freshness or anti-replay
+guarantee. A future trusted producer must mint/bind new attempt generations.
 Actual independent FD inventory **cannot be generated solely from the expected
 BIND set**. The oracle can only compare simulated references; even all matching
 digests/complete flags do not prove that no other real FD existed.

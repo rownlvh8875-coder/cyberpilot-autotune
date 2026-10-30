@@ -138,14 +138,14 @@ def complete(count: int = 1, *, empty: bool = False, read: bool = True) -> dict[
         for i, m in enumerate(members)
     ]
 
-    def inventory(rows):
+    def inventory(rows: list[dict[str, Any]]) -> str:
         return _hash(
             {"schema": "guest-data-fd-inventory-v1", "context_digest": ctx, "bindings": rows}
         )
 
-    rows = []
+    rows: list[tuple[str, dict[str, Any]]] = []
 
-    def add(kind, data):
+    def add(kind: str, data: dict[str, Any]) -> None:
         rows.append((kind, data))
 
     for m in members:
@@ -197,7 +197,8 @@ def complete(count: int = 1, *, empty: bool = False, read: bool = True) -> dict[
 
 
 def event(graph: dict[str, Any], kind: str, ordinal: int = 0) -> dict[str, Any]:
-    return [e for e in graph["events"] if e["kind"] == kind][ordinal]
+    events: list[dict[str, Any]] = graph["events"]
+    return [e for e in events if e["kind"] == kind][ordinal]
 
 
 def example(case: str) -> dict[str, Any]:

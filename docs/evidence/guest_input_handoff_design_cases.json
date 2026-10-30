@@ -1,0 +1,349 @@
+{
+  "cases": [
+    {
+      "expected_reason": null,
+      "expected_status": "SYNTHETIC_GRAPH_CONSISTENT",
+      "id": "HD01",
+      "variant": "fd_zero"
+    },
+    {
+      "expected_reason": null,
+      "expected_status": "SYNTHETIC_GRAPH_CONSISTENT",
+      "id": "HD02",
+      "variant": "same_content_distinct_objects"
+    },
+    {
+      "expected_reason": null,
+      "expected_status": "SYNTHETIC_GRAPH_CONSISTENT",
+      "id": "HD03",
+      "variant": "empty_file"
+    },
+    {
+      "expected_reason": null,
+      "expected_status": "SYNTHETIC_GRAPH_CONSISTENT",
+      "id": "HD04",
+      "variant": "manifest_order"
+    },
+    {
+      "expected_reason": null,
+      "expected_status": "SYNTHETIC_GRAPH_CONSISTENT",
+      "id": "HD05",
+      "variant": "declared_not_read"
+    },
+    {
+      "expected_reason": "SEAL_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD06",
+      "variant": "future_write_only"
+    },
+    {
+      "expected_reason": "SEAL_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD07",
+      "variant": "chmod_only"
+    },
+    {
+      "expected_reason": "SEAL_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD08",
+      "variant": "seal_unavailable"
+    },
+    {
+      "expected_reason": "OBJECT_BINDING_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD09",
+      "variant": "wrong_inode_same_bytes"
+    },
+    {
+      "expected_reason": "OBJECT_BINDING_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD10",
+      "variant": "wrong_object_generation"
+    },
+    {
+      "expected_reason": "OBJECT_BINDING_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD11",
+      "variant": "wrong_pin_generation"
+    },
+    {
+      "expected_reason": "CONTEXT_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD12",
+      "variant": "namespace_changed"
+    },
+    {
+      "expected_reason": "CONTEXT_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD13",
+      "variant": "source_changed"
+    },
+    {
+      "expected_reason": "CONTEXT_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD14",
+      "variant": "different_consumer_table"
+    },
+    {
+      "expected_reason": "PHASE_ORDER",
+      "expected_status": "REJECTED",
+      "id": "HD15",
+      "variant": "read_before_ready"
+    },
+    {
+      "expected_reason": "INVENTORY_INCOMPLETE",
+      "expected_status": "REJECTED",
+      "id": "HD16",
+      "variant": "extra_fd"
+    },
+    {
+      "expected_reason": "INVENTORY_INCOMPLETE",
+      "expected_status": "REJECTED",
+      "id": "HD17",
+      "variant": "inventory_unknown"
+    },
+    {
+      "expected_reason": "INVENTORY_INCOMPLETE",
+      "expected_status": "REJECTED",
+      "id": "HD18",
+      "variant": "inventory_zero_unknown"
+    },
+    {
+      "expected_reason": "INVENTORY_DIGEST_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD19",
+      "variant": "inventory_hash_wrong"
+    },
+    {
+      "expected_reason": "MANIFEST_SET_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD20",
+      "variant": "transfer_subset"
+    },
+    {
+      "expected_reason": "MANIFEST_SET_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD21",
+      "variant": "transfer_duplicate"
+    },
+    {
+      "expected_reason": "MANIFEST_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD22",
+      "variant": "duplicate_name"
+    },
+    {
+      "expected_reason": "MANIFEST_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD23",
+      "variant": "same_object_alias"
+    },
+    {
+      "expected_reason": "PIN_LIFETIME_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD24",
+      "variant": "missing_pin"
+    },
+    {
+      "expected_reason": "PIN_LIFETIME_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD25",
+      "variant": "early_release"
+    },
+    {
+      "expected_reason": "PIN_LIFETIME_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD26",
+      "variant": "seal_before_pin"
+    },
+    {
+      "expected_reason": "FD_LIFETIME_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD27",
+      "variant": "read_after_close"
+    },
+    {
+      "expected_reason": "FD_LIFETIME_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD28",
+      "variant": "stale_binding_generation"
+    },
+    {
+      "expected_reason": "FD_LIFETIME_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD29",
+      "variant": "stale_ofd"
+    },
+    {
+      "expected_reason": "FD_ACCESS_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD30",
+      "variant": "writable_descriptor"
+    },
+    {
+      "expected_reason": "FD_ACCESS_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD31",
+      "variant": "cloexec_missing"
+    },
+    {
+      "expected_reason": "UNSUPPORTED_OPERATION",
+      "expected_status": "REJECTED",
+      "id": "HD32",
+      "variant": "exec_after_ready"
+    },
+    {
+      "expected_reason": "UNSUPPORTED_OPERATION",
+      "expected_status": "REJECTED",
+      "id": "HD33",
+      "variant": "dup_after_ready"
+    },
+    {
+      "expected_reason": "UNSUPPORTED_OPERATION",
+      "expected_status": "REJECTED",
+      "id": "HD34",
+      "variant": "shared_files_clone"
+    },
+    {
+      "expected_reason": "UNSUPPORTED_OPERATION",
+      "expected_status": "REJECTED",
+      "id": "HD35",
+      "variant": "pathname_reopen"
+    },
+    {
+      "expected_reason": "UNSUPPORTED_OPERATION",
+      "expected_status": "REJECTED",
+      "id": "HD36",
+      "variant": "mmap_as_read"
+    },
+    {
+      "expected_reason": "FULL_FILE_STAGE_REQUIRED",
+      "expected_status": "REJECTED",
+      "id": "HD37",
+      "variant": "partial_as_full"
+    },
+    {
+      "expected_reason": "READ_CONTENT_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD38",
+      "variant": "wrong_returned_bytes"
+    },
+    {
+      "expected_reason": "SCHEMA_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD39",
+      "variant": "unknown_returned_bytes"
+    },
+    {
+      "expected_reason": "TIME_ORDER_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD40",
+      "variant": "duplicate_sequence"
+    },
+    {
+      "expected_reason": "TIME_ORDER_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD41",
+      "variant": "backward_time"
+    },
+    {
+      "expected_reason": "CLOCK_DOMAIN_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD42",
+      "variant": "wrong_clock"
+    },
+    {
+      "expected_reason": "INCOMPLETE_GRAPH",
+      "expected_status": "REJECTED",
+      "id": "HD43",
+      "variant": "missing_end"
+    },
+    {
+      "expected_reason": "SCHEMA_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD44",
+      "variant": "bool_fd"
+    },
+    {
+      "expected_reason": "COMPLETION_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD45",
+      "variant": "dropped_event"
+    },
+    {
+      "expected_reason": "COMPLETION_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD46",
+      "variant": "failed_exit"
+    },
+    {
+      "expected_reason": "MANIFEST_SET_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD47",
+      "variant": "missing_binding"
+    },
+    {
+      "expected_reason": "TRANSFER_COHORT_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD48",
+      "variant": "stale_transfer"
+    },
+    {
+      "expected_reason": "PHASE_ORDER",
+      "expected_status": "REJECTED",
+      "id": "HD49",
+      "variant": "rebind_after_ready"
+    },
+    {
+      "expected_reason": "SEAL_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD50",
+      "variant": "wrong_sealed_size"
+    },
+    {
+      "expected_reason": "EVIDENCE_KIND_UNSUPPORTED",
+      "expected_status": "REJECTED",
+      "id": "HD51",
+      "variant": "observed_not_synthetic"
+    },
+    {
+      "expected_reason": "COMPLETION_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD52",
+      "variant": "unknown_drop_count"
+    },
+    {
+      "expected_reason": "SCHEMA_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD53",
+      "variant": "extra_event_field"
+    },
+    {
+      "expected_reason": "FD_ALIAS_UNSUPPORTED",
+      "expected_status": "REJECTED",
+      "id": "HD54",
+      "variant": "same_ofd_different_objects"
+    },
+    {
+      "expected_reason": "MANIFEST_DIGEST_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD55",
+      "variant": "manifest_digest_wrong"
+    },
+    {
+      "expected_reason": "TRANSFER_COHORT_MISMATCH",
+      "expected_status": "REJECTED",
+      "id": "HD56",
+      "variant": "bundle_digest_wrong"
+    },
+    {
+      "expected_reason": "PIN_LIFETIME_INVALID",
+      "expected_status": "REJECTED",
+      "id": "HD57",
+      "variant": "release_missing"
+    }
+  ],
+  "evidence_kind": "SYNTHETIC",
+  "runtime_qualified": false,
+  "schema": "guest-input-handoff-counterexamples-v1"
+}
