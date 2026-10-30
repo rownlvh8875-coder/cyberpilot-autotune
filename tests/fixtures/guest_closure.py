@@ -1,5 +1,6 @@
 """Small independently authored ELF/archive bytes, never executable test payloads."""
 
+import gzip
 import struct
 
 
@@ -44,3 +45,84 @@ def elf_bytes(needed=(), interpreter=None, soname=None, extra=(), machine=62, el
     for index, segment in enumerate(segments):
         raw[64 + index * 56 : 120 + index * 56] = struct.pack("<IIQQQQQQ", *segment)
     return bytes(raw)
+
+
+def guest_members():
+    result = [
+        (name, 0o040755, b"", 0, 0)
+        for name in (
+            "bin",
+            "sbin",
+            "dev",
+            "proc",
+            "sys",
+            "sys/kernel",
+            "sys/kernel/security",
+            "sys/fs",
+            "sys/fs/cgroup",
+            "lab",
+            "etc",
+            "lib",
+            "lib/x86_64-linux-gnu",
+            "lib64",
+        )
+    ]
+    result += [
+        ("dev/console", 0o020600, b"", 5, 1),
+        ("dev/null", 0o020666, b"", 1, 3),
+        ("bin/sh", 0o120777, b"busybox", 0, 0),
+        (
+            "lib64/ld-linux-x86-64.so.2",
+            0o120777,
+            b"../lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+            0,
+            0,
+        ),
+        ("init", 0o100755, b"#!/bin/busybox sh\necho synthetic\n", 0, 0),
+        ("etc/guest-harmless-scope", 0o100444, b"synthetic", 0, 0),
+        ("etc/guest-collector-scope", 0o100444, b"synthetic", 0, 0),
+        ("bin/busybox", 0o100755, elf_bytes(elf_type=2), 0, 0),
+        ("exec-helper", 0o100755, elf_bytes(elf_type=2), 0, 0),
+        ("syscall-collector", 0o100755, elf_bytes(elf_type=2), 0, 0),
+        (
+            "harmless-fixtures",
+            0o100755,
+            elf_bytes(["libc.so.6"], "/lib64/ld-linux-x86-64.so.2"),
+            0,
+            0,
+        ),
+        ("guard.bpf.o", 0o100444, elf_bytes(machine=247, elf_type=1), 0, 0),
+    ]
+    for soname in (
+        "libbpf.so.1",
+        "libelf.so.1",
+        "libz.so.1",
+        "libzstd.so.1",
+        "libc.so.6",
+        "ld-linux-x86-64.so.2",
+    ):
+        result.append(("lib/x86_64-linux-gnu/" + soname, 0o100755, elf_bytes(soname=soname), 0, 0))
+    return result
+
+
+def cpio_bytes(members, *, nlink=1, trailer=True):
+    raw = bytearray()
+    for inode, (name, mode, data, major, minor) in enumerate(members, 1):
+        label = name.encode() + b"\0"
+        fields = (inode, mode, 0, 0, nlink, 0, len(data), 0, 0, major, minor, len(label), 0)
+        raw.extend(b"070701" + b"".join(f"{v:08x}".encode() for v in fields) + label)
+        raw.extend(bytes(-len(raw) % 4))
+        raw.extend(data)
+        raw.extend(bytes(-len(raw) % 4))
+    if trailer:
+        label = b"TRAILER!!!\0"
+        fields = (0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, len(label), 0)
+        raw.extend(b"070701" + b"".join(f"{v:08x}".encode() for v in fields) + label)
+        raw.extend(bytes(-len(raw) % 4))
+    return bytes(raw)
+
+
+def image_bytes(members=None, **kwargs):
+    return gzip.compress(
+        cpio_bytes(guest_members() if members is None else members, **kwargs), mtime=0
+    )
