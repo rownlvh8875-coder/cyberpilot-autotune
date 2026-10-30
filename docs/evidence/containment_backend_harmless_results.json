@@ -1,0 +1,1163 @@
+{
+  "schema_version": "guest-harmless-partial-results-v1",
+  "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+  "date": "2026-10-30",
+  "scope": "SOFTWARE_GUEST_ONLY_NO_DEVICE_ATTEMPT",
+  "authorization_reference": "User approval of previously described guest-only implementation, 2026-10-30; this manifest is NOT authority",
+  "base_commit": "8ef42c443887bf8f8d072256ed8268a75cec696f",
+  "vm_cohort_digest": "d98a259c5a45b56811d40a94e23e50a51ee88b513bb632396f45da6017f7af0c",
+  "actual_log": {
+    "path": "compatibility/containment_backend_harmless/evidence/guest-run.txt",
+    "sha256": "34bccbc06999fba43c09ed63badd14a46fd0fe65d9a71778d138aeedfc7e92e5"
+  },
+  "build_manifest": {
+    "path": "compatibility/containment_backend_harmless/host/build_manifest.json",
+    "sha256": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e"
+  },
+  "source_manifest": {
+    "path": "docs/evidence/containment_backend_guest_sources.json",
+    "sha256": "920348ca46d1fca4fd23e722fe22df0daea6c5ed17801e16db213ff7a723eebc"
+  },
+  "assertions_checked": 24,
+  "assertions_satisfied": 24,
+  "qualified_fixture_passes": 0,
+  "outcome_counts": {
+    "UNAVAILABLE": 6,
+    "REJECTED": 15,
+    "NOT_SUPPORTED": 3
+  },
+  "global_successful_prohibited_handles": null,
+  "global_successful_prohibited_effects": null,
+  "complete_syscall_fd_trace": null,
+  "gate_a": "BLOCKED",
+  "gate_b_c_d": "NOT_STARTED",
+  "current_policy": "STRICT_NO_DEVICE_ATTEMPT",
+  "proposed_discovery_policy_adopted": false,
+  "permissions": {
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false
+  },
+  "fixtures": [
+    {
+      "fixture_id": "HF01",
+      "actual_measurements": {
+        "fd_received": 0,
+        "read_matches": true,
+        "object_matches": true,
+        "read_only": true,
+        "broker_lookup_calls": 1,
+        "continue_calls": 0
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF01",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "UNAVAILABLE",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "5deb3f0f5c18951aff136e643a82be80a6fa8fb8654edbfe61d27109007e95e6"
+    },
+    {
+      "fixture_id": "HF02",
+      "actual_measurements": {
+        "buffer_changed": true,
+        "copied_path_used": true,
+        "read_matches": true,
+        "continue_calls": 0
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF02",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "UNAVAILABLE",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "12f1927e6233701d252144f4c37e83b21adbd1a8145c1342477844878ec498c8"
+    },
+    {
+      "fixture_id": "HF03",
+      "actual_measurements": {
+        "resolution_safe": true,
+        "source_drift_detected": true
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF03",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "107357e5e2e9c53b3a69b2e8b6c544aecca960c13317fbd10a668a744c4800e9"
+    },
+    {
+      "fixture_id": "HF04",
+      "actual_measurements": {
+        "resolution_safe": true,
+        "outside_read": false
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF04",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "UNAVAILABLE",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "3a164eb783bc3bb486cb10bc130e58c0f8a4b6ebadf616fbb0762db1cc9610e8"
+    },
+    {
+      "fixture_id": "HF05",
+      "actual_measurements": {
+        "magiclink_rejected": true,
+        "fd_received": -1
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF05",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "UNAVAILABLE",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "67094bcb5817cd3ac2e5fa07c1ccfae7e6d378a51de5e832a5746b1508298ebc"
+    },
+    {
+      "fixture_id": "HF06",
+      "actual_measurements": {
+        "unknown_dirfd_rejected": true,
+        "broker_lookup_calls": 0
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF06",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "2c94eed1aae07550c6cac08f641d0780af1541381b75bc5f37775250ff8f9a29"
+    },
+    {
+      "fixture_id": "HF07",
+      "actual_measurements": {
+        "mutation_rejected": true,
+        "input_unchanged": true
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF07",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "443b256024da7bc4deb7f3b75c9c920bc378fcd0607b4c64db3f3d75c36d5ffc"
+    },
+    {
+      "fixture_id": "HF08",
+      "actual_measurements": {
+        "open_errno": 1,
+        "broker_lookup_calls": 0
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF08",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "c963e93e20c5e32739371d098c411102c5bef8c82939a8bc7a0856d2331766f9"
+    },
+    {
+      "fixture_id": "HF09",
+      "actual_measurements": {
+        "invalid_flags_errno": 22,
+        "x32_errno": 1
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF09",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "9fbee7e0fac84ef411f1261264a2be96ac8e15498ab1d9ef428e644ec03db3a5"
+    },
+    {
+      "fixture_id": "HF10",
+      "actual_measurements": {
+        "invalid_scope_errno": 22,
+        "fallback_calls": 0,
+        "eagain_path_observed": null
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF10",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "UNAVAILABLE",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "396df8c88d914ed7e37e5f28fb821db68eaecc1e047ca24a744c531850307958"
+    },
+    {
+      "fixture_id": "HF11",
+      "actual_measurements": {
+        "stale_id_errno": 2,
+        "no_injection_after_cancel": true,
+        "child_reaped": true
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF11",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": true,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "dc78631c9d017955f1bdfef6e6292d9d24d4475bc6df73d309218f93cf9fe428"
+    },
+    {
+      "fixture_id": "HF12",
+      "actual_measurements": {
+        "fork_denial_errno": 1,
+        "exec_denial_errno": 1,
+        "children_reaped": 2
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF12",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "UNAVAILABLE",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": true,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "588d7ac0ec9f3c7c0d319b28acc4f77e903f93ca7c5c3a0a86bbca27ac4cb3a0"
+    },
+    {
+      "fixture_id": "HF13",
+      "actual_measurements": {
+        "kernel_events": 2,
+        "duplicate_detected": true,
+        "drop_detected": true,
+        "reorder_detected": true
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF13",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": true,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": "GUEST_MONOTONIC",
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "6494ff935ebabc16ffed6d55f5dd433f62d194deb717dd18780d6c525bc044fe"
+    },
+    {
+      "fixture_id": "HF14",
+      "actual_measurements": {
+        "observer_exit_signal": 9,
+        "denial_after_loss_errno": 1,
+        "tree_exit_observed": true
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF14",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": true,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": true,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "f8a34260ffea159ed9d8d3818ee63abe836479d9b7dbc086f5ff9cb2c62c4bb7"
+    },
+    {
+      "fixture_id": "HF15",
+      "actual_measurements": {
+        "listener_errno": 38,
+        "alive_after_errno": true,
+        "tree_exit_observed": true
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF15",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": true,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "3261067e87e34427f0dda7af1a1e9c2fa17353f3ae840083dbcafe2c25ac6950"
+    },
+    {
+      "fixture_id": "HF16",
+      "actual_measurements": {
+        "detach_attempt_errno": 1,
+        "denial_after_attempt_errno": 1
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF16",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": true,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "7852eba8fd9f5dfeca9f9953882c3fc4a73659c4e56e551fda53ae1fa78d9741"
+    },
+    {
+      "fixture_id": "HF17",
+      "actual_measurements": {
+        "threaded_type": true,
+        "kill_errno": 95,
+        "payload_started": false
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF17",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "NOT_SUPPORTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "THREADED_KILL_OR_DEVICE_OR_WRITE_PROFILE_NOT_SUPPORTED",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "62e1c45c2e4aa78868e3fc16b2739342d3edb2f438311825577b6f895f46d984"
+    },
+    {
+      "fixture_id": "HF18",
+      "actual_measurements": {
+        "extra_fd_detected": true,
+        "payload_started": false
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF18",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "f789f04a53ee411e03c67a4e9f74e25ef554fc67e75dfa844e4a05dfc222fb97"
+    },
+    {
+      "fixture_id": "HF19",
+      "actual_measurements": {
+        "input_changed": true,
+        "cohort_drift_rejected": true
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF19",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "8c65db3f0436a82e35bbe7317a49bb2959caf6381efa640284cdd08c3d1b8959"
+    },
+    {
+      "fixture_id": "HF20",
+      "actual_measurements": {
+        "exec_errno": 1,
+        "generated_code_started": false
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF20",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": true,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "e60e0e707ddc5c29e406d144e62edd7e3fa10cea0e2541b50fbf5194be4e133f"
+    },
+    {
+      "fixture_id": "HF21",
+      "actual_measurements": {
+        "proposal_changed": true,
+        "proposal_rejected": true,
+        "policy_adopted": false
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF21",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "ad3c4de83224f9ec0056f824d348ad4fcb7318f7616edd521b29ac1b2fffb80a"
+    },
+    {
+      "fixture_id": "HF22",
+      "actual_measurements": {
+        "end_marker_missing": true,
+        "trace_complete": null,
+        "counts_claimed_zero": false
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF22",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "REJECTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "NAMED_FAULT_OR_UNSUPPORTED_REQUEST_REJECTED_NOT_QUALIFICATION",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "f98eda2c0670d8786614505ff433cb6d16c5f1f31a631970d8aaa792dbdeee91"
+    },
+    {
+      "fixture_id": "HF23",
+      "actual_measurements": {
+        "standin_regular": true,
+        "policy_refusal_errno": 1,
+        "device_class_qualified": false
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF23",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "NOT_SUPPORTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "THREADED_KILL_OR_DEVICE_OR_WRITE_PROFILE_NOT_SUPPORTED",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "3a2243a4b508e712cb7dfa8a60238429fbb420bdfce8cd4cf9d05d7723cc4bf8"
+    },
+    {
+      "fixture_id": "HF24",
+      "actual_measurements": {
+        "write_open_errno": 1,
+        "new_file_created": false,
+        "original_unchanged": true
+      },
+      "assertion_failures": [],
+      "result": {
+        "fixture_id": "HF24",
+        "evidence_cohort_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+        "outcome": "NOT_SUPPORTED",
+        "actual_observations": {
+          "kernel_build_digest": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+          "kernel_config_digest": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+          "btf_digest": "60d48cb878267965039e3ac985ec338a69ab741277ad954302239ba6cea77db0",
+          "source_loader_digest": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+          "object_receipt_digest": null,
+          "fd_lineage_digest": null,
+          "guard_active": null,
+          "collector_bound": null,
+          "process_lineage_complete": null,
+          "trace_complete": null,
+          "tree_exit_observed": null,
+          "broker_effects_observed": null,
+          "clock_domain": null,
+          "successful_prohibited_handles": null,
+          "successful_prohibited_effects": null
+        },
+        "reasons": [
+          "THREADED_KILL_OR_DEVICE_OR_WRITE_PROFILE_NOT_SUPPORTED",
+          "COMPLETE_SYSCALL_FD_COLLECTOR_NOT_IMPLEMENTED",
+          "FULL_PROCESS_LINEAGE_UNAVAILABLE",
+          "GLOBAL_HANDLE_AND_EFFECT_COUNTS_UNKNOWN"
+        ],
+        "schema_version": "harmless-backend-fixture-v1",
+        "evidence_kind": "UNTRUSTED_FIXTURE_REPORT",
+        "runtime_qualified": false,
+        "device_class_qualified": false,
+        "policy_adopted": false,
+        "candidate_generation_allowed": false,
+        "application_authorized": false,
+        "runtime_accepted": false,
+        "owner_proposal_allowed": false
+      },
+      "result_digest": "41433fbe6df08d3c82d5c7b2bcd0c88f30bc7e5cf8c05033a1a977a2c10c6c7c"
+    }
+  ]
+}

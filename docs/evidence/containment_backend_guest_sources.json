@@ -1,0 +1,132 @@
+{
+  "schema_version": "guest-kernel-source-study-v1",
+  "repository": "https://salsa.debian.org/kernel-team/linux",
+  "package": "linux-source-6.12",
+  "package_version": "6.12.113-1",
+  "guest_kernel": "6.12.113+deb13-cloud-amd64",
+  "archive": {
+    "filename": "linux-source-6.12_6.12.113-1_all.deb",
+    "sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5"
+  },
+  "acquisition": "APT authenticated Debian signed InRelease/Packages SHA-256, TLS/Valid-Until/authentication enabled; private rootless extraction, no host installation",
+  "files": [
+    {
+      "path": "fs/open.c",
+      "bytes": 41097,
+      "sha256": "1a0806dbd9e83abe4a4e0e2b222af1c081d37a92b829cf8b0cd7109a1470cd5f",
+      "git_blob_sha1": "c591da3cb922fb9a572668c68c6860f9a2fb2f71",
+      "ranges": [
+        {
+          "start": 900,
+          "end": 973,
+          "claim": "O_PATH returns before security_file_open; ordinary driver open is later",
+          "sha256": "3e130fd7ce864fa7906f543ce73820ef763a1c0c526caf067905a8f4e0cd791c"
+        },
+        {
+          "start": 1220,
+          "end": 1263,
+          "claim": "openat2 rejects unsupported bits and IN_ROOT+BENEATH",
+          "sha256": "ec6caa29cccb1388a150aa95992a95ded90cdf0250d46ca9ccdb6225ebf026df"
+        }
+      ]
+    },
+    {
+      "path": "include/uapi/linux/seccomp.h",
+      "bytes": 6032,
+      "sha256": "38a129b0b1e0c5cbae3b01bb159810a5cc290d7823d4c386f71d70b16e93d8dd",
+      "git_blob_sha1": "dbfc9b37fcaee47e0d9c0431abd32797a4a52d1d",
+      "ranges": [
+        {
+          "start": 82,
+          "end": 127,
+          "claim": "CONTINUE not security boundary; ADDFD_FLAG_SEND atomic result/injection",
+          "sha256": "3078398fe00c22aaa0d51011914da73824b1df415aa06c4fad0840097183eb2e"
+        },
+        {
+          "start": 142,
+          "end": 157,
+          "claim": "ID_VALID and notification ioctls",
+          "sha256": "2c36fe24722559df8062a2ceedb419b574f8808690086184d2a05c3e528033b4"
+        }
+      ]
+    },
+    {
+      "path": "kernel/seccomp.c",
+      "bytes": 67323,
+      "sha256": "35d1e13d6bf687786fa5416a04cbcebdb0603036d7d6b0af4a19176953d94959",
+      "git_blob_sha1": "1eac0d2b8ecbe5525636e54babf66754a684c972",
+      "ranges": [
+        {
+          "start": 1448,
+          "end": 1488,
+          "claim": "last listener detach releases pending calls with ENOSYS",
+          "sha256": "fa05068bd0552dcf3dabeb11792755e50db97f8dfeb02f6729f8fdc48e8eab80"
+        },
+        {
+          "start": 1690,
+          "end": 1802,
+          "claim": "ADDFD flags and request validation",
+          "sha256": "fff11b2cd9e4054640f05962e830c7a1ac55174eb3897b68ba32f0a180345a3a"
+        }
+      ]
+    },
+    {
+      "path": "tools/testing/selftests/bpf/cgroup_helpers.c",
+      "bytes": 18224,
+      "sha256": "eb1705ee39f1ea38593eca36349ce4aaf4645eb1f16c456cf38c97f04b447e19",
+      "git_blob_sha1": "23bcf1aca76f36dce42a5d368e5c9f56111452ae",
+      "ranges": [
+        {
+          "start": 425,
+          "end": 477,
+          "claim": "cgroup ID from name_to_handle_at, not st_ino",
+          "sha256": "71ef709b2c5477dbbb301dd52702bb20008f6f20d8a857624d27b853b07afe90"
+        }
+      ]
+    },
+    {
+      "path": "kernel/bpf/bpf_lsm.c",
+      "bytes": 13229,
+      "sha256": "0749b4b7021b275fe3c952d4c22c8f9bf3e191fe54f5563a308bbc251a2c29e5",
+      "git_blob_sha1": "140c63a816d091ab5b9eabc38d8292642af2830e",
+      "ranges": [
+        {
+          "start": 1,
+          "end": 130,
+          "claim": "LSM hook IDs, GPL restriction and allowed attachment",
+          "sha256": "f64320f936740d1b7bce33af9d1b519ca861e1728d7de61ed37fe68c33ec5aab"
+        }
+      ]
+    },
+    {
+      "path": "kernel/bpf/verifier.c",
+      "bytes": 711201,
+      "sha256": "540efb449bb5252cce8f2caf2b71dc2b1acd788e537537b615c3d33c63a8cc29",
+      "git_blob_sha1": "2bcd098f774ba2aac3fd6856f4ac887a031e2030",
+      "ranges": [
+        {
+          "start": 16283,
+          "end": 16340,
+          "claim": "LSM return-value signed errno range verification",
+          "sha256": "9633582cfa50f4dac132c4b4b0304c388ab5fe0bdc379a5c43ef850347c42162"
+        }
+      ]
+    },
+    {
+      "path": "kernel/cgroup/cgroup.c",
+      "bytes": 195044,
+      "sha256": "f8abe4bae2e1680147ea5cd72e43f3e60df1070b1cd8eccc55b9eb0ec5dff0dc",
+      "git_blob_sha1": "ce012aca272a5d5884bae2edbcd9ac9d514ca8ef",
+      "ranges": [
+        {
+          "start": 4103,
+          "end": 4135,
+          "claim": "cgroup.kill refuses threaded cgroup EOPNOTSUPP",
+          "sha256": "0f90657f245bfb34d3e8d67f2cf2cc69a4afc29b518e3d88fee6d24d34c225c2"
+        }
+      ]
+    }
+  ],
+  "runtime_qualified": false,
+  "prior_reference_not_promoted": "Upstream v6.12 adc218676eef25575469234709c2d87185ca223a remains only the old design reference."
+}
