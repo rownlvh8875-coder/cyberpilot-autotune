@@ -1,0 +1,287 @@
+{
+  "authenticated_package": {
+    "bytes": 153094996,
+    "path": "/workspace/scratch/guest-backend.FY5icM/kernel-source/linux-source-6.12_6.12.113-1_all.deb",
+    "sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5"
+  },
+  "base_revision": "3a831fdd423aa98638082eba126519db19f432d6",
+  "git_files": [
+    {
+      "bytes": 8591,
+      "git_blob_sha1": "704478b3ba82aad602b2ba1d97e68605615b9275",
+      "path": "docs/guest_data_fd_handoff_contract.md",
+      "ranges": [
+        {
+          "claim": "point OFD observations and unavailable generations",
+          "end": 59,
+          "sha256": "d9220eeac83c1d703b9cc1c856a89d6f36d074ce1ca7e1011b12046c4c79e5a8",
+          "start": 40
+        }
+      ],
+      "sha256": "dc440163117b876d7c8966fe3aeb0ecbd4cbd1b7878fa33530318dca04caf0eb"
+    },
+    {
+      "bytes": 8057,
+      "git_blob_sha1": "ecc380d850a3b359fe410871559ab589a1db07cb",
+      "path": "docs/guest_data_fd_handoff_result.md",
+      "ranges": [
+        {
+          "claim": "actual9 bounded cases are not qualification",
+          "end": 55,
+          "sha256": "e2104f03cc90e85fad11f1b4c7eb0972761fa8ff51a1788b81d5c19a60a9d1c1",
+          "start": 15
+        }
+      ],
+      "sha256": "abf25c90158e376ac8bc9271cfde45ca836e4b0a2e615b77f311a5db665285ca"
+    },
+    {
+      "bytes": 19379,
+      "git_blob_sha1": "364e41e3e94d0ba37dbb90aac43dd1149ea29ced",
+      "path": "tests/experiments/guest_data_fd_handoff/model.py",
+      "ranges": [
+        {
+          "claim": "actual diagnostic results keep FD-table generation unavailable",
+          "end": 134,
+          "sha256": "4f34b8a4a62ad06a1af84a119555468458cc204649d8e548d26a41c33e650428",
+          "start": 125
+        },
+        {
+          "claim": "reference pin lifecycle and actual KCMP_FILE result domain",
+          "end": 333,
+          "sha256": "87668c48077d503fe01f6006c78c463416497adb2c70b73475abfd5056656303",
+          "start": 302
+        }
+      ],
+      "sha256": "107dceeeb4d3b682cde2daaa1ad38f595292392a9eac4b4bcf9b2d64081202f6"
+    },
+    {
+      "bytes": 16413,
+      "git_blob_sha1": "77f2d54b2c05b29f1b769a4df26e872259607001",
+      "path": "tests/experiments/guest_data_fd_handoff/guest/probe.c",
+      "ranges": [
+        {
+          "claim": "actual target comparison via retained OFD, not reopened observer OFD",
+          "end": 120,
+          "sha256": "b7b11ea1858ca9f88d98e93b3d2a5468c46d0f24fbc36a27fc981c65b7a23fd9",
+          "start": 108
+        },
+        {
+          "claim": "point inventory/credentials and explicit unavailable generation",
+          "end": 164,
+          "sha256": "802e62bd7075c7525dad666fcad5c0ce5b6f794b7f9d805be7ae9e80580355d7",
+          "start": 133
+        }
+      ],
+      "sha256": "879d016e217d0f07d4ea8910bec5b7c3cd76bb130bd1a1db930f039820144c2e"
+    }
+  ],
+  "kernel_files": [
+    {
+      "bytes": 3452,
+      "git_blob_sha1": "b1c5722f2b3ce4ba82e89716d5e27f85c67a8afd",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "files_struct identity differs from fdtable storage",
+          "end": 62,
+          "sha256": "42594b434533b7f79f8ba04dc81d494660800fac38939dfc770c109647987169",
+          "start": 26
+        }
+      ],
+      "sha256": "ab0233740bd825ed7705e378278f60a3a184a7ded81fea060ac4a2fbfe2abfdb"
+    },
+    {
+      "bytes": 37233,
+      "git_blob_sha1": "c84bd5809358382df0332322dfce64a1749acab3",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "fdtable resize swaps storage without new namespace",
+          "end": 214,
+          "sha256": "b17d2afa44bf2883a7354e046950708eea08bb3e8c3a8590c6db51cc38dea447",
+          "start": 174
+        },
+        {
+          "claim": "dup_fd copy references and lockless installation race",
+          "end": 402,
+          "sha256": "ca92ca07e3162a67872066ffd9b54cbb26ff03979a0566c91774736a389cd517",
+          "start": 314
+        },
+        {
+          "claim": "lockless fd_install publication",
+          "end": 622,
+          "sha256": "29eecbd7f3a1824a0e514f29334c281a1d4fa00d831e65e9e7462c42e1b9ce6f",
+          "start": 595
+        },
+        {
+          "claim": "close_files namespace end and task detach before reap",
+          "end": 459,
+          "sha256": "d4204f6490f98d332aa674cda098b4eaa0537dd1c294a4cdf8a562cc9e43724e",
+          "start": 405
+        },
+        {
+          "claim": "exec close set is not one atomic lock section",
+          "end": 842,
+          "sha256": "6a1ce959121bb233c30b5ba2fe8ebefdf8f3e1bb90d03b56a3f48aadf1cf78b2",
+          "start": 804
+        },
+        {
+          "claim": "dup replacement and per-descriptor CLOEXEC",
+          "end": 1249,
+          "sha256": "0acfc5951b18789e33f0f5f784b81e1457f6f64b54cd703c95be6ed9df80acda",
+          "start": 1206
+        },
+        {
+          "claim": "dup2/dup3 flags and same-descriptor no-effect path",
+          "end": 1388,
+          "sha256": "0cb0bf5a4347e58e64465b0ff5b964d14860bf8a8ade96dd11dac3278b2ce713",
+          "start": 1332
+        },
+        {
+          "claim": "dup and f_dupfd allocate unused slots, not replacement",
+          "end": 1417,
+          "sha256": "dc4be46af58bfcda9c696d47b519c55fe5a8602b9f86e6676b9790d90b53c3a7",
+          "start": 1389
+        },
+        {
+          "claim": "alloc_fd searches unused slots, get_unused_fd starts0",
+          "end": 552,
+          "sha256": "d5a4c12b4682137ccc8f097a149ab925292cd1e68e96a136050c7f156c24a970",
+          "start": 490
+        }
+      ],
+      "sha256": "07cb3588c77a23709dfc746330cb0ac602445d647a14246ab5242bc389256169"
+    },
+    {
+      "bytes": 87580,
+      "git_blob_sha1": "c36d69c40213b45d8792cdc3ee41d5ab07f36251",
+      "path": "kernel/fork.c",
+      "ranges": [
+        {
+          "claim": "CLONE_FILES shares, ordinary fork copies",
+          "end": 1829,
+          "sha256": "ab7db9f2f83c7623f53fba2ad1555c3c8efae0ad702c4a3b1fd2d92b33d5d48c",
+          "start": 1801
+        },
+        {
+          "claim": "conditional unshare uses actual kernel count",
+          "end": 3301,
+          "sha256": "d7540dfbd58cfa377277f1815485f69e178a41c2d1bbb4756676db8e9aa86cf4",
+          "start": 3287
+        },
+        {
+          "claim": "exec helper changes namespace only when copy occurred",
+          "end": 3465,
+          "sha256": "0c5dcf024efbef360930fb7bdfbfa52994ee9d7811e2f6aa2df7218017dcd1dd",
+          "start": 3449
+        }
+      ],
+      "sha256": "9ca6cce17959283738d9a010405c319d38397e698e6a6382a24bbbf29ef8b1fa"
+    },
+    {
+      "bytes": 5547,
+      "git_blob_sha1": "b0639f21041f0720db9e0915c0e8559a785fec11",
+      "path": "kernel/kcmp.c",
+      "ranges": [
+        {
+          "claim": "KCMP_FILE local equality0 or ordering1/2",
+          "end": 59,
+          "sha256": "0aea98294746ba970d03c95b63f98204a330df55386940725d31255bf10240cc",
+          "start": 39
+        },
+        {
+          "claim": "permission checked snapshot FILE and FILES comparisons",
+          "end": 190,
+          "sha256": "80c23ff2edc298224591bef9acd701eaf389b4fd47cd6fafc6cee340f5017f57",
+          "start": 137
+        }
+      ],
+      "sha256": "d2a3bca8c51977f8cf370648711e13a237bd843812a3c564975385f8c3336d00"
+    },
+    {
+      "bytes": 19245,
+      "git_blob_sha1": "8552cc7edca488fbc82c16ee6aa231dae10f09e4",
+      "path": "kernel/pid.c",
+      "ranges": [
+        {
+          "claim": "pidfd_getfd retains actual file reference not generation/coverage",
+          "end": 728,
+          "sha256": "fc48f0b91d6dc29d217f4e4b199ac541959531360edec8e123b585a6de1fa827",
+          "start": 668
+        }
+      ],
+      "sha256": "c6fc014785996084c52df570b21bb4770e8fa90865140d049bf0bf3baabb6427"
+    },
+    {
+      "bytes": 15008,
+      "git_blob_sha1": "f78bcff79f1a0499bcc48390f032e785cf4b47f4",
+      "path": "fs/file_table.c",
+      "ranges": [
+        {
+          "claim": "actual final file memory free",
+          "end": 99,
+          "sha256": "31c54642f1d87694412e0735e5fd28992bd32b5529e2c9238d521cf0e5a7be9a",
+          "start": 87
+        },
+        {
+          "claim": "__fput performs final cleanup and free",
+          "end": 482,
+          "sha256": "ad137eff2ace2d817264c9421e7142c8ee87f4fc670102f1553576ed5a2c243b",
+          "start": 440
+        },
+        {
+          "claim": "fput final ref may defer task work and delayed destruction",
+          "end": 540,
+          "sha256": "6f384baaab57387bac06de0bced07f131167f443bc72ba61f34e5647d1437a8a",
+          "start": 517
+        }
+      ],
+      "sha256": "853ad4b282453d6091944412fa5eae258e11e53292457b8be812afe4cc15320c"
+    },
+    {
+      "bytes": 54546,
+      "git_blob_sha1": "829c74c7690d8b511fc4630c4102f693050000a5",
+      "path": "fs/exec.c",
+      "ranges": [
+        {
+          "claim": "unshare before close-on-exec before executable image binding",
+          "end": 1304,
+          "sha256": "b29dc6248ec1fda63cd0345d3d0a281c447a4d87f488bb94ced65704eda10466",
+          "start": 1280
+        }
+      ],
+      "sha256": "fb8c02ec8d88d8ad8d85ebbc84e88db5a863196277b96b7baaaa3b7711b45ae0"
+    },
+    {
+      "bytes": 9343,
+      "git_blob_sha1": "92f0756394115b7719abd1aaf4c1bf56e7d690e4",
+      "path": "fs/proc/fd.c",
+      "ranges": [
+        {
+          "claim": "fdinfo point flags/CLOEXEC not full lifecycle",
+          "end": 74,
+          "sha256": "e8d132cf20b343d06090684e60b87bdf0a2083c993291aa307f4516710acadac",
+          "start": 24
+        }
+      ],
+      "sha256": "caa957010c563f8d4ebce0a5b7f2ea41428ce8180a5c1737b2369811187f41a8"
+    },
+    {
+      "bytes": 537,
+      "git_blob_sha1": "ef130501092531b23148898efc08b0e521f3354c",
+      "path": "include/uapi/linux/kcmp.h",
+      "ranges": [
+        {
+          "claim": "FILE and FILES enum are different relations",
+          "end": 20,
+          "sha256": "c5c2c4e65e7a4f0fa914cb1d8bebe41fe25a50a28faa5a41197e9f5a8a6f09a0",
+          "start": 7
+        }
+      ],
+      "sha256": "0e74ad59aefc2329d6d5f9bb5136efa9ee00022aa5b991c68e80e2cce8dc148a"
+    }
+  ],
+  "runtime_qualified": false,
+  "schema": "fd-ofd-lifetime-source-refs-v1",
+  "source_archive_sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33"
+}

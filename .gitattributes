@@ -25,3 +25,4 @@
 /tests/experiments/guest_data_fd_handoff/guest/*.c -text
 /docs/evidence/guest_data_fd_handoff_*.json -text
 /docs/evidence/guest_data_fd_handoff_*.gz -text
+/docs/evidence/fd_ofd_lifetime_design_*.json -text

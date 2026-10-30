@@ -1,0 +1,807 @@
+{
+  "binding_entry": [
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "fd",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt64",
+      "unit": "descriptor_number"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "slot",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt64",
+      "unit": "binding_incarnation"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "ofd",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "ResourceKey",
+      "unit": "opaque_allocation_lifetime"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "cloexec",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "Bool",
+      "unit": "flag"
+    }
+  ],
+  "context": [
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "session_id",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "Token",
+      "unit": "local_scope"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "boot_scope",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "Token",
+      "unit": "local_scope"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "source_revision",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "GitSHA1",
+      "unit": "source_revision"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "source_digest",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "SHA256",
+      "unit": "source_manifest"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "scope_digest",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "SHA256",
+      "unit": "scope_policy"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "profile",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "Profile",
+      "unit": "proposed_not_qualified"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "clock_domain",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "ClockDomain",
+      "unit": "synthetic_source_clock"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "cpus",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt32Vector",
+      "unit": "cpu_cohort"
+    }
+  ],
+  "coverage": [
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "start_fence",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt64",
+      "unit": "source_ordinal"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "end_fence",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt64",
+      "unit": "source_ordinal"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "cpus",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "CpuCoverageVector",
+      "unit": "synthetic_claims_only"
+    }
+  ],
+  "cpu_coverage": [
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "cpu",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt32",
+      "unit": "logical_cpu_id"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "armed",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "Bool",
+      "unit": "synthetic_claim"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "drained",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "Bool",
+      "unit": "synthetic_claim"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "emitted",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt64",
+      "unit": "synthetic_event_count"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "last_source_seq",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt64",
+      "unit": "per_cpu_source_watermark"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "dropped",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt64",
+      "unit": "synthetic_loss_count_not_actual"
+    }
+  ],
+  "envelope": [
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "seq",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt64",
+      "unit": "source_linearization_ordinal"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "time_ns",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt64",
+      "unit": "ns"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "cpu",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt32",
+      "unit": "logical_cpu_id"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "cpu_seq",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "UInt64",
+      "unit": "per_cpu_source_ordinal"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "context_digest",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "SHA256",
+      "unit": "content_identity_only"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "kind",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "LifecycleKind",
+      "unit": "enum"
+    },
+    {
+      "availability": "REQUIRED_NO_DEFAULT",
+      "field": "data",
+      "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+      "type": "KindSpecificVector",
+      "unit": "semantic_fields"
+    }
+  ],
+  "events": {
+    "CLOEXEC": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "task",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "epoch",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "fd",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "slot",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "old",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "Bool",
+        "unit": "flag"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "new",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "Bool",
+        "unit": "flag"
+      }
+    ],
+    "CLOSE": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "task",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "epoch",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "fd",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "slot",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "ofd",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      }
+    ],
+    "DETACH": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "task",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "exec",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "epoch",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      }
+    ],
+    "DUP": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "task",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "epoch",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "src_fd",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "src_slot",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "dst_fd",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "dst_slot",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "method",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "DupMethod",
+        "unit": "source_operation"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "cloexec",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "Bool",
+        "unit": "flag"
+      }
+    ],
+    "END": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "tasks",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "tables",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "ofds",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "pins",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      }
+    ],
+    "EXEC": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "task",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "epoch",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "after_table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "before_exec",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "after_exec",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "closed",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "BindingVector",
+        "unit": "canonical_bindings"
+      }
+    ],
+    "FORK": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "parent",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "epoch",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "child",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "child_table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "share",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "Bool",
+        "unit": "flag"
+      }
+    ],
+    "INSTALL": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "task",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "epoch",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "fd",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "slot",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "ofd",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "cloexec",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "Bool",
+        "unit": "flag"
+      }
+    ],
+    "INVENTORY": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "task",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "exec",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "epoch",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "entries",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "BindingVector",
+        "unit": "canonical_bindings"
+      }
+    ],
+    "OFD_FREE": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "ofd",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      }
+    ],
+    "OFD_NEW": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "task",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "exec",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "ofd",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "object_digest",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "SHA256",
+        "unit": "context_only_not_OFD_identity"
+      }
+    ],
+    "PIN": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "pin",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "ofd",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      }
+    ],
+    "REAP": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "task",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "exec",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      }
+    ],
+    "TABLE_FREE": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "epoch",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "closed",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "BindingVector",
+        "unit": "canonical_bindings"
+      }
+    ],
+    "TABLE_NEW": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      }
+    ],
+    "TASK_START": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "task",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      }
+    ],
+    "UNPIN": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "pin",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "ofd",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      }
+    ],
+    "UNSHARE": [
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "task",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "epoch",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "UInt64",
+        "unit": "ordinal_or_count"
+      },
+      {
+        "availability": "REQUIRED_NO_DEFAULT",
+        "field": "after_table",
+        "stage": "SYNTHETIC_LIFECYCLE_MODEL",
+        "type": "ResourceKey",
+        "unit": "opaque_allocation_lifetime"
+      }
+    ]
+  },
+  "evidence_class": "SYNTHETIC_ONLY",
+  "permissions": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false
+  },
+  "profile": "PROPOSED_KERNEL_SERIALIZED_LIFETIME_V1",
+  "resource_limits": {
+    "aggregate_string_chars": 4194304,
+    "canonical_bytes": 4194304,
+    "cpus": 8,
+    "depth": 24,
+    "events": 2048,
+    "fd_slots": 64,
+    "json_nodes": 100000,
+    "ofds": 64,
+    "pins": 64,
+    "string_chars": 4096,
+    "tables": 32,
+    "tasks": 32
+  },
+  "runtime_qualified": false,
+  "schema_version": "fd-ofd-lifetime-design-v1"
+}
