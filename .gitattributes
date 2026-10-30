@@ -21,3 +21,7 @@
 /compatibility/guest_input_seal/guest/build_manifest.json -text
 /compatibility/guest_input_seal/evidence/*.gz -text
 /docs/evidence/guest_input_seal_sources.json -text
+/tests/experiments/guest_data_fd_handoff/*.py -text
+/tests/experiments/guest_data_fd_handoff/guest/*.c -text
+/docs/evidence/guest_data_fd_handoff_*.json -text
+/docs/evidence/guest_data_fd_handoff_*.gz -text

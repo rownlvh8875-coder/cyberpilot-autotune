@@ -1,0 +1,65 @@
+{
+  "base_revision": "74e3fdc67c2695a48035bf51758721f48bd5ae05",
+  "binary": {
+    "bytes": 924280,
+    "path": "data-fd-handoff-probe",
+    "sha256": "72eee6f3996a27afb9543403d6256410abd9f4c6914356aa6c6c8dfe62e951bb"
+  },
+  "build_command": "cc -std=c17 -O2 -Wall -Wextra -Werror -static -I/workspace/scratch/guest-backend.FY5icM/toolchain/usr/include -I/workspace/scratch/guest-backend.FY5icM/toolchain/usr/include/x86_64-linux-gnu tests/experiments/guest_data_fd_handoff/guest/probe.c -o /workspace/scratch/data-fd-handoff-producer.xax7ID/data-fd-handoff-probe",
+  "build_input_closure_qualified": false,
+  "permissions": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false
+  },
+  "schema": "guest-data-fd-handoff-build-v1",
+  "sources": [
+    {
+      "bytes": 80,
+      "path": "tests/experiments/guest_data_fd_handoff/__init__.py",
+      "sha256": "3a44f9e0304819931e873d529c06769000061dcfad8d8d6f73895f136261a74b"
+    },
+    {
+      "bytes": 19379,
+      "path": "tests/experiments/guest_data_fd_handoff/model.py",
+      "sha256": "107dceeeb4d3b682cde2daaa1ad38f595292392a9eac4b4bcf9b2d64081202f6"
+    },
+    {
+      "bytes": 5539,
+      "path": "tests/experiments/guest_data_fd_handoff/runner.py",
+      "sha256": "b7a68b8869be70d380ff9e61235bc11f238817dc65271a9b8d8ec5610b2b75e8"
+    },
+    {
+      "bytes": 8933,
+      "path": "tests/experiments/guest_data_fd_handoff/audit.py",
+      "sha256": "aecf39849230074d5f14b3f4ab30c383db6379884234898decf15af02474c36c"
+    },
+    {
+      "bytes": 16413,
+      "path": "tests/experiments/guest_data_fd_handoff/guest/probe.c",
+      "sha256": "879d016e217d0f07d4ea8910bec5b7c3cd76bb130bd1a1db930f039820144c2e"
+    },
+    {
+      "bytes": 3315,
+      "path": "compatibility/guest_consumption/guest/sha256.h",
+      "sha256": "4127729e115aae2ccc2b926f2fcb5c0a40832a0e9fbbe5720aab9e5aa754ea51"
+    },
+    {
+      "bytes": 10277,
+      "path": "compatibility/guest_consumption/vm_runner.py",
+      "sha256": "c2efc10243bbfd87290a042fe422bef02718fbc43fde507454bdbe857499de83"
+    },
+    {
+      "bytes": 7681,
+      "path": "compatibility/guest_input_seal/vm_runner.py",
+      "sha256": "88101cf391b4ec0967da935990e443d4791d34039788cb4962b37ab8b6e670da"
+    }
+  ],
+  "vm_cohort_digest": "d98a259c5a45b56811d40a94e23e50a51ee88b513bb632396f45da6017f7af0c"
+}
