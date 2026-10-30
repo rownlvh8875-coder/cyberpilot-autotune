@@ -9,7 +9,8 @@ not permission to merge old PRs, modify the vehicle or qualify an executor.
 Test Linux 6.12.113 memfd full object sealing in the already frozen diskless
 QEMU 10.0.13 TCG guest. No host execution of the static probe. No host security
 configuration, network, disks, shared folders, real build or Carrot workload.
-The fixed trusted parent probe records libc return values/errno, fstat object
+The fixed trusted parent probe records libc return values/errno (mmap uses
+explicit normalized success0/failure-1 status, not pointer identity), fstat object
 identity, F_GET_SEALS and actual pread bytes. These are local diagnostic claims,
 not independently authenticated workload-consumption or a PR30 seal witness.
 

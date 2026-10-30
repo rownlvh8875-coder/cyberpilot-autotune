@@ -1,0 +1,132 @@
+{
+  "authenticated_package": {
+    "bytes": 153094996,
+    "path": "/workspace/scratch/guest-backend.FY5icM/kernel-source/linux-source-6.12_6.12.113-1_all.deb",
+    "sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5"
+  },
+  "files": [
+    {
+      "bytes": 12563,
+      "git_blob_sha1": "3e5a014fdacc050b6d5195485bf7b7f5c047a965",
+      "path": "mm/memfd.c",
+      "ranges": [
+        {
+          "claim": "memfd_file_seals_ptr: supported object types",
+          "end": 211,
+          "sha256": "a48dc163d73ace2ae29b0c305c79610e76246c039f50f81041254d0c1fcdcf86",
+          "start": 195
+        },
+        {
+          "claim": "memfd_add/get/fcntl: full seals, EBUSY no partial mask and irreversible seal",
+          "end": 323,
+          "sha256": "00b33f72df21dfc44c256a9ed21d3840a324495ee932e47ea8397f2f2870b824",
+          "start": 213
+        },
+        {
+          "claim": "check_write_seal: shared writable versus private mapping",
+          "end": 397,
+          "sha256": "396b7056846361d0ca76d370487fe6c1429c0d2b83b7dd6080c8751b76b9de61",
+          "start": 357
+        },
+        {
+          "claim": "memfd_create: noexec mode and initial EXEC seal",
+          "end": 487,
+          "sha256": "63bc01973f4580fda53c54b5141435a9bb4cd2fafd9c64f9c432759dda39f804",
+          "start": 450
+        }
+      ],
+      "sha256": "c20bc57fb0d0bad29c0a348c241f5480e169cb438719c71dd71bd99c8effd31e"
+    },
+    {
+      "bytes": 147425,
+      "git_blob_sha1": "9166d9c455abd65a41812ae8eb9183b2150335da",
+      "path": "mm/shmem.c",
+      "ranges": [
+        {
+          "claim": "shmem_setattr shrink/grow seals",
+          "end": 1255,
+          "sha256": "78b429221d65b37e2e5ece5032ae40b414fce5a7c7770084d4a9f83385bbe352",
+          "start": 1226
+        },
+        {
+          "claim": "ordinary shmem inode starts F_SEAL_SEAL",
+          "end": 2894,
+          "sha256": "77ae0000cc1956eaa886dad3993e42bc41b740870fe928ced29af609d1b1b536",
+          "start": 2878
+        },
+        {
+          "claim": "shmem_write_begin write/future-write seals",
+          "end": 3120,
+          "sha256": "4a5f0497cde03ac3a7b0ce705f81a89e9ea44e33a9799d698bd5cd5fc26aa480",
+          "start": 3091
+        }
+      ],
+      "sha256": "1ff75b0c8ecb8daddd8cf3725ce0019449a83e09a1642455d4f3ea7c2c354fb3"
+    },
+    {
+      "bytes": 63584,
+      "git_blob_sha1": "2d69552e6be382756de755fb623de0a04498ab74",
+      "path": "mm/mmap.c",
+      "ranges": [
+        {
+          "claim": "do_mmap MAYWRITE preserved on writable descriptor shared mapping",
+          "end": 425,
+          "sha256": "8b849766d4d492c9d78339acd0838632ec1d8e8a485a9675bfe0ea8434b9bad1",
+          "start": 337
+        },
+        {
+          "claim": "mmap_region mapping_map_writable",
+          "end": 1630,
+          "sha256": "7d37657290295c3079bcfeaa5970f8cc7b4f3ce3d3b93a2d626244aa41777daa",
+          "start": 1608
+        }
+      ],
+      "sha256": "b1c0dfc5c7f9dbbb1a07737b68ce90fe77473385129d35ecceef64986ccfef84"
+    },
+    {
+      "bytes": 128548,
+      "git_blob_sha1": "19211eb49a8c087e497a1d2ff08906ea34fb9e64",
+      "path": "include/linux/fs.h",
+      "ranges": [
+        {
+          "claim": "mapping writable count and EBUSY deny",
+          "end": 622,
+          "sha256": "9207af1022871b8c380a3d317cb69f018580ac9526077e275283ab71f9b80f78",
+          "start": 580
+        }
+      ],
+      "sha256": "b1eaaf9e239d449a923a980ad05939069bb8347655b482a11b0e9ba524759bce"
+    },
+    {
+      "bytes": 1482,
+      "git_blob_sha1": "273a4e15dfcffdf293a2f68f7df30b3d9b681733",
+      "path": "include/uapi/linux/memfd.h",
+      "ranges": [
+        {
+          "claim": "MFD flag assignments",
+          "end": 39,
+          "sha256": "e8d31a91125828cee9e0c723c12e71011017047cf708278eeffc0ab23340eaeb",
+          "start": 1
+        }
+      ],
+      "sha256": "e8d31a91125828cee9e0c723c12e71011017047cf708278eeffc0ab23340eaeb"
+    },
+    {
+      "bytes": 5848,
+      "git_blob_sha1": "87e2dec79fea4ef21e694f3c069ec229926b6d08",
+      "path": "include/uapi/linux/fcntl.h",
+      "ranges": [
+        {
+          "claim": "F_ADD/GET_SEALS and seal flag assignments",
+          "end": 51,
+          "sha256": "7bc635a6a82eff75675a98ca5861d2b13a7ffbd4399610156308a0a96bcb54ba",
+          "start": 29
+        }
+      ],
+      "sha256": "7986f796768373c01ae19564fa4c1c7fec1dc239eff53d42577384d6a2ea0016"
+    }
+  ],
+  "runtime_qualified": false,
+  "schema": "guest-input-seal-sources-v1",
+  "source_archive_sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33"
+}

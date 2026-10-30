@@ -43,10 +43,10 @@
 
 **Interfaces:** Consumes Task1 parser/evaluator. Produces capture_cases(cases: tuple[str,...]) -> tuple[tuple[SealCapture,bytes],...], build_image(files,binary,case) -> bytes, main(argv: list[str] | None=None) -> int. Only CLI --run-prepared-guest --case ISxx or --all-cases, no command/path override.
 
-- [ ] Test fixed image selection, default CLI2/no I/O, argument rejection, no disk/network/share/KVM QEMU arguments, source/binary binding validation and opt-in boundary. Run focused tests; expect missing implementation RED.
-- [ ] Implement eight fixed C scenarios, exact phase events, guest marker/kernel guard, retained descriptors and actual bytes read. Compile -std=c17 -O2 -Wall -Wextra -Werror -static to new prepared asset directory; never run it on host.
-- [ ] Implement hash-bound manifest, checked legacy input loader, fixed derived image and bounded runner.
-- [ ] Run runner tests/full suite. Execute eight actual guest cases, compare literal decisions; preserve original raw serial bytes. Commit `feat: probe full input object seals in fixed guest`.
+- [x] Test fixed image selection, default CLI2/no I/O, argument rejection, no disk/network/share/KVM QEMU arguments, source/binary binding validation and opt-in boundary. Run focused tests; expect missing implementation RED.
+- [x] Implement eight fixed C scenarios, exact phase events, guest marker/kernel guard, retained descriptors and actual bytes read. Compile -std=c17 -O2 -Wall -Wextra -Werror -static to new prepared asset directory; never run it on host.
+- [x] Implement hash-bound manifest, checked legacy input loader, fixed derived image and bounded runner.
+- [x] Run runner tests/full suite. Execute eight actual guest cases, compare literal decisions; preserve original raw serial bytes. Commit `feat: probe full input object seals in fixed guest`.
 
 ### Task 3: Source evidence, audit and handoff
 
@@ -54,7 +54,7 @@
 
 **Interfaces:** Consumes Task1/2; audit validate(kernel_source: Path | None=None) -> dict[str,object]. No qualified build/seal/consumption bridge.
 
-- [ ] Test committed source/capture audit tamper rejection and architecture boundaries; run RED, then implement audit/manifests. Replay all eight captures and source ranges; expect eight recognized diagnostics, four scoped object-seal positives, all BLOCKED.
+- [x] Test committed source/capture audit tamper rejection and architecture boundaries; run RED, then implement audit/manifests. Replay all eight captures and source ranges; expect eight recognized diagnostics, four scoped object-seal positives, all BLOCKED.
 - [ ] Run full pytest/coverage, ruff/format/mypy/build, vanilla wheel/replay and knowledge/owner/science/friction smokes, historical source/native192, fresh exact-head CRLF clone; expect green, report actual coverage.
 - [ ] Commit evidence/results, dispatch one fresh independent whole-branch review at exact head. C/I: author RED/GREEN fix pass and rerun full suite; minors deferred.
 - [ ] Publish own stacked Draft PR against feat/guest-consumption-prototype, wait exact-head push and PR matrix, record actual results without claiming qualified executor or old-PR merge. Commit append-only; handoff in Korean with all rulings/deferred minors.
