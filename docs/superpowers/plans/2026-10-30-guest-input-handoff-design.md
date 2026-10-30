@@ -53,7 +53,7 @@
 
 **Interfaces:** Consumes Task1/2; result statuses DESIGN_READY, RUNTIME_PRODUCER_NOT_IMPLEMENTED and all existing blockers.
 
-- [ ] Run full pytest/coverage, ruff/format/mypy/build/fresh vanilla+research wheel/replay/smokes, old source/native192/PR32 replay and fresh exact-head CRLF. Report actual oracle coverage, not OS/C coverage.
+- [x] Run full pytest/coverage, ruff/format/mypy/build/fresh vanilla+research wheel/replay/smokes, old source/native192/PR32 replay and fresh exact-head CRLF. Report actual oracle coverage, not OS/C coverage.
 - [ ] Commit checkpoint; one fresh most-capable reviewer on exact whole branch, with Review Focus verbatim and ledger rulings. C/I author RED→GREEN fix pass/full rerun; Minor deferred, no second review.
 - [ ] Publish own stacked Draft `Design guest input namespace and descriptor handoff` on feat/guest-input-seal-prototype; verify final exact-head push+PR CI and preserve old refs. Attach PR via app tool; report acknowledgement honestly.
 - [ ] Record final external results in PR handoff/owned ledger, preserve prepared old assets, recoverably archive only this plan workspace, Korean result with every ruling/cost and deferred minor. Recommend one next task, no real build/vehicle.

@@ -44,23 +44,23 @@ hashes/coverage bools are simulated claims, never proof of complete real FD clos
 
 ## Evidence and current verification checkpoint
 
--57 published synthetic cases:5 internally consistent,52 expected rejections.
+- 57 published synthetic cases:5 internally consistent,52 expected rejections.
  These are not actual guest handoffs or empirical qualification.
--7 exact Git blobs/11 source ranges at the base, byte size/SHA256/blob/range SHA.
+- 7 exact Git blobs/11 source ranges at the base, byte size/SHA256/blob/range SHA.
  Worktree CRLF text is not treated as consumed source; no lazy fetch/substitute.
--Baseline2548; full2653 passed34.28s and coverage run2653 passed100.31s.
--Focused105 including architecture and schema/source/counterexample mutations.
--Pure oracle175/175 statements100%;47/48 branches97.92%. One closed-enum
+- Baseline2548; full2653 passed34.28s and coverage run2653 passed100.31s.
+- Focused105 including architecture and schema/source/counterexample mutations.
+- Pure oracle175/175 statements100%;47/48 branches97.92%. One closed-enum
  defensive branch remains unexecuted, not excluded. No OS/C/native coverage claim.
--Existing installed src aggregate98.52% (4350 statements/1192 branches).
--Fresh core.autocrlf=true clone exact `ca33788442dc9cbdd48120739cbd62986a3d1fb9`:
+- Existing installed src aggregate98.52% (4350 statements/1192 branches).
+- Fresh core.autocrlf=true clone exact `ca33788442dc9cbdd48120739cbd62986a3d1fb9`:
  full2653 passed36.89s.
--Ruff/format447; strict mypy71 installed+3 new audit/model/example modules green.
--Build/fresh isolated vanilla+research wheel/import/replay/Carrot-contract,
+- Ruff/format447; strict mypy71 installed+3 new audit/model/example modules green.
+- Build/fresh isolated vanilla+research wheel/import/replay/Carrot-contract,
  knowledge/owner/science/friction/receipt smokes green. Wheel excludes tests,
  compatibility and, before research extras, NumPy.
--Existing H2..H7 source/history/observation-v2 audits, PR31/32 capture replays and
-192 passive native patch tests green. No new guest/target execution.
+- Existing H2..H7 source/history/observation-v2 audits, PR31/32 capture replays and
+ 192 passive native patch tests green. No new guest/target execution.
 
 TDD evidence: missing model/audit RED;9 kernel-identity numeric-coercion RED→GREEN;
 4 exact wire-field type/unit audit RED→GREEN. Published source range bounds were
