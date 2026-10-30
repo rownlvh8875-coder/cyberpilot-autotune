@@ -114,6 +114,7 @@ def parse_serial(raw: bytes) -> Capture:
             _uint(row[n]) for n in ("seq", "table", "ofd", "old", "flags", "mono")
         )
         fd = None if row["fd"] == "-1" else _uint(row["fd"])
+        require((fd is None or fd < 2**31) and flags < 2**32, "RAW_INT_WIDTH")
         require(seq > (events[-1].seq if events else 0), "DUPLICATE_OR_REORDERED_SOURCE_SEQ")
         events.append(
             RawEvent(seq, row["kind"], table or None, ofd or None, old or None, fd, flags, mono)

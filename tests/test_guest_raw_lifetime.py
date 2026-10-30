@@ -71,6 +71,8 @@ def test_counter_or_transport_contradiction_cannot_be_considered_balanced(old, n
         (b"table=0", b"table=-1"),
         (b"ofd=1", b"ofd=True"),
         (b"flags=0", b"flags=0.0"),
+        (b"flags=0", b"flags=4294967296"),
+        (b"fd=-1", b"fd=2147483648"),
         (b"mono=10", b"mono=18446744073709551616"),
         (b"cpus=1", b"cpus=2"),
         (b"version=1", b"version=2"),
