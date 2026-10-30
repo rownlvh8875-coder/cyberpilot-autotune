@@ -55,7 +55,7 @@ result/effect/guard-active fields are null for every row in the manifest.
 | HF01 | Immutable regular input, allowed read | Resolved expected object; exact read-only FD injection/result pair |
 | HF02 | Change request buffer while broker is deciding | Only broker-owned copied bytes used; no CONTINUE or unmediated open |
 | HF03 | Replace symlink during resolution | Resolve within approved root or reject; no prefix approval |
-| HF04 | Absolute / parent traversal outside root | No outside object/FD/effect; scoped kernel rejection bound |
+| HF04 | Absolute / parent traversal under IN_ROOT | Verified in-root resolution or rejection; no outside object/FD/effect |
 | HF05 | proc-fd magic link label | No magic-link traversal; no inherited FD laundering |
 | HF06 | Close/reuse numeric dirfd or change cwd | Unknown generation rejects; never reuse numeric identity blindly |
 | HF07 | Hardlink / rename replacement of protected input | Write/replace denied or input-cohort invalidated; no stale identity |
@@ -82,6 +82,12 @@ an actual attacker or a host-wide policy change. Exact failures/branch coverage
 must be recorded rather than "all tests passed" from an unrelated Python model.
 Any unexpected effect/handle, untracked child or unknown evidence invalidates the
 run; do not continue to native code because the fixture payload only computes CPU.
+
+HF04 must not require an errno for IN_ROOT: absolute paths and parent traversal
+can legitimately clamp/rebase inside the approved root. Verify the actual inside
+object identity (or rejection), not a string-prefix inference. If a separately
+approved BENEATH profile is tested, its actual escaping/absolute-path cases have
+an explicit rejection expectation; it is never an automatic lookup fallback.
 
 ## What this cannot qualify
 
