@@ -2,3 +2,7 @@
 /compatibility/containment_backend_harmless/host/build_manifest.json -text
 /docs/evidence/containment_backend_guest_sources.json -text
 /docs/evidence/containment_backend_harmless_results.json -text
+/compatibility/containment_guest_collector/guest/build_manifest.json -text
+/docs/evidence/guest_collector_sources.json -text
+/docs/evidence/guest_collector_results.json -text
+/compatibility/containment_guest_collector/evidence/actual-captures.txt.gz -text

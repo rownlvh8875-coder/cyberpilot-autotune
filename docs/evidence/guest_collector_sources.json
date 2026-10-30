@@ -1,0 +1,151 @@
+{
+  "schema_version": "guest-collector-source-v1",
+  "package": "linux-source-6.12",
+  "package_version": "6.12.113-1",
+  "source_archive_sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33",
+  "authenticated_package": {
+    "path": "/workspace/scratch/guest-backend.FY5icM/kernel-source/linux-source-6.12_6.12.113-1_all.deb",
+    "sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5",
+    "bytes": 153094996
+  },
+  "acquisition": "Matched tar component against previously authenticated Debian package before use; no host installation",
+  "runtime_qualified": false,
+  "files": [
+    {
+      "path": "kernel/entry/common.c",
+      "sha256": "ecf9a1bdd58e02ba5c710d383e77a7000b39e3de6b75237c5d677514b10ead6d",
+      "bytes": 10708,
+      "git_blob_sha1": "fc6552d065cc148f1e8227f226df99568c235951",
+      "ranges": [
+        {
+          "start": 28,
+          "end": 76,
+          "claim": "ptrace entry precedes seccomp; seccomp ERRNO may skip trace_sys_enter",
+          "sha256": "e78b733c0d68a587a7108215f476ca46be2bc8b6b1960b923ab8f15175b255d3"
+        },
+        {
+          "start": 152,
+          "end": 177,
+          "claim": "raw return/ptrace exit ordering, user-dispatch exception",
+          "sha256": "47eb86c34c8c6f6f2ed296edd84b55d74772135bceca772d2e6c7e80d12bf0e6"
+        }
+      ]
+    },
+    {
+      "path": "kernel/ptrace.c",
+      "sha256": "2e08d56f9646bb7e292311795122796e0dfd01e9c2baa3f2289c7d5985033011",
+      "bytes": 37907,
+      "git_blob_sha1": "75bcc152606c4ba6af5ebcb583fb05c4fba7703f",
+      "ranges": [
+        {
+          "start": 604,
+          "end": 616,
+          "claim": "EXITKILL kills attached tasks on tracer death",
+          "sha256": "02f0029c120772a29918a95fd41fe0e7900e3ada52232697bfb13c3eac622fba"
+        },
+        {
+          "start": 928,
+          "end": 1020,
+          "claim": "typed syscall info native entry args and signed raw return",
+          "sha256": "9dee43ef5a1852097a4388b9f8e133dce148ab5b434f09215a6389f7fa49e239"
+        },
+        {
+          "start": 1305,
+          "end": 1317,
+          "claim": "raw ptrace PEEK writes the observed word through its data pointer",
+          "sha256": "387f517653f55e748f2080264ec412e8102ab6cc111e907dc827c27559041e8a"
+        }
+      ]
+    },
+    {
+      "path": "include/linux/ptrace.h",
+      "sha256": "1150f9a6c9e4dea3247183c16995f8ef4420cdfdb91bf3e4281cfc52e5f9c04c",
+      "bytes": 17194,
+      "git_blob_sha1": "90507d4afcd6debb80eef494c4c874c8a1732e49",
+      "ranges": [
+        {
+          "start": 191,
+          "end": 219,
+          "claim": "new child inherits tracer/options and initial stop",
+          "sha256": "29c4b47464ea90500c94f6900c6e0b86ea8ca5927d9f225a79ef5c545638fa29"
+        }
+      ]
+    },
+    {
+      "path": "include/uapi/linux/ptrace.h",
+      "sha256": "e0a5a2bac8fc8c287342daccaaa484d22d9332c75013d454c54bf51b646b53b3",
+      "bytes": 5516,
+      "git_blob_sha1": "72c038fc71d093514e010fdc4a833cb95285053e",
+      "ranges": [
+        {
+          "start": 76,
+          "end": 109,
+          "claim": "typed syscall-info wire layout",
+          "sha256": "fb43403a6161d846df142d82b24d79754f4d0b399f2cebd374f772418c8f1e63"
+        },
+        {
+          "start": 155,
+          "end": 183,
+          "claim": "lifecycle/sysgood/EXITKILL options; no suspend-seccomp",
+          "sha256": "6b9f0c0464d74465271440596a0615e001208c4c052a14732c37d6200bb8356b"
+        }
+      ]
+    },
+    {
+      "path": "kernel/fork.c",
+      "sha256": "9ca6cce17959283738d9a010405c319d38397e698e6a6382a24bbbf29ef8b1fa",
+      "bytes": 87580,
+      "git_blob_sha1": "c36d69c40213b45d8792cdc3ee41d5ab07f36251",
+      "ranges": [
+        {
+          "start": 2790,
+          "end": 2878,
+          "claim": "CLONE_UNTRACED suppresses ptrace birth; supported children initially stop",
+          "sha256": "506ff0b2d6b64f2be3b0ae99e05e3234b6efba2e12a63867796487875f1019cb"
+        }
+      ]
+    },
+    {
+      "path": "fs/proc/fd.c",
+      "sha256": "caa957010c563f8d4ebce0a5b7f2ea41428ce8180a5c1737b2369811187f41a8",
+      "bytes": 9343,
+      "git_blob_sha1": "92f0756394115b7719abd1aaf4c1bf56e7d690e4",
+      "ranges": [
+        {
+          "start": 23,
+          "end": 75,
+          "claim": "FDinfo under file table lock, file reference, O_CLOEXEC/mount/inode",
+          "sha256": "9706e7324e90f173a9055b6ee00bc4d017479638776e4c1522255e9daede004b"
+        }
+      ]
+    },
+    {
+      "path": "fs/exec.c",
+      "sha256": "fb8c02ec8d88d8ad8d85ebbc84e88db5a863196277b96b7baaaa3b7711b45ae0",
+      "bytes": 54546,
+      "git_blob_sha1": "829c74c7690d8b511fc4630c4102f693050000a5",
+      "ranges": [
+        {
+          "start": 1855,
+          "end": 1873,
+          "claim": "successful exec event reports old task identity",
+          "sha256": "614dd1021789308e55abea6c6e246f847a5c7cebc2f79b9927f401261f858667"
+        }
+      ]
+    },
+    {
+      "path": "kernel/exit.c",
+      "sha256": "540a565afcc467ad1d148018170724937164805773b0621f8fb0efef62ee97b0",
+      "bytes": 50076,
+      "git_blob_sha1": "8ae45b2b8cf94874739579726105da137b6f9066",
+      "ranges": [
+        {
+          "start": 887,
+          "end": 954,
+          "claim": "pre-exit ptrace event precedes exit_files",
+          "sha256": "72462640fd10ea7bc8a42d75ab17ceb8d471f89be7b82b231500e059d8b8b302"
+        }
+      ]
+    }
+  ]
+}
