@@ -16,3 +16,8 @@
 /compatibility/guest_consumption/evidence/*.gz -text
 /docs/evidence/guest_consumption_sources.json -text
 /docs/evidence/guest_consumption_results.json -text
+/compatibility/guest_input_seal/*.py -text
+/compatibility/guest_input_seal/guest/*.c -text
+/compatibility/guest_input_seal/guest/build_manifest.json -text
+/compatibility/guest_input_seal/evidence/*.gz -text
+/docs/evidence/guest_input_seal_sources.json -text

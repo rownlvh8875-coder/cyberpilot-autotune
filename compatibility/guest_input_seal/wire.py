@@ -24,7 +24,7 @@ def _nonfinite(value: str) -> None:
 def parse_capture(text: str) -> SealCapture:
     if type(text) is not str or len(text.encode()) > 1024 * 1024:
         raise ValueError("capture text outside bound")
-    events = []
+    events: list[SealEvent] = []
     try:
         for line in text.split("\n"):
             if "SEAL " not in line:
@@ -41,7 +41,7 @@ def parse_capture(text: str) -> SealCapture:
             events.append(SealEvent(**data))
     except (RecursionError, UnicodeError) as error:
         raise ValueError("invalid capture encoding/nesting") from error
-    return SealCapture(events)
+    return SealCapture(tuple(events))
 
 
 def capture_digest(capture: SealCapture) -> str:

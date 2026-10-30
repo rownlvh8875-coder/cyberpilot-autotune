@@ -31,8 +31,8 @@ Device/inode is local identity only, pinned by an open FD for the capture.
 | IS02 | Existing shared writable map makes full seal EBUSY, mask unchanged; map mutates backing; after explicit unmap/restore, distinct second attempt succeeds. |
 | IS03 | FUTURE_WRITE/GROW/SHRINK/SEAL gives55, no WRITE; existing map still mutates backing; never full-sealed. |
 | IS04 | Two identical fully sealed objects; FD0 reused for the wrong object; hashes and masks match but device/inode binding fails. |
-| IS05 | chmod0444 does not revoke an existing writable descriptor; write succeeds; F_GET_SEALS unavailable with EINVAL, not zero. |
-| IS06 | Sealed copy remains unchanged after pathname replacement; reading replacement is not a read of the expected sealed object. |
+| IS05 | chmod0444 does not revoke an existing writable descriptor; drop to uid/gid65534 with no_new_privs, record credentials, write succeeds; this guest's ordinary tmpfs file returns F_GET_SEALS=1, not a write seal. Unavailable/EINVAL is a separate synthetic contract case, never zero. |
+| IS06 | Sealed object remains unchanged after pathname replacement; reading replacement is not a read of the expected sealed object. The separate ordinary tmpfs replacement has seal mask1. |
 | IS07 | Private writable COW mapping can change private memory while backing sealed bytes remain unchanged. |
 | IS08 | Read-only shared mapping from writable descriptor retains MAYWRITE and blocks full seal; unmap then distinct attempt succeeds. |
 

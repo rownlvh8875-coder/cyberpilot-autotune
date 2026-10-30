@@ -20,9 +20,10 @@ PERMISSIONS = tuple(
 )
 
 
-def uint(value: object, *, positive: bool = False) -> None:
+def uint(value: object, *, positive: bool = False) -> int:
     if type(value) is not int or not (int(positive) <= value < 2**64):
         raise ValueError("unsigned exact integer required")
+    return value
 
 
 @dataclass(frozen=True)
@@ -42,7 +43,7 @@ class SealEvent:
             raise ValueError("event vector required")
         object.__setattr__(self, "values", tuple(self.values))
         v = self.values
-        lengths = {"BEGIN": 1, "END": 0, "SNAP": 7, "OP": 2, "BIND": 5, "LOCAL": 1}
+        lengths = {"BEGIN": 1, "END": 0, "SNAP": 7, "OP": 2, "BIND": 5, "LOCAL": 1, "CRED": 3}
         if type(self.kind) is not str or self.kind not in lengths or len(v) != lengths[self.kind]:
             raise ValueError("unknown event shape")
         if self.kind == "BEGIN":
@@ -64,12 +65,12 @@ class SealEvent:
                 raise ValueError("actual read SHA256 required")
             if v[4] is not None:
                 uint(v[4])
-            if (v[4] is None) != (v[5] != 0) or v[6] > 0o7777:
+            if (v[4] is None) != (v[5] != 0) or uint(v[6]) > 0o7777:
                 raise ValueError("seal availability/mode mismatch")
         else:
             for value in v:
                 uint(value)
-            if self.kind == "LOCAL" and v[0] > 255:
+            if self.kind == "LOCAL" and uint(v[0]) > 255:
                 raise ValueError("byte outside range")
 
 
@@ -109,6 +110,19 @@ class SealDecision:
     scenario_recognized: bool
     object_seal_observed: bool
     reasons: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        if (
+            type(self.case) is not str
+            or self.case not in CASES
+            or type(self.scenario_recognized) is not bool
+            or type(self.object_seal_observed) is not bool
+            or (self.object_seal_observed and not self.scenario_recognized)
+            or type(self.reasons) not in (list, tuple)
+            or any(type(r) is not str or not r for r in self.reasons)
+        ):
+            raise ValueError("invalid diagnostic decision")
+        object.__setattr__(self, "reasons", tuple(self.reasons))
 
     @property
     def overall(self) -> str:

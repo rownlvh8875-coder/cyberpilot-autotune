@@ -25,13 +25,13 @@ def evaluate(capture: SealCapture) -> SealDecision:
         label: str,
         mask: int | None = 47,
         digest: str = ORIGINAL,
-        identity: tuple = base,
+        identity: tuple[object, ...] = base,
         err: int = 0,
         mode: int = 0o666,
-    ) -> tuple:
+    ) -> tuple[object, ...]:
         return ("SNAP", label, (*identity, 17, digest, mask, err, mode))
 
-    def op(label: str, result: int = 0, err: int = 0) -> tuple:
+    def op(label: str, result: int = 0, err: int = 0) -> tuple[object, ...]:
         return ("OP", label, (result, err))
 
     bind = ("BIND", "read", (*base, *base, 0))
@@ -84,21 +84,22 @@ def evaluate(capture: SealCapture) -> SealDecision:
             snap("read", identity=alternate),
         ],
         "IS05": [
-            snap("before", None, err=22, mode=0o644),
+            snap("before", 1, mode=0o644),
             op("chmod"),
-            snap("chmod", None, err=22, mode=0o444),
+            snap("chmod", 1, mode=0o444),
+            ("CRED", "write", (65534, 65534, 1)),
             op("write_original", 1),
-            snap("mutated", None, MUTATED, err=22, mode=0o444),
+            snap("mutated", 1, MUTATED, mode=0o444),
             bind,
-            snap("read", None, MUTATED, err=22, mode=0o444),
+            snap("read", 1, MUTATED, mode=0o444),
         ],
         "IS06": [
             before,
             *sealed,
             op("replace"),
-            snap("replacement", None, MUTATED, alternate, 22, 0o644),
+            snap("replacement", 1, MUTATED, alternate, 0, 0o644),
             wrong_bind,
-            snap("read", None, MUTATED, alternate, 22, 0o644),
+            snap("read", 1, MUTATED, alternate, 0, 0o644),
             snap("after"),
         ],
         "IS07": [before, *sealed, ("LOCAL", "private", (88,)), snap("after"), *tail],

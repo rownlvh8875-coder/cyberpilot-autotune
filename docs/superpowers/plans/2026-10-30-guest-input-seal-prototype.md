@@ -6,7 +6,7 @@
 
 **Architecture:** Pure immutable framed capture contract and fixed-case diagnostic evaluator. Separate static C parent probe, derived diskless image and opt-in fixed runner. No workload/PR30 witness bridge.
 
-**Tech Stack:** Python 3.11+, Linux6.12.113, static C17, QEMU10.0.13 TCG.
+**Tech Stack:** Python >=3.12.3,<3.13, Linux6.12.113, static C17, QEMU10.0.13 TCG.
 
 **Spec:** docs/superpowers/specs/2026-10-30-guest-input-seal-prototype-design.md
 
@@ -32,10 +32,10 @@
 
 **Interfaces:** Produces parse_capture(text: str) -> SealCapture, capture_digest(capture: SealCapture) -> str, evaluate(capture: SealCapture) -> SealDecision. Records have seq/time_ns/kind/label/values; SNAP stores dev,ino,size,sha256,seal-mask-or-None,seal-errno,mode; OP stores signed libc result and errno; BIND stores expected dev/ino and actual dev/ino/fd; LOCAL stores private byte value. Capture stores tuple events. Decision stores case, scenario_recognized, object_seal_observed, reasons, overall BLOCKED and fixed-false permissions.
 
-- [ ] Write tests for immutable defensive copies, FD0/None, strict types, complete ordering, duplicate JSON, separators, content digests and each Review Focus adversary. Literal synthetic event fixtures, not producer-generated expectations.
-- [ ] Run `.venv/bin/python -m pytest tests/unit/test_guest_input_seal_contract.py -q`; expect missing-module RED.
-- [ ] Implement strict structural shapes and exact per-case grammar in contracts/wire/evaluation.
-- [ ] Run focused tests and full pytest; expect all pass. Commit `feat: define scoped guest input seal evidence`.
+- [x] Write tests for immutable defensive copies, FD0/None, strict types, complete ordering, duplicate JSON, separators, content digests and each Review Focus adversary. Literal synthetic event fixtures, not producer-generated expectations.
+- [x] Run `.venv/bin/python -m pytest tests/unit/test_guest_input_seal_contract.py -q`; expect missing-module RED.
+- [x] Implement strict structural shapes and exact per-case grammar in contracts/wire/evaluation.
+- [x] Run focused tests and full pytest; expect all pass. Commit `feat: define scoped guest input seal evidence`.
 
 ### Task 2: Fixed guest probe and execution boundary
 
