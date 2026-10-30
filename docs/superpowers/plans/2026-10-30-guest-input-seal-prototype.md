@@ -55,6 +55,10 @@
 **Interfaces:** Consumes Task1/2; audit validate(kernel_source: Path | None=None) -> dict[str,object]. No qualified build/seal/consumption bridge.
 
 - [x] Test committed source/capture audit tamper rejection and architecture boundaries; run RED, then implement audit/manifests. Replay all eight captures and source ranges; expect eight recognized diagnostics, four scoped object-seal positives, all BLOCKED.
-- [ ] Run full pytest/coverage, ruff/format/mypy/build, vanilla wheel/replay and knowledge/owner/science/friction smokes, historical source/native192, fresh exact-head CRLF clone; expect green, report actual coverage.
+- [x] Run full pytest/coverage, ruff/format/mypy/build, vanilla wheel/replay and knowledge/owner/science/friction smokes, historical source/native192, fresh exact-head CRLF clone; expect green, report actual coverage.
 - [x] Commit evidence/results, dispatch one fresh independent whole-branch review at exact head. C/I: author RED/GREEN fix pass and rerun full suite; minors deferred.
 - [ ] Publish own stacked Draft PR against feat/guest-consumption-prototype, wait exact-head push and PR matrix, record actual results without claiming qualified executor or old-PR merge. Commit append-only; handoff in Korean with all rulings/deferred minors.
+
+The remaining external gate is tracked in the PR32 final handoff and owned
+execution ledger. This committed checklist is a local checkpoint, not a claim
+that pending remote CI already succeeded.

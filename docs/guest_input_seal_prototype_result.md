@@ -136,3 +136,20 @@ consumer FD lifetime before any build starts. This is the missing connection
 between isolated sealed objects and PR31's consumption observations. Start with
 design and counterexamples; do not automatically elevate these diagnostics into
 PR30's qualified input seal witness or authorize a real build/device run.
+
+## Final local checkpoint
+
+Post-fix source `f4b2e7ba610b9dc47882fe329a0ffc63d186e9fd`:
+full2548 (coverage99.74s), focused94, pure176/176 statements and82/82 branches,
+installed src aggregate98.52%. Fresh core.autocrlf=true clone at this exact
+source head: full2548 passed36.33s. All8 actual final-source guests and kernel
+6files/12ranges audit reran green; final binary773512 bytes/hash above.
+Ruff/format437, mypy71+7, build/fresh vanilla+research wheel/replay/smokes,
+historical source validators/native192 all green. Working tree clean after
+append-only commits; no old PR or protected runtime/schema/evidence edits.
+
+This final documentation checkpoint changes no tested runtime/producer source,
+manifest or raw captures. Final exact-head push/PR CI identities, PR state,
+remaining external-gate completion and full author rulings are recorded in the
+[Draft PR32 handoff](https://github.com/rownlvh8875-coder/cyberpilot-autotune/pull/32),
+not inferred from the successful pre-fix d3549ab CI. No merge or next real build.
