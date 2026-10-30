@@ -108,6 +108,16 @@ abort-phase observations.19 RED regressions→22 GREEN including positive contro
 No independent fix-head re-review/C0I0 claim. One manifest test-quality Minor is
 deferred; see [full review/rulings](guest_consumption_prototype_review.md).
 
+Final verified source: `0c6d34a3891843d2c24bd7de666dd0fa894e1abc`.
+Post-fix full2453 and fresh CRLF full2453 passed; focused111 passed. Pure Python
+consumer statement345/347=99.42%, branch178/180=98.89%; two typed-contract
+defensive branches remain unexecuted, not excluded. No C/native line coverage
+claim. Installed src aggregate98.52%; lint/format420 and strict mypy71+8 green.
+Static C -Werror rebuild, seven fresh final-source guest checks, source/history
+audits/kernel7files11ranges/native192, build/fresh isolated vanilla+research wheel
+and all smokes reran green. Final docs-only handoff does not change tested code;
+exact final push/PR CI identities are in the Draft comment, not a local assumption.
+
 ## Retained blockers / next boundary
 
 FIXED_GUEST_CONSUMPTION_PROTOTYPE_IMPLEMENTED;

@@ -34,8 +34,8 @@
 
 **Interfaces:** frozen `CaptureEvent(seq,time_ns,kind,task,image,values)` and `ConsumptionCapture(events)`; `parse_capture(text:str)->ConsumptionCapture`; `capture_digest(capture)->str`; frozen `KnownMaterial(material_id,role,logical_path,size,sha256)` and `ConsumptionProfile(identity:BuildIdentity,materials:tuple[KnownMaterial,...])`; `produce_receipt(capture,profile)->ProducedObservation` with `receipt`, `trace_window_complete`, `profile_reasons`, fixed limitations/BLOCKED/false permissions/null counts.
 
-- [ ] Write literal CP01-like frames and synthetic cross-generation/sequence/clock/lifecycle/range/hash/None/unknown/duplicate/forged-payload adversaries; missing API RED. Assert actual byte hashes, not expected bytes substituted by producer. All five Review Focus cases have consumer or Task2 boundaries.
-- [ ] Implement bounded immutable models, strict per-kind JSON shapes, canonical content digest, pure causal/image/object/offset/known-content joins into unchanged PR30. Run focused+full GREEN. Commit `feat: consume fixed guest byte observations as neutral receipts`.
+- [x] Write literal CP01-like frames and synthetic cross-generation/sequence/clock/lifecycle/range/hash/None/unknown/duplicate/forged-payload adversaries; missing API RED. Assert actual byte hashes, not expected bytes substituted by producer. All five Review Focus cases have consumer or Task2 boundaries.
+- [x] Implement bounded immutable models, strict per-kind JSON shapes, canonical content digest, pure causal/image/object/offset/known-content joins into unchanged PR30. Run focused+full GREEN. Commit `feat: consume fixed guest byte observations as neutral receipts`.
 
 ### Task2: Static C observer and fixed opt-in VM recipe
 
@@ -43,9 +43,9 @@
 
 **Interfaces:** C emits Task1 protocol. `build_image(files:dict[str,tuple[int,bytes]],binary:bytes,case:str)->bytes`; `capture_case(case:str)->tuple[ProducedObservation,str]` preserves raw serial output; host `main(argv)->int` default2/no IO, only `--capture CPxx` invokes fixed runner and prints BLOCKED report then2. No arbitrary command/path/options. `check_case(observation,case)->tuple[str,...]` independent literal fixture checks, used by opt-in experiment.
 
-- [ ] Runner/image/CLI boundary tests RED: unknown/empty cases no IO, new/old asset drift, image contains exact binary/input/scope and no arbitrary init, QEMU argv fixed. Experiment RED asserts missing real C/runner before implementation.
-- [ ] Implement SHA256 self-checks, guest-only marker/kernel guard, unprivileged fixed payloads, independent read-buffer/object/exec/fork observation, stdout pipe separation and explicit incomplete aborts. Build C17/static -Wall/-Wextra/-Werror into this plan's own scratch path only.
-- [ ] Use anchored PR29 verified assets, derive image without old modifications, run each of CP01–CP07 in fresh fixed guest. Assert CP01 literal `0123`,`4567`,`89A`,EOF at100; CP02 exact child/offset; CP03 image change; CP04 failed negative distinct; CP05/06 incomplete; CP07 cannot forge. Diagnose RED source semantics, no unscoped retries or host fallback. Save original raw bytes, no repair. Commit source/runner after focused+full GREEN.
+- [x] Runner/image/CLI boundary tests RED: unknown/empty cases no IO, new/old asset drift, image contains exact binary/input/scope and no arbitrary init, QEMU argv fixed. Experiment RED asserts missing real C/runner before implementation.
+- [x] Implement SHA256 self-checks, guest-only marker/kernel guard, unprivileged fixed payloads, independent read-buffer/object/exec/fork observation, stdout pipe separation and explicit incomplete aborts. Build C17/static -Wall/-Wextra/-Werror into this plan's own scratch path only.
+- [x] Use anchored PR29 verified assets, derive image without old modifications, run each of CP01–CP07 in fresh fixed guest. Assert CP01 literal `0123`,`4567`,`89A`,EOF at100; CP02 exact child/offset; CP03 image change; CP04 failed negative distinct; CP05/06 incomplete; CP07 cannot forge. Diagnose RED source semantics, no unscoped retries or host fallback. Save original raw bytes, no repair. Commit source/runner after focused+full GREEN.
 
 ### Task3: Evidence, source audit, review and Draft handoff
 
@@ -53,8 +53,8 @@
 
 **Interfaces:** committed capture replay regenerates literal checks and reports; independent source/blob/range SHA256 audit; fixed build inputs manifest, no seal/authenticity. Normal pytest/CI never guest executes.
 
-- [ ] Publish actual capture evidence and precise coverage/unsupported gaps; synthetic malformed/causal/authority adversaries RED→GREEN. Pure>=98statement/95branch; fullpytest, lint/format, strictmypy, staticCbuild, source audits/native192, build/fresh wheel/replay/smokes, fresh CRLF, protected-byte check.
-- [ ] Commit exact review checkpoint; one fresh whole-branch reviewer with complete spec/plan/Review Focus/rulings. Reproduce C/I RED, one author fix pass/full rerun; minors deferred and every declined behavior ruled with cost. No re-review or false fix-head C0I0 claim.
+- [x] Publish actual capture evidence and precise coverage/unsupported gaps; synthetic malformed/causal/authority adversaries RED→GREEN. Pure>=98statement/95branch; fullpytest, lint/format, strictmypy, staticCbuild, source audits/native192, build/fresh wheel/replay/smokes, fresh CRLF, protected-byte check.
+- [x] Commit exact review checkpoint; one fresh whole-branch reviewer with complete spec/plan/Review Focus/rulings. Reproduce C/I RED, one author fix pass/full rerun; minors deferred and every declined behavior ruled with cost. No re-review or false fix-head C0I0 claim.
 - [ ] Own stacked Draft basefeat/guest-build-promotion-receipts, title `Prototype fixed guest input consumption observations`; attach artifact, final exact-head push+PR CI. Record all results/head/rulings/limitations. Ordinary automatic continuation does not authorize actual full Carrot build or fabricate seal/executor evidence.
 
 Self-review: Task1 shapes bind Task2 wire exactly; immutable PR30 types reused,
@@ -62,3 +62,9 @@ not modified. Task2 new binary and Task3 hashes mutually excluded from self-hash
 cycles. Task3 checks actual capture+literal fixtures, not synthetic-only success.
 All five Review Focus boundaries are explicitly tested; no host security action
 or general executable interface exists. No seal/runtime/application gate changes.
+
+Verified source0c6d34a: full2453, CRLF2453, focused111, pure99.42statement/
+98.89branch, real7 fixture checks matched (5 windows complete/2 explicitly
+incomplete). Independent C0/I3/M1 atf57e203; three I fixed one author pass,
+minor test gap deferred; no independent fix-head re-review. Final forge step is
+recorded by exact-head CI/Draft handoff, not a CI-triggering docs update loop.
