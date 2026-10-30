@@ -1,0 +1,2 @@
+# Preserve actual serial CRLF bytes, including on Windows checkouts.
+guest-run.txt -text -whitespace
