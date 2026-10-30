@@ -1,0 +1,4 @@
+# These new evidence JSON files are hash-bound exact bytes, not host-native text.
+/compatibility/containment_backend_harmless/host/build_manifest.json -text
+/docs/evidence/containment_backend_guest_sources.json -text
+/docs/evidence/containment_backend_harmless_results.json -text

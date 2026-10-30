@@ -142,7 +142,8 @@ closure remain unqualified; do not treat local checks as hostile-host protection
 
 ## Verification at publication
 
-- Full Python regression: 1,852 passed; 134 focused new pure tests passed.
+- Full Python regression after review fix: 1,855 passed; 137 focused new pure tests
+  passed. Installed-package combined coverage: 98.52% (1,852-test pre-attribute-fix run).
 - New package pure-test combined statement/branch coverage: 81.70%. This includes
   unexercised fixed-runner failure branches; the actual 24-case guest run is
   separate evidence, not Python/C coverage. No C/BPF line-coverage claim.
@@ -153,8 +154,13 @@ closure remain unqualified; do not treat local checks as hostile-host protection
 - Existing offline passive native patch regression: 192 passed; no deployment,
   runtime, empirical or application qualification. H6, H7 and patch-design source/
   history audits pass. Actual Debian kernel audit: seven files, ten exact ranges.
-- Independent branch review and exact-head CI are reported in the Draft PR;
-  neither is a runtime/device qualification. Older PRs remain unchanged.
+- [Independent branch review](containment_backend_harmless_review.md): C0/I1/M0 at
+  `a5b071558720924491a48e4dc6fce953d57a3bff`; Important CRLF checkout regression
+  reproduced and fixed through RED3 → GREEN3 plus full regression. Hash-bound
+  new JSON files now preserve exact bytes in Git checkouts. No evidence hashes
+  were weakened. The single fix pass is not a second independent review.
+- Exact-head CI is reported in the Draft PR; neither review nor CI is a runtime/
+  device qualification. Older PRs remain unchanged.
 
 ## Retained blockers and next single task
 
