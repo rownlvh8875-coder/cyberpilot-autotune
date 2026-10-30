@@ -112,10 +112,9 @@ def expected_snapshot() -> InputSnapshot:
 
 def observe_fixed_inputs() -> tuple[InputSnapshot, tuple[bytes, ...]]:
     from compatibility.containment_guest_collector.image import build_collector_image
-    from compatibility.containment_guest_collector.vm_runner import load_assets
 
-    # Frozen old verifiers are read-only here. execute()/subprocess is never called.
-    _, files, collector = load_assets()
+    from .legacy import load_checked_assets
+
     entries = (
         *scan_tree("toolchain_exact_tree", TOOLCHAIN),
         *scan_tree("vm_exact_tree", VM_SYSROOT),
@@ -127,5 +126,17 @@ def observe_fixed_inputs() -> tuple[InputSnapshot, tuple[bytes, ...]]:
         *scan_selected("host_gcc_selected", Path("/"), HOST_FILES),
         *scan_selected("kernel_selected", KERNEL_SOURCE, SOURCE_FILES),
     )
+    actual = InputSnapshot(entries)
+    files, collector = load_checked_assets(
+        actual,
+        {
+            "repo_selected": REPO,
+            "toolchain_exact_tree": TOOLCHAIN,
+            "vm_exact_tree": VM_SYSROOT,
+            "fixture_selected": FIXTURE_BUILD,
+            "collector_selected": COLLECTOR_BUILD,
+            "host_gcc_selected": Path("/"),
+        },
+    )
     images = tuple(build_collector_image(files, collector, (fixture,)) for fixture in FIXTURE_IDS)
-    return InputSnapshot(entries), images
+    return actual, images

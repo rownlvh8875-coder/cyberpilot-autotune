@@ -155,7 +155,7 @@ def guest_dependencies(members: tuple[ImageMember, ...]) -> tuple[tuple[str, str
             if entry.path in LINKS
             else 0o100444
             if entry.path in DATA_FILES
-            else entry.mode
+            else (0o020600 if entry.path == "dev/console" else 0o020666)
             if entry.path in PSEUDO_NODES
             else 0o100755
         )
@@ -176,6 +176,10 @@ def guest_dependencies(members: tuple[ImageMember, ...]) -> tuple[tuple[str, str
         info = inspect_elf(by_name[name].data)
         if info.machine != 62 or info.elf_type not in {2, 3}:
             raise ValueError("wrong native ELF identity")
+        if name in LIBRARIES and info.elf_type != 3:
+            raise ValueError("dependency is not a shared ELF object")
+        if info.flags & ~0x18 or info.flags_1 & ~0x8000001:
+            raise ValueError("unsupported ELF dynamic search flags")
         if info.rpath is not None or info.runpath is not None or info.loader_directives:
             raise ValueError("unsupported loader search/configuration/audit/filter")
         if name in LIBRARIES and info.soname not in {None, name.removeprefix(LIBDIR)}:

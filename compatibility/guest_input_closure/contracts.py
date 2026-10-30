@@ -87,10 +87,18 @@ class ElfInfo:
     rpath: str | None
     runpath: str | None
     loader_directives: tuple[int, ...]
+    osabi: int = 0
+    abi_version: int = 0
+    flags: int = 0
+    flags_1: int = 0
 
     def __post_init__(self) -> None:
         if any(type(v) is not int or not 0 <= v <= 65535 for v in (self.machine, self.elf_type)):
             raise ValueError("invalid ELF identity")
+        if any(
+            type(v) is not int or not 0 <= v <= 255 for v in (self.osabi, self.abi_version)
+        ) or any(type(v) is not int or not 0 <= v <= 2**64 - 1 for v in (self.flags, self.flags_1)):
+            raise ValueError("invalid ELF ABI or flags")
         names = tuple(self.needed)
         directives = tuple(self.loader_directives)
         for value in (self.interpreter, self.soname, self.rpath, self.runpath, *names):
@@ -125,6 +133,10 @@ class ImageMember:
         if any(type(v) is not int or not 0 <= v <= 2**32 - 1 for v in (self.major, self.minor)):
             raise ValueError("invalid pseudo-node identity")
         kind = stat.S_IFMT(self.mode)
+        if self.path in {"dev/console", "dev/null"}:
+            expected = (0o020600, 5, 1) if self.path == "dev/console" else (0o020666, 1, 3)
+            if (self.mode, self.major, self.minor) != expected or self.data:
+                raise ValueError("wrong bootstrap pseudo-node object")
         if kind not in {stat.S_IFREG, stat.S_IFDIR, stat.S_IFLNK, stat.S_IFCHR}:
             raise ValueError("unsupported image kind")
         if kind == stat.S_IFDIR and self.data:

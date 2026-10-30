@@ -43,7 +43,11 @@ Each exact tree includes its root directory, hence the extra entry compared with
 descendant-only inventories. Selected paths are **not whole directory, compiler,
 Python import or search-path closure**. The original4,307-input manifest,
 5,501-entry VM tree and13-input collector manifest are separately verified before
-image reconstruction. None is edited or retrospectively strengthened.
+image reconstruction. None is edited or retrospectively strengthened. After
+independent review, this is done by the new bounded/scoped no-follow legacy
+reader, not by importing old vm_runner code. Raw legacy manifests are pinned
+before their paths are interpreted; the canonical VM receipt is pinned too.
+Image-builder asset bytes are checked again against their observed identities.
 
 Canonical snapshot digest:
 `6f854b3c1e6bb1f216092c87f983c553a7ff5419897415f56a007d74e06b5eb7`.
@@ -53,7 +57,8 @@ from a branch/PID/object address. New/missing paths in exact trees reject. SHA-2
 is content identity, not trusted provenance or permission.
 
 Linux filesystem reads anchor descriptors with O_NOFOLLOW, compare actual
-file/directory identity before/after, and never follow observed host symlinks.
+file/directory identity before/after, retain/revalidate the parent bindings, and
+never follow observed host symlinks inside the anchored roots.
 Hash reads stop beyond the initial size; directory names are bounded before
 sorting. Bounds:50,000 entries,64 directory depth,1GiB/file. Before/after checks
 catch ordinary instability but **not malicious-host/ancestor replacement or
@@ -75,6 +80,11 @@ BPF relocatable object are observed. Libraries resolve only in the archive's
 Missing/wrong ABI/type/SONAME, alternative search/audit/filter paths and wrong
 bootstrap objects reject. Component-wise link resolution preserves ENOTDIR-like
 semantics: `file/../other` is not lexically simplified into a valid code object.
+Supported OSABI/version and ET_DYN dependency roles are explicit. DT_FLAGS and
+DT_FLAGS_1 are observed; unsupported search flags including DF_1_NODEFLIB and
+duplicate singleton flags reject. Load-memory overlap checks include p_memsz
+zero-fill, not just file-backed ranges. Bootstrap node paths require their exact
+character-node kind/mode/major/minor, never a self-link or regular substitute.
 
 The current15-edge graph includes fixture→libbpf/libc, libbpf→libelf/libz/libc,
 libelf→libz/libzstd/libc/loader, libc→loader and init→busybox. Static executables
@@ -125,6 +135,22 @@ research wheel/replay/knowledge/owner/science/friction/receipt smokes pass.
 Historical source/history audits and passive offline native192 pass. A fresh
 fixed-input re-observation in another process exactly matched the published
 report, including all24 reconstructed images; exit2/BLOCKED is intentional.
+
+Post-review: **2,197 full tests /193 focused tests pass**. All15 counterexample
+regressions changed RED→GREEN in one author fix pass, with seven additional safe
+legacy-read tests. Actual current HF01 bytes repacked with NODEFLIB, FreeBSD ABI
+and ET_EXEC library substitutions now reject without execution. A new fixed-input
+observation still exactly matches the original snapshot/image identities/report.
+Pure unit coverage:99.13% statements /97.97% branches. Entire package unit+actual
+read-only combined coverage94.28%; filesystem87.39%, legacy adapter84.34% combined.
+Strict mypy now covers81 source files. These are Python verification metrics,
+not target-execution or immutable-host qualification.
+
+Independent review at exact2c46625296aa4d257157c447988b3c2b23b184f4 was **C0/I6/M0**.
+All6 Important findings were fixed and the full suite rerun. **The fix head was
+not independently re-reviewed; no C0/I0 verdict is claimed for it.** All rulings,
+fixes and declined-to-judge costs are in the [review record](guest_input_closure_review.md).
+Deferred minors: none.
 
 ## Status and blockers
 

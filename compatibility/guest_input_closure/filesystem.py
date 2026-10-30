@@ -4,6 +4,8 @@ import hashlib
 import os
 import stat
 import sys
+from collections.abc import Iterator
+from contextlib import contextmanager
 from pathlib import Path
 from typing import BinaryIO
 
@@ -49,21 +51,32 @@ def _root(root: Path) -> int:
     return os.open(root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC)
 
 
-def _parent(root_fd: int, path: str) -> tuple[int, str]:
+@contextmanager
+def _parent(root_fd: int, path: str) -> Iterator[tuple[int, str]]:
     relative_path(path)
     parts = path.split("/")
-    descriptor = os.dup(root_fd)
+    descriptors = [os.dup(root_fd)]
+    bindings: list[tuple[int, str, tuple[int, ...]]] = []
     try:
         for name in parts[:-1]:
+            descriptor = descriptors[-1]
+            info = os.stat(name, dir_fd=descriptor, follow_symlinks=False)
+            if not stat.S_ISDIR(info.st_mode):
+                raise ValueError("selected parent is not a directory")
             child = os.open(
                 name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC, dir_fd=descriptor
             )
+            descriptors.append(child)
+            if _identity(os.fstat(child)) != _identity(info):
+                raise ValueError("selected parent changed before traversal")
+            bindings.append((descriptor, name, _identity(info)))
+        yield descriptors[-1], parts[-1]
+        for parent, name, identity in bindings:
+            if _identity(os.stat(name, dir_fd=parent, follow_symlinks=False)) != identity:
+                raise ValueError("selected parent directory changed during observation")
+    finally:
+        for descriptor in reversed(descriptors):
             os.close(descriptor)
-            descriptor = child
-        return descriptor, parts[-1]
-    except BaseException:
-        os.close(descriptor)
-        raise
 
 
 def _entry(root_id: str, path: str, parent: int, name: str, before: os.stat_result) -> InputEntry:
@@ -160,12 +173,9 @@ def scan_selected(root_id: str, root: Path, paths: tuple[str, ...]) -> tuple[Inp
         before = os.fstat(descriptor)
         entries = [InputEntry(root_id, ".", "directory", before.st_mode, 0, None, None)]
         for path in paths:
-            parent, name = _parent(descriptor, path)
-            try:
+            with _parent(descriptor, path) as (parent, name):
                 info = os.stat(name, dir_fd=parent, follow_symlinks=False)
                 entries.append(_entry(root_id, path, parent, name, info))
-            finally:
-                os.close(parent)
         if _identity(root.lstat()) != _identity(before):
             raise ValueError("selected root changed during observation")
         return InputSnapshot(tuple(entries)).entries
@@ -178,8 +188,8 @@ def read_regular(root: Path, path: str, limit: int) -> bytes:
         raise ValueError("invalid read limit")
     descriptor = _root(root)
     try:
-        parent, name = _parent(descriptor, path)
-        try:
+        root_before = os.fstat(descriptor)
+        with _parent(descriptor, path) as (parent, name):
             before = os.stat(name, dir_fd=parent, follow_symlinks=False)
             if not stat.S_ISREG(before.st_mode) or before.st_size > limit:
                 raise ValueError("regular bounded input required")
@@ -194,8 +204,8 @@ def read_regular(root: Path, path: str, limit: int) -> bytes:
                 os.stat(name, dir_fd=parent, follow_symlinks=False)
             ):
                 raise ValueError("input changed during bounded read")
-            return data
-        finally:
-            os.close(parent)
+        if _identity(root.lstat()) != _identity(root_before):
+            raise ValueError("root changed during bounded read")
+        return data
     finally:
         os.close(descriptor)

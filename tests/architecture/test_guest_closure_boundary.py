@@ -31,6 +31,14 @@ def test_closure_package_cannot_launch_network_threads_processes_or_application(
             else:
                 continue
             assert not any(n.split(".")[0] in forbidden for n in names)
+            assert not any(
+                n
+                in {
+                    "compatibility.containment_backend_harmless.vm_runner",
+                    "compatibility.containment_guest_collector.vm_runner",
+                }
+                for n in names
+            )
         for node in ast.walk(ast.parse(path.read_text())):
             if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
                 assert node.func.attr not in {

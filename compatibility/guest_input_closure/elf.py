@@ -15,9 +15,11 @@ def inspect_elf(data: bytes) -> ElfInfo:
     ident, elf_type, machine, version, _, phoff, _, _, ehsize, phsize, count, *_ = header
     if ident[:7] != b"\x7fELF\x02\x01\x01" or version != 1 or ehsize != 64:
         raise ValueError("unsupported ELF header")
+    if ident[7] not in {0, 3} or ident[8] != 0:
+        raise ValueError("unsupported ELF OSABI/version")
     if count > 256 or (count and (phsize != 56 or phoff < 64 or phoff + count * 56 > len(data))):
         raise ValueError("invalid program header table")
-    loads: list[tuple[int, int, int]] = []
+    loads: list[tuple[int, int, int, int]] = []
     dynamic: tuple[int, int, int] | None = None
     interpreter = None
     for index in range(count):
@@ -29,7 +31,12 @@ def inspect_elf(data: bytes) -> ElfInfo:
         if kind == 1:
             if alignment > 1 and (alignment & (alignment - 1) or (address - offset) % alignment):
                 raise ValueError("invalid load alignment")
-            loads.append((address, offset, filesz))
+            if memsz and any(
+                length and address < start + length and start < address + memsz
+                for start, _, _, length in loads
+            ):
+                raise ValueError("overlapping load memory including zero fill")
+            loads.append((address, offset, filesz, memsz))
         elif kind == 2:
             if dynamic is not None or not filesz or filesz % 16 or filesz > 65536:
                 raise ValueError("invalid dynamic table")
@@ -51,7 +58,7 @@ def inspect_elf(data: bytes) -> ElfInfo:
         offset, size, dynamic_address = dynamic
         mapped = [
             file_offset + dynamic_address - start
-            for start, file_offset, length in loads
+            for start, file_offset, length, _ in loads
             if start <= dynamic_address and dynamic_address + size <= start + length
         ]
         if mapped != [offset]:
@@ -79,7 +86,7 @@ def inspect_elf(data: bytes) -> ElfInfo:
             raise ValueError("missing or invalid dynamic string table")
         offsets = [
             offset + string_address - start
-            for start, offset, n in loads
+            for start, offset, n, _ in loads
             if start <= string_address and string_address + string_size <= start + n
         ]
         if len(offsets) != 1:
@@ -107,4 +114,8 @@ def inspect_elf(data: bytes) -> ElfInfo:
         string(single(15)),
         string(single(29)),
         tuple(sorted(LOADER_DIRECTIVES & tags.keys())),
+        ident[7],
+        ident[8],
+        single(30) or 0,
+        single(0x6FFFFFFB) or 0,
     )
