@@ -90,6 +90,7 @@ class Capture:
     version: str = VERSION
     clock_domain: str = CLOCK
     evidence_kind: str = "UNTRUSTED_CAPTURE_REPORT"
+    console_interleavings: int = 0
     runtime_qualified: bool = False
     device_class_qualified: bool = False
     policy_adopted: bool = False
@@ -101,6 +102,7 @@ class Capture:
     successful_prohibited_effects: None = None
 
     def __post_init__(self) -> None:
+        integer(self.console_interleavings)
         if type(self.fixture_id) is not str or self.fixture_id not in tuple(
             f"HF{i:02d}" for i in range(1, 25)
         ):

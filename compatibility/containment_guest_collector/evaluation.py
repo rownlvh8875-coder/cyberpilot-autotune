@@ -74,6 +74,8 @@ class Call:
     result: int | None = None
     aborted: bool = False
     after: dict[int, tuple[int, ...]] | None = None
+    pidfd_target: int | None = None
+    live_origins_at_return: frozenset[tuple[int, ...]] = frozenset()
 
 
 def needs_snapshot(nr: int, args: tuple[int, ...], result: int) -> bool:
@@ -95,6 +97,7 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
     pairs = aborts = execs = changes = notifications = donations = 0
     seen_calls: set[int] = set()
     calls: dict[int, Call] = {}
+    births: dict[int, list[int]] = {}
     typed_receipts: list[tuple[TraceEvent, tuple[int, int] | None]] = []
     clock = 0
     root_status = None
@@ -157,14 +160,40 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                 if len(added) != 2 or removed or changed:
                     reject("FD_PAIR_ACQUISITION_MISMATCH")
             elif nr == 72 and args[1] == 2 and result == 0:
-                if added or removed or changed - {args[0]}:
+                before = previous.get(args[0])
+                after = current.get(args[0])
+                expected_flags = (
+                    ((before[0] & ~0x80000) | (0x80000 if args[2] & 1 else 0))
+                    if before is not None
+                    else None
+                )
+                if (
+                    added
+                    or removed
+                    or changed - {args[0]}
+                    or before is None
+                    or after is None
+                    or after[0] != expected_flags
+                    or after[1:] != before[1:]
+                ):
                     reject("FD_FLAG_UPDATE_MISMATCH")
             elif added or removed or changed:
                 reject("FD_UNEXPLAINED_MUTATION")
-        changes += len(added) + len(removed) + len(changed)
+        call = calls.get(call_id)
+        rebound: set[int] = set()
+        if (
+            call is not None
+            and call.nr in {33, 292}
+            and call.result is not None
+            and call.result >= 0
+            and call.args[0] != call.args[1]
+        ):
+            if call.result in current:
+                rebound.add(call.result)
+        changes += len(added) + len(removed) + len(changed) + len(rebound - added - changed)
         for fd in removed:
             state.origins.pop(fd, None)
-        for fd in added | changed:
+        for fd in added | changed | rebound:
             origin: tuple[int, ...] = (event.task, call_id, fd)
             call = calls.get(call_id)
             if call is not None:
@@ -174,20 +203,22 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                         reject("FD_DUP_SOURCE_UNKNOWN")
                     else:
                         origin = source
+                elif call.nr == 72 and call.args[1] == 2:
+                    if fd not in call.origins:
+                        reject("FD_FLAG_SOURCE_UNKNOWN")
+                    else:
+                        origin = call.origins[fd]
                 elif call.nr == 438:
                     pidfd = call.origins.get(call.args[0])
                     pidfd_call = calls.get(pidfd[1]) if pidfd is not None else None
-                    target = next(
-                        (
-                            t
-                            for t in tasks.values()
-                            if pidfd_call is not None
-                            and pidfd_call.nr == 434
-                            and t.tid == pidfd_call.args[0]
-                            and not t.dead
-                        ),
-                        None,
+                    target = (
+                        tasks.get(pidfd_call.pidfd_target)
+                        if pidfd_call is not None and pidfd_call.pidfd_target is not None
+                        else None
                     )
+                    if target is not None and target.dead:
+                        reject("FD_PIDFD_TARGET_GENERATION_GONE")
+                        target = None
                     if target is None or call.args[1] not in target.origins:
                         reject("FD_PIDFD_SOURCE_UNKNOWN")
                     else:
@@ -221,6 +252,8 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                     or parent_state.pending[2] not in FORK_CALLS
                 ):
                     reject("BIRTH_WITHOUT_PARENT_CALL")
+                else:
+                    births.setdefault(parent_state.pending[0], []).append(event.tid)
             elif tasks:
                 reject("MULTIPLE_CAPTURE_ROOTS")
             child = Task(event.tid)
@@ -253,6 +286,17 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                 )
                 if values[1] != NATIVE_ARCH:
                     reject("WRONG_SYSCALL_ABI")
+                if values[2] in {46, 47, 299, 307, 425, 426, 427}:
+                    reject("FD_ASYNC_OR_RIGHTS_PROFILE_UNSUPPORTED")
+                if values[2] == 16 and values[4] not in {
+                    0xC0502100,
+                    0xC0182101,
+                    0x40182103,
+                    0x40082102,
+                }:
+                    reject("FD_IOCTL_PROFILE_UNSUPPORTED")
+                if values[2] == 72 and values[4] not in {0, 1, 2, 3, 1030}:
+                    reject("FD_FCNTL_PROFILE_UNSUPPORTED")
                 state.pending = values
                 state.seed_allowed = False
             case "RETURN":
@@ -269,6 +313,22 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                 state.last = (call_id, pending[2], *pending[3:], result)
                 if call_id in calls:
                     calls[call_id].result = result
+                    calls[call_id].live_origins_at_return = frozenset(
+                        origin
+                        for task_state in tasks.values()
+                        if not task_state.dead
+                        for origin in task_state.origins.values()
+                    )
+                    if pending[2] == 434 and result >= 0:
+                        matches = [
+                            generation
+                            for generation, t in tasks.items()
+                            if t.tid == pending[3] and not t.dead
+                        ]
+                        if len(matches) == 1:
+                            calls[call_id].pidfd_target = matches[0]
+                        else:
+                            reject("FD_PIDFD_TARGET_UNBOUND")
                 state.expected_snapshot = needs_snapshot(pending[2], pending[3:], result)
                 state.pending = None
                 pairs += 1
@@ -398,6 +458,9 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                     reject("FD_DUPLICATE_NOTIFICATION_REPLY")
                 replies[target_id] = (v[2], v[3])
     for call_id, call in calls.items():
+        if call.nr in FORK_CALLS and call.result is not None and call.result > 0:
+            if births.get(call_id) != [call.result]:
+                reject("FORK_WITHOUT_BIRTH")
         if (
             call.nr == 16
             and call.result is not None
@@ -424,11 +487,11 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
             value, error = replies[call_id]
             if error >= 0 or not -4095 <= error < 0 or target.result != error:
                 reject("FD_NOTIFICATION_SEND_MISMATCH")
-        elif target.result == -38 and not any(
-            listener in t.origins.values() for t in tasks.values() if not t.dead
-        ):
+        elif target.result == -38 and listener not in target.live_origins_at_return:
             # Listener ENOSYS is observable, but never a process-termination verdict.
             pass
+        elif target.result == -38:
+            reject("FD_LISTENER_LOSS_UNPROVEN")
         else:
             reject("FD_NOTIFICATION_RECEIPT_MISSING")
     if any(not t.dead for t in tasks.values()):

@@ -17,8 +17,9 @@ Use the already approved QEMU10.0.13 TCG guest, Debian
 `6.12.113+deb13-cloud-amd64`, source `6.12.113-1`, original VM digest
 `d98a259c5a45b56811d40a94e23e50a51ee88b513bb632396f45da6017f7af0c`.
 Rootless host compilation only; ptrace/procfs/cgroup/BPF operations only in the
-derived device-free guest. Same fixed regular-file payloads, no arbitrary command,
-native/model/Carrot/controller/Params/service/vehicle, network or passthrough.
+derived device-free guest. Only fixed harmless C collectors/fixtures execute;
+no arbitrary command or Carrot-native/model/controller/Params/service/vehicle,
+network or passthrough.
 Guest console/null bootstrap nodes remain bootstrap metadata, not device tests.
 
 STRICT_NO_DEVICE_ATTEMPT. Gate A BLOCKED; B/C/D not started. All runtime/device/
@@ -58,6 +59,9 @@ tuples with kind-specific lengths/ranges; no floats, arbitrary mappings, NaN or
 implicit defaults. Prefix `TRACE_EVENT `; explicit TRACE_BEGIN and TRACE_END
 envelopes bind version/fixture and observation clock. Observation timestamps are
 `GUEST_TRACER_OBSERVATION_MONOTONIC_NS`, **not kernel execution timestamps**.
+An intact JSON frame may be followed by a timestamped kernel console diagnostic;
+demultiplex only outside the complete object, count it explicitly and retain raw
+bytes. Internal corruption or unknown suffixes invalidate the capture.
 
 Kinds: BIRTH(parent generation, clone flags), ENTER(call id, audit arch, syscall
 nr, six args), RETURN(call id, signed result), ABORT(call id, signal), EXEC(old
@@ -81,6 +85,10 @@ events. Inode alone is not durable identity. Unsupported shared FD tables,
 nonleader exec, syscall ABI, acquisition or unexplained mutations reject FD
 profile completeness. Unknown is not zero. Do not retain duplicated pipe FDs in
 the collector: that would alter EOF and the experiment.
+Descriptor replacement must rebind provenance even when inode/flags are equal;
+F_SETFD changes close-on-exec without changing open-file-description origin.
+Rights-passing, io_uring, unknown ioctl and OFD-mutating fcntl paths are outside
+the supported FD profile; errors on those paths do not establish no effects.
 
 Capture actual USER_NOTIF RECV/ADDFD/SEND ioctl input/output and IDs; join with the
 target generation and pending syscall. Successful donation must match the source

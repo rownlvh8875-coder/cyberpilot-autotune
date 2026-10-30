@@ -13,7 +13,7 @@
 ## Global Constraints
 
 - Base `1b2ff21ac83a8ea9d7c04850c8e2f7e92d06425d`; prior package, tests, evidence, installed source, CI and older PR heads unchanged.
-- Same approved QEMU TCG/6.12.113 guest only. No outer-host tracing/policy, devices, network, native/Carrot/model/controller/Params/vehicle or arbitrary commands.
+- Same approved QEMU TCG/6.12.113 guest only. Only fixed harmless C helpers execute; no outer-host tracing/policy, devices, network, Carrot-native/model/controller/Params/vehicle or arbitrary commands.
 - Version `guest-syscall-fd-v1`; UNTRUSTED_CAPTURE_REPORT; observation clock `GUEST_TRACER_OBSERVATION_MONOTONIC_NS`.
 - STRICT_NO_DEVICE_ATTEMPT; Gate A BLOCKED; B/C/D not started. All permissions false; global handle/effect counts unknown.
 - No register/result/argument/seccomp mutation, CONTINUE, unscoped fallback or guessed task/FD generation.

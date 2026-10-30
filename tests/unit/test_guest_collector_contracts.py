@@ -92,3 +92,29 @@ def test_order_of_json_keys_does_not_change_content_digest():
     assert module.capture_digest(module.parse_capture(raw)) == module.capture_digest(
         module.parse_capture("\n".join(lines))
     )
+
+
+def test_complete_frame_and_adjacent_kernel_console_message_are_separate_records():
+    raw = wire()
+    lines = raw.splitlines()
+    lines[3] += "[    8.442339] random: crng init done"
+    capture = api().parse_capture("\n".join(lines))
+    assert len(capture.events) == 12
+    assert capture.console_interleavings == 1
+    assert capture.events[2].kind == "ENTER"
+
+
+@pytest.mark.parametrize(
+    "suffix", [" arbitrary", ' {"forged":true}', "TRACE_EVENT {}", "[not a clock] ignored"]
+)
+def test_unknown_trailing_bytes_are_not_a_console_record(suffix):
+    lines = wire().splitlines()
+    lines[3] += suffix
+    with pytest.raises(ValueError):
+        api().parse_capture("\n".join(lines))
+
+
+def test_console_bytes_inside_a_frame_are_not_removed_or_repaired():
+    raw = wire().replace('"task": 1', '"task": [ 8.442339] random: crng init done1', 1)
+    with pytest.raises(ValueError):
+        api().parse_capture(raw)

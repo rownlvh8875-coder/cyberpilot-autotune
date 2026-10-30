@@ -1,6 +1,7 @@
 """Strict wire parsing/canonical identity, never a factual trust verifier."""
 
 import json
+import re
 from dataclasses import asdict
 from hashlib import sha256
 from typing import Any
@@ -17,11 +18,15 @@ def unique(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
     return result
 
 
-def exact(raw: str, keys: set[str]) -> dict[str, Any]:
-    data = json.loads(raw, object_pairs_hook=unique)
+def exact(raw: str, keys: set[str]) -> tuple[dict[str, Any], int]:
+    raw = raw.lstrip()
+    data, end = json.JSONDecoder(object_pairs_hook=unique).raw_decode(raw)
+    suffix = raw[end:].strip()
+    if suffix and re.fullmatch(r"\[\s*\d+\.\d+\] [^\r\n]*", suffix) is None:
+        raise ValueError("unknown trailing bytes outside JSON frame")
     if type(data) is not dict or set(data) != keys:
         raise ValueError("unknown/missing wire keys")
-    return data
+    return data, int(bool(suffix))
 
 
 def parse_capture(raw: str) -> Capture:
@@ -31,25 +36,28 @@ def parse_capture(raw: str) -> Capture:
     header = None
     footer = None
     events = []
+    interleavings = 0
     for line in raw.replace("\r\n", "\n").splitlines():
         if "Kernel panic" in line:
             raise ValueError("guest panicked")
         if line.startswith("TRACE_BEGIN "):
             if header is not None or footer is not None:
                 raise ValueError("duplicate capture")
-            header = exact(line[12:], {"version", "fixture_id", "clock_domain"})
+            header, adjacent = exact(line[12:], {"version", "fixture_id", "clock_domain"})
+            interleavings += adjacent
         elif line.startswith("TRACE_EVENT "):
             if header is None or footer is not None:
                 raise ValueError("event outside capture")
-            events.append(
-                TraceEvent(
-                    **exact(line[12:], {"kind", "seq", "mono_ns", "task", "tid", "image", "values"})
-                )
+            data, adjacent = exact(
+                line[12:], {"kind", "seq", "mono_ns", "task", "tid", "image", "values"}
             )
+            interleavings += adjacent
+            events.append(TraceEvent(**data))
         elif line.startswith("TRACE_END "):
             if header is None or footer is not None:
                 raise ValueError("invalid capture end")
-            footer = exact(line[10:], {"events", "tasks", "live", "root_status"})
+            footer, adjacent = exact(line[10:], {"events", "tasks", "live", "root_status"})
+            interleavings += adjacent
         elif line.startswith("TRACE_"):
             raise ValueError("unknown capture record")
     if header is None or footer is None:
@@ -57,6 +65,7 @@ def parse_capture(raw: str) -> Capture:
     return Capture(
         events=tuple(events),
         end_values=tuple(footer[k] for k in ("events", "tasks", "live", "root_status")),
+        console_interleavings=interleavings,
         **header,
     )
 

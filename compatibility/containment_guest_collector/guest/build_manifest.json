@@ -1,0 +1,114 @@
+{
+  "version": "guest-collector-build-v1",
+  "scope": "SAME_SOFTWARE_GUEST_SYSCALL_CAPTURE_ONLY",
+  "base_commit": "1b2ff21ac83a8ea9d7c04850c8e2f7e92d06425d",
+  "base_manifest_sha256": "ccabaa75fede7b5d704301fad185a0c9efc306c8757426ea28d9bd05a7136e4e",
+  "collector_path": "/workspace/scratch/guest-collector.SuLzWo/build/syscall-collector",
+  "build_commands": [
+    [
+      "cc",
+      "-std=c17",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-static",
+      "-I/workspace/scratch/guest-backend.FY5icM/toolchain/usr/include",
+      "-I/workspace/scratch/guest-backend.FY5icM/toolchain/usr/include/x86_64-linux-gnu",
+      "compatibility/containment_guest_collector/guest/collector.c",
+      "compatibility/containment_guest_collector/guest/fd_snapshot.c",
+      "-o",
+      "/workspace/scratch/guest-collector.SuLzWo/build/syscall-collector"
+    ]
+  ],
+  "inputs": [
+    {
+      "path": "/workspace/scratch/guest-collector.SuLzWo/build/syscall-collector",
+      "sha256": "de1df184b103c7de981ea2e21e1527829d4d4039a347035ea31588ada7c75c90",
+      "bytes": 919128
+    },
+    {
+      "path": "docs/evidence/guest_collector_sources.json",
+      "sha256": "dac107a3a3563f08250317ddb73779c8227d7ba14113cd2f8efd70455fa0f00d",
+      "bytes": 5374
+    },
+    {
+      "path": "compatibility/containment_guest_collector/__init__.py",
+      "sha256": "311579c2b2d3ddde7416e9f8994747621585eb0f41b4b583cce33d7330acea53",
+      "bytes": 80
+    },
+    {
+      "path": "compatibility/containment_guest_collector/batch.py",
+      "sha256": "9c33a1f5d6f8c977b15c88f9d200e7a1b316fa0756f49281e3b2a7994ccba60e",
+      "bytes": 2764
+    },
+    {
+      "path": "compatibility/containment_guest_collector/contracts.py",
+      "sha256": "e309cd6180305442c28859151449418a14aefc6b355aa66333069c1a634b31df",
+      "bytes": 6531
+    },
+    {
+      "path": "compatibility/containment_guest_collector/evaluation.py",
+      "sha256": "12befa2fa9fb75f32a08930600ecc15d6898f9c0c85bffb41beeba26bc6cd441",
+      "bytes": 20376
+    },
+    {
+      "path": "compatibility/containment_guest_collector/guest/collector.c",
+      "sha256": "78ee8321315d788fce37bab597e0455b7c3a859cfdc506301a976df5b825e4bf",
+      "bytes": 14713
+    },
+    {
+      "path": "compatibility/containment_guest_collector/guest/collector.h",
+      "sha256": "e58f47e4883d8e65f2123632162b7686ff27b629cf615997958ce7f746357c18",
+      "bytes": 296
+    },
+    {
+      "path": "compatibility/containment_guest_collector/guest/fd_snapshot.c",
+      "sha256": "7d440bfecc45f9f9c99d45e486932be39b487499cce9c999eb5c5534ce872418",
+      "bytes": 2020
+    },
+    {
+      "path": "compatibility/containment_guest_collector/host_main.py",
+      "sha256": "a2ef2a962f97f2bcf473a227a5ec4e6128ce5ff347b67d6621de1b25db0aa0e9",
+      "bytes": 987
+    },
+    {
+      "path": "compatibility/containment_guest_collector/image.py",
+      "sha256": "56758c9f6f92cdb281bc322b0a467af01e745ecfd34f4419c0bd3a7bf9f066c0",
+      "bytes": 2038
+    },
+    {
+      "path": "compatibility/containment_guest_collector/validation.py",
+      "sha256": "15e73821accbe1c37f5cd9c1655ffe3f0b2256434b9abff7cad986bb906ed09e",
+      "bytes": 2972
+    },
+    {
+      "path": "compatibility/containment_guest_collector/vm_runner.py",
+      "sha256": "a1ebf004c283d51dc2e319d431ad35fa8434c50b03c0f3cf2877667261304a17",
+      "bytes": 4367
+    }
+  ],
+  "source_manifest": "docs/evidence/guest_collector_sources.json",
+  "permissions": {
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  },
+  "resource_caps": {
+    "tasks": 64,
+    "fds_per_task": 4096,
+    "events": 1000000,
+    "qemu_wall_seconds": 180
+  },
+  "limitations": [
+    "Content identity only, not authenticity/authorization.",
+    "Same fixed guest only; old fixture assets/cohort verified unchanged.",
+    "Host compiler/static libc transitive closure remains unqualified.",
+    "Numeric syscall arguments are observations, not general pointee-memory/consumed-byte receipts.",
+    "Unsupported clone sharing/untraced flags stop capture before running the call; no fabricated return."
+  ]
+}
