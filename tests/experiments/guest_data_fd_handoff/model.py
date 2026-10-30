@@ -6,7 +6,7 @@ import re
 from dataclasses import dataclass
 from typing import Any
 
-CASES = tuple(f"HH0{i}" for i in range(1, 8))
+CASES = tuple(f"HH0{i}" for i in range(1, 10))
 SCHEMA = "guest-data-fd-handoff-observed-v1"
 PERMISSIONS = tuple(
     (name, False)
@@ -165,17 +165,27 @@ def check_case(capture: Capture, program_sha: str) -> Check:
     """Check scoped fixed-case facts, never establish authenticity/full closure."""
     require(type(capture) is Capture, "validated capture required")
     sha(program_sha)
-    if capture.case not in ("HH01", "HH07"):
+    _check_ofd_references(capture.events)
+    if capture.case not in ("HH01", "HH07", "HH08", "HH09"):
         return _check_negative(capture, program_sha)
     events = capture.events
     objects = {e.values[0]: e.values[1:] for e in events if e.kind == "OBJECT"}
     require(len(objects) == sum(e.kind == "OBJECT" for e in events), "duplicate object")
-    require(set(objects) == {"primary", "program"}, "fixed object set required")
+    require(
+        set(objects)
+        == {"primary", "program"} | ({"alternate"} if capture.case == "HH08" else set()),
+        "fixed object set required",
+    )
     primary, program = objects["primary"], objects["program"]
     require(
         primary[4:] == (47, 0) and program[3] == program_sha, "bound sealed input/program required"
     )
-    require(capture.case in ("HH01", "HH07"), "negative case checker not implemented")
+    if capture.case == "HH08":
+        alternate = objects["alternate"]
+        require(
+            alternate[:2] != primary[:2] and alternate[2:] == primary[2:],
+            "corrected injection retains distinct unused alternate",
+        )
     require(primary[2] == (0 if capture.case == "HH07" else 17), "fixed input length")
     # Shape checks are intentionally closed to these fixed harmless programs.
     skeleton = [
@@ -276,6 +286,8 @@ def check_case(capture: Capture, program_sha: str) -> Check:
     release = [e for e in events if e.kind == "RELEASE"]
     labels = {e.values[0] for e in release}
     needed = {"primary_rw", "primary_ro", "program"}
+    if capture.case == "HH08":
+        needed.update({"alternate_rw", "alternate_ro"})
     if pins[0][1] >= 0:
         needed.add("ofd_0")
     reap_seq = next(e.seq for e in events if e.kind == "REAP")
@@ -287,6 +299,38 @@ def check_case(capture: Capture, program_sha: str) -> Check:
     )
     require(events[-1].values == (1, None), "unknown drops is not observed zero")
     return Check(capture.case, True, returned)
+
+
+def _check_ofd_references(events: tuple[Event, ...]) -> None:
+    """Check observable reference existence/errors, never infer generic OFD identity."""
+    pins: dict[int, tuple[int, int]] = {}
+    for event in events:
+        if event.kind == "OFD_PIN":
+            fd, result, error = event.values
+            require(fd not in pins, "duplicate actual OFD reference")
+            pins[fd] = (result, error)
+        elif event.kind == "FD":
+            stage, _, fd, *rest = event.values
+            comparison, error = rest[-2:]
+            if stage == "PRE_EXEC":
+                require(
+                    fd not in pins and comparison is None and error == 61,
+                    "pre-reference comparison must be unattempted ENODATA",
+                )
+            else:
+                require(fd in pins, "comparison requires earlier reference attempt")
+                result, pin_error = pins[fd]
+                if result < 0:
+                    require(
+                        comparison is None and error == pin_error and error > 0,
+                        "failed reference pin error must propagate, not equal OFD",
+                    )
+                else:
+                    require(
+                        (comparison is None and error > 0)
+                        or (type(comparison) is int and comparison in (0, 1, 2) and error == 0),
+                        "actual KCMP_FILE result domain or syscall error required",
+                    )
 
 
 def _check_negative(capture: Capture, program_sha: str) -> Check:

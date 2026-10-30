@@ -33,10 +33,10 @@ def rows(case="HH01"):
             0,
             digest,
             None,
-            1,
+            61 if stage == "PRE_EXEC" else 1,
         ]
 
-    return [
+    events = [
         ["BEGIN", "guest-data-fd-handoff-observed-v1", case, "GUEST_MONOTONIC_NS"],
         ["OBJECT", "primary", 1, 100, size, digest, 47, 0],
         ["OBJECT", "program", 2, 200, 800000, PROGRAM, None, 22],
@@ -59,6 +59,10 @@ def rows(case="HH01"):
         ["RELEASE", "program", 0],
         ["END", 1, None],
     ]
+    if case == "HH08":
+        events.insert(2, ["OBJECT", "alternate", 1, 101, 17, HASH, 47, 0])
+        events[-1:-1] = [["RELEASE", "alternate_rw", 0], ["RELEASE", "alternate_ro", 0]]
+    return events
 
 
 def serial(events):
@@ -251,3 +255,31 @@ def test_actual_dup2_reuse_clears_target_cloexec_not_source_flag():
     reused0[8] = 0
     checked = model.check_case(model.parse_serial(serial(events), "HH06"), PROGRAM)
     assert checked.transport_observed is False
+
+
+@pytest.mark.parametrize(
+    "case,stage,comparison,error",
+    [
+        ("HH01", "PRE_EXEC", 0, 0),
+        ("HH06", "PRE_EXEC", 0, 0),
+        ("HH01", "PRE_EXEC", None, 99),
+        ("HH06", "PRE_EXEC", None, 99),
+        ("HH01", "POST_EXEC", 0, 0),
+        ("HH06", "POST_EXEC", 0, 0),
+        ("HH06", "REUSED", 999, 0),
+    ],
+)
+def test_comparison_cannot_contradict_reference_pin(case, stage, comparison, error):
+    events = rows(case) if case == "HH01" else negative_rows(case)
+    witness = next(e for e in events if e[:4] == ["FD", stage, 0 if stage == "PRE_EXEC" else 1, 0])
+    witness[12:] = [comparison, error]
+    with pytest.raises(ValueError):
+        model.check_case(model.parse_serial(serial(events), case), PROGRAM)
+
+
+@pytest.mark.parametrize("case", ["HH08", "HH09"])
+def test_corrected_injection_is_scoped_transport_not_case_selected_denial(case):
+    events = rows(case)
+    checked = model.check_case(model.parse_serial(serial(events), case), PROGRAM)
+    assert checked.transport_observed is True
+    assert checked.status == "BLOCKED"

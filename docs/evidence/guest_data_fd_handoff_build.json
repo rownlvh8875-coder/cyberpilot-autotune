@@ -1,9 +1,9 @@
 {
   "base_revision": "74e3fdc67c2695a48035bf51758721f48bd5ae05",
   "binary": {
-    "bytes": 924248,
+    "bytes": 924280,
     "path": "data-fd-handoff-probe",
-    "sha256": "46464a93f0317c755b4ada416ec690f136a4df7ce466a0a48debfd1f968a51f2"
+    "sha256": "72eee6f3996a27afb9543403d6256410abd9f4c6914356aa6c6c8dfe62e951bb"
   },
   "build_command": "cc -std=c17 -O2 -Wall -Wextra -Werror -static -I/workspace/scratch/guest-backend.FY5icM/toolchain/usr/include -I/workspace/scratch/guest-backend.FY5icM/toolchain/usr/include/x86_64-linux-gnu tests/experiments/guest_data_fd_handoff/guest/probe.c -o /workspace/scratch/data-fd-handoff-producer.xax7ID/data-fd-handoff-probe",
   "build_input_closure_qualified": false,
@@ -26,9 +26,9 @@
       "sha256": "3a44f9e0304819931e873d529c06769000061dcfad8d8d6f73895f136261a74b"
     },
     {
-      "bytes": 17521,
+      "bytes": 19379,
       "path": "tests/experiments/guest_data_fd_handoff/model.py",
-      "sha256": "80218dece6eed5434919f796910e0e609f37004fca5693fb4200079f3fa321ee"
+      "sha256": "107dceeeb4d3b682cde2daaa1ad38f595292392a9eac4b4bcf9b2d64081202f6"
     },
     {
       "bytes": 5539,
@@ -36,14 +36,14 @@
       "sha256": "b7a68b8869be70d380ff9e61235bc11f238817dc65271a9b8d8ec5610b2b75e8"
     },
     {
-      "bytes": 8918,
+      "bytes": 8933,
       "path": "tests/experiments/guest_data_fd_handoff/audit.py",
-      "sha256": "42388e28d5a98a05b5bd57f8ec7ad5abc7adcaa6f506f2d30aa39338b1789860"
+      "sha256": "aecf39849230074d5f14b3f4ab30c383db6379884234898decf15af02474c36c"
     },
     {
-      "bytes": 16347,
+      "bytes": 16413,
       "path": "tests/experiments/guest_data_fd_handoff/guest/probe.c",
-      "sha256": "80b58cb06dde3d7bbf536731f5157cd5c41062a1363214811f8c364e54d384b0"
+      "sha256": "879d016e217d0f07d4ea8910bec5b7c3cd76bb130bd1a1db930f039820144c2e"
     },
     {
       "bytes": 3315,

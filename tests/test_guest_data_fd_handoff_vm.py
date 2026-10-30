@@ -22,7 +22,7 @@ def test_guest_image_executes_only_fixed_case_and_scope():
     )
 
 
-@pytest.mark.parametrize("case", ["HH00", "HH08", "HH01;sh", None, ["HH01"]])
+@pytest.mark.parametrize("case", ["HH00", "HH10", "HH01;sh", None, ["HH01"]])
 def test_no_arbitrary_case_or_command(case):
     with pytest.raises(ValueError):
         runner.build_image({}, b"\x7fELF\x02\x01", case)
@@ -37,7 +37,7 @@ def test_qemu_fixed_no_disks_network_or_host_probe_execution(tmp_path):
     assert "data-fd-handoff-probe" not in args[0]
 
 
-@pytest.mark.parametrize("cases", [(), ("HH01", "HH01"), ("HH08",), ["HH01"]])
+@pytest.mark.parametrize("cases", [(), ("HH01", "HH01"), ("HH10",), ["HH01"]])
 def test_invalid_run_rejected_before_assets_or_vm_access(cases):
     with pytest.raises(ValueError):
         runner.capture_cases(cases)

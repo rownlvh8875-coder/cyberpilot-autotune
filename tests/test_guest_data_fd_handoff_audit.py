@@ -25,7 +25,9 @@ def manifest():
 def evidence(m, raw):
     captures = []
     for case in audit.CASES:
-        text = serial(rows(case) if case in ("HH01", "HH07") else negative_rows(case))
+        text = serial(
+            rows(case) if case in ("HH01", "HH07", "HH08", "HH09") else negative_rows(case)
+        )
         captures.append(
             {
                 "case": case,
@@ -48,7 +50,7 @@ def test_fixed_capture_replays_are_diagnostics_only():
     m = manifest()
     audit.validate_build(m)
     result = audit.validate_evidence(evidence(m, b"manifest"), m, b"manifest")
-    assert result == (7, 2)
+    assert result == (9, 4)
 
 
 @pytest.mark.parametrize(
@@ -120,7 +122,7 @@ def test_published_original_actual_captures_match_current_bound_sources():
         if not audit.EVIDENCE.endswith(".gz")
         else gzip.decompress((audit.ROOT / audit.EVIDENCE).read_bytes())
     )
-    assert audit.validate_evidence(data, m, raw) == (7, 2)
+    assert audit.validate_evidence(data, m, raw) == (9, 4)
     assert audit.validate_kernel(None) == (8, 12)
 
 

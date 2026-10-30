@@ -107,8 +107,8 @@ def validate_evidence(data: Any, manifest: dict[str, Any], manifest_raw: bytes) 
         "unqualified exact capture cohort",
     )
     require(
-        type(data["captures"]) is list and len(data["captures"]) == 7,
-        "all seven fixed actual captures",
+        type(data["captures"]) is list and len(data["captures"]) == 9,
+        "all nine fixed actual captures",
     )
     positive = 0
     for row, case in zip(data["captures"], CASES, strict=True):
@@ -135,11 +135,11 @@ def validate_evidence(data: Any, manifest: dict[str, Any], manifest_raw: bytes) 
         )
         checked = check_case(parse_serial(raw, case), manifest["binary"]["sha256"])
         require(
-            checked.transport_observed == (case in ("HH01", "HH07")),
+            checked.transport_observed == (case in ("HH01", "HH07", "HH08", "HH09")),
             "actual fixed diagnostic does not match expected observation",
         )
         positive += int(checked.transport_observed)
-    return 7, positive
+    return 9, positive
 
 
 def _read(root: Path, path: str, limit: int, anchored: bool = False) -> bytes:

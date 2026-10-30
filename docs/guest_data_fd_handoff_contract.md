@@ -81,7 +81,7 @@ parser/checker shares the runner and offline replay path; digests are content on
 | READ | exec generation, FD, slot epoch, offset, requested bytes, actual raw syscall result, actual returned hex |
 | CLOSE | exec generation, FD, slot epoch, actual syscall result |
 | DUP | exec generation, source FD, destination FD, new slot epoch, actual syscall result |
-| DENY | fixed reason, exec generation, attempted/rejected FD |
+| DENY | fixed reason, exec generation, attempted/rejected FD (known deferredM1: HH03 reports0 although its extraFD is3) |
 | REAP | exec generation, EXITED/SIGNALLED, actual exit status/signal |
 | RELEASE | parent pin label, actual libc close result |
 | END | final exec generation, dropped-event count null |
@@ -90,7 +90,7 @@ Limits1024events/64FDs/17returned bytes/4MiB object hashing/1MiB serial are reso
 bounds, not empirical/safety thresholds. Host timeout180s is bounded recovery,
 not a qualified watchdog. Replays are not freshness/authenticity attestations.
 
-## Seven fixed cases
+## Nine fixed cases
 
 | Case | Actual diagnostic expected; no qualification |
 |---|---|
@@ -101,9 +101,20 @@ not a qualified watchdog. Replays are not freshness/authenticity attestations.
 | HH05 | **fault injection** deliberately leaves CLOEXEC before exec; actual FD loss, no READY/read. Normal policy would reject before exec |
 | HH06 | **fault injection** two declared distinct objects, actual close0/dup2(3,0); new FD0 CLOEXEC cleared by dup2, slot epoch1, kcmp differs if available; next read denied before effect. Not supported generic alias/rebind behavior |
 | HH07 | valid empty sealed object; requested17, actual result0/empty buffer; not missing |
+| HH08 | corrected HH02 injection, retaining distinct unused alternate but installing authorized primary; actual predicate no longer denies, normal full read |
+| HH09 | corrected HH03 injection with no extraFD; actual predicate no longer denies, normal full read |
 
 HH02..06 recognized denials are not successful transport; no fabricated READ0.
-HH01/07 scoped transport observations still return overall BLOCKED and9false.
+HH01/07/08/09 scoped transport observations still return overall BLOCKED and9false.
+HH08/09 map to the same HH02/03 producer branches with only the injection corrected;
+the live denial predicate uses observed binding/inventory, never the case number.
+These two fixed counterfactuals were added in the single I1 review-fix pass; no
+arbitrary payload/profile execution interface was added.
+
+FD comparisons are reconciled with actual reference-pin attempts: before one exists,
+only unattempted `null,ENODATA61`; after failed acquisition, only unavailable with
+that actual propagated errno; after success, real kcmp failure or result0/1/2.
+Source hashes/inodes never stand in for reference availability or OFD equivalence.
 
 ## Separation and next boundary
 

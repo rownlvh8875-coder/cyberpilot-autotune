@@ -24,10 +24,11 @@
 
 #define SCOPE "guest-data-fd-handoff-v1: fixed software guest only\n"
 #define REQUIRED_SEALS 47
+enum observation_status { MATCH=0, BINDING_MISMATCH=1, INVENTORY_MISMATCH=2 };
 struct object { int rw,ro; struct stat st; char hash[65]; };
 static struct object primary,alternate,program;
 static uint64_t sequence;
-static int generation,ready,denied,case_number,slot_epoch;
+static int generation,ready,denied,case_number,slot_epoch,corrected;
 static int ofd[4]={-1,-1,-1,-1},ofd_error[4]={ENODATA,ENODATA,ENODATA,ENODATA};
 static char output_buffer[65536];
 
@@ -143,14 +144,12 @@ static int snapshot(pid_t child,const char *stage)
   for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)if(fds[j]<fds[i]){int x=fds[i];fds[i]=fds[j];fds[j]=x;}
   int binding=0;
   for(int i=0;i<count;i++){
-    struct object *wanted=&primary;if(case_number==2||(!strcmp(stage,"REUSED")&&fds[i]==0)||
+    struct object *wanted=&primary;if((!strcmp(stage,"REUSED")&&fds[i]==0)||
       (case_number==6&&fds[i]==3))wanted=&alternate;
     int cloexec=(strcmp(stage,"PRE_EXEC")||case_number==5)&&!(!strcmp(stage,"REUSED")&&fds[i]==0);
     int result=fd_observation(child,stage,fds[i],wanted,cloexec);
     if(result<0)return -1;
     binding|=result;
-    /* HH02 intentionally expects primary: equal bytes are not its object identity. */
-    if(case_number==2&&same(&wanted->st,&alternate.st))binding=1;
   }
   int uid=-1,gid=-1,nnp=-1;
   snprintf(path,sizeof(path),"/proc/%d/task",child);int threads=count_directory(path);
@@ -160,8 +159,8 @@ static int snapshot(pid_t child,const char *stage)
   if(threads!=1||uid!=(bootstrap?0:65534)||gid!=(bootstrap?0:65534)||nnp!=(bootstrap?0:1))return -1;
   if(!strcmp(stage,"PRE_TRANSFER")||!strcmp(stage,"CLOSED"))return count?1:0;
   int wanted_count=case_number==6?2:1;
-  if(count!=wanted_count)return 1;
-  if(fds[0]!=0||(wanted_count==2&&fds[1]!=3))return 1;
+  if(count!=wanted_count)return INVENTORY_MISMATCH;
+  if(fds[0]!=0||(wanted_count==2&&fds[1]!=3))return INVENTORY_MISMATCH;
   return binding;
 }
 static void deny(pid_t child,const char *reason)
@@ -202,7 +201,7 @@ static int payload(void)
 }
 static void bootstrap(pid_t parent,const char *selected)
 {
-  int first=case_number==2?alternate.ro:primary.ro;
+  int first=case_number==2&&!corrected?alternate.ro:primary.ro;
   int second=case_number==6?alternate.ro:primary.ro;
   if(syscall(SYS_close_range,0,UINT_MAX,0)||trace(PTRACE_TRACEME,0,0,0)<0)_exit(2);
   raise(SIGSTOP); /* Supervisor observes actual empty descriptor table. */
@@ -210,7 +209,7 @@ static void bootstrap(pid_t parent,const char *selected)
   int opened=open(path,O_RDONLY|O_CLOEXEC);if(opened<0)_exit(2);
   if(opened!=0){if(dup2(opened,0)<0)_exit(2);close(opened);}
   if(fcntl(0,F_SETFD,case_number==5?FD_CLOEXEC:0)<0)_exit(2);
-  if(case_number==3||case_number==6){
+  if((case_number==3&&!corrected)||case_number==6){
     snprintf(path,sizeof(path),"/proc/%d/fd/%d",parent,second);
     opened=open(path,O_RDONLY|O_CLOEXEC);if(opened<0)_exit(2);
     if(opened!=3){if(dup2(opened,3)<0)_exit(2);close(opened);}
@@ -262,8 +261,8 @@ static int collect(const char *selected)
       stops++;
       if(stops==1){
         int check=snapshot(child,"PRE_EXEC");if(check<0)return 2;
-        if(case_number==2)deny(child,"PRE_EXEC_BINDING");
-        else if(case_number==3)deny(child,"EXTRA_FD");
+        if(check==BINDING_MISMATCH)deny(child,"PRE_EXEC_BINDING");
+        else if(check==INVENTORY_MISMATCH)deny(child,"EXTRA_FD");
         else if(check)return 2;
         else{pin_ofd(child,0);if(case_number==6)pin_ofd(child,3);}
         /* HH05 deliberately injects CLOEXEC loss, never normal-policy admission. */
@@ -315,8 +314,9 @@ static int collect(const char *selected)
 }
 int main(int argc,char **argv)
 {
-  if(argc!=3||strlen(argv[2])!=4||memcmp(argv[2],"HH0",3)||argv[2][3]<'1'||argv[2][3]>'7')return 2;
+  if(argc!=3||strlen(argv[2])!=4||memcmp(argv[2],"HH0",3)||argv[2][3]<'1'||argv[2][3]>'9')return 2;
   case_number=argv[2][3]-'0';
+  if(case_number==8||case_number==9){corrected=1;case_number-=6;}
   if(!strcmp(argv[1],"--trace"))return collect(argv[2]);
   if(!strcmp(argv[1],"--payload"))return payload();
   return 2;
