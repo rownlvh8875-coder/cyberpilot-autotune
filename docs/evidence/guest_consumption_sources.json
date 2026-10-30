@@ -1,0 +1,138 @@
+{
+  "schema": "guest-consumption-source-v1",
+  "package": "linux-source-6.12",
+  "package_version": "6.12.113-1",
+  "source_archive_sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33",
+  "authenticated_package": {
+    "path": "/workspace/scratch/guest-backend.FY5icM/kernel-source/linux-source-6.12_6.12.113-1_all.deb",
+    "sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5",
+    "bytes": 153094996
+  },
+  "source_kind": "PREVIOUSLY_AUTHENTICATED_DEBIAN_COMPONENT_CONTENT_RECHECKED",
+  "files": [
+    {
+      "path": "kernel/ptrace.c",
+      "bytes": 37907,
+      "sha256": "2e08d56f9646bb7e292311795122796e0dfd01e9c2baa3f2289c7d5985033011",
+      "git_blob_sha1": "75bcc152606c4ba6af5ebcb583fb05c4fba7703f",
+      "ranges": [
+        {
+          "start": 604,
+          "end": 616,
+          "claim": "EXITKILL is tracer-death recovery, not a qualified watchdog",
+          "sha256": "02f0029c120772a29918a95fd41fe0e7900e3ada52232697bfb13c3eac622fba"
+        },
+        {
+          "start": 928,
+          "end": 1020,
+          "claim": "typed syscall entry args and signed raw return at stopped-task observations",
+          "sha256": "9dee43ef5a1852097a4388b9f8e133dce148ab5b434f09215a6389f7fa49e239"
+        },
+        {
+          "start": 1305,
+          "end": 1317,
+          "claim": "raw PEEK writes observed word via data pointer; not target memory mutation",
+          "sha256": "387f517653f55e748f2080264ec412e8102ab6cc111e907dc827c27559041e8a"
+        }
+      ]
+    },
+    {
+      "path": "fs/read_write.c",
+      "bytes": 44892,
+      "sha256": "3c3a85e445a1ca15da13dc49f10eb88f1d109bb9b9fd37130a8423a0e9954c8e",
+      "git_blob_sha1": "430c06993b75857283bd7163b9c0176607bd2ef4",
+      "ranges": [
+        {
+          "start": 695,
+          "end": 723,
+          "claim": "successful regular read updates observed file position before return",
+          "sha256": "826c765c4438b8a3350e163e02ac067e632fbd8bac96ff4a5213b81bfbc2e1cb"
+        },
+        {
+          "start": 751,
+          "end": 777,
+          "claim": "pread uses local explicit position, not the open-description file position",
+          "sha256": "40c33a8b6faf02c17a401c8df9f33ee09cb29d3124f01043fd5934eabc53a55e"
+        }
+      ]
+    },
+    {
+      "path": "fs/proc/fd.c",
+      "bytes": 9343,
+      "sha256": "caa957010c563f8d4ebce0a5b7f2ea41428ce8180a5c1737b2369811187f41a8",
+      "git_blob_sha1": "92f0756394115b7719abd1aaf4c1bf56e7d690e4",
+      "ranges": [
+        {
+          "start": 23,
+          "end": 72,
+          "claim": "fdinfo holds a file reference and publishes current f_pos; not OFD alias proof",
+          "sha256": "8883d16d8c19ebc67e4ee2083750e2b15f3bfdd1ba983458c853076c361589e5"
+        }
+      ]
+    },
+    {
+      "path": "fs/exec.c",
+      "bytes": 54546,
+      "sha256": "fb8c02ec8d88d8ad8d85ebbc84e88db5a863196277b96b7baaaa3b7711b45ae0",
+      "git_blob_sha1": "829c74c7690d8b511fc4630c4102f693050000a5",
+      "ranges": [
+        {
+          "start": 1292,
+          "end": 1315,
+          "claim": "new executable file set on new mm before exec_mmap",
+          "sha256": "9737803174dc4044d4701f44ea6af2a81836c2ea2fb7cd64ebdcc4e96f263d1a"
+        },
+        {
+          "start": 1845,
+          "end": 1874,
+          "claim": "PTRACE_EVENT_EXEC follows binary handler execution; internal loader reads remain outside syscall observer",
+          "sha256": "b37b55eb4b0f6308f3522a90c5a19ea0dd0ebdbe8fb4b63a192ca591dfa8fce0"
+        }
+      ]
+    },
+    {
+      "path": "kernel/fork.c",
+      "bytes": 87580,
+      "sha256": "9ca6cce17959283738d9a010405c319d38397e698e6a6382a24bbbf29ef8b1fa",
+      "git_blob_sha1": "c36d69c40213b45d8792cdc3ee41d5ab07f36251",
+      "ranges": [
+        {
+          "start": 2798,
+          "end": 2878,
+          "claim": "CLONE_UNTRACED affects reporting; child wake precedes parent ptrace birth event",
+          "sha256": "54bf06525a6fdf99a58788553769d76c9542a6c82ba271da1f7f9e6f22379837"
+        }
+      ]
+    },
+    {
+      "path": "fs/binfmt_elf.c",
+      "bytes": 59501,
+      "sha256": "049e93893eaf20e846113c28826012672ae2687e6ec1ee98f0722c8bf160abb0",
+      "git_blob_sha1": "0984ec63f6d78bc4488fcc8efbacc0c22fee268e",
+      "ranges": [
+        {
+          "start": 466,
+          "end": 477,
+          "claim": "ELF helper uses internal kernel_read, not a separately observed user syscall",
+          "sha256": "69c738f2306df5957a336bbd37d309e55f77a167d0a0ab07dc4a3d99ecfd6fce"
+        }
+      ]
+    },
+    {
+      "path": "fs/proc/base.c",
+      "bytes": 98456,
+      "sha256": "66eadb7ea9810875563fb9c7f58aad71b8ddcbea8b41dbb32e9849e358ceb382",
+      "git_blob_sha1": "427fb5abb07c7cab836c56e71fd19995d6445eaa",
+      "ranges": [
+        {
+          "start": 1763,
+          "end": 1788,
+          "claim": "proc exe link uses the task's actual executable file reference",
+          "sha256": "ac90b7d1afecfa3844e0643be94b48e164f2be3f277c72c510a2931b2dcd9a9b"
+        }
+      ]
+    }
+  ],
+  "runtime_qualified": false,
+  "full_kernel_read_observer_implemented": false
+}

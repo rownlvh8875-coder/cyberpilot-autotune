@@ -1,0 +1,143 @@
+{
+  "schema": "guest-consumption-result-v1",
+  "base_revision": "c5b824f4f37e05bcac81769f1d01a55a51c26e1d",
+  "overall_status": "BLOCKED",
+  "evidence_kind": "UNTRUSTED_PROTOTYPE_CAPTURE",
+  "actual_guests": 7,
+  "fixture_checks_matched": 7,
+  "trace_windows_complete": 5,
+  "explicitly_incomplete_windows": 2,
+  "permissions": {
+    "build_execution_allowed": false,
+    "promotion_authorized": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  },
+  "successful_prohibited_handles": null,
+  "successful_prohibited_effects": null,
+  "capture_source_manifest_sha256": "a25350dcf3ba32ac85045afbdc4ab984abfa9550fe3802f6535df382d79101f4",
+  "cases": [
+    {
+      "case": "CP01",
+      "capture_digest": "83275479a2e4aed699ff142161c8260502e4f105305a842163db5b39d207ba9d",
+      "records": 15,
+      "uses": 8,
+      "trace_window_complete": true,
+      "profile_reasons": [],
+      "tasks": 1,
+      "execs": 1,
+      "read_events": 5,
+      "map_bindings": 1,
+      "metadata_events": 1
+    },
+    {
+      "case": "CP02",
+      "capture_digest": "d146caeefc8992c1f1029e819f6a92b6260918f4c87727cbf0d1b1f39c949f8b",
+      "records": 13,
+      "uses": 4,
+      "trace_window_complete": true,
+      "profile_reasons": [],
+      "tasks": 2,
+      "execs": 1,
+      "read_events": 3,
+      "map_bindings": 0,
+      "metadata_events": 0
+    },
+    {
+      "case": "CP03",
+      "capture_digest": "7c203a21791d63723f58358c9673d4379f0c206694d1ca4afdf13eb297266036",
+      "records": 12,
+      "uses": 5,
+      "trace_window_complete": true,
+      "profile_reasons": [],
+      "tasks": 1,
+      "execs": 2,
+      "read_events": 3,
+      "map_bindings": 0,
+      "metadata_events": 0
+    },
+    {
+      "case": "CP04",
+      "capture_digest": "0a529bc15768947e6d670e38de342a6a8bfbcd77269310769afb4099f3faca39",
+      "records": 11,
+      "uses": 3,
+      "trace_window_complete": true,
+      "profile_reasons": [],
+      "tasks": 1,
+      "execs": 1,
+      "read_events": 2,
+      "map_bindings": 0,
+      "metadata_events": 0
+    },
+    {
+      "case": "CP05",
+      "capture_digest": "2994e4bc44168e6d6a790deca537d89e2819bf784d34e4a0cd61294993653bcc",
+      "records": 9,
+      "uses": 2,
+      "trace_window_complete": false,
+      "profile_reasons": [
+        "PAYLOAD_NOT_SUCCESSFUL",
+        "TRACE_WINDOW_INCOMPLETE",
+        "UNSUPPORTED_CLONE_FLAGS"
+      ],
+      "tasks": 1,
+      "execs": 1,
+      "read_events": 1,
+      "map_bindings": 0,
+      "metadata_events": 0
+    },
+    {
+      "case": "CP06",
+      "capture_digest": "6873e98d8dd93b86d816d6f3843f4a800a166e97e7821880f3def91b1cb91899",
+      "records": 9,
+      "uses": 2,
+      "trace_window_complete": false,
+      "profile_reasons": [
+        "PAYLOAD_NOT_SUCCESSFUL",
+        "READ_CAPTURE_BOUND_EXCEEDED",
+        "TRACE_WINDOW_INCOMPLETE"
+      ],
+      "tasks": 1,
+      "execs": 1,
+      "read_events": 1,
+      "map_bindings": 0,
+      "metadata_events": 0
+    },
+    {
+      "case": "CP07",
+      "capture_digest": "d066734f13ff3545a1547aeae4f83d86a9c084d3a5c7e3b6601a6b60bb0a80cc",
+      "records": 9,
+      "uses": 2,
+      "trace_window_complete": true,
+      "profile_reasons": [],
+      "tasks": 1,
+      "execs": 1,
+      "read_events": 1,
+      "map_bindings": 0,
+      "metadata_events": 0
+    }
+  ],
+  "limitations": [
+    "STOPPED_BUFFER_OBSERVATION_NOT_GENERAL_KERNEL_READ_PROOF",
+    "KERNEL_EXEC_LOADER_READS_UNAVAILABLE",
+    "MMAP_PAGE_TOUCHES_UNAVAILABLE",
+    "OPEN_FILE_DESCRIPTION_ALIAS_CLOSURE_UNQUALIFIED",
+    "INPUT_SEAL_BACKEND_UNQUALIFIED",
+    "OUTPUT_PROMOTION_BACKEND_UNQUALIFIED",
+    "EXTERNAL_EXECUTOR_UNQUALIFIED",
+    "RECEIPT_AUTHENTICITY_UNQUALIFIED",
+    "GUEST_FULL_INPUT_CLOSURE_UNQUALIFIED",
+    "APPLICATION_NOT_AUTHORIZED"
+  ],
+  "qualified_input_seal": false,
+  "qualified_output_promotion": false,
+  "full_build_producer_implemented": false,
+  "kernel_exec_loader_reads": "UNAVAILABLE",
+  "mmap_page_touches": "UNAVAILABLE",
+  "ofd_alias_closure": "UNQUALIFIED"
+}

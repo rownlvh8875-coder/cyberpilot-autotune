@@ -9,3 +9,10 @@
 /compatibility/guest_input_closure/*.py -text
 /compatibility/guest_input_closure/evidence/current-snapshot.json.gz -text
 /docs/evidence/guest_input_closure_result.json -text
+/compatibility/guest_consumption/*.py -text
+/compatibility/guest_consumption/guest/*.c -text
+/compatibility/guest_consumption/guest/*.h -text
+/compatibility/guest_consumption/guest/build_manifest.json -text
+/compatibility/guest_consumption/evidence/*.gz -text
+/docs/evidence/guest_consumption_sources.json -text
+/docs/evidence/guest_consumption_results.json -text
