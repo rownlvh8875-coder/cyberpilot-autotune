@@ -1,0 +1,370 @@
+diff --git a/fs/file.c b/fs/file.c
+index c84bd58..c4e835c 100644
+--- a/fs/file.c
++++ b/fs/file.c
+@@ -8,6 +8,7 @@
+  */
+ 
+ #include <linux/syscalls.h>
++#include <linux/cplife.h>
+ #include <linux/export.h>
+ #include <linux/fs.h>
+ #include <linux/kernel.h>
+@@ -321,6 +322,7 @@ struct files_struct *dup_fd(struct files_struct *oldf, struct fd_range *punch_ho
+ 	newf = kmem_cache_alloc(files_cachep, GFP_KERNEL);
+ 	if (!newf)
+ 		return ERR_PTR(-ENOMEM);
++	newf->cpl_cookie = 0;
+ 
+ 	atomic_set(&newf->count, 1);
+ 
+@@ -399,6 +401,7 @@ struct files_struct *dup_fd(struct files_struct *oldf, struct fd_range *punch_ho
+ 
+ 	rcu_assign_pointer(newf->fdt, new_fdt);
+ 
++	cpl_table_birth(newf, oldf);
+ 	return newf;
+ }
+ 
+@@ -437,12 +440,14 @@ static struct fdtable *close_files(struct files_struct * files)
+ void put_files_struct(struct files_struct *files)
+ {
+ 	if (atomic_dec_and_test(&files->count)) {
++		u64 cpl_saved_cookie = files->cpl_cookie;
+ 		struct fdtable *fdt = close_files(files);
+ 
+ 		/* free the arrays if they are not embedded */
+ 		if (fdt != &files->fdtab)
+ 			__free_fdtable(fdt);
+ 		kmem_cache_free(files_cachep, files);
++		cpl_table_free(cpl_saved_cookie); /* No post-free files dereference. */
+ 	}
+ }
+ 
+@@ -608,6 +613,7 @@ void fd_install(unsigned int fd, struct file *file)
+ 		fdt = files_fdtable(files);
+ 		BUG_ON(fdt->fd[fd] != NULL);
+ 		rcu_assign_pointer(fdt->fd[fd], file);
++		cpl_binding("INSTALL", files, file, NULL, fd, close_on_exec(fd, files));
+ 		spin_unlock(&files->file_lock);
+ 		return;
+ 	}
+@@ -616,6 +622,7 @@ void fd_install(unsigned int fd, struct file *file)
+ 	fdt = rcu_dereference_sched(files->fdt);
+ 	BUG_ON(fdt->fd[fd] != NULL);
+ 	rcu_assign_pointer(fdt->fd[fd], file);
++	cpl_binding("INSTALL", files, file, NULL, fd, close_on_exec(fd, files));
+ 	rcu_read_unlock_sched();
+ }
+ 
+@@ -647,6 +654,7 @@ struct file *file_close_fd_locked(struct files_struct *files, unsigned fd)
+ 	if (file) {
+ 		rcu_assign_pointer(fdt->fd[fd], NULL);
+ 		__put_unused_fd(files, fd);
++		cpl_binding("CLOSE", files, file, NULL, fd, -1);
+ 	}
+ 	return file;
+ }
+@@ -1191,6 +1199,7 @@ void set_close_on_exec(unsigned int fd, int flag)
+ 		__set_close_on_exec(fd, fdt);
+ 	else
+ 		__clear_close_on_exec(fd, fdt);
++	cpl_binding("FLAGS", files, fdt->fd[fd], NULL, fd, close_on_exec(fd, files));
+ 	spin_unlock(&files->file_lock);
+ }
+ 
+@@ -1236,6 +1245,7 @@ __releases(&files->file_lock)
+ 		__set_close_on_exec(fd, fdt);
+ 	else
+ 		__clear_close_on_exec(fd, fdt);
++	cpl_binding("REPLACE", files, file, tofree, fd, close_on_exec(fd, files));
+ 	spin_unlock(&files->file_lock);
+ 
+ 	if (tofree)
+diff --git a/fs/file_table.c b/fs/file_table.c
+index f78bcff..f5d160b 100644
+--- a/fs/file_table.c
++++ b/fs/file_table.c
+@@ -7,6 +7,7 @@
+  */
+ 
+ #include <linux/string.h>
++#include <linux/cplife.h>
+ #include <linux/slab.h>
+ #include <linux/file.h>
+ #include <linux/init.h>
+@@ -86,6 +87,7 @@ static inline void backing_file_free(struct backing_file *ff)
+ 
+ static inline void file_free(struct file *f)
+ {
++	u64 cpl_saved_cookie = f->cpl_cookie;
+ 	security_file_free(f);
+ 	if (likely(!(f->f_mode & FMODE_NOACCOUNT)))
+ 		percpu_counter_dec(&nr_files);
+@@ -95,6 +97,7 @@ static inline void file_free(struct file *f)
+ 	} else {
+ 		kmem_cache_free(filp_cachep, f);
+ 	}
++	cpl_file_free(cpl_saved_cookie); /* Scalar only; f has been released. */
+ }
+ 
+ /*
+@@ -241,6 +244,7 @@ struct file *alloc_empty_file(int flags, const struct cred *cred)
+ 
+ 	percpu_counter_inc(&nr_files);
+ 
++	cpl_file_birth(f);
+ 	return f;
+ 
+ over:
+diff --git a/fs/proc/Makefile b/fs/proc/Makefile
+index 7b4db9c..b404073 100644
+--- a/fs/proc/Makefile
++++ b/fs/proc/Makefile
+@@ -13,6 +13,7 @@ proc-y       += inode.o root.o base.o generic.o array.o \
+ 		fd.o
+ proc-$(CONFIG_TTY)      += proc_tty.o
+ proc-y	+= cmdline.o
++proc-y  += cplife.o
+ proc-y	+= consoles.o
+ proc-y	+= cpuinfo.o
+ proc-y	+= devices.o
+diff --git a/fs/proc/cplife.c b/fs/proc/cplife.c
+new file mode 100644
+index 0000000..01b839b
+--- /dev/null
++++ b/fs/proc/cplife.c
+@@ -0,0 +1,190 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Fixed, unqualified, guest-only raw source experiment. No target references held.
++ * Buffer ordinal is emission order, NOT kernel-effect linearization order.
++ */
++#include <linux/atomic.h>
++#include <linux/cplife.h>
++#include <linux/fdtable.h>
++#include <linux/fs.h>
++#include <linux/init.h>
++#include <linux/ktime.h>
++#include <linux/nmi.h>
++#include <linux/proc_fs.h>
++#include <linux/rcupdate.h>
++#include <linux/sched.h>
++#include <linux/seq_file.h>
++#include <linux/string.h>
++#include <linux/uaccess.h>
++#include <generated/utsrelease.h>
++
++struct cpl_record {
++  u64 seq, table, ofd, old, mono;
++  const char *kind;
++  int fd, flags;
++  bool valid;
++};
++static struct cpl_record records[128];
++static atomic64_t attempted = ATOMIC64_INIT(0);
++static atomic64_t reserved = ATOMIC64_INIT(0);
++static atomic64_t committed = ATOMIC64_INIT(0);
++static atomic64_t failed = ATOMIC64_INIT(0);
++static atomic64_t cookies = ATOMIC64_INIT(0);
++static struct files_struct *root_files;
++static unsigned int capacity = 128;
++static const char *case_name;
++static bool active, ever_armed, stopped, force_loss;
++
++static bool cpl_current_scope(void)
++{
++  struct files_struct *files;
++  if (!smp_load_acquire(&active))
++    return false;
++  files = current->files;
++  return files && (files == READ_ONCE(root_files) || READ_ONCE(files->cpl_cookie));
++}
++
++static void cpl_emit(const char *kind, u64 table, u64 ofd, u64 old,
++                     int fd, int flags)
++{
++  struct cpl_record *r;
++  u64 seq;
++  /* Admitted hooks for this fixed workload are process/task-work context only.
++   * An NMI invocation is outside this diagnostic profile, not zero global loss.
++   */
++  if (in_nmi())
++    return;
++  rcu_read_lock();
++  if (!smp_load_acquire(&active))
++    goto out;
++  seq = atomic64_inc_return(&attempted);
++  if (!seq || seq > capacity || (force_loss && seq == 2)) {
++    atomic64_inc(&failed);
++    goto out;
++  }
++  atomic64_inc(&reserved);
++  r = &records[seq - 1];
++  r->seq = seq; r->kind = kind; r->table = table;
++  r->ofd = ofd; r->old = old; r->fd = fd; r->flags = flags;
++  r->mono = ktime_get_mono_fast_ns();
++  smp_store_release(&r->valid, true);
++  atomic64_inc(&committed);
++out:
++  rcu_read_unlock();
++}
++
++void cpl_file_birth(struct file *file)
++{
++  if (!cpl_current_scope())
++    return;
++  file->cpl_cookie = atomic64_inc_return(&cookies);
++  cpl_emit("FILE_NEW", 0, file->cpl_cookie, 0, -1, -1);
++}
++
++void cpl_file_free(u64 cookie)
++{
++  if (cookie)
++    cpl_emit("FILE_FREE", 0, cookie, 0, -1, -1);
++}
++
++void cpl_table_birth(struct files_struct *files, struct files_struct *old)
++{
++  if (!cpl_current_scope())
++    return;
++  files->cpl_cookie = atomic64_inc_return(&cookies);
++  cpl_emit("TABLE_NEW", files->cpl_cookie, 0, old->cpl_cookie, -1, -1);
++}
++
++void cpl_table_free(u64 cookie)
++{
++  if (cookie)
++    cpl_emit("TABLE_FREE", cookie, 0, 0, -1, -1);
++}
++
++void cpl_binding(const char *kind, struct files_struct *files, struct file *file,
++                 struct file *old, int fd, int flags)
++{
++  if (files != READ_ONCE(root_files) && !files->cpl_cookie)
++    return;
++  cpl_emit(kind, files->cpl_cookie, file ? file->cpl_cookie : 0,
++           old ? old->cpl_cookie : 0, fd, flags);
++}
++
++static ssize_t cpl_write(struct file *file, const char __user *buffer,
++                          size_t count, loff_t *pos)
++{
++  char command[32];
++  if (task_pid_nr(current) != 1 || count >= sizeof(command))
++    return -EINVAL;
++  if (copy_from_user(command, buffer, count))
++    return -EFAULT;
++  command[count] = 0;
++  if (!strcmp(command, "stop\n")) {
++    if (!active)
++      return -EINVAL;
++    smp_store_release(&active, false);
++    synchronize_rcu();
++    stopped = true;
++    return count;
++  }
++  if (ever_armed)
++    return -EBUSY;
++  if (!strcmp(command, "arm normal\n"))
++    case_name = "NORMAL";
++  else if (!strcmp(command, "arm fail\n")) {
++    case_name = "FORCED_LOSS";
++    force_loss = true;
++  } else if (!strcmp(command, "arm small\n")) {
++    case_name = "SMALL_BUFFER";
++    capacity = 2;
++  } else
++    return -EINVAL;
++  /* Borrowed pointer solely to the fixed living PID1's unchanged namespace;
++   * this is scope context, never an allocation cookie or a retained reference.
++   */
++  root_files = current->files;
++  ever_armed = true;
++  smp_store_release(&active, true);
++  return count;
++}
++
++static int cpl_show(struct seq_file *m, void *v)
++{
++  unsigned int i;
++  u64 n, a, r, c, f;
++  if (!ever_armed || active || !stopped)
++    return -EAGAIN;
++  a = atomic64_read(&attempted); r = atomic64_read(&reserved);
++  c = atomic64_read(&committed); f = atomic64_read(&failed);
++  seq_printf(m, "CPL_META version=2 case=%s release=%s cpus=1 capacity=%u\n",
++             case_name, UTS_RELEASE, capacity);
++  seq_printf(m, "CPL_COUNT attempted=%llu reserved=%llu committed=%llu failed=%llu discarded=0 pending=%llu\n",
++             a, r, c, f, r - c);
++  n = min_t(u64, a, capacity);
++  for (i = 0; i < n; i++) {
++    struct cpl_record *e = &records[i];
++    if (!smp_load_acquire(&e->valid))
++      continue;
++    seq_printf(m, "CPL_EVENT seq=%llu kind=%s table=%llu ofd=%llu old=%llu fd=%d flags=%d mono=%llu\n",
++               e->seq, e->kind, e->table, e->ofd, e->old, e->fd, e->flags, e->mono);
++  }
++  seq_puts(m, "CPL_END\n");
++  return 0;
++}
++
++static int cpl_open(struct inode *inode, struct file *file)
++{
++  return single_open(file, cpl_show, NULL);
++}
++
++static const struct proc_ops cpl_ops = {
++  .proc_open = cpl_open, .proc_read = seq_read, .proc_write = cpl_write,
++  .proc_lseek = seq_lseek, .proc_release = single_release,
++};
++
++static int __init cpl_init(void)
++{
++  if (num_possible_cpus() != 1)
++    return -EINVAL;
++  return proc_create("cplife", 0600, NULL, &cpl_ops) ? 0 : -ENOMEM;
++}
++fs_initcall(cpl_init);
+diff --git a/include/linux/cplife.h b/include/linux/cplife.h
+new file mode 100644
+index 0000000..b417340
+--- /dev/null
++++ b/include/linux/cplife.h
+@@ -0,0 +1,13 @@
++/* Disposable diagnostic experiment only; requires CONFIG_PROC_FS=y. */
++#ifndef _LINUX_CPLIFE_H
++#define _LINUX_CPLIFE_H
++#include <linux/types.h>
++struct file;
++struct files_struct;
++void cpl_file_birth(struct file *file);
++void cpl_file_free(u64 cookie);
++void cpl_table_birth(struct files_struct *files, struct files_struct *old);
++void cpl_table_free(u64 cookie);
++void cpl_binding(const char *kind, struct files_struct *files, struct file *file,
++                 struct file *old, int fd, int flags);
++#endif
+diff --git a/include/linux/fdtable.h b/include/linux/fdtable.h
+index b1c5722..e9e469e 100644
+--- a/include/linux/fdtable.h
++++ b/include/linux/fdtable.h
+@@ -36,6 +36,7 @@ struct fdtable {
+  * Open file table structure
+  */
+ struct files_struct {
++	u64 cpl_cookie; /* Namespace lifetime, not backing fdtable storage. */
+   /*
+    * read mostly part
+    */
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 19211eb..90dfe80 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -1074,6 +1074,7 @@ static inline int ra_has_index(struct file_ra_state *ra, pgoff_t index)
+  */
+ struct file {
+ 	atomic_long_t			f_count;
++	u64 cpl_cookie; /* Disposable diagnostic source birth; zero means unavailable. */
+ 	spinlock_t			f_lock;
+ 	fmode_t				f_mode;
+ 	const struct file_operations	*f_op;

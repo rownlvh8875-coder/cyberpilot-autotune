@@ -1,0 +1,243 @@
+{
+  "package_sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5",
+  "patch": {
+    "bytes": 11314,
+    "path": "tests/guest_raw_lifetime/kernel.patch",
+    "sha256": "95276198613e05f6ea0bc7a94daccec21a8a1caba589fd97b768e51c22b9a4c4"
+  },
+  "patched_files": [
+    {
+      "bytes": 37785,
+      "git_blob_sha1": "c4e835cb2bbf133f3a66ae7489ecfdf1ca4ae05e",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "namespace copy and source birth",
+          "end": 410,
+          "sha256": "2365d4b6b3ef77c9de0c59e674ad2354a05ae1008dab46810840dc67705c6f15",
+          "start": 315
+        },
+        {
+          "claim": "namespace post-allocator free scalar callback",
+          "end": 458,
+          "sha256": "2dbfba4ab7c5401ad942aa4af1c537eb8ad4dcab51b19c009b6b77cdc2e00974",
+          "start": 440
+        },
+        {
+          "claim": "slot installation callback",
+          "end": 630,
+          "sha256": "2f41f49dded25c9cf7d79727266d9b2e8021db55a5185d98b6d127693805d23f",
+          "start": 600
+        },
+        {
+          "claim": "slot removal callback",
+          "end": 661,
+          "sha256": "8cb01b78f8697d3fcd15050798d71755149c640ffaf3eb8f0770dc136131021b",
+          "start": 642
+        },
+        {
+          "claim": "flag cohort and dup write path",
+          "end": 1264,
+          "sha256": "4f382f1101900853641dd6003e0eb36c5bcd6dad3fdb15363bc2f20860323d52",
+          "start": 1192
+        }
+      ],
+      "sha256": "c224e2952a542c607f7fa408643cee33f32b3ec0783efd2bd42767c48c706263"
+    },
+    {
+      "bytes": 15167,
+      "git_blob_sha1": "f5d160b926f481d02e53a181d068d236d6eccdbe",
+      "path": "fs/file_table.c",
+      "ranges": [
+        {
+          "claim": "saved scalar and post-free callback",
+          "end": 105,
+          "sha256": "d69d19a849726d955d73eb2149a8e87538e4db7732483a02723ab13914334cff",
+          "start": 88
+        },
+        {
+          "claim": "initialized OFD birth",
+          "end": 258,
+          "sha256": "b9a15192b9eed802018218f71b86edec8280960e7ad1cdc74443eee60e64f995",
+          "start": 217
+        }
+      ],
+      "sha256": "e0d46b34163bcd81a462d0d0e1e5ea0c13213bd7ca3ce9fff5b3ded43446d711"
+    },
+    {
+      "bytes": 914,
+      "git_blob_sha1": "b404073280a2076a546297f0ee655f4516fd88bd",
+      "path": "fs/proc/Makefile",
+      "ranges": [
+        {
+          "claim": "compiled diagnostic registration",
+          "end": 16,
+          "sha256": "0bff06b83c414b506fba4a1807eb96513b3ad351f3e70db46c32698c5723cdae",
+          "start": 16
+        }
+      ],
+      "sha256": "e65af5babcf5b8c800337e770cc2a6afe460c41153e683830dfdce1c1806d14c"
+    },
+    {
+      "bytes": 5650,
+      "git_blob_sha1": "01b839b0029c75dc865102c552192860743aab7d",
+      "path": "fs/proc/cplife.c",
+      "ranges": [
+        {
+          "claim": "whole finite diagnostic implementation",
+          "end": 190,
+          "sha256": "44760996d467bc3ee040cb38f21edfec9c1465dd52491d07228f815d38b22a02",
+          "start": 1
+        }
+      ],
+      "sha256": "44760996d467bc3ee040cb38f21edfec9c1465dd52491d07228f815d38b22a02"
+    },
+    {
+      "bytes": 504,
+      "git_blob_sha1": "b417340de839ff80e76ac9a3f2ad73430a10b0f4",
+      "path": "include/linux/cplife.h",
+      "ranges": [
+        {
+          "claim": "diagnostic source API",
+          "end": 13,
+          "sha256": "c6dc6771e6cd1c4ad07b0712226d2f322ff1909a187e849da5e9cc207b68be3f",
+          "start": 1
+        }
+      ],
+      "sha256": "c6dc6771e6cd1c4ad07b0712226d2f322ff1909a187e849da5e9cc207b68be3f"
+    },
+    {
+      "bytes": 3524,
+      "git_blob_sha1": "e9e469e95c123727e1cd0051f40205612acdc619",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "namespace allocation cookie",
+          "end": 63,
+          "sha256": "064c7f1ea40b73f234c1360d6dc6d3e2c3c30c137238bde1123a1ca723831640",
+          "start": 38
+        }
+      ],
+      "sha256": "fe9d247e9ffd1398a82de184b77eb2ec562d2a58bbafe2ec70aa0fe577b9185a"
+    },
+    {
+      "bytes": 128631,
+      "git_blob_sha1": "90dfe8053cd50cbc6c7c50657499227cad3b3e05",
+      "path": "include/linux/fs.h",
+      "ranges": [
+        {
+          "claim": "OFD allocation cookie",
+          "end": 1101,
+          "sha256": "1988ffa5c05172b1bc0de2b6344430c7999f3416cb1d94b0fb9d351321caf460",
+          "start": 1075
+        }
+      ],
+      "sha256": "9cc8e230b75bb53e8b023aaa4eef5e8259041c94d9bec4a0f47535b6554c21af"
+    }
+  ],
+  "pristine_files": [
+    {
+      "bytes": 37233,
+      "git_blob_sha1": "c84bd5809358382df0332322dfce64a1749acab3",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "namespace copy and source birth",
+          "end": 409,
+          "sha256": "8552d7669165cc11773d28d7494188e92cc2fdc5130298e2c525a840268d96b9",
+          "start": 314
+        },
+        {
+          "claim": "namespace post-allocator free scalar callback",
+          "end": 455,
+          "sha256": "4b74a6688c8e2afe493b4afa8441fae48773a278fc2f776d56653bc0fd1eac29",
+          "start": 437
+        },
+        {
+          "claim": "slot installation callback",
+          "end": 625,
+          "sha256": "318083c90a26a9582317171d98a0cb1e4cc4533f2bdab35a9ac65f4921ad0377",
+          "start": 595
+        },
+        {
+          "claim": "slot removal callback",
+          "end": 654,
+          "sha256": "5087fb01f38db04e62cf8d112d992b410b1f363ae79c97410c7c0110d4138cdf",
+          "start": 635
+        },
+        {
+          "claim": "flag cohort and dup write path",
+          "end": 1256,
+          "sha256": "ecbd179cb8d822d6ec5043cb878d477b5bf7c1d6b5d3c245c6331953e2689519",
+          "start": 1184
+        }
+      ],
+      "sha256": "07cb3588c77a23709dfc746330cb0ac602445d647a14246ab5242bc389256169"
+    },
+    {
+      "bytes": 15008,
+      "git_blob_sha1": "f78bcff79f1a0499bcc48390f032e785cf4b47f4",
+      "path": "fs/file_table.c",
+      "ranges": [
+        {
+          "claim": "saved scalar and post-free callback",
+          "end": 104,
+          "sha256": "5026e6788d408f9ee71b2155430aa71a1ab911c0b3d9379676fec18bc33888ac",
+          "start": 87
+        },
+        {
+          "claim": "initialized OFD birth",
+          "end": 255,
+          "sha256": "87d921e1e94cac9a82df1e4258e6769ec786c1255e39ca0985e022a2ff5cfd2f",
+          "start": 214
+        }
+      ],
+      "sha256": "853ad4b282453d6091944412fa5eae258e11e53292457b8be812afe4cc15320c"
+    },
+    {
+      "bytes": 894,
+      "git_blob_sha1": "7b4db9c56e6a77d3f0abd4a4e687542a734bb8d7",
+      "path": "fs/proc/Makefile",
+      "ranges": [
+        {
+          "claim": "pristine file before diagnostic patch",
+          "end": 36,
+          "sha256": "7e9624f9f9f7bc0698e94353fd8e8129ae2e3c7be5eb41f44113e36da53afe65",
+          "start": 1
+        }
+      ],
+      "sha256": "7e9624f9f9f7bc0698e94353fd8e8129ae2e3c7be5eb41f44113e36da53afe65"
+    },
+    {
+      "bytes": 3452,
+      "git_blob_sha1": "b1c5722f2b3ce4ba82e89716d5e27f85c67a8afd",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "namespace allocation cookie",
+          "end": 63,
+          "sha256": "53315a4f78d8b151fb7f9c13cb1a03a95403c1c2b7f9cdcff57ffd30c08e3b2a",
+          "start": 38
+        }
+      ],
+      "sha256": "ab0233740bd825ed7705e378278f60a3a184a7ded81fea060ac4a2fbfe2abfdb"
+    },
+    {
+      "bytes": 128548,
+      "git_blob_sha1": "19211eb49a8c087e497a1d2ff08906ea34fb9e64",
+      "path": "include/linux/fs.h",
+      "ranges": [
+        {
+          "claim": "OFD allocation cookie",
+          "end": 1101,
+          "sha256": "4992d6c5efc95f54cd1ecf345cb14036294a0bcde682299c7d5d47ff227ad7bc",
+          "start": 1075
+        }
+      ],
+      "sha256": "b1eaaf9e239d449a923a980ad05939069bb8347655b482a11b0e9ba524759bce"
+    }
+  ],
+  "runtime_qualified": false,
+  "schema": "guest-raw-lifetime-source-refs-v1",
+  "source_archive_sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33"
+}

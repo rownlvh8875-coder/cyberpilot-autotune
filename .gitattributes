@@ -27,3 +27,9 @@
 /docs/evidence/guest_data_fd_handoff_*.gz -text
 /docs/evidence/fd_ofd_lifetime_design_*.json -text
 /docs/evidence/kernel_lifetime_feasibility_*.json -text
+/tests/guest_raw_lifetime/guest/*.c -text
+/tests/guest_raw_lifetime/*.py -text
+/tests/guest_raw_lifetime/kernel.patch -text
+/tests/guest_raw_lifetime/kernel.config -text
+/docs/evidence/guest_raw_lifetime_*.json -text
+/docs/evidence/guest_raw_lifetime_*.gz -text
