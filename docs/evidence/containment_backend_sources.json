@@ -1,0 +1,459 @@
+{
+  "schema_version": "containment-backend-feasibility-design-v1",
+  "evidence_kind": "SOURCE_STUDY_AND_UNEXECUTED_PROTOCOL",
+  "base_commit": "3b1342f3e131642c6edbe3b18270a1fe1e7d216b",
+  "selected_architecture": "LINUX_OBJECT_GUARD_CGROUP_DEVICE_NONCONTINUE_BROKER_EXTERNAL_OBSERVER",
+  "selection_is_designer_call": true,
+  "current_policy": "STRICT_NO_DEVICE_ATTEMPT",
+  "proposed_discovery_policy_adopted": false,
+  "reference": {
+    "repository": "https://github.com/torvalds/linux",
+    "tag": "v6.12",
+    "tag_object": "06090c9b622a7e1f797e775db4c035e0d779b76e",
+    "commit": "adc218676eef25575469234709c2d87185ca223a",
+    "github_tag_verification": false,
+    "purpose": "API_SOURCE_REFERENCE_ONLY_NOT_DEPLOYMENT_KERNEL_OR_HOST_FINGERPRINT"
+  },
+  "files": [
+    {
+      "path": "Documentation/userspace-api/seccomp_filter.rst",
+      "blob_sha1": "cff0fa7f3175e4d2482aafd0ad4ed3b7045a437a",
+      "sha256": "cd51ec8cf62f5029614e8c14d43d52ce1b69efbdb73e1f8c7d1c93d646b06ad7",
+      "bytes": 16587,
+      "line_count": 376,
+      "ranges": [
+        {
+          "claim": "notification_filter_inherited",
+          "start": 196,
+          "end": 214,
+          "sha256": "11d7228c1b7fbb85f193342339c779da489a441897333f5fc66e6ffe9dc6c514"
+        },
+        {
+          "claim": "notification_result_and_addfd",
+          "start": 249,
+          "end": 273,
+          "sha256": "e5d77a3638723dd74d750677ef5adf697b2192e4e6f907409d54e13e1e6310e4"
+        },
+        {
+          "claim": "copy_arguments_before_decision",
+          "start": 283,
+          "end": 292,
+          "sha256": "413e235e14aca27a9f30470d06864cad24268453ee2a090e943f5f17334fc8ec"
+        }
+      ]
+    },
+    {
+      "path": "include/uapi/linux/seccomp.h",
+      "blob_sha1": "dbfc9b37fcaee47e0d9c0431abd32797a4a52d1d",
+      "sha256": "38a129b0b1e0c5cbae3b01bb159810a5cc290d7823d4c386f71d70b16e93d8dd",
+      "bytes": 6032,
+      "line_count": 157,
+      "ranges": [
+        {
+          "claim": "continue_is_not_security_boundary",
+          "start": 82,
+          "end": 109,
+          "sha256": "224779401995cab317ee968da6d0a9d96f97a0cfbbbb5b4fb5ad5dc3499a180e"
+        },
+        {
+          "claim": "atomic_addfd_send",
+          "start": 120,
+          "end": 122,
+          "sha256": "2d0c55e4e4b50cd2e34ea726ddbcf7774d43d8c6079060b6c7dafeb558dd8cca"
+        }
+      ]
+    },
+    {
+      "path": "fs/open.c",
+      "blob_sha1": "5da4df2f9b18a637ed83cde8f2fe52f9034f5290",
+      "sha256": "587769343f2fc32552fb8593138c72f47110de8b7933f921a0bf9b627282b59a",
+      "bytes": 40877,
+      "line_count": 1655,
+      "ranges": [
+        {
+          "claim": "opath_precedes_file_open_and_driver_open",
+          "start": 907,
+          "end": 961,
+          "sha256": "73eb5c2a746489ed2821b3a49ff6f92d2c47b0a3784ac1bcff2e2cfd4dd3caaf"
+        },
+        {
+          "claim": "scoped_resolution_flags_exclusive",
+          "start": 1216,
+          "end": 1244,
+          "sha256": "f2cdc749d6363039f79af600bdc79baa5f1d6c8bede8d579a8e5948ab2eb5a18"
+        }
+      ]
+    },
+    {
+      "path": "Documentation/admin-guide/cgroup-v2.rst",
+      "blob_sha1": "6d02168d78bed67bfe2c7aa17f5a26f61346138f",
+      "sha256": "ad3bd37498a57cc249326fd5c2d609669b32611fe69d126df3c3abec1539f572",
+      "bytes": 122258,
+      "line_count": 3238,
+      "ranges": [
+        {
+          "claim": "kill_descendants_and_threaded_failure",
+          "start": 1020,
+          "end": 1033,
+          "sha256": "447894e011cf36fa892f4b6552abc7c38cf61f9018efe8e2bcd55736070d1064"
+        },
+        {
+          "claim": "device_bpf_type_major_minor_access",
+          "start": 2561,
+          "end": 2583,
+          "sha256": "d84db94b8aa95c3d27976685885cb7dd0363af5e53abcc6bb85252c7606c1b66"
+        }
+      ]
+    },
+    {
+      "path": "Documentation/bpf/prog_lsm.rst",
+      "blob_sha1": "ad2be02f30c2d1563eb2c51b9a2af153604e32a7",
+      "sha256": "33d4aa66a274e8e1c30b56e2b8751fd196c30080ab2e3cc7d8cd6bb3b7660532",
+      "bytes": 4562,
+      "line_count": 143,
+      "ranges": [
+        {
+          "claim": "privileged_mac",
+          "start": 8,
+          "end": 10,
+          "sha256": "61ca8daae547c10cffdfb3034a19aad6e2ba7801d0bee2853aaf3ad4293997e3"
+        },
+        {
+          "claim": "preserve_previous_denial",
+          "start": 65,
+          "end": 86,
+          "sha256": "29e4dbd8296be49b7b6fd451775385096665e5471d6032db1da675c7ead3b944"
+        },
+        {
+          "claim": "lsm_link_lifetime",
+          "start": 117,
+          "end": 128,
+          "sha256": "70c2c6797a286b9c901669637b18edf19c6791bd7280ec8240c462771675ae26"
+        }
+      ]
+    },
+    {
+      "path": "include/uapi/linux/openat2.h",
+      "blob_sha1": "a5feb7604948791c7a34ec0876c24a97eb5a375b",
+      "sha256": "1c694c33d2d60cb8767c34bf52e536dc9e30dc78b90cbeaf73ac9c6b2271a23c",
+      "bytes": 1465,
+      "line_count": 43,
+      "ranges": [
+        {
+          "claim": "scoped_resolution_and_magiclinks",
+          "start": 25,
+          "end": 38,
+          "sha256": "1ad123e1f1a0509ea8dcf95d7728411263f5fc814bf1cb7cb0916f9198c58f10"
+        }
+      ]
+    },
+    {
+      "path": "fs/namei.c",
+      "blob_sha1": "4a4a22a08ac20df0e2cbe4b242d47eb4bc630faa",
+      "sha256": "e001108362e1a2d3f02383591d80bc72979d202786a26eb02d26eeb97009ea25",
+      "bytes": 146224,
+      "line_count": 5387,
+      "ranges": [
+        {
+          "claim": "reject_magiclink_scoped_jump",
+          "start": 1001,
+          "end": 1016,
+          "sha256": "f03c8b50001e4e0fcd5492de03808fc0699ac4917e43d1242cd692ded5254eea"
+        },
+        {
+          "claim": "racing_rename_mount_eagain",
+          "start": 2019,
+          "end": 2030,
+          "sha256": "d6715368904b863f2405d12e6e8bb271c54c33a7859aeda9cf5ef65f77d6940a"
+        }
+      ]
+    },
+    {
+      "path": "kernel/seccomp.c",
+      "blob_sha1": "385d48293a5fa152bfb3e7e30a074cab3fd019db",
+      "sha256": "7396faa0f0edada2a4df6602a421dc633aa155cbee7893afd5ddebef4fcda4ca",
+      "bytes": 66785,
+      "line_count": 2532,
+      "ranges": [
+        {
+          "claim": "listener_loss_enosys_not_kill",
+          "start": 1419,
+          "end": 1459,
+          "sha256": "d349e1622dbed5ca05921194ac38080e19747575ac4c726403940917e5f6ee2f"
+        },
+        {
+          "claim": "addfd_validation_and_reply",
+          "start": 1684,
+          "end": 1768,
+          "sha256": "1dc1728de6f4de8e63d7fd0bcda39407cc800bdfe0dae27b9e0e75af0ffb3de2"
+        }
+      ]
+    },
+    {
+      "path": "include/linux/lsm_hook_defs.h",
+      "blob_sha1": "9eca013aa5e1f654050d8981d71543943c347a47",
+      "sha256": "ab01388507f9d4275cef5f6fe40d3110967beb4831a8b7f91866f9288a3bd0a0",
+      "bytes": 24343,
+      "line_count": 460,
+      "ranges": [
+        {
+          "claim": "file_and_receive_hooks",
+          "start": 187,
+          "end": 208,
+          "sha256": "2ce2f4018a28a4da90883fd02df8f4fcdbd037e6a1b05066b90bfee8072c04b3"
+        }
+      ]
+    }
+  ],
+  "primary_sources": {
+    "runtime": "c2130730239bcdb4cbde9361ab90c8d99aa4ff55",
+    "comparison": "f5e4f8b8a1589e908811c751ea0a2ab2218bd4a3",
+    "patch_sha256": "8aa8b63b16ad2050280b3d5e08bc8712111c29014338ef85020aa934787ee8ac",
+    "applied_tree": "6185197d6f334f745a9c082519013b8fe0376f65"
+  },
+  "current_carrot_wip_metadata": {
+    "repository": "ajouatom/openpilot",
+    "branch": "carrot-wip",
+    "previous": "1fbce2fe7869fda285ee860f7172743e04f6022f",
+    "current": "cb724a0cb83772ad4fb069f8b83422f5e9cc60d0",
+    "commits": [
+      "3be19f6332b89a632b6545cd360312152b6e41e6",
+      "cb724a0cb83772ad4fb069f8b83422f5e9cc60d0"
+    ],
+    "changed_scope": [
+      "AGENTS.md",
+      "lane-change documentation/tests",
+      "openpilot/selfdrive/controls/lib/desire_lib/boundary_indicator.py",
+      "openpilot/selfdrive/selfdrived/selfdrived.py"
+    ],
+    "promoted_to_primary_profile": false,
+    "claim_scope": "compare metadata only; no runtime compatibility inferred"
+  },
+  "actual_observations": {
+    "approved_test_host": null,
+    "kernel_build": null,
+    "kernel_config": null,
+    "btf": null,
+    "toolchain": null,
+    "program_links": null,
+    "guard_active": null,
+    "source_loader_immutable": null,
+    "trace_complete": null,
+    "successful_prohibited_handles": null,
+    "successful_prohibited_effects": null,
+    "native_build_compatibility": null,
+    "device_class_coverage": null
+  },
+  "fixtures": [
+    {
+      "id": "HF01",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF02",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF03",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF04",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF05",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF06",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF07",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF08",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF09",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF10",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF11",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF12",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF13",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF14",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF15",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF16",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF17",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF18",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF19",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF20",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF21",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF22",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF23",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    },
+    {
+      "id": "HF24",
+      "scope": "OWNED_REGULAR_FILES_AND_ORDINARY_FDS_ONLY",
+      "executed": false,
+      "result": null,
+      "guard_active": null,
+      "fd_effect_observations": null
+    }
+  ],
+  "status": [
+    "BACKEND_FEASIBILITY_DESIGN_COMPLETE",
+    "BACKEND_RUNTIME_FEASIBILITY_UNPROVEN",
+    "BACKEND_TEST_HOST_UNSELECTED",
+    "HARMLESS_FIXTURE_QUALIFICATION_NOT_EXECUTED",
+    "ACTUAL_DEVICE_CLASS_COVERAGE_UNQUALIFIED",
+    "SECURITY_SENSITIVE_EXECUTION_NOT_AUTHORIZED",
+    "GATE_A_BLOCKED_DEVICE_PROBE_CONTAINMENT_UNRESOLVED"
+  ],
+  "backend_implemented": false,
+  "real_policy_adoption_allowed": false,
+  "runtime_qualified": false,
+  "candidate_generation_allowed": false,
+  "application_authorized": false,
+  "runtime_accepted": false,
+  "owner_proposal_allowed": false,
+  "digest_semantics": "SHA-256 of sorted compact UTF-8 JSON excluding only content_digest; identity not authenticity or authority",
+  "content_digest": "3987fb388b254191ee963816d7c993221fe85f560a7541ba553d0f9f12f471e4"
+}
