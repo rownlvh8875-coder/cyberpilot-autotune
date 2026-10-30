@@ -1,0 +1,657 @@
+{
+  "version": "guest-input-closure-result-v1",
+  "base_commit": "9aeb4aeda3297d25b0df7d5dbb909265847f597a",
+  "client_date": "2026-10-30",
+  "client_timezone": "Asia/Seoul",
+  "provenance": "CURRENT_RECONSTRUCTION_NOT_HISTORICAL_CONSUMPTION",
+  "actual_vm_or_target_execution": false,
+  "raw_binaries_published": false,
+  "snapshot": {
+    "path": "compatibility/guest_input_closure/evidence/current-snapshot.json.gz",
+    "sha256": "1fc08c343a14d9a9af29bbfc85a2bde80355876315050fbb881f89e20c1059ae",
+    "bytes": 456312,
+    "uncompressed_sha256": "6f854b3c1e6bb1f216092c87f983c553a7ff5419897415f56a007d74e06b5eb7",
+    "content_digest": "6f854b3c1e6bb1f216092c87f983c553a7ff5419897415f56a007d74e06b5eb7",
+    "uncompressed_bytes": 2281853
+  },
+  "root_scopes": [
+    {
+      "root": "collector_selected",
+      "path": "/workspace/scratch/guest-collector.SuLzWo/build",
+      "entries": 2,
+      "coverage": "SELECTED_FILES_NOT_SEARCH_CLOSURE",
+      "kind_counts": {
+        "directory": 1,
+        "file": 1
+      }
+    },
+    {
+      "root": "fixture_selected",
+      "path": "/workspace/scratch/guest-backend.FY5icM/build",
+      "entries": 4,
+      "coverage": "SELECTED_FILES_NOT_SEARCH_CLOSURE",
+      "kind_counts": {
+        "directory": 1,
+        "file": 3
+      }
+    },
+    {
+      "root": "host_gcc_selected",
+      "path": "/",
+      "entries": 23,
+      "coverage": "SELECTED_FILES_NOT_SEARCH_CLOSURE",
+      "kind_counts": {
+        "directory": 1,
+        "file": 15,
+        "symlink": 7
+      }
+    },
+    {
+      "root": "kernel_selected",
+      "path": "/workspace/scratch/guest-collector.SuLzWo/linux-source-6.12",
+      "entries": 9,
+      "coverage": "SELECTED_FILES_NOT_SEARCH_CLOSURE",
+      "kind_counts": {
+        "directory": 1,
+        "file": 8
+      }
+    },
+    {
+      "root": "repo_selected",
+      "path": "/workspace/cyberpilot-autotune",
+      "entries": 29,
+      "coverage": "SELECTED_FILES_NOT_SEARCH_CLOSURE",
+      "kind_counts": {
+        "directory": 1,
+        "file": 28
+      }
+    },
+    {
+      "root": "toolchain_exact_tree",
+      "path": "/workspace/scratch/guest-backend.FY5icM/toolchain",
+      "entries": 5782,
+      "coverage": "EXACT_TREE",
+      "kind_counts": {
+        "directory": 373,
+        "file": 4224,
+        "symlink": 1185
+      }
+    },
+    {
+      "root": "vm_exact_tree",
+      "path": "/workspace/scratch/qemu-vm.Hkx9tc/sysroot",
+      "entries": 5502,
+      "coverage": "EXACT_TREE",
+      "kind_counts": {
+        "directory": 835,
+        "file": 4272,
+        "symlink": 395
+      }
+    }
+  ],
+  "images": [
+    {
+      "fixture_id": "HF01",
+      "sha256": "cbfbc5c313ba1c180fbb79272dc0cb06de53d2f95b39f6ae69eb271338463530",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF02",
+      "sha256": "0ff3decdf24809fe282f3e2830b673a584e5a107c5ac50a659417ce8a18d7333",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF03",
+      "sha256": "bd979eb176b0ab613e17df90c644f9743a6abf64febd00b00efb4cbe5be8a6e7",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF04",
+      "sha256": "9e98179fb5aa2c3eaadca8c72cfb9fb6bc94a4b5bd6cd056905d5e62922a560e",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF05",
+      "sha256": "d9d94a1511d5697e08696d79df6d51b9bf5836399e5a6738c84d6e0b979d1296",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF06",
+      "sha256": "fc11f6980131f65fafb79c33fe859561dd4fbf84759e380952baa5f94049201a",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF07",
+      "sha256": "80e589c2a8ad92a2baee371d19dbae71c65ec7d1e7883f8df22d7ed666a6a2a8",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF08",
+      "sha256": "222223723fdb7601a8694ffbfd05e032ea215aa7c5c235527d125603f3983334",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF09",
+      "sha256": "b6f52e232984ab3897efccec78325f76bc77667498cebee453e0941cc2c3080a",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF10",
+      "sha256": "9325a5c43bef942e44002e887a4f915c27dc12014b6ea4dfb2dccaa066895760",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF11",
+      "sha256": "c5565c0acce06ac5f8f09abe5208c448c76b2a275bc4686e14bb21b9d1f443d2",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF12",
+      "sha256": "dbb8666a11ed6302c4c22b455f6da9ef3f1e8d141a89bed6dfcbafb62ff92480",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF13",
+      "sha256": "0c685a29287ad6a117cdbbd818d2e7eeb47837bbdb6d748320660b8fa9041704",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF14",
+      "sha256": "7efdaddff01a799299f69a4974d071a661aab4611b81440a8301f0f759a83328",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF15",
+      "sha256": "49e98c1937858c664dc67a8d7c723a1d8bf8611d59ccb2ebd10df7bccbca7a4e",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF16",
+      "sha256": "e35d870876cc58c4e550f6713da34e507cb0a842470dbb565b8f5549ba109106",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF17",
+      "sha256": "03327761c5ad6edc617d86315f45570144ea6a58d00be4dc498c2f0cb1ef0a58",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF18",
+      "sha256": "01d8e105d5032f4d4d4ae3594c7ebcaed61d8bd5f00f4b86c00e02da1cebac0c",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF19",
+      "sha256": "3cabf8c4b6beacdea7d8a5d7d0159b4f60d9b02d4365ddff05e5550350dd9c02",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF20",
+      "sha256": "5b0e20422bb107e1cfc5ee7acec2ea3477036b06a686453a298b5a71117326fa",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF21",
+      "sha256": "171601ee292651de88c44207b4da2021d60fd094d5fdd15b721d93a1e78b00a6",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF22",
+      "sha256": "eb8ea74714a9ca1d411b5b55f56f3bbdde8af5ad11b5700f4ea1e92e6bdf4db1",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF23",
+      "sha256": "59500307b458ff0466e0f4d7d025e541e071aa53d4b66236301bae41272bf86b",
+      "bytes": 3446085,
+      "member_count": 32
+    },
+    {
+      "fixture_id": "HF24",
+      "sha256": "d5a76f1a8b1568c45a8dd5d87802ff1e54e6beca8297fa00753ed11dd2f6b147",
+      "bytes": 3446085,
+      "member_count": 32
+    }
+  ],
+  "elf_objects": [
+    {
+      "path": "bin/busybox",
+      "sha256": "7ae95c260622412ceba6eb9f45d68f616cdc091a1d71d6c0a08b5875bb2c31dd",
+      "bytes": 2024544,
+      "elf": {
+        "machine": 62,
+        "elf_type": 2,
+        "interpreter": null,
+        "needed": [],
+        "soname": null,
+        "rpath": null,
+        "runpath": null,
+        "loader_directives": [],
+        "osabi": 3,
+        "abi_version": 0,
+        "flags": 0,
+        "flags_1": 0
+      }
+    },
+    {
+      "path": "exec-helper",
+      "sha256": "a8e8c5f4e082d2f99a436d54124bd44b6acd1b207d97ae64bcdbf07d338c716c",
+      "bytes": 754424,
+      "elf": {
+        "machine": 62,
+        "elf_type": 2,
+        "interpreter": null,
+        "needed": [],
+        "soname": null,
+        "rpath": null,
+        "runpath": null,
+        "loader_directives": [],
+        "osabi": 3,
+        "abi_version": 0,
+        "flags": 0,
+        "flags_1": 0
+      }
+    },
+    {
+      "path": "guard.bpf.o",
+      "sha256": "7f8096eb0ca73fe6b62ac7134665838a486cb6ea67e4b27e06b6a539a646a6be",
+      "bytes": 14960,
+      "elf": {
+        "machine": 247,
+        "elf_type": 1,
+        "interpreter": null,
+        "needed": [],
+        "soname": null,
+        "rpath": null,
+        "runpath": null,
+        "loader_directives": [],
+        "osabi": 0,
+        "abi_version": 0,
+        "flags": 0,
+        "flags_1": 0
+      }
+    },
+    {
+      "path": "harmless-fixtures",
+      "sha256": "fc0e6a32fc9006e42a6ebe96d86ed4aee31ba6dfa4d8b5c1463f37540645b881",
+      "bytes": 41024,
+      "elf": {
+        "machine": 62,
+        "elf_type": 3,
+        "interpreter": "/lib64/ld-linux-x86-64.so.2",
+        "needed": [
+          "libbpf.so.1",
+          "libc.so.6"
+        ],
+        "soname": null,
+        "rpath": null,
+        "runpath": null,
+        "loader_directives": [],
+        "osabi": 0,
+        "abi_version": 0,
+        "flags": 0,
+        "flags_1": 134217728
+      }
+    },
+    {
+      "path": "lib/x86_64-linux-gnu/ld-linux-x86-64.so.2",
+      "sha256": "c8438e4fde1934e61c88311633f00949ff645d5c04cdb8671fa3d78164d2f307",
+      "bytes": 225672,
+      "elf": {
+        "machine": 62,
+        "elf_type": 3,
+        "interpreter": null,
+        "needed": [],
+        "soname": "ld-linux-x86-64.so.2",
+        "rpath": null,
+        "runpath": null,
+        "loader_directives": [],
+        "osabi": 3,
+        "abi_version": 0,
+        "flags": 8,
+        "flags_1": 1
+      }
+    },
+    {
+      "path": "lib/x86_64-linux-gnu/libbpf.so.1",
+      "sha256": "0c49fc88c249ba8f584103d5db55a84bd84735d8529e64122a3433c50b21a5b7",
+      "bytes": 423952,
+      "elf": {
+        "machine": 62,
+        "elf_type": 3,
+        "interpreter": null,
+        "needed": [
+          "libelf.so.1",
+          "libz.so.1",
+          "libc.so.6"
+        ],
+        "soname": "libbpf.so.1",
+        "rpath": null,
+        "runpath": null,
+        "loader_directives": [],
+        "osabi": 0,
+        "abi_version": 0,
+        "flags": 8,
+        "flags_1": 1
+      }
+    },
+    {
+      "path": "lib/x86_64-linux-gnu/libc.so.6",
+      "sha256": "9792e3cbb541c8f44c7acf5f14f4022ea62998ecc787d326bed4d8b6547dfd92",
+      "bytes": 1995216,
+      "elf": {
+        "machine": 62,
+        "elf_type": 3,
+        "interpreter": "/lib64/ld-linux-x86-64.so.2",
+        "needed": [
+          "ld-linux-x86-64.so.2"
+        ],
+        "soname": "libc.so.6",
+        "rpath": null,
+        "runpath": null,
+        "loader_directives": [],
+        "osabi": 3,
+        "abi_version": 0,
+        "flags": 24,
+        "flags_1": 1
+      }
+    },
+    {
+      "path": "lib/x86_64-linux-gnu/libelf.so.1",
+      "sha256": "9750ae785e2718a570c42b3f757eb263a3ba8abf057945e84f749f6ae5a896c5",
+      "bytes": 117352,
+      "elf": {
+        "machine": 62,
+        "elf_type": 3,
+        "interpreter": null,
+        "needed": [
+          "libz.so.1",
+          "libzstd.so.1",
+          "libc.so.6",
+          "ld-linux-x86-64.so.2"
+        ],
+        "soname": "libelf.so.1",
+        "rpath": null,
+        "runpath": null,
+        "loader_directives": [],
+        "osabi": 0,
+        "abi_version": 0,
+        "flags": 0,
+        "flags_1": 0
+      }
+    },
+    {
+      "path": "lib/x86_64-linux-gnu/libz.so.1",
+      "sha256": "85590dd58edf5445e18bc7193e5ebc01ac5841f1ae187e97705a662e90c6421e",
+      "bytes": 125376,
+      "elf": {
+        "machine": 62,
+        "elf_type": 3,
+        "interpreter": null,
+        "needed": [
+          "libc.so.6"
+        ],
+        "soname": "libz.so.1",
+        "rpath": null,
+        "runpath": null,
+        "loader_directives": [],
+        "osabi": 0,
+        "abi_version": 0,
+        "flags": 0,
+        "flags_1": 0
+      }
+    },
+    {
+      "path": "lib/x86_64-linux-gnu/libzstd.so.1",
+      "sha256": "27f07c9a49c2c956bcfb64cd4712976586a66facbf15fc7f09bc37413b5f2b21",
+      "bytes": 825336,
+      "elf": {
+        "machine": 62,
+        "elf_type": 3,
+        "interpreter": null,
+        "needed": [
+          "libc.so.6"
+        ],
+        "soname": "libzstd.so.1",
+        "rpath": null,
+        "runpath": null,
+        "loader_directives": [],
+        "osabi": 0,
+        "abi_version": 0,
+        "flags": 8,
+        "flags_1": 1
+      }
+    },
+    {
+      "path": "syscall-collector",
+      "sha256": "de1df184b103c7de981ea2e21e1527829d4d4039a347035ea31588ada7c75c90",
+      "bytes": 919128,
+      "elf": {
+        "machine": 62,
+        "elf_type": 2,
+        "interpreter": null,
+        "needed": [],
+        "soname": null,
+        "rpath": null,
+        "runpath": null,
+        "loader_directives": [],
+        "osabi": 3,
+        "abi_version": 0,
+        "flags": 0,
+        "flags_1": 0
+      }
+    }
+  ],
+  "report": {
+    "declared_inputs_match": true,
+    "guest_elf_dependencies_closed": true,
+    "entry_count": 11351,
+    "image_count": 24,
+    "image_digests": [
+      "cbfbc5c313ba1c180fbb79272dc0cb06de53d2f95b39f6ae69eb271338463530",
+      "0ff3decdf24809fe282f3e2830b673a584e5a107c5ac50a659417ce8a18d7333",
+      "bd979eb176b0ab613e17df90c644f9743a6abf64febd00b00efb4cbe5be8a6e7",
+      "9e98179fb5aa2c3eaadca8c72cfb9fb6bc94a4b5bd6cd056905d5e62922a560e",
+      "d9d94a1511d5697e08696d79df6d51b9bf5836399e5a6738c84d6e0b979d1296",
+      "fc11f6980131f65fafb79c33fe859561dd4fbf84759e380952baa5f94049201a",
+      "80e589c2a8ad92a2baee371d19dbae71c65ec7d1e7883f8df22d7ed666a6a2a8",
+      "222223723fdb7601a8694ffbfd05e032ea215aa7c5c235527d125603f3983334",
+      "b6f52e232984ab3897efccec78325f76bc77667498cebee453e0941cc2c3080a",
+      "9325a5c43bef942e44002e887a4f915c27dc12014b6ea4dfb2dccaa066895760",
+      "c5565c0acce06ac5f8f09abe5208c448c76b2a275bc4686e14bb21b9d1f443d2",
+      "dbb8666a11ed6302c4c22b455f6da9ef3f1e8d141a89bed6dfcbafb62ff92480",
+      "0c685a29287ad6a117cdbbd818d2e7eeb47837bbdb6d748320660b8fa9041704",
+      "7efdaddff01a799299f69a4974d071a661aab4611b81440a8301f0f759a83328",
+      "49e98c1937858c664dc67a8d7c723a1d8bf8611d59ccb2ebd10df7bccbca7a4e",
+      "e35d870876cc58c4e550f6713da34e507cb0a842470dbb565b8f5549ba109106",
+      "03327761c5ad6edc617d86315f45570144ea6a58d00be4dc498c2f0cb1ef0a58",
+      "01d8e105d5032f4d4d4ae3594c7ebcaed61d8bd5f00f4b86c00e02da1cebac0c",
+      "3cabf8c4b6beacdea7d8a5d7d0159b4f60d9b02d4365ddff05e5550350dd9c02",
+      "5b0e20422bb107e1cfc5ee7acec2ea3477036b06a686453a298b5a71117326fa",
+      "171601ee292651de88c44207b4da2021d60fd094d5fdd15b721d93a1e78b00a6",
+      "eb8ea74714a9ca1d411b5b55f56f3bbdde8af5ad11b5700f4ea1e92e6bdf4db1",
+      "59500307b458ff0466e0f4d7d025e541e071aa53d4b66236301bae41272bf86b",
+      "d5a76f1a8b1568c45a8dd5d87802ff1e54e6beca8297fa00753ed11dd2f6b147"
+    ],
+    "dependency_edges": [
+      [
+        "harmless-fixtures",
+        "INTERP:/lib64/ld-linux-x86-64.so.2",
+        "lib/x86_64-linux-gnu/ld-linux-x86-64.so.2"
+      ],
+      [
+        "harmless-fixtures",
+        "NEEDED:libbpf.so.1",
+        "lib/x86_64-linux-gnu/libbpf.so.1"
+      ],
+      [
+        "harmless-fixtures",
+        "NEEDED:libc.so.6",
+        "lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      [
+        "init",
+        "SHEBANG:/bin/busybox",
+        "bin/busybox"
+      ],
+      [
+        "lib/x86_64-linux-gnu/libbpf.so.1",
+        "NEEDED:libc.so.6",
+        "lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      [
+        "lib/x86_64-linux-gnu/libbpf.so.1",
+        "NEEDED:libelf.so.1",
+        "lib/x86_64-linux-gnu/libelf.so.1"
+      ],
+      [
+        "lib/x86_64-linux-gnu/libbpf.so.1",
+        "NEEDED:libz.so.1",
+        "lib/x86_64-linux-gnu/libz.so.1"
+      ],
+      [
+        "lib/x86_64-linux-gnu/libc.so.6",
+        "INTERP:/lib64/ld-linux-x86-64.so.2",
+        "lib/x86_64-linux-gnu/ld-linux-x86-64.so.2"
+      ],
+      [
+        "lib/x86_64-linux-gnu/libc.so.6",
+        "NEEDED:ld-linux-x86-64.so.2",
+        "lib/x86_64-linux-gnu/ld-linux-x86-64.so.2"
+      ],
+      [
+        "lib/x86_64-linux-gnu/libelf.so.1",
+        "NEEDED:ld-linux-x86-64.so.2",
+        "lib/x86_64-linux-gnu/ld-linux-x86-64.so.2"
+      ],
+      [
+        "lib/x86_64-linux-gnu/libelf.so.1",
+        "NEEDED:libc.so.6",
+        "lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      [
+        "lib/x86_64-linux-gnu/libelf.so.1",
+        "NEEDED:libz.so.1",
+        "lib/x86_64-linux-gnu/libz.so.1"
+      ],
+      [
+        "lib/x86_64-linux-gnu/libelf.so.1",
+        "NEEDED:libzstd.so.1",
+        "lib/x86_64-linux-gnu/libzstd.so.1"
+      ],
+      [
+        "lib/x86_64-linux-gnu/libz.so.1",
+        "NEEDED:libc.so.6",
+        "lib/x86_64-linux-gnu/libc.so.6"
+      ],
+      [
+        "lib/x86_64-linux-gnu/libzstd.so.1",
+        "NEEDED:libc.so.6",
+        "lib/x86_64-linux-gnu/libc.so.6"
+      ]
+    ],
+    "issues": [],
+    "evidence_kind": "UNTRUSTED_CURRENT_CLOSURE_REPORT",
+    "overall_status": "BLOCKED",
+    "blockers": [
+      "HISTORICAL_BUILD_CONSUMPTION_UNPROVEN",
+      "HISTORICAL_EXECUTED_IMAGE_BINDING_UNPROVEN",
+      "HOST_COMPILER_CLOSURE_UNQUALIFIED",
+      "HOST_PYTHON_CLOSURE_UNQUALIFIED",
+      "QEMU_DYNAMIC_INPUTS_UNQUALIFIED",
+      "DYNAMIC_LOAD_BEHAVIOR_UNQUALIFIED",
+      "EXECUTION_INPUT_IMMUTABILITY_UNPROVEN",
+      "COLLECTOR_AUTHENTICITY_UNQUALIFIED"
+    ],
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false,
+    "successful_prohibited_handles": null,
+    "successful_prohibited_effects": null
+  },
+  "verifier_sources": [
+    {
+      "path": "compatibility/guest_input_closure/__init__.py",
+      "sha256": "6ec8e53efa343ca495b71594ef46adc9a9ec55171f53ab9fc90b43970a5742c2",
+      "bytes": 79
+    },
+    {
+      "path": "compatibility/guest_input_closure/archive.py",
+      "sha256": "1ba46d23e720863fc40fb29d7a271348383f9f8b7768d76917183ed222fe3e32",
+      "bytes": 8494
+    },
+    {
+      "path": "compatibility/guest_input_closure/contracts.py",
+      "sha256": "39b850bf668474c53f815a5db448dfdd7ac8320a164157f480add4bd5e5c3d89",
+      "bytes": 9248
+    },
+    {
+      "path": "compatibility/guest_input_closure/elf.py",
+      "sha256": "fc4b0b514e2098383cdab0f7c6ecf35d7f96241e6c8098df39366de97d402e09",
+      "bytes": 5285
+    },
+    {
+      "path": "compatibility/guest_input_closure/evaluation.py",
+      "sha256": "a0c59ac6fd991f315d1151cd2f97dd3961ef129d75676667455860e3b16dea27",
+      "bytes": 1255
+    },
+    {
+      "path": "compatibility/guest_input_closure/filesystem.py",
+      "sha256": "fa354f887cccee0e912ff2165e5921c57d099e6a27b63dbe5dde4889dc5ed054",
+      "bytes": 8835
+    },
+    {
+      "path": "compatibility/guest_input_closure/fixed.py",
+      "sha256": "1aa67d33d8005ceecdf5ce091f6d9a381114e0032ebc8b30f85e4e9850090ab0",
+      "bytes": 4898
+    },
+    {
+      "path": "compatibility/guest_input_closure/host_main.py",
+      "sha256": "3250ed96ada16f0fe5b1d67bd8929b761f157072647423be330b5bb507382cbf",
+      "bytes": 933
+    },
+    {
+      "path": "compatibility/guest_input_closure/inventory.py",
+      "sha256": "d186d0b2bf0661d99efe341c18cc1e0e2802dbb36911aeb89edb74c549f0257f",
+      "bytes": 2587
+    },
+    {
+      "path": "compatibility/guest_input_closure/legacy.py",
+      "sha256": "b91673d970c1f6d750fd9e3e81a8b7d628d8a8eeeb3bf10aa0db350eb35f5d2c",
+      "bytes": 6843
+    }
+  ],
+  "source_and_cache_identity_only": true,
+  "operational_exit_code": 2,
+  "replay_limitation": "CI replays published inventory/metadata and synthetic byte parsers. Actual graph recomputation requires the prepared fixed local assets; no substitute binaries or downloads.",
+  "gate_a": "BLOCKED",
+  "gate_b_c_d": "NOT_STARTED",
+  "policy": "STRICT_NO_DEVICE_ATTEMPT",
+  "historical_reports_promoted": false
+}
