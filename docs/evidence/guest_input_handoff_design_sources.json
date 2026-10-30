@@ -1,0 +1,131 @@
+{
+  "base_revision": "0652c87c5e1da83d2cf4a3336713b9839e929ae3",
+  "files": [
+    {
+      "bytes": 10610,
+      "git_blob_sha1": "61b06abb4ff2d122055144795246f6ff71477739",
+      "path": "compatibility/guest_build_receipt/models.py",
+      "ranges": [
+        {
+          "claim": "BuildIdentity/BuildMaterial/TaskImage/InputUse: explicit cohorts and stages, not FD lifetime witness",
+          "end": 193,
+          "sha256": "ed01d9d8193a1e8b910260c5891d684aadf8d064d3cf628c54ca043c3f3fd387",
+          "start": 94
+        }
+      ],
+      "sha256": "d2c6261d114b3357a942551deab26e0701cf9625ea317b65691152f7cc04e12b"
+    },
+    {
+      "bytes": 15748,
+      "git_blob_sha1": "ec6be4adc82dafb8edceaa9e3f6c32a74f5c8197",
+      "path": "compatibility/guest_build_receipt/evaluation.py",
+      "ranges": [
+        {
+          "claim": "evaluate_receipts explicit material/image/context checks",
+          "end": 205,
+          "sha256": "a7a3ae2341ec8510c4a3c357b4773acf62782303913a754bfbd06c657a03499f",
+          "start": 168
+        },
+        {
+          "claim": "completion requires independent seal/trace witness references; missing/failed status rejects",
+          "end": 287,
+          "sha256": "421dc786d16d09884fb6a870ce9aa69c122e2810211e2ca81ebbc772b67f097d",
+          "start": 261
+        }
+      ],
+      "sha256": "c34029b74375acdf9a3e3f16a858e9915622b007684635a23e8b166237119957"
+    },
+    {
+      "bytes": 11186,
+      "git_blob_sha1": "55beb26036c96cfc7d503faa412d37331b910e29",
+      "path": "compatibility/guest_consumption/producer.py",
+      "ranges": [
+        {
+          "claim": "PR31 binds local object ordinals/dev-ino and known content metadata, not shared PR32 object generations",
+          "end": 128,
+          "sha256": "52b58c41dd74f60eb1bd4f46cbb494609289dc4ab39291331a068898253e0a86",
+          "start": 74
+        },
+        {
+          "claim": "READ/MAP/META stages and returned byte hashing stay distinct",
+          "end": 228,
+          "sha256": "3ad725d7cdfe2981b283eb3fb17f15cecff8a3aad2ccc352bc7d86649f3555f4",
+          "start": 170
+        },
+        {
+          "claim": "PR31 input seal witness remains None and evidence OBSERVED_UNTRUSTED",
+          "end": 271,
+          "sha256": "12337cc9b0e93b93aac12f680e340f9e01d80b3819293ae3850887188cd3f4c2",
+          "start": 250
+        }
+      ],
+      "sha256": "966792f9f0f55649b17fbeafda5d6abe43b8fa8399687c4207e46c0d404e9c4c"
+    },
+    {
+      "bytes": 13969,
+      "git_blob_sha1": "ecc8fcbff9b2cd53b5087f4b1702338b4b115ed1",
+      "path": "compatibility/guest_consumption/guest/probe.c",
+      "ranges": [
+        {
+          "claim": "bind_path retained regular-file observation and proc FD reopen; position is not complete OFD identity or target access flags",
+          "end": 89,
+          "sha256": "bf2b85d9a379ff195e63bd2428c4153b509cd1348f654a0777266afbbf4988b8",
+          "start": 52
+        }
+      ],
+      "sha256": "82693fc4bd8e843fbe594209b64db90b408cfdc9ab2b635783038458f2e0f28a"
+    },
+    {
+      "bytes": 7506,
+      "git_blob_sha1": "236eeb4877b035a8b84e567b925f8dc197265f3f",
+      "path": "compatibility/guest_input_seal/guest/probe.c",
+      "ranges": [
+        {
+          "claim": "PR32 snapshot/new_memfd/seal/bind_named are same trusted driver operations",
+          "end": 79,
+          "sha256": "81c0058dda80d56e7caae2d8f4fe70997060bbb749c76a6efadee4f352e302ab",
+          "start": 41
+        },
+        {
+          "claim": "IS06 actual initial symlink binding then replacement; not consumer-wide namespace sealing",
+          "end": 136,
+          "sha256": "a3dd5c64798720cc844583dee1bb345fedc7411b3677f8ce3d2561452fb6df34",
+          "start": 125
+        }
+      ],
+      "sha256": "8ebb0aa3c3188b9bf28ae5b2f4b0d10be995757c9f7221b3b105200f9efe9272"
+    },
+    {
+      "bytes": 3034,
+      "git_blob_sha1": "18a867d955c9dd5610ce20db79b24102e4ef3d39",
+      "path": "compatibility/guest_input_seal/wire.py",
+      "ranges": [
+        {
+          "claim": "strict guest execution envelope is separate from handoff/consumer causal proof",
+          "end": 81,
+          "sha256": "1a831afbb7b614661170506a1dd96f8312e5004f7eda6cd3a27419b67fa87856",
+          "start": 54
+        }
+      ],
+      "sha256": "82f146bf3c994e4f25d261262b3c7c1546e769619787365646b4ab76420dd2b0"
+    },
+    {
+      "bytes": 4562,
+      "git_blob_sha1": "671b4a3c21218a63431038fcebd34c1662f46e30",
+      "path": "docs/evidence/guest_input_seal_sources.json",
+      "ranges": [
+        {
+          "claim": "PR32 exact kernel references retained as references; no new transport/kernel qualification",
+          "end": 132,
+          "sha256": "7edc392738c7e0d91877b0780bf53338f68f63c957ceeca0dd661fdd755fbcc5",
+          "start": 1
+        }
+      ],
+      "sha256": "7edc392738c7e0d91877b0780bf53338f68f63c957ceeca0dd661fdd755fbcc5"
+    }
+  ],
+  "repository": "https://github.com/rownlvh8875-coder/cyberpilot-autotune",
+  "runtime_qualified": false,
+  "schema": "guest-input-handoff-source-references-v1",
+  "source_encoding": "EXACT_GIT_BLOB_NOT_RUNTIME_INPUT_RECEIPT"
+}
