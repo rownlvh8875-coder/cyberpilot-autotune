@@ -77,18 +77,25 @@ def shape(value: Any, names: set[str]) -> None:
     need(type(value) is dict and set(value) == names, "CLOSED_FIELD_SET_REQUIRED")
 
 
-def primitive(value: Any, depth: int = 0) -> None:
+def primitive(value: Any, depth: int = 0, budget: list[int] | None = None) -> None:
+    if budget is None:
+        budget = [100000, 4 * 1024 * 1024]
+    budget[0] -= 1
+    need(budget[0] >= 0, "RESOURCE_BOUND")
     need(depth <= 24, "RESOURCE_BOUND")
     if type(value) is dict:
         need(len(value) <= 32 and all(type(k) is str for k in value), "RESOURCE_BOUND")
-        for v in value.values():
-            primitive(v, depth + 1)
+        for k, v in value.items():
+            primitive(k, depth + 1, budget)
+            primitive(v, depth + 1, budget)
     elif type(value) is list:
         need(len(value) <= 2048, "RESOURCE_BOUND")
         for v in value:
-            primitive(v, depth + 1)
+            primitive(v, depth + 1, budget)
     elif type(value) is str:
         need(len(value) <= 4096, "RESOURCE_BOUND")
+        budget[1] -= len(value)
+        need(budget[1] >= 0, "RESOURCE_BOUND")
     elif type(value) is int:
         uint(value)
     else:
@@ -97,7 +104,9 @@ def primitive(value: Any, depth: int = 0) -> None:
 
 def canonical(value: Any) -> bytes:
     primitive(value)
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
+    raw = json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
+    need(len(raw) <= 4 * 1024 * 1024, "RESOURCE_BOUND")
+    return raw
 
 
 def context_digest(context: Any) -> str:
@@ -133,7 +142,7 @@ def context_digest(context: Any) -> str:
     )
     cpus = context["cpus"]
     need(type(cpus) is list and 1 <= len(cpus) <= 8, "CPU_COHORT_REQUIRED")
-    checked = [uint(c, 256) for c in cpus]
+    checked = [uint(c, 2**32) for c in cpus]
     need(checked == sorted(set(checked)), "CPU_COHORT_REQUIRED")
     return hashlib.sha256(canonical(context)).hexdigest()
 
@@ -221,7 +230,7 @@ def check(graph: Any) -> tuple[int, int]:
             "SOURCE_ORDER_CONTEXT_MISMATCH",
         )
         uint(event["time_ns"])
-        cpu = uint(event["cpu"], 256)
+        cpu = uint(event["cpu"], 2**32)
         need(cpu in cpu_counts, "CPU_COHORT_REQUIRED")
         cpu_counts[cpu] += 1
         need(uint(event["cpu_seq"]) == cpu_counts[cpu], "SOURCE_SEQUENCE_GAP")

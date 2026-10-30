@@ -1,6 +1,8 @@
 """Breaks caught: guessed generations, alias/cohort drift, lost coverage and false authority."""
 
 import copy
+import hashlib
+import json
 
 import pytest
 
@@ -127,3 +129,33 @@ def test_exact_fd_scalar_rejects_unavailable_bool_float_and_custom(value):
     first(graph, "INSTALL")["data"][3] = value
     result = evaluate(graph)
     assert result.model_consistent is False
+
+
+def test_key_strings_are_bounded_before_canonical_copy():
+    graph = complete()
+    graph["x" * 4097] = 0
+    assert evaluate(graph).reasons == ("RESOURCE_BOUND",)
+
+
+def test_shared_nested_values_cannot_expand_without_aggregate_work_bound():
+    shared = 0
+    for _ in range(18):
+        shared = [shared, shared]
+    graph = complete()
+    graph["events"][0]["data"] = [shared]
+    assert evaluate(graph).reasons == ("RESOURCE_BOUND",)
+
+
+@pytest.mark.parametrize("base_cpu", [256, 2**32 - 2])
+def test_declared_small_cpu_cohort_can_use_full_uint32_id_range(base_cpu):
+    graph = complete()
+    graph["context"]["cpus"] = [base_cpu, base_cpu + 1]
+    digest = hashlib.sha256(
+        json.dumps(graph["context"], sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    for event in graph["events"]:
+        event["cpu"] += base_cpu
+        event["context_digest"] = digest
+    for row in graph["coverage"]["cpus"]:
+        row["cpu"] += base_cpu
+    assert evaluate(graph).model_consistent is True

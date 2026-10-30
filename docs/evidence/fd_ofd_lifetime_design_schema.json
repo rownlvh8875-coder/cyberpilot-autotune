@@ -789,10 +789,13 @@
   },
   "profile": "PROPOSED_KERNEL_SERIALIZED_LIFETIME_V1",
   "resource_limits": {
+    "aggregate_string_chars": 4194304,
+    "canonical_bytes": 4194304,
     "cpus": 8,
     "depth": 24,
     "events": 2048,
     "fd_slots": 64,
+    "json_nodes": 100000,
     "ofds": 64,
     "pins": 64,
     "string_chars": 4096,

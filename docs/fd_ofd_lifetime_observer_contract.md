@@ -147,6 +147,9 @@ actual executed-image receipt obligation, with no PR30/33/34 adapter in this wor
 Resource bounds:32 task allocations,32 table allocations,64 OFD/pin allocations,
 64 FD slots,2048 events,8 CPUs, bounded canonical depth/strings. These are parser/
 model resource limits, not empirical or safety thresholds.
+Aggregate copy limits are100000 visited JSON nodes (including keys and repeated
+references),4MiB total string characters, and4MiB final canonical bytes. Individual
+keys obey the same4096-character bound as string values; cycles/deep graphs reject.
 
 Actual backend must cover or prove pre-effect exclusion for all relevant mutation
 routes: open/close/dup/fcntl/close_range, fork/clone/CLONE_FILES/unshare/exec/exit,
