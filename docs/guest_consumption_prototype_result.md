@@ -101,6 +101,13 @@ guest checks and offline source/range/replay audit passed. Local/global regressi
 coverage, wheel/CRLF, independent review and exact-head remote CI are recorded in
 the final Draft handoff, not inferred from a producer bool.
 
+Independent review: C0/I3/M1 at exact
+`f57e203382ef233108132a6af37453772fdd1242`. Three protocol contradictions fixed
+in one author pass: physical frame separators, exact fork image inheritance and
+abort-phase observations.19 RED regressions→22 GREEN including positive controls.
+No independent fix-head re-review/C0I0 claim. One manifest test-quality Minor is
+deferred; see [full review/rulings](guest_consumption_prototype_review.md).
+
 ## Retained blockers / next boundary
 
 FIXED_GUEST_CONSUMPTION_PROTOTYPE_IMPLEMENTED;

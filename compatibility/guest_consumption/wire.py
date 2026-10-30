@@ -28,7 +28,9 @@ def parse_capture(text: str) -> ConsumptionCapture:
         raise ValueError("capture text outside bound")
     events: list[CaptureEvent] = []
     try:
-        for line in text.splitlines():
+        # Only physical LF (with optional CR JSON whitespace) is a frame
+        # boundary. splitlines() would repair VT/FF/NEL/Unicode interleaving.
+        for line in text.split("\n"):
             if "CONSUMPTION " not in line:
                 continue
             if not line.startswith("CONSUMPTION ") or len(events) >= MAX_RECORDS:

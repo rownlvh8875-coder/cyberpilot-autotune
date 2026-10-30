@@ -102,6 +102,8 @@ def produce_receipt(
         images.append(TaskImage(task, image, parents[task], m.material_id, 0, start, finish))
 
     for event in capture.events[1:-1]:
+        if capture_error and event.kind not in ("PAYLOAD", "EXIT"):
+            raise ValueError("new observation after fatal capture error")
         v = event.values
         if event.kind == "OBJECT":
             obj = integer(v[0])
@@ -135,7 +137,7 @@ def produce_receipt(
                 event.task != len(parents) + 1
                 or event.image != 0
                 or (parent is None and parents)
-                or (parent is not None and parent not in active)
+                or (parent is not None and (parent not in active or active[parent][1] != obj))
                 or len(parents) >= 16
             ):
                 raise ValueError("invalid task birth/parent generation")

@@ -20,11 +20,11 @@
   },
   "successful_prohibited_handles": null,
   "successful_prohibited_effects": null,
-  "capture_source_manifest_sha256": "ceb7cd8c10052553681a63c25409b7e462b524c48133d1335c74c744eb9017ae",
+  "capture_source_manifest_sha256": "a25350dcf3ba32ac85045afbdc4ab984abfa9550fe3802f6535df382d79101f4",
   "cases": [
     {
       "case": "CP01",
-      "capture_digest": "a5b161851d3316123f73acdcdbfc56402aeb82484d50e583bb5b6790d7846ca5",
+      "capture_digest": "83275479a2e4aed699ff142161c8260502e4f105305a842163db5b39d207ba9d",
       "records": 15,
       "uses": 8,
       "trace_window_complete": true,
@@ -37,7 +37,7 @@
     },
     {
       "case": "CP02",
-      "capture_digest": "9c4768e4eae7cdcb2341b477c51f90c11c0b892040ec61520b286f5dd61f40a0",
+      "capture_digest": "d146caeefc8992c1f1029e819f6a92b6260918f4c87727cbf0d1b1f39c949f8b",
       "records": 13,
       "uses": 4,
       "trace_window_complete": true,
@@ -50,7 +50,7 @@
     },
     {
       "case": "CP03",
-      "capture_digest": "662dc868f236b4eabe8d966fb5ab88c5e7c42375af336fce7490ad70b643c93b",
+      "capture_digest": "7c203a21791d63723f58358c9673d4379f0c206694d1ca4afdf13eb297266036",
       "records": 12,
       "uses": 5,
       "trace_window_complete": true,
@@ -63,7 +63,7 @@
     },
     {
       "case": "CP04",
-      "capture_digest": "b745c2ed7676db7fc8a28046312a4d3273d89a843f340ecee2d55771b9f68906",
+      "capture_digest": "0a529bc15768947e6d670e38de342a6a8bfbcd77269310769afb4099f3faca39",
       "records": 11,
       "uses": 3,
       "trace_window_complete": true,
@@ -76,7 +76,7 @@
     },
     {
       "case": "CP05",
-      "capture_digest": "3cec1c50adcc6eebfb54e1c8c8bd444b051c312a2e552d393a873f58d1c3c439",
+      "capture_digest": "2994e4bc44168e6d6a790deca537d89e2819bf784d34e4a0cd61294993653bcc",
       "records": 9,
       "uses": 2,
       "trace_window_complete": false,
@@ -93,7 +93,7 @@
     },
     {
       "case": "CP06",
-      "capture_digest": "fb6bd743aec0cdd2e1be619c125f0174371dd2aa965e2ce04a82693f52f8f6a2",
+      "capture_digest": "6873e98d8dd93b86d816d6f3843f4a800a166e97e7821880f3def91b1cb91899",
       "records": 9,
       "uses": 2,
       "trace_window_complete": false,
@@ -110,7 +110,7 @@
     },
     {
       "case": "CP07",
-      "capture_digest": "2f06aa62a7ba734d6f048ab4fc50d5667387c3165e40ac25a5a45c17c7900102",
+      "capture_digest": "d066734f13ff3545a1547aeae4f83d86a9c084d3a5c7e3b6601a6b60bb0a80cc",
       "records": 9,
       "uses": 2,
       "trace_window_complete": true,
