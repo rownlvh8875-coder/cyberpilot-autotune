@@ -281,12 +281,13 @@ def evaluate_receipts(
     elif completion.exit_kind is not ExitKind.EXITED or completion.exit_code != 0:
         reasons.add("BUILD_NOT_SUCCESSFUL")
     outputs = {(o.output_id, o.generation): o for o in build.outputs}
+    material_ids = {material.material_id for material in build.materials}
     if not outputs:
         reasons.add("OUTPUT_MISSING")
     if len({o.output_id for o in build.outputs}) != len(build.outputs):
         reasons.add("OUTPUT_ID_REUSED")
     for output in build.outputs:
-        if any(output.output_id == m.material_id for m in build.materials):
+        if output.output_id in material_ids:
             reasons.add("OUTPUT_ALIASES_INPUT")
         image = images.get((output.writer_task_generation, output.writer_exec_generation))
         if image is None:
