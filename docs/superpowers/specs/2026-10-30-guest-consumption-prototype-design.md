@@ -97,6 +97,11 @@ Pure `parse_capture(text) -> ConsumptionCapture`; immutable bounded typed events
 `produce_receipt(capture, profile) -> ProducedObservation` maps known full-content
 materials to PR30 roles/cohorts and exact task/image lifetimes/use identities.
 Profile is untrusted context with BuildIdentity and fixed known material bindings.
+The result also retains the original immutable typed capture. BEGIN is observer
+envelope setup, not target birth or syscall capture. The receipt's observed start
+is the root's first stopped BIRTH observation (null if absent); trusted child
+bootstrap before that stop is excluded, never claimed as fully traced execution.
+The initial inherited image interval is observed, not a historical image start.
 No result/authority/estimator/application bridge. `EvidenceKind.OBSERVED_UNTRUSTED`;
 input seal/writer witness/outputs/promotions absent. Neutral evaluator remains
 REJECTED for missing build/promotion prerequisites even for a matching fixture.

@@ -41,7 +41,7 @@
 
 **Files:** Create `compatibility/guest_consumption/guest/{probe.c,sha256.h,build_manifest.json}`; `{image,vm_runner,host_main}.py`; `tests/unit/test_guest_consumption_runner.py`; `tests/experiments/run_guest_consumption.py`; new-specific `.gitattributes`.
 
-**Interfaces:** C emits Task1 protocol. `build_image(files:dict[str,tuple[int,bytes]],binary:bytes,case:str)->bytes`; `capture_case(case:str)->ProducedObservation`; host `main(argv)->int` default2/no IO, only `--capture CPxx` invokes fixed runner and prints BLOCKED report then2. No arbitrary command/path/options. `check_case(observation,case)->tuple[str,...]` independent literal fixture checks, used by opt-in experiment.
+**Interfaces:** C emits Task1 protocol. `build_image(files:dict[str,tuple[int,bytes]],binary:bytes,case:str)->bytes`; `capture_case(case:str)->tuple[ProducedObservation,str]` preserves raw serial output; host `main(argv)->int` default2/no IO, only `--capture CPxx` invokes fixed runner and prints BLOCKED report then2. No arbitrary command/path/options. `check_case(observation,case)->tuple[str,...]` independent literal fixture checks, used by opt-in experiment.
 
 - [ ] Runner/image/CLI boundary tests RED: unknown/empty cases no IO, new/old asset drift, image contains exact binary/input/scope and no arbitrary init, QEMU argv fixed. Experiment RED asserts missing real C/runner before implementation.
 - [ ] Implement SHA256 self-checks, guest-only marker/kernel guard, unprivileged fixed payloads, independent read-buffer/object/exec/fork observation, stdout pipe separation and explicit incomplete aborts. Build C17/static -Wall/-Wextra/-Werror into this plan's own scratch path only.

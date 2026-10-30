@@ -6,6 +6,7 @@ from typing import cast
 
 from compatibility.guest_build_receipt.codec import receipt_digest
 from compatibility.guest_build_receipt.models import (
+    CLOCK_DOMAIN,
     UINT64_MAX,
     BuildCompletion,
     BuildMaterial,
@@ -25,6 +26,7 @@ LIMITATIONS = (
     "STOPPED_BUFFER_OBSERVATION_NOT_GENERAL_KERNEL_READ_PROOF",
     "KERNEL_EXEC_LOADER_READS_UNAVAILABLE",
     "MMAP_PAGE_TOUCHES_UNAVAILABLE",
+    "OPEN_FILE_DESCRIPTION_ALIAS_CLOSURE_UNQUALIFIED",
     "INPUT_SEAL_BACKEND_UNQUALIFIED",
     "OUTPUT_PROMOTION_BACKEND_UNQUALIFIED",
     "EXTERNAL_EXECUTOR_UNQUALIFIED",
@@ -39,6 +41,7 @@ class ProducedObservation:
     receipt: BuildReceipt
     trace_window_complete: bool
     profile_reasons: tuple[str, ...]
+    capture: ConsumptionCapture
     limitations: tuple[str, ...] = field(default=LIMITATIONS, init=False)
     overall_status: str = field(default="BLOCKED", init=False)
     build_execution_allowed: bool = field(default=False, init=False)
@@ -54,9 +57,14 @@ class ProducedObservation:
     successful_prohibited_effects: None = field(default=None, init=False)
 
     def __post_init__(self) -> None:
-        if type(self.receipt) is not BuildReceipt or type(self.trace_window_complete) is not bool:
+        if (
+            type(self.receipt) is not BuildReceipt
+            or type(self.trace_window_complete) is not bool
+            or type(self.capture) is not ConsumptionCapture
+        ):
             raise ValueError("invalid observed diagnostic")
         self.receipt.__post_init__()
+        self.capture.__post_init__()
         reasons = tuple(self.profile_reasons)
         if any(type(r) is not str or not r for r in reasons):
             raise ValueError("invalid observed reasons")
@@ -68,7 +76,7 @@ def produce_receipt(
 ) -> ProducedObservation:
     capture.__post_init__()
     profile.__post_init__()
-    if profile.identity.attempt_id != capture.case:
+    if profile.identity.attempt_id != capture.case or profile.identity.clock_domain != CLOCK_DOMAIN:
         raise ValueError("capture/profile attempt mismatch")
     known = {(m.size, m.sha256): m for m in profile.materials}
     materials: dict[int, BuildMaterial] = {}
@@ -78,7 +86,9 @@ def produce_receipt(
     images: list[TaskImage] = []
     uses: list[InputUse] = []
     reasons: set[str] = set()
+    capture_error = False
     root_exit: tuple[ExitKind, int] | None = None
+    root_start: int | None = None
     context = receipt_digest(profile.identity)
 
     def material(ordinal: int) -> BuildMaterial:
@@ -132,6 +142,8 @@ def produce_receipt(
             if material(obj).role is not MaterialRole.TOOLCHAIN:
                 raise ValueError("observed image is not toolchain material")
             parents[event.task] = parent
+            if parent is None:
+                root_start = event.time_ns
             active[event.task] = (0, obj, event.time_ns)
         elif event.kind == "EXEC":
             if (
@@ -204,7 +216,13 @@ def produce_receipt(
                     )
                 )
         elif event.kind == "ERROR":
+            if (event.task == 0 and event.image != 0) or (
+                event.task != 0
+                and (event.task not in active or event.image != active[event.task][0])
+            ):
+                raise ValueError("error has unknown task/image provenance")
             reasons.add(cast(str, v[0]))
+            capture_error = True
         elif event.kind != "PAYLOAD":
             raise ValueError("unsupported causal observation stage")
     end = capture.events[-1].values
@@ -214,7 +232,7 @@ def produce_receipt(
         reasons.add("MISSING_TASK_EXIT")
     if not parents:
         reasons.add("MISSING_TASK_BIRTH")
-    if end[0] and (active or reasons):
+    if end[0] and (active or not parents or capture_error):
         raise ValueError("contradictory complete observation window")
     if not end[0]:
         reasons.add("TRACE_WINDOW_INCOMPLETE")
@@ -241,9 +259,11 @@ def produce_receipt(
         tuple(images),
         tuple(uses),
         (),
-        capture.events[0].time_ns,
+        root_start,
         None if active else capture.events[-1].time_ns,
         completion,
         EvidenceKind.OBSERVED_UNTRUSTED,
     )
-    return ProducedObservation(receipt, bool(end[0] and not active and drops == 0), tuple(reasons))
+    return ProducedObservation(
+        receipt, bool(end[0] and not active and drops == 0), tuple(reasons), capture
+    )

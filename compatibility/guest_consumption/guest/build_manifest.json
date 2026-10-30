@@ -1,0 +1,92 @@
+{
+  "schema": "guest-consumption-build-v1",
+  "scope": "FIXED_HARMLESS_GUEST_CONSUMPTION_ONLY",
+  "base_revision": "c5b824f4f37e05bcac81769f1d01a55a51c26e1d",
+  "vm_cohort_digest": "d98a259c5a45b56811d40a94e23e50a51ee88b513bb632396f45da6017f7af0c",
+  "legacy_snapshot_digest": "6f854b3c1e6bb1f216092c87f983c553a7ff5419897415f56a007d74e06b5eb7",
+  "binary": {
+    "path": "consumption-probe",
+    "sha256": "917f12753aaa7822916ff87691943a723731207af09226e4fb8d68bc192a5b63",
+    "bytes": 924168
+  },
+  "sources": [
+    {
+      "path": "__init__.py",
+      "sha256": "386a53ed2107cbf4978cdb6ea03865bd3abb3e39353e5c8738cc0e9be2b32300",
+      "bytes": 81
+    },
+    {
+      "path": "contracts.py",
+      "sha256": "5c43ca0ed1b0e601488c41b0b80ab8766e8a5d95bd738a54d808a82b039ab3d0",
+      "bytes": 6272
+    },
+    {
+      "path": "wire.py",
+      "sha256": "7d130052fc84ded3d90b1290ce249590c96e6a368717c32685be523e9a51e821",
+      "bytes": 1926
+    },
+    {
+      "path": "producer.py",
+      "sha256": "938cf7469c0fb19790debcfd157262db89430298aa770fad3eb6d2ba8388721a",
+      "bytes": 11014
+    },
+    {
+      "path": "checks.py",
+      "sha256": "663206f6aabde8303ba459a314d6988015e5a818265c5a321f0d12ef97395d17",
+      "bytes": 3514
+    },
+    {
+      "path": "image.py",
+      "sha256": "fbfb40b570f4426510f2ae5b34368d161db3cb1dc849086621c9cf6cdeee8c26",
+      "bytes": 2561
+    },
+    {
+      "path": "vm_runner.py",
+      "sha256": "c2efc10243bbfd87290a042fe422bef02718fbc43fde507454bdbe857499de83",
+      "bytes": 10277
+    },
+    {
+      "path": "host_main.py",
+      "sha256": "e29835851c90b68c27de01c4971dcf4d4c4e56f4e09e211e8912d355b3c80d0c",
+      "bytes": 900
+    },
+    {
+      "path": "guest/probe.c",
+      "sha256": "82693fc4bd8e843fbe594209b64db90b408cfdc9ab2b635783038458f2e0f28a",
+      "bytes": 13969
+    },
+    {
+      "path": "guest/sha256.h",
+      "sha256": "4127729e115aae2ccc2b926f2fcb5c0a40832a0e9fbbe5720aab9e5aa754ea51",
+      "bytes": 3315
+    }
+  ],
+  "build_commands": [
+    [
+      "cc",
+      "-std=c17",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-static",
+      "-I/workspace/scratch/guest-backend.FY5icM/toolchain/usr/include",
+      "-I/workspace/scratch/guest-backend.FY5icM/toolchain/usr/include/x86_64-linux-gnu",
+      "compatibility/guest_consumption/guest/probe.c",
+      "-o",
+      "/workspace/scratch/consumption-producer.RaAz1x/consumption-probe"
+    ]
+  ],
+  "permissions": {
+    "build_execution_allowed": false,
+    "promotion_authorized": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  },
+  "build_input_closure_qualified": false
+}

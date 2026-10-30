@@ -11,6 +11,7 @@ CLOCK = "GUEST_TRACER_OBSERVATION_MONOTONIC_NS"
 
 def module(name):
     assert importlib.util.find_spec("compatibility.guest_consumption") is not None
+    assert importlib.util.find_spec("compatibility.guest_consumption." + name) is not None
     return importlib.import_module("compatibility.guest_consumption." + name)
 
 
