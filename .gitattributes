@@ -6,3 +6,6 @@
 /docs/evidence/guest_collector_sources.json -text
 /docs/evidence/guest_collector_results.json -text
 /compatibility/containment_guest_collector/evidence/actual-captures.txt.gz -text
+/compatibility/guest_input_closure/*.py -text
+/compatibility/guest_input_closure/evidence/current-snapshot.json.gz -text
+/docs/evidence/guest_input_closure_result.json -text

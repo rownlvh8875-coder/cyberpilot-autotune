@@ -18,20 +18,22 @@ def inspect_elf(data: bytes) -> ElfInfo:
     if count > 256 or (count and (phsize != 56 or phoff < 64 or phoff + count * 56 > len(data))):
         raise ValueError("invalid program header table")
     loads: list[tuple[int, int, int]] = []
-    dynamic: tuple[int, int] | None = None
+    dynamic: tuple[int, int, int] | None = None
     interpreter = None
     for index in range(count):
-        kind, _, offset, address, _, filesz, memsz, _ = struct.unpack_from(
+        kind, _, offset, address, _, filesz, memsz, alignment = struct.unpack_from(
             "<IIQQQQQQ", data, phoff + index * 56
         )
-        if offset + filesz > len(data) or filesz > memsz:
+        if offset + filesz > len(data) or filesz > memsz or address + memsz > 2**64:
             raise ValueError("invalid program segment bounds")
         if kind == 1:
+            if alignment > 1 and (alignment & (alignment - 1) or (address - offset) % alignment):
+                raise ValueError("invalid load alignment")
             loads.append((address, offset, filesz))
         elif kind == 2:
             if dynamic is not None or not filesz or filesz % 16 or filesz > 65536:
                 raise ValueError("invalid dynamic table")
-            dynamic = (offset, filesz)
+            dynamic = (offset, filesz, address)
         elif kind == 3:
             raw = data[offset : offset + filesz]
             if interpreter is not None or not 2 <= len(raw) <= 4096 or raw[-1:] != b"\0":
@@ -46,7 +48,14 @@ def inspect_elf(data: bytes) -> ElfInfo:
         raise ValueError("native executable has no loadable segment")
     tags: dict[int, list[int]] = {}
     if dynamic is not None:
-        offset, size = dynamic
+        offset, size, dynamic_address = dynamic
+        mapped = [
+            file_offset + dynamic_address - start
+            for start, file_offset, length in loads
+            if start <= dynamic_address and dynamic_address + size <= start + length
+        ]
+        if mapped != [offset]:
+            raise ValueError("ambiguous or inconsistent dynamic address mapping")
         terminated = False
         for index in range(offset, offset + size, 16):
             tag, value = struct.unpack_from("<qQ", data, index)

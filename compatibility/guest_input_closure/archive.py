@@ -2,6 +2,7 @@
 
 import stat
 import zlib
+from collections import deque
 
 from .contracts import ImageMember
 from .elf import inspect_elf
@@ -103,43 +104,42 @@ def parse_image(data: bytes) -> tuple[ImageMember, ...]:
     raise ValueError("archive trailer missing or entry bound exceeded")
 
 
-def _normal(path: str) -> str:
-    parts: list[str] = []
-    for item in path.split("/"):
-        if item in {"", "."}:
-            continue
-        if item == "..":
-            if not parts:
-                raise ValueError("link escapes guest namespace")
-            parts.pop()
-        else:
-            parts.append(item)
-    return "/".join(parts)
-
-
 def _resolve(path: str, members: dict[str, ImageMember]) -> ImageMember:
-    current = _normal(path)
-    seen: set[str] = set()
-    for _ in range(40):
-        if current in seen:
-            raise ValueError("guest symlink cycle")
-        seen.add(current)
-        parts = current.split("/")
-        for index in range(len(parts)):
-            name = "/".join(parts[: index + 1])
-            entry = members.get(name)
-            if entry is None:
-                raise ValueError("guest dependency missing: " + name)
-            if stat.S_ISLNK(entry.mode):
-                target = entry.data.decode("utf-8")
-                base = "" if target.startswith("/") else "/".join(parts[:index]) + "/"
-                current = _normal(base + target + "/" + "/".join(parts[index + 1 :]))
-                break
-            if index != len(parts) - 1 and not stat.S_ISDIR(entry.mode):
-                raise ValueError("guest path parent is not a directory")
+    pending = deque(path.split("/"))
+    resolved: list[str] = []
+    links = 0
+    seen: set[tuple[tuple[str, ...], tuple[str, ...]]] = set()
+    while pending:
+        part = pending.popleft()
+        if part in {"", "."}:
+            continue
+        if part == "..":
+            if not resolved:
+                raise ValueError("link escapes guest namespace")
+            resolved.pop()
+            continue
+        name = "/".join((*resolved, part))
+        entry = members.get(name)
+        if entry is None:
+            raise ValueError("guest dependency missing: " + name)
+        if stat.S_ISLNK(entry.mode):
+            state = (tuple(resolved), tuple((part, *pending)))
+            if state in seen or links >= 40:
+                raise ValueError("guest symlink cycle or expansion bound exceeded")
+            seen.add(state)
+            links += 1
+            target = entry.data.decode("utf-8")
+            if target.startswith("/"):
+                resolved.clear()
+            pending.extendleft(reversed(target.split("/")))
         else:
-            return members[current]
-    raise ValueError("guest symlink expansion exceeds bound")
+            if pending and not stat.S_ISDIR(entry.mode):
+                raise ValueError("guest path parent is not a directory")
+            resolved.append(part)
+    final = members.get("/".join(resolved))
+    if final is None:
+        raise ValueError("guest namespace root is not a code object")
+    return final
 
 
 def guest_dependencies(members: tuple[ImageMember, ...]) -> tuple[tuple[str, str, str], ...]:
@@ -162,7 +162,10 @@ def guest_dependencies(members: tuple[ImageMember, ...]) -> tuple[tuple[str, str
         if entry.mode != expected_mode:
             raise ValueError("guest entry mode mismatch")
         if entry.path in LINKS:
-            _resolve(entry.path, by_name)
+            resolved = _resolve(entry.path, by_name)
+            required = "bin/busybox" if entry.path == "bin/sh" else LIBDIR + "ld-linux-x86-64.so.2"
+            if resolved.path != required:
+                raise ValueError("bootstrap link resolves to wrong object")
     if not by_name["init"].data.startswith(b"#!/bin/busybox sh\n"):
         raise ValueError("unsupported init interpreter")
     bpf = inspect_elf(by_name["guard.bpf.o"].data)

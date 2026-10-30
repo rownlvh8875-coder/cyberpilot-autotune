@@ -85,6 +85,14 @@ def test_guest_links_cannot_choose_host_paths_cycles_or_non_directory_parents(ta
         m.guest_dependencies(m.parse_image(image_bytes(rows)))
 
 
+@pytest.mark.parametrize("target", [b"../lib/x86_64-linux-gnu/libc.so.6", b"busybox/../busybox"])
+def test_fixed_bootstrap_link_cannot_substitute_another_object_or_erase_a_file_parent(target):
+    rows = [(*r[:2], target, *r[3:]) if r[0] == "bin/sh" else r for r in guest_members()]
+    m = module()
+    with pytest.raises(ValueError):
+        m.guest_dependencies(m.parse_image(image_bytes(rows)))
+
+
 @pytest.mark.parametrize(
     "change",
     [

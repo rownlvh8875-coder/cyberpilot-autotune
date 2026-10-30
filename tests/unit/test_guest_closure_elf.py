@@ -109,3 +109,17 @@ def test_overlapping_load_mappings_cannot_choose_an_arbitrary_string_table():
     raw[176:232] = raw[64:120]
     with pytest.raises(ValueError):
         inspect(bytes(raw))
+
+
+@pytest.mark.parametrize("change", ["dynamic-mapping", "address-overflow", "load-alignment"])
+def test_file_offsets_cannot_substitute_for_the_actual_loader_address_mapping(change):
+    raw = bytearray(elf_bytes(["libc.so.6"]))
+    if change == "dynamic-mapping":
+        struct.pack_into("<Q", raw, 120 + 16, 0x400000)
+    elif change == "address-overflow":
+        struct.pack_into("<H", raw, 56, 1)
+        struct.pack_into("<Q", raw, 64 + 16, 2**64 - 1)
+    else:
+        struct.pack_into("<Q", raw, 64 + 48, 3)
+    with pytest.raises(ValueError):
+        inspect(bytes(raw))
