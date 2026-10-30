@@ -4,7 +4,7 @@ import copy
 
 import pytest
 
-from tests.audit.fd_ofd_lifetime_examples import complete
+from tests.audit.fd_ofd_lifetime_examples import catalog, complete
 from tests.audit.fd_ofd_lifetime_model import context_digest, evaluate
 
 
@@ -111,3 +111,19 @@ def test_digest_is_content_identity_only_and_input_unchanged():
     for e in changed["events"]:
         e["context_digest"] = digest
     assert evaluate(changed).digest != a.digest
+
+
+@pytest.mark.parametrize("case", catalog(), ids=lambda r: r["case_id"] + "_" + r["name"])
+def test_hand_specified_published_counterexamples(case):
+    result = evaluate(case["graph"])
+    assert result.model_consistent is case["expected_consistent"]
+    assert result.actual_dropped_events is None
+    assert result.global_prohibited_counts is None
+
+
+@pytest.mark.parametrize("value", [None, False, True, 0.0, float("inf"), [], {}, object()])
+def test_exact_fd_scalar_rejects_unavailable_bool_float_and_custom(value):
+    graph = complete()
+    first(graph, "INSTALL")["data"][3] = value
+    result = evaluate(graph)
+    assert result.model_consistent is False
