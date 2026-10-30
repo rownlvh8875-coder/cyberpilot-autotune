@@ -49,8 +49,8 @@
     },
     {
       "path": "compatibility/containment_guest_collector/evaluation.py",
-      "sha256": "12befa2fa9fb75f32a08930600ecc15d6898f9c0c85bffb41beeba26bc6cd441",
-      "bytes": 20376
+      "sha256": "16ce021fdf7f144318c112f17edb76c83ca40b06f1bac2de4cffbfd7de7d2519",
+      "bytes": 25804
     },
     {
       "path": "compatibility/containment_guest_collector/guest/collector.c",

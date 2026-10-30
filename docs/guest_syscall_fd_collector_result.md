@@ -77,6 +77,10 @@ CLONE_UNTRACED can suppress birth tracing; shared FD tables and nonleader thread
 exec exceed this profile. The collector aborts before executing unsupported
 untraced/shared/thread clones, emitting incomplete/error evidence rather than a
 fabricated return. This is not an unperturbed observation of those programs.
+The neutral evaluator independently checks flags from parent syscall entry,
+not just the birth record. Successful clone3 cannot qualify the FD profile:
+numeric args contain a pointer, not separately observed clone_args flags.
+Successful x32 is unsupported; actually rejected x32 attempts remain observable.
 
 ## FD and request provenance
 
@@ -95,6 +99,9 @@ even if a negative return or unchanged snapshot appears reassuring.
 Unknown/OFD-mutating fcntl commands are likewise unsupported. A successful dup2/
 dup3 rebinds source provenance even for an occupied target with identical inode
 and flags; F_SETFD preserves OFD origin while verifying the actual cloexec bit.
+Scalar acquisition cannot change unrelated existing FDs. Duplication must match
+the requested destination, source object and exact per-FD flags. Post-call/exec
+checkpoints bind the exact call once; later tables cannot replace that evidence.
 
 Typed USER_NOTIF RECV/ADDFD/SEND input/output receipts bind actual request ID,
 listener origin, notified task generation, currently pending syscall and source
@@ -103,6 +110,8 @@ An ADDFD delivery additionally requires atomic SEND flags, actual source FD,
 ioctl return, target return and target FD snapshot; a stale/canceled request or
 similar inode cannot substitute. Listener-loss interpretation checks the alias
 state at the target return, not the fact that all processes eventually exited.
+The supported ADDFD profile requires atomic SEND, zero ignored requested newfd,
+only zero/O_CLOEXEC newfd_flags, and matching actual target file flags.
 
 Six raw numeric syscall arguments are retained exactly, including unsigned
 register bits and signed return/error. Pointer numbers are **not general pointee
@@ -183,6 +192,24 @@ pytest tests pure contracts, replayed committed captures and architecture only.
 Actual guest runs are opt-in. Existing replay goldens and scientific/runtime/
 application blockers remain unchanged. Final independent review and exact-head
 push/PR CI are recorded on the new Draft, not claimed by a producer bool.
+
+Post-review author fix pass: **2,004 full tests /149 focused tests pass**;
+new-package coverage is86.70% statements /80.14% branches (combined84.34%),
+including pure replay but not guest C/BPF line instrumentation. Full lint,
+format, strict mypy, source/history audits and passive offline native192 pass.
+The installed-source coverage run before the fix was98.52%; installed source
+remains byte-identical. Build and freshly isolated vanilla/research wheel smokes
+pass. An initial rerun reused a research-installed venv and correctly failed the
+vanilla NumPy absence check; a new empty venv resolved test-environment pollution,
+without product or dependency changes.
+
+Independent review at exact8f1ac2995d89bb7cc5ba5c4b955768bb6d88c4f8 found
+**C0/I6/M0**. All six Important issues reproduced RED, then were fixed in one
+author TDD pass and the full suite rerun. The fix head was **not independently
+re-reviewed**; no C0/I0 verdict is claimed for it. All24 original raw captures,
+digests and metrics still match. See the exhaustive
+[review/fix/ruling record](guest_syscall_fd_collector_review.md).
+Deferred minors: none.
 
 No Params, controller, writer, SubMaster, Carrot/native/model/service/vehicle,
 longitudinal, external AI integration, upstream PR or prior PR modification.

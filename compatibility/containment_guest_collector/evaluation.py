@@ -59,6 +59,8 @@ class Task:
     pre_exit: int | None = None
     seed_allowed: bool = True
     after_exec: bool = False
+    exec_call: int | None = None
+    terminal_abort: tuple[tuple[int, ...], int] | None = None
     inherited: dict[int, tuple[int, ...]] | None = None
     inherited_origins: dict[int, tuple[int, ...]] = field(default_factory=dict)
     origins: dict[int, tuple[int, ...]] = field(default_factory=dict)
@@ -76,6 +78,7 @@ class Call:
     after: dict[int, tuple[int, ...]] | None = None
     pidfd_target: int | None = None
     live_origins_at_return: frozenset[tuple[int, ...]] = frozenset()
+    exec_events: int = 0
 
 
 def needs_snapshot(nr: int, args: tuple[int, ...], result: int) -> bool:
@@ -125,10 +128,26 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
         added = set(current) - set(previous)
         removed = set(previous) - set(current)
         changed = {fd for fd in set(current) & set(previous) if current[fd] != previous[fd]}
+        if state.after_exec and (
+            added or changed or removed != {fd for fd, v in previous.items() if v[0] & 0x80000}
+        ):
+            reject("FD_EXEC_TABLE_MISMATCH")
+        checkpoint = calls.get(call_id)
+        if (
+            checkpoint is None
+            or checkpoint.task != event.task
+            or checkpoint.after is not None
+            or (
+                call_id != state.exec_call
+                if state.after_exec
+                else state.last is None or call_id != state.last[0]
+            )
+        ):
+            reject("FD_CHECKPOINT_CALL_MISMATCH")
+            return
         if state.after_exec:
-            if added or changed or removed != {fd for fd, v in previous.items() if v[0] & 0x80000}:
-                reject("FD_EXEC_TABLE_MISMATCH")
             state.after_exec = False
+            state.exec_call = None
         elif state.last is None or state.last[0] != call_id:
             if added or removed or changed:
                 reject("FD_UNEXPLAINED_MUTATION")
@@ -138,15 +157,36 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
             result = tail[6]
             scalar_fd = (
                 nr in FD_RETURNS - {22, 53, 293}
-                or nr == 321
-                or nr == 317
+                or (nr == 321 and args[0] in BPF_FD_COMMANDS)
+                or (nr == 317 and args[1] & 8 != 0)
                 or (nr == 72 and args[1] in {0, 1030})
             )
             if scalar_fd and result >= 0:
                 if result not in current or (result not in added and nr not in {33, 292}):
                     reject("FD_RETURN_MISMATCH")
-                if (added - {result}) or (removed - {result}):
+                if (added - {result}) or (removed - {result}) or (changed - {result}):
                     reject("FD_UNEXPLAINED_MUTATION")
+                if nr in {32, 33, 292} or (nr == 72 and args[1] in {0, 1030}):
+                    source = previous.get(args[0])
+                    dup_target = current.get(result)
+                    if nr in {33, 292} and result != args[1]:
+                        reject("FD_DUP_DESTINATION_MISMATCH")
+                    cloexec = 0
+                    if nr == 292:
+                        cloexec = args[2] & 0x80000
+                        if args[2] & ~0x80000 or args[0] == args[1]:
+                            reject("FD_DUP_FLAGS_MISMATCH")
+                    elif nr == 72 and args[1] == 1030:
+                        cloexec = 0x80000
+                    elif nr == 33 and args[0] == args[1] and source is not None:
+                        cloexec = source[0] & 0x80000
+                    if (
+                        source is None
+                        or dup_target is None
+                        or dup_target[1:] != source[1:]
+                        or dup_target[0] != ((source[0] & ~0x80000) | cloexec)
+                    ):
+                        reject("FD_DUP_SOURCE_MISMATCH")
             elif nr == 3 and result == 0:
                 if args[0] not in previous or removed != {args[0]} or added or changed:
                     reject("FD_CLOSE_MISMATCH")
@@ -254,6 +294,11 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                     reject("BIRTH_WITHOUT_PARENT_CALL")
                 else:
                     births.setdefault(parent_state.pending[0], []).append(event.tid)
+                    nr = parent_state.pending[2]
+                    if nr == 435:
+                        reject("FD_CLONE3_FLAGS_UNAVAILABLE")
+                    elif flags != (parent_state.pending[3] if nr == 56 else 0):
+                        reject("CLONE_FLAGS_MISMATCH")
             elif tasks:
                 reject("MULTIPLE_CAPTURE_ROOTS")
             child = Task(event.tid)
@@ -272,6 +317,12 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
         if event.image != expected_image:
             reject("EXEC_GENERATION_MISMATCH")
         values = event.values
+        if state.pre_exit is not None and event.kind not in {"ABORT", "EXIT", "ERROR"}:
+            reject("EVENT_AFTER_TERMINAL_STOP")
+        if state.terminal_abort is not None and event.kind not in {"EXIT", "ERROR"}:
+            reject("EVENT_AFTER_TERMINAL_STOP")
+        if state.after_exec and event.kind not in {"FDS", "ERROR"}:
+            reject("FD_EXEC_SNAPSHOT_MISSING")
         match event.kind:
             case "ENTER":
                 if state.pending is not None:
@@ -297,6 +348,8 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                     reject("FD_IOCTL_PROFILE_UNSUPPORTED")
                 if values[2] == 72 and values[4] not in {0, 1, 2, 3, 1030}:
                     reject("FD_FCNTL_PROFILE_UNSUPPORTED")
+                if values[2] == 56 and values[3] & 0x810400:
+                    reject("FD_UNSUPPORTED_CLONE_FLAGS")
                 state.pending = values
                 state.seed_allowed = False
             case "RETURN":
@@ -310,6 +363,10 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                 pending = state.pending
                 if call_id != pending[0]:
                     reject("CALL_ID_MISMATCH")
+                if pending[2] in EXIT_CALLS and result >= 0:
+                    reject("NONRETURNING_EXIT_RETURNED")
+                if pending[2] & 0x40000000 and result >= 0:
+                    reject("UNSUPPORTED_X32_SUCCESS")
                 state.last = (call_id, pending[2], *pending[3:], result)
                 if call_id in calls:
                     calls[call_id].result = result
@@ -333,10 +390,14 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                 state.pending = None
                 pairs += 1
             case "ABORT":
+                if state.pre_exit is None or state.terminal_abort is not None:
+                    reject("ABORT_WITHOUT_TERMINAL_STOP")
                 if state.pending is None or values[0] != state.pending[0]:
                     reject("CALL_ID_MISMATCH")
                 elif not values[1] and state.pending[2] not in EXIT_CALLS:
                     reject("UNJUSTIFIED_CALL_ABORT")
+                if state.pending is not None:
+                    state.terminal_abort = (state.pending, values[1])
                 state.pending = None
                 aborts += 1
                 if values[0] in calls:
@@ -346,12 +407,19 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
             case "EXEC":
                 if state.pending is None or state.pending[2] not in {59, 322}:
                     reject("EXEC_WITHOUT_CALL")
+                else:
+                    state.exec_call = state.pending[0]
+                    calls[state.exec_call].exec_events += 1
+                    if calls[state.exec_call].exec_events != 1:
+                        reject("EXEC_EVENT_DUPLICATE")
                 if values[0] != state.tid:
                     reject("FD_NONLEADER_EXEC_UNSUPPORTED")
                 state.image += 1
                 state.after_exec = True
                 execs += 1
             case "PRE_EXIT":
+                if state.pre_exit is not None:
+                    reject("DUPLICATE_TERMINAL_STOP")
                 state.pre_exit = values[0]
             case "EXIT":
                 if state.pending is not None:
@@ -360,6 +428,24 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                     reject("FD_SNAPSHOT_MISSING")
                 if state.pre_exit is None or state.pre_exit != values[0]:
                     reject("EXIT_WITHOUT_PRE_EXIT")
+                status = values[0]
+                signal = status & 0x7F
+                if (
+                    status & ~0xFFFF
+                    or signal == 0x7F
+                    or signal > 64
+                    or (signal and status & 0xFF00)
+                    or (not signal and status & 0x80)
+                ):
+                    reject("INVALID_TERMINAL_WAIT_STATUS")
+                if state.terminal_abort is not None:
+                    pending, cause = state.terminal_abort
+                    if cause != signal:
+                        reject("ABORT_TERMINAL_STATUS_MISMATCH")
+                    if not signal and (pending[3] & 0xFF) != (status >> 8):
+                        reject("EXIT_ARGUMENT_STATUS_MISMATCH")
+                elif not signal:
+                    reject("NORMAL_EXIT_WITHOUT_EXIT_CALL")
                 state.dead = True
                 if event.task == 1:
                     root_status = values[0]
@@ -381,7 +467,7 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
     # entry/snapshot histories, never whichever PID/FD happens to be current now.
     seen_receipts: set[int] = set()
     requests: dict[tuple[tuple[int, ...], int], tuple[int, int]] = {}
-    deliveries: dict[int, tuple[int, tuple[int, ...]]] = {}
+    deliveries: dict[int, tuple[int, tuple[int, ...], int]] = {}
     replies: dict[int, tuple[int, int]] = {}
     for event, binding in typed_receipts:
         v = event.values
@@ -432,6 +518,9 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                 reject("FD_ADDFD_RESULT_MISMATCH")
             if v[2] != 2:
                 reject("FD_ADDFD_NOT_ATOMIC_SEND")
+            flags_valid = v[2] == 2 and v[4] == 0 and v[5] in {0, 0x80000}
+            if not flags_valid:
+                reject("FD_ADDFD_FLAGS_MISMATCH")
             if call.result < 0:
                 continue
             if target.aborted or (tasks[target_task].dead and target.result is None):
@@ -442,10 +531,22 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                 continue
             if source[0] & 3:
                 reject("FD_ADDFD_NOT_READ_ONLY")
-            if target_id in deliveries or target_id in replies:
+            delivery_unique = target_id not in deliveries and target_id not in replies
+            if not delivery_unique:
                 reject("FD_DUPLICATE_NOTIFICATION_REPLY")
-            deliveries[target_id] = (call.result, source)
-            donations += 1
+            deliveries[target_id] = (call.result, source, v[5])
+            actual = target.after.get(call.result) if target.after is not None else None
+            if actual is None or actual[0] != ((source[0] & ~0x80000) | v[5]):
+                reject("FD_ADDFD_FLAGS_MISMATCH")
+            elif (
+                flags_valid
+                and delivery_unique
+                and not target.aborted
+                and v[6] == call.result == target.result
+                and actual[1:] == source[1:]
+                and not source[0] & 3
+            ):
+                donations += 1
         else:
             if key not in requests:
                 reject("FD_NOTIFICATION_ID_UNKNOWN")
@@ -458,9 +559,16 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
                     reject("FD_DUPLICATE_NOTIFICATION_REPLY")
                 replies[target_id] = (v[2], v[3])
     for call_id, call in calls.items():
+        if call.nr in {59, 322}:
+            if call.result == 0 and call.exec_events != 1:
+                reject("EXEC_EVENT_MISSING")
+            elif call.exec_events and call.result != 0:
+                reject("EXEC_RESULT_MISMATCH")
         if call.nr in FORK_CALLS and call.result is not None and call.result > 0:
             if births.get(call_id) != [call.result]:
                 reject("FORK_WITHOUT_BIRTH")
+            if call.nr == 435:
+                reject("FD_CLONE3_FLAGS_UNAVAILABLE")
         if (
             call.nr == 16
             and call.result is not None
@@ -474,7 +582,7 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
         if target.aborted:
             continue
         if call_id in deliveries:
-            result, source = deliveries[call_id]
+            result, source, _flags = deliveries[call_id]
             actual = target.after.get(result) if target.after is not None else None
             if (
                 target.result != result
@@ -496,6 +604,8 @@ def evaluate_capture(capture: Capture) -> CaptureAssessment:
             reject("FD_NOTIFICATION_RECEIPT_MISSING")
     if any(not t.dead for t in tasks.values()):
         reject("TASK_NOT_REAPED")
+    if any(t.after_exec for t in tasks.values()):
+        reject("FD_EXEC_SNAPSHOT_MISSING")
     if capture.end_values != (len(capture.events), len(tasks), 0, root_status):
         reject("END_COUNTER_MISMATCH")
     if root_status != 0:

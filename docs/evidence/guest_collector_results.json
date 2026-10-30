@@ -22,7 +22,7 @@
   },
   "build_manifest": {
     "path": "compatibility/containment_guest_collector/guest/build_manifest.json",
-    "sha256": "9bc76043a30e77d7ed1bd2aef23955850f10411fafaa873d0538303917cfbf04"
+    "sha256": "1ce218b6b82dc36a6f347b8e744c90da08380dc1ec8a43bd51133a7532f9170a"
   },
   "source_manifest": {
     "path": "docs/evidence/guest_collector_sources.json",
