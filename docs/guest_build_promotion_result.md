@@ -22,9 +22,17 @@ their missing APIs were implemented. Synthetic tests cover cross-attempt/object/
 task/image generations, missing cohorts, exact clocks, EOF versus null, mmap versus
 read, parent cycles, image overlap, dropped traces, failed builds, output mutation,
 namespace alias, promotion phase order and digest-as-authority negative cases.
-Full regression, focused coverage, static checks, build/fresh-wheel, source audits,
-native passive checks and fresh CRLF results are recorded in the final handoff.
-Review and CI are pending at this publication checkpoint; no premature C0/I0 claim.
+Initial completed source checkpoint: full2337 and fresh CRLF full2337; focused140;
+new package621/621 statements and272/272 branches, installed source aggregate
+coverage98.52%. Ruff/format all395 files, strict mypy installed71/new6; build and
+fresh vanilla/research wheel, all replay/knowledge/owner/science/H6/H7 smokes,
+seven source audits and passive native192 passed.
+
+Independent review C0/I1/M0 at exact `fe2cc6ea769d77f03e42ad1589b48dd4c3e9acf1`.
+I1 fixed by one author RED→GREEN pass (conflicting identical read ranges across
+tasks), with three positive regressions. Full final rerun and exact-head CI are
+in the Draft handoff. No independent fix-head re-review/C0I0 claim. See
+[review/rulings](guest_build_promotion_review.md) for all decisions and costs.
 
 ## Retained boundaries and blockers
 

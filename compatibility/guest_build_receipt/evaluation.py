@@ -185,6 +185,7 @@ def evaluate_receipts(
     images = _images(build, materials, reasons)
     context_digest = receipt_digest(identity)
     read = maps = execs = metadata = 0
+    range_hashes: dict[tuple[str, int, int, int], str] = {}
     previous_time = 0
     if not build.uses:
         reasons.add("CONSUMPTION_STREAM_MISSING")
@@ -231,6 +232,10 @@ def evaluate_receipts(
                     reasons.add("EMPTY_READ_HASH_MISMATCH")
             if use.range_digest is None:
                 reasons.add("MISSING_READ_DIGEST")
+            elif use.offset is not None and use.length is not None:
+                range_key = (use.material_id, use.material_generation, use.offset, use.length)
+                if range_hashes.setdefault(range_key, use.range_digest) != use.range_digest:
+                    reasons.add("CONFLICTING_READ_HASHES")
         elif use.kind is UseKind.MMAP_BOUND:
             maps += 1
             if use.offset is None or use.length is None:

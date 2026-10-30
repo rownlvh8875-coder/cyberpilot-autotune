@@ -37,8 +37,11 @@ source SHA alone does not. No cereal fields/tags or compatibility claim.
 
 READ_BYTES records observed returned bytes: exact offset, returned length and
 range hash. A full-file read must match the bound full hash. A partial read hash
-is only a supplied claim; the pure evaluator cannot verify absent bytes. Actual
-zero-length EOF can occur beyond file size and requires the empty byte hash.
+is only a supplied claim; the pure evaluator cannot verify absent bytes. Supplied
+observations of the same material/generation/offset/length must agree on the
+range hash across all tasks/images; a contradiction rejects as
+`CONFLICTING_READ_HASHES`. Different ranges are not compared without their bytes.
+Actual zero-length EOF can occur beyond file size and requires the empty byte hash.
 Null offset/length/hash is unavailable, not EOF. MMAP_BOUND records an extent,
 which can extend past EOF; it is not page-touch/read evidence and cannot carry a
 read hash. EXEC_BOUND records the actual image object, not an argv request, and
