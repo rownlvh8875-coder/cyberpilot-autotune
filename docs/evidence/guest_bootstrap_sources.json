@@ -1,0 +1,421 @@
+{
+  "base_revision": "2d11becc2f5b3b71558db6c944de74ddf18354b3",
+  "patch": {
+    "bytes": 33443,
+    "path": "tests/guest_bootstrap/kernel.patch",
+    "sha256": "3eed09131f6ce03dc4a489dfe161cd3d48576ba760abf0978d8846fd3edfc848"
+  },
+  "patched_files": [
+    {
+      "bytes": 39302,
+      "git_blob_sha1": "86db4c21a50f85ae346d16f67a1b61e5cf3f5c4e",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "EXACT_BITMAP_COPY",
+          "end": 73,
+          "sha256": "7f1a1e79876de2ece9750033c1dfe9795d9549c0d57023d759a276dbe70d4124",
+          "start": 57
+        },
+        {
+          "claim": "BOUNDED_SCAN_ROUNDING",
+          "end": 310,
+          "sha256": "e62edb5543a60a32b7b03507744debc15016317dc4291b84cc86b55068379566",
+          "start": 296
+        },
+        {
+          "claim": "ACTUAL_CONSUMED_LOCAL_POINTER",
+          "end": 432,
+          "sha256": "b3268003fd922916cc0d8af9acab85e2a76777697644b44644830268055b3456",
+          "start": 411
+        },
+        {
+          "claim": "INITIALIZED_CONSTRUCTOR_TAGS",
+          "end": 380,
+          "sha256": "299b1a3d2bb83d409956dc95a3a94772375143b20cdf9d160145acd077c5fca9",
+          "start": 315
+        },
+        {
+          "claim": "CONSTRUCTOR_FAILURE_AND_BITMAP",
+          "end": 401,
+          "sha256": "92c4b69ad8c2801f661c57637d3014c91566d846bc69eb3989acd2cf779aae4f",
+          "start": 383
+        },
+        {
+          "claim": "PAIRED_RAW_READ_REFERENCE_CLEAR_STORE",
+          "end": 431,
+          "sha256": "05663b903ad6ad36307b15a2bf209fb522a7027c7c819406f4bb3e6599593d84",
+          "start": 413
+        },
+        {
+          "claim": "NAMESPACE_POST_FREE_SAVED_CONTEXT",
+          "end": 501,
+          "sha256": "3ccff937a3353253d8a4bd0a384cfd777b1d45e47b578fa84746547c92de484c",
+          "start": 479
+        }
+      ],
+      "sha256": "12feff5ce3d872e5acd60fa7b74263212c6c8c465def77e41d4826ecee4a58eb"
+    },
+    {
+      "bytes": 15200,
+      "git_blob_sha1": "9b3fd9e901b9c43c30039846849b077bdc276a8c",
+      "path": "fs/file_table.c",
+      "ranges": [
+        {
+          "claim": "SELECTED_ZERO_INIT_AND_ALLOCATION_PATH",
+          "end": 262,
+          "sha256": "c2f6162b62fb24244bb10c250a069d57dd60a19a85f0659791835b852b511cdb",
+          "start": 218
+        },
+        {
+          "claim": "POST_FREE_CALLBACK_SCALARS",
+          "end": 109,
+          "sha256": "6f6618feff14cd630094939df11c7719cdd89d405a32456c4ba9717d3a5be063",
+          "start": 88
+        }
+      ],
+      "sha256": "fa4aebbb367d97206b0f7e571e63af54f08d0459fcd259efd5e3b00783f1f78a"
+    },
+    {
+      "bytes": 934,
+      "git_blob_sha1": "6a08137771d703345811c42cbe40e17563bfb2c0",
+      "path": "fs/proc/Makefile",
+      "ranges": [
+        {
+          "claim": "PROC_SOURCE_REGISTRATION",
+          "end": 19,
+          "sha256": "22145a7a47da7a53da0161ce5814d9796da8508ba3cffbdc80da23fc56e2b688",
+          "start": 15
+        }
+      ],
+      "sha256": "caf5c7432cbdaba90c122cc3c1d925bdd915f758de605bb8b704655ed08cc2b8"
+    },
+    {
+      "bytes": 3567,
+      "git_blob_sha1": "a77953d6f0f591e794a1f5a0fdfa47fe0077eb6a",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "NAMESPACE_OBJECT_LAYOUT",
+          "end": 66,
+          "sha256": "ecd048b623375c4cc1a89045df8c4390a5f9fcd79638638260c34fc819aa8a68",
+          "start": 38
+        }
+      ],
+      "sha256": "31d92b0434e0765cff7fda50426f9ff5faa73d5cca696787ec6b204085304fa5"
+    },
+    {
+      "bytes": 128654,
+      "git_blob_sha1": "a0559452b2874a265c4ec856c205d745c14fb0cd",
+      "path": "include/linux/fs.h",
+      "ranges": [
+        {
+          "claim": "FILE_OBJECT_LAYOUT",
+          "end": 1107,
+          "sha256": "2f03c50cf4e15cfe95853f5f8b943dd24b94d569ca4b41dce22267653ad6a4a4",
+          "start": 1075
+        }
+      ],
+      "sha256": "cdff0ae7bf01af3652ef728a2a513362aebc128bba7daaa4d35a9e3e266a7102"
+    },
+    {
+      "bytes": 65144,
+      "git_blob_sha1": "3c37e546467a0722b2970c13578334eee13d7f23",
+      "path": "include/linux/sched.h",
+      "ranges": [
+        {
+          "claim": "TASK_SCALAR_CONTEXT_LAYOUT",
+          "end": 1167,
+          "sha256": "8f02c5032281b59fa9b2f46aba80b0f31141819ab349c1be1778ba20068ca2d8",
+          "start": 1153
+        }
+      ],
+      "sha256": "c7c8457bf525f1c15386ecd4152491d3032b8fc9bef1aaafeb2e7a366dfca6df"
+    },
+    {
+      "bytes": 88082,
+      "git_blob_sha1": "aa627d4f64c18c137deac645c0076d5a86ba0e29",
+      "path": "kernel/fork.c",
+      "ranges": [
+        {
+          "claim": "PRIVATE_COPY_SOURCE_CALLER",
+          "end": 1840,
+          "sha256": "e4d92dee839d8ba3c5d1b8077279807cc901b62fbbb37cc81e721fa334962fdb",
+          "start": 1802
+        },
+        {
+          "claim": "LAST_FAILURE_AND_ACTUAL_TASK_COMMIT",
+          "end": 2668,
+          "sha256": "819885492dd29f9926349539743449a4166b305f261518613c44a68b276dca57",
+          "start": 2576
+        },
+        {
+          "claim": "ACTUAL_TASK_ABORT_BEFORE_DESTRUCTION",
+          "end": 2731,
+          "sha256": "b14b1dfeda2f6febd0ca6aaa69ce4e9b3e49d49cfea74d8cc50cc50dda42821c",
+          "start": 2718
+        }
+      ],
+      "sha256": "df52fcb14cae5c33aa3ac81d071d3b617f54834687ed4ccc6c828699eed1580d"
+    },
+    {
+      "bytes": 1906,
+      "git_blob_sha1": "0563c2acb0168536330d47c4a3d4f85d7cb5410c",
+      "path": "include/linux/cplife.h",
+      "ranges": [
+        {
+          "claim": "EXPLICIT_SOURCE_API",
+          "end": 39,
+          "sha256": "261a35f15d2f47e6e012ba1d3408a5c09a11754a9fc52c7ef93779b595232379",
+          "start": 2
+        }
+      ],
+      "sha256": "def65a3291167b54c23dc05fe8ef4cd3bddbe6c5c4cbffc9f017953866de11e5"
+    },
+    {
+      "bytes": 6433,
+      "git_blob_sha1": "70b546a5e5c317c380ab8e6f42f2712d3c4629d5",
+      "path": "fs/proc/cplife.c",
+      "ranges": [
+        {
+          "claim": "NONREUSING_ISSUER_COUNTER_GUARD",
+          "end": 50,
+          "sha256": "eca3df3afdfa809db247d72c1272bcdab5be93f89a4363de399cabd4969343bd",
+          "start": 38
+        },
+        {
+          "claim": "CLEAR_INHERITED_TAGS_AND_KEEP_ROOT_GATE",
+          "end": 116,
+          "sha256": "6919cb5aeaee3e105231411e9f8d6b3b9e3684c3f4d714872326f816eb6846b4",
+          "start": 78
+        },
+        {
+          "claim": "POST_ARM_FILE_ALLOCATION_TAG",
+          "end": 144,
+          "sha256": "4a6696d65b97b069b4bcb9413223badca0c86083154b2be3627ca0ee410269ed",
+          "start": 128
+        },
+        {
+          "claim": "SEPARATE_SEED_ARM_STOP_CONTROL",
+          "end": 208,
+          "sha256": "0bc770dcf94e3f4a2c3d6022c56754514e72486d3c14596632218ad5e2f2594a",
+          "start": 162
+        },
+        {
+          "claim": "CPB_ONLY_EXPORT_NOT_SHADOW_GLOBAL_COUNTS",
+          "end": 208,
+          "sha256": "83b35848cda333f0f581d4748a56e8c91d23e2a1cab99ece79b15db665bbaf96",
+          "start": 199
+        },
+        {
+          "claim": "NEW_SOURCE_PATH_CPU_PROFILE",
+          "end": 223,
+          "sha256": "d19d842476dfa9098cea28a096b8fbab8c01e000e447a42dda8739d236e9a797",
+          "start": 217
+        }
+      ],
+      "sha256": "d7589d8f3d571e8886b6ffebe6760e12f43836b4ae47822185f2a84e1a49eb92"
+    },
+    {
+      "bytes": 13470,
+      "git_blob_sha1": "f7839b007a96f60c115cce6453d12ad06ef3aaad",
+      "path": "fs/proc/cpcopy.c",
+      "ranges": [
+        {
+          "claim": "RAW_FILE_TAG_AND_EPOCH_GATE",
+          "end": 47,
+          "sha256": "e0afb736d88428a412646dbe0544f6d14a2be3fbf09a1b07ef70f31e4944f46c",
+          "start": 41
+        },
+        {
+          "claim": "BOOT_NONCE_LOCAL_ANNOTATION_ONLY",
+          "end": 77,
+          "sha256": "16defaaa9d4c459c1a5c6c3ae437aa080c3550e1c8a67ccdff901333854071e8",
+          "start": 59
+        },
+        {
+          "claim": "ATTEMPT_BEFORE_LOSS_OR_CAPACITY_RESERVATION",
+          "end": 96,
+          "sha256": "a4a798b4eb68e244871f0c7de194e52ad8eac040084e6250e126b8d832f57600",
+          "start": 74
+        },
+        {
+          "claim": "ONE_SHOT_BORROWED_POINTER_SEED_AND_ABORT",
+          "end": 208,
+          "sha256": "ce48c8dd62c2927dca7b35ae4067add678197ff75154bf26cb1286d206a00add",
+          "start": 113
+        },
+        {
+          "claim": "SEAL_DRAIN_THEN_FALLIBLE_STOP",
+          "end": 221,
+          "sha256": "0213f1f91556b3289b65e3f874331797fd5070918d09ec229e2be492c34ebbe5",
+          "start": 210
+        },
+        {
+          "claim": "EXPLICIT_OPERATION_CHANGING_FAULTS",
+          "end": 240,
+          "sha256": "8b644d81271c559dd39c7f6179f207135ad0cbe5b306e42b56e1e8cb1ec821f8",
+          "start": 234
+        },
+        {
+          "claim": "ATOMIC_LOCAL_COPY_CONTEXT_RECORD",
+          "end": 258,
+          "sha256": "8f47b7b85f81a882aa40c3598bf7f60c74233f8c4410d2f9a8a4043b4d491ae6",
+          "start": 240
+        },
+        {
+          "claim": "EARLY_NAMESPACE_ALLOCATION_ORIGIN",
+          "end": 268,
+          "sha256": "c4369e756556c023e118fc9d43c8ea20e6d14e84e4041b5484c973ca8f1af511",
+          "start": 254
+        },
+        {
+          "claim": "RAW_READ_AND_STORE_ORIGIN_NOT_NODE_RECONSTRUCTION",
+          "end": 290,
+          "sha256": "200d2dcbd3510b40d16f00f075cbea547af6196e1967b551971bc55b0e213328",
+          "start": 276
+        },
+        {
+          "claim": "EXACT_NEW_CPB_WIRE",
+          "end": 365,
+          "sha256": "aa6ac8615a3bd797d9640ba4147d5edfad9d24f0f2b3f4e3e4c98e330a75c961",
+          "start": 309
+        }
+      ],
+      "sha256": "0a6cfa201a2757a749f69ba0969ba87da6fbe1ea2ded1fd848f15fd0150fb747"
+    }
+  ],
+  "pristine_files": [
+    {
+      "bytes": 37233,
+      "git_blob_sha1": "c84bd5809358382df0332322dfce64a1749acab3",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "EXACT_BITMAP_COPY",
+          "end": 72,
+          "sha256": "7f1a1e79876de2ece9750033c1dfe9795d9549c0d57023d759a276dbe70d4124",
+          "start": 56
+        },
+        {
+          "claim": "BOUNDED_SCAN_ROUNDING",
+          "end": 309,
+          "sha256": "e62edb5543a60a32b7b03507744debc15016317dc4291b84cc86b55068379566",
+          "start": 295
+        },
+        {
+          "claim": "ACTUAL_CONSUMED_LOCAL_POINTER",
+          "end": 405,
+          "sha256": "8b1d6ee56197133915aeb612685434955ea03990b9da94683e08e90c47541313",
+          "start": 384
+        }
+      ],
+      "sha256": "07cb3588c77a23709dfc746330cb0ac602445d647a14246ab5242bc389256169"
+    },
+    {
+      "bytes": 15008,
+      "git_blob_sha1": "f78bcff79f1a0499bcc48390f032e785cf4b47f4",
+      "path": "fs/file_table.c",
+      "ranges": [
+        {
+          "claim": "SELECTED_ZERO_INIT_AND_ALLOCATION_PATH",
+          "end": 258,
+          "sha256": "20d7abed373500e281e43b875d413f56fa089797cd4741aea81f03fe4b614913",
+          "start": 214
+        },
+        {
+          "claim": "POST_FREE_CALLBACK_SCALARS",
+          "end": 108,
+          "sha256": "e835181cd86a6a64511b9a7da3ca96553d833908a9acd708d4c10b748dd58727",
+          "start": 87
+        }
+      ],
+      "sha256": "853ad4b282453d6091944412fa5eae258e11e53292457b8be812afe4cc15320c"
+    },
+    {
+      "bytes": 894,
+      "git_blob_sha1": "7b4db9c56e6a77d3f0abd4a4e687542a734bb8d7",
+      "path": "fs/proc/Makefile",
+      "ranges": [
+        {
+          "claim": "PROC_SOURCE_REGISTRATION",
+          "end": 19,
+          "sha256": "43f2e81ae0f4b7b57818ca0e6a8573659c22048fff8add41618f1f2a6dbcd52f",
+          "start": 15
+        }
+      ],
+      "sha256": "7e9624f9f9f7bc0698e94353fd8e8129ae2e3c7be5eb41f44113e36da53afe65"
+    },
+    {
+      "bytes": 3452,
+      "git_blob_sha1": "b1c5722f2b3ce4ba82e89716d5e27f85c67a8afd",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "NAMESPACE_OBJECT_LAYOUT",
+          "end": 66,
+          "sha256": "ce857cf05cef4746c98c67870f267e4db577368c54e63a324b25d0bef3d35a1d",
+          "start": 38
+        }
+      ],
+      "sha256": "ab0233740bd825ed7705e378278f60a3a184a7ded81fea060ac4a2fbfe2abfdb"
+    },
+    {
+      "bytes": 128548,
+      "git_blob_sha1": "19211eb49a8c087e497a1d2ff08906ea34fb9e64",
+      "path": "include/linux/fs.h",
+      "ranges": [
+        {
+          "claim": "FILE_OBJECT_LAYOUT",
+          "end": 1107,
+          "sha256": "7fcbb7f868a7de68b86e00cb4f1b9510d989ce5765e80803f8d89fe1331b4f9a",
+          "start": 1075
+        }
+      ],
+      "sha256": "b1eaaf9e239d449a923a980ad05939069bb8347655b482a11b0e9ba524759bce"
+    },
+    {
+      "bytes": 65002,
+      "git_blob_sha1": "0fb5bb6c30d3ff73e2b392534c87c555497348fe",
+      "path": "include/linux/sched.h",
+      "ranges": [
+        {
+          "claim": "TASK_SCALAR_CONTEXT_LAYOUT",
+          "end": 1167,
+          "sha256": "ef3b56d062f2a32e9694b3f7824e8f49f1f1e826cb10ca8dd93d6ed46893de79",
+          "start": 1153
+        }
+      ],
+      "sha256": "ce6de88d6af3a27ef81e86b44e24fa89570faba4f862baf36ec40d44dda78c89"
+    },
+    {
+      "bytes": 87580,
+      "git_blob_sha1": "c36d69c40213b45d8792cdc3ee41d5ab07f36251",
+      "path": "kernel/fork.c",
+      "ranges": [
+        {
+          "claim": "PRIVATE_COPY_SOURCE_CALLER",
+          "end": 1839,
+          "sha256": "834185b0bc852dd73475dd6ae976fe5daee23c12189a504e31d0038864470721",
+          "start": 1801
+        },
+        {
+          "claim": "LAST_FAILURE_AND_ACTUAL_TASK_COMMIT",
+          "end": 2661,
+          "sha256": "896a623621db51868eb5b93120eb3fd0ea8566aceb6678094208f8070b2b8aba",
+          "start": 2569
+        },
+        {
+          "claim": "ACTUAL_TASK_ABORT_BEFORE_DESTRUCTION",
+          "end": 2723,
+          "sha256": "d292c4e5949ac4691487bdc288dd224687addc15bea34702ca38ecc6e9250d6e",
+          "start": 2710
+        }
+      ],
+      "sha256": "9ca6cce17959283738d9a010405c319d38397e698e6a6382a24bbbf29ef8b1fa"
+    }
+  ],
+  "schema": "guest-bootstrap-sources-v1",
+  "source_archive_sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33",
+  "source_package_sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5"
+}
