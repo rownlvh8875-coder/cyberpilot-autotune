@@ -1,0 +1,116 @@
+{
+  "actual_guest_executions_this_task": 0,
+  "actual_v2_capture_available": false,
+  "assets": [
+    {
+      "bytes": 1369088,
+      "git_blob_sha1": "058abb2961d39c33ede675a465cd81d4440445be",
+      "path": "patched-bzImage",
+      "sha256": "7a6325da177fb9532db892a4f019c4fddc279ac048b284b7a8e3faa4cf84b2b5"
+    },
+    {
+      "bytes": 779408,
+      "git_blob_sha1": "9d0d67c18a69fd17ca4342f77f534fc7450e21c3",
+      "path": "init",
+      "sha256": "1bf34b6686f88ca85877173633f0e020572c7ec07464b9ff4a5f5475b264c819"
+    },
+    {
+      "bytes": 37579,
+      "git_blob_sha1": "1ba24d2cb642c093d83e7b0ad57471f507b6dedc",
+      "path": "actual-kernel.config",
+      "sha256": "29cac231a8ec11a44e4d7d1b49fab06ae5ffd9e6482df136274cb2f7bc9fe465"
+    },
+    {
+      "bytes": 21704,
+      "git_blob_sha1": "66c7f9e838fd5a7e4f33664b46b20b7a45f969c5",
+      "path": "build/fs/file.o",
+      "sha256": "3af7a1c203010b73018a6353c30a245fd67c892627a8ba286cf5b2ffc74344db"
+    },
+    {
+      "bytes": 20408,
+      "git_blob_sha1": "1363cf8dae98b4c2dff6710681df387e88004efc",
+      "path": "build/fs/proc/cpcopy.o",
+      "sha256": "d6aaf1daa1782d2eb4dc0e81f2f875fcff5a258c24894a36a0d3953cf011cc05"
+    },
+    {
+      "bytes": 45321,
+      "git_blob_sha1": "42d50d5d99ff7ef1ebdb2668a34a465e447f356e",
+      "path": "kernel-build.log",
+      "sha256": "17ef77854a3a4a8dafde0af6452a615628aa0c15156941fd9ea15f6212fbd93c"
+    },
+    {
+      "bytes": 1563,
+      "git_blob_sha1": "7be48af08d42f4445abb9848eff5493ccb7acf99",
+      "path": "build-command.sh",
+      "sha256": "dc3a5e98a05b5d5d47d9ea561166fab515d9e9ab19ebabea025f2459cdfc49d0"
+    }
+  ],
+  "base_revision": "1d9207723ac63c90d8a2173bd401e3115abe2edf",
+  "build_input_closure_qualified": false,
+  "compiler_target": "x86_64-linux-gnu",
+  "compiler_version": "gcc (Debian 14.2.0-19) 14.2.0",
+  "dependency_evidence": "Prior preserved Debian package/index/signature catalog unchanged; no fresh authentication or complete build closure claim.",
+  "native_probe_scope": "ACTUAL_SOURCE_EXCERPTS_USERSPACE_STANDIN_SUPPLEMENT_ONLY",
+  "permissions": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false
+  },
+  "prior_build_catalog_digest": "492b646a04af900945b04f42db2b18261438b02050326ac2d766a801bda8d75b",
+  "recipe": "build-command.sh",
+  "recorded_tools": [
+    {
+      "bytes": 1162264,
+      "git_blob_sha1": "64bfade7b0b4c125a28c6a56b8c5acd951304923",
+      "name": "gcc",
+      "path": "x86_64-linux-gnu-gcc-14",
+      "resolved_path": "/usr/bin/x86_64-linux-gnu-gcc-14",
+      "sha256": "a23ecab8ff08f09ad8c80602c2c5df7f49e09c25905cb8975902e101bf72635f"
+    },
+    {
+      "bytes": 1861256,
+      "git_blob_sha1": "6d18c4bf72892c9c4b92ffa368da1353b696878a",
+      "name": "ld",
+      "path": "x86_64-linux-gnu-ld.bfd",
+      "resolved_path": "/usr/bin/x86_64-linux-gnu-ld.bfd",
+      "sha256": "d2766988b6a1b1d1518cdc09242e726d1f24e151e16410ada3092b11ffd9081b"
+    },
+    {
+      "bytes": 795184,
+      "git_blob_sha1": "0cc3fa31721487fe998f9278044c67b21a86b784",
+      "name": "as",
+      "path": "x86_64-linux-gnu-as",
+      "resolved_path": "/usr/bin/x86_64-linux-gnu-as",
+      "sha256": "07dd8551ea0aa065975e4dddb8e1bb7dc308d12d54eca22c3858db79467c7cb9"
+    },
+    {
+      "bytes": 278448,
+      "git_blob_sha1": "01f9a02f178d5c322576bbeb14f27d1ac7e978aa",
+      "name": "make",
+      "path": "make",
+      "resolved_path": "/usr/bin/make",
+      "sha256": "8a229baf64671988cfb5af43ba3070c6ce7214cf32bcf96155115559d1466fa7"
+    },
+    {
+      "bytes": 34148896,
+      "git_blob_sha1": "fc0affcd6175678b2097468c1e3f0c2a8c544626",
+      "name": "cc1",
+      "path": "cc1",
+      "resolved_path": "/usr/libexec/gcc/x86_64-linux-gnu/14/cc1",
+      "sha256": "02675980109a4a5496cddf67d5286de57942759edc830deaa525e36f9a2a0291"
+    }
+  ],
+  "release": "6.12.113-cptagread-u64-v2",
+  "runtime_qualified": false,
+  "schema": "guest-epoch-u64-build-v1",
+  "source_catalog_digest": "985eb40287ab4cc2dda823a56eb3421b97b63038cdc1544e83bb22a5bb3e64f8",
+  "source_copy": "New owned copy of prior selected patched tree; zero-fuzz two-file delta replay verified. No full input closure claim.",
+  "type_guard_scope": "ACTUAL_KERNEL_DECLARATIONS_COMPILED_OFFLINE",
+  "wire_version": "CPR2_POST_REFERENCE_RAW_EPOCH_U64_V2"
+}
