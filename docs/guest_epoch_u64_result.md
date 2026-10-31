@@ -32,8 +32,10 @@ New package192statements56branches100/100 after explicit source/assets CLI
 (focused alone93.15%); decoder/types98statements18branches100/100.
 Source/history/originalasset audits, native192/replay4, lint/format627files,
 mypy71sourcefiles, build and fresh vanilla/research wheel smoke PASS.
-CRLF, independent exact-head review and push/PR CI results are recorded in
-the own Draft handoff after their actual runs. Python and userspace native
+Fresh core.autocrlf=true checkout582tests and defaultaudit PASS, clean clone;
+all core/research/observability coverage gates PASS. Independent exact-head
+review and push/PR CI results are recorded in the own Draft handoff after
+their actual runs. Python and userspace native
 coverage is not C/LKMM or runtime qualification. Actual source epoch loss
 remains None, not false.
 

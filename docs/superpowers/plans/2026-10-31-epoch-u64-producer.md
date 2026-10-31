@@ -78,7 +78,7 @@ is portable; explicit roots verify actual source/build bytes, never runtime.
 - [x] Write frozen-source/build mutation and old-blob/import architecture guards.
 - [x] Run focused audit tests. Expected: RED missing audit API.
 - [x] Implement read-only source/build validation, exact hashes and evidence limits.
-- [ ] Run full pytest/coverage, source/history/assets, lint/format/mypy/build,
+- [x] Run full pytest/coverage, source/history/assets, lint/format/mypy/build,
   native192/replay4, fresh wheel, CRLF and new CLI/native/source-root checks.
   Expected: PASS; new pure decoder target98statement/95branch or explain gap.
 - [ ] Commit; fresh whole-branch review at exact head; C/I one RED→GREEN fix pass,
