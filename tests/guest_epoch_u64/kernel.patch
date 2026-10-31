@@ -1,0 +1,81 @@
+diff --git a/include/linux/cptagread.h b/include/linux/cptagread.h
+--- a/include/linux/cptagread.h
++++ b/include/linux/cptagread.h
+@@ -2,10 +2,15 @@
+ #ifndef _LINUX_CPTAGREAD_H
+ #define _LINUX_CPTAGREAD_H
+ struct cpt_snapshot {
+-  u64 cookie, scope;
+-  unsigned int epoch, origin;
++  u64 cookie, scope, epoch;
++  unsigned int origin;
+   bool captured;
+ };
++_Static_assert(sizeof(u64) == 8 && (u64)-1 > 0, "cpt_unsigned_64");
++_Static_assert(__builtin_types_compatible_p(__typeof__(((struct file *)0)->cpb_epoch), u64),
++               "cpt_source_epoch_u64");
++_Static_assert(__builtin_types_compatible_p(__typeof__(((struct cpt_snapshot *)0)->epoch), u64),
++               "cpt_saved_epoch_u64");
+ 
+ static inline struct cpt_snapshot cpt_take(struct file *file)
+ {
+diff --git a/fs/proc/cpcopy.c b/fs/proc/cpcopy.c
+--- a/fs/proc/cpcopy.c
++++ b/fs/proc/cpcopy.c
+@@ -18,13 +18,16 @@
+ struct cpb_record {
+   u64 n, copy, local, scope, actor, task, source, dest;
+   u64 object, read, ofd, opened, cloexec;
+-  u64 raw_cookie, raw_scope;
+-  unsigned int raw_epoch, raw_origin;
++  u64 raw_cookie, raw_scope, raw_epoch;
++  unsigned int raw_origin;
+   unsigned int fd, bound, capacity;
+   const char *kind, *role, *origin, *stage, *result, *reason, *status;
+   int tail;
+   bool present, open_bit, cloexec_bit, valid;
+ };
++_Static_assert(__builtin_types_compatible_p(__typeof__(((struct cpb_record *)0)->raw_epoch), u64),
++               "cpt_buffer_epoch_u64");
++_Static_assert(sizeof(unsigned long long) == 8, "cpt_printf_unsigned_64");
+ static struct cpb_record records[512];
+ static atomic64_t attempts = ATOMIC64_INIT(0), reservations = ATOMIC64_INIT(0);
+ static atomic64_t commits = ATOMIC64_INIT(0), failures = ATOMIC64_INIT(0);
+@@ -326,16 +329,16 @@
+   u64 a = atomic64_read(&attempts), r = atomic64_read(&reservations);
+   u64 c = atomic64_read(&commits), f = atomic64_read(&failures);
+   unsigned int i;
+-  seq_printf(m, "CPR_META version=1 profile=POST_REFERENCE_RAW_V1 case=%s release=%s cpus=1 capacity=%u copies=%llu root=%llu boot_nonce=%016llx%016llx epoch=1 seed_walk=%s\n",
++  seq_printf(m, "CPR2_META version=2 profile=POST_REFERENCE_RAW_EPOCH_U64_V2 encoding=UINT64_DECIMAL_V1 case=%s release=%s cpus=1 capacity=%u copies=%llu root=%llu boot_nonce=%016llx%016llx epoch=1 seed_walk=%s\n",
+     names[mode], UTS_RELEASE, capacity, atomic64_read(&copies), root, nonce[0], nonce[1],
+     seed_complete ? "COMPLETE" : "ABORTED");
+-  seq_printf(m, "CPR_COUNT attempted=%llu reserved=%llu committed=%llu failed=%llu discarded=0 pending=%llu\n",
++  seq_printf(m, "CPR2_COUNT attempted=%llu reserved=%llu committed=%llu failed=%llu discarded=0 pending=%llu\n",
+     a, r, c, f, r - c);
+   for (i = 0; i < min_t(u64, a, capacity); i++) {
+     struct cpb_record *e = &records[i];
+     if (!smp_load_acquire(&e->valid))
+       continue;
+-    seq_printf(m, "CPR_EVENT n=%llu epoch=1 kind=%s", e->n, e->kind);
++    seq_printf(m, "CPR2_EVENT n=%llu epoch=1 kind=%s", e->n, e->kind);
+     if (!strcmp(e->kind, "NODE")) {
+       seq_printf(m, " object=%llu role=%s origin=%s stage=%s generation=0",
+         e->object, e->role, e->origin, e->stage);
+@@ -365,8 +368,8 @@
+           seq_printf(m, " read_ordinal=%llu", e->read);
+         seq_printf(m, " presence=%s", e->present ? "PRESENT" : "NULL");
+       } else if (!strcmp(e->kind, "TAG_SNAPSHOT")) {
+-        seq_printf(m, " fd=%u read_ordinal=%llu raw_cookie=%llu raw_scope=%llu raw_epoch=%u raw_origin=%u capture_stage=POST_EXISTING_REFERENCE_PRE_STORE emit_stage=SAVED_SCALARS_AFTER_STORE generation=UNAVAILABLE lifetime=UNAVAILABLE publication=UNAVAILABLE membership=UNAVAILABLE",
+-          e->fd, e->read, e->raw_cookie, e->raw_scope, e->raw_epoch, e->raw_origin);
++        seq_printf(m, " fd=%u read_ordinal=%llu raw_cookie=%llu raw_scope=%llu raw_epoch_status=OBSERVED raw_epoch=%llu raw_origin=%u capture_stage=POST_EXISTING_REFERENCE_PRE_STORE emit_stage=SAVED_SCALARS_AFTER_STORE generation=UNAVAILABLE lifetime=UNAVAILABLE publication=UNAVAILABLE membership=UNAVAILABLE",
++          e->fd, e->read, e->raw_cookie, e->raw_scope, (unsigned long long)e->raw_epoch, e->raw_origin);
+       } else if (!strcmp(e->kind, "REFERENCE") || !strcmp(e->kind, "CLEAR_OPEN"))
+         seq_printf(m, " fd=%u read_ordinal=%llu", e->fd, e->read);
+       else if (!strcmp(e->kind, "COPY_RETURN"))
+@@ -378,5 +381,5 @@
+     }
+     seq_putc(m, '\n');
+   }
+-  seq_puts(m, "CPR_END\n");
++  seq_puts(m, "CPR2_END\n");
+ }
