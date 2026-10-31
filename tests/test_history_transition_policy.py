@@ -12,8 +12,20 @@ from tests.history_transition.frozen_cases import BASE, ROOT, materialize_snapsh
 from tests.history_transition.policy import GUARD_BASES
 
 
-def test_snapshot_contains_original_coherent_git_tree(tmp_path):
+@pytest.mark.parametrize(
+    "git_settings", (None, ("true", "crlf"), ("false", "crlf"), ("input", "lf"))
+)
+def test_snapshot_contains_original_coherent_git_tree(tmp_path, monkeypatch, git_settings):
     # A partial copy or current-source overlay would invalidate historical assertions.
+    # Host autocrlf/eol must not convert historical bytes, even in a binary tar pipe.
+    if git_settings is not None:
+        count = int(os.environ.get("GIT_CONFIG_COUNT", "0"))
+        for index, (name, value) in enumerate(
+            zip(("core.autocrlf", "core.eol"), git_settings, strict=True), count
+        ):
+            monkeypatch.setenv(f"GIT_CONFIG_KEY_{index}", name)
+            monkeypatch.setenv(f"GIT_CONFIG_VALUE_{index}", value)
+        monkeypatch.setenv("GIT_CONFIG_COUNT", str(count + 2))
     snapshot = tmp_path / "snapshot"
     materialize_snapshot(snapshot)
     expected = {}

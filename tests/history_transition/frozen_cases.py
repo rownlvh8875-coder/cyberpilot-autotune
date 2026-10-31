@@ -69,7 +69,12 @@ def materialize_snapshot(destination: Path) -> None:
         raise ValueError("empty frozen tree")
     destination.mkdir()  # must not overwrite or merge an existing directory
     seen = set()
-    with tarfile.open(fileobj=io.BytesIO(_git("archive", "--format=tar", BASE))) as archive:
+    # git archive applies checkout conversion, even when stdout is binary. Pin
+    # line-ending policy per command; never change host config or tolerate drift.
+    archive_bytes = _git(
+        "-c", "core.autocrlf=false", "-c", "core.eol=lf", "archive", "--format=tar", BASE
+    )
+    with tarfile.open(fileobj=io.BytesIO(archive_bytes)) as archive:
         for member in archive:
             if member.isdir():
                 continue

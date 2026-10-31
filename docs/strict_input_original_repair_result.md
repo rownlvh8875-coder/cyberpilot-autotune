@@ -147,3 +147,34 @@ These do not repair old PR heads or main before integration, do not migrate
 callers by rebinding, and do not close runtime/vehicle/application blockers.
 No push, PR creation, Linux/Windows remote CI, merge or deployment is performed.
 Main was rechecked as `a5d3514f23797829eb58d08c638b22cf4dd30c8a`.
+
+## Subsequent authorized Draft handoff: Windows correction
+
+The preceding results are the original local checkpoint, not a claim that
+publication never subsequently occurred. Authorized Draft PR53 targets PR52's
+branch, without editing any previous PR or main. Initial head `192a1ee` push
+run41243374748 and PR run41243382078 each had three successful jobs, one Windows
+3.12 failure and two fail-fast matrix cancellations. Linux3.12, source audit and
+schema compatibility passed; cancelled jobs were not counted as passing.
+
+Windows reported six snapshot failures / 4,266 passes / 20 inherited skips.
+`git archive` honors checkout line-ending conversion even on binary stdout:
+read-only Linux reproduction with core.autocrlf=false had zero mismatches,
+whereas true produced 622 CRLF-only mismatches against frozen Git blobs.
+The existing byte-identity check correctly failed closed; it was not weakened.
+
+The correction is confined to the new snapshot helper: per-command
+`-c core.autocrlf=false -c core.eol=lf` on git archive, without persistent config
+changes or source-byte normalization after extraction. The existing complete
+snapshot test now covers default, true/crlf, false/crlf and input/lf host settings
+using real Git and every blob's content identity. RED: one failed / three passed.
+GREEN focused regressions including all history guards: 447 passed / 15.13s.
+Corrected full-suite rerun: 4,295 passed / 52.03s. Ruff/format (655 files),
+mypy (71 installed-source files) and diff/scope checks pass.
+All 22 original preregistered postimages, P and the overall 29-path bound remain
+unchanged. No old source, guard, fixture, digest criterion or test node is relaxed.
+
+The subsequent exact-head review, corrected full-suite results and new push/PR CI
+outcomes are recorded in PR53/user handoff after observation; the failed initial
+runs remain historical evidence, not silently reclassified as passing. Runtime,
+vehicle, candidate/application authority and all retained blockers remain unchanged.
