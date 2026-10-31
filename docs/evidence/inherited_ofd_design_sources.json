@@ -1,0 +1,173 @@
+{
+  "base_revision": "21a542eba9e889323b2cb1b7d7c75d9c9cab1025",
+  "evidence_class": "STATIC_SOURCE_REFERENCES",
+  "kernel_files": [
+    {
+      "bytes": 6563,
+      "git_blob_sha1": "e1baff2110419d0217b84ab2b606fe787fddcd0b",
+      "path": "fs/proc/cplife.c",
+      "ranges": [
+        {
+          "claim": "ISSUER_AND_MANAGED_SCOPE_SEPARATE",
+          "end": 40,
+          "sha256": "1b5d9767f93e3a8a9aad96c17a839ff99fbc87a2c98a12dbc3f66d0be49c355e",
+          "start": 31
+        },
+        {
+          "claim": "PID1_GATE_AND_INHERITED_CONTEXT_CLEAR",
+          "end": 95,
+          "sha256": "33c480762ecc384a83438233628272be7a239be0c59189b77639cf097387f096",
+          "start": 68
+        },
+        {
+          "claim": "SUCCESSFUL_NAMESPACE_LINK",
+          "end": 106,
+          "sha256": "a6e0f55fb997a2904093e65f054e14df37a7afe0d539d0b070a44b892a38473f",
+          "start": 91
+        },
+        {
+          "claim": "FILE_BIRTH_SCOPE_AND_ARM_GUARD",
+          "end": 123,
+          "sha256": "0e07a034ebf011e8b36743835da695672f740f094134aaa89d2815d425fe98a5",
+          "start": 111
+        },
+        {
+          "claim": "ARM_STOP_NOT_BOOT_COVERAGE",
+          "end": 178,
+          "sha256": "0e6b3bcfa6fa5f651651480a582333bf0e5c504e0658b0e9bee59c6638bb1465",
+          "start": 142
+        }
+      ],
+      "sha256": "8a1e07b33a002e1081d2f4b887d708097d1f3d577b61b5c60abdd22c705bf47c"
+    },
+    {
+      "bytes": 6878,
+      "git_blob_sha1": "091828d25eb983e2443f4191a8d842f0f0d9a269",
+      "path": "fs/proc/cpcopy.c",
+      "ranges": [
+        {
+          "claim": "SOURCE_COOKIE_ACTUALLY_CONSUMED",
+          "end": 64,
+          "sha256": "d6369685e0f8e13c79cd588d1f74ef6535c36c02bc4298a60ad4e8913852cb6a",
+          "start": 54
+        },
+        {
+          "claim": "EARLY_CONSTRUCTOR_COOKIE",
+          "end": 106,
+          "sha256": "66af16766db71524454dd0ff126371eeb8d4676c6b2eea624e320f0ac9b3eec3",
+          "start": 97
+        },
+        {
+          "claim": "ACTUAL_POINTER_COOKIE_NOT_FILE_ATTRIBUTES",
+          "end": 129,
+          "sha256": "f66f9d923f424d8debced3ba3dbdb7136eedb7643f9546b6b0879c09d80a253c",
+          "start": 116
+        }
+      ],
+      "sha256": "6707eb94f0c13e741bd51558ec69b6b82cba91a96cc66beecc3031840254bb12"
+    },
+    {
+      "bytes": 39257,
+      "git_blob_sha1": "b0c75fc4e86d83223ae2aa6bf22352ed8c81333f",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "LOCKLESS_INSTALL_WARNING_AND_LOCAL_POINTER",
+          "end": 431,
+          "sha256": "4237fa9e5363bc5cdc176d304b3b558d7f46cc783138b32633c32a5f6755b22d",
+          "start": 397
+        }
+      ],
+      "sha256": "e0ccd6a4149ea1ac29bc00e317a6cf1fb41eeb8eae88eb54125abc62d3e1ce90"
+    },
+    {
+      "bytes": 15200,
+      "git_blob_sha1": "9b3fd9e901b9c43c30039846849b077bdc276a8c",
+      "path": "fs/file_table.c",
+      "ranges": [
+        {
+          "claim": "INITIALIZED_ALLOCATION_BEFORE_SELECTED_BIRTH_HOOK",
+          "end": 262,
+          "sha256": "c2f6162b62fb24244bb10c250a069d57dd60a19a85f0659791835b852b511cdb",
+          "start": 218
+        }
+      ],
+      "sha256": "fa4aebbb367d97206b0f7e571e63af54f08d0459fcd259efd5e3b00783f1f78a"
+    },
+    {
+      "bytes": 88082,
+      "git_blob_sha1": "aa627d4f64c18c137deac645c0076d5a86ba0e29",
+      "path": "kernel/fork.c",
+      "ranges": [
+        {
+          "claim": "PRIVATE_TABLE_COPY_AND_SUBJECT_LINK",
+          "end": 1840,
+          "sha256": "e4d92dee839d8ba3c5d1b8077279807cc901b62fbbb37cc81e721fa334962fdb",
+          "start": 1802
+        }
+      ],
+      "sha256": "df52fcb14cae5c33aa3ac81d071d3b617f54834687ed4ccc6c828699eed1580d"
+    },
+    {
+      "bytes": 128631,
+      "git_blob_sha1": "bba7bb6a1199381f558667dd7e546437ae70bf48",
+      "path": "include/linux/fs.h",
+      "ranges": [
+        {
+          "claim": "DIAGNOSTIC_OBJECT_TAG_NOT_STRUCTURAL_IDENTITY",
+          "end": 1080,
+          "sha256": "ce4d97b972d6710ec8f5edae73c8c45e901890cc3231429313a7603feb6f59d8",
+          "start": 1076
+        }
+      ],
+      "sha256": "a5088347c8316a51fa4e339672724472e2e64d6e041a448dd55c9c870d353f7e"
+    },
+    {
+      "bytes": 65112,
+      "git_blob_sha1": "3074310b11c489d3b2fa47c03725456b6695c723",
+      "path": "include/linux/sched.h",
+      "ranges": [
+        {
+          "claim": "SCALAR_TASK_SCOPE_AND_COPY_CONTEXT",
+          "end": 1161,
+          "sha256": "4994de22eaaf889deeeb3af4a33b2c29af39570078bff0c74c1c477cdfd41cf6",
+          "start": 1153
+        }
+      ],
+      "sha256": "0294615c57df35be2280576d14e4141aaf5a835425d3d047c8073ca60ddd5c85"
+    }
+  ],
+  "repository_files": [
+    {
+      "bytes": 15931,
+      "path": "docs/evidence/guest_fork_copy_sources.json",
+      "sha256": "69e566058e77804800e803d9faaa9e52f127cd652aaee39bf26b1966f0558013"
+    },
+    {
+      "bytes": 8857,
+      "path": "docs/evidence/guest_fork_copy_build.json",
+      "sha256": "3d319355b01ee89765a8310fa53991be8564fe2afb1a69f33a8c99a3678e4a51"
+    },
+    {
+      "bytes": 26457,
+      "path": "tests/guest_fork_copy/kernel.patch",
+      "sha256": "ae13cceb0cc07cd1e4c18478dee80f2b3e490108e8a42781158dbf011917e13c"
+    },
+    {
+      "bytes": 2786,
+      "path": "tests/guest_fork_copy/guest/init.c",
+      "sha256": "ffef597b43fb600f75d9d2909bef7264fd81bd89dce657fce1c5704532d18f8a"
+    },
+    {
+      "bytes": 12589,
+      "path": "tests/guest_fork_copy/model.py",
+      "sha256": "8e55dc171ffd892e2bbedbaa8b307cc1995dba79f01f8907a7a11fbecb49cf24"
+    },
+    {
+      "bytes": 6119,
+      "path": "docs/guest_fork_copy_contract.md",
+      "sha256": "1a1e0b2df3c0f3dcea8e558e34d056be38529bbb0b7b221bde58458a3911f3c8"
+    }
+  ],
+  "schema": "inherited-ofd-design-sources-v1"
+}

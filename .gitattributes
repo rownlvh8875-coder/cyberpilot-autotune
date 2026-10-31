@@ -39,3 +39,6 @@
 /docs/evidence/fork_copy_design_*.json -text
 /tests/guest_fork_copy/** -text
 /docs/evidence/guest_fork_copy_*.json -text
+/tests/inherited_ofd_design/*.py -text
+/docs/evidence/inherited_ofd_design_*.json -text
+/docs/guest_fork_copy_contract.md -text

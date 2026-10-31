@@ -1,0 +1,315 @@
+{
+  "contract": "inherited-ofd-provenance-design-v1",
+  "encoding_proposal": "UInt64 handles/ordinals;typed enums;explicit availability union;bounded vector;no tags assigned",
+  "evidence_class": "SEMANTIC_DESIGN_ONLY",
+  "not_actual_wire": true,
+  "qualification": "always BLOCKED;all9permissions false;no allocation-history completion",
+  "schema": "inherited-ofd-semantic-schema-v1",
+  "sections": {
+    "bindings": [
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "fd",
+        "meaning": "binding locator,not object identity",
+        "required": true,
+        "type": "UInt6",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "presence",
+        "meaning": "PRESENT/NULL",
+        "required": true,
+        "type": "Enum",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "source_ofd",
+        "meaning": "unknown not inferred from destination",
+        "required": true,
+        "type": "OptionalHandle",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "destination_ofd",
+        "meaning": "unknown not inferred from source",
+        "required": true,
+        "type": "OptionalHandle",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "read",
+        "meaning": "actual-consumed read premise",
+        "required": true,
+        "type": "PositiveUInt64",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "branch",
+        "meaning": "REFERENCE/CLEAR_OPEN",
+        "required": true,
+        "type": "Enum",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "branch_ordinal",
+        "meaning": "paired operation record",
+        "required": true,
+        "type": "PositiveUInt64",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "branch_read",
+        "meaning": "must equal read",
+        "required": true,
+        "type": "PositiveUInt64",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "store",
+        "meaning": "destination store record",
+        "required": true,
+        "type": "PositiveUInt64",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "store_read",
+        "meaning": "must equal read",
+        "required": true,
+        "type": "PositiveUInt64",
+        "unit": "dimensionless"
+      }
+    ],
+    "context": [
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "source_profile",
+        "meaning": "exact proposed profile",
+        "required": true,
+        "type": "Enum",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "source_revision",
+        "meaning": "PR40 base pin",
+        "required": true,
+        "type": "Hex40",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "source_manifest_sha256",
+        "meaning": "selected PR40 static source references",
+        "required": true,
+        "type": "Hex64",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "boot_scope",
+        "meaning": "non-identifying local boot cohort",
+        "required": true,
+        "type": "Token",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "issuer_epoch",
+        "meaning": "nonreusing issuer epoch",
+        "required": true,
+        "type": "Token",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "record_domain",
+        "meaning": "proposed single program-record domain,not old CPS/CPC merge",
+        "required": true,
+        "type": "Enum",
+        "unit": "dimensionless"
+      }
+    ],
+    "copy": [
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "parent_task",
+        "meaning": "None remains unknown",
+        "required": true,
+        "type": "OptionalHandle",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "source_namespace",
+        "meaning": "None remains unknown",
+        "required": true,
+        "type": "OptionalHandle",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "child_task",
+        "meaning": "new TASK requires ALLOCATION/POST_INIT_ALLOC",
+        "required": true,
+        "type": "Handle",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "destination_namespace",
+        "meaning": "new NAMESPACE requires ALLOCATION/POST_INIT_ALLOC;None only failed constructor",
+        "required": true,
+        "type": "OptionalHandle",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "arm",
+        "meaning": "program-record anchor",
+        "required": true,
+        "type": "PositiveUInt64",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "begin",
+        "meaning": "program-record anchor",
+        "required": true,
+        "type": "PositiveUInt64",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "returned",
+        "meaning": "constructor return,not child commit",
+        "required": true,
+        "type": "PositiveUInt64",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "finalized",
+        "meaning": "task terminal",
+        "required": true,
+        "type": "PositiveUInt64",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "return_result",
+        "meaning": "SUCCESS/FAILED",
+        "required": true,
+        "type": "Enum",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "return_reason",
+        "meaning": "NONE or exact failure reason",
+        "required": true,
+        "type": "Enum",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "task_result",
+        "meaning": "COMMITTED/ABORTED",
+        "required": true,
+        "type": "Enum",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "task_reason",
+        "meaning": "NONE or exact task failure reason",
+        "required": true,
+        "type": "Enum",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "bindings",
+        "meaning": "max64 partial lineage premises,not full inventory",
+        "required": true,
+        "type": "BoundedVector",
+        "unit": "dimensionless"
+      }
+    ],
+    "objects": [
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "cookie",
+        "meaning": "opaque object-local handle,not address/PID/FD",
+        "required": true,
+        "type": "PositiveUInt64",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "role",
+        "meaning": "TASK/NAMESPACE/OFD",
+        "required": true,
+        "type": "Enum",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "generation",
+        "meaning": "only0,no reuse in profile",
+        "required": true,
+        "type": "UInt64",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "origin",
+        "meaning": "FIRST_OBSERVED/ALLOCATION,immutable provenance",
+        "required": true,
+        "type": "Enum",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "stage",
+        "meaning": "PRE_ARM_SEED/POST_INIT_ALLOC,declared synthetic premise",
+        "required": true,
+        "type": "Enum",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "ordinal",
+        "meaning": "proposed record order,not global effect order",
+        "required": true,
+        "type": "PositiveUInt64",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "boot_scope",
+        "meaning": "must match context",
+        "required": true,
+        "type": "Token",
+        "unit": "dimensionless"
+      },
+      {
+        "availability": "explicit None only for OptionalHandle",
+        "field": "issuer_epoch",
+        "meaning": "must match context",
+        "required": true,
+        "type": "Token",
+        "unit": "dimensionless"
+      }
+    ]
+  },
+  "versioning": "semantic/stage/cohort/unit changes require version change;source revision separate"
+}
