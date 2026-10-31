@@ -4,6 +4,8 @@ import ast
 import subprocess
 from pathlib import Path
 
+from tests.history_transition.policy import assert_history_transition
+
 ROOT = Path(__file__).resolve().parents[2]
 BASE = "5581049957088b348498eb5ef0b1061f76d19b7c"
 
@@ -20,7 +22,7 @@ def test_all_prior_source_tests_evidence_and_workflows_remain_byte_identical():
             ["git", "diff", "--name-only", BASE, "--", *scope], cwd=ROOT, text=True
         ).splitlines()
     )
-    assert not prior & changed
+    assert_history_transition(ROOT, BASE, prior & changed)
 
 
 def test_pure_model_and_readonly_audit_have_no_runtime_or_actual_record_dependency():

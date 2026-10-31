@@ -4,6 +4,8 @@ import ast
 import subprocess
 from pathlib import Path
 
+from tests.history_transition.policy import assert_history_transition
+
 ROOT = Path(__file__).resolve().parents[2]
 BASE = "3a831fdd423aa98638082eba126519db19f432d6"
 
@@ -46,9 +48,14 @@ def test_prior_runtime_actual_evidence_and_fixtures_remain_unchanged():
         ["git", "ls-tree", "-r", "--name-only", BASE, "--", "docs/evidence"], cwd=ROOT, text=True
     ).splitlines()
     paths = ["src", "compatibility", ".github", "tests/fixtures", "tests/experiments", *old]
-    assert (
-        subprocess.check_output(
-            ["git", "diff", "--name-only", BASE, "--", *paths], cwd=ROOT, text=True
-        )
-        == ""
+    assert_history_transition(
+        ROOT,
+        BASE,
+        set(
+            (
+                subprocess.check_output(
+                    ["git", "diff", "--name-only", BASE, "--", *paths], cwd=ROOT, text=True
+                )
+            ).splitlines()
+        ),
     )

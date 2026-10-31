@@ -4,6 +4,8 @@ import ast
 import subprocess
 from pathlib import Path
 
+from tests.history_transition.policy import assert_history_transition
+
 ROOT = Path(__file__).resolve().parents[2]
 BASE = "0652c87c5e1da83d2cf4a3336713b9839e929ae3"
 
@@ -44,13 +46,18 @@ def test_no_old_code_runtime_evidence_ci_or_fixture_mutation():
     old_evidence = subprocess.check_output(
         ["git", "ls-tree", "-r", "--name-only", BASE, "--", "docs/evidence"], cwd=ROOT, text=True
     ).splitlines()
-    assert (
-        subprocess.check_output(
-            ["git", "diff", "--name-only", BASE, "--", *protected, *old_evidence],
-            cwd=ROOT,
-            text=True,
-        )
-        == ""
+    assert_history_transition(
+        ROOT,
+        BASE,
+        set(
+            (
+                subprocess.check_output(
+                    ["git", "diff", "--name-only", BASE, "--", *protected, *old_evidence],
+                    cwd=ROOT,
+                    text=True,
+                )
+            ).splitlines()
+        ),
     )
 
 

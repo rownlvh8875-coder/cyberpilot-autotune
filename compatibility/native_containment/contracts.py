@@ -214,7 +214,12 @@ def parse_synthetic_case(raw: str) -> SyntheticContainmentCase:
     data["events"] = tuple(
         SyntheticSecurityEvent(**_exact(event, SyntheticSecurityEvent)) for event in data["events"]
     )
-    return SyntheticContainmentCase(**data)
+    case = SyntheticContainmentCase(**data)
+    try:
+        canonical_digest(case)
+    except UnicodeEncodeError:
+        raise ValueError("INVALID_UNICODE_SCALAR") from None
+    return case
 
 
 def canonical_digest(case: SyntheticContainmentCase) -> str:

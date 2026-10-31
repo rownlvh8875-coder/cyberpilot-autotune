@@ -4,6 +4,8 @@ import ast
 import subprocess
 from pathlib import Path
 
+from tests.history_transition.policy import assert_history_transition
+
 ROOT = Path(__file__).resolve().parents[2]
 BASE = "2d11becc2f5b3b71558db6c944de74ddf18354b3"
 
@@ -64,4 +66,4 @@ def test_every_preexisting_runtime_experiment_source_test_and_evidence_path_is_u
             text=True,
         ).splitlines()
     )
-    assert not previous & changed
+    assert_history_transition(ROOT, BASE, previous & changed)

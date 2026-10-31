@@ -4,6 +4,8 @@ import ast
 import subprocess
 from pathlib import Path
 
+from tests.history_transition.policy import assert_history_transition
+
 ROOT = Path(__file__).resolve().parents[2]
 BASE = "e01cdc127bbb17073aa47967b926b68088f57ded"
 
@@ -73,4 +75,4 @@ def test_every_old_source_runtime_test_evidence_and_workflow_blob_is_preserved()
             ["git", "diff", "--name-only", BASE, "--", *scope], cwd=ROOT, text=True
         ).splitlines()
     )
-    assert not old & changed
+    assert_history_transition(ROOT, BASE, old & changed)

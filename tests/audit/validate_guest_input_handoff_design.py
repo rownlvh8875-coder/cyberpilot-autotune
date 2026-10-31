@@ -173,9 +173,21 @@ def validate_schema(data: Any) -> None:
     )
     _keys(data["permissions"], set(PERMISSIONS))
     _check(all(v is False for v in data["permissions"].values()))
+    limits = data["limits"]
+    expected_limits = {
+        "members": 16,
+        "bytes_per_member": 4096,
+        "events": 1024,
+        "json_bytes": 2097152,
+    }
+    _check(type(limits) is dict)
+    _check(all(type(key) is str for key in limits))
+    _keys(limits, set(expected_limits))
     _check(
-        data["limits"]
-        == {"members": 16, "bytes_per_member": 4096, "events": 1024, "json_bytes": 2097152}
+        all(
+            type(limits[key]) is int and limits[key] == value
+            for key, value in expected_limits.items()
+        )
     )
     _fields(data["context_fields"], CONTEXT_FIELDS, "CONTEXT")
     _fields(data["member_fields"], MEMBER_FIELDS, "MANIFEST")

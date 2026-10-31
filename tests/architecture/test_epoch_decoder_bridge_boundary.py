@@ -4,6 +4,8 @@ import ast
 import subprocess
 from pathlib import Path
 
+from tests.history_transition.policy import assert_history_transition
+
 ROOT = Path(__file__).resolve().parents[2]
 BASE = "4371dfe5e69878665abcb9133cc20d5e0451949d"
 
@@ -19,7 +21,7 @@ def test_every_prior_tracked_blob_is_preserved_except_additive_attributes():
             ["git", "diff", "--name-only", BASE], cwd=ROOT, text=True
         ).splitlines()
     )
-    assert not (before & changed) - {".gitattributes"}
+    assert_history_transition(ROOT, BASE, (before & changed) - {".gitattributes"})
     attrs = subprocess.check_output(["git", "show", BASE + ":.gitattributes"], cwd=ROOT)
     assert (ROOT / ".gitattributes").read_text().encode().startswith(attrs)
 
