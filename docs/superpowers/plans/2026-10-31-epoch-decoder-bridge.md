@@ -51,10 +51,10 @@ requires an independent literal cohort; separate architecture guards pin scope.
 
 **Interfaces:** Consumes Task1 interfaces; no new runtime interface.
 
-- [ ] Add old-blob and import/capability guards; execute them against actual tree.
-- [ ] Run full/coverage/source/history/assets/lint/format/mypy/build/wheel/native/
+- [x] Add old-blob and import/capability guards; execute them against actual tree.
+- [x] Run full/coverage/source/history/assets/lint/format/mypy/build/wheel/native/
   replay and CRLF checks. Expected: PASS, with skips/limits explicitly disclosed.
-- [ ] Record PR18 offline-only scope and outstanding25/33/34/9 items; commit;
+- [x] Record PR18 offline-only scope and outstanding25/33/34/9 items; commit;
   one fresh whole-branch exact-head review, C/I one RED→GREEN fix pass if needed.
 - [ ] Publish only a new own stacked Draft against feat/lossless-raw-epoch;
   attach; wait exact-head push+PR CI; preserve existing35PRs/main, archive own logs.

@@ -81,9 +81,14 @@ Final focused37PASS including old-blob/import and required-compiler guards;
 full3944PASS106.42s, installed package coverage98.52%.
 New58statements30branches100/100. Old source/
 history/originalasset audits, native192/replay4, lint/format635files,
-mypy71sourcefiles, build and fresh vanilla/researchwheel PASS. CRLF, exact-head
-internal review and CI are recorded in the own Draft handoff after their actual
-runs. Internal fresh-context AI review is not a registered GitHub approval or
+mypy71sourcefiles, build and fresh vanilla/researchwheel PASS. Fresh CRLF
+checkout619PASS2.79s and unchanged default v2 audit PASS; without external
+source/build roots that default audit correctly leaves those checks unavailable.
+An attempted wheel rerun reused a research-installed venv and correctly failed
+the vanilla no-NumPy check; a new exclusive venv passed both modes without
+changing source or acceptance criteria. Exact-head internal review and CI are
+recorded in the own Draft handoff after their actual runs. Internal fresh-context
+AI review is not a registered GitHub approval or
 independent human authorization. Python coverage is not C/LKMM/vehicle proof.
 
 Compiler discovery/fail-before-write tests also ran RED→GREEN. The native
