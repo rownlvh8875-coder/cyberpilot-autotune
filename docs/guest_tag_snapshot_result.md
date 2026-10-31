@@ -45,8 +45,8 @@ Kernel SHA256 `7cb0f6d237aa24d3597ad687973df726601cfc388920ef5fdd0042c9d814b9df`
 init `095eb2f73c119465691db3c13f14260f18bacb3057f69c4fa8500c866e809442`;
 config `565b7c00d5411adb991aa227ecdbe0c217ecf85f4a2dafbce1aada57240a529c`.
 Source catalog `8906f740eeeceff728958494de93c0dd3e57d2f1c5a1e484e88129869dfcfeeb`;
-build `82cebd9cfadc8c80f18160981a50aaa1926ff256e9f3b73a5dc3617c860bebb7`;
-actual `60ebb92f0d3490ca2817435f195a102c43379df42d5e39b2111d39b94babae59`.
+build `492b646a04af900945b04f42db2b18261438b02050326ac2d766a801bda8d75b`;
+actual `6e8471f02ca74a80d82357401a2b1e93612e0f7781d2584ce40409120a8ecf31`.
 Hashes identify bytes,not authenticity/safety/application authority.
 
 ## Verification
@@ -57,10 +57,25 @@ full3650pass36.65s before final exact-head checks. New actual source11files/
 file/blob/range hashes,tools/archive/config/kernel/init/retainedserial/images PASS.
 PR42 original captures/source/assets and PR43 source boundary audit remain PASS;
 13old source obligations remain open. Historical source/history validators,
-native192/replay4,ruff591/format/mypy81,build/fresh wheel are recorded in own PR.
+native192/replay4,ruff593/format/mypy81,build/fresh wheel are recorded in own PR.
+
+Fresh independent review at e7a223f46eb150ecb30bde2dbf1f192abfced826 found
+C0/I2/M1. I1:available CLEAR_OPEN/NULL/present contradictions could survive,
+especially without a snapshot. I2:visible foreign-FD/future consumed ordinals
+could be treated as absent receipts. One author fix pass added8RED→GREEN cases
+per finding plus2legitimate branch/copy-domain checks. Focused98/full3668PASS38.00s;
+source/assets/old audits/native192/replay4/lint/type reran PASS. No second review
+or independent final-head approval is claimed. New M1 native raw_epoch UInt32
+bound remains deferred;authority stays blocked.
+
+Kernel/init/config/patch chain and all seven captures/baseline/image records are
+byte-identical before/after fixes. Only current Python diagnostic/cohort source
+hashes and the build-manifest linkage were refrozen. Initial manifests remain in
+Git e7a223f;the update is not a claim that guest execution used changed producer
+code or that captures were rerun. Existing actual records are not reclassified.
 
 contracts/model/wire/image100% statement and branch coverage. Whole test package
-380statements72branches:statement85.26%,branch80.56%,combined84.51% in the ordinary
+401statements78branches:statement86.03%,branch82.05%,combined85.39% in the ordinary
 focused run,including opt-in process/error and explicit external-asset paths.
 Do not confuse Python coverage with C/LKMM/runtime qualification. Author explicit
 source/assets/build/guest checks are distinct from ordinary pytest coverage.
@@ -99,3 +114,5 @@ Prior6deferredminors unchanged:PR43M1portablepaired-rootintegration;
 PR42M1retained-imageautomaticverification;PR34M1HH03diagnosticFD0/actualFD3;
 PR33M1fixtureordering;PR33M2float-equalmetadata;PR33M3genericenvelopecatalog.
 New retained-image checks cover this new cohort only,not a repair of old PR42.
+Plus new deferred M1:raw_epoch is UInt64-bounded instead of native UInt32 in the
+decoder;all actual captured epochs are0/1 and no qualification follows parsing.

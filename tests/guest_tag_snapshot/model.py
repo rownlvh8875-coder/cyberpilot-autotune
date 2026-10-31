@@ -6,6 +6,46 @@ from .contracts import Capture, Decision, Event, Snapshot
 from .wire import CONTEXT, PAYLOAD
 
 
+def _validate_markers(indexed: dict[tuple[int, str, int], Event]) -> None:
+    groups: dict[tuple[int, int], dict[str, Event]] = {}
+    pointers = {
+        (copy, int(dict(event.values)["local"])): fd
+        for (copy, stage, fd), event in indexed.items()
+        if stage == "POINTER_READ"
+    }
+    for (copy, stage, fd), event in indexed.items():
+        groups.setdefault((copy, fd), {})[stage] = event
+        if stage != "POINTER_READ":
+            values = dict(event.values)
+            ordinal = int(values["read_ordinal"])
+            require(ordinal < int(values["local"]), "CONSUMED_READ_NOT_PRECEDING")
+            pointer_fd = pointers.get((copy, ordinal))
+            require(pointer_fd is None or pointer_fd == fd, "CONSUMED_POINTER_FOREIGN_FD")
+    for group in groups.values():
+        ordinals = {
+            int(dict(event.values)["local" if stage == "POINTER_READ" else "read_ordinal"])
+            for stage, event in group.items()
+        }
+        require(len(ordinals) == 1, "CONSUMED_ORDINAL_CONTRADICTION")
+        presence = {
+            dict(group[stage].values)["presence"]
+            for stage in ("POINTER_READ", "STORE")
+            if stage in group
+        }
+        require(len(presence) <= 1, "POINTER_STORE_PRESENCE_CONTRADICTION")
+        present_branch = "PRESENT" in presence or bool({"REFERENCE", "TAG_SNAPSHOT"} & group.keys())
+        require(
+            not present_branch or ("CLEAR_OPEN" not in group and "NULL" not in presence),
+            "NULL_PRESENT_BRANCH_CONTRADICTION",
+        )
+        observed = [
+            group[stage].n
+            for stage in ("POINTER_READ", "REFERENCE", "CLEAR_OPEN", "STORE", "TAG_SNAPSHOT")
+            if stage in group
+        ]
+        require(observed == sorted(observed), "OBSERVED_MARKER_ORDER_INVALID")
+
+
 def assess(capture: Capture) -> Decision:
     a, r, c, f, d, p = capture.counts
     balanced = a == r + f and r == c + d + p and c == len(capture.events)
@@ -35,6 +75,7 @@ def assess(capture: Capture) -> Decision:
         key = copy, event.kind, int(v["fd"])
         require(key not in indexed, "DUPLICATE_STAGE_FD")
         indexed[key] = event
+    _validate_markers(indexed)
     snapshots = []
     for event in raw_snapshots:
         v = dict(event.values)

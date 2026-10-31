@@ -7,7 +7,7 @@ _OLD_PREFIX = "tests/guest_bootstrap/"
 INPUTS = {
     _PREFIX + "contracts.py": "cdeb13ea4c1f6c11842be2319770a1855d6d4d72f23688ce470b272e5e8483c1",
     _PREFIX + "wire.py": "c6bdfaa7605ad708751f7fb2072dbfedaf378c52e5caded140fd7f4948dc93c1",
-    _PREFIX + "model.py": "546119563dd47c49c8a31e5bd955e7a091385c6e43b1ce49c6c3f096b1f46eb0",
+    _PREFIX + "model.py": "76e6ebf7e9224e9594ce6bb03ed8a85f096ff19a2abb690c44cdc327de1d6e67",
     _PREFIX + "image.py": "b728016ec3c2004af3ca138cfac868bcd4a4b279ba9bb1da114cf495a4b237fa",
     _PREFIX + "runner.py": "00333e46fc0c370da4651524901372c6bd789881975b1bc969ce29e5886cbd7c",
     _PREFIX + "guest/init.c": "eb588c2d7c48f2b612c7281764bb9c20e6559cbff64d7692bb3b4af5428db85d",

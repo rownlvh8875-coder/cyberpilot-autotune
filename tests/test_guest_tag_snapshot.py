@@ -191,3 +191,90 @@ def test_diagnostic_control_and_multiple_copy_contexts_do_not_supply_witnesses()
     assert result.snapshots[0].lifetime_witness is None
     assert not result.snapshots[0].source_join_complete
     assert result.local_accounting_balanced
+
+
+@pytest.mark.parametrize(
+    "rows",
+    [
+        (
+            POINTER,
+            REFERENCE,
+            line(3, "CLEAR_OPEN", "fd=5 read_ordinal=1"),
+            STORE.replace(b"n=3", b"n=4").replace(b"local=3", b"local=4"),
+            SNAPSHOT.replace(b"n=4", b"n=5").replace(b"local=4", b"local=5"),
+        ),
+        (line(2, "CLEAR_OPEN", "fd=5 read_ordinal=1"), STORE, SNAPSHOT),
+        (POINTER.replace(b"PRESENT", b"NULL"), REFERENCE, STORE),
+        (POINTER, STORE.replace(b"PRESENT", b"NULL")),
+        (POINTER.replace(b"PRESENT", b"NULL"), STORE),
+        (POINTER, line(2, "CLEAR_OPEN", "fd=5 read_ordinal=1"), STORE),
+        (
+            line(2, "CLEAR_OPEN", "fd=5 read_ordinal=1"),
+            REFERENCE.replace(b"n=2", b"n=3").replace(b"local=2", b"local=3"),
+        ),
+        (
+            POINTER,
+            STORE.replace(b"n=3", b"n=2").replace(b"local=3", b"local=2"),
+            REFERENCE.replace(b"n=2", b"n=3").replace(b"local=2", b"local=3"),
+        ),
+    ],
+)
+def test_review_i1_contradictory_branches_rejected_even_without_snapshot(rows):
+    parse, assess = api()
+    with pytest.raises(ValueError):
+        assess(
+            parse(frame(rows, attempted=max(len(rows), 5), failed=max(len(rows), 5) - len(rows)))
+        )
+
+
+def test_null_branch_without_snapshot_is_a_legitimate_observed_branch():
+    parse, assess = api()
+    rows = (
+        POINTER.replace(b"PRESENT", b"NULL"),
+        line(2, "CLEAR_OPEN", "fd=5 read_ordinal=1"),
+        STORE.replace(b"PRESENT", b"NULL"),
+    )
+    result = assess(parse(frame(rows, attempted=3)))
+    assert result.snapshots == () and result.reasons == () and result.local_accounting_balanced
+
+
+@pytest.mark.parametrize(
+    "rows",
+    [
+        (POINTER.replace(b"fd=5", b"fd=6"), REFERENCE, STORE, SNAPSHOT),
+        (POINTER.replace(b"fd=5", b"fd=6"), REFERENCE, STORE),
+        tuple(
+            r.replace(b"read_ordinal=1", b"read_ordinal=9") for r in (REFERENCE, STORE, SNAPSHOT)
+        ),
+        tuple(
+            r.replace(b"read_ordinal=1", b"read_ordinal=2") for r in (REFERENCE, STORE, SNAPSHOT)
+        ),
+        tuple(r.replace(b"read_ordinal=1", b"read_ordinal=9") for r in (REFERENCE, STORE)),
+        (REFERENCE, STORE.replace(b"read_ordinal=1", b"read_ordinal=2")),
+        (
+            POINTER,
+            REFERENCE.replace(b"read_ordinal=1", b"read_ordinal=2"),
+            STORE.replace(b"read_ordinal=1", b"read_ordinal=2"),
+        ),
+        (
+            POINTER.replace(b"PRESENT", b"NULL"),
+            line(2, "CLEAR_OPEN", "fd=5 read_ordinal=2"),
+            STORE.replace(b"PRESENT", b"NULL").replace(b"read_ordinal=1", b"read_ordinal=2"),
+        ),
+    ],
+)
+def test_review_i2_visible_foreign_or_future_consumed_ordinal_is_not_missing(rows):
+    parse, assess = api()
+    with pytest.raises(ValueError):
+        assess(parse(frame(rows, attempted=5, failed=5 - len(rows))))
+
+
+def test_missing_pointer_in_another_copy_is_not_joined_by_equal_local_ordinal():
+    parse, assess = api()
+    rows = (
+        POINTER.replace(b"fd=5", b"fd=6"),
+        *(r.replace(b"copy=1", b"copy=2") for r in (REFERENCE, STORE, SNAPSHOT)),
+    )
+    result = assess(parse(frame(rows, attempted=5, failed=1)))
+    assert not result.snapshots[0].source_join_complete
+    assert result.snapshots[0].pointer_record_n is None

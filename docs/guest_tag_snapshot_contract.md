@@ -54,6 +54,11 @@ not a newly observed OFD-local generation. Nonce and hashes identify a content
 cohort, not authenticity, freshness or authority. No addresses/VIN/driver/GPS/
 route/CAN/images are exported.
 
+Known deferred minor:the decoder currently applies a UInt64 bound to raw_epoch,
+not the producer's native UInt32 bound. An impossible >UInt32 diagnostic epoch
+can therefore parse and retain a source join,although logical_cookie is None
+unless epoch1. Frozen actual epochs are within range;no authority is granted.
+
 A complete available source join requires observed POINTER_READ, REFERENCE and
 STORE of the exact same copy/context/fd/read ordinal in observed mechanical order
 before the snapshot's emission. It is not a source lifetime/publication witness.
@@ -61,6 +66,12 @@ Missing records remain unavailable, even if an ordinal or later tuple matches.
 Contradictory available stage/context/presence links are rejected. The diagnostic
 does not infer a capture timestamp, target linearization or an assumed HB DAG
 from emission n/local counters. Local count balance is not global completeness.
+
+Available branch consistency is checked even without a surviving snapshot:
+CLEAR_OPEN cannot coexist with present/reference/snapshot evidence;pointer/store
+presence must agree. Consumed ordinals must precede each consuming local marker,
+agree within a copy/fd,and cannot visibly belong to another fd in that copy.
+Equal local ordinals in different copies are not interchangeable source receipts.
 
 The decoder is closed/bounded and rejects wrong release/profile/stages, old
 reserved record prefixes, unknown or duplicate fields, bad integers and frames.

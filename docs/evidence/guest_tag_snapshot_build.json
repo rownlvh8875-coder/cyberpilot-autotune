@@ -157,14 +157,14 @@
       "sha256": "c6bdfaa7605ad708751f7fb2072dbfedaf378c52e5caded140fd7f4948dc93c1"
     },
     {
-      "bytes": 4124,
+      "bytes": 5960,
       "path": "tests/guest_tag_snapshot/model.py",
-      "sha256": "546119563dd47c49c8a31e5bd955e7a091385c6e43b1ce49c6c3f096b1f46eb0"
+      "sha256": "76e6ebf7e9224e9594ce6bb03ed8a85f096ff19a2abb690c44cdc327de1d6e67"
     },
     {
       "bytes": 1830,
       "path": "tests/guest_tag_snapshot/cohort.py",
-      "sha256": "46aa262caf77a40b59b4556480b327969bd3b2e5e74f6557d152293606f80d14"
+      "sha256": "26fedb657666f33ce4607a811f053756c598b36ca2768cfecbe3ce7a4c4e9afc"
     },
     {
       "bytes": 1258,
