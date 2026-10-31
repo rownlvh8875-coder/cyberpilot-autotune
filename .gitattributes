@@ -37,3 +37,5 @@
 /docs/evidence/guest_root_scope_*.json -text
 /tests/fork_copy_design/*.py -text
 /docs/evidence/fork_copy_design_*.json -text
+/tests/guest_fork_copy/** -text
+/docs/evidence/guest_fork_copy_*.json -text

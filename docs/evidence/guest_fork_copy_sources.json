@@ -1,0 +1,493 @@
+{
+  "base_revision": "4a04a5a38a68970624380c10113c97a752af4aa8",
+  "patch": {
+    "bytes": 26457,
+    "path": "tests/guest_fork_copy/kernel.patch",
+    "sha256": "ae13cceb0cc07cd1e4c18478dee80f2b3e490108e8a42781158dbf011917e13c"
+  },
+  "patched_files": [
+    {
+      "bytes": 39257,
+      "git_blob_sha1": "b0c75fc4e86d83223ae2aa6bf22352ed8c81333f",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "BITMAP_COPY",
+          "end": 73,
+          "sha256": "7f1a1e79876de2ece9750033c1dfe9795d9549c0d57023d759a276dbe70d4124",
+          "start": 57
+        },
+        {
+          "claim": "NULL_CLEAR_NOT_CLOEXEC",
+          "end": 282,
+          "sha256": "d8e7aa040461b2e979a9cf935e1380808adbffeacdd953d5615b89434a9ca6d0",
+          "start": 276
+        },
+        {
+          "claim": "ROUNDED_SCAN_BOUND",
+          "end": 310,
+          "sha256": "e62edb5543a60a32b7b03507744debc15016317dc4291b84cc86b55068379566",
+          "start": 296
+        },
+        {
+          "claim": "NAMESPACE_POST_FREE_SCALARS",
+          "end": 499,
+          "sha256": "3ccff937a3353253d8a4bd0a384cfd777b1d45e47b578fa84746547c92de484c",
+          "start": 477
+        },
+        {
+          "claim": "INSTALL",
+          "end": 671,
+          "sha256": "4320c7d624c0be6dae6fadd722f0b2b9b11af5f1e9a4cee212832e52640814cb",
+          "start": 638
+        },
+        {
+          "claim": "CLOSE",
+          "end": 700,
+          "sha256": "fc09eaaa5c01289a3bd16f161e6e700415e1a0b0581a7077fa153de0fe04160a",
+          "start": 680
+        },
+        {
+          "claim": "FLAGS",
+          "end": 1246,
+          "sha256": "3016ce5a9d4b6bb0ca8392b9823d5c20bb2eb9582d6f0e7f74ad4837a74c83ef",
+          "start": 1230
+        },
+        {
+          "claim": "DUP_WRITE",
+          "end": 1308,
+          "sha256": "a571feea1c87d8c742405c7b64a800d2cb5f82709a8a1ed91dcc83433f0afb26",
+          "start": 1253
+        },
+        {
+          "claim": "TASK_AWARE_COPY_WRAPPER",
+          "end": 337,
+          "sha256": "cc419413279a82db1a964835bb33eaadc2602f8e712af581ebd359af712300e8",
+          "start": 315
+        },
+        {
+          "claim": "EARLY_ALLOCATION_ID",
+          "end": 354,
+          "sha256": "4da4297fcbdb8237d9cb66433de564d873f04f7c01695f4fa014f484d52ddb46",
+          "start": 341
+        },
+        {
+          "claim": "CONSTRUCTOR_FAILURE_AND_BITMAP_OUTPUT",
+          "end": 399,
+          "sha256": "92c4b69ad8c2801f661c57637d3014c91566d846bc69eb3989acd2cf779aae4f",
+          "start": 381
+        },
+        {
+          "claim": "ACTUAL_READ_REFERENCE_CLEAR_STORE",
+          "end": 429,
+          "sha256": "05663b903ad6ad36307b15a2bf209fb522a7027c7c819406f4bb3e6599593d84",
+          "start": 411
+        },
+        {
+          "claim": "TAIL_AND_RETURN",
+          "end": 436,
+          "sha256": "53f3a5ded2c24cadff1db445d46aeb0f60dcfd0aa24fb2216b616c3482b68aee",
+          "start": 426
+        },
+        {
+          "claim": "ORDINARY_AND_TASK_WRAPPERS",
+          "end": 446,
+          "sha256": "ea415496edcca6f45b14018b8298bfea98855dfcd826f9622ea13a1749d5f337",
+          "start": 435
+        }
+      ],
+      "sha256": "e0ccd6a4149ea1ac29bc00e317a6cf1fb41eeb8eae88eb54125abc62d3e1ce90"
+    },
+    {
+      "bytes": 15200,
+      "git_blob_sha1": "9b3fd9e901b9c43c30039846849b077bdc276a8c",
+      "path": "fs/file_table.c",
+      "ranges": [
+        {
+          "claim": "FILE_POST_FREE_SCALARS",
+          "end": 109,
+          "sha256": "6f6618feff14cd630094939df11c7719cdd89d405a32456c4ba9717d3a5be063",
+          "start": 88
+        },
+        {
+          "claim": "INITIALIZED_FILE_BIRTH",
+          "end": 262,
+          "sha256": "c2f6162b62fb24244bb10c250a069d57dd60a19a85f0659791835b852b511cdb",
+          "start": 218
+        }
+      ],
+      "sha256": "fa4aebbb367d97206b0f7e571e63af54f08d0459fcd259efd5e3b00783f1f78a"
+    },
+    {
+      "bytes": 934,
+      "git_blob_sha1": "6a08137771d703345811c42cbe40e17563bfb2c0",
+      "path": "fs/proc/Makefile",
+      "ranges": [
+        {
+          "claim": "PROC_BUILD_REGISTRATION",
+          "end": 19,
+          "sha256": "22145a7a47da7a53da0161ce5814d9796da8508ba3cffbdc80da23fc56e2b688",
+          "start": 15
+        }
+      ],
+      "sha256": "caf5c7432cbdaba90c122cc3c1d925bdd915f758de605bb8b704655ed08cc2b8"
+    },
+    {
+      "bytes": 3535,
+      "git_blob_sha1": "e22f3fbfcbf41cc9dbc89c34382aae5d03df187a",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "NAMESPACE_COOKIE",
+          "end": 65,
+          "sha256": "3ab62a634c697975144cf576ec9cd08d9a9a55ffaaa1e0b2e40564461deeea9a",
+          "start": 38
+        }
+      ],
+      "sha256": "86b2acb622e4bd1d03eeeaa4fe2b8f3bf33ce1779ec32d959402b47d42857dd4"
+    },
+    {
+      "bytes": 128631,
+      "git_blob_sha1": "bba7bb6a1199381f558667dd7e546437ae70bf48",
+      "path": "include/linux/fs.h",
+      "ranges": [
+        {
+          "claim": "OFD_COOKIE",
+          "end": 1103,
+          "sha256": "27d77049f3f7832b4e82ffeb67ef1d77d7ab3ec64ac852897951cd3b1b9d5b21",
+          "start": 1075
+        }
+      ],
+      "sha256": "a5088347c8316a51fa4e339672724472e2e64d6e041a448dd55c9c870d353f7e"
+    },
+    {
+      "bytes": 65112,
+      "git_blob_sha1": "3074310b11c489d3b2fa47c03725456b6695c723",
+      "path": "include/linux/sched.h",
+      "ranges": [
+        {
+          "claim": "TASK_SCALAR_COPY_CONTEXT",
+          "end": 1162,
+          "sha256": "3e7efe91d7d4c2f8f9accaab1fff2e21ba43eb37df96564fc637310fbeb0e26e",
+          "start": 1153
+        }
+      ],
+      "sha256": "0294615c57df35be2280576d14e4141aaf5a835425d3d047c8073ca60ddd5c85"
+    },
+    {
+      "bytes": 88082,
+      "git_blob_sha1": "aa627d4f64c18c137deac645c0076d5a86ba0e29",
+      "path": "kernel/fork.c",
+      "ranges": [
+        {
+          "claim": "PRIVATE_COPY_CALLER",
+          "end": 1838,
+          "sha256": "0f658db33878198550dd301482b57887ef69eecf50af6aca08acb3685dbd8b65",
+          "start": 1802
+        },
+        {
+          "claim": "TASK_ALLOCATION",
+          "end": 2267,
+          "sha256": "0e843c05d57ca9b0cc9760c37812d0e010b94a2467a1bdc79ac644528caff013",
+          "start": 2252
+        },
+        {
+          "claim": "COPY_AND_LATE_FAILURE",
+          "end": 2427,
+          "sha256": "ceada48dfc1fbd97914a174ddf7c061d81ca1cf1a439cab57dec205f333f816a",
+          "start": 2407
+        },
+        {
+          "claim": "LAST_FAILURE_AND_COMMIT",
+          "end": 2668,
+          "sha256": "819885492dd29f9926349539743449a4166b305f261518613c44a68b276dca57",
+          "start": 2576
+        },
+        {
+          "claim": "ABORT_BEFORE_TASK_DESTRUCTION",
+          "end": 2731,
+          "sha256": "b14b1dfeda2f6febd0ca6aaa69ce4e9b3e49d49cfea74d8cc50cc50dda42821c",
+          "start": 2718
+        },
+        {
+          "claim": "RUNNABLE_AFTER_COPY",
+          "end": 2883,
+          "sha256": "f3efd112746cb42c9ed4fac4f3581909d2aa4386518898c693ecb2f6ed04f170",
+          "start": 2863
+        }
+      ],
+      "sha256": "df52fcb14cae5c33aa3ac81d071d3b617f54834687ed4ccc6c828699eed1580d"
+    },
+    {
+      "bytes": 1721,
+      "git_blob_sha1": "789f7457114138f7015bf70dd63932ed863909b9",
+      "path": "include/linux/cplife.h",
+      "ranges": [
+        {
+          "claim": "TYPED_SOURCE_HOOK_API",
+          "end": 34,
+          "sha256": "98dc188242f91d81fbfe906f5f68cb6820974d8b0905234b2bdd973ac3b06a9c",
+          "start": 2
+        }
+      ],
+      "sha256": "74c0e47d174d0f64176905dc72a5c1e9c00ecb0754d677c64f162a4b1fa4c8f3"
+    },
+    {
+      "bytes": 6563,
+      "git_blob_sha1": "e1baff2110419d0217b84ab2b606fe787fddcd0b",
+      "path": "fs/proc/cplife.c",
+      "ranges": [
+        {
+          "claim": "CLEAR_INHERITED_TASK_CONTEXT",
+          "end": 94,
+          "sha256": "64c24943670619437957ae53b18fc5c80763a5ff6d4e8590c902b59993ee4e10",
+          "start": 68
+        },
+        {
+          "claim": "RETAIN_COOKIE_AFTER_CONSTRUCTOR",
+          "end": 118,
+          "sha256": "c5c333ab57be541b2afb340ab98a5f70f2c7cbc763188573bf5fba0bed1742bf",
+          "start": 91
+        },
+        {
+          "claim": "ONE_SHOT_ARM_STOP_RCU",
+          "end": 177,
+          "sha256": "7a6e0dd5768d6ba3131aaa9393b84a0371ace97deb56ab7cfb61f6fb7becaf1b",
+          "start": 142
+        },
+        {
+          "claim": "SEPARATE_LIFECYCLE_DOMAIN",
+          "end": 200,
+          "sha256": "04ba36eeee402eacf611bff91f76874786f522daac5a53cbecd4caf39b5fd8c6",
+          "start": 169
+        }
+      ],
+      "sha256": "8a1e07b33a002e1081d2f4b887d708097d1f3d577b61b5c60abdd22c705bf47c"
+    },
+    {
+      "bytes": 6878,
+      "git_blob_sha1": "091828d25eb983e2443f4191a8d842f0f0d9a269",
+      "path": "fs/proc/cpcopy.c",
+      "ranges": [
+        {
+          "claim": "PREALLOCATED_RECORDS_AND_MODES",
+          "end": 60,
+          "sha256": "f2323e24fc047923922fcacc2de1d1484eb5291939d5c9c4751b9b9800c077a9",
+          "start": 17
+        },
+        {
+          "claim": "ATTEMPT_AND_FAULT_MODES",
+          "end": 72,
+          "sha256": "82648120401fe2a96f4b157eb82d912f686a5034db0506f504ef18f23281cd40",
+          "start": 54
+        },
+        {
+          "claim": "PRE_RESERVATION_ACCOUNTING",
+          "end": 103,
+          "sha256": "9b216efa058af5444c11487453c2e03b166a8c0a42581580816b0b94c0b9eeaf",
+          "start": 68
+        },
+        {
+          "claim": "ALLOCATED_COOKIE_AND_RAW_STAGES",
+          "end": 145,
+          "sha256": "55912265fdebaca707fa1d2beb73948429a0d23299ba46ceea398b384496c19c",
+          "start": 97
+        },
+        {
+          "claim": "RETURN_POST_FREE_AND_TASK_FINALIZE",
+          "end": 156,
+          "sha256": "e2a7191c287fd1a1190fb824a95a9950e9de0d48a3dcf2e6eb75353663b9b012",
+          "start": 129
+        },
+        {
+          "claim": "EXACT_OBSERVED_CPC_WIRE",
+          "end": 184,
+          "sha256": "16e59be091bb11f2f3473d999bce9900315edc071a49a5be057cd92bba38901b",
+          "start": 149
+        }
+      ],
+      "sha256": "6707eb94f0c13e741bd51558ec69b6b82cba91a96cc66beecc3031840254bb12"
+    }
+  ],
+  "pristine_files": [
+    {
+      "bytes": 37233,
+      "git_blob_sha1": "c84bd5809358382df0332322dfce64a1749acab3",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "BITMAP_COPY",
+          "end": 72,
+          "sha256": "7f1a1e79876de2ece9750033c1dfe9795d9549c0d57023d759a276dbe70d4124",
+          "start": 56
+        },
+        {
+          "claim": "NULL_CLEAR_NOT_CLOEXEC",
+          "end": 281,
+          "sha256": "d8e7aa040461b2e979a9cf935e1380808adbffeacdd953d5615b89434a9ca6d0",
+          "start": 275
+        },
+        {
+          "claim": "ROUNDED_SCAN_BOUND",
+          "end": 309,
+          "sha256": "e62edb5543a60a32b7b03507744debc15016317dc4291b84cc86b55068379566",
+          "start": 295
+        },
+        {
+          "claim": "NAMESPACE_POST_FREE_SCALARS",
+          "end": 459,
+          "sha256": "b3328552cefe66270c5e9d25733d50755c4e4ce7dbc67d356342c37ccd82d632",
+          "start": 437
+        },
+        {
+          "claim": "INSTALL",
+          "end": 628,
+          "sha256": "2c5c4d9d1932355f74bf937ff75e164774a84d15dd8a94accac9699b892d1ba7",
+          "start": 595
+        },
+        {
+          "claim": "CLOSE",
+          "end": 655,
+          "sha256": "af56b5fa90da75bb6a33a631b378b4effe1d742ee2901687de7946e8996d97c3",
+          "start": 635
+        },
+        {
+          "claim": "FLAGS",
+          "end": 1200,
+          "sha256": "3ea9172a06f1fa6b7309a316dd9f30eff071d59a06b51f4988c064d784833233",
+          "start": 1184
+        },
+        {
+          "claim": "DUP_WRITE",
+          "end": 1261,
+          "sha256": "0abdaf8623ffa0199e27256f2c61d509fb95ce8dbb218d13f3ae71e7cb6824f8",
+          "start": 1206
+        }
+      ],
+      "sha256": "07cb3588c77a23709dfc746330cb0ac602445d647a14246ab5242bc389256169"
+    },
+    {
+      "bytes": 15008,
+      "git_blob_sha1": "f78bcff79f1a0499bcc48390f032e785cf4b47f4",
+      "path": "fs/file_table.c",
+      "ranges": [
+        {
+          "claim": "FILE_POST_FREE_SCALARS",
+          "end": 108,
+          "sha256": "e835181cd86a6a64511b9a7da3ca96553d833908a9acd708d4c10b748dd58727",
+          "start": 87
+        },
+        {
+          "claim": "INITIALIZED_FILE_BIRTH",
+          "end": 258,
+          "sha256": "20d7abed373500e281e43b875d413f56fa089797cd4741aea81f03fe4b614913",
+          "start": 214
+        }
+      ],
+      "sha256": "853ad4b282453d6091944412fa5eae258e11e53292457b8be812afe4cc15320c"
+    },
+    {
+      "bytes": 894,
+      "git_blob_sha1": "7b4db9c56e6a77d3f0abd4a4e687542a734bb8d7",
+      "path": "fs/proc/Makefile",
+      "ranges": [
+        {
+          "claim": "PROC_BUILD_REGISTRATION",
+          "end": 19,
+          "sha256": "43f2e81ae0f4b7b57818ca0e6a8573659c22048fff8add41618f1f2a6dbcd52f",
+          "start": 15
+        }
+      ],
+      "sha256": "7e9624f9f9f7bc0698e94353fd8e8129ae2e3c7be5eb41f44113e36da53afe65"
+    },
+    {
+      "bytes": 3452,
+      "git_blob_sha1": "b1c5722f2b3ce4ba82e89716d5e27f85c67a8afd",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "NAMESPACE_COOKIE",
+          "end": 65,
+          "sha256": "d8011fb7a1b698eac8c768ec69c881d24f4d922dec4f5b1d8be47c4fcbca6b3d",
+          "start": 38
+        }
+      ],
+      "sha256": "ab0233740bd825ed7705e378278f60a3a184a7ded81fea060ac4a2fbfe2abfdb"
+    },
+    {
+      "bytes": 128548,
+      "git_blob_sha1": "19211eb49a8c087e497a1d2ff08906ea34fb9e64",
+      "path": "include/linux/fs.h",
+      "ranges": [
+        {
+          "claim": "OFD_COOKIE",
+          "end": 1103,
+          "sha256": "21ed70d564745434c52c98b021e724d98f5ada2a14d038a06fbc7b35d22afe16",
+          "start": 1075
+        }
+      ],
+      "sha256": "b1eaaf9e239d449a923a980ad05939069bb8347655b482a11b0e9ba524759bce"
+    },
+    {
+      "bytes": 65002,
+      "git_blob_sha1": "0fb5bb6c30d3ff73e2b392534c87c555497348fe",
+      "path": "include/linux/sched.h",
+      "ranges": [
+        {
+          "claim": "TASK_SCALAR_COPY_CONTEXT",
+          "end": 1162,
+          "sha256": "58672188c4a77ffdd09582298a773eeb36d90cdc9967dd7f0a4075268ebccd94",
+          "start": 1153
+        }
+      ],
+      "sha256": "ce6de88d6af3a27ef81e86b44e24fa89570faba4f862baf36ec40d44dda78c89"
+    },
+    {
+      "bytes": 87580,
+      "git_blob_sha1": "c36d69c40213b45d8792cdc3ee41d5ab07f36251",
+      "path": "kernel/fork.c",
+      "ranges": [
+        {
+          "claim": "PRIVATE_COPY_CALLER",
+          "end": 1837,
+          "sha256": "d5d14dc039f48826e6f33e7c9a57e1941f255e4b55c275223a9f305fc539ab8c",
+          "start": 1801
+        },
+        {
+          "claim": "TASK_ALLOCATION",
+          "end": 2265,
+          "sha256": "e2b48a38aaab354c2662cc9a220d10baca16b209c6e2b33d3aed04404e73c981",
+          "start": 2250
+        },
+        {
+          "claim": "COPY_AND_LATE_FAILURE",
+          "end": 2424,
+          "sha256": "af778db20f829d83eb9c7ff84fc0c3561dbd2390127ea7cbb1e3ca1760bb7625",
+          "start": 2404
+        },
+        {
+          "claim": "LAST_FAILURE_AND_COMMIT",
+          "end": 2661,
+          "sha256": "896a623621db51868eb5b93120eb3fd0ea8566aceb6678094208f8070b2b8aba",
+          "start": 2569
+        },
+        {
+          "claim": "ABORT_BEFORE_TASK_DESTRUCTION",
+          "end": 2723,
+          "sha256": "d292c4e5949ac4691487bdc288dd224687addc15bea34702ca38ecc6e9250d6e",
+          "start": 2710
+        },
+        {
+          "claim": "RUNNABLE_AFTER_COPY",
+          "end": 2874,
+          "sha256": "f3efd112746cb42c9ed4fac4f3581909d2aa4386518898c693ecb2f6ed04f170",
+          "start": 2854
+        }
+      ],
+      "sha256": "9ca6cce17959283738d9a010405c319d38397e698e6a6382a24bbbf29ef8b1fa"
+    }
+  ],
+  "schema": "guest-fork-copy-sources-v1",
+  "source_archive_sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33",
+  "source_package_sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5"
+}
