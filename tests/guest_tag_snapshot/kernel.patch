@@ -1,0 +1,203 @@
+diff --git a/fs/file.c b/fs/file.c
+--- a/fs/file.c
++++ b/fs/file.c
+@@ -11,6 +11,7 @@
+ #include <linux/cplife.h>
+ #include <linux/export.h>
+ #include <linux/fs.h>
++#include <linux/cptagread.h>
+ #include <linux/kernel.h>
+ #include <linux/mm.h>
+ #include <linux/sched/signal.h>
+@@ -412,9 +413,13 @@
+ 	 */
+ 	for (i = open_files; i != 0; i--) {
+ 		struct file *f = rcu_dereference_raw(*old_fds++);
++		struct cpt_snapshot saved = {};
+ 		u64 cpc_read_id = cpc_read(cpc_task, open_files - i, f);
+ 		if (f) {
+ 			get_file(f);
++			/* Existing operation ref only. Not a publication/lifetime proof. */
++			if (cpc_task && cpc_task->cpc_attempt)
++				saved = cpt_take(f);
+ 			cpc_step(cpc_task, "REFERENCE", open_files - i, cpc_read_id, NULL);
+ 		} else {
+ 			__clear_open_fd(open_files - i, new_fdt);
+@@ -422,6 +427,9 @@
+ 		}
+ 		rcu_assign_pointer(*new_fds++, f);
+ 		cpc_step(cpc_task, "STORE", open_files - i, cpc_read_id, f);
++		/* Transfer already occurred: emit saved values, never reload f tags. */
++		if (saved.captured)
++			cpt_emit_saved(cpc_task, open_files - i, cpc_read_id, saved);
+ 	}
+ 	spin_unlock(&oldf->file_lock);
+ 
+diff --git a/fs/proc/cpcopy.c b/fs/proc/cpcopy.c
+--- a/fs/proc/cpcopy.c
++++ b/fs/proc/cpcopy.c
+@@ -6,6 +6,7 @@
+ #include <linux/cplife.h>
+ #include <linux/fdtable.h>
+ #include <linux/fs.h>
++#include <linux/cptagread.h>
+ #include <linux/nmi.h>
+ #include <linux/random.h>
+ #include <linux/rcupdate.h>
+@@ -17,6 +18,8 @@
+ struct cpb_record {
+   u64 n, copy, local, scope, actor, task, source, dest;
+   u64 object, read, ofd, opened, cloexec;
++  u64 raw_cookie, raw_scope;
++  unsigned int raw_epoch, raw_origin;
+   unsigned int fd, bound, capacity;
+   const char *kind, *role, *origin, *stage, *result, *reason, *status;
+   int tail;
+@@ -28,7 +31,7 @@
+ static atomic64_t copies = ATOMIC64_INIT(0);
+ static const char *names[] = {"NORMAL", "SEED_LOSS", "SMALL_BUFFER", "SEED_FAIL",
+   "UNSEEDED_OFD", "RESEED_REJECTED", "EARLY_ARM_REJECTED", "CONSTRUCTOR_FAIL",
+-  "TASK_FAIL", "ALLOC_FAIL"};
++  "TASK_FAIL", "ALLOC_FAIL", "SNAPSHOT_LOSS", "POINTER_LOSS"};
+ static u64 nonce[2];
+ static unsigned int capacity = 512, mode;
+ static bool initialized, recording, seed_attempted, seed_complete;
+@@ -76,6 +79,10 @@
+   struct cpb_record *record;
+   u64 n = atomic64_inc_return(&attempts);
+   if (!n || n > capacity ||
++      (mode == 10 && !strcmp(payload.kind, "TAG_SNAPSHOT") &&
++       payload.copy == 1 && payload.fd == 5) ||
++      (mode == 11 && !strcmp(payload.kind, "POINTER_READ") &&
++       payload.copy == 1 && payload.fd == 5) ||
+       (mode == 1 && !strcmp(payload.kind, "NODE") && payload.object == 6 &&
+        !strcmp(payload.origin, "FIRST_OBSERVED"))) {
+     atomic64_inc(&failures);
+@@ -275,15 +282,23 @@
+ 
+ u64 cpc_read(struct task_struct *task, unsigned int fd, struct file *file)
+ {
+-  return step(task, (struct cpb_record){.kind="READ", .fd=fd, .present=!!file,
+-    .ofd=file ? file->cpl_cookie : 0, .origin=file_origin(file)});
++  /* Pointer consumption marker only: no borrowed OFD-tag dereference. */
++  return step(task, (struct cpb_record){.kind="POINTER_READ", .fd=fd, .present=!!file});
+ }
+ 
+ void cpc_step(struct task_struct *task, const char *kind, unsigned int fd,
+               u64 read, struct file *file)
+ {
+   step(task, (struct cpb_record){.kind=kind, .fd=fd, .read=read,
+-    .present=!!file, .ofd=file ? file->cpl_cookie : 0, .origin=file_origin(file)});
++    .present=!!file});
++}
++
++void cpt_emit_saved(struct task_struct *task, unsigned int fd, u64 read,
++                    struct cpt_snapshot saved)
++{
++  step(task, (struct cpb_record){.kind="TAG_SNAPSHOT", .fd=fd, .read=read,
++    .raw_cookie=saved.cookie, .raw_scope=saved.scope,
++    .raw_epoch=saved.epoch, .raw_origin=saved.origin});
+ }
+ 
+ void cpc_return(struct task_struct *task, bool success, const char *reason)
+@@ -311,16 +326,16 @@
+   u64 a = atomic64_read(&attempts), r = atomic64_read(&reservations);
+   u64 c = atomic64_read(&commits), f = atomic64_read(&failures);
+   unsigned int i;
+-  seq_printf(m, "CPB_META version=1 case=%s release=%s cpus=1 capacity=%u copies=%llu root=%llu boot_nonce=%016llx%016llx epoch=1 seed_walk=%s\n",
++  seq_printf(m, "CPR_META version=1 profile=POST_REFERENCE_RAW_V1 case=%s release=%s cpus=1 capacity=%u copies=%llu root=%llu boot_nonce=%016llx%016llx epoch=1 seed_walk=%s\n",
+     names[mode], UTS_RELEASE, capacity, atomic64_read(&copies), root, nonce[0], nonce[1],
+     seed_complete ? "COMPLETE" : "ABORTED");
+-  seq_printf(m, "CPB_COUNT attempted=%llu reserved=%llu committed=%llu failed=%llu discarded=0 pending=%llu\n",
++  seq_printf(m, "CPR_COUNT attempted=%llu reserved=%llu committed=%llu failed=%llu discarded=0 pending=%llu\n",
+     a, r, c, f, r - c);
+   for (i = 0; i < min_t(u64, a, capacity); i++) {
+     struct cpb_record *e = &records[i];
+     if (!smp_load_acquire(&e->valid))
+       continue;
+-    seq_printf(m, "CPB_EVENT n=%llu epoch=1 kind=%s", e->n, e->kind);
++    seq_printf(m, "CPR_EVENT n=%llu epoch=1 kind=%s", e->n, e->kind);
+     if (!strcmp(e->kind, "NODE")) {
+       seq_printf(m, " object=%llu role=%s origin=%s stage=%s generation=0",
+         e->object, e->role, e->origin, e->stage);
+@@ -344,12 +359,14 @@
+         seq_printf(m, " scan_bound=%u capacity=%u", e->bound, e->capacity);
+       else if (!strcmp(e->kind, "BITMAPS"))
+         seq_printf(m, " open_fds=%llu cloexec=%llu", e->opened, e->cloexec);
+-      else if (!strcmp(e->kind, "READ") || !strcmp(e->kind, "STORE")) {
++      else if (!strcmp(e->kind, "POINTER_READ") || !strcmp(e->kind, "STORE")) {
+         seq_printf(m, " fd=%u", e->fd);
+         if (!strcmp(e->kind, "STORE"))
+           seq_printf(m, " read_ordinal=%llu", e->read);
+-        seq_printf(m, " presence=%s ofd=%llu origin=%s",
+-          e->present ? "PRESENT" : "NULL", e->ofd, e->origin);
++        seq_printf(m, " presence=%s", e->present ? "PRESENT" : "NULL");
++      } else if (!strcmp(e->kind, "TAG_SNAPSHOT")) {
++        seq_printf(m, " fd=%u read_ordinal=%llu raw_cookie=%llu raw_scope=%llu raw_epoch=%u raw_origin=%u capture_stage=POST_EXISTING_REFERENCE_PRE_STORE emit_stage=SAVED_SCALARS_AFTER_STORE generation=UNAVAILABLE lifetime=UNAVAILABLE publication=UNAVAILABLE membership=UNAVAILABLE",
++          e->fd, e->read, e->raw_cookie, e->raw_scope, e->raw_epoch, e->raw_origin);
+       } else if (!strcmp(e->kind, "REFERENCE") || !strcmp(e->kind, "CLEAR_OPEN"))
+         seq_printf(m, " fd=%u read_ordinal=%llu", e->fd, e->read);
+       else if (!strcmp(e->kind, "COPY_RETURN"))
+@@ -361,5 +378,5 @@
+     }
+     seq_putc(m, '\n');
+   }
+-  seq_puts(m, "CPB_END\n");
+-}
++  seq_puts(m, "CPR_END\n");
++}
+diff --git a/fs/proc/cplife.c b/fs/proc/cplife.c
+--- a/fs/proc/cplife.c
++++ b/fs/proc/cplife.c
+@@ -218,6 +218,6 @@
+ {
+   if (num_possible_cpus() != 1)
+     return -EINVAL;
+-  return proc_create("cpbootstrap", 0600, NULL, &cpl_ops) ? 0 : -ENOMEM;
++  return proc_create("cptagread", 0600, NULL, &cpl_ops) ? 0 : -ENOMEM;
+ }
+ fs_initcall(cpl_init);
+diff --git a/include/linux/cplife.h b/include/linux/cplife.h
+--- a/include/linux/cplife.h
++++ b/include/linux/cplife.h
+@@ -6,6 +6,7 @@
+ struct files_struct;
+ struct task_struct;
+ struct seq_file;
++struct cpt_snapshot;
+ u64 cpl_issue_cookie(void);
+ bool cpl_is_active(void);
+ void cpc_reset_task(struct task_struct *task);
+@@ -17,6 +18,8 @@
+ u64 cpc_read(struct task_struct *task, unsigned int fd, struct file *file);
+ void cpc_step(struct task_struct *task, const char *kind, unsigned int fd,
+               u64 read, struct file *file);
++void cpt_emit_saved(struct task_struct *task, unsigned int fd, u64 read,
++                    struct cpt_snapshot saved);
+ void cpc_return(struct task_struct *task, bool success, const char *reason);
+ void cpc_alloc_free(struct task_struct *task, const char *reason);
+ void cpc_finalize(struct task_struct *task, bool committed);
+diff --git a/include/linux/cptagread.h b/include/linux/cptagread.h
+--- /dev/null
++++ b/include/linux/cptagread.h
+@@ -0,0 +1,20 @@
++/* Diagnostic scalar copy only. No lifetime/publication proof or extra pin. */
++#ifndef _LINUX_CPTAGREAD_H
++#define _LINUX_CPTAGREAD_H
++struct cpt_snapshot {
++  u64 cookie, scope;
++  unsigned int epoch, origin;
++  bool captured;
++};
++
++static inline struct cpt_snapshot cpt_take(struct file *file)
++{
++  return (struct cpt_snapshot){
++    .cookie = READ_ONCE(file->cpl_cookie),
++    .scope = READ_ONCE(file->cpl_scope),
++    .epoch = READ_ONCE(file->cpb_epoch),
++    .origin = READ_ONCE(file->cpb_origin),
++    .captured = true,
++  };
++}
++#endif

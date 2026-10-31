@@ -5,7 +5,7 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from tests.guest_tag_snapshot.fixtures import POINTER, REFERENCE, SNAPSHOT, STORE, frame
+from tests.guest_tag_snapshot.fixtures import POINTER, REFERENCE, SNAPSHOT, STORE, frame, line
 
 
 def api():
@@ -143,3 +143,51 @@ def test_kernel_noise_and_crlf_do_not_change_observed_fields():
     parse, assess = api()
     raw = b"[ 0.1] kernel boot\n" + frame().replace(b"\n", b"\r\n") + b"Power down\n"
     assert assess(parse(raw)) == assess(parse(frame()))
+
+
+@pytest.mark.parametrize(
+    "origin,stage",
+    [
+        ("FIRST_OBSERVED", "POST_INIT_ALLOC"),
+        ("ALLOCATION", "PRE_ARM_SEED"),
+        ("UNAVAILABLE", "PRE_ARM_SEED"),
+    ],
+)
+def test_origin_cannot_be_promoted_to_another_stage(origin, stage):
+    parse, _ = api()
+    node = (
+        f"CPR_EVENT n=1 epoch=1 kind=NODE object=6 role=OFD origin={origin} "
+        f"stage={stage} generation=0\n"
+    ).encode()
+    with pytest.raises(ValueError, match="ORIGIN_STAGE"):
+        parse(frame((node,), attempted=1))
+
+
+@pytest.mark.parametrize(
+    "presence,ofd,origin",
+    [
+        ("NULL", 6, "FIRST_OBSERVED"),
+        ("PRESENT", 0, "ALLOCATION"),
+    ],
+)
+def test_seed_presence_and_origin_do_not_invent_a_tag(presence, ofd, origin):
+    parse, _ = api()
+    row = (
+        f"CPR_EVENT n=1 epoch=1 kind=SEED_SLOT task=1 source=2 fd=5 "
+        f"presence={presence} ofd={ofd} origin={origin} open=1 cloexec=1\n"
+    ).encode()
+    with pytest.raises(ValueError, match="SEED_TAG"):
+        parse(frame((row,), attempted=1))
+
+
+def test_diagnostic_control_and_multiple_copy_contexts_do_not_supply_witnesses():
+    parse, assess = api()
+    seed = b"CPR_EVENT n=1 epoch=1 kind=SEED_BEGIN\n"
+    begin = line(2, "BEGIN", "scan_bound=64 capacity=64", local=1)
+    end = line(3, "COPY_RETURN", "result=SUCCESS tail_zeroed=1 reason=NONE", local=2)
+    second = SNAPSHOT.replace(b"n=4", b"n=5").replace(b"copy=1", b"copy=2")
+    rows = (seed, begin, end, second)
+    result = assess(parse(frame(rows, attempted=5, failed=1)))
+    assert result.snapshots[0].lifetime_witness is None
+    assert not result.snapshots[0].source_join_complete
+    assert result.local_accounting_balanced

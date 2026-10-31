@@ -167,6 +167,19 @@ def parse_serial(raw: bytes) -> Capture:
                     "BIT_REQUIRED",
                 )
                 values[key] = number
+        if kind == "NODE":
+            require(
+                (values["origin"], values["stage"])
+                in {("FIRST_OBSERVED", "PRE_ARM_SEED"), ("ALLOCATION", "POST_INIT_ALLOC")}
+                and values["object"] != 0,
+                "NODE_ORIGIN_STAGE_MISMATCH",
+            )
+        if kind == "SEED_SLOT":
+            require(
+                (values["presence"] != "NULL" or values["ofd"] == 0)
+                and (values["ofd"] != 0 or values["origin"] == "UNAVAILABLE"),
+                "SEED_TAG_MISMATCH",
+            )
         events.append(Event(n, kind, tuple(sorted(values.items()))))
     require(len(events) <= capacity, "OWN_BUFFER_BOUND")
     return Capture(meta["case"], capacity, copies, root, meta["boot_nonce"], counts, tuple(events))
