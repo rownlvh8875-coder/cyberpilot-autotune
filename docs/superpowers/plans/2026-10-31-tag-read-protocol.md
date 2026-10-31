@@ -28,7 +28,7 @@ case audit,and future capture design;no actual source/producer adapter.
 ### Task1: Pure conditional read protocol and adversarial DAGs
 
 **Files:** new tests/tag_read_protocol/{__init__,model}.py;
-tests/fixtures/tag_read_protocol.py;tests/test_tag_read_protocol.py.
+tests/tag_read_protocol/fixtures.py;tests/test_tag_read_protocol.py.
 **Interfaces:** evaluate(payload:Any)->ReadProtocolDecision;SyntheticTagSnapshot frozen;
 ReadProtocolDecision.premises_consistent/proposed_snapshot/reasons andfixedfalse
 qualification/permission fields. Export VERSION,BASE,SOURCE_DIGEST,TOP_FIELDS and
@@ -50,15 +50,15 @@ docs/evidence/tag_read_protocol_{schema,sources,cases}.json;two .gitattributes r
 validate_schema(data)->None;validate_cases(data)->tuple[int,int]. ConsumesTask1
 evaluate/constants and independently literal expected case outcomes,never actualrecords.
 
-- [ ] Freeze semantic sections/types/stages/availability andsource references:
+- [x] Freeze semantic sections/types/stages/availability andsource references:
   prior bootstrap_tag_initialization_sources/result JSON,prior model/audit,
   unchanged PR42kernel.patch/guest_bootstrap_sources JSON(exact bytes all-text-disabled).
-- [ ] Casescome frompreimplementationliteralfixtures,notmodel-computedexpectations;
+- [x] Casescome frompreimplementationliteralfixtures,notmodel-computedexpectations;
   writeauditmissingAPI/corruption/schema/source/cohort/permission/CLItestsRED.
-- [ ] Implement frozen canonical manifest/byte checks plus prior static source
+- [x] Implement frozen canonical manifest/byte checks plus prior static source
   catalog validation(no external-root option ornew runtime witness),case replay,
   architecture oldpath/no IOorbridgeguards;focusedGREEN.
-- [ ] Fullpytest/ruff/mypy and commit `audit: freeze tag read protocol design evidence`.
+- [x] Fullpytest/ruff/mypy and commit `audit: freeze tag read protocol design evidence`.
 
 ### Task3: Future capture architecture,verification and Draft handoff
 

@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from tests.fixtures.tag_read_protocol import example, scenarios
+from tests.tag_read_protocol.fixtures import example, scenarios
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -92,6 +92,13 @@ def test_consistently_fabricated_labels_cannot_gain_runtime_or_application_autho
 def test_lifetime_and_publication_witness_must_bind_the_exact_subject_not_just_a_claim(section):
     p = example()
     p[section].pop("witness_identity", None)
+    assert not api()(p).premises_consistent
+
+
+@pytest.mark.parametrize("edge", [["owner_begin", "tag_init"], ["save", "owner_end"]])
+def test_private_owner_labels_do_not_replace_protected_capture_order(edge):
+    p = example("PRIVATE_OWNER")
+    p["graph"]["edges"].remove(edge)
     assert not api()(p).premises_consistent
 
 

@@ -1,9 +1,10 @@
-"""Independent pre-model synthetic premises;never reconstructed from real captures."""
+"""Test-only independent pre-model premises;never reconstructed from real captures."""
 
 import copy
+from typing import Any
 
 
-def example(mode="EXISTING_REFERENCE", kind="OFD"):
+def example(mode: str = "EXISTING_REFERENCE", kind: str = "OFD") -> dict[str, Any]:
     private = mode == "PRIVATE_OWNER"
     identity = dict(
         object_kind=kind,
@@ -84,7 +85,7 @@ def example(mode="EXISTING_REFERENCE", kind="OFD"):
     )
 
 
-def scenarios():
+def scenarios() -> list[tuple[str, dict[str, Any], bool]]:
     rows = [
         ("private_task", example("PRIVATE_OWNER", "TASK"), True),
         ("private_namespace", example("PRIVATE_OWNER", "NAMESPACE"), True),

@@ -102,6 +102,9 @@ tag_freeze→publish_release→ref_begin→read_begin and save→ref_end.
 No ordering of protection-end vs emit is required:the copy was saved already.
 All component reads are explicitly assumed inside read_begin/read_end;this
 abstract checker does not model instructions,tearing or all C writes.
+The private-owner witness denotes an exclusively owned,unpublished initialization
+window;owner_end is its first exposure/cleanup boundary,not merely dropping some
+reference after publication. That premise still needs source qualification.
 
 Output frozen defensive-copy SyntheticTagSnapshot only on consistent premises;
 otherwise reasoned rejection/no snapshot. Always SYNTHETIC_ONLY/BLOCKED;
