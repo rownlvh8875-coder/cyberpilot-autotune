@@ -68,8 +68,8 @@ validate_result(data,claims)->BoundaryAudit. Full provenance/cohort frozen befor
 **Files:** new docs/bootstrap_tag_initialization_{audit,result}.md.
 **Interfaces:** Task2reportandsource IDs bind document citations;no new runtime API.
 
-- [ ] Writefive-subject/13-obligation matrix with exact source anchors,source-only vs runtime limits andnextsingletask.
-- [ ] Fullpytest/alloldsourcehistoryaudits/PR42explicit source-assets/native192/replay4;
+- [x] Writefive-subject/13-obligation matrix with exact source anchors,source-only vs runtime limits andnextsingletask.
+- [x] Fullpytest/alloldsourcehistoryaudits/PR42explicit source-assets/native192/replay4;
   ruff/format/mypy/build/freshvanilla-researchwheel/purecoverage;commitresult.
 - [ ] Fresh exact-head whole-branch review with verbatim Review Focus;oneauthor C/I RED→GREEN fixpass/fullrerun,no rereview,minors deferred.
 - [ ] Fresh exact-head pytest/CRLF97+newtests;ownstackedDraft,attach,push+PRCI6jobseach;
