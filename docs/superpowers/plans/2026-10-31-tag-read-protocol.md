@@ -65,10 +65,10 @@ evaluate/constants and independently literal expected case outcomes,never actual
 **Files:** new docs/tag_read_protocol_{contract,capture_design,result}.md.
 **Interfaces:** Task1schema/Task2cases/sourceIDs anchor design and limitations.
 
-- [ ] Document architecture alternatives,exact capture/lifetime/publication/writer/
+- [x] Document architecture alternatives,exact capture/lifetime/publication/writer/
   membership conditions,oldstage mapping,seed unsupported prerequisites,wire/version/
   availability,performanceunknowns andnextsingleboundedtask;no implementation claim.
-- [ ] Fullpytest/oldsource-history/PR42-43sourceassets/native192/replay4/ruff/format/
+- [x] Fullpytest/oldsource-history/PR42-43sourceassets/native192/replay4/ruff/format/
   mypy/build/freshwheel/purecoverage;commitdocs beforefresh wholebranchreview.
 - [ ] Onefresh exact-headreviewwithverbatimReviewFocus;authorC/IONEpassRED→GREEN/
   fullrerunonlyifneeded;allminorsdeferred/allrulingsrecorded,no rereview.
