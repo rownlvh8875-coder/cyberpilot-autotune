@@ -1,0 +1,400 @@
+{
+  "actual_global_drops": null,
+  "actual_prohibited_operations": null,
+  "evidence_class": "SYNTHETIC_ONLY",
+  "model_version": "tag-read-protocol-design-v1",
+  "permissions": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false
+  },
+  "qualifications": {
+    "allocation_history_complete": false,
+    "atomic_cut_proven": false,
+    "runtime_producer_implemented": false,
+    "runtime_qualified": false,
+    "source_happens_before_proven": false,
+    "tag_publication_qualified": false,
+    "target_lifetime_proven": false
+  },
+  "schema": "tag-read-protocol-semantic-schema-v1",
+  "sections": {
+    "envelope": [
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "schema",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "Version",
+        "unit": "version"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "evidence_class",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "EvidenceClass",
+        "unit": "SYNTHETIC_ONLY"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "source",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "SourceContext",
+        "unit": "source_pin"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "identity",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "TagIdentity",
+        "unit": "expected_label"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "observed_identity",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "TagIdentity",
+        "unit": "independent_observed_label"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "writer",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "WriterPremises",
+        "unit": "assumptions"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "reader",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "ReaderPremises",
+        "unit": "assumptions"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "membership",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "MembershipPremises",
+        "unit": "separate_context"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "graph",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "AssumedHBDag",
+        "unit": "not_emission_or_clock_order"
+      }
+    ],
+    "graph": [
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "nodes",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "AnchorVector",
+        "unit": "mode_specific_anchors"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "edges",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "EdgeVector",
+        "unit": "explicit_assumed_happens_before"
+      }
+    ],
+    "identity": [
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "object_kind",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "ObjectKind",
+        "unit": "enum"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "cohort",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "Token",
+        "unit": "synthetic_cohort"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "cookie",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "PositiveUInt64",
+        "unit": "logical_cookie"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "epoch",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "PositiveUInt64",
+        "unit": "issuer_epoch"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "generation",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "UInt64",
+        "unit": "known_zero_allowed"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "origin",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "Origin",
+        "unit": "enum_not_promoted"
+      }
+    ],
+    "membership": [
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "cohort",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "Token",
+        "unit": "same_capture_cohort"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "root_before",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "PositiveUInt64",
+        "unit": "managed_root"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "root_after",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "PositiveUInt64",
+        "unit": "same_managed_root"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "generation_before",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "UInt64",
+        "unit": "known_zero_allowed"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "generation_after",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "UInt64",
+        "unit": "same_generation"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "guard",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "GuardWitness",
+        "unit": "existing_guard_only"
+      }
+    ],
+    "observed_identity": [
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "object_kind",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "ObjectKind",
+        "unit": "enum"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "cohort",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "Token",
+        "unit": "synthetic_cohort"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "cookie",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "PositiveUInt64",
+        "unit": "logical_cookie"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "epoch",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "PositiveUInt64",
+        "unit": "issuer_epoch"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "generation",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "UInt64",
+        "unit": "known_zero_allowed"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "origin",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "Origin",
+        "unit": "enum_not_promoted"
+      }
+    ],
+    "reader": [
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "mode",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "ReaderMode",
+        "unit": "enum"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "stage",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "CaptureStage",
+        "unit": "not_legacy_raw_read"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "lifetime",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "LifetimeWitness",
+        "unit": "existing_operation_only"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "observer_refs",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "UInt64",
+        "unit": "exact_integer_zero"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "observer_locks",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "UInt64",
+        "unit": "exact_integer_zero"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "all_component_reads_bounded",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "BoolOrUnavailable",
+        "unit": "assumed_inside_window"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "emission",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "EmissionStage",
+        "unit": "saved_scalars_only"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "witness_identity",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "TagIdentity",
+        "unit": "exact_subject_binding"
+      }
+    ],
+    "source": [
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "base_revision",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "GitSHA1",
+        "unit": "project_design_base_not_linux_revision"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "catalog_digest",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "SHA256",
+        "unit": "source_catalog_content_identity"
+      }
+    ],
+    "writer": [
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "components_initialized",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "BoolOrUnavailable",
+        "unit": "assumed_complete_tuple"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "writer_set_closed",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "BoolOrUnavailable",
+        "unit": "assumed_writer_closure"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "identity_write_once",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "BoolOrUnavailable",
+        "unit": "assumed_immutable_identity"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "publication",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "PublicationWitness",
+        "unit": "not_buffer_ordering"
+      },
+      {
+        "availability": "REQUIRED_NO_SILENT_DEFAULT",
+        "field": "witness_identity",
+        "qualification": "CONDITIONAL_ONLY_NEVER_RUNTIME_PROOF",
+        "stage": "SYNTHETIC_READ_PROTOCOL_PREMISE",
+        "type": "TagIdentity",
+        "unit": "exact_subject_binding"
+      }
+    ]
+  },
+  "source_base": "e01cdc127bbb17073aa47967b926b68088f57ded",
+  "status": "BLOCKED",
+  "wire_implemented": false
+}
