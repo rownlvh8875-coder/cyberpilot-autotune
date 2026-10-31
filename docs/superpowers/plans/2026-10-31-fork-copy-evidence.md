@@ -42,7 +42,7 @@ audit; no producer integration or kernel changes. Source ranges bind existing PR
 **Files:** create tests/fork_copy_design/audit.py;tests/test_fork_copy_design_audit.py;
 architecture guard;docs/evidence/fork_copy_design_{sources,schema,cases}.json;
 docs/fork_copy_evidence_contract.md;docs/fork_copy_capture_design.md.
-**Interfaces:** validate(kernel_root:Path|None=None)->dict[str,Any];optional read-only pinned source verification.
+**Interfaces:** validate(kernel_root:Path|None=None,pristine_root:Path|None=None)->dict[str,Any];separate optional read-only source verification.
 
 - [ ] Write audit tests for catalog outcomes,all6oldpresence schedules/1no-cut,source/range/schema/case tampering and forbidden authority;run missing API RED.
 - [ ] Generate byte/range manifests from current fixed source;freeze semantic schema,synthetic cases and stage distinctions;implement default offline/noVM audit.

@@ -1,0 +1,301 @@
+{
+  "base_revision": "420538d7c20edcfca3eadf136b30b622ca2bede9",
+  "evidence_class": "SOURCE_DESIGN_ONLY",
+  "patched_files": [
+    {
+      "bytes": 37817,
+      "git_blob_sha1": "9a2cfda3cb404d8d168ac608be960c3aa797124c",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "BITMAP_COPY",
+          "end": 73,
+          "sha256": "7f1a1e79876de2ece9750033c1dfe9795d9549c0d57023d759a276dbe70d4124",
+          "start": 57
+        },
+        {
+          "claim": "NULL_CLEAR_NOT_CLOEXEC",
+          "end": 282,
+          "sha256": "d8e7aa040461b2e979a9cf935e1380808adbffeacdd953d5615b89434a9ca6d0",
+          "start": 276
+        },
+        {
+          "claim": "ROUNDED_SCAN_BOUND",
+          "end": 310,
+          "sha256": "e62edb5543a60a32b7b03507744debc15016317dc4291b84cc86b55068379566",
+          "start": 296
+        },
+        {
+          "claim": "COPY_CONSTRUCTOR_AND_RETRY",
+          "end": 377,
+          "sha256": "18d4e462b1801c9a617ef54cb8cc097eeebd163f5456a5c3f4e848d5565a87eb",
+          "start": 315
+        },
+        {
+          "claim": "ASCENDING_READ_REFERENCE_CLEAR_STORE",
+          "end": 404,
+          "sha256": "a8f121be49d49cfa0dc195e1fb32f4f5ca6cabf571ed92a33e623b91691e799e",
+          "start": 370
+        },
+        {
+          "claim": "LOCKLESS_INSTALL",
+          "end": 633,
+          "sha256": "d4e34949dde01d704206006f3f57ef7c099d6601e03b0f8e469feaf48f22678e",
+          "start": 601
+        },
+        {
+          "claim": "LOCKED_CLOSE",
+          "end": 663,
+          "sha256": "fc09eaaa5c01289a3bd16f161e6e700415e1a0b0581a7077fa153de0fe04160a",
+          "start": 643
+        },
+        {
+          "claim": "LOCKED_FLAGS",
+          "end": 1208,
+          "sha256": "09bd919f4de9c93fbb97d51bde7ce9a1ec5c252831ad6ab0276620e109824b53",
+          "start": 1193
+        },
+        {
+          "claim": "LOCKED_REPLACE",
+          "end": 1271,
+          "sha256": "a571feea1c87d8c742405c7b64a800d2cb5f82709a8a1ed91dcc83433f0afb26",
+          "start": 1216
+        }
+      ],
+      "sha256": "129263d5c6923429eb2e98d93a67b9b6e6b2de7de10a48b924595adeab518284"
+    },
+    {
+      "bytes": 87861,
+      "git_blob_sha1": "6b3aeb648cd9004ec2a27bd2dca742f2fe0948dc",
+      "path": "kernel/fork.c",
+      "ranges": [
+        {
+          "claim": "PRIVATE_COPY_CALLER",
+          "end": 1838,
+          "sha256": "5028ec77ed733f204eb85c5aeb1af6e9667d06fed3fbd71bc3c58b657cf4e37a",
+          "start": 1802
+        },
+        {
+          "claim": "TASK_ALLOCATION_BEFORE_COPY",
+          "end": 2267,
+          "sha256": "0e843c05d57ca9b0cc9760c37812d0e010b94a2467a1bdc79ac644528caff013",
+          "start": 2252
+        },
+        {
+          "claim": "TASK_COPY_CALL",
+          "end": 2418,
+          "sha256": "1c3f9213da2ab01eaae301d0d72e09962243549ab45f628fa1ffb8ee31eb5177",
+          "start": 2406
+        },
+        {
+          "claim": "TASK_LAST_FAILURE_BEFORE_COMMIT",
+          "end": 2664,
+          "sha256": "819885492dd29f9926349539743449a4166b305f261518613c44a68b276dca57",
+          "start": 2572
+        },
+        {
+          "claim": "RUNNABLE_AFTER_COPY_PROCESS",
+          "end": 2878,
+          "sha256": "f3efd112746cb42c9ed4fac4f3581909d2aa4386518898c693ecb2f6ed04f170",
+          "start": 2858
+        }
+      ],
+      "sha256": "32788952871be9b6cc106a47cfd6f6d0b7207cd3a83eafa4aa60f46af5462b7d"
+    },
+    {
+      "bytes": 3535,
+      "git_blob_sha1": "e22f3fbfcbf41cc9dbc89c34382aae5d03df187a",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "DEFAULT_WORD_CAPACITY",
+          "end": 36,
+          "sha256": "04a96ce517befde6475d29975faf230807da86b6d7ad498e5b332d0878b1b815",
+          "start": 20
+        },
+        {
+          "claim": "NAMESPACE_VS_STORAGE_LAYOUT",
+          "end": 66,
+          "sha256": "26efb700a075d7a92ee574a943c72bc45c135de9c16f4858547cbba505cdac57",
+          "start": 38
+        },
+        {
+          "claim": "CLOEXEC_READ",
+          "end": 104,
+          "sha256": "f770c0431a1a70753931ad91b42097b4dcf2c1e7fc078b4451bacda51b950563",
+          "start": 100
+        }
+      ],
+      "sha256": "86b2acb622e4bd1d03eeeaa4fe2b8f3bf33ce1779ec32d959402b47d42857dd4"
+    },
+    {
+      "bytes": 6613,
+      "git_blob_sha1": "50fef52c61a79c87da15e910dcaac02a3d19f56b",
+      "path": "fs/proc/cplife.c",
+      "ranges": [
+        {
+          "claim": "CURRENT_COOKIE_AFTER_COPY",
+          "end": 111,
+          "sha256": "67853bd099bf04174de68d2f4e3533459323344cde7d6fb876022ffa51162e16",
+          "start": 87
+        },
+        {
+          "claim": "CURRENT_WIRE_LACKS_SLOT_READS",
+          "end": 199,
+          "sha256": "905ee5fe035bf0b6473aff9bc89e2a05bc7344e60e12e26c40ccb5b26f0c9302",
+          "start": 170
+        }
+      ],
+      "sha256": "85a72e9b585d317cb7e9b72997c3ec8ff3313eb81137aeaffdb6f5e9ed8119bd"
+    }
+  ],
+  "pristine_files": [
+    {
+      "bytes": 37233,
+      "git_blob_sha1": "c84bd5809358382df0332322dfce64a1749acab3",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "BITMAP_COPY",
+          "end": 72,
+          "sha256": "7f1a1e79876de2ece9750033c1dfe9795d9549c0d57023d759a276dbe70d4124",
+          "start": 56
+        },
+        {
+          "claim": "NULL_CLEAR_NOT_CLOEXEC",
+          "end": 281,
+          "sha256": "d8e7aa040461b2e979a9cf935e1380808adbffeacdd953d5615b89434a9ca6d0",
+          "start": 275
+        },
+        {
+          "claim": "ROUNDED_SCAN_BOUND",
+          "end": 309,
+          "sha256": "e62edb5543a60a32b7b03507744debc15016317dc4291b84cc86b55068379566",
+          "start": 295
+        },
+        {
+          "claim": "COPY_CONSTRUCTOR_AND_RETRY",
+          "end": 376,
+          "sha256": "4e7508ff5e38658d5a5f81149669bd49a0f786c9e8b829db971ab08428265461",
+          "start": 314
+        },
+        {
+          "claim": "ASCENDING_READ_REFERENCE_CLEAR_STORE",
+          "end": 401,
+          "sha256": "a8f121be49d49cfa0dc195e1fb32f4f5ca6cabf571ed92a33e623b91691e799e",
+          "start": 367
+        },
+        {
+          "claim": "LOCKLESS_INSTALL",
+          "end": 627,
+          "sha256": "b8ad071dabfb39d8ef9cafb25ea2d01e1710f640ad2c10cf602c5f9c884476a9",
+          "start": 595
+        },
+        {
+          "claim": "LOCKED_CLOSE",
+          "end": 655,
+          "sha256": "af56b5fa90da75bb6a33a631b378b4effe1d742ee2901687de7946e8996d97c3",
+          "start": 635
+        },
+        {
+          "claim": "LOCKED_FLAGS",
+          "end": 1199,
+          "sha256": "4e5689888f61328a9aa1f24f92936c4db6a4178f9ca39d42a265a4e939de46a2",
+          "start": 1184
+        },
+        {
+          "claim": "LOCKED_REPLACE",
+          "end": 1261,
+          "sha256": "0abdaf8623ffa0199e27256f2c61d509fb95ce8dbb218d13f3ae71e7cb6824f8",
+          "start": 1206
+        }
+      ],
+      "sha256": "07cb3588c77a23709dfc746330cb0ac602445d647a14246ab5242bc389256169"
+    },
+    {
+      "bytes": 87580,
+      "git_blob_sha1": "c36d69c40213b45d8792cdc3ee41d5ab07f36251",
+      "path": "kernel/fork.c",
+      "ranges": [
+        {
+          "claim": "PRIVATE_COPY_CALLER",
+          "end": 1837,
+          "sha256": "d5d14dc039f48826e6f33e7c9a57e1941f255e4b55c275223a9f305fc539ab8c",
+          "start": 1801
+        },
+        {
+          "claim": "TASK_ALLOCATION_BEFORE_COPY",
+          "end": 2265,
+          "sha256": "e2b48a38aaab354c2662cc9a220d10baca16b209c6e2b33d3aed04404e73c981",
+          "start": 2250
+        },
+        {
+          "claim": "TASK_COPY_CALL",
+          "end": 2415,
+          "sha256": "1c3f9213da2ab01eaae301d0d72e09962243549ab45f628fa1ffb8ee31eb5177",
+          "start": 2403
+        },
+        {
+          "claim": "TASK_LAST_FAILURE_BEFORE_COMMIT",
+          "end": 2661,
+          "sha256": "896a623621db51868eb5b93120eb3fd0ea8566aceb6678094208f8070b2b8aba",
+          "start": 2569
+        },
+        {
+          "claim": "RUNNABLE_AFTER_COPY_PROCESS",
+          "end": 2874,
+          "sha256": "f3efd112746cb42c9ed4fac4f3581909d2aa4386518898c693ecb2f6ed04f170",
+          "start": 2854
+        }
+      ],
+      "sha256": "9ca6cce17959283738d9a010405c319d38397e698e6a6382a24bbbf29ef8b1fa"
+    },
+    {
+      "bytes": 3452,
+      "git_blob_sha1": "b1c5722f2b3ce4ba82e89716d5e27f85c67a8afd",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "DEFAULT_WORD_CAPACITY",
+          "end": 36,
+          "sha256": "04a96ce517befde6475d29975faf230807da86b6d7ad498e5b332d0878b1b815",
+          "start": 20
+        },
+        {
+          "claim": "NAMESPACE_VS_STORAGE_LAYOUT",
+          "end": 66,
+          "sha256": "ce857cf05cef4746c98c67870f267e4db577368c54e63a324b25d0bef3d35a1d",
+          "start": 38
+        },
+        {
+          "claim": "CLOEXEC_READ",
+          "end": 103,
+          "sha256": "f770c0431a1a70753931ad91b42097b4dcf2c1e7fc078b4451bacda51b950563",
+          "start": 99
+        }
+      ],
+      "sha256": "ab0233740bd825ed7705e378278f60a3a184a7ded81fea060ac4a2fbfe2abfdb"
+    }
+  ],
+  "repository_files": [
+    {
+      "bytes": 9002,
+      "path": "tests/fork_copy_design/model.py",
+      "sha256": "0326ed3ddefa39483f3ce3f1728ec481eed62ce1a181321592dcec12b3073130"
+    },
+    {
+      "bytes": 13645,
+      "path": "docs/evidence/guest_root_scope_sources.json",
+      "sha256": "cbf2fb67cc56b8c4f1651cfe763f6abadf569f9a2d00e48fe768766166042a25"
+    },
+    {
+      "bytes": 8869,
+      "path": "docs/evidence/guest_root_scope_build.json",
+      "sha256": "ba739676b9d186eda2b63bb4e2c67d021edeff13fb418c895c3a0059b1b2c35a"
+    }
+  ],
+  "runtime_producer_implemented": false,
+  "schema": "fork-copy-design-sources-v1",
+  "source_archive_sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33",
+  "source_package_sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5"
+}

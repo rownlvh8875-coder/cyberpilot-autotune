@@ -1,0 +1,348 @@
+{
+  "accounting_availability": "UInt64|None;None never zero;balanced local counts not global completeness",
+  "accounting_fields": [
+    "attempted",
+    "reserved",
+    "committed",
+    "failed",
+    "discarded",
+    "pending"
+  ],
+  "actual_copy_records": null,
+  "atomic_cut_proven": false,
+  "context": [
+    {
+      "availability": "REQUIRED",
+      "field": "scope_id",
+      "meaning": "copy attempt uses separate namespace;others lifetime roles,never PID/pointer",
+      "type": "UInt64",
+      "unit": "source-issued scoped identifier"
+    },
+    {
+      "availability": "REQUIRED",
+      "field": "copy_attempt_id",
+      "meaning": "copy attempt uses separate namespace;others lifetime roles,never PID/pointer",
+      "type": "UInt64",
+      "unit": "source-issued scoped identifier"
+    },
+    {
+      "availability": "ROOT_PARENT_MAY_BE_UNKNOWN",
+      "field": "actor_task_id",
+      "meaning": "copy attempt uses separate namespace;others lifetime roles,never PID/pointer",
+      "type": "UInt64|None",
+      "unit": "source-issued scoped identifier"
+    },
+    {
+      "availability": "REQUIRED",
+      "field": "subject_task_id",
+      "meaning": "copy attempt uses separate namespace;others lifetime roles,never PID/pointer",
+      "type": "UInt64",
+      "unit": "source-issued scoped identifier"
+    },
+    {
+      "availability": "ROOT_PARENT_MAY_BE_UNKNOWN",
+      "field": "source_table_id",
+      "meaning": "copy attempt uses separate namespace;others lifetime roles,never PID/pointer",
+      "type": "UInt64|None",
+      "unit": "source-issued scoped identifier"
+    },
+    {
+      "availability": "REQUIRED",
+      "field": "destination_table_id",
+      "meaning": "copy attempt uses separate namespace;others lifetime roles,never PID/pointer",
+      "type": "UInt64",
+      "unit": "source-issued scoped identifier"
+    },
+    {
+      "availability": "REQUIRED",
+      "field": "source_profile",
+      "meaning": "exact declared source cohort;not authenticity or cross-boot identity",
+      "type": "String",
+      "unit": "profile/content identity"
+    },
+    {
+      "availability": "REQUIRED",
+      "field": "source_sha256",
+      "meaning": "exact declared source cohort;not authenticity or cross-boot identity",
+      "type": "String",
+      "unit": "profile/content identity"
+    },
+    {
+      "availability": "REQUIRED",
+      "field": "fork_sha256",
+      "meaning": "exact declared source cohort;not authenticity or cross-boot identity",
+      "type": "String",
+      "unit": "profile/content identity"
+    },
+    {
+      "availability": "REQUIRED",
+      "field": "fdtable_sha256",
+      "meaning": "exact declared source cohort;not authenticity or cross-boot identity",
+      "type": "String",
+      "unit": "profile/content identity"
+    },
+    {
+      "availability": "REQUIRED",
+      "field": "boot_scope",
+      "meaning": "exact declared source cohort;not authenticity or cross-boot identity",
+      "type": "String",
+      "unit": "profile/content identity"
+    },
+    {
+      "availability": "REQUIRED",
+      "field": "clone_mode",
+      "meaning": "exact declared source cohort;not authenticity or cross-boot identity",
+      "type": "String",
+      "unit": "profile/content identity"
+    },
+    {
+      "availability": "REQUIRED",
+      "field": "root_copy",
+      "meaning": "unknown parent only for root;not caller authorization",
+      "type": "Bool",
+      "unit": "source branch role"
+    }
+  ],
+  "destination_capacity": 64,
+  "evidence_class": "SOURCE_DESIGN_ONLY",
+  "existing_buffer_capacity": 128,
+  "permissions": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false
+  },
+  "proposed_records_per_copy": 196,
+  "runtime_producer_implemented": false,
+  "scan_bound": 64,
+  "schema": "fork-copy-semantic-schema-v1",
+  "stages": [
+    {
+      "fields": [
+        {
+          "availability": "REQUIRED",
+          "field": "n",
+          "meaning": "unique/increasing local order,not effect linearization",
+          "type": "UInt64",
+          "unit": "attempted emission ordinal"
+        },
+        {
+          "availability": "REQUIRED",
+          "field": "scan_bound",
+          "meaning": "64 even when source empty,not open count",
+          "type": "UInt32",
+          "unit": "exclusive FD bound"
+        },
+        {
+          "availability": "REQUIRED",
+          "field": "capacity",
+          "meaning": "64 selected destination capacity",
+          "type": "UInt32",
+          "unit": "FD slots"
+        }
+      ],
+      "kind": "BEGIN"
+    },
+    {
+      "fields": [
+        {
+          "availability": "REQUIRED",
+          "field": "n",
+          "meaning": "unique/increasing local order,not effect linearization",
+          "type": "UInt64",
+          "unit": "attempted emission ordinal"
+        },
+        {
+          "availability": "UNKNOWN_EXPLICIT",
+          "field": "open_fds",
+          "meaning": "actual bitmap copy before per-slot pointer reads",
+          "type": "Array64[Bool|None]",
+          "unit": "raw bit"
+        },
+        {
+          "availability": "UNKNOWN_EXPLICIT",
+          "field": "cloexec",
+          "meaning": "copied bit can remain true after NULL open-bit clearing",
+          "type": "Array64[Bool|None]",
+          "unit": "raw bit"
+        }
+      ],
+      "kind": "BITMAPS"
+    },
+    {
+      "fields": [
+        {
+          "availability": "REQUIRED",
+          "field": "n",
+          "meaning": "unique/increasing local order,not effect linearization",
+          "type": "UInt64",
+          "unit": "attempted emission ordinal"
+        },
+        {
+          "availability": "REQUIRED",
+          "field": "fd",
+          "meaning": "ascending0..63",
+          "type": "UInt32",
+          "unit": "descriptor index"
+        },
+        {
+          "availability": "PRESENT_NULL_UNAVAILABLE",
+          "field": "presence",
+          "meaning": "NULL is an actual read,not unavailable",
+          "type": "Enum",
+          "unit": "pointer-read state"
+        },
+        {
+          "availability": "PRESENT_MAY_BE_UNKNOWN",
+          "field": "ofd",
+          "meaning": "None for uninstrumented present object never proves absence",
+          "type": "UInt64|None",
+          "unit": "lifetime cookie"
+        }
+      ],
+      "kind": "READ"
+    },
+    {
+      "fields": [
+        {
+          "availability": "REQUIRED",
+          "field": "n",
+          "meaning": "unique/increasing local order,not effect linearization",
+          "type": "UInt64",
+          "unit": "attempted emission ordinal"
+        },
+        {
+          "availability": "REQUIRED",
+          "field": "fd",
+          "meaning": "same local slot",
+          "type": "UInt32",
+          "unit": "descriptor index"
+        },
+        {
+          "availability": "REQUIRED",
+          "field": "read_ordinal",
+          "meaning": "existing get_file effect paired to exact source read;not object identity",
+          "type": "UInt64",
+          "unit": "copy emission ordinal"
+        }
+      ],
+      "kind": "REFERENCE"
+    },
+    {
+      "fields": [
+        {
+          "availability": "REQUIRED",
+          "field": "n",
+          "meaning": "unique/increasing local order,not effect linearization",
+          "type": "UInt64",
+          "unit": "attempted emission ordinal"
+        },
+        {
+          "availability": "REQUIRED",
+          "field": "fd",
+          "meaning": "same local NULL slot",
+          "type": "UInt32",
+          "unit": "descriptor index"
+        },
+        {
+          "availability": "REQUIRED",
+          "field": "read_ordinal",
+          "meaning": "clear open/full bitmap bits only,not CLOEXEC",
+          "type": "UInt64",
+          "unit": "copy emission ordinal"
+        }
+      ],
+      "kind": "CLEAR_OPEN"
+    },
+    {
+      "fields": [
+        {
+          "availability": "REQUIRED",
+          "field": "n",
+          "meaning": "unique/increasing local order,not effect linearization",
+          "type": "UInt64",
+          "unit": "attempted emission ordinal"
+        },
+        {
+          "availability": "REQUIRED",
+          "field": "fd",
+          "meaning": "actual child slot",
+          "type": "UInt32",
+          "unit": "descriptor index"
+        },
+        {
+          "availability": "REQUIRED",
+          "field": "read_ordinal",
+          "meaning": "consumed-read provenance,not inferred time join",
+          "type": "UInt64",
+          "unit": "copy emission ordinal"
+        },
+        {
+          "availability": "PRESENT_NULL_UNAVAILABLE",
+          "field": "presence",
+          "meaning": "must agree with captured local read",
+          "type": "Enum",
+          "unit": "stored pointer state"
+        },
+        {
+          "availability": "PRESENT_MAY_BE_UNKNOWN",
+          "field": "ofd",
+          "meaning": "matching None does not establish object lifetime equality",
+          "type": "UInt64|None",
+          "unit": "lifetime cookie"
+        }
+      ],
+      "kind": "STORE"
+    },
+    {
+      "fields": [
+        {
+          "availability": "REQUIRED",
+          "field": "n",
+          "meaning": "unique/increasing local order,not effect linearization",
+          "type": "UInt64",
+          "unit": "attempted emission ordinal"
+        },
+        {
+          "availability": "REQUIRED",
+          "field": "result",
+          "meaning": "not task commit",
+          "type": "Enum[SUCCESS,FAILED]",
+          "unit": "constructor outcome"
+        },
+        {
+          "availability": "UNKNOWN_EXPLICIT",
+          "field": "tail_zeroed",
+          "meaning": "actual remaining-pointer clear stage,empty tail in64/64 profile",
+          "type": "Bool|None",
+          "unit": "stage witness"
+        }
+      ],
+      "kind": "COPY_RETURN"
+    },
+    {
+      "fields": [
+        {
+          "availability": "REQUIRED",
+          "field": "n",
+          "meaning": "unique/increasing local order,not effect linearization",
+          "type": "UInt64",
+          "unit": "attempted emission ordinal"
+        },
+        {
+          "availability": "UNKNOWN_EXPLICIT",
+          "field": "result",
+          "meaning": "post-constructor task commit/abort;future abort hook is missing",
+          "type": "Enum[COMMITTED,ABORTED,UNAVAILABLE]",
+          "unit": "task outcome"
+        }
+      ],
+      "kind": "TASK_FINALIZE"
+    }
+  ]
+}
