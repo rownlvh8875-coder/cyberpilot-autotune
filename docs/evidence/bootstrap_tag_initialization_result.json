@@ -1,0 +1,113 @@
+{
+  "actual_global_drops": null,
+  "actual_prohibited_operations": null,
+  "base_revision": "37c0e614f01e13b5e6078178b3712c0ec6ba4495",
+  "boundaries": [
+    {
+      "citations": [
+        "TASK_X86_DUP",
+        "TASK_DUP_FAILURES",
+        "TASK_ALLOC_CALL",
+        "TASK_RESET_GATE",
+        "TASK_LATE_ABORT",
+        "TASK_FREE",
+        "STATIC_INIT_TASK",
+        "TASK_LAYOUT"
+      ],
+      "open_obligations": [
+        "PRE_HOOK_DUP_FAILURES_UNOBSERVED",
+        "TASK_FINAL_DESTRUCTION_UNOBSERVED",
+        "UNSUPPORTED_CLONE_SCOPE_UNQUALIFIED"
+      ],
+      "subject": "TASK"
+    },
+    {
+      "citations": [
+        "NS_CONSTRUCTOR",
+        "NS_SHARED",
+        "NS_ATTACH",
+        "NS_FREE",
+        "NS_UNSHARE",
+        "NS_UNSHARE_EFFECT",
+        "NS_STATIC_INIT",
+        "NS_LAYOUT",
+        "NS_CPC_ALLOCATED"
+      ],
+      "open_obligations": [
+        "UNSHARE_AND_SHARED_CONTEXT_UNQUALIFIED",
+        "FALLBACK_NAMESPACE_ORIGIN_INCOMPLETE",
+        "BACKING_FDT_REPLACEMENT_NOT_NAMESPACE_IDENTITY"
+      ],
+      "subject": "NAMESPACE"
+    },
+    {
+      "citations": [
+        "OFD_INIT",
+        "OFD_NORMAL_ALLOC",
+        "OFD_NOACCOUNT",
+        "OFD_BACKING",
+        "OFD_FREE",
+        "OFD_CACHE",
+        "OFD_LAYOUT",
+        "OFD_RCU_REVALIDATE",
+        "RCU_REUSE_WARNING"
+      ],
+      "open_obligations": [
+        "NONSTANDARD_ALLOCATOR_HOOK_COVERAGE_INCOMPLETE",
+        "RCU_OBJECT_REUSE_IDENTITY_UNQUALIFIED",
+        "TAG_TUPLE_PUBLICATION_UNQUALIFIED"
+      ],
+      "subject": "OFD"
+    },
+    {
+      "citations": [
+        "SEED_WALK",
+        "SEED_ABORT",
+        "ORIGIN_READ",
+        "COPY_RAW_READ"
+      ],
+      "open_obligations": [
+        "ALL_MUTATOR_SEED_CUT_UNPROVEN",
+        "ABORTED_SEED_TAGS_RETAINED_NO_HISTORY"
+      ],
+      "subject": "SEED"
+    },
+    {
+      "citations": [
+        "COOKIE_STORAGE",
+        "COOKIE_CAS",
+        "COHORT_NONCE"
+      ],
+      "open_obligations": [
+        "ISSUER_WRAP_EXHAUSTION_RUNTIME_UNTESTED",
+        "COHORT_NONCE_AUTHENTICITY_UNQUALIFIED"
+      ],
+      "subject": "ISSUER"
+    }
+  ],
+  "evidence_class": "STATIC_SOURCE_AUDIT_ONLY",
+  "permissions": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false
+  },
+  "prior_observations_reclassified": false,
+  "qualification": {
+    "allocation_history_complete": false,
+    "atomic_cut_proven": false,
+    "initialization_qualified": false,
+    "issuer_runtime_qualified": false,
+    "publication_qualified": false,
+    "reuse_qualified": false,
+    "runtime_qualified": false
+  },
+  "schema": "bootstrap-tag-initialization-result-v1",
+  "source_catalog_digest": "4b0712a7d12069a74032f8f9f91861bf22397436927a278818968d9f647930af",
+  "status": "BLOCKED"
+}

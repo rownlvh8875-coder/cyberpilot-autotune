@@ -43,9 +43,9 @@ OFD_RCU_REVALIDATE,RCU_REUSE_WARNING.
 SEED:SEED_WALK,SEED_ABORT,ORIGIN_READ,COPY_RAW_READ.
 ISSUER:COOKIE_STORAGE,COOKIE_CAS,COHORT_NONCE.
 
-- [ ] Literal five-subject fixture and omission/duplicate/cross-subject/authority/type/immutability tests;runpytest and expect missing API assertion RED.
-- [ ] Implement closed shape/type/unique/exact cohort checks and frozen defensive copies;focusedGREEN,coverage98/95minimum.
-- [ ] Fullpytest/ruff/mypy and commit `feat: define conservative bootstrap tag audit scope`.
+- [x] Literal five-subject fixture and omission/duplicate/cross-subject/authority/type/immutability tests;runpytest and expect missing API assertion RED.
+- [x] Implement closed shape/type/unique/exact cohort checks and frozen defensive copies;focusedGREEN,coverage98/95minimum.
+- [x] Fullpytest/ruff/mypy and commit `feat: define conservative bootstrap tag audit scope`.
 
 ### Task2: Exact source evidence and offline validator
 
@@ -57,11 +57,11 @@ tests/architecture/test_bootstrap_tag_audit_boundary.py;two narrow .gitattribute
 validate_sources(data,pristine_root=None,patched_root=None)->frozenset[str];
 validate_result(data,claims)->BoundaryAudit. Full provenance/cohort frozen before reads.
 
-- [ ] Extractninepristinefilesfromverifiedarchiveintofreshdurablereferenceprefix;
+- [x] Extractninepristinefilesfromverifiedarchiveintofreshdurablereferenceprefix;
   freeze11patchedfiles/33embeddedranges and4repositoryrecords,nevereditexistingassets.
-- [ ] MissingAPI RED plus source/range/blob/base64/catalog/path/authority/paired-root/CLI adversaries;tests run real audit against controlled bytes,not grep its implementation.
-- [ ] Implement fixed canonical catalog/embedded/source checks;explicit paired sourceGREEN;architectureguards old paths/no writes/process/network/qualification bridge.
-- [ ] Fullpytest/ruff/mypy and commit `audit: pin bootstrap tag initialization and reuse boundaries`.
+- [x] MissingAPI RED plus source/range/blob/base64/catalog/path/authority/paired-root/CLI adversaries;tests run real audit against controlled bytes,not grep its implementation.
+- [x] Implement fixed canonical catalog/embedded/source checks;explicit paired sourceGREEN;architectureguards old paths/no writes/process/network/qualification bridge.
+- [x] Fullpytest/ruff/mypy and commit `audit: pin bootstrap tag initialization and reuse boundaries`.
 
 ### Task3: Boundary matrix,regression,review and Draft publication
 
