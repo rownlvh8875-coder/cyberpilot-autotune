@@ -35,21 +35,21 @@ tests/test_guest_fork_copy.py;tests/test_guest_fork_copy_runner.py.
 **Interfaces:** parse_serial(raw:bytes)->Capture;assess(capture:Capture)->Decision;
 build_image(binary:bytes,case:str)->bytes;capture(case:str)->tuple[Capture,bytes,bytes].
 
-- [ ] Write literal CPC frames/196stage fixtures,closed field/uint/context/unknown/NULL/flags/pairing/sequence/failure/loss/no-authority tests;observe missing API RED.
-- [ ] Implement frozen codec/observed diagnostic with no SYNTHETIC oracle dependency;run focused GREEN.
-- [ ] Add fixed driver/image/runner tests RED;compile driver,boot old kernel actualmissinginterfaceRED;pin assets after actual build.
-- [ ] Commit codec/bootstrap after tests/format/type verification;record actual baseline.
+- [x] Write literal CPC frames/196stage fixtures,closed field/uint/context/unknown/NULL/flags/pairing/sequence/failure/loss/no-authority tests;observe missing API RED.
+- [x] Implement frozen codec/observed diagnostic with no SYNTHETIC oracle dependency;run focused GREEN.
+- [x] Add fixed driver/image/runner tests RED;compile driver,boot old kernel actualmissinginterfaceRED;pin assets after actual build.
+- [x] Commit codec/bootstrap after tests/format/type verification;record actual baseline.
 
 ### Task2: Source hooks and actual six-case capture
 
 **Files:** new tests/guest_fork_copy/kernel.patch,kernel.config;new owned source/build only.
 **Interfaces:** kernel CPCv1 matches Task1 codec;driver expects injected ENOMEM/EAGAIN.
 
-- [ ] Fresh source exact archive,freeze selected pristine files,apply old PR38 patch only in new source prefix.
-- [ ] Implement task-aware copy wrapper,early allocation cookie and stable postcopy linkage,actual bitmap/read/ref/clear/store and saved scalar free,task terminal hooks.
-- [ ] Preallocated512copyrecords plus separate128lifecycle;inject copy2loss/oldcapacity/constructor/task/prealloc failure without added refs/effect locks.
-- [ ] Build pinned source/static driver,freeze inputs,run6fresh fixed guests and inspect all frames;no fabricated records or source fallback.
-- [ ] Run focused/fullcodec/runnerchecks and commit complete patch/runner pins.
+- [x] Fresh source exact archive,freeze selected pristine files,apply old PR38 patch only in new source prefix.
+- [x] Implement task-aware copy wrapper,early allocation cookie and stable postcopy linkage,actual bitmap/read/ref/clear/store and saved scalar free,task terminal hooks.
+- [x] Preallocated512copyrecords plus separate128lifecycle;inject copy2loss/oldcapacity/constructor/task/prealloc failure without added refs/effect locks.
+- [x] Build pinned source/static driver,freeze inputs,run6fresh fixed guests and inspect all frames;no fabricated records or source fallback.
+- [x] Run focused/fullcodec/runnerchecks and commit complete patch/runner pins.
 
 ### Task3: Evidence,regression and handoff
 
@@ -58,7 +58,7 @@ architecture guard;docs/evidence/guest_fork_copy_{build,actual,sources}.json;
 docs/guest_fork_copy_contract.md;docs/guest_fork_copy_result.md;new attributes only.
 **Interfaces:** validate(pristine_root:Path|None=None,patched_root:Path|None=None,*,verify_assets:bool=False)->dict.
 
-- [ ] Byte/source/audit/adversarial tests missingAPIRED,bind actual serial/all selected assets and source/ranges;offline-only audit GREEN.
+- [x] Byte/source/audit/adversarial tests missingAPIRED,bind actual serial/all selected assets and source/ranges;offline-only audit GREEN.
 - [ ] Full pytest,pure coverage,ruff/format,mypy,old source/history/native/guest audits,build,freshvanilla/researchwheel,CRLF/exacthead verification.
 - [ ] Publish bounded result/blockers,commit,one fresh independent review;one author C/I RED→GREEN pass if needed,defer minor,no re-review.
 - [ ] Own stacked Draft vsPR39,attach,verify exacthead push/PR6jobs each,preserve26oldPRs/main,reportKorean/allrulings/costs/minors,nextsingle task.
