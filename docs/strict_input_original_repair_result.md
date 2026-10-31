@@ -49,29 +49,29 @@ The digest is content identity, not authenticity or safety/application authority
 
 ### Task 1: Original entrypoint repairs
 
-- [ ] Add direct original-API Unicode and exact-integer negative/regression tests.
-- [ ] Run them RED against the unchanged functions; record the root causes.
-- [ ] Implement only the two approved function changes; run focused tests GREEN.
+- [x] Add direct original-API Unicode and exact-integer negative/regression tests.
+- [x] Run them RED against the unchanged functions; record the root causes.
+- [x] Implement only the two approved function changes; run focused tests GREEN.
 
 ### Task 2: Preserve historical characterizations
 
-- [ ] Add failing checks for the closed frozen-case runner and snapshot integrity.
-- [ ] Implement a bounded, test-only full Git snapshot and isolated pytest runner.
-- [ ] Retain the five old node IDs, delegating only their bodies to the snapshot.
-- [ ] Run old cases, both strict facades and current original-API tests.
+- [x] Add failing checks for the closed frozen-case runner and snapshot integrity.
+- [x] Implement a bounded, test-only full Git snapshot and isolated pytest runner.
+- [x] Retain the five old node IDs, delegating only their bodies to the snapshot.
+- [x] Run old cases, both strict facades and current original-API tests.
 
 ### Task 3: Exact history transition
 
-- [ ] Add policy rejection/integration tests and observe RED.
-- [ ] Change only the 18 approved guard assertions, retaining BASE/scope checks.
-- [ ] Freeze exact existing-file pre/postimages in local append-only commit P.
-- [ ] Implement the helper pinned to P; validate all three current representations.
-- [ ] Run adversarial policy tests and the full architecture suite GREEN.
+- [x] Add policy rejection/integration tests and observe RED.
+- [x] Change only the 18 approved guard assertions, retaining BASE/scope checks.
+- [x] Freeze exact existing-file pre/postimages in local append-only commit P.
+- [x] Implement the helper pinned to P; validate all three current representations.
+- [x] Run adversarial policy tests and the full architecture suite GREEN.
 
 ### Task 4: Verification and handoff
 
-- [ ] Full regressions, audits, lint/format/types, coverage, replay and fresh wheel.
-- [ ] Check exact 29-path bound and preserved installed package/CI/fixtures/evidence.
+- [x] Full regressions, audits, lint/format/types, coverage, replay and fresh wheel.
+- [x] Check exact 29-path bound and preserved installed package/CI/fixtures/evidence.
 - [ ] Fresh-context whole-branch review; any material fix gets RED→GREEN/full rerun.
 - [ ] Commit final result and report exact local head; no old PR/main/ref changes.
 
@@ -89,4 +89,61 @@ empirical, fingerprint, watchdog and external-executor blockers remain.
 
 ## Observed results
 
-Pending implementation. Baseline: 4,195 passed in 39.28 seconds.
+Baseline: 4,195 passed in 39.28 seconds. This document is the pre-review
+checkpoint; the exact final review head/outcome is reported in the user handoff,
+not added afterwards by changing the reviewed head. No independent human or
+registered GitHub approval is claimed.
+
+- Original-function RED: 26 failures / 24 passes, including nested Unicode
+  surrogates, all four float-equal limits, exact subclasses and hostile keys.
+  Minimal original repairs: 278 focused tests passed. Historical transition:
+  exactly five expected old assertions failed before the snapshot runner;
+  all five are now run unchanged at the frozen base, and 304 focused tests pass.
+- History RED: exactly 18 guards failed / 82 passed before the approved exception.
+  Local preregistration P: `127f485437437b3472659784b7b05857d8fbd896`, parent exact
+  base. P intentionally lacks the enforcing helper and is RED, never published.
+  Helper enabled in `3a338e52c37b24886809f75a8a6d04a682d7967f`. All 22 postimages
+  remain byte-identical to P. The mutable working manifest is not policy authority.
+- 147 policy/architecture tests passed, including all 18 actual guard functions
+  rejecting unlisted installed-source edits, HEAD/index/worktree content/delete/
+  rename/mode mutations, a hidden staged change, missing-P rejection and actual
+  Git-clean CRLF equivalence. On Windows, the test is designed to mutate the
+  index because POSIX working-file execute bits are not representable there;
+  Windows execution itself has not been performed in this local Linux session.
+- Every original guard Git query (AST), BASE and non-history function is unchanged.
+  Existing additive `.gitattributes` checks remain. The absolute current-tree
+  freeze criterion is explicitly revised, not falsely described as unchanged:
+  the helper also checks the exact 29-path bound in all Git representations and
+  nonignored additions. Future additions outside the seven new paths require a
+  separately approved successor policy, not silent reuse of this exception.
+- Full suite: 4,292 passed / 47.29 seconds. Coverage-instrumented full rerun:
+  4,292 passed / 119.48 seconds; installed package coverage 98.52%, above the
+  unchanged 90% gate. Focused original/facade suite: 525 passed; native containment
+  contracts/evaluator 100% statement/branch, strict handoff 100% statement/branch,
+  strict containment 100% statements with zero measured branch arcs (branch N/A).
+  Full old handoff audit module is 95.45% combined coverage; five old source-error/
+  CLI lines and one partial branch are not covered by that focused run.
+- Ruff/format pass (655 Python files), mypy passes for 71 installed-source files.
+  Observability, observation-v2, steering-knowledge, H5/H6/H7 and patch-design
+  manifest/history validators pass. These do not newly verify external source
+  checkout bytes where the validator reports `source_bytes_verified=false`.
+  Handoff audit remains 66 synthetic cases / six consistent / seven pinned files /
+  11 ranges, overall BLOCKED, runtime and permission fields false.
+- Replay integration: 11 passed; all four pinned replay goldens verified both
+  locally and from the fresh wheel. Fresh default-isolated build produces sdist
+  and wheel; all 72 wheel package files match base Git bytes and exclude tests/
+  compatibility. Vanilla imports all 70 submodules without NumPy/tests. Knowledge,
+  owner, science, friction and receipt smoke pass; optional dependency failures
+  are checked before installing research extras, and research smoke passes after.
+- The initial `build --no-isolation` attempt failed because the existing dev venv
+  lacked setuptools; the normal isolated build passed without changing project
+  dependencies. An initial coverage run's stdout filename collided with coverage
+  parallel-data cleanup; the separately named captured rerun above is authoritative.
+
+Local status: ORIGINAL_PR25_INPUT_REPAIR_VERIFIED_LOCALLY;
+ORIGINAL_PR33_LIMIT_REPAIR_VERIFIED_LOCALLY;
+BOUNDED_HISTORY_TRANSITION_VERIFIED_LOCALLY.
+These do not repair old PR heads or main before integration, do not migrate
+callers by rebinding, and do not close runtime/vehicle/application blockers.
+No push, PR creation, Linux/Windows remote CI, merge or deployment is performed.
+Main was rechecked as `a5d3514f23797829eb58d08c638b22cf4dd30c8a`.
