@@ -2,7 +2,8 @@
 
 from dataclasses import dataclass, field
 
-from tests.guest_raw_lifetime.model import PERMISSIONS, _fields, _uint, require
+from tests.guest_raw_lifetime.model import PERMISSIONS, _fields, _uint
+from tests.guest_raw_lifetime.model import require as require
 
 CASES = ("NORMAL", "ROOT_BIRTH_LOSS", "SMALL_BUFFER")
 RELEASE = "6.12.113-cpscope-v1"

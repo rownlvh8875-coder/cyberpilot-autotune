@@ -1,0 +1,401 @@
+{
+  "package_sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5",
+  "patch": {
+    "bytes": 13840,
+    "path": "tests/guest_root_scope/kernel.patch",
+    "sha256": "0b4df48afa9f9750691026c51b180278532c0c30a50f671d797c7e45a6ac6e6d"
+  },
+  "patched_files": [
+    {
+      "bytes": 37817,
+      "git_blob_sha1": "9a2cfda3cb404d8d168ac608be960c3aa797124c",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "successful private namespace construction / zero diagnostic fields",
+          "end": 413,
+          "sha256": "2b0973989eabfe727fbd67270d37c8c22221712e0d7f6b587755768b2b5369a1",
+          "start": 315
+        },
+        {
+          "claim": "post-allocator namespace free saved scalar",
+          "end": 461,
+          "sha256": "65fd8e02e5c8366af8ac142f563593f664f2250bd54247cf381e265e62cccb85",
+          "start": 440
+        },
+        {
+          "claim": "installation effect and CLOEXEC",
+          "end": 634,
+          "sha256": "4320c7d624c0be6dae6fadd722f0b2b9b11af5f1e9a4cee212832e52640814cb",
+          "start": 601
+        },
+        {
+          "claim": "close effect",
+          "end": 663,
+          "sha256": "fc09eaaa5c01289a3bd16f161e6e700415e1a0b0581a7077fa153de0fe04160a",
+          "start": 643
+        },
+        {
+          "claim": "flag effect",
+          "end": 1211,
+          "sha256": "1f95898a75abce1e1f32539b35f5dbce67a5a2d91d36eb2060f71862475f43cc",
+          "start": 1193
+        },
+        {
+          "claim": "dup3 write including unused destination",
+          "end": 1271,
+          "sha256": "a571feea1c87d8c742405c7b64a800d2cb5f82709a8a1ed91dcc83433f0afb26",
+          "start": 1216
+        }
+      ],
+      "sha256": "129263d5c6923429eb2e98d93a67b9b6e6b2de7de10a48b924595adeab518284"
+    },
+    {
+      "bytes": 15200,
+      "git_blob_sha1": "9b3fd9e901b9c43c30039846849b077bdc276a8c",
+      "path": "fs/file_table.c",
+      "ranges": [
+        {
+          "claim": "post-allocator file free saved scalar",
+          "end": 108,
+          "sha256": "a2d12fa8ceb5622d02992c636f308f59ce558a044059167544ea69de492f249b",
+          "start": 88
+        },
+        {
+          "claim": "successful initialized OFD allocation",
+          "end": 264,
+          "sha256": "c13b36065239116dd9f1d1e0c88491843df643e88093da17cc5291f3582da1c4",
+          "start": 218
+        }
+      ],
+      "sha256": "fa4aebbb367d97206b0f7e571e63af54f08d0459fcd259efd5e3b00783f1f78a"
+    },
+    {
+      "bytes": 914,
+      "git_blob_sha1": "b404073280a2076a546297f0ee655f4516fd88bd",
+      "path": "fs/proc/Makefile",
+      "ranges": [
+        {
+          "claim": "compiled diagnostic source",
+          "end": 18,
+          "sha256": "cdc5e786e3075f3b0472b0ff8cdefe21df324e94df21dfba57a842e11ef5593d",
+          "start": 15
+        }
+      ],
+      "sha256": "e65af5babcf5b8c800337e770cc2a6afe460c41153e683830dfdce1c1806d14c"
+    },
+    {
+      "bytes": 3535,
+      "git_blob_sha1": "e22f3fbfcbf41cc9dbc89c34382aae5d03df187a",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "namespace cookie and scope layout",
+          "end": 65,
+          "sha256": "3ab62a634c697975144cf576ec9cd08d9a9a55ffaaa1e0b2e40564461deeea9a",
+          "start": 38
+        }
+      ],
+      "sha256": "86b2acb622e4bd1d03eeeaa4fe2b8f3bf33ce1779ec32d959402b47d42857dd4"
+    },
+    {
+      "bytes": 128631,
+      "git_blob_sha1": "bba7bb6a1199381f558667dd7e546437ae70bf48",
+      "path": "include/linux/fs.h",
+      "ranges": [
+        {
+          "claim": "OFD cookie and scope layout",
+          "end": 1103,
+          "sha256": "27d77049f3f7832b4e82ffeb67ef1d77d7ab3ec64ac852897951cd3b1b9d5b21",
+          "start": 1075
+        }
+      ],
+      "sha256": "a5088347c8316a51fa4e339672724472e2e64d6e041a448dd55c9c870d353f7e"
+    },
+    {
+      "bytes": 65042,
+      "git_blob_sha1": "f5193d287a00d1266c0a5b38dce23df86a5a75e2",
+      "path": "include/linux/sched.h",
+      "ranges": [
+        {
+          "claim": "task cookie and scope layout",
+          "end": 1159,
+          "sha256": "91342736568a296572396fe4b3633bbd93acb2ed38d4d84d9358aae37945dc6d",
+          "start": 1153
+        }
+      ],
+      "sha256": "1c3dcea2aa64cac0241a22930c8135a336915fb2a80f17b7313b6826a51c4d33"
+    },
+    {
+      "bytes": 87861,
+      "git_blob_sha1": "6b3aeb648cd9004ec2a27bd2dca742f2fe0948dc",
+      "path": "kernel/fork.c",
+      "ranges": [
+        {
+          "claim": "dup_task_struct copies parent state",
+          "end": 1246,
+          "sha256": "f180a42a082970e1ecf5caab5b2fdc88582c6993e411390c0abb9a2dfd159728",
+          "start": 1126
+        },
+        {
+          "claim": "successful copy_files result before publication",
+          "end": 1838,
+          "sha256": "5028ec77ed733f204eb85c5aeb1af6e9667d06fed3fbd71bc3c58b657cf4e37a",
+          "start": 1802
+        },
+        {
+          "claim": "task allocation diagnostic before failure-capable initialization",
+          "end": 2269,
+          "sha256": "b02757ce8fe80954421d346cc7207b61fe9d0f0c39ee88b62e7d36dc707d24e9",
+          "start": 2252
+        },
+        {
+          "claim": "copy_files call after task allocation",
+          "end": 2418,
+          "sha256": "40365458136148b203da1e5cb0c292b4b84a28b367065d6f2202fd132b184909",
+          "start": 2405
+        },
+        {
+          "claim": "last failure boundary and task publication",
+          "end": 2670,
+          "sha256": "b5a40c1a40a3bc2772364dc54984cc126663f280d9d923ad3af82b442b907a9a",
+          "start": 2571
+        },
+        {
+          "claim": "runnable transition after copy_process commit",
+          "end": 2880,
+          "sha256": "fa79274b1b5d848749455ffabaf0f3b0368cff21b4d1477d09df52c40ca36057",
+          "start": 2856
+        }
+      ],
+      "sha256": "32788952871be9b6cc106a47cfd6f6d0b7207cd3a83eafa4aa60f46af5462b7d"
+    },
+    {
+      "bytes": 6613,
+      "git_blob_sha1": "50fef52c61a79c87da15e910dcaac02a3d19f56b",
+      "path": "fs/proc/cplife.c",
+      "ranges": [
+        {
+          "claim": "fixed emitter local counters / missing allocation injection",
+          "end": 69,
+          "sha256": "e70465438382d84e55593db8e8c8b844bc9a4985636b49098e8a511fe55cb491",
+          "start": 37
+        },
+        {
+          "claim": "clear inherited task cookie / issue root scalar scope",
+          "end": 89,
+          "sha256": "3cd1f36ffdf7ced7a5bd411c407f2c2b1380352bb2f07fc7c9056f8449b08178",
+          "start": 65
+        },
+        {
+          "claim": "subject-task namespace bind and success commit",
+          "end": 111,
+          "sha256": "67853bd099bf04174de68d2f4e3533459323344cde7d6fb876022ffa51162e16",
+          "start": 87
+        },
+        {
+          "claim": "file scalar birth and post-free identities",
+          "end": 134,
+          "sha256": "73f0f2c438b6416fdab266b2b296677ce0e02f674d3fcf18a23d6f07d338a11f",
+          "start": 105
+        },
+        {
+          "claim": "one-shot arm and stop / no borrowed pointer",
+          "end": 181,
+          "sha256": "59eb205956795160ddb0e935d706840cd9c58da7eed75e242c8c3a8ee2939850",
+          "start": 136
+        },
+        {
+          "claim": "exact CPS wire fields",
+          "end": 199,
+          "sha256": "905ee5fe035bf0b6473aff9bc89e2a05bc7344e60e12e26c40ccb5b26f0c9302",
+          "start": 170
+        }
+      ],
+      "sha256": "85a72e9b585d317cb7e9b72997c3ec8ff3313eb81137aeaffdb6f5e9ed8119bd"
+    },
+    {
+      "bytes": 665,
+      "git_blob_sha1": "e8e2da99486aa9d8de56e2db9474f187dcd536b6",
+      "path": "include/linux/cplife.h",
+      "ranges": [
+        {
+          "claim": "typed diagnostic hook API",
+          "end": 16,
+          "sha256": "0c233f56c9c363e134b5bc3aed21897e4deae837cb721f59538b97bf663d1604",
+          "start": 2
+        }
+      ],
+      "sha256": "0489207a686cd13c10bf1dd2854ffae49313e0161d655605e927e1b80907ac95"
+    }
+  ],
+  "pristine_files": [
+    {
+      "bytes": 37233,
+      "git_blob_sha1": "c84bd5809358382df0332322dfce64a1749acab3",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "successful private namespace construction / zero diagnostic fields",
+          "end": 412,
+          "sha256": "2845f97b2a0817f94eede84b5f8148e9848f1329dfb0b86be0e7ab0976ec34aa",
+          "start": 314
+        },
+        {
+          "claim": "post-allocator namespace free saved scalar",
+          "end": 458,
+          "sha256": "91c16adbd549fd6387f36d4991eeac47fe49f86c0ca200809352066d14f4930e",
+          "start": 437
+        },
+        {
+          "claim": "installation effect and CLOEXEC",
+          "end": 628,
+          "sha256": "2c5c4d9d1932355f74bf937ff75e164774a84d15dd8a94accac9699b892d1ba7",
+          "start": 595
+        },
+        {
+          "claim": "close effect",
+          "end": 655,
+          "sha256": "af56b5fa90da75bb6a33a631b378b4effe1d742ee2901687de7946e8996d97c3",
+          "start": 635
+        },
+        {
+          "claim": "flag effect",
+          "end": 1202,
+          "sha256": "89a13f233a032c4ef4b444f8c7d8780b35bafc0538de10559cf6859308e8b07e",
+          "start": 1184
+        },
+        {
+          "claim": "dup3 write including unused destination",
+          "end": 1261,
+          "sha256": "0abdaf8623ffa0199e27256f2c61d509fb95ce8dbb218d13f3ae71e7cb6824f8",
+          "start": 1206
+        }
+      ],
+      "sha256": "07cb3588c77a23709dfc746330cb0ac602445d647a14246ab5242bc389256169"
+    },
+    {
+      "bytes": 15008,
+      "git_blob_sha1": "f78bcff79f1a0499bcc48390f032e785cf4b47f4",
+      "path": "fs/file_table.c",
+      "ranges": [
+        {
+          "claim": "post-allocator file free saved scalar",
+          "end": 107,
+          "sha256": "87c5085ee30d3a0d310304fc22b62c4e6ee804e4845a4421a7e19f8d9c097094",
+          "start": 87
+        },
+        {
+          "claim": "successful initialized OFD allocation",
+          "end": 260,
+          "sha256": "8dec3616b12eb4d784f278f3560b8eb4f6387ad2b7f1cb9a32274d2d1bbfe85e",
+          "start": 214
+        }
+      ],
+      "sha256": "853ad4b282453d6091944412fa5eae258e11e53292457b8be812afe4cc15320c"
+    },
+    {
+      "bytes": 894,
+      "git_blob_sha1": "7b4db9c56e6a77d3f0abd4a4e687542a734bb8d7",
+      "path": "fs/proc/Makefile",
+      "ranges": [
+        {
+          "claim": "compiled diagnostic source",
+          "end": 18,
+          "sha256": "acdec885681228060c9b46e8fdee86603d32ca6eeefdeb12f18a06600dc699a8",
+          "start": 15
+        }
+      ],
+      "sha256": "7e9624f9f9f7bc0698e94353fd8e8129ae2e3c7be5eb41f44113e36da53afe65"
+    },
+    {
+      "bytes": 3452,
+      "git_blob_sha1": "b1c5722f2b3ce4ba82e89716d5e27f85c67a8afd",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "namespace cookie and scope layout",
+          "end": 65,
+          "sha256": "d8011fb7a1b698eac8c768ec69c881d24f4d922dec4f5b1d8be47c4fcbca6b3d",
+          "start": 38
+        }
+      ],
+      "sha256": "ab0233740bd825ed7705e378278f60a3a184a7ded81fea060ac4a2fbfe2abfdb"
+    },
+    {
+      "bytes": 128548,
+      "git_blob_sha1": "19211eb49a8c087e497a1d2ff08906ea34fb9e64",
+      "path": "include/linux/fs.h",
+      "ranges": [
+        {
+          "claim": "OFD cookie and scope layout",
+          "end": 1103,
+          "sha256": "21ed70d564745434c52c98b021e724d98f5ada2a14d038a06fbc7b35d22afe16",
+          "start": 1075
+        }
+      ],
+      "sha256": "b1eaaf9e239d449a923a980ad05939069bb8347655b482a11b0e9ba524759bce"
+    },
+    {
+      "bytes": 65002,
+      "git_blob_sha1": "0fb5bb6c30d3ff73e2b392534c87c555497348fe",
+      "path": "include/linux/sched.h",
+      "ranges": [
+        {
+          "claim": "task cookie and scope layout",
+          "end": 1159,
+          "sha256": "dd8c1658d27162a85c65f9c7420becbf7a533aa5c0631e46a7059ac065653289",
+          "start": 1153
+        }
+      ],
+      "sha256": "ce6de88d6af3a27ef81e86b44e24fa89570faba4f862baf36ec40d44dda78c89"
+    },
+    {
+      "bytes": 87580,
+      "git_blob_sha1": "c36d69c40213b45d8792cdc3ee41d5ab07f36251",
+      "path": "kernel/fork.c",
+      "ranges": [
+        {
+          "claim": "dup_task_struct copies parent state",
+          "end": 1245,
+          "sha256": "f180a42a082970e1ecf5caab5b2fdc88582c6993e411390c0abb9a2dfd159728",
+          "start": 1125
+        },
+        {
+          "claim": "successful copy_files result before publication",
+          "end": 1837,
+          "sha256": "d5d14dc039f48826e6f33e7c9a57e1941f255e4b55c275223a9f305fc539ab8c",
+          "start": 1801
+        },
+        {
+          "claim": "task allocation diagnostic before failure-capable initialization",
+          "end": 2267,
+          "sha256": "e1d4df83f14edb00ebdb0aa9902d4c75f48c145974761452d79fb9e8b6a2f784",
+          "start": 2250
+        },
+        {
+          "claim": "copy_files call after task allocation",
+          "end": 2415,
+          "sha256": "40365458136148b203da1e5cb0c292b4b84a28b367065d6f2202fd132b184909",
+          "start": 2402
+        },
+        {
+          "claim": "last failure boundary and task publication",
+          "end": 2667,
+          "sha256": "784bd0618ad3cb071e644fa031c761b403dcf7ebdef59208c2e33099ec2c57ab",
+          "start": 2568
+        },
+        {
+          "claim": "runnable transition after copy_process commit",
+          "end": 2876,
+          "sha256": "fa79274b1b5d848749455ffabaf0f3b0368cff21b4d1477d09df52c40ca36057",
+          "start": 2852
+        }
+      ],
+      "sha256": "9ca6cce17959283738d9a010405c319d38397e698e6a6382a24bbbf29ef8b1fa"
+    }
+  ],
+  "runtime_qualified": false,
+  "schema": "guest-root-scope-sources-v1",
+  "source_archive_sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33"
+}
