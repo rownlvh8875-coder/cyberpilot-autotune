@@ -135,9 +135,9 @@
       "sha256": "77f15c551412d5571561a7f2a9c517e281566ada95f9cc16ac4dc07b218a67fd"
     },
     {
-      "bytes": 11662,
+      "bytes": 12589,
       "path": "tests/guest_fork_copy/model.py",
-      "sha256": "8004158607ad5e10c872f68a5f39a095692375f4555dcbf9f079222a8efdda09"
+      "sha256": "8e55dc171ffd892e2bbedbaa8b307cc1995dba79f01f8907a7a11fbecb49cf24"
     },
     {
       "bytes": 1259,
@@ -147,7 +147,7 @@
     {
       "bytes": 4245,
       "path": "tests/guest_fork_copy/runner.py",
-      "sha256": "1bf59a76fa325ca983581755cd04e6ecb0ef454b4c6ad015ce7e14db08998677"
+      "sha256": "a7936eda97f5de6f7f80fcf052d131f73cb1362b9731c086154e2e1ee1108826"
     },
     {
       "bytes": 2786,

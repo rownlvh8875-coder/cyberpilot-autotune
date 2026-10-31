@@ -56,7 +56,9 @@ Wire cookie0 means unavailable, decoded `None`, never an actual ID. PRESENT with
 unknown OFD is distinct from NULL. NULL cannot have a known OFD. Raw stale CLOEXEC
 bits for NULL slots survive; effective binding CLOEXEC is `None`. Tail `-1` means
 unavailable, distinct from observed0/1. Tasks/namespaces/OFD roles cannot collide.
-Copy context is immutable, non-root creator source must match the previous
+Capture-wide task/namespace/OFD role separation and a single lineage scope are
+required, including collisions with identities seen later. Copy context is
+immutable, non-root creator source must match the previous
 committed task's recorded namespace. Missing/gapped sequences are not reconstructed.
 
 ## Diagnostic meaning and loss
@@ -64,7 +66,9 @@ committed task's recorded namespace. Missing/gapped sequences are not reconstruc
 `parse_serial` returns frozen immutable values; `assess` reports complete recorded
 mechanical sequences and slots, not complete object identity or ownership.
 The fixed196-record complete grammar is BEGIN/BITMAPS,64×READ/branch/STORE,
-successful tail/return, then task-finalize. Abort/partial/lost sequences stay
+successful tail/return, then task-finalize. Success/commit require reason NONE;
+aborted successful copies require a task-failure reason. Contradictory terminal
+reasons cannot be ignored for mechanical admission. Abort/partial/lost sequences stay
 diagnostic; no resulting child inventory is admitted.
 
 Attempted = reserved + failed; reserved = committed + discarded + pending.

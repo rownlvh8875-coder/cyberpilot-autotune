@@ -177,6 +177,48 @@ def test_inconsistent_observed_counts_remain_visible_without_global_zero():
     assert decision.actual_global_drops is None
 
 
+@pytest.mark.parametrize(
+    ("before", "after"),
+    [
+        (
+            b"result=SUCCESS tail_zeroed=1 reason=NONE",
+            b"result=SUCCESS tail_zeroed=1 reason=CONSTRUCTOR_INJECTED",
+        ),
+        (b"result=COMMITTED reason=NONE", b"result=COMMITTED reason=TASK_INJECTED"),
+        (b"result=ABORTED reason=TASK_INJECTED", b"result=ABORTED reason=NONE"),
+    ],
+)
+def test_terminal_failure_reason_cannot_be_ignored_for_mechanical_admission(before, after):
+    model = api()
+    case = "TASK_FAIL" if b"ABORTED" in before else "NORMAL"
+    result = model.assess(model.parse_serial(frame(case).replace(before, after)))
+    assert "TERMINAL_REASON_CONTRADICTION" in result.reasons
+    assert result.committed_stage_sequences == ((1,) if case == "TASK_FAIL" else ())
+
+
+@pytest.mark.parametrize("change", ["OFD_IS_LATER_TASK", "NAMESPACE_IS_LATER_OFD", "SCOPE_DRIFT"])
+def test_capture_wide_identity_graph_rejects_role_collisions_and_scope_drift(change):
+    raw = frame()
+    if change == "OFD_IS_LATER_TASK":
+        lines = raw.splitlines()
+        raw = (
+            b"\n".join(
+                line.replace(b"ofd=0", b"ofd=4")
+                if b"copy=1 " in line and b"presence=PRESENT" in line
+                else line
+                for line in lines
+            )
+            + b"\n"
+        )
+    elif change == "NAMESPACE_IS_LATER_OFD":
+        raw = raw.replace(b"source=0 dest=2", b"source=0 dest=3")
+        raw = raw.replace(b"source=2 dest=5", b"source=3 dest=5")
+    else:
+        raw = raw.replace(b"scope=1 actor=1 task=4", b"scope=8 actor=1 task=4")
+    with pytest.raises(ValueError, match="COOKIE_ROLE_COLLISION|COPY_SCOPE_DRIFT"):
+        api().parse_serial(raw)
+
+
 @pytest.mark.parametrize("raw", [b"", b"\xff", b"a" * (2**21 + 1), b"CPS_META version=1", True])
 def test_nonbytes_oversize_and_old_frames_are_not_observed_copy_records(raw):
     with pytest.raises(ValueError):

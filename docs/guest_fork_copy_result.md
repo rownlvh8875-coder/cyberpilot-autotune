@@ -54,8 +54,16 @@ operation results, not natural failure frequencies. Separate lifecycle counts
   one of six enum cases) boots the frozen guest. No arbitrary payload/input.
 
 Verification results, exact-head review/CI and publication metadata are recorded
-in the own Draft PR handoff. Pure codec coverage is100%statements and97.62%branches
-(41/42); no impossible-success branch is artificially exercised for100%.
+in the own Draft PR handoff. Pure codec coverage is100%statements and97.92%branches
+(47/48); no impossible-success branch is artificially exercised for100%.
+
+Fresh independent review at41614f7 reported C0/I2/M0: terminal reason contradictions
+and capture-wide scope/cookie roles. One author fix pass reproduced5failing
+adversaries (plus1already-rejected regression), then36codec tests passed. All six
+actual guests were recaptured with the final pinned codec/runner; the kernel,
+driver, images and source-range pins did not change. Pre-review captures are
+retained separately, not overwritten/labeled as reviewed final evidence. Final
+head is the append-only fix commit; no second review or runtime approval claimed.
 
 ## Retained limits and next single task
 

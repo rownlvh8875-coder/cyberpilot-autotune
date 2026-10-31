@@ -19,7 +19,7 @@ from .runner import ASSETS, IMAGE_SHA, ROOT, VM
 BUILD = ROOT / "docs/evidence/guest_fork_copy_build.json"
 ACTUAL = ROOT / "docs/evidence/guest_fork_copy_actual.json"
 SOURCES = ROOT / "docs/evidence/guest_fork_copy_sources.json"
-BUILD_DIGEST = "2a417b806377f3c4cc3248bc2dbbd558652aefe2eb36e485d9263b0301dfbe81"
+BUILD_DIGEST = "7cbf47008c668142b3d2eab7342ab0984b924d9ce225f246efd506b2c7f15b23"
 SOURCE_DIGEST = "052c163c802505b5a96a33d6e0d75aa016fdfb6bdcbbbd32299db9efe8e1f0a2"
 IMAGE_BYTES = (336170, 336174, 336177, 336178, 336173, 336173)
 # Raw token dictionaries from literal expected wire written before source hooks.

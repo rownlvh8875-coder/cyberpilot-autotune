@@ -116,6 +116,8 @@ def parse_serial(raw: bytes) -> Capture:
     events: list[Event] = []
     contexts: dict[int, tuple[int, ...]] = {}
     locals_seen: dict[int, int] = {}
+    cookie_roles: dict[int, str] = {}
+    capture_scope: int | None = None
     for line in lines[3:-2]:
         pairs = line.split(" ")
         kinds = [s[5:] for s in pairs if s.startswith("kind=")]
@@ -145,6 +147,17 @@ def parse_serial(raw: bytes) -> Capture:
         require(
             len(roles) == len(set(roles)) and scope not in (source, dest), "COOKIE_ROLE_COLLISION"
         )
+        require(capture_scope is None or capture_scope == scope, "COPY_SCOPE_DRIFT")
+        capture_scope = scope
+        for cookie, role in (
+            (scope, "TASK"),
+            (actor, "TASK"),
+            (task, "TASK"),
+            (source, "NAMESPACE"),
+            (dest, "NAMESPACE"),
+        ):
+            if cookie:
+                require(cookie_roles.setdefault(cookie, role) == role, "COOKIE_ROLE_COLLISION")
         values: dict[str, Value] = {}
         for name in PAYLOADS[kind]:
             value = row[name]
@@ -169,6 +182,10 @@ def parse_serial(raw: bytes) -> Capture:
             else:
                 number = _uint(value)
                 require(name != "fd" or number < 64, "FD_WIDTH_PROFILE")
+                if name == "ofd" and number:
+                    require(
+                        cookie_roles.setdefault(number, "OFD") == "OFD", "COOKIE_ROLE_COLLISION"
+                    )
                 values[name] = (number or None) if name == "ofd" else number
         if kind in ("READ", "STORE"):
             require(values["presence"] != "NULL" or values["ofd"] is None, "NULL_IS_NOT_OFD")
@@ -247,6 +264,12 @@ def _sequence(group: list[Event], reasons: list[str]) -> tuple[tuple[Slot, ...],
         "COPY_CONSTRUCTOR_FAILED",
     )
     committed = dict(finalized.values)["result"] == "COMMITTED"
+    require(
+        dict(returned.values)["reason"] == "NONE"
+        and dict(finalized.values)["reason"]
+        in (("NONE",) if committed else ("TASK_INJECTED", "TASK_FAILED")),
+        "TERMINAL_REASON_CONTRADICTION",
+    )
     if not committed:
         reasons.append("TASK_ABORTED")
     return tuple(slots), committed
