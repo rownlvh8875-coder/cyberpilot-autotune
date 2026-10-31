@@ -48,3 +48,5 @@
 /docs/evidence/bootstrap_tag_initialization_*.json -text
 /tests/tag_read_protocol/** -text
 /docs/evidence/tag_read_protocol_*.json -text
+/tests/guest_tag_snapshot/** -text
+/docs/evidence/guest_tag_snapshot_*.json -text
