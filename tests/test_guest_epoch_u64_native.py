@@ -5,6 +5,7 @@ import subprocess
 
 import pytest
 
+from tests.guest_epoch_u64 import native_probe
 from tests.guest_epoch_u64.native_probe import probe
 
 pytestmark = pytest.mark.skipif(shutil.which("gcc") is None, reason="GNU C compiler unavailable")
@@ -47,3 +48,14 @@ def test_probe_refuses_nonempty_destination_without_overwriting_it(tmp_path):
     with pytest.raises(ValueError, match="EMPTY_OWNED"):
         probe(tmp_path)
     assert sentinel.read_bytes() == b"unchanged"
+
+
+def test_untrusted_snippet_bytes_are_rejected_before_creating_compile_inputs(tmp_path, monkeypatch):
+    bad = tmp_path / "bad.json"
+    bad.write_bytes(b"untrusted source")
+    owned = tmp_path / "owned"
+    owned.mkdir()
+    monkeypatch.setattr(native_probe, "INPUTS", bad)
+    with pytest.raises(ValueError, match="NATIVE_INPUT_BYTES_DRIFT"):
+        probe(owned)
+    assert list(owned.iterdir()) == []

@@ -36,14 +36,14 @@ wire decoder, frozen source/build audit. All code stays in test-only tooling.
 using frozen actual declaration/helper excerpts; mutation closed to saved32,
 buffer32,signed,format32,mask32,float. Actual kernel type guards also compile.
 
-- [ ] Write native high-bit/mutation tests using literal decimal expectations.
-- [ ] Run `.venv/bin/python -m pytest -q tests/test_guest_epoch_u64_native.py`.
+- [x] Write native high-bit/mutation tests using literal decimal expectations.
+- [x] Run `.venv/bin/python -m pytest -q tests/test_guest_epoch_u64_native.py`.
   Expected: RED absent API; additionally compile native against old narrow types
   and observe rejection before correcting source.
-- [ ] Implement kernel delta and native test tool; prepare separate exact source,
+- [x] Implement kernel delta and native test tool; prepare separate exact source,
   apply patches, compile actual type guards/kernel with format warnings errors
   and new driver. Record hashes; do not execute kernel/driver.
-- [ ] Run focused tests and `.venv/bin/python -m pytest -q`.
+- [x] Run focused tests and `.venv/bin/python -m pytest -q`.
   Expected: all PASS. Commit `fix: preserve raw epoch width in versioned producer`.
 
 ### Task 2: Separate v2 wire contract
@@ -55,13 +55,13 @@ buffer32,signed,format32,mask32,float. Actual kernel type guards also compile.
 v2 types, fixed WIRE_BYTES_UNTRUSTED/BLOCKED and permissions false. Purely reuse
 unchanged v1 event field vocabulary, never its parser/decision/converter.
 
-- [ ] Write literal v2 fixtures, UInt64/unknown, framing, field/cohort/resource,
+- [x] Write literal v2 fixtures, UInt64/unknown, framing, field/cohort/resource,
   stage, count, duplicate and v1/mixed-version rejection tests.
-- [ ] Run `.venv/bin/python -m pytest -q tests/test_guest_epoch_u64_wire.py`.
+- [x] Run `.venv/bin/python -m pytest -q tests/test_guest_epoch_u64_wire.py`.
   Expected: RED absent v2 API.
-- [ ] Implement bounded canonical ASCII parser; explicit epoch status/payload
+- [x] Implement bounded canonical ASCII parser; explicit epoch status/payload
   pairing; strict one-frame marker set, no legacy upgrade.
-- [ ] Run focused and full pytest. Expected: all PASS.
+- [x] Run focused and full pytest. Expected: all PASS.
   Commit `feat: decode distinct untrusted UInt64 producer frames`.
 
 ### Task 3: Freeze source/build evidence and integration boundaries
@@ -75,9 +75,9 @@ Add only new-prefix `.gitattributes` rules.
 Path | None = None, assets_root: Path | None = None) -> dict` CLI. Default audit
 is portable; explicit roots verify actual source/build bytes, never runtime.
 
-- [ ] Write frozen-source/build mutation and old-blob/import architecture guards.
-- [ ] Run focused audit tests. Expected: RED missing audit API.
-- [ ] Implement read-only source/build validation, exact hashes and evidence limits.
+- [x] Write frozen-source/build mutation and old-blob/import architecture guards.
+- [x] Run focused audit tests. Expected: RED missing audit API.
+- [x] Implement read-only source/build validation, exact hashes and evidence limits.
 - [ ] Run full pytest/coverage, source/history/assets, lint/format/mypy/build,
   native192/replay4, fresh wheel, CRLF and new CLI/native/source-root checks.
   Expected: PASS; new pure decoder target98statement/95branch or explain gap.
