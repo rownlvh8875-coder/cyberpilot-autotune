@@ -349,6 +349,23 @@ def test_content_does_not_merge_independent_ofds_or_change_alias_identity():
     assert links[5] == links[40] == 6 and links[6] == 7 and links[5] != links[6]
 
 
+def test_wire_field_order_does_not_change_consumed_values_or_origin_diagnostics():
+    parse, assess = api()
+    raw = frame()
+    reordered = (
+        b"\n".join(
+            b" ".join([parts[0], *reversed(parts[1:])])
+            if line.startswith((b"CPB_EVENT ", b"CPB_META ", b"CPB_COUNT ", b"CPB_DRIVER "))
+            else line
+            for line in raw.splitlines()
+            for parts in [line.split(b" ")]
+        )
+        + b"\n"
+    )
+    assert parse(raw) == parse(reordered)
+    assert assess(parse(raw)) == assess(parse(reordered))
+
+
 @pytest.mark.parametrize("cookie", [1, 2, 8, 9])
 def test_missing_parent_or_new_subject_issuance_cannot_be_filled_from_copy_tags(cookie):
     raw = (
