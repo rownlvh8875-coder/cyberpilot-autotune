@@ -101,6 +101,12 @@ cannot be recovered from later tag values into seed→first-copy links. Unknown
 copy IDs,cohorts,roles,stages,epochs,generations or malformed values reject/diagnose.
 SUCCESS/COMMITTED require NONE;task abort/failure reasons remain distinct.
 
+Observed one-shot controls must agree:SEED_BEGIN precedes observed seed records
+and terminal marker;SEED_END precedes ARM and copy stages follow ARM. Observed
+abort cannot coexist with completion/ARM/copy;duplicate controls and contradictory
+reject-command order are rejected. Missing markers stay unavailable,not inferred
+transitions or automatically contradictory order. No control check proves a cut.
+
 Wire limits:UTF8,2MiB original serial,at most512buffered records,UInt64 source
 values,FD0..63,exact enums,closed keys,field-order independence. NaN/Inf/Float/Bool
 cannot impersonate numeric strings. This is a proc text experiment,not cereal or

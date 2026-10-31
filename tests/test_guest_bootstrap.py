@@ -2,6 +2,7 @@
 
 import importlib
 import importlib.util
+import re
 from dataclasses import FrozenInstanceError
 
 import pytest
@@ -382,6 +383,100 @@ def test_missing_parent_or_new_subject_issuance_cannot_be_filled_from_copy_tags(
     parse, assess = api()
     result = assess(parse(raw))
     assert result.missing_origin_witness_ids == (cookie,)
+    assert result.seed_to_first_copy_links == ()
+
+
+def control_frame(change):
+    case = (
+        "SEED_FAIL"
+        if change in ("MISSING_ABORT", "END_IN_ABORTED_FRAME", "DUPLICATE_ABORT")
+        else "NORMAL"
+    )
+    original = frame(case).splitlines()
+    rows = [line for line in original if line.startswith(b"CPB_EVENT ")]
+
+    def index(kind):
+        return next(i for i, line in enumerate(rows) if f"kind={kind}".encode() in line.split(b" "))
+
+    lost = change.startswith("MISSING_")
+    if lost:
+        kind = {
+            "MISSING_BEGIN": "SEED_BEGIN",
+            "MISSING_END": "SEED_END",
+            "MISSING_ARM": "ARM",
+            "MISSING_ABORT": "SEED_ABORT",
+        }[change]
+        rows.pop(index(kind))
+    elif change == "SWAP_END_ARM":
+        a, b = index("SEED_END"), index("ARM")
+        rows[a], rows[b] = rows[b], rows[a]
+    elif change == "ABORT_BEFORE_END":
+        rows.insert(index("SEED_END"), b"CPB_EVENT n=0 epoch=1 kind=SEED_ABORT reason=INJECTED")
+    elif change == "END_AFTER_ROOT_COPY":
+        end = rows.pop(index("SEED_END"))
+        rows.insert(index("TASK_FINALIZE") + 1, end)
+    elif change == "BEGIN_AFTER_SEED_NODES":
+        begin = rows.pop(index("SEED_BEGIN"))
+        rows.insert(index("SEED_SLOT"), begin)
+    elif change == "ARM_REJECT_AFTER_END":
+        rows.insert(
+            index("SEED_END") + 1, b"CPB_EVENT n=0 epoch=1 kind=ARM_REJECT reason=SEED_NOT_COMPLETE"
+        )
+    elif change == "RESEED_REJECT_BEFORE_BEGIN":
+        rows.insert(
+            index("SEED_BEGIN"), b"CPB_EVENT n=0 epoch=1 kind=SEED_REJECT reason=ALREADY_ATTEMPTED"
+        )
+    elif change == "END_IN_ABORTED_FRAME":
+        rows[index("SEED_ABORT")] = (
+            b"CPB_EVENT n=0 epoch=1 kind=SEED_END parent=1 source=2 result=COMPLETE"
+        )
+    elif change == "DUPLICATE_ABORT":
+        rows.insert(index("SEED_ABORT"), b"CPB_EVENT n=0 epoch=1 kind=SEED_ABORT reason=INJECTED")
+    else:
+        assert change == "COPY_BEFORE_ARM"
+        arm = rows.pop(index("ARM"))
+        rows.insert(index("BEGIN") + 1, arm)
+    if not lost:
+        rows = [
+            re.sub(rb" n=\d+ ", f" n={i} ".encode(), line, count=1)
+            for i, line in enumerate(rows, 1)
+        ]
+    attempted = len(rows) + int(lost)
+    count = (
+        f"CPB_COUNT attempted={attempted} reserved={len(rows)} committed={len(rows)} "
+        f"failed={int(lost)} discarded=0 pending=0"
+    ).encode()
+    return b"\n".join([*original[:2], count, *rows, *original[-2:]]) + b"\n"
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        "SWAP_END_ARM",
+        "ABORT_BEFORE_END",
+        "END_AFTER_ROOT_COPY",
+        "BEGIN_AFTER_SEED_NODES",
+        "ARM_REJECT_AFTER_END",
+        "RESEED_REJECT_BEFORE_BEGIN",
+        "COPY_BEFORE_ARM",
+        "END_IN_ABORTED_FRAME",
+        "DUPLICATE_ABORT",
+    ],
+)
+def test_contradictory_observed_control_stages_never_produce_complete_seed_links(change):
+    parse, assess = api()
+    result = assess(parse(control_frame(change)))
+    assert "CONTROL_STAGE_CONTRADICTION" in result.reasons
+    assert not result.seed_walk_recorded_complete and result.seed_to_first_copy_links == ()
+
+
+@pytest.mark.parametrize("change", ["MISSING_BEGIN", "MISSING_END", "MISSING_ARM", "MISSING_ABORT"])
+def test_lost_control_record_is_unavailable_not_a_fabricated_order_or_transition(change):
+    parse, assess = api()
+    result = assess(parse(control_frame(change)))
+    assert "LOCAL_RESERVATION_LOSS" in result.reasons
+    assert "CONTROL_STAGE_CONTRADICTION" not in result.reasons
+    assert "SEED_SLOT_ORDER" not in result.reasons
     assert result.seed_to_first_copy_links == ()
 
 

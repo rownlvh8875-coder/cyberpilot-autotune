@@ -7,6 +7,50 @@ from .contracts import Capture, CopyBinding, Decision, Event, SeedBinding, Value
 Catalog = dict[int, tuple[str, str, int]]
 
 
+def _control_order(capture: Capture) -> None:
+    """Check only observed one-shot relations;absence never invents a transition."""
+    stages = {
+        kind: [e.n for e in capture.events if e.kind == kind]
+        for kind in ("SEED_BEGIN", "SEED_END", "SEED_ABORT", "ARM")
+    }
+    require(all(len(v) <= 1 for v in stages.values()), "CONTROL_STAGE_CONTRADICTION")
+    begin, end, abort, arm = (
+        stages[k][0] if stages[k] else None for k in ("SEED_BEGIN", "SEED_END", "SEED_ABORT", "ARM")
+    )
+    copies = [e.n for e in capture.events if "copy" in dict(e.values)]
+    if abort is not None:
+        require(
+            capture.seed_walk == "ABORTED" and end is None and arm is None and not copies,
+            "CONTROL_STAGE_CONTRADICTION",
+        )
+    if end is not None:
+        require(capture.seed_walk == "COMPLETE", "CONTROL_STAGE_CONTRADICTION")
+    require(
+        all(
+            left is None or right is None or left < right
+            for left, right in ((begin, end), (begin, abort), (begin, arm), (end, arm))
+        ),
+        "CONTROL_STAGE_CONTRADICTION",
+    )
+    terminal = end if end is not None else abort
+    for e in capture.events:
+        row = dict(e.values)
+        if "copy" in row:
+            require(arm is None or arm < e.n, "CONTROL_STAGE_CONTRADICTION")
+        if e.kind == "SEED_SLOT" or (e.kind == "NODE" and row["origin"] == "FIRST_OBSERVED"):
+            require(
+                (begin is None or begin < e.n) and (terminal is None or e.n < terminal),
+                "CONTROL_STAGE_CONTRADICTION",
+            )
+        if e.kind == "SEED_REJECT":
+            require(begin is None or begin < e.n, "CONTROL_STAGE_CONTRADICTION")
+        if e.kind == "ARM_REJECT":
+            require(
+                (end is None or e.n < end) and (arm is None or e.n < arm),
+                "CONTROL_STAGE_CONTRADICTION",
+            )
+
+
 def _number(value: Value) -> int:
     if type(value) is not int or value <= 0:
         raise ValueError("POSITIVE_ID_OR_ORDINAL_REQUIRED")
@@ -78,7 +122,7 @@ def _seed(
     context = None
     for i, e in enumerate(group):
         row = dict(e.values)
-        require(row["fd"] == i and bool(begins) and e.n > begins[0], "SEED_SLOT_ORDER")
+        require(row["fd"] == i and (not begins or e.n > begins[0]), "SEED_SLOT_ORDER")
         if ends:
             require(e.n < ends[0].n, "SEED_SLOT_AFTER_END")
         parent, source = _number(row["task"]), _number(row["source"])
@@ -210,6 +254,7 @@ def assess(capture: Capture) -> Decision:
         reasons.append("EMISSION_GAP")
     try:
         catalog, arm, stopped = _catalog(capture, fatal)
+        _control_order(capture)
         if not stopped:
             reasons.append("STOP_RECORD_UNAVAILABLE")
         if arm is None:

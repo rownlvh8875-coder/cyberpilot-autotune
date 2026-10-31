@@ -65,9 +65,20 @@ or one of ten fixed enum cases. Ordinary tests/audits/import do not boot/build.
 Codec/runner missingAPI39+8RED→GREEN;additional context/copy-ID/role loss guards
 8RED→GREEN before actualcapture. Audit21missingAPIRED→GREEN plus frozen nonce
 characterization;focused verification and full regressions/review/exactheadCI
-are recorded in the own Draft PR handoff. Pure wire/model252statements84branches
-100/100;no runtime/source C coverage or qualification inferred from Python coverage.
-All four pure modules including contracts/image total337statements86branches100/100.
+are recorded in the own Draft PR handoff. Fresh independent review at28db46d found
+C0/I1/M1. I1:contradictory observed control ordering could retain seed links. One
+author RED→GREEN pass added13cases,checks observed one-shot relations and preserves
+missing-control availability. No second review or independent final-head approval
+is claimed. All four pure modules total359statements100branches100/100;no runtime/
+source C coverage or qualification inferred from Python coverage.
+Post-fix focused97/full3382tests pass;ten fresh guest captures match pre-hook
+literal event signatures. Source/assets/native192/replay4/build/fresh-wheel checks
+pass. Exact-head CRLF/remote CI completion is recorded in the Draft PR handoff.
+
+Deferred new M1:--verify-assets verifies prepared inputs/tools,not retained final
+capture images. Reviewer separately checked all10retained images;runner regenerates
+them from verified init/case rather than consuming the retained outputs. Automatic
+retained-output image verification is deferred,not advertised as implemented.
 
 ## Retained blockers / next single task
 

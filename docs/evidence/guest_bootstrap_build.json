@@ -145,9 +145,9 @@
       "sha256": "9051de047145eb539cfc5a16da654f337ee8c899b449ae45dd8eb167a041e510"
     },
     {
-      "bytes": 12912,
+      "bytes": 14825,
       "path": "tests/guest_bootstrap/model.py",
-      "sha256": "7fcfea82d52c14e22d4cdc16143abbf0852fe2cc6b9ebe5c5381d1cc409e112e"
+      "sha256": "467443f553258504308ae8bcb564b148ba2ada28b0181f61bce570225e090ecb"
     },
     {
       "bytes": 1261,
@@ -157,7 +157,7 @@
     {
       "bytes": 5217,
       "path": "tests/guest_bootstrap/runner.py",
-      "sha256": "007d32332531b9a614cc88855e4db4903e8316a628cccd81f17638db8bdfcca1"
+      "sha256": "c0065c715f5aa6d258d58049f00848c142e8e21555d3d9e2ec9ffd9aff3a0d4b"
     },
     {
       "bytes": 3775,

@@ -31,21 +31,21 @@ pure observed decoder/diagnostic and original-byte/source audit.No oldproducer e
 guest/init.c,kernel.config;tests/test_guest_bootstrap.py,tests/test_guest_bootstrap_runner.py.
 **Interfaces:** exact parse_serial/assess/build_image/capture fromspec.
 
-- [ ] Literal ten-mode frames,raw origin/seed vs allocation/alias/distinct-open/unknown/loss/failure/rejected-command tests missingAPIRED.
-- [ ] Implement frozen codec/diagnostic,no synthetic oracle or authority;focusedGREEN andpure98/95minimum.
-- [ ] Fixed driver/image/runner testsRED;static compile,newdriveractualoldPR40kernelmissinginterfaceRED;freeze eventualpreparedpins.
-- [ ] Fullfocusedformat/typechecks,commitTask1;baselinealltestsrecorded.
+- [x] Literal ten-mode frames,raw origin/seed vs allocation/alias/distinct-open/unknown/loss/failure/rejected-command tests missingAPIRED.
+- [x] Implement frozen codec/diagnostic,no synthetic oracle or authority;focusedGREEN andpure98/95minimum.
+- [x] Fixed driver/image/runner testsRED;static compile,newdriveractualoldPR40kernelmissinginterfaceRED;freeze eventualpreparedpins.
+- [x] Fullfocusedformat/typechecks,commitTask1;baselinealltestsrecorded.
 
 ### Task2: Fresh source hooks,build and actual ten-case observations
 
 **Files:** new tests/guest_bootstrap/kernel.patch,kernel.config;fresh source/assets only.
 **Interfaces:** CPBv1 matchesTask1;sourceactualorigins/one-shot seed/issuer-root separation.
 
-- [ ] Extract exactarchive,newpristine7files/localgit,applyoldPR40patch onlyinnewprefix.
-- [ ] Origin/epoch fields and reset/issuance callbacks;seedwalkborrowedactualpointers/bitmaps,one-shot reject/abort/unknown,active arm/stop,newwire.
-- [ ] Derive512capacity from472normalrecord count;fixedloss/node6/drop/128small/faultmodes,noextra refs/effectlocks.
-- [ ] Buildnewkernel/staticdriver,freezeinputs,run10freshguests,inspectcompleteoriginalbytes/counts/roles/provenance;nevereditlogs.
-- [ ] Focused/fulltests/sourcepatchapplycheck,commitstandalonepatch+frozenrunnerpins.
+- [x] Extract exactarchive,newpristine7files/localgit,applyoldPR40patch onlyinnewprefix.
+- [x] Origin/epoch fields and reset/issuance callbacks;seedwalkborrowedactualpointers/bitmaps,one-shot reject/abort/unknown,active arm/stop,newwire.
+- [x] Derive512capacity from472normalrecord count;fixedloss/node6/drop/128small/faultmodes,noextra refs/effectlocks.
+- [x] Buildnewkernel/staticdriver,freezeinputs,run10freshguests,inspectcompleteoriginalbytes/counts/roles/provenance;nevereditlogs.
+- [x] Focused/fulltests/sourcepatchapplycheck,commitstandalonepatch+frozenrunnerpins.
 
 ### Task3: Evidence,regression,review and publication
 
@@ -56,8 +56,8 @@ docs/guest_bootstrap_contract.md,docs/guest_bootstrap_result.md,newnarrowattribu
 **Interfaces:** validate(pristine_root=None,patched_root=None,*,verify_assets=False)->dict;
 Task1Capture/Decision+Task2rawfilesfeedoriginalbyte/sourceaudit,notPR41syntheticoracle.
 
-- [ ] MissingAPIRED audit/adversaries,newfinitebuild/source/serialmanifests,prehookliteralrawgoldens;offlineGREEN,explicitselectedsource/assetsverify.
-- [ ] Architectureguardsalloldpaths/pureimports,noactual→syntheticbridge;fullpytest/oldsourcehistoryaudits/native192/replay/ruff/format/mypy/build/freshwheel/CRLF/purecoverage.ExpectedallPASS.
-- [ ] Commitboundedresult;freshindependentreviewexplicithead,oneauthorC/I RED→GREEN/fullrerun,deferminor,no secondreview.
+- [x] MissingAPIRED audit/adversaries,newfinitebuild/source/serialmanifests,prehookliteralrawgoldens;offlineGREEN,explicitselectedsource/assetsverify.
+- [x] Architectureguardsalloldpaths/pureimports,noactual→syntheticbridge;fullpytest/oldsourcehistoryaudits/native192/replay/ruff/format/mypy/build/freshwheel/CRLF/purecoverage.ExpectedallPASS.
+- [x] Commitboundedresult;freshindependentreviewexplicithead,oneauthorC/I RED→GREEN/fullrerun,deferminor,no secondreview.
 - [ ] OwnstackedDraftvsdesign/inherited-ofd-provenance,attach,finalexactheadpush+PR6jobseach;28oldPRs/mainpreserved,clean;Koreanhandoffallrulings/costs/minors.
 - [ ] Recoverablyarchiveonlyownplanworkspace,keepproducerassetsoutsideit;nootherplanscleanup.

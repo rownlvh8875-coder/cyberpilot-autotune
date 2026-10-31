@@ -21,8 +21,8 @@ from .wire import parse_serial
 BUILD = ROOT / "docs/evidence/guest_bootstrap_build.json"
 ACTUAL = ROOT / "docs/evidence/guest_bootstrap_actual.json"
 SOURCES = ROOT / "docs/evidence/guest_bootstrap_sources.json"
-BUILD_DIGEST = "792d659a5ea90b169cd5c46223a36fdcb56ddc659332910cff869e2af2273d11"
-ACTUAL_DIGEST = "da6e58f00c8166289e0692037700c67faf6eb0cacdc824004b9cfb4c06dfe058"
+BUILD_DIGEST = "73397bf232b2d67079e61fb349979a4fa11ccd08a046bc882818205a0aff9f72"
+ACTUAL_DIGEST = "59f6e5d611796e4fbb0d30d2eb56ae96b54827f9be7d4edf589a723ebd1c1fbb"
 SOURCE_DIGEST = "1552ce47223de3e54006face5255200ec411988b59c1e0a612437e1ec82af54e"
 IMAGE_BYTES = (336451, 336455, 336458, 336454, 336458, 336461, 336465, 336459, 336453, 336454)
 ATTEMPTS = (472, 472, 472, 7, 471, 473, 473, 280, 472, 277)
