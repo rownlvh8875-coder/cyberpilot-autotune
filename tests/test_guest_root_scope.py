@@ -151,6 +151,31 @@ def test_coherent_counts_are_not_global_losslessness_and_inconsistent_counts_are
     assert result.actual_global_drops is None and result.status == "BLOCKED"
 
 
+def test_unknown_prearm_parent_namespace_is_not_replaced_with_an_invented_birth():
+    model = api()
+    raw = wire().replace(b"table=2 ofd=0 old=0", b"table=2 ofd=0 old=77", 1)
+    result = model.assess(model.parse_serial(raw))
+    assert not result.root_creation_observed
+    assert "ROOT_PARENT_CONTEXT_MISMATCH" in result.reasons
+
+
+def test_workload_actor_cannot_execute_before_its_creation_commit():
+    model = api()
+    early = "seq=3 kind=INSTALL scope=1 actor=1 task=0 table=2 ofd=3 old=0 fd=0 flags=0 mono=12"
+    raw = wire((ALLOC, TABLE, early, COMMIT.replace("seq=3", "seq=4")), attempted=4)
+    result = model.assess(model.parse_serial(raw))
+    assert not result.root_creation_observed
+    assert "TASK_COHORT_INCOMPLETE" in result.reasons
+
+
+def test_workload_namespace_must_belong_to_actor_not_another_copied_table():
+    model = api()
+    wrong = "seq=4 kind=INSTALL scope=1 actor=1 task=0 table=5 ofd=3 old=0 fd=0 flags=0 mono=13"
+    result = model.assess(model.parse_serial(wire((ALLOC, TABLE, COMMIT, wrong), attempted=4)))
+    assert not result.root_creation_observed
+    assert "TASK_NAMESPACE_MISMATCH" in result.reasons
+
+
 @pytest.mark.parametrize("raw", [b"", b"\xff", b"a" * 1048577, "not bytes", True])
 def test_serial_input_bound_and_exact_bytes(raw):
     with pytest.raises(ValueError):

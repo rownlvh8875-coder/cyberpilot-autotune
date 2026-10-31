@@ -33,3 +33,5 @@
 /tests/guest_raw_lifetime/kernel.config -text
 /docs/evidence/guest_raw_lifetime_*.json -text
 /docs/evidence/guest_raw_lifetime_*.gz -text
+/tests/guest_root_scope/** -text
+/docs/evidence/guest_root_scope_*.json -text

@@ -178,6 +178,9 @@ def assess(capture: Capture) -> Diagnostic:
     root = complete.get(capture.root_id)
     if root is None or root.actor_id is not None:
         reasons.append("ROOT_CREATION_LINK_INCOMPLETE")
+    root_table = tasks.get(capture.root_id, {}).get("TABLE_NEW")
+    if root_table is not None and root_table.old_id is not None:
+        reasons.append("ROOT_PARENT_CONTEXT_MISMATCH")
     for e in capture.events:
         if e.actor_id is not None:
             parent = complete.get(e.actor_id)
