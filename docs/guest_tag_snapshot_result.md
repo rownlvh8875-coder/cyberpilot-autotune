@@ -116,3 +116,13 @@ PR33M1fixtureordering;PR33M2float-equalmetadata;PR33M3genericenvelopecatalog.
 New retained-image checks cover this new cohort only,not a repair of old PR42.
 Plus new deferred M1:raw_epoch is UInt64-bounded instead of native UInt32 in the
 decoder;all actual captured epochs are0/1 and no qualification follows parsing.
+
+Initial exact-head Windows CI exposed two test representation errors:
+test_arguments_are_software_only_and_use_only_new_fixed_kernel compared native
+path separators to a POSIX string;test_native_saved_scalar_copy_survives_target_mutation
+compared native C CRLF to LF. The real Windows job recorded2failed/3646passed/
+20skipped. An append-only test-only correction compares Path values and one
+status line;the actual C assertions and execution/isolation/path identity checks
+remain intact. No producer/Python diagnostic/frozen evidence bytes change.
+Final exact-head rerun results are recorded in the Draft PR handoff;no Windows
+guest execution support is implied by argument-builder/native-unit portability.

@@ -49,7 +49,7 @@ def test_arguments_are_software_only_and_use_only_new_fixed_kernel():
     assert args[args.index("-smp") + 1] == "1"
     assert args[args.index("-m") + 1] == "512M"
     assert args[args.index("-nic") + 1] == "none"
-    assert args[args.index("-kernel") + 1] == (
+    assert Path(args[args.index("-kernel") + 1]) == Path(
         "/workspace/scratch/post-reference-tag-producer.NaoDTY/patched-bzImage"
     )
     assert not {"-enable-kvm", "-virtfs", "-fsdev", "-drive", "-device", "-netdev"} & set(args)
@@ -59,4 +59,4 @@ def test_native_saved_scalar_copy_survives_target_mutation(tmp_path):
     if shutil.which("gcc") is None:
         pytest.skip("native C probe requires gcc; explicit author run is separate")
     result = module("native_probe").probe(ROOT, tmp_path)
-    assert result == "SAVED_SCALARS_PASS\n"
+    assert result.splitlines() == ["SAVED_SCALARS_PASS"]
