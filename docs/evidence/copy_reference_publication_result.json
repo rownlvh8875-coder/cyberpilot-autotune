@@ -1,0 +1,201 @@
+{
+  "actual_epoch_loss": null,
+  "actual_global_drops": null,
+  "actual_prohibited_operations": null,
+  "base_revision": "5581049957088b348498eb5ef0b1061f76d19b7c",
+  "dimensions": [
+    {
+      "citations": [
+        "CALLER_COPY_FILES",
+        "FDTABLE_LOOKUP",
+        "COPY_LOCK_RELOAD",
+        "COPY_LOCAL_REFERENCE",
+        "GET_FILE_RELAXED",
+        "FD_REMOVE_LOCK",
+        "FD_REPLACE_LOCK",
+        "TABLE_RELEASE",
+        "RCU_REF_REVALIDATE",
+        "VFS_REFERENCE_RULES"
+      ],
+      "conditional_arguments": [
+        "SOURCE_LOCAL_F_CHAIN_VISIBLE",
+        "EXISTING_REFERENCE_WINDOW_CONDITIONAL_TABLE_INVARIANTS"
+      ],
+      "dimension": "CONSUMED_REFERENCE",
+      "open_obligations": [
+        "OLD_TABLE_OWNERSHIP_NOT_RUNTIME_ATTESTED",
+        "ALL_REMOVAL_ROUTES_NOT_CLOSED",
+        "BORROWED_POINTER_VALIDITY_NOT_RUNTIME_ATTESTED"
+      ]
+    },
+    {
+      "citations": [
+        "NORMAL_ALLOCATION",
+        "NORMAL_TAG_WRITER",
+        "FD_INSTALL_PUBLICATION",
+        "RCU_RAW_LOAD",
+        "RCU_PUBLISH",
+        "RCU_DEPENDENCY_RULES",
+        "SEED_WRITER",
+        "SAME_LOCK_HANDOFF",
+        "COPY_LOCK_RELOAD"
+      ],
+      "conditional_arguments": [
+        "PREINSTALL_INITIALIZATION_ORDER_CONDITIONAL",
+        "SAME_NAMESPACE_LOCK_HANDOFF_CONDITIONAL"
+      ],
+      "dimension": "TAG_PUBLICATION",
+      "open_obligations": [
+        "ALL_TAG_WRITERS_NOT_CLOSED",
+        "AFTER_PUBLICATION_SEED_REQUIRES_EXACT_GUARD",
+        "ALIAS_NAMESPACE_WRITERS_NOT_EXCLUDED",
+        "COMPILER_DEPENDENCY_PATH_NOT_PROVEN"
+      ]
+    },
+    {
+      "citations": [
+        "COPY_LOCAL_REFERENCE",
+        "SNAPSHOT_RAW_HELPER",
+        "SNAPSHOT_EMITTER",
+        "WIRE_OUTPUT",
+        "COPY_CONTEXT_FIELDS"
+      ],
+      "conditional_arguments": [
+        "LOCAL_SCALAR_CAPTURE_BEFORE_STORE_SOURCE_VISIBLE",
+        "POST_STORE_EMISSION_SAVED_VALUES_ONLY_SOURCE_VISIBLE"
+      ],
+      "dimension": "SNAPSHOT_TRANSFER",
+      "open_obligations": [
+        "TUPLE_ATOMICITY_NOT_ESTABLISHED",
+        "SOURCE_WITNESSES_UNAVAILABLE",
+        "DECLARED_TYPE_FIDELITY_UNQUALIFIED"
+      ]
+    },
+    {
+      "citations": [
+        "OFD_CACHE_REUSE",
+        "RCU_REF_REVALIDATE",
+        "VFS_REFERENCE_RULES",
+        "SEED_WRITER",
+        "NORMAL_TAG_WRITER",
+        "COOKIE_ISSUER",
+        "ACTOR_SCOPE_GATE",
+        "OFD_NOACCOUNT_ROUTE"
+      ],
+      "conditional_arguments": [
+        "OBJECT_REFERENCE_DISTINCT_FROM_NAMESPACE_MEMBERSHIP"
+      ],
+      "dimension": "IDENTITY_MEMBERSHIP",
+      "open_obligations": [
+        "ABA_AND_REUSE_COHORT_NOT_ATTESTED",
+        "MEMBERSHIP_GENERATION_UNAVAILABLE",
+        "NONCE_NOT_AUTHENTICATION"
+      ]
+    },
+    {
+      "citations": [
+        "OFD_TAG_LAYOUT",
+        "SNAPSHOT_RAW_HELPER",
+        "BUFFER_TAG_TYPES",
+        "WIRE_OUTPUT",
+        "PR45_DECODER_EPOCH",
+        "PR45_STANDIN_EPOCH"
+      ],
+      "conditional_arguments": [
+        "COOKIE_SCOPE_U64_CHAIN_SOURCE_VISIBLE",
+        "ORIGIN_U8_TO_UNSIGNED_INT_WIDENING",
+        "EPOCH_U64_TO_UNSIGNED_INT_NARROWING_VISIBLE"
+      ],
+      "dimension": "REPRESENTATION",
+      "open_obligations": [
+        "LOSSLESS_SOURCE_EPOCH_NOT_ESTABLISHED",
+        "DECODER_UINT32_EPOCH_BOUND_NOT_ENFORCED",
+        "STANDIN_PROBE_DOES_NOT_MATCH_SOURCE_EPOCH_WIDTH"
+      ]
+    },
+    {
+      "citations": [
+        "PR45_FIXED_PROOF_FLAGS",
+        "COPY_CONTEXT_FIELDS",
+        "COOKIE_ISSUER"
+      ],
+      "conditional_arguments": [
+        "OBSERVED_SOURCE_JOINS_NOT_RUNTIME_GUARDS"
+      ],
+      "dimension": "ADMISSION",
+      "open_obligations": [
+        "NO_ACTUAL_TO_QUALIFIED_ADAPTER",
+        "RUNTIME_SOURCE_WITNESS_CAPTURE_NOT_IMPLEMENTED",
+        "ALL_PREVIOUS_BLOCKERS_RETAINED"
+      ]
+    }
+  ],
+  "evidence_class": "STATIC_SOURCE_AUDIT_ONLY",
+  "permissions": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false
+  },
+  "prior_observations_reclassified": false,
+  "qualification": {
+    "allocation_history_complete": false,
+    "atomic_cut_proven": false,
+    "epoch_range_invariant_proven": false,
+    "publication_qualified": false,
+    "runtime_qualified": false,
+    "source_binding_qualified": false,
+    "type_fidelity_qualified": false
+  },
+  "schema": "copy-reference-publication-result-v1",
+  "source_catalog_digest": "11b7d1e538851ee4d93ceb5477a57a805833217c0c2824e711a0796de1c22044",
+  "status": "BLOCKED",
+  "type_flow_basis": "DECLARED_SOURCE_TYPES_NOT_COMPILED_LAYOUT_PROOF",
+  "type_flows": [
+    {
+      "buffer_type": "u64",
+      "decoder_domain": "UInt64",
+      "field": "raw_cookie",
+      "object_type": "u64",
+      "probe_object_type": "u64",
+      "saved_type": "u64",
+      "source_width_effect": "DECLARED_WIDTH_PRESERVED",
+      "wire": "%llu"
+    },
+    {
+      "buffer_type": "u64",
+      "decoder_domain": "UInt64",
+      "field": "raw_scope",
+      "object_type": "u64",
+      "probe_object_type": "u64",
+      "saved_type": "u64",
+      "source_width_effect": "DECLARED_WIDTH_PRESERVED",
+      "wire": "%llu"
+    },
+    {
+      "buffer_type": "unsigned int",
+      "decoder_domain": "UInt64",
+      "field": "raw_epoch",
+      "object_type": "u64",
+      "probe_object_type": "unsigned int",
+      "saved_type": "unsigned int",
+      "source_width_effect": "SOURCE_TO_SAVED_NARROWING_POSSIBLE",
+      "wire": "%u"
+    },
+    {
+      "buffer_type": "unsigned int",
+      "decoder_domain": "ENUM_0_1_2",
+      "field": "raw_origin",
+      "object_type": "u8",
+      "probe_object_type": "unsigned int",
+      "saved_type": "unsigned int",
+      "source_width_effect": "DECLARED_WIDENING",
+      "wire": "%u"
+    }
+  ]
+}
