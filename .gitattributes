@@ -50,3 +50,5 @@
 /docs/evidence/tag_read_protocol_*.json -text
 /tests/guest_tag_snapshot/** -text
 /docs/evidence/guest_tag_snapshot_*.json -text
+/tests/copy_reference_audit/** -text
+/docs/evidence/copy_reference_publication_*.json -text
