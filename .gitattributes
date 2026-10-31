@@ -52,3 +52,5 @@
 /docs/evidence/guest_tag_snapshot_*.json -text
 /tests/copy_reference_audit/** -text
 /docs/evidence/copy_reference_publication_*.json -text
+/tests/epoch_encoding_design/** -text
+/docs/evidence/epoch_encoding_design_*.json -text

@@ -1,0 +1,28 @@
+{
+  "schema": "raw-epoch-u64-design-cases-v1",
+  "evidence_class": "SYNTHETIC_ONLY",
+  "reference_source_catalog_digest": "11b7d1e538851ee4d93ceb5477a57a805833217c0c2824e711a0796de1c22044",
+  "future_producer_revision": null,
+  "boundaries": [
+    null,
+    "0",
+    "1",
+    "4294967295",
+    "4294967296",
+    "4294967297",
+    "9007199254740991",
+    "9007199254740993",
+    "9223372036854775807",
+    "9223372036854775808",
+    "18446744073709551614",
+    "18446744073709551615"
+  ],
+  "mismatches": [
+    {"layers": ["4294967296", "0", "0", "0", "0"], "reason": "SOURCE_SAVED_MISMATCH"},
+    {"layers": ["1", "1", "0", "0", "0"], "reason": "SAVED_BUFFER_MISMATCH"},
+    {"layers": ["1", "1", "1", "0", "0"], "reason": "BUFFER_WIRE_MISMATCH"},
+    {"layers": ["1", "1", "1", "1", "0"], "reason": "WIRE_DECODED_MISMATCH"},
+    {"layers": [null, "0", "0", "0", "0"], "reason": "SOURCE_SAVED_MISMATCH"},
+    {"layers": ["9007199254740993", "9007199254740992", "9007199254740992", "9007199254740992", "9007199254740992"], "reason": "SOURCE_SAVED_MISMATCH"}
+  ]
+}
