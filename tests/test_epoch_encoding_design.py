@@ -6,6 +6,7 @@ import pytest
 
 from tests.epoch_encoding_design.model import (
     EpochScalar,
+    PipelineDecision,
     assess_pipeline,
     content_digest,
     decode_design,
@@ -155,3 +156,19 @@ def test_pipeline_rejects_untyped_scalar_substitutions(index):
 def test_codec_rejects_untyped_epoch():
     with pytest.raises(ValueError):
         encode_design(0)
+
+
+@pytest.mark.parametrize(
+    ("reasons", "available"),
+    [
+        (["SOURCE_SAVED_MISMATCH"], False),
+        ("SOURCE_SAVED_MISMATCH", False),
+        ((1,), False),
+        (("RUNTIME_QUALIFIED",), False),
+        ((), 0),
+        ((), None),
+    ],
+)
+def test_decision_constructor_does_not_retain_mutable_or_untyped_state(reasons, available):
+    with pytest.raises(ValueError):
+        PipelineDecision(reasons, available)

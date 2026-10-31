@@ -11,6 +11,12 @@ PREFIX = (
     b"reference=11b7d1e538851ee4d93ceb5477a57a805833217c0c2824e711a0796de1c22044 "
     b"capture=POST_EXISTING_REFERENCE_PRE_STORE emit=SAVED_SCALARS_AFTER_STORE "
 )
+MISMATCH_REASONS = (
+    "SOURCE_SAVED_MISMATCH",
+    "SAVED_BUFFER_MISMATCH",
+    "BUFFER_WIRE_MISMATCH",
+    "WIRE_DECODED_MISMATCH",
+)
 
 
 @dataclass(frozen=True)
@@ -65,6 +71,16 @@ class PipelineDecision:
     future_producer_revision: None = field(default=None, init=False)
     permissions: tuple[tuple[str, bool], ...] = field(default=PERMISSIONS, init=False)
 
+    def __post_init__(self) -> None:
+        if (
+            type(self.reasons) is not tuple
+            or any(
+                type(reason) is not str or reason not in MISMATCH_REASONS for reason in self.reasons
+            )
+            or type(self.available) is not bool
+        ):
+            raise ValueError("IMMUTABLE_TYPED_DECISION_REQUIRED")
+
     @property
     def consistent(self) -> bool:
         return not self.reasons
@@ -81,16 +97,10 @@ def assess_pipeline(
         raise ValueError("TYPED_EPOCH_REQUIRED")
     wire_epoch = decode_design(wire)
     chain = (source, saved, buffered, wire_epoch, decoded)
-    names = (
-        "SOURCE_SAVED_MISMATCH",
-        "SAVED_BUFFER_MISMATCH",
-        "BUFFER_WIRE_MISMATCH",
-        "WIRE_DECODED_MISMATCH",
-    )
     return PipelineDecision(
         tuple(
             name
-            for name, left, right in zip(names, chain[:-1], chain[1:], strict=True)
+            for name, left, right in zip(MISMATCH_REASONS, chain[:-1], chain[1:], strict=True)
             if left != right
         ),
         all(value.value is not None for value in chain),
