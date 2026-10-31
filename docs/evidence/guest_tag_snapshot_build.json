@@ -1,0 +1,263 @@
+{
+  "actual_config": {
+    "bytes": 37575,
+    "path": "actual-kernel.config",
+    "sha256": "565b7c00d5411adb991aa227ecdbe0c217ecf85f4a2dafbce1aada57240a529c"
+  },
+  "base_revision": "eba2e74759cefa65a941ebce09ce2a4cfa33ec21",
+  "baseline_kernel": {
+    "bytes": 1364992,
+    "path": "/workspace/scratch/guest-bootstrap-producer.O8Npmg/patched-bzImage",
+    "sha256": "41ff311f04db5a8d4509fd20f45f293f89c5ea854758bf72d653c8a767cc0ace"
+  },
+  "baseline_release": "6.12.113-cpbootstrap-v1",
+  "build_commands": [
+    [
+      "gcc",
+      "-static",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-o",
+      "/workspace/scratch/post-reference-tag-producer.NaoDTY/init",
+      "tests/guest_tag_snapshot/guest/init.c"
+    ],
+    [
+      "make",
+      "-C",
+      "/workspace/scratch/post-reference-tag-producer.NaoDTY/linux-source-6.12",
+      "O=/workspace/scratch/post-reference-tag-producer.NaoDTY/build",
+      "ARCH=x86_64",
+      "KCONFIG_ALLCONFIG=/workspace/cyberpilot-autotune/tests/guest_tag_snapshot/kernel.config",
+      "allnoconfig"
+    ],
+    [
+      "make",
+      "-C",
+      "/workspace/scratch/post-reference-tag-producer.NaoDTY/linux-source-6.12",
+      "O=/workspace/scratch/post-reference-tag-producer.NaoDTY/build",
+      "ARCH=x86_64",
+      "-j4",
+      "bzImage"
+    ]
+  ],
+  "build_input_closure_qualified": false,
+  "dependency_authentication": "PR37 preserved signature/index/package evidence retained byte-identical; no current-repository freshness claim",
+  "dependency_index": {
+    "bytes": 56620099,
+    "path": "/workspace/scratch/guest-backend.FY5icM/apt/state/lists/deb.debian.org_debian_dists_trixie_main_binary-amd64_Packages",
+    "sha256": "4f2c68d67001d595fbd343f6dbad44468953a51c4d9dec3a4803249f6e295940"
+  },
+  "dependency_inrelease": {
+    "bytes": 140421,
+    "path": "/workspace/scratch/guest-backend.FY5icM/apt/state/lists/deb.debian.org_debian_dists_trixie_InRelease",
+    "sha256": "0584fba32e13e0ab8285fb16c27adea1ec03a73669c18702821094fd6ca86675"
+  },
+  "dependency_packages": [
+    {
+      "bytes": 103196,
+      "path": "/workspace/scratch/raw-lifetime-producer.mfFU7h/packages/bc_1.07.1-4_amd64.deb",
+      "sha256": "d055a11f0f9c5f8fe78b31d502c01dfe46ddf9c24f753aaddadaaff95fcc75ad"
+    },
+    {
+      "bytes": 1169636,
+      "path": "/workspace/scratch/raw-lifetime-producer.mfFU7h/packages/bison_3.8.2+dfsg-1+b2_amd64.deb",
+      "sha256": "ce6eb1f7aad18850e32d223a68f54bcbe756d74f138c8ec5460ad9d220f4d335"
+    },
+    {
+      "bytes": 423136,
+      "path": "/workspace/scratch/raw-lifetime-producer.mfFU7h/packages/flex_2.6.4-8.2+b4_amd64.deb",
+      "sha256": "75f963765232c356d0a2fb70e780dfa9de2425aca036ec60eefb7fc98a2c905b"
+    },
+    {
+      "bytes": 293956,
+      "path": "/workspace/scratch/raw-lifetime-producer.mfFU7h/packages/m4_1.4.19-8_amd64.deb",
+      "sha256": "221b3e224708c1da2a1a88b6824380593579b2254ae7d914afa14cbd5d343334"
+    },
+    {
+      "bytes": 93212,
+      "path": "/workspace/scratch/guest-backend.FY5icM/apt/cache/archives/libelf-dev_0.192-4_amd64.deb",
+      "sha256": "7a67f944281523d6e3c55c1797449bab223b08665cc6ad8b51293056b65d9bd6"
+    }
+  ],
+  "init": {
+    "bytes": 779408,
+    "path": "init",
+    "sha256": "095eb2f73c119465691db3c13f14260f18bacb3057f69c4fa8500c866e809442"
+  },
+  "kernel": {
+    "bytes": 1364992,
+    "path": "patched-bzImage",
+    "sha256": "7cb0f6d237aa24d3597ad687973df726601cfc388920ef5fdd0042c9d814b9df"
+  },
+  "patch_chain": [
+    {
+      "bytes": 33443,
+      "path": "tests/guest_bootstrap/kernel.patch",
+      "sha256": "3eed09131f6ce03dc4a489dfe161cd3d48576ba760abf0978d8846fd3edfc848"
+    },
+    {
+      "bytes": 8521,
+      "path": "tests/guest_tag_snapshot/kernel.patch",
+      "sha256": "78bada7bb59500a6c25d9d5e691867eccb27a3e7e5f10b9e958d8e2a308777f2"
+    }
+  ],
+  "patched_build_environment": {
+    "BISON_PKGDATADIR": "/workspace/scratch/raw-lifetime-producer.mfFU7h/deps/usr/share/bison",
+    "HOSTCFLAGS": "-I/workspace/scratch/raw-lifetime-producer.mfFU7h/deps/usr/include",
+    "HOSTLDFLAGS": "-L/workspace/scratch/guest-backend.FY5icM/toolchain/usr/lib/x86_64-linux-gnu -Wl,-rpath,/workspace/scratch/guest-backend.FY5icM/toolchain/usr/lib/x86_64-linux-gnu",
+    "KBUILD_BUILD_HOST": "disposable",
+    "KBUILD_BUILD_TIMESTAMP": "2026-10-31 00:00:00 UTC",
+    "KBUILD_BUILD_USER": "cptagread",
+    "KBUILD_BUILD_VERSION": "1",
+    "LOCALVERSION": "",
+    "M4": "/workspace/scratch/raw-lifetime-producer.mfFU7h/deps/usr/bin/m4"
+  },
+  "patched_release": "6.12.113-cptagread-v1",
+  "permissions": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false
+  },
+  "raw_wire_version": "CPRv1_POST_REFERENCE_RAW_V1",
+  "runtime_qualified": false,
+  "schema": "guest-tag-snapshot-build-v1",
+  "scope": "SOFTWARE_GUEST_ONLY_NO_DEVICE_ATTEMPT",
+  "source_archive": {
+    "bytes": 151616644,
+    "path": "/workspace/scratch/guest-backend.FY5icM/kernel-source/usr/src/linux-source-6.12.tar.xz",
+    "sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33"
+  },
+  "source_package": {
+    "bytes": 153094996,
+    "path": "/workspace/scratch/guest-backend.FY5icM/kernel-source/linux-source-6.12_6.12.113-1_all.deb",
+    "sha256": "6ad4a0316ddefced87cef8cd9a25a268e0cdfe0a10adc5148401f49f90b336b5"
+  },
+  "sources": [
+    {
+      "bytes": 83,
+      "path": "tests/guest_tag_snapshot/__init__.py",
+      "sha256": "f944adc4b23f9a4de58f591d42ad03198f15cc75ef9a67559a034efa268f277a"
+    },
+    {
+      "bytes": 2147,
+      "path": "tests/guest_tag_snapshot/contracts.py",
+      "sha256": "cdeb13ea4c1f6c11842be2319770a1855d6d4d72f23688ce470b272e5e8483c1"
+    },
+    {
+      "bytes": 6810,
+      "path": "tests/guest_tag_snapshot/wire.py",
+      "sha256": "c6bdfaa7605ad708751f7fb2072dbfedaf378c52e5caded140fd7f4948dc93c1"
+    },
+    {
+      "bytes": 4124,
+      "path": "tests/guest_tag_snapshot/model.py",
+      "sha256": "546119563dd47c49c8a31e5bd955e7a091385c6e43b1ce49c6c3f096b1f46eb0"
+    },
+    {
+      "bytes": 1830,
+      "path": "tests/guest_tag_snapshot/cohort.py",
+      "sha256": "46aa262caf77a40b59b4556480b327969bd3b2e5e74f6557d152293606f80d14"
+    },
+    {
+      "bytes": 1258,
+      "path": "tests/guest_tag_snapshot/image.py",
+      "sha256": "b728016ec3c2004af3ca138cfac868bcd4a4b279ba9bb1da114cf495a4b237fa"
+    },
+    {
+      "bytes": 3425,
+      "path": "tests/guest_tag_snapshot/runner.py",
+      "sha256": "00333e46fc0c370da4651524901372c6bd789881975b1bc969ce29e5886cbd7c"
+    },
+    {
+      "bytes": 1906,
+      "path": "tests/guest_tag_snapshot/native_probe.py",
+      "sha256": "b31aef228622f8a00c3891438ef85455c6cf8c4f9e96271798c435adcd1e7f4a"
+    },
+    {
+      "bytes": 3126,
+      "path": "tests/guest_tag_snapshot/guest/init.c",
+      "sha256": "eb588c2d7c48f2b612c7281764bb9c20e6559cbff64d7692bb3b4af5428db85d"
+    },
+    {
+      "bytes": 8521,
+      "path": "tests/guest_tag_snapshot/kernel.patch",
+      "sha256": "78bada7bb59500a6c25d9d5e691867eccb27a3e7e5f10b9e958d8e2a308777f2"
+    },
+    {
+      "bytes": 741,
+      "path": "tests/guest_tag_snapshot/kernel.config",
+      "sha256": "e04f3634d01201bc809f7710a741cab337c81db40a92aa556794e7dada4f8757"
+    }
+  ],
+  "tools": [
+    {
+      "bytes": 1162264,
+      "path": "/usr/bin/x86_64-linux-gnu-gcc-14",
+      "sha256": "a23ecab8ff08f09ad8c80602c2c5df7f49e09c25905cb8975902e101bf72635f"
+    },
+    {
+      "bytes": 34148896,
+      "path": "/usr/libexec/gcc/x86_64-linux-gnu/14/cc1",
+      "sha256": "02675980109a4a5496cddf67d5286de57942759edc830deaa525e36f9a2a0291"
+    },
+    {
+      "bytes": 795184,
+      "path": "/usr/bin/x86_64-linux-gnu-as",
+      "sha256": "07dd8551ea0aa065975e4dddb8e1bb7dc308d12d54eca22c3858db79467c7cb9"
+    },
+    {
+      "bytes": 1861256,
+      "path": "/usr/bin/x86_64-linux-gnu-ld.bfd",
+      "sha256": "d2766988b6a1b1d1518cdc09242e726d1f24e151e16410ada3092b11ffd9081b"
+    },
+    {
+      "bytes": 278448,
+      "path": "/usr/bin/make",
+      "sha256": "8a229baf64671988cfb5af43ba3070c6ce7214cf32bcf96155115559d1466fa7"
+    },
+    {
+      "bytes": 159568,
+      "path": "/usr/bin/objcopy",
+      "sha256": "403f90bbd5d26c8ab9a2ad51f56255b812e8858a83aa8740ee71791071ddb580"
+    },
+    {
+      "bytes": 102200,
+      "path": "/usr/bin/gzip",
+      "sha256": "1fdd057912e3808c8cb8fa939bb94fcb27ae9d2961e6b8abbbe7888e63fbc9cc"
+    },
+    {
+      "bytes": 439120,
+      "path": "/workspace/scratch/raw-lifetime-producer.mfFU7h/deps/usr/bin/flex",
+      "sha256": "2f756d9099e5e926d938e916b342b36f11e209a413e2bbedee059fa4a87560bf"
+    },
+    {
+      "bytes": 557856,
+      "path": "/workspace/scratch/raw-lifetime-producer.mfFU7h/deps/usr/bin/bison",
+      "sha256": "39fc36c38e29481dc3be2d08652e0564b9ea9aa297e38ed21ff0da0ff36967e8"
+    },
+    {
+      "bytes": 286232,
+      "path": "/workspace/scratch/raw-lifetime-producer.mfFU7h/deps/usr/bin/m4",
+      "sha256": "24066e3ebc4b7a0eeb33b3d50e108afcfd384f1f01dd1797fa0423d5494cce16"
+    },
+    {
+      "bytes": 97048,
+      "path": "/workspace/scratch/raw-lifetime-producer.mfFU7h/deps/usr/bin/bc",
+      "sha256": "9f396ad00dff938ecfb98613b2802a7fbfa6e76024e931df3e50df872e8a263c"
+    },
+    {
+      "bytes": 117352,
+      "path": "/workspace/scratch/guest-backend.FY5icM/toolchain/usr/lib/x86_64-linux-gnu/libelf-0.192.so",
+      "sha256": "9750ae785e2718a570c42b3f757eb263a3ba8abf057945e84f749f6ae5a896c5"
+    }
+  ],
+  "vm_cohort_digest": "d98a259c5a45b56811d40a94e23e50a51ee88b513bb632396f45da6017f7af0c"
+}

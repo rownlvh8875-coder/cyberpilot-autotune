@@ -40,11 +40,11 @@ tests/test_guest_tag_snapshot.py.
 Capture has immutable raw events and exact profile/count/context. Decision has
 saved snapshot tuples, available links/reasons and fixed false authority fields.
 
-- [ ] Write independent literal wire fixture and failing tests for seven-case framing, raw zero, stages, malformed values, losses and context/order mismatches.
-- [ ] Run `python -m pytest tests/test_guest_tag_snapshot.py -q`; expect missing API RED.
-- [ ] Implement decoder and pure diagnostic, never importing old/synthetic estimators.
-- [ ] Run focused tests and full `python -m pytest -q`; expect all PASS.
-- [ ] Commit `feat: define unqualified post-reference snapshot diagnostics`.
+- [x] Write independent literal wire fixture and failing tests for seven-case framing, raw zero, stages, malformed values, losses and context/order mismatches.
+- [x] Run `python -m pytest tests/test_guest_tag_snapshot.py -q`; expect missing API RED.
+- [x] Implement decoder and pure diagnostic, never importing old/synthetic estimators.
+- [x] Run focused tests and full `python -m pytest -q`; expect all PASS.
+- [x] Commit `feat: define unqualified post-reference snapshot diagnostics`.
 
 ### Task 2: Fresh source delta and bounded guest captures
 
@@ -56,12 +56,12 @@ arguments(image: Path) -> list[str]; capture(case: str) -> tuple[Capture, bytes,
 Consumes Task1 parse_serial/assess. Native helper test consumes exact new source
 helper and verifies scalar copy/zero/by-value behavior under a controlled layout.
 
-- [ ] Write runner/image boundary and native-helper behavioral tests; run for missing API/source RED.
-- [ ] Add delta implementing pointer-only READ/STORE and local raw capture after get_file before STORE, saved-scalar emission after STORE.
-- [ ] Add static seven-case driver and opt-in fixed runner; fresh source/build under its own assets prefix only.
-- [ ] Run old-kernel/new-driver negative baseline; expect missing /proc/cptagread and decoder rejection.
-- [ ] Build fresh exact kernel/static driver and capture all seven cases, preserving original serial/images. Compare outcomes with independent literal expectations, not the PR44 oracle.
-- [ ] Freeze runner input hashes; rerun focused/full tests; expect PASS. Commit `feat: capture raw tags after existing copy references in fixed guests`.
+- [x] Write runner/image boundary and native-helper behavioral tests; run for missing API/source RED.
+- [x] Add delta implementing pointer-only READ/STORE and local raw capture after get_file before STORE, saved-scalar emission after STORE.
+- [x] Add static seven-case driver and opt-in fixed runner; fresh source/build under its own assets prefix only.
+- [x] Run old-kernel/new-driver negative baseline; expect missing /proc/cptagread and decoder rejection.
+- [x] Build fresh exact kernel/static driver and capture all seven cases, preserving original serial/images. Compare outcomes with independent literal expectations, not the PR44 oracle.
+- [x] Freeze runner input hashes; rerun focused/full tests; expect PASS. Commit `feat: capture raw tags after existing copy references in fixed guests`.
 
 ### Task 3: Frozen provenance audit, architecture and result
 
@@ -74,9 +74,9 @@ docs/guest_tag_snapshot_{contract,result}.md; .gitattributes narrow new rules.
 Consumes frozen Task2 byte hashes/paths and Task1 actual parser/diagnostic only.
 No build/boot/output writes in audit or ordinary tests.
 
-- [ ] Write failing audit tests for input/serial/source/image drift and no-authority; run missing API RED.
-- [ ] Implement offline auditor, source/file/range provenance and original-byte manifests; test mutated actual records without upgrading them.
-- [ ] Add preservation/import guards; verify all old source/test/evidence/CI blobs unchanged.
+- [x] Write failing audit tests for input/serial/source/image drift and no-authority; run missing API RED.
+- [x] Implement offline auditor, source/file/range provenance and original-byte manifests; test mutated actual records without upgrading them.
+- [x] Add preservation/import guards; verify all old source/test/evidence/CI blobs unchanged.
 - [ ] Run full suite, source/native/replay audits, ruff/format/mypy, build/fresh wheel, focused CRLF clone and coverage. Expect PASS; report limitations honestly.
 - [ ] Write result/next-single-task; commit `audit: freeze unqualified post-reference guest evidence`.
 - [ ] Fresh whole-branch reviewer; one RED→GREEN fix pass for C/I only if needed; ledger all declined judgments/minors.

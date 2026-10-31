@@ -1,0 +1,230 @@
+{
+  "archive": {
+    "bytes": 151616644,
+    "path": "/workspace/scratch/guest-backend.FY5icM/kernel-source/usr/src/linux-source-6.12.tar.xz",
+    "sha256": "ded797683f4161cfb8839b281b97f5be3fec02dc517ecea999798815ebeece33"
+  },
+  "base_revision": "eba2e74759cefa65a941ebce09ce2a4cfa33ec21",
+  "files": [
+    {
+      "bytes": 15200,
+      "git_blob_sha1": "9b3fd9e901b9c43c30039846849b077bdc276a8c",
+      "path": "fs/file_table.c",
+      "ranges": [
+        {
+          "claim": "SELECTED_ZERO_INIT_AND_ALLOCATION_PATH",
+          "end": 262,
+          "sha256": "c2f6162b62fb24244bb10c250a069d57dd60a19a85f0659791835b852b511cdb",
+          "start": 218
+        },
+        {
+          "claim": "POST_FREE_CALLBACK_SCALARS",
+          "end": 109,
+          "sha256": "6f6618feff14cd630094939df11c7719cdd89d405a32456c4ba9717d3a5be063",
+          "start": 88
+        }
+      ],
+      "sha256": "fa4aebbb367d97206b0f7e571e63af54f08d0459fcd259efd5e3b00783f1f78a"
+    },
+    {
+      "bytes": 934,
+      "git_blob_sha1": "6a08137771d703345811c42cbe40e17563bfb2c0",
+      "path": "fs/proc/Makefile",
+      "ranges": [
+        {
+          "claim": "PROC_SOURCE_REGISTRATION",
+          "end": 19,
+          "sha256": "22145a7a47da7a53da0161ce5814d9796da8508ba3cffbdc80da23fc56e2b688",
+          "start": 15
+        }
+      ],
+      "sha256": "caf5c7432cbdaba90c122cc3c1d925bdd915f758de605bb8b704655ed08cc2b8"
+    },
+    {
+      "bytes": 3567,
+      "git_blob_sha1": "a77953d6f0f591e794a1f5a0fdfa47fe0077eb6a",
+      "path": "include/linux/fdtable.h",
+      "ranges": [
+        {
+          "claim": "NAMESPACE_OBJECT_LAYOUT",
+          "end": 66,
+          "sha256": "ecd048b623375c4cc1a89045df8c4390a5f9fcd79638638260c34fc819aa8a68",
+          "start": 38
+        }
+      ],
+      "sha256": "31d92b0434e0765cff7fda50426f9ff5faa73d5cca696787ec6b204085304fa5"
+    },
+    {
+      "bytes": 128654,
+      "git_blob_sha1": "a0559452b2874a265c4ec856c205d745c14fb0cd",
+      "path": "include/linux/fs.h",
+      "ranges": [
+        {
+          "claim": "FILE_OBJECT_LAYOUT",
+          "end": 1107,
+          "sha256": "2f03c50cf4e15cfe95853f5f8b943dd24b94d569ca4b41dce22267653ad6a4a4",
+          "start": 1075
+        }
+      ],
+      "sha256": "cdff0ae7bf01af3652ef728a2a513362aebc128bba7daaa4d35a9e3e266a7102"
+    },
+    {
+      "bytes": 65144,
+      "git_blob_sha1": "3c37e546467a0722b2970c13578334eee13d7f23",
+      "path": "include/linux/sched.h",
+      "ranges": [
+        {
+          "claim": "TASK_SCALAR_CONTEXT_LAYOUT",
+          "end": 1167,
+          "sha256": "8f02c5032281b59fa9b2f46aba80b0f31141819ab349c1be1778ba20068ca2d8",
+          "start": 1153
+        }
+      ],
+      "sha256": "c7c8457bf525f1c15386ecd4152491d3032b8fc9bef1aaafeb2e7a366dfca6df"
+    },
+    {
+      "bytes": 88082,
+      "git_blob_sha1": "aa627d4f64c18c137deac645c0076d5a86ba0e29",
+      "path": "kernel/fork.c",
+      "ranges": [
+        {
+          "claim": "PRIVATE_COPY_SOURCE_CALLER",
+          "end": 1840,
+          "sha256": "e4d92dee839d8ba3c5d1b8077279807cc901b62fbbb37cc81e721fa334962fdb",
+          "start": 1802
+        },
+        {
+          "claim": "LAST_FAILURE_AND_ACTUAL_TASK_COMMIT",
+          "end": 2668,
+          "sha256": "819885492dd29f9926349539743449a4166b305f261518613c44a68b276dca57",
+          "start": 2576
+        },
+        {
+          "claim": "ACTUAL_TASK_ABORT_BEFORE_DESTRUCTION",
+          "end": 2731,
+          "sha256": "b14b1dfeda2f6febd0ca6aaa69ce4e9b3e49d49cfea74d8cc50cc50dda42821c",
+          "start": 2718
+        }
+      ],
+      "sha256": "df52fcb14cae5c33aa3ac81d071d3b617f54834687ed4ccc6c828699eed1580d"
+    },
+    {
+      "bytes": 39666,
+      "git_blob_sha1": "dab19b5675228a9eb629dbe540afb1a0ebbe85a6",
+      "path": "fs/file.c",
+      "ranges": [
+        {
+          "claim": "EXACT_PROFILE_FILE_NOT_PROOF",
+          "end": 1498,
+          "sha256": "88bcfe128c32596cf3d1fea12026c842c23e42348e5fdb16156597fe58267a96",
+          "start": 1
+        },
+        {
+          "claim": "EXISTING_REFERENCE_SAVE_TRANSFER_EMIT",
+          "end": 433,
+          "sha256": "fa2e385694db3ef10e0b65824698e4d01ec4c98526283eb7becbe4a346e3437e",
+          "start": 414
+        }
+      ],
+      "sha256": "88bcfe128c32596cf3d1fea12026c842c23e42348e5fdb16156597fe58267a96"
+    },
+    {
+      "bytes": 14497,
+      "git_blob_sha1": "226a468cb16d59942343c61e7382a843d455bebc",
+      "path": "fs/proc/cpcopy.c",
+      "ranges": [
+        {
+          "claim": "EXACT_PROFILE_FILE_NOT_PROOF",
+          "end": 382,
+          "sha256": "6694bce3c69a110a5cfc6350af865364041a3e098d849f4bb1df810452ace575",
+          "start": 1
+        },
+        {
+          "claim": "POINTER_ONLY_AND_SAVED_VALUE_EMISSION",
+          "end": 302,
+          "sha256": "eebe583c1b5d8a920d49cdc139d0980273405fba97fb71fd3834888649761d43",
+          "start": 283
+        },
+        {
+          "claim": "OWN_BUFFER_LOSS_INJECTION",
+          "end": 108,
+          "sha256": "a0b9ac100e02673508a3c94e336876aee5ef325d5122a38f4191de4186b469d1",
+          "start": 77
+        },
+        {
+          "claim": "NEW_STAGE_WIRE_ENCODING",
+          "end": 382,
+          "sha256": "2e260204280c8bb467d33e8b41bfd8bbdaef04b023b05221c96f9682957a8f4a",
+          "start": 325
+        }
+      ],
+      "sha256": "6694bce3c69a110a5cfc6350af865364041a3e098d849f4bb1df810452ace575"
+    },
+    {
+      "bytes": 6431,
+      "git_blob_sha1": "ed679040fe54fdf8e822fe8c10f187ec0d5f11e3",
+      "path": "fs/proc/cplife.c",
+      "ranges": [
+        {
+          "claim": "EXACT_PROFILE_FILE_NOT_PROOF",
+          "end": 223,
+          "sha256": "be6865d342ebced7269461098a97ba7bebc9a8c86895fb5493e030447233979a",
+          "start": 1
+        },
+        {
+          "claim": "NEW_PROC_ENDPOINT_ONLY",
+          "end": 223,
+          "sha256": "58bce67f638c783239a7d3f6dea34901ffa00881409edef22c5019a98f8274d4",
+          "start": 216
+        }
+      ],
+      "sha256": "be6865d342ebced7269461098a97ba7bebc9a8c86895fb5493e030447233979a"
+    },
+    {
+      "bytes": 2048,
+      "git_blob_sha1": "43a09b64866c4614b2e80788c1ec995a88ddcda3",
+      "path": "include/linux/cplife.h",
+      "ranges": [
+        {
+          "claim": "EXACT_PROFILE_FILE_NOT_PROOF",
+          "end": 42,
+          "sha256": "defdc60a64ede836e3c0dc248c3f5ec07d93ee5abdf78fbe0eb0f028b278b9b9",
+          "start": 1
+        }
+      ],
+      "sha256": "defdc60a64ede836e3c0dc248c3f5ec07d93ee5abdf78fbe0eb0f028b278b9b9"
+    },
+    {
+      "bytes": 527,
+      "git_blob_sha1": "c8f41dd463e676fa98157e35b8c26a31ef02f825",
+      "path": "include/linux/cptagread.h",
+      "ranges": [
+        {
+          "claim": "EXACT_PROFILE_FILE_NOT_PROOF",
+          "end": 20,
+          "sha256": "67329c70777ecf1f6d396f95d371fe0b6f72b8f2a2b714f3ba4d96441d47d8f8",
+          "start": 1
+        }
+      ],
+      "sha256": "67329c70777ecf1f6d396f95d371fe0b6f72b8f2a2b714f3ba4d96441d47d8f8"
+    }
+  ],
+  "patch_chain": [
+    {
+      "bytes": 33443,
+      "path": "tests/guest_bootstrap/kernel.patch",
+      "sha256": "3eed09131f6ce03dc4a489dfe161cd3d48576ba760abf0978d8846fd3edfc848"
+    },
+    {
+      "bytes": 8521,
+      "path": "tests/guest_tag_snapshot/kernel.patch",
+      "sha256": "78bada7bb59500a6c25d9d5e691867eccb27a3e7e5f10b9e958d8e2a308777f2"
+    }
+  ],
+  "schema": "guest-tag-snapshot-sources-v1",
+  "source_happens_before_proven": false,
+  "source_repository": "https://deb.debian.org/debian",
+  "source_version": "linux 6.12.113-1",
+  "tag_publication_qualified": false,
+  "target_lifetime_proven": false
+}
