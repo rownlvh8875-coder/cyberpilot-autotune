@@ -1,6 +1,7 @@
 """Exercise the bounded history exception and frozen historical execution."""
 
 import hashlib
+import importlib
 import importlib.util
 import os
 import subprocess
@@ -8,6 +9,7 @@ import subprocess
 import pytest
 
 from tests.history_transition.frozen_cases import BASE, ROOT, materialize_snapshot, run_frozen_case
+from tests.history_transition.policy import GUARD_BASES
 
 
 def test_snapshot_contains_original_coherent_git_tree(tmp_path):
@@ -179,4 +181,35 @@ def test_crlf_is_allowed_only_when_git_cleaning_matches_the_frozen_blob(policy_c
     _check_policy(policy_clone)
     target.write_bytes(raw.replace(b"\n", b"\r\n") + b"# not just line endings\r\n")
     with pytest.raises(ValueError):
+        _check_policy(policy_clone)
+
+
+@pytest.mark.parametrize("path", tuple(GUARD_BASES))
+def test_each_guard_rejects_unlisted_installed_source_edits(policy_clone, path, monkeypatch):
+    import ast
+
+    module = importlib.import_module(path.removesuffix(".py").replace("/", "."))
+    monkeypatch.setattr(module, "ROOT", policy_clone)
+    source = ast.parse((ROOT / path).read_bytes())
+    # Find the original history query, not a guessed/reduced substitute criterion.
+    function = next(
+        item
+        for item in source.body
+        if isinstance(item, ast.FunctionDef)
+        and any(isinstance(node, ast.Constant) and node.value == "diff" for node in ast.walk(item))
+    )
+    target = policy_clone / "src/cyberpilot_autotune/__init__.py"
+    target.write_bytes(target.read_bytes() + b"\n# not authorized\n")
+    with pytest.raises(ValueError, match="path outside closed exception"):
+        getattr(module, function.name)()
+
+
+def test_index_only_unlisted_change_cannot_hide_behind_restored_worktree(policy_clone):
+    path = "src/cyberpilot_autotune/__init__.py"
+    target = policy_clone / path
+    original = target.read_bytes()
+    target.write_bytes(original + b"\n# forbidden in index\n")
+    _git(policy_clone, "add", "--", path)
+    target.write_bytes(original)
+    with pytest.raises(ValueError, match="29-path scope"):
         _check_policy(policy_clone)
