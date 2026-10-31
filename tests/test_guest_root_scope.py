@@ -143,6 +143,24 @@ def test_descendant_actor_is_not_its_subject_or_inherited_task_cookie():
     assert not model.assess(model.parse_serial(bad)).root_creation_observed
 
 
+@pytest.mark.parametrize("old", [0, 2, 99])
+def test_descendant_creation_cannot_erase_its_creator_even_with_balanced_counts(old):
+    model = api()
+    descendant = (
+        "seq=4 kind=TASK_ALLOC scope=1 actor=0 task=4 table=0 ofd=0 old=0 fd=-1 flags=-1 mono=13",
+        f"seq=5 kind=TABLE_NEW scope=1 actor=0 task=4 table=5 ofd=0 old={old} "
+        "fd=-1 flags=-1 mono=14",
+        "seq=6 kind=TASK_COMMIT scope=1 actor=0 task=4 table=5 ofd=0 old=0 fd=-1 flags=-1 mono=15",
+    )
+    result = model.assess(
+        model.parse_serial(wire((ALLOC, TABLE, COMMIT, *descendant), attempted=6))
+    )
+    assert result.local_accounting_balanced and not result.local_loss_observed
+    assert not result.root_creation_observed
+    assert "DESCENDANT_CREATOR_UNAVAILABLE" in result.reasons
+    assert result.actual_global_drops is None and all(v is False for _, v in result.permissions)
+
+
 def test_coherent_counts_are_not_global_losslessness_and_inconsistent_counts_are_visible():
     model = api()
     result = model.assess(model.parse_serial(wire(attempted=4)))

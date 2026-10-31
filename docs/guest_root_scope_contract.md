@@ -59,6 +59,9 @@ root allocation→copied namespace→success-commit linkage is consistent. It ch
 fresh cross-role cookies,duplicate stages,actor/subject separation,pre-commit actor
 use,namespace ownership and unavailable root-parent context. Missing allocation,
 commit or namespace record cannot be repaired with metadata/expected IDs.
+Only the declared root may have an unavailable creation actor. Every non-root
+triplet needs an already committed creator and its matching old namespace; erasing
+the creator never bypasses those checks,even with balanced local counters.
 Its affirmative `root_creation_observed` is a bounded **untrusted diagnostic**,
 never a complete observer,causal authenticity,inventory,qualification or grant.
 It deliberately becomes false on reported loss or context inconsistency.

@@ -135,9 +135,9 @@
       "sha256": "750dfdb6452a32a1a846c4dcbfe2646152f726cd6149e88039d5042523a55e82"
     },
     {
-      "bytes": 7731,
+      "bytes": 7872,
       "path": "tests/guest_root_scope/model.py",
-      "sha256": "3e47632ff922b433ffc2384c806e4ef0ff6cafdfa5417b89883c160a2fa66922"
+      "sha256": "ca9d2603cc0f3fbd7491aab5538df39fa8ada7d5a0ce3cfabe47fa6599adb514"
     },
     {
       "bytes": 1215,
@@ -147,7 +147,7 @@
     {
       "bytes": 3942,
       "path": "tests/guest_root_scope/runner.py",
-      "sha256": "87bec684468f454e7250f8beb24fb756b37fd3769d3ef11c15e86b8d74681a63"
+      "sha256": "fdb2ba5bb8b11385f3dbc0ecfbb822dc6c983422597d23244bea8e266eff1933"
     },
     {
       "bytes": 2626,

@@ -23,7 +23,7 @@ SOURCE_INPUTS = {
     "guest/init.c": "5c38e027afdd639d56b1eb8c2fd85b9f19414a0d67b1daabe00d2f1dac477d62",
     "kernel.patch": "0b4df48afa9f9750691026c51b180278532c0c30a50f671d797c7e45a6ac6e6d",
     "kernel.config": "fd558bc27411f7cb2c4a6f7939e5e93e0c5da68d6f297415ede036335e60d611",
-    "model.py": "3e47632ff922b433ffc2384c806e4ef0ff6cafdfa5417b89883c160a2fa66922",
+    "model.py": "ca9d2603cc0f3fbd7491aab5538df39fa8ada7d5a0ce3cfabe47fa6599adb514",
     "image.py": "79d43c5a5ee59ed424771593d590b501a57af2787998aea651d3ba81994c107f",
 }
 IMAGE_SHA = {

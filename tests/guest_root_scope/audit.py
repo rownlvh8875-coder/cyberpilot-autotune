@@ -19,7 +19,7 @@ from .runner import ASSETS, IMAGE_SHA, ROOT, VM
 BUILD = ROOT / "docs/evidence/guest_root_scope_build.json"
 ACTUAL = ROOT / "docs/evidence/guest_root_scope_actual.json"
 SOURCES = ROOT / "docs/evidence/guest_root_scope_sources.json"
-BUILD_DIGEST = "e584fbd1d14a140601a8b9184cff5cbc9f40716e0264c9ba23384f4de51aa2f9"
+BUILD_DIGEST = "927d7d9d98dbc29518784ade0e93f5406ae103c2d10ef70ca21baf7c25baa54b"
 SOURCE_DIGEST = "eafdb5fb25bfc9b9fbd2bcc98df43bc8ebf6f6bb1e001ee415d534681807690c"
 IMAGE_BYTES = (336065, 336075, 336072)
 

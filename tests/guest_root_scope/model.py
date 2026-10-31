@@ -169,6 +169,9 @@ def assess(capture: Capture) -> Diagnostic:
         if set(stages) != CREATION:
             continue
         a, t, c = (stages[k] for k in ("TASK_ALLOC", "TABLE_NEW", "TASK_COMMIT"))
+        if task != capture.root_id and a.actor_id is None:
+            reasons.append("DESCENDANT_CREATOR_UNAVAILABLE")
+            continue
         if (
             a.seq < t.seq < c.seq
             and a.actor_id == t.actor_id == c.actor_id

@@ -53,17 +53,37 @@ missing-API cases RED→GREEN;25 byte-audit cases missing API RED→GREEN. Autho
 root-parent namespace invention regression RED→GREEN. Explicit mypy re-export
 correction after2attribute errors; no runtime semantics change,source hashes
 refreshed and all three guests recaptured through the final frozen runner.
-68 focused tests pass,including2architecture guards. Pure model/image146statements,
-44branches100/100%,no exclusions. This is Python coverage,not kernel correctness.
+After the review fix,71 focused tests pass,including2architecture guards. Pure
+model/image149statements,46branches100/100%,no exclusions. This is Python coverage,
+not kernel correctness.
 Optional local source/asset audit passed7pristine/9patched files/43ranges and all
 recorded selected prepared inputs/QEMU cohort. Default audit never claims those
-optional checks were performed. Full3082passed35.71s;ruff/format,mypy71installed+
+optional checks were performed. Post-fix full3085passed35.63s;ruff/format,mypy71installed+
 5prototype modules,sdist/wheel build pass. Fresh isolated wheel outside checkout:
 all installed modules,replay,Carrot contract,knowledge,owner,science,H6/H7 smokes
 pass; tests/compatibility/NumPy absent before research extra;research smokes pass
 after explicit extra installation. All prior source/history/offline/PR37 audits
 and192passive native cases pass. CRLF/exact-head CI/independent review are recorded
 in the own PR handoff after observation,not inferred from an earlier head.
+
+One fresh independent review on `6513170ae3c1af0eb0dfa00054aa080e63379304`:
+C0/I1/M0. Reviewer independently ran3082tests and verified source/assets/original
+serial/images; no kernel compile or guest execution was repeated independently.
+I1: a non-root creation triplet with unavailable creator skipped parent/namespace
+checks. Author reproduced3balanced-counter variants (old namespace unknown,actual,
+substituted),all RED,then required a non-root creator and made them GREEN in one
+fix pass. All three fixed guests were recaptured through refreshed frozen Python
+source bindings; kernel/driver/source patch bytes unchanged. Old pre-review serial
+and images remain in the new producer's `pre-review` directory and previous Git
+evidence. The full post-fix suite,audits,coverage,wheel and type/lint checks reran.
+No second independent review: final fix head differs from the reviewed head;
+report both,do not label the final head independently C0/I0 reviewed.
+
+The guest reported TSC calibration failure; timestamps stay hook annotations,
+not accurate timing or effect-order evidence. General workloads/shared namespaces,
+SMP/NMI/wrap,task final-free/late cleanup,copy inventory/complete ownership/global
+closure,authenticity/cross-boot identity/reproducibility/sealing,portable asset
+execution and manual dataclass input validation remain expressly unqualified.
 
 ## Status / retained blockers
 
