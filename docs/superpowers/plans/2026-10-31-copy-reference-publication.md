@@ -47,7 +47,7 @@ validate(source_root:Path|None=None)->dict[str,Any].
 - [x] Run `.venv/bin/python -m pytest tests/test_copy_reference_publication_audit.py -q`;expect missingAPI RED.
 - [x] Freeze exact selected source excerpts and repository refs,then implement pure closed result and read-only byte audit.
 - [x] Add old-blob/import guards;run focused tests,explicit source-root audit,full pytest,ruff/format/mypy;expect PASS with source_interpretations_machine_proven=false.
-- [ ] Commit `audit: freeze copy reference and tag publication source boundaries`.
+- [x] Commit `audit: freeze copy reference and tag publication source boundaries`.
 
 ### Task2: Argument maps,representation finding and verified handoff
 
@@ -57,9 +57,9 @@ docs/copy_reference_publication_result.md;plan progress.
 **Interfaces:** Consumes Task1 validated citation IDs,source digest,dimensions,
 type flows,conditional arguments and obligations. No new runtime interface.
 
-- [ ] Write caller/slot/ref/transfer and pre-install/seed/lock argument maps with exact claim references and explicit conditional premises.
-- [ ] Write object→saved→buffer→printf→decoder type table and stand-in probe limitation;retain actual bytes and prior minor status unchanged.
-- [ ] Run full suite,old source/history/original-byte audits,native192/replay4,lint/format/type/build/fresh wheel and pure-module coverage;expect PASS,not semantic qualification.
+- [x] Write caller/slot/ref/transfer and pre-install/seed/lock argument maps with exact claim references and explicit conditional premises.
+- [x] Write object→saved→buffer→printf→decoder type table and stand-in probe limitation;retain actual bytes and prior minor status unchanged.
+- [x] Run full suite,old source/history/original-byte audits,native192/replay4,lint/format/type/build/fresh wheel and pure-module coverage;expect PASS,not semantic qualification.
 - [ ] Commit `docs: publish conditional copy reference and publication audit`.
 - [ ] Verify final exact-head/full and fresh persistent CRLF clone;expect clean/PASS. Fresh whole-branch read-only reviewer;one author RED→GREEN C/I fix pass if needed,minors defer,no re-review.
 - [ ] Publish own stacked Draft against PR45 branch,attach it,verify exact-head push/PR CI and old32PR/main preservation. Recoverably archive only this plan;recommend one next task without starting it.

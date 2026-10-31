@@ -50,7 +50,9 @@ The catalog must preserve these distinctions:
   from PR45's deferred decoder UInt64/native UInt32 mismatch. Existing observed
   0/1 values do not demonstrate loss,but do not prove an all-writer domain bound.
 - All prior blockers/minors remain. No actual captures are parsed/reclassified
-  and no source/runtime permission is inferred from source hashes or metadata.
+  by the new source auditor. Unchanged original-byte regression may replay them
+  with its existing decoder/flags,without upgrades. No source/runtime permission
+  is inferred from source hashes or metadata.
 
 ## Outputs and trust
 
