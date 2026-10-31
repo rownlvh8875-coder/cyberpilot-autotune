@@ -279,9 +279,9 @@
   ],
   "repository_files": [
     {
-      "bytes": 9002,
+      "bytes": 9160,
       "path": "tests/fork_copy_design/model.py",
-      "sha256": "0326ed3ddefa39483f3ce3f1728ec481eed62ce1a181321592dcec12b3073130"
+      "sha256": "05414af0d56155e13945806cb18c2df7cf926099a71840b9ef4d5fd394dffa7c"
     },
     {
       "bytes": 13645,

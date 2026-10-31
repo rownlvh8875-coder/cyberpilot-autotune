@@ -105,7 +105,8 @@ def _context(context: Any, reasons: list[str]) -> set[int]:
         need(subject != scope, "SUBJECT_SCOPE_MISMATCH")
     ids = [v for v in (actor, subject, source, dest) if v is not None]
     need(len(ids) == len(set(ids)), "SOURCE_COOKIE_ROLE_COLLISION")
-    return set(ids)
+    need(scope not in (source, dest), "SOURCE_COOKIE_ROLE_COLLISION")
+    return set(ids) | {uint(context["scope_id"])}
 
 
 def _accounting(data: Any, events: list[Any], reasons: list[str]) -> None:
@@ -165,7 +166,8 @@ def _slots(events: list[Any], roles: set[int], reasons: list[str]) -> tuple[Copi
         presence = read["presence"]
         need(presence in ("PRESENT", "NULL"), "POINTER_READ_UNAVAILABLE")
         ofd = _identity(read["ofd"], optional=True)
-        need(store["presence"] == presence and store["ofd"] == ofd, "READ_STORE_MISMATCH")
+        stored_ofd = _identity(store["ofd"], optional=True)
+        need(store["presence"] == presence and stored_ofd == ofd, "READ_STORE_MISMATCH")
         need(
             all(uint(e["read_ordinal"]) == read["n"] for e in (branch, store)), "READ_PAIR_MISMATCH"
         )

@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCES = ROOT / "docs/evidence/fork_copy_design_sources.json"
 SCHEMA = ROOT / "docs/evidence/fork_copy_design_schema.json"
 CASES = ROOT / "docs/evidence/fork_copy_design_cases.json"
-SOURCE_DIGEST = "4b71c09f937745fe804931477a5e942d5d1ea0a001588ea91578321c25987e9f"
+SOURCE_DIGEST = "b59956a24f830fc1a783210778786400853c6f1b63e232a3b9bd11f31c3620fa"
 SCHEMA_DIGEST = "9cc994a4b8bf362163be9b38aebfd6fb8ac68698ae654c311417dbc2b5cc04b5"
 CASE_DIGEST = "21c4547b71b120d491b70d6415353432432df1afa753db93144ceb799c59da81"
 

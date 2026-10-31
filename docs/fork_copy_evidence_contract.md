@@ -69,6 +69,8 @@ branch identity. Copy-attempt has its own ID namespace. Other lifetime cookie
 roles cannot collide; repeated OFD across several FDs is valid aliasing. The root
 may have unavailable armer/source namespace,which remains diagnostic. A non-root
 creator cannot be erased. Local boot labels are not authenticated cross-boot IDs.
+Synthetic IDs are symbolic premises,not issuer attestation or a complete allocation
+history;the oracle does not infer historical chronology from their numeric magnitude.
 
 Each event has source-local attempted emission ordinal n,not wallclock or a global
 kernel-effect position. The successful finite grammar is:

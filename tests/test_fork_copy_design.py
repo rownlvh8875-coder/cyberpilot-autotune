@@ -231,6 +231,32 @@ def test_cookie_roles_cannot_collide_but_repeated_ofd_aliases_are_allowed():
     assert not result.consistent and "SOURCE_COOKIE_ROLE_COLLISION" in result.reasons
 
 
+@pytest.mark.parametrize("variant", ["namespace", "ofd"])
+def test_root_scope_cookie_remains_a_task_role_even_when_creator_is_a_descendant(variant):
+    data = receipt()
+    if variant == "namespace":
+        data["context"]["scope_id"] = 2
+    else:
+        data["context"]["actor_task_id"] = 6
+        for row in data["events"]:
+            if row.get("ofd") == 3:
+                row["ofd"] = 1
+    result = api().evaluate(data)
+    assert not result.consistent and "SOURCE_COOKIE_ROLE_COLLISION" in result.reasons
+
+
+def test_store_bool_cannot_impersonate_integer_one_even_when_equality_matches():
+    data = receipt()
+    data["context"].update(scope_id=6, actor_task_id=6, subject_task_id=7)
+    for row in data["events"]:
+        if row.get("ofd") == 3:
+            row["ofd"] = 1
+    assert api().evaluate(data).consistent
+    data["events"][19]["ofd"] = True
+    result = api().evaluate(data)
+    assert not result.consistent and "EXACT_UINT_REQUIRED" in result.reasons
+
+
 def test_structurally_valid_unrelated_stage_in_reference_position_is_reasoned_rejection():
     data = receipt()
     data["events"][18] = {"n": 19, "kind": "TASK_FINALIZE", "result": "COMMITTED"}
