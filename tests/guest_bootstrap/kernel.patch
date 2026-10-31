@@ -1,0 +1,974 @@
+diff --git a/fs/file.c b/fs/file.c
+index c84bd58..86db4c2 100644
+--- a/fs/file.c
++++ b/fs/file.c
+@@ -8,6 +8,7 @@
+  */
+ 
+ #include <linux/syscalls.h>
++#include <linux/cplife.h>
+ #include <linux/export.h>
+ #include <linux/fs.h>
+ #include <linux/kernel.h>
+@@ -311,16 +312,28 @@ static unsigned int sane_fdtable_size(struct fdtable *fdt, struct fd_range *punc
+  * instance.  Returns a pointer to cloned table on success, ERR_PTR()
+  * on failure.  For 'punch_hole' see sane_fdtable_size().
+  */
+-struct files_struct *dup_fd(struct files_struct *oldf, struct fd_range *punch_hole)
++static struct files_struct *copy_fd_for_context(struct files_struct *oldf,
++		struct fd_range *punch_hole, struct task_struct *cpc_task)
+ {
+ 	struct files_struct *newf;
+ 	struct file **old_fds, **new_fds;
+ 	unsigned int open_files, i;
+ 	struct fdtable *old_fdt, *new_fdt;
+ 
++	cpc_attempt(cpc_task, oldf);
++	if (cpc_fault(cpc_task, 1)) {
++		cpc_return(cpc_task, false, "ALLOC_INJECTED");
++		return ERR_PTR(-ENOMEM);
++	}
+ 	newf = kmem_cache_alloc(files_cachep, GFP_KERNEL);
+-	if (!newf)
++	if (!newf) {
++		cpc_return(cpc_task, false, "NATURAL_ALLOC");
+ 		return ERR_PTR(-ENOMEM);
++	}
++	newf->cpl_cookie = 0;
++	newf->cpl_scope = 0;
++	newf->cpb_epoch = 0;
++	newf->cpb_origin = 0;
+ 
+ 	atomic_set(&newf->count, 1);
+ 
+@@ -334,6 +347,7 @@ struct files_struct *dup_fd(struct files_struct *oldf, struct fd_range *punch_ho
+ 	new_fdt->open_fds = newf->open_fds_init;
+ 	new_fdt->full_fds_bits = newf->full_fds_bits_init;
+ 	new_fdt->fd = &newf->fd_array[0];
++	cpc_allocated(cpc_task, newf); /* Allocation ID,not completed constructor. */
+ 
+ 	spin_lock(&oldf->file_lock);
+ 	old_fdt = files_fdtable(oldf);
+@@ -351,6 +365,8 @@ struct files_struct *dup_fd(struct files_struct *oldf, struct fd_range *punch_ho
+ 		new_fdt = alloc_fdtable(open_files);
+ 		if (IS_ERR(new_fdt)) {
+ 			kmem_cache_free(files_cachep, newf);
++			cpc_alloc_free(cpc_task, "NATURAL_ALLOC"); /* Scalar context only. */
++			cpc_return(cpc_task, false, "NATURAL_ALLOC");
+ 			return ERR_CAST(new_fdt);
+ 		}
+ 
+@@ -364,7 +380,18 @@ struct files_struct *dup_fd(struct files_struct *oldf, struct fd_range *punch_ho
+ 		open_files = sane_fdtable_size(old_fdt, punch_hole);
+ 	}
+ 
++	cpc_begin(cpc_task, open_files, new_fdt->max_fds);
++	if (cpc_fault(cpc_task, 2)) {
++		spin_unlock(&oldf->file_lock);
++		if (new_fdt != &newf->fdtab)
++			__free_fdtable(new_fdt);
++		kmem_cache_free(files_cachep, newf);
++		cpc_alloc_free(cpc_task, "CONSTRUCTOR_INJECTED");
++		cpc_return(cpc_task, false, "CONSTRUCTOR_INJECTED");
++		return ERR_PTR(-ENOMEM);
++	}
+ 	copy_fd_bitmaps(new_fdt, old_fdt, open_files / BITS_PER_LONG);
++	cpc_bitmaps(cpc_task, new_fdt->open_fds[0], new_fdt->close_on_exec[0]);
+ 
+ 	old_fds = old_fdt->fd;
+ 	new_fds = new_fdt->fd;
+@@ -385,12 +412,16 @@ struct files_struct *dup_fd(struct files_struct *oldf, struct fd_range *punch_ho
+ 	 */
+ 	for (i = open_files; i != 0; i--) {
+ 		struct file *f = rcu_dereference_raw(*old_fds++);
++		u64 cpc_read_id = cpc_read(cpc_task, open_files - i, f);
+ 		if (f) {
+ 			get_file(f);
++			cpc_step(cpc_task, "REFERENCE", open_files - i, cpc_read_id, NULL);
+ 		} else {
+ 			__clear_open_fd(open_files - i, new_fdt);
++			cpc_step(cpc_task, "CLEAR_OPEN", open_files - i, cpc_read_id, NULL);
+ 		}
+ 		rcu_assign_pointer(*new_fds++, f);
++		cpc_step(cpc_task, "STORE", open_files - i, cpc_read_id, f);
+ 	}
+ 	spin_unlock(&oldf->file_lock);
+ 
+@@ -398,10 +429,21 @@ struct files_struct *dup_fd(struct files_struct *oldf, struct fd_range *punch_ho
+ 	memset(new_fds, 0, (new_fdt->max_fds - open_files) * sizeof(struct file *));
+ 
+ 	rcu_assign_pointer(newf->fdt, new_fdt);
++	cpc_return(cpc_task, true, "NONE");
+ 
+ 	return newf;
+ }
+ 
++struct files_struct *dup_fd(struct files_struct *old, struct fd_range *hole)
++{
++	return copy_fd_for_context(old, hole, NULL);
++}
++
++struct files_struct *dup_fd_for_task(struct files_struct *old, struct task_struct *task)
++{
++	return copy_fd_for_context(old, NULL, task);
++}
++
+ static struct fdtable *close_files(struct files_struct * files)
+ {
+ 	/*
+@@ -437,12 +479,15 @@ static struct fdtable *close_files(struct files_struct * files)
+ void put_files_struct(struct files_struct *files)
+ {
+ 	if (atomic_dec_and_test(&files->count)) {
++		u64 cpl_saved_cookie = files->cpl_cookie;
++		u64 cpl_saved_scope = files->cpl_scope;
+ 		struct fdtable *fdt = close_files(files);
+ 
+ 		/* free the arrays if they are not embedded */
+ 		if (fdt != &files->fdtab)
+ 			__free_fdtable(fdt);
+ 		kmem_cache_free(files_cachep, files);
++		cpl_table_free(cpl_saved_cookie, cpl_saved_scope); /* Scalar only. */
+ 	}
+ }
+ 
+@@ -608,6 +653,7 @@ void fd_install(unsigned int fd, struct file *file)
+ 		fdt = files_fdtable(files);
+ 		BUG_ON(fdt->fd[fd] != NULL);
+ 		rcu_assign_pointer(fdt->fd[fd], file);
++		cpl_binding("INSTALL", files, file, NULL, fd, close_on_exec(fd, files));
+ 		spin_unlock(&files->file_lock);
+ 		return;
+ 	}
+@@ -616,6 +662,7 @@ void fd_install(unsigned int fd, struct file *file)
+ 	fdt = rcu_dereference_sched(files->fdt);
+ 	BUG_ON(fdt->fd[fd] != NULL);
+ 	rcu_assign_pointer(fdt->fd[fd], file);
++	cpl_binding("INSTALL", files, file, NULL, fd, close_on_exec(fd, files));
+ 	rcu_read_unlock_sched();
+ }
+ 
+@@ -647,6 +694,7 @@ struct file *file_close_fd_locked(struct files_struct *files, unsigned fd)
+ 	if (file) {
+ 		rcu_assign_pointer(fdt->fd[fd], NULL);
+ 		__put_unused_fd(files, fd);
++		cpl_binding("CLOSE", files, file, NULL, fd, -1);
+ 	}
+ 	return file;
+ }
+@@ -1191,6 +1239,7 @@ void set_close_on_exec(unsigned int fd, int flag)
+ 		__set_close_on_exec(fd, fdt);
+ 	else
+ 		__clear_close_on_exec(fd, fdt);
++	cpl_binding("FLAGS", files, fdt->fd[fd], NULL, fd, close_on_exec(fd, files));
+ 	spin_unlock(&files->file_lock);
+ }
+ 
+@@ -1236,6 +1285,7 @@ __releases(&files->file_lock)
+ 		__set_close_on_exec(fd, fdt);
+ 	else
+ 		__clear_close_on_exec(fd, fdt);
++	cpl_binding("REPLACE", files, file, tofree, fd, close_on_exec(fd, files));
+ 	spin_unlock(&files->file_lock);
+ 
+ 	if (tofree)
+diff --git a/fs/file_table.c b/fs/file_table.c
+index f78bcff..9b3fd9e 100644
+--- a/fs/file_table.c
++++ b/fs/file_table.c
+@@ -7,6 +7,7 @@
+  */
+ 
+ #include <linux/string.h>
++#include <linux/cplife.h>
+ #include <linux/slab.h>
+ #include <linux/file.h>
+ #include <linux/init.h>
+@@ -86,6 +87,8 @@ static inline void backing_file_free(struct backing_file *ff)
+ 
+ static inline void file_free(struct file *f)
+ {
++	u64 cpl_saved_cookie = f->cpl_cookie;
++	u64 cpl_saved_scope = f->cpl_scope;
+ 	security_file_free(f);
+ 	if (likely(!(f->f_mode & FMODE_NOACCOUNT)))
+ 		percpu_counter_dec(&nr_files);
+@@ -95,6 +98,7 @@ static inline void file_free(struct file *f)
+ 	} else {
+ 		kmem_cache_free(filp_cachep, f);
+ 	}
++	cpl_file_free(cpl_saved_cookie, cpl_saved_scope); /* Scalar only. */
+ }
+ 
+ /*
+@@ -241,6 +245,7 @@ struct file *alloc_empty_file(int flags, const struct cred *cred)
+ 
+ 	percpu_counter_inc(&nr_files);
+ 
++	cpl_file_birth(f);
+ 	return f;
+ 
+ over:
+diff --git a/fs/proc/Makefile b/fs/proc/Makefile
+index 7b4db9c..6a08137 100644
+--- a/fs/proc/Makefile
++++ b/fs/proc/Makefile
+@@ -13,6 +13,8 @@ proc-y       += inode.o root.o base.o generic.o array.o \
+ 		fd.o
+ proc-$(CONFIG_TTY)      += proc_tty.o
+ proc-y	+= cmdline.o
++proc-y  += cplife.o
++proc-y  += cpcopy.o
+ proc-y	+= consoles.o
+ proc-y	+= cpuinfo.o
+ proc-y	+= devices.o
+diff --git a/fs/proc/cpcopy.c b/fs/proc/cpcopy.c
+new file mode 100644
+index 0000000..f7839b0
+--- /dev/null
++++ b/fs/proc/cpcopy.c
+@@ -0,0 +1,365 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Fixed one-shot guest only. First observation is not allocation history.
++ * No observer target refs or effect lock. Emission order is not linearization.
++ */
++#include <linux/atomic.h>
++#include <linux/cplife.h>
++#include <linux/fdtable.h>
++#include <linux/fs.h>
++#include <linux/nmi.h>
++#include <linux/random.h>
++#include <linux/rcupdate.h>
++#include <linux/sched/signal.h>
++#include <linux/seq_file.h>
++#include <linux/string.h>
++#include <generated/utsrelease.h>
++
++struct cpb_record {
++  u64 n, copy, local, scope, actor, task, source, dest;
++  u64 object, read, ofd, opened, cloexec;
++  unsigned int fd, bound, capacity;
++  const char *kind, *role, *origin, *stage, *result, *reason, *status;
++  int tail;
++  bool present, open_bit, cloexec_bit, valid;
++};
++static struct cpb_record records[512];
++static atomic64_t attempts = ATOMIC64_INIT(0), reservations = ATOMIC64_INIT(0);
++static atomic64_t commits = ATOMIC64_INIT(0), failures = ATOMIC64_INIT(0);
++static atomic64_t copies = ATOMIC64_INIT(0);
++static const char *names[] = {"NORMAL", "SEED_LOSS", "SMALL_BUFFER", "SEED_FAIL",
++  "UNSEEDED_OFD", "RESEED_REJECTED", "EARLY_ARM_REJECTED", "CONSTRUCTOR_FAIL",
++  "TASK_FAIL", "ALLOC_FAIL"};
++static u64 nonce[2];
++static unsigned int capacity = 512, mode;
++static bool initialized, recording, seed_attempted, seed_complete;
++
++static const char *origin_name(unsigned int origin)
++{
++  return origin == 1 ? "FIRST_OBSERVED" : origin == 2 ? "ALLOCATION" : "UNAVAILABLE";
++}
++
++static const char *file_origin(struct file *file)
++{
++  return file && file->cpl_cookie && file->cpb_epoch == 1 ?
++    origin_name(file->cpb_origin) : "UNAVAILABLE";
++}
++
++static int find_case(const char *command, const char *prefix)
++{
++  unsigned int i;
++  char expected[32];
++  for (i = 0; i < ARRAY_SIZE(names); i++) {
++    scnprintf(expected, sizeof(expected), "%s%s\n", prefix, names[i]);
++    if (!strcmp(command, expected))
++      return i;
++  }
++  return -EINVAL;
++}
++
++static bool prepare(unsigned int selected)
++{
++  if (initialized)
++    return mode == selected;
++  mode = selected;
++  capacity = mode == 2 ? 128 : 512;
++  get_random_bytes(nonce, sizeof(nonce));
++  if (!nonce[0] && !nonce[1])
++    nonce[0] = 1;
++  initialized = true;
++  smp_store_release(&recording, true);
++  return true;
++}
++
++/* Own-buffer attempt before fallible reservation; no global loss assertion. */
++static u64 append(struct cpb_record payload)
++{
++  struct cpb_record *record;
++  u64 n = atomic64_inc_return(&attempts);
++  if (!n || n > capacity ||
++      (mode == 1 && !strcmp(payload.kind, "NODE") && payload.object == 6 &&
++       !strcmp(payload.origin, "FIRST_OBSERVED"))) {
++    atomic64_inc(&failures);
++    return n;
++  }
++  atomic64_inc(&reservations);
++  payload.n = n;
++  record = &records[n - 1];
++  *record = payload;
++  smp_store_release(&record->valid, true);
++  atomic64_inc(&commits);
++  return n;
++}
++
++static void emit(struct cpb_record payload)
++{
++  if (in_nmi())
++    return; /* Outside process/task-work profile; not zero global drops. */
++  rcu_read_lock();
++  if (smp_load_acquire(&recording))
++    append(payload);
++  rcu_read_unlock();
++}
++
++void cpb_node(const char *role, u64 cookie, unsigned int origin)
++{
++  if (!cookie)
++    return;
++  emit((struct cpb_record){.kind="NODE", .role=role, .object=cookie,
++    .origin=origin_name(origin), .stage=origin == 1 ? "PRE_ARM_SEED" : "POST_INIT_ALLOC"});
++}
++
++bool cpb_seed_attempted(void) { return seed_attempted; }
++
++int cpb_seed(const char *command)
++{
++  struct files_struct *files = current->files;
++  struct fdtable *fdt;
++  unsigned int fd;
++  int selected = find_case(command, "seed ");
++  const char *error = NULL;
++  if (selected < 0 || !prepare(selected))
++    return -EINVAL;
++  if (seed_attempted) {
++    emit((struct cpb_record){.kind="SEED_REJECT", .reason="ALREADY_ATTEMPTED"});
++    return -EBUSY;
++  }
++  seed_attempted = true;
++  emit((struct cpb_record){.kind="SEED_BEGIN"});
++  /* Local checks only. They do NOT exclude every mutator/outstanding install. */
++  if (task_pid_nr(current) != 1 || current->signal->nr_threads != 1 ||
++      atomic_read(&files->count) != 1 || files->resize_in_progress ||
++      current->cpl_scope_cookie || current->cpl_task_cookie || current->cpb_epoch ||
++      current->cpb_origin || files->cpl_cookie || files->cpl_scope ||
++      files->cpb_epoch || files->cpb_origin) {
++    emit((struct cpb_record){.kind="SEED_ABORT", .reason="CONTEXT_UNSUPPORTED"});
++    return -EINVAL;
++  }
++  spin_lock(&files->file_lock);
++  fdt = files_fdtable(files);
++  if (fdt->max_fds != 64) {
++    error = "CONTEXT_UNSUPPORTED";
++    goto abort;
++  }
++  current->cpl_task_cookie = cpl_issue_cookie();
++  files->cpl_cookie = cpl_issue_cookie();
++  if (!current->cpl_task_cookie || !files->cpl_cookie) {
++    error = "ISSUER_EXHAUSTED";
++    goto abort;
++  }
++  current->cpb_epoch = files->cpb_epoch = 1;
++  current->cpb_origin = files->cpb_origin = 1;
++  /* NEVER set parent cpl_scope_cookie/files->cpl_scope: seed != managed root. */
++  cpb_node("TASK", current->cpl_task_cookie, 1);
++  cpb_node("NAMESPACE", files->cpl_cookie, 1);
++  for (fd = 0; fd < 64; fd++) {
++    struct file *file = rcu_dereference_raw(fdt->fd[fd]);
++    if (file && !(mode == 4 && fd == 6)) {
++      if (!file->cpl_cookie && !file->cpl_scope && !file->cpb_epoch && !file->cpb_origin) {
++        file->cpl_cookie = cpl_issue_cookie();
++        if (!file->cpl_cookie) {
++          error = "ISSUER_EXHAUSTED";
++          goto abort;
++        }
++        file->cpb_epoch = 1;
++        file->cpb_origin = 1;
++        cpb_node("OFD", file->cpl_cookie, 1);
++      } else if (file->cpl_scope || file->cpb_epoch != 1 || file->cpb_origin != 1 ||
++                 !file->cpl_cookie) {
++        error = "TAG_STATE_INVALID"; /* Do not overwrite an existing allocation tag. */
++        goto abort;
++      }
++    }
++    emit((struct cpb_record){.kind="SEED_SLOT", .task=current->cpl_task_cookie,
++      .source=files->cpl_cookie, .fd=fd, .present=!!file,
++      .ofd=file ? file->cpl_cookie : 0, .origin=file_origin(file),
++      .open_bit=!!(fdt->open_fds[0] & (1UL << fd)),
++      .cloexec_bit=!!(fdt->close_on_exec[0] & (1UL << fd))});
++    if (mode == 3 && fd == 0) {
++      error = "INJECTED";
++      goto abort;
++    }
++  }
++  seed_complete = true; /* Walk completion,NOT trustworthy/all-mutator seed cut. */
++  emit((struct cpb_record){.kind="SEED_END", .actor=current->cpl_task_cookie,
++    .source=files->cpl_cookie, .result="COMPLETE"});
++  spin_unlock(&files->file_lock);
++  return 0;
++abort:
++  spin_unlock(&files->file_lock);
++  emit((struct cpb_record){.kind="SEED_ABORT", .reason=error});
++  return !strcmp(error, "INJECTED") ? -EIO : -EINVAL;
++}
++
++const char *cpc_arm(const char *command)
++{
++  int selected = find_case(command, "arm ");
++  if (selected < 0 || !prepare(selected))
++    return NULL;
++  if (!seed_complete) {
++    emit((struct cpb_record){.kind="ARM_REJECT", .reason="SEED_NOT_COMPLETE"});
++    return NULL;
++  }
++  return names[mode];
++}
++
++void cpb_armed(void)
++{
++  emit((struct cpb_record){.kind="ARM", .status="ACTIVE"});
++}
++
++void cpb_stop(void)
++{
++  /* Seal emitters first; append terminal record only after reader sections drain.
++   * This is NOT all-target/all-source/global quiescence.
++   */
++  smp_store_release(&recording, false);
++  synchronize_rcu();
++  append((struct cpb_record){.kind="STOP", .result="DRAINED_EMITTERS_ONLY"});
++}
++
++void cpc_reset_task(struct task_struct *task)
++{
++  task->cpc_attempt = task->cpc_source = task->cpc_dest = task->cpc_local = 0;
++  task->cpc_success = false;
++}
++
++void cpc_attempt(struct task_struct *task, struct files_struct *old)
++{
++  if (!task || !task->cpl_scope_cookie || !cpl_is_active())
++    return;
++  task->cpc_attempt = atomic64_inc_return(&copies);
++  task->cpc_source = old->cpl_cookie;
++}
++
++bool cpc_fault(struct task_struct *task, int point)
++{
++  return task && cpl_is_active() && task->cpc_attempt == 2 &&
++    ((point == 1 && mode == 9) || (point == 2 && mode == 7) || (point == 3 && mode == 8));
++}
++
++static u64 step(struct task_struct *task, struct cpb_record payload)
++{
++  u64 local;
++  if (!task || !task->cpc_attempt || !smp_load_acquire(&recording) || in_nmi())
++    return 0;
++  local = ++task->cpc_local;
++  payload.copy = task->cpc_attempt; payload.local = local;
++  payload.scope = task->cpl_scope_cookie; payload.actor = current->cpl_task_cookie;
++  payload.task = task->cpl_task_cookie; payload.source = task->cpc_source;
++  payload.dest = task->cpc_dest;
++  emit(payload);
++  return local;
++}
++
++void cpc_allocated(struct task_struct *task, struct files_struct *files)
++{
++  if (!task || !task->cpc_attempt)
++    return;
++  files->cpl_cookie = cpl_issue_cookie();
++  files->cpl_scope = task->cpl_scope_cookie;
++  files->cpb_epoch = files->cpl_cookie ? 1 : 0;
++  files->cpb_origin = files->cpl_cookie ? 2 : 0;
++  task->cpc_dest = files->cpl_cookie;
++  cpb_node("NAMESPACE", files->cpl_cookie, files->cpb_origin);
++}
++
++void cpc_begin(struct task_struct *task, unsigned int bound, unsigned int cap)
++{
++  step(task, (struct cpb_record){.kind="BEGIN", .bound=bound, .capacity=cap});
++}
++
++void cpc_bitmaps(struct task_struct *task, unsigned long opened, unsigned long cloexec)
++{
++  step(task, (struct cpb_record){.kind="BITMAPS", .opened=opened, .cloexec=cloexec});
++}
++
++u64 cpc_read(struct task_struct *task, unsigned int fd, struct file *file)
++{
++  return step(task, (struct cpb_record){.kind="READ", .fd=fd, .present=!!file,
++    .ofd=file ? file->cpl_cookie : 0, .origin=file_origin(file)});
++}
++
++void cpc_step(struct task_struct *task, const char *kind, unsigned int fd,
++              u64 read, struct file *file)
++{
++  step(task, (struct cpb_record){.kind=kind, .fd=fd, .read=read,
++    .present=!!file, .ofd=file ? file->cpl_cookie : 0, .origin=file_origin(file)});
++}
++
++void cpc_return(struct task_struct *task, bool success, const char *reason)
++{
++  if (task)
++    task->cpc_success = success;
++  step(task, (struct cpb_record){.kind="COPY_RETURN", .result=success ? "SUCCESS" : "FAILED",
++    .tail=success ? 1 : -1, .reason=reason});
++}
++
++void cpc_alloc_free(struct task_struct *task, const char *reason)
++{
++  step(task, (struct cpb_record){.kind="ALLOC_FREE", .reason=reason});
++}
++
++void cpc_finalize(struct task_struct *task, bool committed)
++{
++  step(task, (struct cpb_record){.kind="TASK_FINALIZE", .result=committed ? "COMMITTED" : "ABORTED",
++    .reason=committed ? "NONE" : task->cpc_success ?
++      (mode == 8 && task->cpc_attempt == 2 ? "TASK_INJECTED" : "TASK_FAILED") : "COPY_FAILED"});
++}
++
++void cpb_show(struct seq_file *m, u64 root)
++{
++  u64 a = atomic64_read(&attempts), r = atomic64_read(&reservations);
++  u64 c = atomic64_read(&commits), f = atomic64_read(&failures);
++  unsigned int i;
++  seq_printf(m, "CPB_META version=1 case=%s release=%s cpus=1 capacity=%u copies=%llu root=%llu boot_nonce=%016llx%016llx epoch=1 seed_walk=%s\n",
++    names[mode], UTS_RELEASE, capacity, atomic64_read(&copies), root, nonce[0], nonce[1],
++    seed_complete ? "COMPLETE" : "ABORTED");
++  seq_printf(m, "CPB_COUNT attempted=%llu reserved=%llu committed=%llu failed=%llu discarded=0 pending=%llu\n",
++    a, r, c, f, r - c);
++  for (i = 0; i < min_t(u64, a, capacity); i++) {
++    struct cpb_record *e = &records[i];
++    if (!smp_load_acquire(&e->valid))
++      continue;
++    seq_printf(m, "CPB_EVENT n=%llu epoch=1 kind=%s", e->n, e->kind);
++    if (!strcmp(e->kind, "NODE")) {
++      seq_printf(m, " object=%llu role=%s origin=%s stage=%s generation=0",
++        e->object, e->role, e->origin, e->stage);
++    } else if (!strcmp(e->kind, "SEED_SLOT")) {
++      seq_printf(m, " task=%llu source=%llu fd=%u presence=%s ofd=%llu origin=%s open=%u cloexec=%u",
++        e->task, e->source, e->fd, e->present ? "PRESENT" : "NULL", e->ofd, e->origin,
++        (unsigned int)e->open_bit, (unsigned int)e->cloexec_bit);
++    } else if (!strcmp(e->kind, "SEED_END")) {
++      seq_printf(m, " parent=%llu source=%llu result=%s", e->actor, e->source, e->result);
++    } else if (!strcmp(e->kind, "SEED_ABORT") || !strcmp(e->kind, "SEED_REJECT") ||
++               !strcmp(e->kind, "ARM_REJECT")) {
++      seq_printf(m, " reason=%s", e->reason);
++    } else if (!strcmp(e->kind, "ARM")) {
++      seq_printf(m, " status=%s", e->status);
++    } else if (!strcmp(e->kind, "STOP")) {
++      seq_printf(m, " result=%s", e->result);
++    } else if (strcmp(e->kind, "SEED_BEGIN")) {
++      seq_printf(m, " copy=%llu local=%llu scope=%llu actor=%llu task=%llu source=%llu dest=%llu",
++        e->copy, e->local, e->scope, e->actor, e->task, e->source, e->dest);
++      if (!strcmp(e->kind, "BEGIN"))
++        seq_printf(m, " scan_bound=%u capacity=%u", e->bound, e->capacity);
++      else if (!strcmp(e->kind, "BITMAPS"))
++        seq_printf(m, " open_fds=%llu cloexec=%llu", e->opened, e->cloexec);
++      else if (!strcmp(e->kind, "READ") || !strcmp(e->kind, "STORE")) {
++        seq_printf(m, " fd=%u", e->fd);
++        if (!strcmp(e->kind, "STORE"))
++          seq_printf(m, " read_ordinal=%llu", e->read);
++        seq_printf(m, " presence=%s ofd=%llu origin=%s",
++          e->present ? "PRESENT" : "NULL", e->ofd, e->origin);
++      } else if (!strcmp(e->kind, "REFERENCE") || !strcmp(e->kind, "CLEAR_OPEN"))
++        seq_printf(m, " fd=%u read_ordinal=%llu", e->fd, e->read);
++      else if (!strcmp(e->kind, "COPY_RETURN"))
++        seq_printf(m, " result=%s tail_zeroed=%d reason=%s", e->result, e->tail, e->reason);
++      else if (!strcmp(e->kind, "TASK_FINALIZE"))
++        seq_printf(m, " result=%s reason=%s", e->result, e->reason);
++      else if (!strcmp(e->kind, "ALLOC_FREE"))
++        seq_printf(m, " reason=%s", e->reason);
++    }
++    seq_putc(m, '\n');
++  }
++  seq_puts(m, "CPB_END\n");
++}
+diff --git a/fs/proc/cplife.c b/fs/proc/cplife.c
+new file mode 100644
+index 0000000..70b546a
+--- /dev/null
++++ b/fs/proc/cplife.c
+@@ -0,0 +1,223 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Disposable fixed guest only. No target references or pointer scope registry.
++ * Emission ordinal is NOT target-effect linearization order.
++ */
++#include <linux/atomic.h>
++#include <linux/cplife.h>
++#include <linux/fdtable.h>
++#include <linux/fs.h>
++#include <linux/init.h>
++#include <linux/ktime.h>
++#include <linux/nmi.h>
++#include <linux/proc_fs.h>
++#include <linux/rcupdate.h>
++#include <linux/sched.h>
++#include <linux/seq_file.h>
++#include <linux/string.h>
++#include <linux/uaccess.h>
++#include <generated/utsrelease.h>
++
++struct cpl_record {
++  u64 seq, scope, actor, task, table, ofd, old, mono;
++  const char *kind;
++  int fd, flags;
++  bool valid;
++};
++static struct cpl_record records[128];
++static atomic64_t attempted = ATOMIC64_INIT(0);
++static atomic64_t reserved = ATOMIC64_INIT(0);
++static atomic64_t committed = ATOMIC64_INIT(0);
++static atomic64_t failed = ATOMIC64_INIT(0);
++static atomic64_t cookies = ATOMIC64_INIT(0);
++static u64 root_cookie;
++static unsigned int capacity = 128;
++static const char *case_name;
++static bool active, ever_armed, stopped;
++
++bool cpl_is_active(void) { return smp_load_acquire(&active); }
++u64 cpl_issue_cookie(void)
++{
++  s64 old, next;
++  do {
++    old = atomic64_read(&cookies);
++    if ((u64)old == ~0ULL)
++      return 0; /* Exhausted issuer stays exhausted; never intentionally reuse. */
++    next = (s64)((u64)old + 1);
++  } while (atomic64_cmpxchg(&cookies, old, next) != old);
++  return (u64)next;
++}
++
++static void cpl_emit(const char *kind, u64 scope, u64 task, u64 table,
++                     u64 ofd, u64 old, int fd, int flags)
++{
++  struct cpl_record *r;
++  u64 seq;
++  /* Only process/task-work context is in profile. NMI is unknown, not zero. */
++  if (in_nmi())
++    return;
++  rcu_read_lock();
++  if (!scope || !smp_load_acquire(&active))
++    goto out;
++  seq = atomic64_inc_return(&attempted);
++  if (!seq || seq > capacity) {
++    atomic64_inc(&failed);
++    goto out;
++  }
++  atomic64_inc(&reserved);
++  r = &records[seq - 1];
++  r->seq = seq; r->kind = kind; r->scope = scope;
++  r->actor = current->cpl_task_cookie; r->task = task;
++  r->table = table; r->ofd = ofd; r->old = old;
++  r->fd = fd; r->flags = flags; r->mono = ktime_get_mono_fast_ns();
++  smp_store_release(&r->valid, true);
++  atomic64_inc(&committed);
++out:
++  rcu_read_unlock();
++}
++
++void cpl_task_alloc(struct task_struct *task, unsigned long flags)
++{
++  /* dup_task_struct copied its parent: NEVER inherit the parent's task identity. */
++  task->cpl_task_cookie = 0;
++  task->cpl_scope_cookie = 0;
++  task->cpb_epoch = 0;
++  task->cpb_origin = 0;
++  cpc_reset_task(task);
++  if (!smp_load_acquire(&active) ||
++      (flags & (CLONE_FILES | CLONE_THREAD | CLONE_VM | CLONE_VFORK | CLONE_PARENT)))
++    return;
++  if (current->cpl_scope_cookie) {
++    task->cpl_scope_cookie = current->cpl_scope_cookie;
++  } else if (task_pid_nr(current) != 1 || root_cookie) {
++    return;
++  }
++  task->cpl_task_cookie = cpl_issue_cookie();
++  if (!task->cpl_task_cookie)
++    return;
++  task->cpb_epoch = 1;
++  task->cpb_origin = 2;
++  if (!task->cpl_scope_cookie) {
++    root_cookie = task->cpl_task_cookie;
++    task->cpl_scope_cookie = root_cookie;
++  }
++  cpb_node("TASK", task->cpl_task_cookie, task->cpb_origin);
++  cpl_emit("TASK_ALLOC", task->cpl_scope_cookie, task->cpl_task_cookie,
++           0, 0, 0, -1, -1);
++}
++
++void cpl_task_files(struct task_struct *task, struct files_struct *old)
++{
++  struct files_struct *files = task->files;
++  if (!task->cpl_scope_cookie)
++    return;
++  if (!files->cpl_cookie)
++    files->cpl_cookie = cpl_issue_cookie();
++  files->cpl_scope = task->cpl_scope_cookie;
++  cpl_emit("TABLE_NEW", files->cpl_scope, task->cpl_task_cookie,
++           files->cpl_cookie, 0, old->cpl_cookie, -1, -1);
++}
++
++void cpl_task_commit(struct task_struct *task)
++{
++  if (task->cpl_scope_cookie)
++    cpl_emit("TASK_COMMIT", task->cpl_scope_cookie, task->cpl_task_cookie,
++             task->files ? task->files->cpl_cookie : 0, 0, 0, -1, -1);
++  cpc_finalize(task, true);
++}
++
++void cpl_file_birth(struct file *file)
++{
++  u64 scope = current->cpl_scope_cookie;
++  if (!scope || !smp_load_acquire(&active))
++    return;
++  file->cpl_cookie = cpl_issue_cookie();
++  file->cpl_scope = scope;
++  file->cpb_epoch = file->cpl_cookie ? 1 : 0;
++  file->cpb_origin = file->cpl_cookie ? 2 : 0;
++  cpb_node("OFD", file->cpl_cookie, file->cpb_origin);
++  cpl_emit("FILE_NEW", scope, 0, 0, file->cpl_cookie, 0, -1, -1);
++}
++
++void cpl_file_free(u64 cookie, u64 scope)
++{
++  if (cookie)
++    cpl_emit("FILE_FREE", scope, 0, 0, cookie, 0, -1, -1);
++}
++
++void cpl_table_free(u64 cookie, u64 scope)
++{
++  if (cookie)
++    cpl_emit("TABLE_FREE", scope, 0, cookie, 0, 0, -1, -1);
++}
++
++void cpl_binding(const char *kind, struct files_struct *files, struct file *file,
++                 struct file *old, int fd, int flags)
++{
++  if (!files->cpl_scope)
++    return;
++  cpl_emit(kind, files->cpl_scope, 0, files->cpl_cookie,
++           file ? file->cpl_cookie : 0, old ? old->cpl_cookie : 0, fd, flags);
++}
++
++static ssize_t cpl_write(struct file *file, const char __user *buffer,
++                          size_t count, loff_t *pos)
++{
++  char command[32];
++  if (task_pid_nr(current) != 1 || count >= sizeof(command))
++    return -EINVAL;
++  if (copy_from_user(command, buffer, count))
++    return -EFAULT;
++  command[count] = 0;
++  if (stopped)
++    return -EBUSY;
++  if (!strncmp(command, "seed ", 5)) {
++    int error = cpb_seed(command);
++    if (error)
++      return error;
++    return count;
++  }
++  if (!strcmp(command, "stop\n")) {
++    if (!cpb_seed_attempted())
++      return -EINVAL;
++    smp_store_release(&active, false);
++    synchronize_rcu();
++    cpb_stop();
++    stopped = true;
++    return count;
++  }
++  if (ever_armed)
++    return -EBUSY;
++  case_name = cpc_arm(command);
++  if (!case_name)
++    return -EINVAL;
++  ever_armed = true;
++  smp_store_release(&active, true);
++  cpb_armed();
++  return count;
++}
++
++static int cpl_show(struct seq_file *m, void *v)
++{
++  if (active || !stopped)
++    return -EAGAIN;
++  cpb_show(m, root_cookie);
++  return 0;
++}
++
++static int cpl_open(struct inode *inode, struct file *file)
++{
++  return single_open(file, cpl_show, NULL);
++}
++
++static const struct proc_ops cpl_ops = {
++  .proc_open = cpl_open, .proc_read = seq_read, .proc_write = cpl_write,
++  .proc_lseek = seq_lseek, .proc_release = single_release,
++};
++
++static int __init cpl_init(void)
++{
++  if (num_possible_cpus() != 1)
++    return -EINVAL;
++  return proc_create("cpbootstrap", 0600, NULL, &cpl_ops) ? 0 : -ENOMEM;
++}
++fs_initcall(cpl_init);
+diff --git a/include/linux/cplife.h b/include/linux/cplife.h
+new file mode 100644
+index 0000000..0563c2a
+--- /dev/null
++++ b/include/linux/cplife.h
+@@ -0,0 +1,39 @@
++/* Disposable diagnostic experiment only; requires CONFIG_PROC_FS=y. */
++#ifndef _LINUX_CPLIFE_H
++#define _LINUX_CPLIFE_H
++#include <linux/types.h>
++struct file;
++struct files_struct;
++struct task_struct;
++struct seq_file;
++u64 cpl_issue_cookie(void);
++bool cpl_is_active(void);
++void cpc_reset_task(struct task_struct *task);
++void cpc_attempt(struct task_struct *task, struct files_struct *old);
++bool cpc_fault(struct task_struct *task, int point);
++void cpc_allocated(struct task_struct *task, struct files_struct *files);
++void cpc_begin(struct task_struct *task, unsigned int bound, unsigned int capacity);
++void cpc_bitmaps(struct task_struct *task, unsigned long opened, unsigned long cloexec);
++u64 cpc_read(struct task_struct *task, unsigned int fd, struct file *file);
++void cpc_step(struct task_struct *task, const char *kind, unsigned int fd,
++              u64 read, struct file *file);
++void cpc_return(struct task_struct *task, bool success, const char *reason);
++void cpc_alloc_free(struct task_struct *task, const char *reason);
++void cpc_finalize(struct task_struct *task, bool committed);
++const char *cpc_arm(const char *command);
++int cpb_seed(const char *command);
++bool cpb_seed_attempted(void);
++void cpb_armed(void);
++void cpb_stop(void);
++void cpb_show(struct seq_file *m, u64 root);
++void cpb_node(const char *role, u64 cookie, unsigned int origin);
++struct files_struct *dup_fd_for_task(struct files_struct *old, struct task_struct *task);
++void cpl_task_alloc(struct task_struct *task, unsigned long clone_flags);
++void cpl_task_files(struct task_struct *task, struct files_struct *old);
++void cpl_task_commit(struct task_struct *task);
++void cpl_file_birth(struct file *file);
++void cpl_file_free(u64 cookie, u64 scope);
++void cpl_table_free(u64 cookie, u64 scope);
++void cpl_binding(const char *kind, struct files_struct *files, struct file *file,
++                 struct file *old, int fd, int flags);
++#endif
+diff --git a/include/linux/fdtable.h b/include/linux/fdtable.h
+index b1c5722..a77953d 100644
+--- a/include/linux/fdtable.h
++++ b/include/linux/fdtable.h
+@@ -36,6 +36,9 @@ struct fdtable {
+  * Open file table structure
+  */
+ struct files_struct {
++	u64 cpl_cookie, cpl_scope; /* Namespace lifetime, not backing fdtable storage. */
++	u64 cpb_epoch;
++	u8 cpb_origin;
+   /*
+    * read mostly part
+    */
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 19211eb..a055945 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -1074,6 +1074,9 @@ static inline int ra_has_index(struct file_ra_state *ra, pgoff_t index)
+  */
+ struct file {
+ 	atomic_long_t			f_count;
++	u64 cpl_cookie, cpl_scope; /* Diagnostic identity; seed is NOT birth. */
++	u64 cpb_epoch;
++	u8 cpb_origin;
+ 	spinlock_t			f_lock;
+ 	fmode_t				f_mode;
+ 	const struct file_operations	*f_op;
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 0fb5bb6..3c37e54 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1151,6 +1151,11 @@ struct task_struct {
+ 	struct fs_struct		*fs;
+ 
+ 	/* Open file information: */
++	u64 cpl_task_cookie, cpl_scope_cookie;
++	u64 cpb_epoch;
++	u8 cpb_origin;
++	u64 cpc_attempt, cpc_source, cpc_dest, cpc_local;
++	bool cpc_success;
+ 	struct files_struct		*files;
+ 
+ #ifdef CONFIG_IO_URING
+diff --git a/kernel/fork.c b/kernel/fork.c
+index c36d69c..aa627d4 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -13,6 +13,7 @@
+  */
+ 
+ #include <linux/anon_inodes.h>
++#include <linux/cplife.h>
+ #include <linux/slab.h>
+ #include <linux/sched/autogroup.h>
+ #include <linux/sched/mm.h>
+@@ -1820,11 +1821,12 @@ static int copy_files(unsigned long clone_flags, struct task_struct *tsk,
+ 		return 0;
+ 	}
+ 
+-	newf = dup_fd(oldf, NULL);
++	newf = dup_fd_for_task(oldf, tsk);
+ 	if (IS_ERR(newf))
+ 		return PTR_ERR(newf);
+ 
+ 	tsk->files = newf;
++	cpl_task_files(tsk, oldf); /* Successful private copy, before task publication. */
+ 	return 0;
+ }
+ 
+@@ -2253,6 +2255,7 @@ __latent_entropy struct task_struct *copy_process(
+ 	p = dup_task_struct(current, node);
+ 	if (!p)
+ 		goto fork_out;
++	cpl_task_alloc(p, clone_flags); /* Allocation only; later failure still possible. */
+ 	p->flags &= ~PF_KTHREAD;
+ 	if (args->kthread)
+ 		p->flags |= PF_KTHREAD;
+@@ -2407,6 +2410,10 @@ __latent_entropy struct task_struct *copy_process(
+ 	retval = copy_files(clone_flags, p, args->no_files);
+ 	if (retval)
+ 		goto bad_fork_cleanup_semundo;
++	if (cpc_fault(p, 3)) {
++		retval = -EAGAIN; /* Explicit fixed-guest late failure injection. */
++		goto bad_fork_cleanup_files;
++	}
+ 	retval = copy_fs(clone_flags, p);
+ 	if (retval)
+ 		goto bad_fork_cleanup_files;
+@@ -2585,6 +2592,7 @@ __latent_entropy struct task_struct *copy_process(
+ 	}
+ 
+ 	/* No more failure paths after this point. */
++	cpl_task_commit(p); /* Before publication and wake_up_new_task, not a free hook. */
+ 
+ 	/*
+ 	 * Copy seccomp details explicitly here, in case they were changed
+@@ -2711,6 +2719,7 @@ __latent_entropy struct task_struct *copy_process(
+ 	dec_rlimit_ucounts(task_ucounts(p), UCOUNT_RLIMIT_NPROC, 1);
+ 	exit_creds(p);
+ bad_fork_free:
++	cpc_finalize(p, false); /* Saved scalars; files may already have been released. */
+ 	WRITE_ONCE(p->__state, TASK_DEAD);
+ 	exit_task_stack_account(p);
+ 	put_task_stack(p);

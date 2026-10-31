@@ -277,6 +277,8 @@ def test_actual_fault_and_rejected_command_grammar_never_implies_history(
         (b"CPB_END", b""),
         (b"CPB_EXIT ok=1", b"CPB_EXIT ok=0"),
         (b"kind=READ", b"kind=APPLICATION"),
+        (b"copy=2 local=", b"copy=3 local="),
+        (b"copy=2 local=", b"copy=0 local="),
     ],
 )
 def test_unknown_or_wrong_wire_cohort_is_rejected_not_silently_upgraded(before, after):
@@ -324,6 +326,8 @@ def test_unknown_or_wrong_wire_cohort_is_rejected_not_silently_upgraded(before, 
             "TERMINAL_REASON_CONTRADICTION",
         ),
         (b"source=9 dest=12", b"source=2 dest=12", "SOURCE_TASK_NAMESPACE_MISMATCH"),
+        (b"actor=8 task=11", b"actor=8 task=8", "COPY_IDENTITY_COLLISION"),
+        (b"source=9 dest=12", b"source=9 dest=9", "COPY_IDENTITY_COLLISION"),
         (b"scope=8 actor=8", b"scope=1 actor=8", "MANAGED_ROOT_SCOPE_MISMATCH"),
         (b"scope=8 actor=8", b"scope=8 actor=0", "POSITIVE_ID_OR_ORDINAL_REQUIRED"),
         (b"attempted=472", b"attempted=471", "LOCAL_ACCOUNTING_MISMATCH"),
@@ -343,6 +347,25 @@ def test_content_does_not_merge_independent_ofds_or_change_alias_identity():
     result = assess(parse(frame()))
     links = dict(result.seed_to_first_copy_links)
     assert links[5] == links[40] == 6 and links[6] == 7 and links[5] != links[6]
+
+
+@pytest.mark.parametrize("cookie", [1, 2, 8, 9])
+def test_missing_parent_or_new_subject_issuance_cannot_be_filled_from_copy_tags(cookie):
+    raw = (
+        b"\n".join(
+            line
+            for line in frame().splitlines()
+            if f"kind=NODE object={cookie} ".encode() not in line
+        )
+        + b"\n"
+    )
+    raw = raw.replace(
+        b"reserved=472 committed=472 failed=0", b"reserved=471 committed=471 failed=1"
+    )
+    parse, assess = api()
+    result = assess(parse(raw))
+    assert result.missing_origin_witness_ids == (cookie,)
+    assert result.seed_to_first_copy_links == ()
 
 
 def test_unavailable_and_real_zero_bitmap_or_flag_are_distinct():

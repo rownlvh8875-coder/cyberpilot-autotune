@@ -122,6 +122,8 @@ def _sequence(
     )
     begin, bitmaps = group[:2]
     x = dict(begin.values)
+    known = [x[k] for k in ("actor", "task", "source", "dest") if x[k] is not None]
+    require(len(known) == len(set(known)), "COPY_IDENTITY_COLLISION")
     require(begin.kind == "BEGIN" and bitmaps.kind == "BITMAPS", "COPY_STAGE_ORDER")
     require(x["scan_bound"] == x["capacity"] == 64, "COPY_SCAN_PROFILE")
     for key, role in (
@@ -216,6 +218,7 @@ def assess(capture: Capture) -> Decision:
         if not complete:
             reasons.append("INCOMPLETE_SEED_WALK")
         creators: dict[int, int] = {}
+        root_context_witnessed = False
         for copy in range(1, capture.copies + 1):
             group = [e for e in capture.events if dict(e.values).get("copy") == copy]
             if not group:
@@ -253,6 +256,11 @@ def assess(capture: Capture) -> Decision:
                 if done:
                     committed.append(copy)
                     creators[_number(first["task"])] = _number(first["dest"])
+                    if copy == 1:
+                        root_context_witnessed = all(
+                            type(first[k]) is int and first[k] in catalog
+                            for k in ("actor", "task", "source", "dest")
+                        )
                 else:
                     reasons.append("TASK_ABORTED")
             except ValueError as exc:
@@ -260,7 +268,7 @@ def assess(capture: Capture) -> Decision:
                     reasons.append(str(exc))
                 else:
                     fatal.append(str(exc))
-        if complete and arm is not None and stopped and 1 in committed:
+        if complete and arm is not None and stopped and 1 in committed and root_context_witnessed:
             root_bindings = {b.fd: b for b in copied if b.copy_id == 1}
             for seed in seeds:
                 target = root_bindings[seed.fd]

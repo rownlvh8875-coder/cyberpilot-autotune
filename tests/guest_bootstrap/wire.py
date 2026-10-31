@@ -132,6 +132,7 @@ def parse_serial(raw: bytes) -> Capture:
                 values[name] = None if value == "-1" else value == "1"
             else:
                 number = _uint(value)
+                require(name != "copy" or 1 <= number <= copies, "COPY_ATTEMPT_COHORT")
                 require(name != "fd" or number < 64, "FD_PROFILE_WIDTH")
                 require(
                     name not in ("open", "cloexec") or kind != "SEED_SLOT" or number in (0, 1),
