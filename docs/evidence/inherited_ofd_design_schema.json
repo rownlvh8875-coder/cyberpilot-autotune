@@ -158,7 +158,7 @@
       {
         "availability": "explicit None only for OptionalHandle",
         "field": "child_task",
-        "meaning": "TASK role",
+        "meaning": "new TASK requires ALLOCATION/POST_INIT_ALLOC",
         "required": true,
         "type": "Handle",
         "unit": "dimensionless"
@@ -166,7 +166,7 @@
       {
         "availability": "explicit None only for OptionalHandle",
         "field": "destination_namespace",
-        "meaning": "None only failed constructor",
+        "meaning": "new NAMESPACE requires ALLOCATION/POST_INIT_ALLOC;None only failed constructor",
         "required": true,
         "type": "OptionalHandle",
         "unit": "dimensionless"

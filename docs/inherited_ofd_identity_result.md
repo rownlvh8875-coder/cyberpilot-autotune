@@ -10,8 +10,8 @@ BasePR40 `21a542eba9e889323b2cb1b7d7c75d9c9cab1025`,branch
 capture modifications,VM boot/build,host probing or prior PR changes.
 
 Deliverables: future bootstrap/source obligations and wire proposal;
-pure frozen SYNTHETIC_ONLY premise checker;finite49-case catalog(10consistent,
-39rejected);semantic schema;7exact sourcefiles/13ranges/6repository references;
+pure frozen SYNTHETIC_ONLY premise checker;finite51-case catalog(10consistent,
+41rejected);semantic schema;7exact sourcefiles/13ranges/6repository references;
 offline audit and architecture/frozen-path guards. Actual PR40 unknowns remain
 unknown and its1701records are not fed to this checker or upgraded.
 
@@ -27,6 +27,14 @@ Audit6missingAPIRED→GREEN verification and final regression/review/CI metadata
 are in the own Draft PR handoff. Default audit reads local pinned manifests only;
 explicit `--kernel-source /workspace/scratch/guest-copy-producer.IGDFFC/linux-source-6.12`
 verifies selected source bytes without executing/building anything.
+
+Fresh independent review at18fad74:C0/I1/M0. Seeded new child/destination were
+incorrectly accepted as committed synthetic links. Two separate regressions
+failed before the author fix requiring ALLOCATION/POST_INIT_ALLOC for these
+new fork subjects;parent/source/OFD seeds stay allowed. One author fix pass,
+updated catalog/schema,fullrerun;final head is post-review,no re-review claimed.
+Author post-fix verification:57model/65focused tests,128statements/14branches100/100,
+full3285pass,source/oldhistory/native192/replay4/build/freshwheel rerun passed.
 
 Retained:QUALIFIED_LIFETIME_RUNTIME_PRODUCER_NOT_IMPLEMENTED,
 FD_OFD_LIFETIME_OBSERVER_UNQUALIFIED,LIFETIME_SOURCE_HOOK_COVERAGE_UNPROVEN,

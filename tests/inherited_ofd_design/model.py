@@ -189,6 +189,10 @@ def _copy(
         "destination_namespace",
         c["return_result"] == "FAILED",
     )
+    need(
+        all(catalog[v].origin == "ALLOCATION" for v in (child, dest) if v is not None),
+        "FORK_SUBJECT_ALLOCATION_REQUIRED",
+    )
     known = [v for v in (parent, source, child, dest) if v is not None]
     need(len(known) == len(set(known)), "COPY_ROLE_OR_NAMESPACE_COLLISION")
     rows = c["bindings"]

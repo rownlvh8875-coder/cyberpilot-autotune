@@ -146,6 +146,14 @@ def test_failed_constructor_can_have_no_destination_and_no_child_links(reason):
 
 
 MUTATIONS = [
+    (
+        "seeded_child",
+        lambda d: d["objects"][3].update(origin="FIRST_OBSERVED", stage="PRE_ARM_SEED", ordinal=8),
+    ),
+    (
+        "seeded_destination",
+        lambda d: d["objects"][4].update(origin="FIRST_OBSERVED", stage="PRE_ARM_SEED", ordinal=8),
+    ),
     ("observed_class", lambda d: d.update(evidence_class="OBSERVED_UNTRUSTED")),
     ("origin_promotion", lambda d: d["objects"][0].update(origin="ALLOCATION")),
     ("duplicate_cookie", lambda d: d["objects"].append(copy.deepcopy(d["objects"][0]))),
@@ -199,6 +207,8 @@ def test_malformed_or_fabricated_provenance_never_produces_conditional_links(lab
     result = api().evaluate(data)
     assert not result.premises_consistent and result.reasons, label
     assert result.linked_fds == () and result.status == "BLOCKED"
+    if label.startswith("seeded_"):
+        assert "FORK_SUBJECT_ALLOCATION_REQUIRED" in result.reasons
 
 
 def test_distinct_ofd_handles_are_not_merged_even_when_alias_copy_is_possible():

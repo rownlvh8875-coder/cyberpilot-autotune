@@ -16,9 +16,9 @@ ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = ROOT / "docs/evidence/inherited_ofd_design_schema.json"
 SOURCES = ROOT / "docs/evidence/inherited_ofd_design_sources.json"
 CASES = ROOT / "docs/evidence/inherited_ofd_design_cases.json"
-SCHEMA_SHA = "4fbbf4cf5d24c8681a42ec4b3f00a6dba29ad81125eba7640e0885c66d2b8118"
+SCHEMA_SHA = "078461c5b1ed62166e9325536ab40a791bf8b5753f5e2e28439d131a6cde9bfa"
 SOURCE_DIGEST = "bb7871285bc2f40f51f949896bb4fdde7aa63b390e3e821caeda60ba25ace6c7"
-CASE_SHA = "0238195b801a2a81ec4f9b34a827e1cc5afb2cc9ac603e93c65b5e3b7c8c2618"
+CASE_SHA = "61f41dff404ddd13ed3589a9e143b42cf700f943b071e982dae9ea969e4d6206"
 
 
 def validate_schema(data: Any) -> None:

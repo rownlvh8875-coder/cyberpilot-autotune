@@ -1176,6 +1176,248 @@
     {
       "expected_consistent": false,
       "expected_links": [],
+      "name": "seeded_child",
+      "payload": {
+        "context": {
+          "boot_scope": "synthetic_boot",
+          "issuer_epoch": "issuer1",
+          "record_domain": "PROPOSED_LINEAGE_V1",
+          "source_manifest_sha256": "69e566058e77804800e803d9faaa9e52f127cd652aaee39bf26b1966f0558013",
+          "source_profile": "PR40_PRIVATE64_BOOTSTRAP_DESIGN",
+          "source_revision": "21a542eba9e889323b2cb1b7d7c75d9c9cab1025"
+        },
+        "copy": {
+          "arm": 10,
+          "begin": 40,
+          "bindings": [
+            {
+              "branch": "REFERENCE",
+              "branch_ordinal": 42,
+              "branch_read": 41,
+              "destination_ofd": 3,
+              "fd": 0,
+              "presence": "PRESENT",
+              "read": 41,
+              "source_ofd": 3,
+              "store": 43,
+              "store_read": 41
+            },
+            {
+              "branch": "REFERENCE",
+              "branch_ordinal": 45,
+              "branch_read": 44,
+              "destination_ofd": 3,
+              "fd": 1,
+              "presence": "PRESENT",
+              "read": 44,
+              "source_ofd": 3,
+              "store": 46,
+              "store_read": 44
+            },
+            {
+              "branch": "CLEAR_OPEN",
+              "branch_ordinal": 48,
+              "branch_read": 47,
+              "destination_ofd": null,
+              "fd": 2,
+              "presence": "NULL",
+              "read": 47,
+              "source_ofd": null,
+              "store": 49,
+              "store_read": 47
+            }
+          ],
+          "child_task": 4,
+          "destination_namespace": 5,
+          "finalized": 1001,
+          "parent_task": 1,
+          "return_reason": "NONE",
+          "return_result": "SUCCESS",
+          "returned": 1000,
+          "source_namespace": 2,
+          "task_reason": "NONE",
+          "task_result": "COMMITTED"
+        },
+        "evidence_class": "SYNTHETIC_ONLY",
+        "objects": [
+          {
+            "boot_scope": "synthetic_boot",
+            "cookie": 1,
+            "generation": 0,
+            "issuer_epoch": "issuer1",
+            "ordinal": 5,
+            "origin": "FIRST_OBSERVED",
+            "role": "TASK",
+            "stage": "PRE_ARM_SEED"
+          },
+          {
+            "boot_scope": "synthetic_boot",
+            "cookie": 2,
+            "generation": 0,
+            "issuer_epoch": "issuer1",
+            "ordinal": 6,
+            "origin": "FIRST_OBSERVED",
+            "role": "NAMESPACE",
+            "stage": "PRE_ARM_SEED"
+          },
+          {
+            "boot_scope": "synthetic_boot",
+            "cookie": 3,
+            "generation": 0,
+            "issuer_epoch": "issuer1",
+            "ordinal": 7,
+            "origin": "FIRST_OBSERVED",
+            "role": "OFD",
+            "stage": "PRE_ARM_SEED"
+          },
+          {
+            "boot_scope": "synthetic_boot",
+            "cookie": 4,
+            "generation": 0,
+            "issuer_epoch": "issuer1",
+            "ordinal": 8,
+            "origin": "FIRST_OBSERVED",
+            "role": "TASK",
+            "stage": "PRE_ARM_SEED"
+          },
+          {
+            "boot_scope": "synthetic_boot",
+            "cookie": 5,
+            "generation": 0,
+            "issuer_epoch": "issuer1",
+            "ordinal": 22,
+            "origin": "ALLOCATION",
+            "role": "NAMESPACE",
+            "stage": "POST_INIT_ALLOC"
+          }
+        ],
+        "schema": "inherited-ofd-provenance-design-v1"
+      }
+    },
+    {
+      "expected_consistent": false,
+      "expected_links": [],
+      "name": "seeded_destination",
+      "payload": {
+        "context": {
+          "boot_scope": "synthetic_boot",
+          "issuer_epoch": "issuer1",
+          "record_domain": "PROPOSED_LINEAGE_V1",
+          "source_manifest_sha256": "69e566058e77804800e803d9faaa9e52f127cd652aaee39bf26b1966f0558013",
+          "source_profile": "PR40_PRIVATE64_BOOTSTRAP_DESIGN",
+          "source_revision": "21a542eba9e889323b2cb1b7d7c75d9c9cab1025"
+        },
+        "copy": {
+          "arm": 10,
+          "begin": 40,
+          "bindings": [
+            {
+              "branch": "REFERENCE",
+              "branch_ordinal": 42,
+              "branch_read": 41,
+              "destination_ofd": 3,
+              "fd": 0,
+              "presence": "PRESENT",
+              "read": 41,
+              "source_ofd": 3,
+              "store": 43,
+              "store_read": 41
+            },
+            {
+              "branch": "REFERENCE",
+              "branch_ordinal": 45,
+              "branch_read": 44,
+              "destination_ofd": 3,
+              "fd": 1,
+              "presence": "PRESENT",
+              "read": 44,
+              "source_ofd": 3,
+              "store": 46,
+              "store_read": 44
+            },
+            {
+              "branch": "CLEAR_OPEN",
+              "branch_ordinal": 48,
+              "branch_read": 47,
+              "destination_ofd": null,
+              "fd": 2,
+              "presence": "NULL",
+              "read": 47,
+              "source_ofd": null,
+              "store": 49,
+              "store_read": 47
+            }
+          ],
+          "child_task": 4,
+          "destination_namespace": 5,
+          "finalized": 1001,
+          "parent_task": 1,
+          "return_reason": "NONE",
+          "return_result": "SUCCESS",
+          "returned": 1000,
+          "source_namespace": 2,
+          "task_reason": "NONE",
+          "task_result": "COMMITTED"
+        },
+        "evidence_class": "SYNTHETIC_ONLY",
+        "objects": [
+          {
+            "boot_scope": "synthetic_boot",
+            "cookie": 1,
+            "generation": 0,
+            "issuer_epoch": "issuer1",
+            "ordinal": 5,
+            "origin": "FIRST_OBSERVED",
+            "role": "TASK",
+            "stage": "PRE_ARM_SEED"
+          },
+          {
+            "boot_scope": "synthetic_boot",
+            "cookie": 2,
+            "generation": 0,
+            "issuer_epoch": "issuer1",
+            "ordinal": 6,
+            "origin": "FIRST_OBSERVED",
+            "role": "NAMESPACE",
+            "stage": "PRE_ARM_SEED"
+          },
+          {
+            "boot_scope": "synthetic_boot",
+            "cookie": 3,
+            "generation": 0,
+            "issuer_epoch": "issuer1",
+            "ordinal": 7,
+            "origin": "FIRST_OBSERVED",
+            "role": "OFD",
+            "stage": "PRE_ARM_SEED"
+          },
+          {
+            "boot_scope": "synthetic_boot",
+            "cookie": 4,
+            "generation": 0,
+            "issuer_epoch": "issuer1",
+            "ordinal": 21,
+            "origin": "ALLOCATION",
+            "role": "TASK",
+            "stage": "POST_INIT_ALLOC"
+          },
+          {
+            "boot_scope": "synthetic_boot",
+            "cookie": 5,
+            "generation": 0,
+            "issuer_epoch": "issuer1",
+            "ordinal": 8,
+            "origin": "FIRST_OBSERVED",
+            "role": "NAMESPACE",
+            "stage": "PRE_ARM_SEED"
+          }
+        ],
+        "schema": "inherited-ofd-provenance-design-v1"
+      }
+    },
+    {
+      "expected_consistent": false,
+      "expected_links": [],
       "name": "observed_class",
       "payload": {
         "context": {

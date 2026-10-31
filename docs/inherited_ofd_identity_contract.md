@@ -89,6 +89,9 @@ value; None is unavailable; cookie0 is never an identity in this semantic model.
 
 Copy references parent/source (optional),child,destination (optional only failed
 constructor),arm/begin/return/finalize anchors and exact terminal result/reason.
+The new child and available private destination must reference ALLOCATION/
+POST_INIT_ALLOC objects: a pre-arm seed cannot identify a newly allocated fork
+subject. Existing parent/source/OFD objects may retain FIRST_OBSERVED provenance.
 SUCCESS/COMMITTED require NONE; task abort after success has TASK_INJECTED/TASK_FAILED;
 failed constructor has an explicit failure reason,aborted COPY_FAILED and no
 binding links. Successful copy of an aborted child is diagnostic,not child inventory.

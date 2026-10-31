@@ -56,6 +56,8 @@ ordinals arm<begin<returned<finalized; ordinals are proposed program-record orde
 not global effect linearization or a merge of old CPS/CPC domains. Referenced
 handles must have the right role and precede consumption. All four task/namespace
 handles distinct when available. Positive IDs required; unavailable is None,not0.
+New fork child and available private destination require ALLOCATION/POST_INIT_ALLOC;
+PRE_ARM_SEED is allowed only for pre-existing parent/source/OFD references.
 
 Bindings max64,ascending unique fd0..63,closed fields fd,presence,source_ofd,
 destination_ofd,read,branch,branch_ordinal,branch_read,store,store_read. Local
