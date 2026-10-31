@@ -38,7 +38,7 @@ The object-layout aliases, step and seq_printf shims are a userspace test
 stand-in, not the full kernel/guest producer. In particular the capture-stage
 label is a synthetic premise, not an observed VFS-reference witness. This closes
 the scoped source-snippet C-output→full-decoder integration gap, not complete
-kernel emitter/runtime/source-binding qualification. GNU C is required; the
+kernel emitter/runtime/source-binding qualification. GCC or Clang in GNU C mode is required; the
 native gate is not silently skipped if the compiler is unavailable.
 
 Decoder results remain WIRE_BYTES_UNTRUSTED/BLOCKED, all nine permissions and
@@ -77,13 +77,20 @@ copy-cut, loss/perturbation and empirical-identification blockers remain.
 
 Baseline3907PASS38.11s. Missing bridge API RED→GREEN; focused33PASS,
 new51statements28branches100/100; task1full3940PASS38.44s.
-Final focused35PASS including old-blob/import guards; full3942PASS107.62s,
-installed package coverage98.52%. New51statements28branches100/100. Old source/
+Final focused37PASS including old-blob/import and required-compiler guards;
+full3944PASS106.42s, installed package coverage98.52%.
+New58statements30branches100/100. Old source/
 history/originalasset audits, native192/replay4, lint/format635files,
 mypy71sourcefiles, build and fresh vanilla/researchwheel PASS. CRLF, exact-head
 internal review and CI are recorded in the own Draft handoff after their actual
 runs. Internal fresh-context AI review is not a registered GitHub approval or
 independent human authorization. Python coverage is not C/LKMM/vehicle proof.
+
+Compiler discovery/fail-before-write tests also ran RED→GREEN. The native
+gate uses GCC or Clang with identical GNU C/Wall/Wextra/Werror semantics; it
+does not add a skip when a compiler is missing. Historical native-test skips
+are preserved, not counted as new integration execution. Local execution used
+GCC; platform CI remains the check for its actual available frontend.
 
 ```
 .venv/bin/python -m pytest -q tests/test_epoch_decoder_bridge.py tests/architecture/test_epoch_decoder_bridge_boundary.py

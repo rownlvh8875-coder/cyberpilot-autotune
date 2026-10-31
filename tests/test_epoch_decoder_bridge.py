@@ -1,5 +1,6 @@
 """Independent full-frame expectations; never infer values from C output tokens."""
 
+import shutil
 import subprocess
 
 import pytest
@@ -150,3 +151,21 @@ def test_coherent_local_loss_or_another_valid_stage_cannot_pass(compiled_frame):
     )
     with pytest.raises(ValueError, match="EXPECTED_EVENT_COHORT"):
         check_frame(b"".join(lines))
+
+
+def test_compiler_discovery_supports_gnu_c_compatible_frontend_without_skipping(monkeypatch):
+    real_compiler = shutil.which("gcc") or shutil.which("clang")
+    assert real_compiler is not None
+    original = native.shutil.which
+    monkeypatch.setattr(
+        native.shutil, "which", lambda name: real_compiler if name == "clang" else None
+    )
+    assert native._compiler() == real_compiler
+    monkeypatch.setattr(native.shutil, "which", original)
+
+
+def test_missing_compatible_compiler_fails_before_writing_inputs(tmp_path, monkeypatch):
+    monkeypatch.setattr(native.shutil, "which", lambda name: None)
+    with pytest.raises(RuntimeError, match="COMPILER_REQUIRED"):
+        probe_frame(tmp_path)
+    assert list(tmp_path.iterdir()) == []

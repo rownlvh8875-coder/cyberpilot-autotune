@@ -30,6 +30,7 @@ def test_only_full_v2_decoder_and_frozen_source_constants_are_imported():
             "base64",
             "hashlib",
             "json",
+            "shutil",
             "subprocess",
             "pathlib",
             "tests.guest_epoch_u64.native_probe",

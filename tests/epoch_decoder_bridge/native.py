@@ -3,6 +3,7 @@
 import base64
 import hashlib
 import json
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -22,11 +23,19 @@ MUTATIONS = (
 )
 
 
+def _compiler() -> str:
+    compiler = shutil.which("gcc") or shutil.which("clang")
+    if compiler is None:
+        raise RuntimeError("GNU_C_COMPILER_REQUIRED")
+    return compiler
+
+
 def probe_frame(owned: Path, mutation: str | None = None) -> bytes:
     if type(mutation) not in (str, type(None)) or mutation not in MUTATIONS:
         raise ValueError("CLOSED_MUTATION_REQUIRED")
     if owned.is_symlink() or not owned.is_dir() or any(owned.iterdir()):
         raise ValueError("EMPTY_OWNED_DIRECTORY_REQUIRED")
+    compiler = _compiler()
     raw = INPUTS.read_bytes()
     if hashlib.sha256(raw).hexdigest() != INPUT_SHA:
         raise ValueError("NATIVE_INPUT_BYTES_DRIFT")
@@ -138,7 +147,17 @@ int main(void) {
     with path.open("x") as stream:
         stream.write(source)
     subprocess.run(
-        ["gcc", "-std=gnu11", "-O2", "-Wall", "-Wextra", "-Werror", str(path), "-o", str(binary)],
+        [
+            compiler,
+            "-std=gnu11",
+            "-O2",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            str(path),
+            "-o",
+            str(binary),
+        ],
         check=True,
         capture_output=True,
         timeout=30,

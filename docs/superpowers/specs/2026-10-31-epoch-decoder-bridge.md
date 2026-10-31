@@ -41,6 +41,9 @@ snippets, not an executing kernel/guest/device or a lifetime/publication proof.
 The full frame is generated synthetic evidence. Existing decoder output is
 WIRE_BYTES_UNTRUSTED/BLOCKED; all permissions/proofs remain false and actual
 epoch/global loss unknown. No new kernel build, guest run or v1 record promotion.
+The native gate requires a GNU-compatible C compiler (GCC or Clang) and preserves
+gnu11/Wall/Wextra/Werror for both. Missing both fails before writing inputs;
+there is no native-gate skip path. Compiler discovery is not ABI qualification.
 
 Do not claim PR25 surrogate handling, PR33 exact-integer metadata, PR34 denied-FD
 diagnostics or PR9 evidence-age policy resolved. Frozen historical files cannot
