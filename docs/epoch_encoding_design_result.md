@@ -30,9 +30,12 @@ audits, new reference source-byte audit, native192/replay4, build and fresh
 vanilla/research wheel smoke PASS. The first wheel recipe used an incorrect
 smoke-script path; it was corrected to the repository's existing CI recipe
 and the whole build/wheel recipe rerun successfully. No product failure hidden.
-CRLF, fresh independent exact-head review and push/PR CI results are recorded
-in the own Draft handoff after their actual runs. No design status implies
-runtime qualification or an empirical epoch-loss measurement.
+CRLF fresh checkout462tests plus default audit PASS, clean checkout;
+core safety/residual/replay/adapter/knowledge/owner coverage gates and
+research/observability100/100 audit gates PASS. Fresh independent exact-head
+review and push/PR CI results are recorded in the own Draft handoff after
+their actual runs. No design status implies runtime qualification or an
+empirical epoch-loss measurement.
 
 ## Retained status
 

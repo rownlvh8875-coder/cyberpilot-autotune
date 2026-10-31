@@ -61,14 +61,14 @@ Modify only new-prefix rules in `.gitattributes`.
 Path | None = None) -> dict` and `python -m tests.epoch_encoding_design.audit`.
 Uses PR46's existing frozen catalog verifier, not an actual record parser.
 
-- [ ] Write tests that execute literal fixtures, reject fixture mutation and
+- [x] Write tests that execute literal fixtures, reject fixture mutation and
   assert source-byte checking cannot promote synthetic decisions; add guards
   for old blob preservation and prohibited imports/capabilities.
-- [ ] Run `.venv/bin/python -m pytest -q tests/test_epoch_encoding_audit.py`.
+- [x] Run `.venv/bin/python -m pytest -q tests/test_epoch_encoding_audit.py`.
   Expected: RED because the audit API is absent.
-- [ ] Implement audit and literal fixture catalog; document UInt64 fullchain,
+- [x] Implement audit and literal fixture catalog; document UInt64 fullchain,
   proposed CPRv2 version migration and actual C/ABI/mutation acceptance gates.
-- [ ] Run full pytest, source validators, lint/format/mypy/build, fresh wheel
+- [x] Run full pytest, source validators, lint/format/mypy/build, fresh wheel
   smoke, native compatibility/replay and CRLF regression. Expected: all PASS.
 - [ ] Record honest verification/status, commit, obtain one fresh whole-branch
   exact-head review; C/I fixes require RED→GREEN and full rerun, minors deferred.
