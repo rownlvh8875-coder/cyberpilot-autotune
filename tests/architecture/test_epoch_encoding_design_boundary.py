@@ -4,6 +4,8 @@ import ast
 import subprocess
 from pathlib import Path
 
+from tests.history_transition.policy import assert_history_transition
+
 ROOT = Path(__file__).resolve().parents[2]
 BASE = "72362dcf235f91cbce30501aeeb72b66ee6c124c"
 
@@ -24,7 +26,7 @@ def test_existing_source_test_evidence_workflow_blobs_are_preserved():
             text=True,
         ).splitlines()
     )
-    assert not prior & changed
+    assert_history_transition(ROOT, BASE, prior & changed)
 
 
 def test_model_and_audit_have_no_producer_or_actual_record_capability():

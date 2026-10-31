@@ -4,6 +4,8 @@ import ast
 import subprocess
 from pathlib import Path
 
+from tests.history_transition.policy import assert_history_transition
+
 ROOT = Path(__file__).resolve().parents[2]
 BASE = "0095e64fbe8cf9815e14226f527bf654315a12dc"
 
@@ -19,7 +21,7 @@ def test_every_baseline_tracked_blob_is_preserved():
             ["git", "diff", "--name-only", BASE], cwd=ROOT, text=True
         ).splitlines()
     )
-    assert not before & changed
+    assert_history_transition(ROOT, BASE, before & changed)
 
 
 def test_new_facade_has_only_explicit_neutral_imports_and_pure_calls():

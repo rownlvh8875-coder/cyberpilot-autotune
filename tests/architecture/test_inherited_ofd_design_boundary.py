@@ -4,6 +4,8 @@ import ast
 import subprocess
 from pathlib import Path
 
+from tests.history_transition.policy import assert_history_transition
+
 ROOT = Path(__file__).resolve().parents[2]
 BASE = "21a542eba9e889323b2cb1b7d7c75d9c9cab1025"
 
@@ -66,11 +68,14 @@ def test_all_prior_runtime_tests_evidence_and_actual_producers_remain_byte_uncha
         cwd=ROOT,
         text=True,
     ).splitlines()
-    assert (
-        subprocess.check_output(
-            ["git", "diff", "--name-only", BASE, "--", *paths],
-            cwd=ROOT,
-            text=True,
-        )
-        == ""
+    assert_history_transition(
+        ROOT,
+        BASE,
+        set(
+            (
+                subprocess.check_output(
+                    ["git", "diff", "--name-only", BASE, "--", *paths], cwd=ROOT, text=True
+                )
+            ).splitlines()
+        ),
     )

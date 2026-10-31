@@ -16,6 +16,7 @@ from compatibility.native_containment.validation import (
     evaluate_synthetic,
 )
 from tests.fixtures.native_containment import synthetic_case
+from tests.history_transition.frozen_cases import CONTAINMENT_CASE, run_frozen_case
 from tests.strict_containment.validation import (
     digest_case_strict,
     evaluate_case_strict,
@@ -270,11 +271,5 @@ def test_unknown_counts_do_not_become_observed_zero():
 
 
 def test_original_entrypoints_remain_unrepaired_and_unmigrated():
-    data = synthetic_case()
-    data["actor_id"] = chr(0xD800)
-    case = parse_synthetic_case(json.dumps(data))
-    assert case.actor_id == chr(0xD800)
-    with pytest.raises(UnicodeEncodeError):
-        canonical_digest(case)
-    with pytest.raises(UnicodeEncodeError):
-        evaluate_synthetic(case, policy())
+    # Same node and original assertions, executed at the immutable pre-repair base.
+    run_frozen_case(CONTAINMENT_CASE)

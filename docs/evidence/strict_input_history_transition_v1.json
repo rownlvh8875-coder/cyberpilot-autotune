@@ -1,0 +1,402 @@
+{
+  "schema": "strict-input-history-transition-v1",
+  "source_revision": "cfc31c36c1fa99c7d00d9609c5360b9e07894d7e",
+  "evidence_kind": "POLICY_CONTENT_METADATA_NOT_RUNTIME_EVIDENCE",
+  "digest_meaning": "CONTENT_IDENTITY_ONLY_NOT_AUTHENTICITY_OR_AUTHORITY",
+  "files": [
+    {
+      "path": "compatibility/native_containment/contracts.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "ef77d685d4824b1fff60e1bd6c7fcf480800fac4",
+        "sha256": "0ad5b72deba865cb3dccd9db63cf29ffbdce69a60e5f7d453171c73f6d8e8047"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "fa33cad5c1aca75d5e3a6bc002d548fbb961e5bc",
+        "sha256": "796bbef4783caadaa2f9dee898363f9da4e5e8d1976a0b96c204c530c9ec1763"
+      }
+    },
+    {
+      "path": "tests/architecture/test_bootstrap_tag_audit_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "24622248b5ef03b5cb5f28e2e1f5a980433c0af5",
+        "sha256": "5183ffa86f118375d0858bee46a3ad3c100fd04448e7bf58bd060a06f2fe0222"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "5ecf4cc7659cda81550d3ce994fd842b3ef25dc9",
+        "sha256": "7314c316dcdc2d36ebdc5e78af6c36cc51fd9038c8e3e6ab080eb6019fac4c9f"
+      }
+    },
+    {
+      "path": "tests/architecture/test_copy_reference_publication_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "70071ed7bf00b24b2a6b0ac203abd2c9d2b06238",
+        "sha256": "7fd27908ec6425333c6faec69e50364c245c346f676ff6bbf5d18d49b7936a1d"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "9a0bbf21b94bb34ea8a8d1adc9d50a7dab2d0640",
+        "sha256": "64eb0c1b328cbfc255c2d8ca0e4b220bd93a20cb2476a0a28b2e9e30dd2392e2"
+      }
+    },
+    {
+      "path": "tests/architecture/test_epoch_decoder_bridge_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "2dc174ed9d9a4f75e58ef816456b02528864290c",
+        "sha256": "ccc55cbda8cdb9985b5d915122a9b71529dbafa954ef257f02ce4a733767b06f"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "838a07c5d1a61fe33a1fb521479557bdff4a802d",
+        "sha256": "f3fceff5ab4adc0984f07d5df3c04b1fdfae3e75fd1969088ca6409c5272c9a5"
+      }
+    },
+    {
+      "path": "tests/architecture/test_epoch_encoding_design_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "78b21abb2cf9b8ab8813a05122b8aa7f05247122",
+        "sha256": "350f89bf8aebc209be5bdf41c245f4bf2ff75ea449b4401e8e993722f4f46c97"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "ae55522b197c5924ebc5c5b8d169760020f00b1a",
+        "sha256": "ed0b6c1c0801eaa87bb0ec1ee9f84d027e1c809243ef7365ff498aacc1db2673"
+      }
+    },
+    {
+      "path": "tests/architecture/test_fd_ofd_lifetime_design_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "de9ee1f83fe5c3c77dad94eaaf6b8a1f970163b6",
+        "sha256": "c7e7e84da9ec05c9b4dd4da846fac5c8b24d1a1fd7c46e8873a968de59fddd60"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "fd1f6fcd79b6cc62ef230aa10e69168f9acc7dc0",
+        "sha256": "449ec9bd1d2c14b29a70d2987d2a3096e880c5ac47e7e60806dd80ef00da61ff"
+      }
+    },
+    {
+      "path": "tests/architecture/test_fork_copy_design_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "1c98d024178d703f98d307c2df22584dc9654617",
+        "sha256": "1dda49777040d8f638f3d21963406879e6fc5649d9443e122751e1b0d50d0e90"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "830693502aea54d85407719c5c7f31d1d5efe65d",
+        "sha256": "844a6100707971dda132c4576cb5fd3446d8a34335c7744299fe916dd04e64de"
+      }
+    },
+    {
+      "path": "tests/architecture/test_guest_bootstrap_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "1ece989db6e4a47aaf1e58fcb788f77708446d6a",
+        "sha256": "43f1871dd1ff9d6e65896a44f0203420b95d183063a0d582f0863f16ab083db6"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "5133c0c2588a1ecd7326fdc838321aef5b300363",
+        "sha256": "0d37676c5ed6db961d96f163ef4876fc22466179bb0855824dd2fdef5abb7676"
+      }
+    },
+    {
+      "path": "tests/architecture/test_guest_epoch_u64_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "ed2270b5819c0d900c66140d9cba0b9c7cb6694b",
+        "sha256": "3e094be612edfb380096c6e5caae7685a29de25aec2e67745fcb290ac5a4cf63"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "ff1559b0cb2fe9aee0dd4a8565f31cc6c65018b8",
+        "sha256": "c6cbcd7a2539fa2656aa5c21af801c6c774d0ec1a038b394f4c74e1400b6fd3e"
+      }
+    },
+    {
+      "path": "tests/architecture/test_guest_fork_copy_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "df1188c35dbe74c74583a12c139087b0cb634e0f",
+        "sha256": "cdf86a89bfb69be1c6ad079578699a4cfcd9b30f693ccab2ccb79590058d42dc"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "d5e77d1a03b9a0c1c62a52cf7b84e82fd7cd12d0",
+        "sha256": "42d7bfdfd5d65103cf9e6152ab2ab1483d2ba81bd06b8a8ed86fdca5161aba65"
+      }
+    },
+    {
+      "path": "tests/architecture/test_guest_input_handoff_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "e46285a52b5d2ec803bc774f0997a7cd652bdf90",
+        "sha256": "1a33eb8a18be13e862ed59534eeb5a922ebd083696a0de720779a3602f709ff5"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "ff7e4e880f7017f804d4ff1d855e6a48598a0013",
+        "sha256": "c79c0c5f641e709beb26293020b893039d85f3d6def854c29366d91984b5c1ab"
+      }
+    },
+    {
+      "path": "tests/architecture/test_guest_raw_lifetime_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "da4c20bd1f87cde28930d3c0c5c206f8040ebe80",
+        "sha256": "4ed1f6014eb285ae262e88ac5070739aab13f1f414b7c32a11d49a5b077f5822"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "3bcbd510e843ef6ca5a05a3a87115747dee65ee7",
+        "sha256": "f0c27fc151615db359155f311fda18dfc5eecfc89208ee42d4254699fc998e4d"
+      }
+    },
+    {
+      "path": "tests/architecture/test_guest_root_scope_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "9b4e5d40ffeb3f066b07ea4bccc498a5a99049b0",
+        "sha256": "69f6571c1bd86a41e327483903e0a148ab9b0ccbc8aa5630ca7ae6255686e0cb"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "4d3aed5bcebdd69d6cfbeaa80d1a0ce568454b89",
+        "sha256": "21e694ce897cca6fa3c9db956bd3a0e729df01198238335dd0bb1005742c630b"
+      }
+    },
+    {
+      "path": "tests/architecture/test_guest_tag_snapshot_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "6bea7a4df58ff492a890268765329a0340ed3ae7",
+        "sha256": "1eeed35aa4eb6188e9a8ccd69809a438d06013f0d96126b107cb4bedbb24bf1e"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "2d614d5922076b542a7ddb6eebd353105d936f24",
+        "sha256": "4c770798aaeffde277b8853251ccef69c2770e0941d02f4935fdb913dbf85855"
+      }
+    },
+    {
+      "path": "tests/architecture/test_inherited_ofd_design_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "e9fa28f44b8b962604caf7d77ebf1b7c85ccb788",
+        "sha256": "2437e8fe8c6ebcf15b34978bbe30e9e17e1b28405bea8209ff067715f70d5d9f"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "06992d05b24847fcf70455a059c80b6a15784e5b",
+        "sha256": "3ad20fcb3617bbbea17285cacaf46ae264f642409c02d1c72db5abcf5356f24f"
+      }
+    },
+    {
+      "path": "tests/architecture/test_kernel_lifetime_feasibility_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "389d006e6c89cb46ce947d080d73735d1a0fe357",
+        "sha256": "a9db5b4bfc2659a40dd777caff4cf4df4067003fff527d8f5ec53a27e9c674ff"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "70f8253c3e1f1883d4243a2f39e8c0c05fff0988",
+        "sha256": "3dd00464ec21041a103d65eaa5ac6554ccd1e626eb82fc93be12160bc1783695"
+      }
+    },
+    {
+      "path": "tests/architecture/test_strict_containment_input_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "6f9b2b3d207213f401aa24d07c16020764664182",
+        "sha256": "bce5423cb4b394f518492e997ea579a2e5377a01bcee4704df71a18b7c37156a"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "ddb92304f6567c09434e3ee07136f258ec79b454",
+        "sha256": "7c4493f848cb8e42c9c048fd70c2d3a84223cfb412c95cc8560c0493dccfc6dd"
+      }
+    },
+    {
+      "path": "tests/architecture/test_strict_handoff_limits_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "29159c71910d2b52c355afbd998ca05534c9c7c8",
+        "sha256": "691e163101ae10e6ebc7d9cec36e49cc2b0a21085c430926c88ee46ad6fb9eeb"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "a61128ac8b82f125f4d1c7fe762a22e88134534f",
+        "sha256": "886a49520c8a474e63f2fdbae5d00e07ca5bc95c0b98d6c62259c71d6e71369b"
+      }
+    },
+    {
+      "path": "tests/architecture/test_tag_read_protocol_boundary.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "e7a696775cae61d798ee21e384d656db4b68bbf9",
+        "sha256": "678fdc8366425cff77b73003df322fefd68bc0e7a78722b7df78d04d82b74889"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "38e0423ba218b723e17dc443694fe0b029728e28",
+        "sha256": "a28af74af16a79731fbd57281f3099d53a52d56b4c77e17324ac45879ab87b02"
+      }
+    },
+    {
+      "path": "tests/audit/validate_guest_input_handoff_design.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "8da2097710dd04c1a181917a72d56dfc6ed66de2",
+        "sha256": "6b63d81819f7a1148b0fe29589c4bfe38537a5f013e47dc2e2ec8cea60eec263"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "60fe5dea857ea8936fa4824d2352cf3e9c885aa4",
+        "sha256": "55ef20a0108856bb86a56ff87c7f4100738ed8039d6bc2a0602b4363eebcd5be"
+      }
+    },
+    {
+      "path": "tests/test_strict_containment_input.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "65ef7580e20ede27ed2bb402e4d65debbba87436",
+        "sha256": "5cb696b58ddb19322d43674cc6cfabed11c2faefd2c03dcc3c17d65dad1c221f"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "271aafb9173505b774fd825c6341f2a7303ea4b5",
+        "sha256": "d7f24ad600f4d4dd3112d99fa0aa0bdfd7b60f2f8edf6f754483f5b23732ef18"
+      }
+    },
+    {
+      "path": "tests/test_strict_handoff_limits.py",
+      "preimage": {
+        "mode": "100644",
+        "git_blob_sha1": "e26288eb6bcc8e48dac0a40bc1e4d73115d3a742",
+        "sha256": "c4110ed55315e8c0b6bbd60f13a9a725934b7307195e6b4c54f13efc9b4eaaf5"
+      },
+      "postimage": {
+        "mode": "100644",
+        "git_blob_sha1": "989400dcf5d38db52aaa782c333109df5a65cd15",
+        "sha256": "8624921b95d38da4259696c4832dd5b165790dc5fdf30cbd6759013213ea6ee3"
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "tests/architecture/test_bootstrap_tag_audit_boundary.py",
+      "base_revision": "37c0e614f01e13b5e6078178b3712c0ec6ba4495",
+      "test": "test_all_preexisting_runtime_source_test_and_evidence_blobs_are_unchanged"
+    },
+    {
+      "path": "tests/architecture/test_copy_reference_publication_boundary.py",
+      "base_revision": "5581049957088b348498eb5ef0b1061f76d19b7c",
+      "test": "test_all_prior_source_tests_evidence_and_workflows_remain_byte_identical"
+    },
+    {
+      "path": "tests/architecture/test_epoch_decoder_bridge_boundary.py",
+      "base_revision": "4371dfe5e69878665abcb9133cc20d5e0451949d",
+      "test": "test_every_prior_tracked_blob_is_preserved_except_additive_attributes"
+    },
+    {
+      "path": "tests/architecture/test_epoch_encoding_design_boundary.py",
+      "base_revision": "72362dcf235f91cbce30501aeeb72b66ee6c124c",
+      "test": "test_existing_source_test_evidence_workflow_blobs_are_preserved"
+    },
+    {
+      "path": "tests/architecture/test_fd_ofd_lifetime_design_boundary.py",
+      "base_revision": "3a831fdd423aa98638082eba126519db19f432d6",
+      "test": "test_prior_runtime_actual_evidence_and_fixtures_remain_unchanged"
+    },
+    {
+      "path": "tests/architecture/test_fork_copy_design_boundary.py",
+      "base_revision": "420538d7c20edcfca3eadf136b30b622ca2bede9",
+      "test": "test_previous_runtime_tests_sources_evidence_and_guest_producers_remain_unchanged"
+    },
+    {
+      "path": "tests/architecture/test_guest_bootstrap_boundary.py",
+      "base_revision": "2d11becc2f5b3b71558db6c944de74ddf18354b3",
+      "test": "test_every_preexisting_runtime_experiment_source_test_and_evidence_path_is_unchanged"
+    },
+    {
+      "path": "tests/architecture/test_guest_epoch_u64_boundary.py",
+      "base_revision": "1d9207723ac63c90d8a2173bd401e3115abe2edf",
+      "test": "test_all_prior_blobs_except_additive_attributes_are_unchanged"
+    },
+    {
+      "path": "tests/architecture/test_guest_fork_copy_boundary.py",
+      "base_revision": "4a04a5a38a68970624380c10113c97a752af4aa8",
+      "test": "test_every_previous_runtime_test_evidence_and_compatibility_path_is_unchanged"
+    },
+    {
+      "path": "tests/architecture/test_guest_input_handoff_boundary.py",
+      "base_revision": "0652c87c5e1da83d2cf4a3336713b9839e929ae3",
+      "test": "test_no_old_code_runtime_evidence_ci_or_fixture_mutation"
+    },
+    {
+      "path": "tests/architecture/test_guest_raw_lifetime_boundary.py",
+      "base_revision": "57b2c942d38f26343bb73fa8cf0f813c58f920a5",
+      "test": "test_prior_installed_runtime_actual_evidence_and_experiments_are_unchanged"
+    },
+    {
+      "path": "tests/architecture/test_guest_root_scope_boundary.py",
+      "base_revision": "06e218ca9e17af9547fc7871df70d2b9415f2cb9",
+      "test": "test_all_preexisting_runtime_tests_evidence_and_experiments_are_byte_unchanged"
+    },
+    {
+      "path": "tests/architecture/test_guest_tag_snapshot_boundary.py",
+      "base_revision": "eba2e74759cefa65a941ebce09ce2a4cfa33ec21",
+      "test": "test_every_prior_source_test_evidence_workflow_and_installed_blob_preserved"
+    },
+    {
+      "path": "tests/architecture/test_inherited_ofd_design_boundary.py",
+      "base_revision": "21a542eba9e889323b2cb1b7d7c75d9c9cab1025",
+      "test": "test_all_prior_runtime_tests_evidence_and_actual_producers_remain_byte_unchanged"
+    },
+    {
+      "path": "tests/architecture/test_kernel_lifetime_feasibility_boundary.py",
+      "base_revision": "a982d1bec759916013981f9cbc76ced6679c71ea",
+      "test": "test_previous_runtime_contracts_actual_evidence_and_fixtures_are_untouched"
+    },
+    {
+      "path": "tests/architecture/test_strict_containment_input_boundary.py",
+      "base_revision": "0095e64fbe8cf9815e14226f527bf654315a12dc",
+      "test": "test_every_baseline_tracked_blob_is_preserved"
+    },
+    {
+      "path": "tests/architecture/test_strict_handoff_limits_boundary.py",
+      "base_revision": "c477cfc1b30578165405b6cbb3af26b7334064e5",
+      "test": "test_every_prior_tracked_blob_is_preserved"
+    },
+    {
+      "path": "tests/architecture/test_tag_read_protocol_boundary.py",
+      "base_revision": "e01cdc127bbb17073aa47967b926b68088f57ded",
+      "test": "test_every_old_source_runtime_test_evidence_and_workflow_blob_is_preserved"
+    }
+  ],
+  "new_paths": [
+    "docs/evidence/strict_input_history_transition_v1.json",
+    "docs/strict_input_original_repair_result.md",
+    "tests/history_transition/__init__.py",
+    "tests/history_transition/frozen_cases.py",
+    "tests/history_transition/policy.py",
+    "tests/test_history_transition_policy.py",
+    "tests/test_original_strict_input_repairs.py"
+  ],
+  "runtime_qualified": false,
+  "permissions": {
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  }
+}

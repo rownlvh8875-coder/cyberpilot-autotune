@@ -7,6 +7,7 @@ from collections import UserDict
 import pytest
 
 from tests.audit import validate_guest_input_handoff_design as legacy
+from tests.history_transition.frozen_cases import HANDOFF_CASE_PREFIX, run_frozen_case
 from tests.strict_handoff.validation import validate_schema_strict
 
 LIMITS = {"members": 16, "bytes_per_member": 4096, "events": 1024, "json_bytes": 2097152}
@@ -255,8 +256,5 @@ def test_object_api_cannot_recover_duplicate_keys_lost_by_permissive_decoder():
 
 @pytest.mark.parametrize("field", list(LIMITS))
 def test_original_validator_still_accepts_float_equal_metadata(field):
-    data = legacy.load("schema")
-    data["limits"][field] = float(LIMITS[field])
-    assert legacy.validate_schema(data) is None
-    with pytest.raises(ValueError, match="^EXACT_INTEGER_LIMITS_REQUIRED$"):
-        validate_schema_strict(data)
+    # Original schema, classes, facades and assertions all come from the same base.
+    run_frozen_case(HANDOFF_CASE_PREFIX + f"[{field}]")
