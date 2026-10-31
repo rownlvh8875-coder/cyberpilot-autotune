@@ -44,3 +44,5 @@
 /docs/guest_fork_copy_contract.md -text
 /tests/guest_bootstrap/** -text
 /docs/evidence/guest_bootstrap_*.json -text
+/tests/bootstrap_tag_audit/** -text
+/docs/evidence/bootstrap_tag_initialization_*.json -text
