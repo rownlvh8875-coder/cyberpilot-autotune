@@ -12,7 +12,7 @@ bootstrap design. No producer/VM/actual-receipt conversion or prior-file edits.
 
 - Base21a542eba9e889323b2cb1b7d7c75d9c9cab1025;branchdesign/inherited-ofd-provenance.
 - All previous src/compatibility/CI/tests/evidence/actualsource/assets/27oldPRs frozen.
-- No guest/build/hosttrace;new test-only synthetic design,all9false/BLOCKED.
+- No guest execution/kernel build/hosttrace;new test-only synthetic design,all9false/BLOCKED.
 - FIRST_OBSERVED != ALLOCATION;no lifetime/copycut/coverage/runtime qualification.
 - Inline,one fresh final review,one authorC/I TDDpass,no re-review,ownDraft/no merge.
 
