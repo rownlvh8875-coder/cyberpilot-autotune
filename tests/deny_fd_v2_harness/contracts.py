@@ -5,7 +5,7 @@ import json
 import re
 from dataclasses import asdict, dataclass
 
-from tests.deny_fd_v2.contracts import PERMISSIONS
+from tests.deny_fd_v2.contracts import PERMISSIONS as PERMISSIONS
 
 CASES = ("DFD01", "DFD02", "DFD03", "DFD04", "DFD05", "DFD06")
 
