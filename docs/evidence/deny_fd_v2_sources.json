@@ -1,0 +1,43 @@
+{
+  "schema": "deny-fd-v2-source-manifest-v1",
+  "repo": "rownlvh8875-coder/cyberpilot-autotune",
+  "source_revision": "01847b5fefd3e6c9f5a2db03a3aeaae01c10f86e",
+  "sources": [
+    {
+      "path": "tests/deny_fd_v2/__init__.py",
+      "mode": "100644",
+      "git_blob_sha1": "715ade8eeadb67e5506c6e4601d03812bd0394d1",
+      "sha256": "d6b569bf56bfac5791eca2e523856a7977e28b55fb73e932c492d0d83c22184d"
+    },
+    {
+      "path": "tests/deny_fd_v2/build.py",
+      "mode": "100644",
+      "git_blob_sha1": "3c01bcfd7af17e6edd47d675d2f3a8af90e42fc0",
+      "sha256": "a09657e495fea1a265a75ff259dec3555d9ac70c3687e0698d16e22284b57b18"
+    },
+    {
+      "path": "tests/deny_fd_v2/contracts.py",
+      "mode": "100644",
+      "git_blob_sha1": "ec2d9922f3687191dda698134cf603eb0eb17f2d",
+      "sha256": "63ba3cfedd3f0536ac54f02a3a796dd11e350aa7b5bc81a256066d19676da605"
+    },
+    {
+      "path": "tests/deny_fd_v2/guest/probe.c",
+      "mode": "100644",
+      "git_blob_sha1": "b42d8972b38345c693bdbbb1828cd6fce2dd995a",
+      "sha256": "53386e5174d205b73da34db3de66aaa9c59ed8fe77a093134d65da6a36cbfdca"
+    },
+    {
+      "path": "tests/deny_fd_v2/validation.py",
+      "mode": "100644",
+      "git_blob_sha1": "4c3cb49091f9ae86688350ef88ed62d9b9ff5240",
+      "sha256": "5e5273f19f6e5025b5a8548048e67b3f5eec384a0e720bfbacc3bfafd4c2038d"
+    },
+    {
+      "path": "tests/deny_fd_v2/wire.py",
+      "mode": "100644",
+      "git_blob_sha1": "762d9bc964c383f7448f21200a570e83e9adc3d7",
+      "sha256": "03220e7e564c4f64aa93bfc978453ac3f050710fc6ffd9b2fb8616b9b2e1935f"
+    }
+  ]
+}

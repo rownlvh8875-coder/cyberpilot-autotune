@@ -2,6 +2,8 @@
 
 import ast
 import importlib.util
+import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -100,3 +102,38 @@ def test_pure_modules_have_no_acquisition_io_or_admission_bridge():
 )
 def test_guard_detects_operational_or_promotion_capabilities(source):
     assert violations(source)
+
+
+def test_final_head_contains_exact_approved_delta_and_preserves_old_images():
+    from tests.history_transition.deny_fd_v2_successor import (
+        BASE,
+        MODIFIED,
+        NEW_PATHS,
+        validate_v2_successor,
+    )
+
+    changed = set(
+        subprocess.check_output(
+            ["git", "diff", "--no-renames", "--name-only", BASE, "HEAD"], cwd=ROOT, text=True
+        ).splitlines()
+    )
+    assert changed == set(NEW_PATHS) | {MODIFIED}
+    assert len(changed) == 19 and len(validate_v2_successor(ROOT)) == 18
+
+
+def test_source_manifest_is_raw_git_bound_without_a_self_hash_cycle():
+    from tests.deny_fd_v2.build import SOURCES, describe_sources
+    from tests.history_transition.deny_fd_v2_successor import PREREGISTRATION
+
+    manifest = json.loads((ROOT / "docs/evidence/deny_fd_v2_sources.json").read_text())
+    source = manifest["source_revision"]
+    assert manifest == describe_sources(source)
+    subprocess.run(
+        ["git", "merge-base", "--is-ancestor", PREREGISTRATION, source], cwd=ROOT, check=True
+    )
+    subprocess.run(["git", "merge-base", "--is-ancestor", source, "HEAD"], cwd=ROOT, check=True)
+    assert "docs/evidence/deny_fd_v2_sources.json" not in SOURCES
+    for path in SOURCES:
+        assert subprocess.check_output(["git", "show", source + ":" + path], cwd=ROOT) == (
+            subprocess.check_output(["git", "show", "HEAD:" + path], cwd=ROOT)
+        )
