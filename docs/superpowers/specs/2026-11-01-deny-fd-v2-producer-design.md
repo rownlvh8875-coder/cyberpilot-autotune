@@ -579,14 +579,29 @@ The author's chosen small repair is a session-scoped,autouse fixture in the
 already-approved new history test module. After the parent's tmp_path_factory
 owns its basetemp,it creates a private child-session root beneath it and scopes
 PYTEST_DEBUG_TEMPROOT to that root,restoring the environment at session teardown.
+The direct V2 replay also supplies its own fresh --basetemp below its test's
+owned directory,so it cannot reclaim an ambient foreign root even when called
+directly. The session fixture protects unchanged adjacent historical runners.
 This controls only nested pytest scratch routing,not retention counts,policy,
 source selection,acceptance assertions or child time limits.
 
-Two real-subprocess regression variants must preserve independent foreign-root
-canaries:the original new replay itself,and a collected V2 API node followed by
+Two real-subprocess regressions must preserve independent foreign-root
+canaries:the direct original new replay,and a collected V2 API node followed by
 the unchanged older historical replay. The latter prevents shifting the defect
 into frozen code. Parent probes use fresh owned basetemp paths;child commands,
 original checks and60second limits remain strict. No new dependencies/files in
 the repo,no producer/decoder changes,no source manifest rebind is needed.
 Windows CI must be observed separately;Linux/synthetic cleanup tests do not
 establish a historical Windows timing trace or guest/runtime qualification.
+
+Validation exposed a second temporary-storage boundary:retaining hundreds of
+successful mutation clones per parent session filled this cloud's17GiB /tmp
+across two full runs. The same new module's current fixture will release only
+its own successful per-test clone after all assertions. Clones with a new failure
+already reported at this fixture's teardown stay for diagnosis,using pytest's
+session failure counter before/after the test;later teardown failures cannot
+be predicted. Use pytest's existing read-only/Windows-aware cleanup helper.
+Do not edit the older frozen fixtures,retention settings or acceptance checks.
+Add real worker probes proving passed clones are removed and failed clones
+retained. Archive only proven-owned completed diagnostic sessions,verify the
+archive before releasing their duplicate temporary trees;leave other tasks alone.

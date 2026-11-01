@@ -116,3 +116,62 @@ external AI,longitudinal or upstream PR. No old PR/main edits.
 Recommended next single task:separately authorized Draft publication and exact-head
 push/PR CI review of this local branch. Do not auto-start it or treat green local
 tests as runtime,guest,stack merge or application qualification.
+
+## Approved PR55 Windows-harness follow-up (local verification checkpoint)
+
+The publication task created Draft PR55 atccc269e6157cdec6696fbe74020a55781d6dcf22,
+basePR54 unchanged. Both old push41269982344 and PR41269992767 then failed in
+Windows/Python3.12.10 coverage:the new original-node replay's child pytest hit
+its60second timeout. No source-policy assertion failure or environmental-only
+classification was inferred. User approved reproducing/fixing that boundary.
+
+Real-process reproduction seeded4private fake stale pytest sessions. The direct
+replay passed its original node but reclaimed foreign canaries. pytest9.2.0's
+numbered shared-root cleanup runs at child exit;the old Windows logs do not
+show exactly how much of the60seconds was spent there. Two permanent probes
+were RED on canary loss:direct V2 replay and a V2 session followed by the
+unchanged frozen historical replay. No mock replaces either original assertion.
+
+The new test module now scopes nested pytest scratch to a fresh child root
+under its parent's owned basetemp,restoring the environment at session teardown.
+The direct replay also sets its own fresh basetemp. This session fixture applies
+when the V2 module participates;standalone unchanged legacy launches are not
+claimed globally reconfigured. Original nodes,source,assertions and60seconds
+remain unchanged;retention counts and frozen fixtures/guards are not edited.
+
+Local validation exposed17GiB /tmp exhaustion after two retained8.4/8.2GiB full
+sessions. One full run aborted with capture/closed-file errors and no pytest
+summary;not a passing run. Only proven-owned508/511 were archived and compared
+losslessly. A forced deletion command was refused before execution;508 was
+moved intact instead,511/other tasks left untouched. No substitute deletion of
+those refused targets was used. The new current fixture now releases only its
+own clone after assertions when pytest's reported failure count is unchanged;
+already-reported failures retain their clone. Later teardown failures cannot
+be predicted. pytest's existing read-only/Windows-aware cleanup is used.
+
+Resource-lifecycle worker probes first showed passed copies incorrectly kept
+(RED),while failed-copy retention already passed. After repair,the real worker
+variants both pass. A fixed test-only plugin forces the negative call failure;
+this is not acceptance evidence for the original node. All mutation checks
+still execute with their own real Git clone before any cleanup.
+
+Observed local gates after both repairs:
+
+-5053PASS215.94s,main coverage98.52%;focused5PASS3.28s.
+- New decoder/build Python package156PASS,278/278statements,98/98branches.
+- Full temporary footprint1.2GiB instead of8.4GiB;no test/sample/gate reduction.
+- Ruff678formatted,mypy76PASS;all existing coverage subgates and source/history
+  audits pass. External raw-source/kernel-byte verification is not inferred.
+- Build/fresh-wheel72product files base-byte-identical,70isolated module imports,
+  optional dependency absence before extras,and all wheel smoke tests pass.
+  Replay11integration tests/4pinned goldens pass.
+- Exact19delta/58cumulative,original22,preserved39,P3hook and all six raw sourceM2
+  bytes verified. Producer/decoder/source manifest/installed product unchanged;
+  no new compilation or runtime evidence is claimed in this harness-only repair.
+
+Final exact-head review and Windows push/PR CI are separate post-commit gates;
+their actual outcomes belong to the PR report/external ledger after observation.
+Do not treat these Linux/local results as Windows CI success or runtime safety.
+All runtime/capture/application blockers and9false permissions above remain.
+Only PR55 append-only updates are authorized for this follow-up;no other PR/main,
+Ready/merge,rebase/force,guest/vehicle/target-ELF execution or automatic next phase.

@@ -85,29 +85,53 @@ docs/deny_fd_v2_result.md. No new repo paths.
 **Interface:** session-autouse fixture scopes PYTEST_DEBUG_TEMPROOT to a freshly
 owned child root below the parent's already-created tmp_path_factory basetemp;
 environment is restored on teardown. No runtime/public API changes.
+Direct V2 replay additionally uses its own fresh --basetemp under tmp_path;
+only temporary routing flags change,not the original node/60second criterion.
 
 **Repair review focus:** never clean foreign sessions;do not shift cleanup to
 the adjacent frozen runner;do not route parents into their own descendant or
 delete the active parent root;preserve original60second/node/source checks;
 do not claim historical Windows timing or runtime qualification from a canary.
 
-- [ ] Add real-process parametrized regression test_nested_replays_preserve_foreign_sessions:
-  seed4private fake stale sessions with literal canaries;run a fresh child pytest
-  with owned parent basetemp and foreign PYTEST_DEBUG_TEMPROOT. Select either
-  the exact V2 original replay,or V2 API then unchanged old historical replay.
-  Require exit0 and literal1/2passed summaries plus all canary bytes preserved.
+- [x] Add real-process tests test_direct_replay_preserves_foreign_sessions and
+  test_session_isolation_protects_frozen_legacy_replay:seed4private fake stale
+  sessions with literal canaries. First call the actual V2 replay with foreign
+  ambient root;second run fresh pytest with owned parent basetemp/foreign root,
+  selecting V2 API then unchanged old historical replay. Require original
+  success and literal2passed in the latter plus all canary bytes preserved.
   Run focused tests before fixture implementation. Expected:2RED due foreign
   canaries removed,not a source assertion or missing dependency.
-- [ ] Add the minimal session-autouse temporary-root fixture using pytest's
-  scoped MonkeyPatch. Keep original replay command/assertions/timeout60 unchanged.
+- [x] Add the minimal session-autouse temporary-root fixture using pytest's
+  scoped MonkeyPatch and direct replay's owned --basetemp. Keep original node,
+  source/assertions/timeout60 unchanged.
   Run focused regression and original node. Expected:GREEN,foreign canaries intact.
-- [ ] Run full pytest,coverage and unchanged subsystem gates;history/source audits,
+- [x] Run full pytest,coverage and unchanged subsystem gates;history/source audits,
   ruff/format/mypy,build/fresh-wheel/replay/owner/science/receipt smoke. Verify
  19delta/58cumulative,original22/preserved39/P3hook and unchangedM2source bytes.
   Expected:allGREEN,no test or gate exclusions/criteria changes.
-- [ ] Record observed result and commit append-only. One fresh whole-branch
-  reviewer checks exact head and repair focus. Material findings receive one
-  RED→GREEN author pass/full rerun,no repeated reviewer.
-- [ ] Push only PR55's explicit new head after remote-match checks;watch both
-  push and PR exact-head CI. Keep Draft and all9permissionsfalse. Record actual
-  Windows outcomes,not a Linux-only fix claim. No auto-next-task or merge.
+- [x] Also pin the observed temporary-storage boundary with
+  test_current_fixture_releases_only_passed_clones (pass/fail worker variants).
+  A fixed test-only plugin forces one worker call failure after fixture setup;
+  require literal0/1exit and1passed/1failed plus0/1remaining owned checkouts.
+  Expected pre-fix:passed-worker caseRED(clone retained),failed-worker caseGREEN
+  as an existing-behavior preservation check. Then current becomes a yield
+  fixture,removing only its owned root when session.testsfailed is unchanged.
+  Use pytest's read-only/Windows-aware cleanup and require the owned root gone;
+  retain clones when a new failure has already been reported at teardown.
+  Expected:bothGREEN,all existing mutation checks still execute unchanged.
+
+Local observed outcome:5053PASS215.94s/98.52%;focused5PASS3.28s;all unchanged
+subsystem gates/audits/build/fresh-wheel/replay smoke pass. Original60/node/
+assertions and immutable images remain;no sourceM2 change. An intermediate
+full run exhausted17GiB /tmp and lost stderr without a summary;it is not counted
+as passing. Completed own session508 was moved intact after archive verification;
+session511/other tasks were not manually deleted. Fresh owned basetemp isolates
+remaining local runs. Passed-only fixture cleanup reduced a full run to1.2GiB.
+
+Final integration gates after the append-only result commit:one fresh reviewer
+checks exact whole-branch head and this repair focus;material findings get one
+RED→GREEN author pass/full rerun,no repeated reviewer. Then push only PR55's
+explicit new head after remote-match checks and inspect push/PR exact-head CI.
+Keep Draft/all9permissionsfalse;no auto-next-task or merge. Actual final review/
+WindowsCI/head outcomes are recorded in the owned external ledger and PR report
+after observation,not pre-claimed or self-referenced by a later metadata commit.

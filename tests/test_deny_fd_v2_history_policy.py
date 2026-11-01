@@ -1,5 +1,6 @@
 """Real Git provenance tests; mutation roots are private temporary clones only."""
 
+import getpass
 import importlib
 import importlib.util
 import json
@@ -7,8 +8,10 @@ import os
 import subprocess
 import sys
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import pytest
+from _pytest.pathlib import rm_rf
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "75fd4358a2d42bec55dc85ba85afbb23e8feb6f9"
@@ -34,13 +37,27 @@ def clone(tmp_path, revision):
     return root
 
 
+@pytest.fixture(scope="session", autouse=True)
+def nested_pytest_temporary_root(tmp_path_factory):
+    # Resolve the parent's base first; children must not clean older parent runs.
+    owned = tmp_path_factory.mktemp("nested")
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setenv("PYTEST_DEBUG_TEMPROOT", str(owned))
+        yield
+
+
 def test_new_successor_api_is_required():
     assert importlib.util.find_spec("tests.history_transition.deny_fd_v2_successor") is not None
 
 
 @pytest.fixture
-def current(tmp_path):
-    return clone(tmp_path, api().PREREGISTRATION)
+def current(tmp_path, request):
+    failures_before = request.session.testsfailed
+    root = clone(tmp_path, api().PREREGISTRATION)
+    yield root
+    if request.session.testsfailed == failures_before:
+        rm_rf(root)  # pytest handles read-only Git objects and Windows path forms.
+        assert not root.exists(), "successful fixture clone was not released"
 
 
 def check(root):
@@ -107,6 +124,7 @@ def test_base_original_source_replays_original_node_in_isolation(tmp_path):
             "-p",
             "no:cacheprovider",
             "--override-ini=addopts=",
+            "--basetemp=" + str(tmp_path / "p"),
             "--",
             "tests/test_history_transition_policy.py::test_registered_transition_accepts_all_exact_postimages",
         ],
@@ -119,6 +137,114 @@ def test_base_original_source_replays_original_node_in_isolation(tmp_path):
     assert result.returncode == 0 and "1 passed" in result.stdout, result.stdout + result.stderr
     with pytest.raises(ValueError):
         api().validate_v2_successor(root)
+
+
+@pytest.fixture
+def foreign_sessions(tmp_path):
+    shared = tmp_path / "foreign-pytest-root"
+    shared.mkdir()
+    user_root = shared / ("pytest-of-" + getpass.getuser())
+    user_root.mkdir()
+    canaries = []
+    for number in range(4):
+        old = user_root / f"pytest-{number}"
+        old.mkdir()
+        canary = old / "foreign-session-canary"
+        canary.write_bytes(b"foreign-session-evidence\n")
+        canaries.append(canary)
+    return shared, tuple(canaries)
+
+
+def test_direct_replay_preserves_foreign_sessions(tmp_path, monkeypatch, foreign_sessions):
+    shared, canaries = foreign_sessions
+    monkeypatch.setenv("PYTEST_DEBUG_TEMPROOT", str(shared))
+    case = tmp_path / "case"
+    case.mkdir()
+    test_base_original_source_replays_original_node_in_isolation(case)
+    assert all(p.is_file() and p.read_bytes() == b"foreign-session-evidence\n" for p in canaries)
+
+
+def test_session_isolation_protects_frozen_legacy_replay(tmp_path, foreign_sessions):
+    shared, canaries = foreign_sessions
+    environment = dict(
+        os.environ,
+        PYTHONDONTWRITEBYTECODE="1",
+        PYTEST_DISABLE_PLUGIN_AUTOLOAD="1",
+        PYTEST_DEBUG_TEMPROOT=str(shared),
+    )
+    for name in ("PYTEST_ADDOPTS", "PYTEST_PLUGINS", "PYTEST_CURRENT_TEST"):
+        environment.pop(name, None)
+    # Avoid needlessly compounding Windows path depth in this pytest-in-pytest probe.
+    with TemporaryDirectory(prefix="cp-np-") as owned:
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-I",
+                "-m",
+                "pytest",
+                "-q",
+                "-p",
+                "no:cacheprovider",
+                "--override-ini=addopts=",
+                "--basetemp=" + str(Path(owned) / "p"),
+                "--",
+                "tests/test_deny_fd_v2_history_policy.py::test_new_successor_api_is_required",
+                "tests/test_history_transition_policy.py::test_historical_manifest_acceptance",
+            ],
+            cwd=ROOT,
+            env=environment,
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+    assert result.returncode == 0 and "2 passed" in result.stdout, result.stdout + result.stderr
+    assert all(p.is_file() and p.read_bytes() == b"foreign-session-evidence\n" for p in canaries)
+
+
+@pytest.mark.parametrize(
+    "mode,exit_code,summary,remaining",
+    (("pass", 0, "1 passed", 0), ("fail", 1, "1 failed", 1)),
+)
+def test_current_fixture_releases_only_passed_clones(mode, exit_code, summary, remaining):
+    # Exercise the actual fixture/report lifecycle; the plugin only supplies a call failure.
+    worker = """
+import sys
+import pytest
+class FailCall:
+    def pytest_runtest_call(self, item):
+        raise AssertionError("synthetic fixture-retention probe")
+raise SystemExit(pytest.main(sys.argv[2:], plugins=[FailCall()] if sys.argv[1] == "fail" else []))
+"""
+    environment = dict(os.environ, PYTEST_DISABLE_PLUGIN_AUTOLOAD="1", PYTHONDONTWRITEBYTECODE="1")
+    for name in ("PYTEST_ADDOPTS", "PYTEST_PLUGINS", "PYTEST_CURRENT_TEST"):
+        environment.pop(name, None)
+    with TemporaryDirectory(prefix="cp-np-") as owned:
+        base = Path(owned) / "p"
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-I",
+                "-c",
+                worker,
+                mode,
+                "-q",
+                "-p",
+                "no:cacheprovider",
+                "--override-ini=addopts=",
+                "--basetemp=" + str(base),
+                "--",
+                "tests/test_deny_fd_v2_history_policy.py::test_current_preregistration_is_valid_and_not_a_directory_exception",
+            ],
+            cwd=ROOT,
+            env=environment,
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+        assert result.returncode == exit_code and summary in result.stdout, (
+            result.stdout + result.stderr
+        )
+        assert len(tuple(base.rglob("checkout"))) == remaining
 
 
 @pytest.mark.parametrize("constant", ("BASE", "PREREGISTRATION"))
