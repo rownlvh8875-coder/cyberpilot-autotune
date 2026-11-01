@@ -39,14 +39,14 @@ docs/evidence/deny_fd_provenance_schema.json.
 **Interfaces:** spec's CaptureContext/PointRef/FdWitness/InventoryWitness/
 InventoryPolicyContext/DenialReceipt; evaluate, canonical_digest, policy_digest.
 
-- [ ] Write tests for missing API, synthetic HH03 consistency, wrong cause/context,
+- [x] Write tests for missing API, synthetic HH03 consistency, wrong cause/context,
   None/0/empty, real FD0/multiple extras, unsupported missing/mixed/other stages,
   future/duplicate references, exact types, mutation, digests and all false permissions.
-- [ ] Run `.venv/bin/python -m pytest tests/test_deny_fd_provenance.py -q`.
+- [x] Run `.venv/bin/python -m pytest tests/test_deny_fd_provenance.py -q`.
   Expected: RED because contract API is absent, not a typo.
-- [ ] Implement only the pure API; add semantic-schema/source-cohort/purity tests.
-- [ ] Rerun behavior and architecture. Expected: GREEN; no loader/producer dependency.
-- [ ] Commit exact additions (whole old architecture freeze remains intentionally
+- [x] Implement only the pure API; add semantic-schema/source-cohort/purity tests.
+- [x] Rerun behavior and architecture. Expected: GREEN; no loader/producer dependency.
+- [x] Commit exact additions (whole old architecture freeze remains intentionally
   RED until the approved successor policy is enabled; do not publish intermediate tips).
 
 ### Task 2: Preregister and enforce successor history
@@ -58,26 +58,26 @@ and docs/evidence/deny_fd_history_successor_v1.json.
 **Interfaces:** successor `PREREGISTRATION`, `validate_successor(root) -> frozenset[str]`.
 Old policy invokes it without embedding P2; test clone fixture uses successor P2.
 
-- [ ] Add real-Git missing-successor,27preserved/two-postimage layer mutations,
+- [x] Add real-Git missing-successor,27preserved/two-postimage layer mutations,
   unlisted-path, historical acceptance/current rejection and CRLF tests; observe RED.
-- [ ] Update only two approved old files; retain old P/_load/guard criteria and node IDs.
-- [ ] Freeze manifest and finalized two modified postimages in append-only P2.
+- [x] Update only two approved old files; retain old P/_load/guard criteria and node IDs.
+- [x] Freeze manifest and finalized two modified postimages in append-only P2.
   Expected: P2 ancestor of final HEAD, base1c4 ancestor P2, no self-hash.
-- [ ] Add loader pin after P2; exact immutable manifest, all29old states and cumulative
+- [x] Add loader pin after P2; exact immutable manifest, all29old states and cumulative
   scope checks fail without fetch/fallback. No mutable manifest authority.
-- [ ] Run `.venv/bin/python -m pytest tests/test_history_transition_policy.py tests/architecture -q`.
+- [x] Run `.venv/bin/python -m pytest tests/test_history_transition_policy.py tests/architecture -q`.
   Expected: GREEN, original v1 node also executes in fixed historical clone.
-- [ ] Commit enabling loader; full suite now must be GREEN.
+- [x] Commit enabling loader; full suite now must be GREEN.
 
 ### Task 3: Verify and local handoff
 
 **Files:** create docs/deny_fd_provenance_result.md; update only new spec/plan/schema
 if bookkeeping needs it, never frozen two postimages after P2.
 
-- [ ] Run full pytest, isolated new-package coverage, all old audits/history validators,
+- [x] Run full pytest, isolated new-package coverage, all old audits/history validators,
   ruff/format/mypy, build/fresh wheel, replay/knowledge/owner/science smoke.
   Expected: all pass; wheel installed-source bytes unchanged; no test criteria weakened.
-- [ ] Check exact13delta/40cumulative paths and byte-exact v1/P/22postimages/27preserved.
+- [x] Check exact13delta/40cumulative paths and byte-exact v1/P/22postimages/27preserved.
 - [ ] Commit pre-review result. Fresh exact-head reviewer inspects whole branch and
   all ledger rulings; any material finding gets RED→GREEN and full rerun.
 - [ ] Final exact-head rerun and clean status; report local branch/head and review.

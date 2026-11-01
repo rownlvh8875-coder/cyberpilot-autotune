@@ -5,6 +5,7 @@ from dataclasses import asdict
 from hashlib import sha256
 
 from .contracts import (
+    CaptureContext,
     ClockDomain,
     DenialDecision,
     DenialReason,
@@ -18,7 +19,7 @@ from .contracts import (
 )
 
 
-def _cohort(ref: PointRef) -> tuple:
+def _cohort(ref: PointRef) -> tuple[CaptureContext, int, DenialStage]:
     return ref.context, ref.snapshot_id, ref.stage
 
 
@@ -89,7 +90,7 @@ def evaluate(receipt: DenialReceipt) -> DenialDecision:
     return DenialDecision(Outcome.SYNTHETIC_DIAGNOSTIC_CONSISTENT, ())
 
 
-def _digest(value: dict) -> str:
+def _digest(value: dict[str, object]) -> str:
     raw = json.dumps(
         value, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False
     )
