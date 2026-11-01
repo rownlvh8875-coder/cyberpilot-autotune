@@ -1,0 +1,21 @@
+{
+  "schema": "deny-fd-v2-dual-transport-profile-v1",
+  "kernel_config_sha256": "3540f9dc8a7e48ef1d2e7b945a87976cf292f736d297cfebe3ac5cdf8571ee1e",
+  "console": "isa-serial-index0-ttyS0-stdio",
+  "telemetry": "isa-serial-index1-ttyS1-pipe",
+  "aggregate_limit": 1048576,
+  "timeout_seconds": 180,
+  "termination_grace_seconds": 2,
+  "runtime_qualified": false,
+  "permissions": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false
+  }
+}

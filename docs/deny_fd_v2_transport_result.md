@@ -1,0 +1,45 @@
+# Dual-stream transport source implementation checkpoint
+
+Base27cfdee;P5f45e345soleparentbase;old76images and2routingpostimages pinned.
+Dedicated new package/types/assets/image/collector/capture/defaultclosedCLI.
+All original v2 decoder/probe/harness/P4 records/product remain unchanged.
+
+Source-only tests use fake VM boundaries,syntheticwire and harmlesshostworkers.
+Initial22runner/capturecasesREDwith22oldcontrolsPASS;8recordtestsRED;initial
+52focusedGREEN. Additional real regressions reproduced2FAIL forlateconsoleclose
+andmissingperstreamreaderror;bothcorrected. Firstinterruptionclose/handofftests
+alsoREDbeforeboundedretry/escalationcorrections. Exact final outcomes andhead
+live in external execution ledger after observation,not circularclaims here.
+
+No actual QEMU/probe/guest launch,ttyS1 enumeration/rawmode/runtime qualification,
+watchdog/externalexecutor/FD-OFDscientific/device/vehicle/application approval.
+Prior failedDFD01capture remainsFAILED/BLOCKED;derivedstreamneverpromoted.
+Newsource defaultimport/CLI performsno preparation/spawn;allninepermissionsfalse.
+Successful futurecontentvalidation remainsuntrusted/BLOCKED,not application input.
+No push/PR/merge;fullfinalgatesandfreshwholebranchsource reviewremainrequired.
+
+## Observed pre-final source checkpoint
+
+Atcdf05d9thewholeproject5377PASS181.36s,targetattempts0. Additionalerror/FIFO/
+CLItests brought currentpackagecoverage to441/441statements56/56branches100/100
+after95testsplusactualREAD-ONLYasset/imagepreflight. Earliercoverage91.15% and
+53/56branches were belowtarget;tests were added without changinganygate/exclusion.
+One addedretrytesthadamissingexceptionbindingNameError,correctedbeforepassing;
+thatmistakeisnotcountedasbehavioralRED. NewP5malformedregistration/unmerged/
+image/scope/historychecks29PASS4.37s. Noneofthesearekernel/ttyS1executionproof.
+Finalexactheadfullcoverage/build/wheel/audits/reviewareexternallyobservedfacts
+recordedafterthismetadata/sourcecommit,notclaimedinadvance.
+
+## Independent review correction
+
+FreshAIreviewat070dea7foundC0/I1/M1. I1:clock/recordfailurecouldpreventrawfiles,
+andthefirstwritefailurestoppedotherwrites;CLIkeptonlycounts/digests. Newrecovery
+regressionsfirstshowed9FAIL/1negativecontrolPASS. Rawwritesarenowindependent
+ofrecord/clockavailabilityandofeachother;nullrecordstaysnull,metadatarecords
+perrawfileoutcomes,andFAILEDCLIhaslosslessboundedbase64prefixfallback.
+Originalwirebytesarenotfiltered/rewritten;noacceptanceorpermissionpromotion.
+Finalpostfixgatesareexternalobservationsaftercommit. No secondAIreview is
+claimedforthenewhead;theNativeplanusesonefreshreviewplusRED/GREEN/fullgates.
+MinorM1(output-limitoffendingstreamattribution)deferredexplicitly:aggregatecap
+andfailurearecorrect,butthetruncatedstreamidentityisnotrecorded. Nointerpretation
+ofthatmissingidentityasactualzero/no-truncationisqualified.

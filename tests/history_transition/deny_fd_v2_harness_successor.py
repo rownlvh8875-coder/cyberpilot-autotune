@@ -48,6 +48,15 @@ def _need(value, reason):
 
 
 def validate_harness_successor(root: Path) -> frozenset[str]:
+    import importlib.util
+
+    name = "tests.history_transition.deny_fd_v2_transport_successor"
+    if importlib.util.find_spec(name) is not None:
+        from .deny_fd_v2_transport_successor import validate_transport_successor
+
+        extra = validate_transport_successor(root)
+        if extra:
+            return NEW_PATHS | extra
     # Lazy import avoids a loader cycle; the already-loaded predecessor owns
     # the unchanged raw Git/clock/error primitives.
     from . import deny_fd_v2_successor as prior
