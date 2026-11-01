@@ -186,6 +186,11 @@ explicitly exclude any claim of C/kernel/QEMU execution coverage.
 
 ## Self-review and handoff
 
+Execution ruling: the final22-file completeness assertion depends on Tasks2–4;
+its GREEN gate belongs to Task5. Task1's intermediate gate runs all implemented
+history semantics and the unchanged predecessor regressions without claiming
+whole-branch readiness. The final test is not skipped or weakened.
+
 All design sections map to Tasks1–5; each Review Focus line has an owning test.
 All named interfaces/types are defined above. P4 SHA and new commit hashes are
 post-commit identities, not unspecified behavior or a self-reference. The branch
