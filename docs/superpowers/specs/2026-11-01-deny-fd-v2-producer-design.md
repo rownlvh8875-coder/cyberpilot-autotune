@@ -555,3 +555,38 @@ fresh builder check는 위 experiments 경로의 pre-hook 거부 문제1건을 �
 history/architecture baseline은 통과했고40개 preimage hash를 검증했다.
 작성자가 builder 질문에 답해 설계를 고친 것이며 독립 clean 재검토나 C/I/M 코드
 리뷰를 받았다고 주장하지 않는다. 실제 구현 전에 사용자 exact-path 승인이 필요하다.
+
+## Follow-up: isolate nested pytest temporary sessions
+
+After Draft PR55 publication,user approved reproducing/fixing its Windows
+isolation-harness timeout without acceptance weakening. This follow-up permits
+append-only updates only to PR55 within the same19paths;not other PRs/main,
+Ready/merge,guest/target-ELF/vehicle execution or operational qualification.
+Keep the original60second child deadline,node IDs,assertions,P/P2/P3,39preserved
+images,18guards and sourceM2 six-file bytes unchanged.
+
+Confirmed defect:the real replay's nested pytest uses the ambient shared
+numbered-session temporary root. A private diagnostic with4stale fake sessions
+showed its child deleting unrelated-session canaries after the original node
+passed. pytest9.2.0 registers retention cleanup of that shared root at child exit.
+Both old Windows3.12.10 coverage runs timed out at this new replay;old logs do
+not establish exactly how much of the60seconds was spent in cleanup.
+
+Approaches:raising60/skipping/rewriting the original node is forbidden;
+redirecting pipes alone does not prevent foreign-session cleanup;isolating only
+the new replay can move cleanup into the adjacent frozen historical runner.
+The author's chosen small repair is a session-scoped,autouse fixture in the
+already-approved new history test module. After the parent's tmp_path_factory
+owns its basetemp,it creates a private child-session root beneath it and scopes
+PYTEST_DEBUG_TEMPROOT to that root,restoring the environment at session teardown.
+This controls only nested pytest scratch routing,not retention counts,policy,
+source selection,acceptance assertions or child time limits.
+
+Two real-subprocess regression variants must preserve independent foreign-root
+canaries:the original new replay itself,and a collected V2 API node followed by
+the unchanged older historical replay. The latter prevents shifting the defect
+into frozen code. Parent probes use fresh owned basetemp paths;child commands,
+original checks and60second limits remain strict. No new dependencies/files in
+the repo,no producer/decoder changes,no source manifest rebind is needed.
+Windows CI must be observed separately;Linux/synthetic cleanup tests do not
+establish a historical Windows timing trace or guest/runtime qualification.

@@ -72,3 +72,42 @@
 Final metadata head receives one additional full-suite/clean-status handoff gate;
 its observed exact SHA/result belongs to the owned external ledger and final
 handoff after the commit,not a self-referential or premature result here.
+
+### Task 5: Approved Windows nested-pytest isolation repair
+
+**Base:** ccc269e6157cdec6696fbe74020a55781d6dcf22(PR55 exact published head).
+**Spec:** appended follow-up in the existing producer design;historical Tasks1..4
+remain complete. Current approval permits only PR55 append-only push/CI within
+the same19paths. No older PR/main changes,timeout increase,skip/xfail,guard/node
+rewrite,sourceM2 change or runtime execution. Use retained native inline workflow.
+**Files:** tests/test_deny_fd_v2_history_policy.py;this plan;the existing spec;
+docs/deny_fd_v2_result.md. No new repo paths.
+**Interface:** session-autouse fixture scopes PYTEST_DEBUG_TEMPROOT to a freshly
+owned child root below the parent's already-created tmp_path_factory basetemp;
+environment is restored on teardown. No runtime/public API changes.
+
+**Repair review focus:** never clean foreign sessions;do not shift cleanup to
+the adjacent frozen runner;do not route parents into their own descendant or
+delete the active parent root;preserve original60second/node/source checks;
+do not claim historical Windows timing or runtime qualification from a canary.
+
+- [ ] Add real-process parametrized regression test_nested_replays_preserve_foreign_sessions:
+  seed4private fake stale sessions with literal canaries;run a fresh child pytest
+  with owned parent basetemp and foreign PYTEST_DEBUG_TEMPROOT. Select either
+  the exact V2 original replay,or V2 API then unchanged old historical replay.
+  Require exit0 and literal1/2passed summaries plus all canary bytes preserved.
+  Run focused tests before fixture implementation. Expected:2RED due foreign
+  canaries removed,not a source assertion or missing dependency.
+- [ ] Add the minimal session-autouse temporary-root fixture using pytest's
+  scoped MonkeyPatch. Keep original replay command/assertions/timeout60 unchanged.
+  Run focused regression and original node. Expected:GREEN,foreign canaries intact.
+- [ ] Run full pytest,coverage and unchanged subsystem gates;history/source audits,
+  ruff/format/mypy,build/fresh-wheel/replay/owner/science/receipt smoke. Verify
+ 19delta/58cumulative,original22/preserved39/P3hook and unchangedM2source bytes.
+  Expected:allGREEN,no test or gate exclusions/criteria changes.
+- [ ] Record observed result and commit append-only. One fresh whole-branch
+  reviewer checks exact head and repair focus. Material findings receive one
+  RED→GREEN author pass/full rerun,no repeated reviewer.
+- [ ] Push only PR55's explicit new head after remote-match checks;watch both
+  push and PR exact-head CI. Keep Draft and all9permissionsfalse. Record actual
+  Windows outcomes,not a Linux-only fix claim. No auto-next-task or merge.
