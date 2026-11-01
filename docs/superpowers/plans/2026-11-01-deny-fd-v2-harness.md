@@ -50,6 +50,7 @@ by a fixture in the new history test file; it is not a fake Git response):
 ```python
 def test_historical_cohort_grants_no_harness_paths(historical_checkout):
     from tests.history_transition.deny_fd_v2_harness_successor import validate_harness_successor
+
     assert validate_harness_successor(historical_checkout) == frozenset()
 ```
 
@@ -78,12 +79,18 @@ the image/capture test modules; do not add a global conftest or hidden autoload.
 def test_image_is_deterministic_and_minimal(synthetic_assets):
     from tests.deny_fd_v2_harness.image import build_image
     from compatibility.guest_input_closure.archive import parse_image
+
     raw = build_image(synthetic_assets, "DFD01")
     assert raw == build_image(synthetic_assets, "DFD01")
     entries = {item.path: item for item in parse_image(raw)}
     assert entries["deny-fd-v2-probe"].data == synthetic_assets.probe
-    assert entries["etc/deny-fd-v2-scope"].data == b"deny-fd-v2: fixed pre-exec inventory probe only\n"
-    assert not {"harmless-fixtures", "exec-helper", "guard.bpf.o", "syscall-collector"} & entries.keys()
+    assert (
+        entries["etc/deny-fd-v2-scope"].data == b"deny-fd-v2: fixed pre-exec inventory probe only\n"
+    )
+    assert (
+        not {"harmless-fixtures", "exec-helper", "guard.bpf.o", "syscall-collector"}
+        & entries.keys()
+    )
 ```
 
 AssetBundle's public byte fields are probe:bytes and busybox:bytes; other identity
@@ -115,6 +122,7 @@ def test_wrong_source_case_or_window_rejected(synthetic_assets):
     import pytest
     from tests.test_deny_fd_v2_wire import encoded, vector
     from tests.deny_fd_v2_harness.capture import validate_capture
+
     rows = vector(case="DFD01")
     rows[0][5] = "f" * 40
     rows[0][6] = synthetic_assets.source_manifest_digest
@@ -152,8 +160,10 @@ Default-denied test anchor:
 def test_default_cli_and_import_never_spawn_or_write(tmp_path, monkeypatch):
     import subprocess
     import pytest
+
     monkeypatch.setattr(subprocess, "Popen", lambda *a, **k: pytest.fail("unexpected launch"))
     from tests.deny_fd_v2_harness.host_main import main
+
     assert main([]) == 2
     assert list(tmp_path.iterdir()) == []
 ```
@@ -198,5 +208,7 @@ scope cannot silently grow: any extra existing/new path returns to review.
 
 Recommended execution method: Native — one tightly coupled history/assets/
 capture/runner contract, implemented inline with a final fresh independent review.
-Please review the22-path scope and the exact original-source replay routing
-before implementation. No implementation or worktree creation has started.
+The user approved this22-path scope,original-source replay and Native execution.
+Tasks1–4 are implemented with observed RED/GREEN gates;Task5's final exact-head
+rerun/review and exhaustive rulings are recorded in the external task ledger.
+No guest execution or publication is implied by that approval.

@@ -1,10 +1,10 @@
 # DENY-FD v2 harness local result
 
 Base:a97321f6bbf5c3e5d6e3205615e0a600b059b89a. New descendant branch only.
-Status: preregistration / implementation in progress, not complete.
+Status: HARNESS_IMPLEMENTED_NOT_EXECUTED; local verification checkpoint below.
 Baseline5053passed144.42s. New18history/architecture tests first failed because
-the closed successor did not exist. Later task results are recorded only after
-actual observation; no new suite/coverage/review/CI success is pre-claimed.
+the closed successor did not exist. Later results are reported only after
+actual observation.
 
 The56preserved images and2explicit routing postimages are pinned in P4 metadata.
 This content identity grants no runtime or application authority. No guest,
@@ -13,3 +13,66 @@ Retain OBSERVED_V2_CAPTURE_UNAVAILABLE,DENY_FD_V2_RUNTIME_PRODUCER_UNEXECUTED,
 LEGACY_PR34_M1_OPEN,FD_OFD_LIFETIME_OBSERVER_UNQUALIFIED,
 WATCHDOG_EXECUTION_MODEL_UNRESOLVED,EXTERNAL_EXECUTOR_UNQUALIFIED,
 APPLICATION_NOT_AUTHORIZED,all other inherited blockers and all nine false flags.
+
+## Observed local implementation and gates
+
+Code checkpoint:74dcb692d008cd721c6405fc4e71f98b067ca187. Later documentation
+metadata does not change the Python implementation or original M2 source.
+
+- New source/history contract:18tests RED before the helper; implemented history/
+  old-v2 regression group530PASS82.87s. Original19-path assertion runs original
+  base source,not changed expectations. Exact22-path final guard subsequently
+  passed; cumulative scope78 does not grant arbitrary edits to old paths.
+- Assets/image:33tests RED→GREEN; real read-only M2/source-manifest/probe/full-VM
+  checks pass. Six distinct minimal images were generated/inspected in memory;
+  no image,init,probe or QEMU was executed.
+- Capture/record:37tests RED; new+old wire/build group180PASS1.51s. Cross-binding,
+  None/zero/false,finite identities,clock domains,immutable copy and9false fixed.
+- Runner:25tests RED before implementation. Two additional real regressions
+  were RED for prelaunch image drift and unexpected collector-exception cleanup;
+  both fixed,then27PASS. Expanded failure/default/CLI/host-worker coverage passed.
+- Runtime-package test group110PASS1.84s. Together with real read-only preflight,
+  Python package430/430statements and56/56branches,100%/100%. This is NOT
+  C/QEMU/kernel coverage, acquisition authenticity or runtime qualification.
+- Full project5183PASS143.55s; full coverage5183PASS221.30s,98.52%. An external
+  verification-only target-launch audit observed0QEMU/generated-probe attempts.
+- Unchanged subgates:safety100%,residual97.85%,replay98.48%,receipt adapter100%,
+  knowledge99.71%,owner99.41%;research/observability100%/100% auditors pass.
+- Whole Ruff check/format passes:696formatted files. Strict mypy78files passes.
+- Existing observability/observation-v2/knowledge/science/friction/H7/design and
+  FD/OFD/kernel-feasibility structural/history audits pass. Cached Carrot raw
+  source checks pass without fetch;knowledge39files/78claims verified. The
+  external research02652object is absent from that local cache; its RAW-source
+  recheck is unavailable,not inferred from structural/audit success. No network.
+- Isolated offline sdist/wheel build passes using cached declared backend tools.
+  All72product wheel files are raw-byte-identical toB;tests/compatibility and
+  this harness are absent from the installed wheel. Fresh outside-checkout
+  vanilla wheel imports70submodules;optional-dependency absence,Carrot/knowledge/
+  owner/science/friction/H7 smokes pass. Research extras installed from local
+  NumPy wheel and science/friction smokes pass;not empirical qualification.
+- Fresh replay11integration tests pass and4pinned golden outputs match,including
+  installed-wheel verification. No thresholds,old assertions,skips or coverage
+  exclusions were relaxed.
+
+## Honest failure and evidence accounting
+
+An initial no-isolation build failed because the shared venv lacks setuptools/
+wheel. A cached isolated build succeeded;shared venv was not modified. A format
+walk overlapped temporary sdist creation/removal and returned I/O errors;after
+the build finished,the full unfiltered format check passed. These failed commands
+are not relabeled passes and no exclusion was added.
+
+One newly added EOF-before-exit worker emits no bytes; its first test mistakenly
+reused the prefix-worker assertion. The test table was corrected to literal
+expected bytes for each worker. The failed run was not counted as GREEN.
+One focused two-case RED probe omitted its explicit basetemp;oldpytest511 was
+confirmed still present,but broader automatic retention effects were not audited.
+All later tests use explicit owned roots. Completed task-owned baseline/full
+temp roots were moved intact to evidence storage;old sessions/archives were not
+manually deleted or repurposed. Evidence copies are not standalone Git backups.
+
+The final metadata exact-head rerun and independent internal source review are
+post-checkpoint gates. Their actual SHAs/outcomes live in the external handoff
+and review report after observation,not a circular claim inside this commit.
+No GitHub CI result for this unpublished branch,Windows execution,human review,
+merge authority or runtime/vehicle readiness is claimed. No automatic next phase.
