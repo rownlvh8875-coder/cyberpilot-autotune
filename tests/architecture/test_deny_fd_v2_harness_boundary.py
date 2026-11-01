@@ -76,7 +76,13 @@ def test_architecture_guard_rejects_operational_capabilities():
         assert violations(raw)
 
 
-def test_current_delta_is_exact_22():
+def test_current_delta_is_exact_22(tmp_path):
+    name = "tests.history_transition.deny_fd_v2_transport_successor"
+    if importlib.util.find_spec(name) is not None:
+        successor = importlib.import_module(name)
+        if successor.validate_transport_successor(ROOT):
+            successor.replay_original_harness_scope(ROOT, tmp_path)
+            return
     name = "tests.history_transition.deny_fd_v2_harness_successor"
     assert importlib.util.find_spec(name) is not None, "closed harness successor required"
     v = importlib.import_module(name)
