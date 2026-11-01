@@ -70,8 +70,19 @@ def test_historical_p2_and_mutant_head_do_not_grant_new_paths(tmp_path):
     marker = root / "docs/deny_fd_provenance_result.md"
     marker.write_bytes(b"historically mutable new path\n")
     git(root, "add", "--", marker.relative_to(root).as_posix())
-    git(root, "-c", "user.name=Test", "-c", "user.email=t@example.invalid", "-c",
-        "commit.gpgsign=false", "commit", "--quiet", "-m", "historical mutant")
+    git(
+        root,
+        "-c",
+        "user.name=Test",
+        "-c",
+        "user.email=t@example.invalid",
+        "-c",
+        "commit.gpgsign=false",
+        "commit",
+        "--quiet",
+        "-m",
+        "historical mutant",
+    )
     assert api().validate_v2_successor(root) == frozenset()
     check(root)
     forbidden = root / "tests/deny_fd_v2/wire.py"
@@ -87,10 +98,23 @@ def test_base_original_source_replays_original_node_in_isolation(tmp_path):
     for name in ("PYTEST_ADDOPTS", "PYTEST_PLUGINS", "PYTEST_CURRENT_TEST"):
         environment.pop(name, None)
     result = subprocess.run(
-        [sys.executable, "-I", "-m", "pytest", "-q", "-p", "no:cacheprovider",
-         "--override-ini=addopts=", "--",
-         "tests/test_history_transition_policy.py::test_registered_transition_accepts_all_exact_postimages"],
-        cwd=root, env=environment, capture_output=True, text=True, timeout=60,
+        [
+            sys.executable,
+            "-I",
+            "-m",
+            "pytest",
+            "-q",
+            "-p",
+            "no:cacheprovider",
+            "--override-ini=addopts=",
+            "--",
+            "tests/test_history_transition_policy.py::test_registered_transition_accepts_all_exact_postimages",
+        ],
+        cwd=root,
+        env=environment,
+        capture_output=True,
+        text=True,
+        timeout=60,
     )
     assert result.returncode == 0 and "1 passed" in result.stdout, result.stdout + result.stderr
     with pytest.raises(ValueError):
@@ -110,6 +134,30 @@ def test_wrong_preregistration_parent_is_rejected(current, monkeypatch):
         api().validate_v2_successor(current)
 
 
+@pytest.mark.parametrize("failure", (OSError("missing git"), subprocess.TimeoutExpired("git", 30)))
+def test_ancestry_transport_failure_never_means_historical(current, monkeypatch, failure):
+    def fail(*args, **kwargs):
+        raise failure
+
+    monkeypatch.setattr(api().subprocess, "run", fail)
+    with pytest.raises(ValueError):
+        api()._ancestor(current, BASE, "HEAD")
+
+
+@pytest.mark.parametrize("layer", ("worktree", "index"))
+def test_downgrade_cannot_hide_new_files(current, layer):
+    git(current, "checkout", "--detach", "--quiet", P2)
+    target = current / "tests/deny_fd_v2/wire.py"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(b"# no scope from downgrade\n")
+    if layer == "index":
+        git(current, "add", "--", "tests/deny_fd_v2/wire.py")
+        target.unlink()
+    assert api().validate_v2_successor(current) == frozenset()
+    with pytest.raises(ValueError):
+        check(current)
+
+
 def test_working_manifests_cannot_supply_policy(current):
     v = api()
     (current / v.MANIFEST).write_text('{"allow_everything":true}')
@@ -121,11 +169,10 @@ def test_working_manifests_cannot_supply_policy(current):
 
 
 def preserved_paths():
-    # The approved proposal is replaced by the immutable manifest after P3 exists.
-    path = ROOT / "docs/evidence/deny_fd_v2_history_successor_v1.json"
-    if not path.exists():
-        return ()
-    return tuple(row["path"] for row in json.loads(path.read_text())["preserved"])
+    v = api()
+    manifest = json.loads(git(ROOT, "show", v.PREREGISTRATION + ":" + v.MANIFEST))
+    assert len(manifest["preserved"]) == 39
+    return tuple(row["path"] for row in manifest["preserved"])
 
 
 @pytest.mark.parametrize("path", preserved_paths())
@@ -138,8 +185,9 @@ def test_each_preserved_image_all_git_layers(current, path, layer, change):
 @pytest.mark.parametrize("layer", ("worktree", "index", "head"))
 @pytest.mark.parametrize("change", ("content", "delete", "rename", "mode"))
 def test_frozen_hook_all_git_layers(current, layer, change):
-    mutate_and_reject(current, "tests/history_transition/deny_fd_successor.py", layer, change,
-                      "POSTIMAGE_CHANGED")
+    mutate_and_reject(
+        current, "tests/history_transition/deny_fd_successor.py", layer, change, "POSTIMAGE_CHANGED"
+    )
 
 
 def mutate_and_reject(root, path, layer, change, reason):
@@ -160,8 +208,19 @@ def mutate_and_reject(root, path, layer, change, reason):
         if change != "mode":
             git(root, "add", "-A")
         if layer == "head":
-            git(root, "-c", "user.name=Test", "-c", "user.email=t@example.invalid", "-c",
-                "commit.gpgsign=false", "commit", "--quiet", "-m", "mutant")
+            git(
+                root,
+                "-c",
+                "user.name=Test",
+                "-c",
+                "user.email=t@example.invalid",
+                "-c",
+                "commit.gpgsign=false",
+                "commit",
+                "--quiet",
+                "-m",
+                "mutant",
+            )
         if renamed.exists():
             renamed.unlink()
         target.write_bytes(raw)
@@ -170,8 +229,10 @@ def mutate_and_reject(root, path, layer, change, reason):
         api().validate_v2_successor(root)
 
 
-@pytest.mark.parametrize("path", ("tests/history_transition/deny_fd_successor.py",
-                                  "tests/deny_fd_provenance/contracts.py"))
+@pytest.mark.parametrize(
+    "path",
+    ("tests/history_transition/deny_fd_successor.py", "tests/deny_fd_provenance/contracts.py"),
+)
 def test_crlf_requires_real_git_clean_equivalence(current, path):
     target = current / path
     target.write_bytes(target.read_bytes().replace(b"\n", b"\r\n"))
@@ -184,9 +245,17 @@ def test_crlf_requires_real_git_clean_equivalence(current, path):
 
 def test_unmerged_new_path_is_rejected(current):
     path = "tests/deny_fd_v2/wire.py"
-    oid = git(current, "hash-object", "-w", "--stdin").decode().strip()
-    subprocess.run(["git", "update-index", "--index-info"], cwd=current,
-                   input=f"100644 {oid} 1\t{path}\n".encode(), check=True)
+    oid = (
+        subprocess.check_output(["git", "hash-object", "-w", "--stdin"], cwd=current, input=b"")
+        .decode()
+        .strip()
+    )
+    subprocess.run(
+        ["git", "update-index", "--index-info"],
+        cwd=current,
+        input=f"100644 {oid} 1\t{path}\n".encode(),
+        check=True,
+    )
     with pytest.raises(ValueError):
         api().validate_v2_successor(current)
 
