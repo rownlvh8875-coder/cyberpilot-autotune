@@ -1,0 +1,42 @@
+{
+  "schema": "deny-fd-provenance-semantic-schema-v1",
+  "receipt_version": "deny-fd-provenance-receipt-v1",
+  "future_wire_proposal": "guest-data-fd-denial-observed-v2",
+  "actual_wire_implemented": false,
+  "producer_implemented": false,
+  "supported_evidence": "SYNTHETIC",
+  "supported_stage": "PRE_EXEC_INVENTORY",
+  "supported_reason": "UNEXPECTED_FD",
+  "semantic_roles": {
+    "configured_subject_fd": "CONTEXT_ONLY_NOT_CAUSE_OR_SYSCALL",
+    "operation_fd": "ACTUAL_SYSCALL_ARGUMENT_OR_UNKNOWN_MUST_BE_UNKNOWN_FOR_INVENTORY",
+    "cause_fds": "PRODUCER_COMPUTED_OBSERVED_MINUS_EXPECTED_NOT_CASE_NUMBER",
+    "cause_refs": "EXACT_INVENTORY_SOURCE_REFS_INCLUDING_SLOT_OBSERVATION_EPOCH",
+    "expected_fds": "EXACT_POLICY_COHORT_NOT_AUTHORITY",
+    "observed_fds": "COMPLETE_SAME_POINT_INVENTORY_OR_EXPLICIT_UNKNOWN"
+  },
+  "wire_types_proposal": {
+    "fd": "Int32_NONNEGATIVE_OR_EXPLICIT_UNKNOWN",
+    "times_sequences_ordinals": "UInt64",
+    "fd_sets": "UNIQUE_SORTED_INT32_VECTOR_OR_EXPLICIT_UNKNOWN",
+    "stage_reason_clock_evidence": "EXPLICIT_ENUM_NO_FALLBACK",
+    "hashes": "LOWERCASE_CONTENT_DIGEST_NOT_AUTHENTICITY",
+    "unavailable": "EXPLICIT_UNKNOWN_NEVER_ZERO_FALSE_OR_EMPTY"
+  },
+  "timing": "FD_REFS_BEFORE_SNAPSHOT_BEFORE_DENIAL_SAME_CAPTURE_SNAPSHOT_STAGE_ROOT_EXEC_CLOCK",
+  "generation_meaning": "LOCAL_OBSERVATION_CONTEXT_NOT_QUALIFIED_KERNEL_LIFETIME",
+  "outer_capture_digest": "OPTIONAL_POST_CLOSE_NOT_IN_CYCLE_EVENT_IDENTITY_OR_SELF_HASH",
+  "decision": "SYNTHETIC_DIAGNOSTIC_CONSISTENT_OR_REASONED_REJECTED_ALWAYS_BLOCKED",
+  "legacy": {
+    "source_revision": "3a831fdd423aa98638082eba126519db19f432d6",
+    "capture_schema": "guest-data-fd-handoff-observed-v1",
+    "producer_blob_sha1": "77f2d54b2c05b29f1b769a4df26e872259607001",
+    "checker_blob_sha1": "364e41e3e94d0ba37dbb90aac43dd1149ea29ced",
+    "capture_gzip_sha256": "bb052f515908f320ccd46799181b47b9ffbf653b36e100a97e7ee290a40d3469",
+    "build_manifest_sha256": "4a21e0c1acd5e4fa894d7d58c5f38aec489304c1f60ee9675df0d11a7d160447",
+    "conversion_allowed": false,
+    "M1_status": "OPEN"
+  },
+  "runtime_qualified": false,
+  "application_authorized": false
+}
