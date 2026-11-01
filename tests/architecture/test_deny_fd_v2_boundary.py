@@ -104,7 +104,16 @@ def test_guard_detects_operational_or_promotion_capabilities(source):
     assert violations(source)
 
 
-def test_final_head_contains_exact_approved_delta_and_preserves_old_images():
+def test_final_head_contains_exact_approved_delta_and_preserves_old_images(tmp_path):
+    from tests.history_transition.deny_fd_v2_harness_successor import (
+        replay_original_scope,
+        validate_harness_successor,
+    )
+
+    if validate_harness_successor(ROOT):
+        replay_original_scope(ROOT, tmp_path)
+        return
+
     from tests.history_transition.deny_fd_v2_successor import (
         BASE,
         MODIFIED,

@@ -7,6 +7,8 @@ import stat
 import subprocess
 from pathlib import Path
 
+from .deny_fd_v2_harness_successor import validate_harness_successor
+
 BASE = "75fd4358a2d42bec55dc85ba85afbb23e8feb6f9"
 PREREGISTRATION = "18750676a84a4237576f6c50be3b01fa21053252"
 P = "127f485437437b3472659784b7b05857d8fbd896"
@@ -254,7 +256,8 @@ def validate_v2_successor(root: Path) -> frozenset[str]:
             _need(raw.replace(b"\r\n", b"\n") == frozen, reason)
             clean = _git(root, "hash-object", "--path", p, "--stdin", raw=raw).decode().strip()
             _need(clean == expected[1], reason)
-    allowed = {MODIFIED} | set(NEW_PATHS)
+    harness_paths = validate_harness_successor(root)
+    allowed = {MODIFIED} | set(NEW_PATHS) | set(harness_paths)
     for args in (
         ("diff", "--no-renames", "--name-only", "-z", BASE, "HEAD", "--"),
         ("diff", "--no-renames", "--name-only", "-z", "--cached", BASE, "--"),
@@ -263,4 +266,4 @@ def validate_v2_successor(root: Path) -> frozenset[str]:
     ):
         observed = {p.decode() for p in _git(root, *args).split(b"\0") if p}
         _need(observed <= allowed, "change outside19delta scope")
-    return NEW_PATHS
+    return NEW_PATHS | harness_paths
