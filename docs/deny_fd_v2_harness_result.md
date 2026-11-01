@@ -98,3 +98,18 @@ and the caller rejects an EXITED result with a collection error. The new-package
 group then passed129tests1.97s. The real harmless host-worker regression proves
 the exception ordering/leader reap only,not guest or kernel behavior. Final
 exact-head full gates and fresh review remain externally observed handoff facts.
+
+The next independent review atef9dfdc confirmed I1/I2 resolved but found I3/I4:
+first cleanup/handoff interruption could lose prefix or leave an owned worker;
+Linux // path aliases could bypass lexical checkout exclusion. Combined
+regressions were12FAIL/3PASS before correction. A strengthened interrupted-close
+retry check added2behavioralFAIL after correcting a test-edit SyntaxError;the
+syntax collection failure is not a behavioral RED. Clocks/persistence now retain
+available context,with no invented clock/record;close and cleanup use bounded
+ownership-preserving retries and expose unavailable cleanup. Destination checks
+use resolved locations while retaining no-symlink parents/exclusive creation.
+The new-package group then passed145tests3.87s,zero targetattempts. Together with
+real read-only preflight,Python harness464/464statements and60/60branches100/100.
+This is not universal interrupt/crash recovery,hostile-host containment,FD/OFD
+qualification or actual v2 acquisition. Final exact-head gates/review remain
+external post-commit facts;all inherited blockers and ninefalsepermissions stay.

@@ -181,10 +181,27 @@ def _supervise(
         if stream is not None:
             try:
                 stream.close()
-            except OSError as error:
+            except (Exception, KeyboardInterrupt, SystemExit) as error:
                 normal = False
-                error_text = _message(error)
-        code, cleanup_error = _cleanup(process, grace, normal)
+                error_text = "; ".join(v for v in (error_text, _message(error)) if v)[:4000]
+                if isinstance(error, (KeyboardInterrupt, SystemExit)):
+                    try:
+                        stream.close()
+                    except (Exception, KeyboardInterrupt, SystemExit) as close_error:
+                        error_text = "; ".join(v for v in (error_text, _message(close_error)) if v)[
+                            :4000
+                        ]
+        try:
+            code, cleanup_error = _cleanup(process, grace, normal)
+        except (Exception, KeyboardInterrupt, SystemExit) as error:
+            normal = False
+            error_text = "; ".join(v for v in (error_text, _message(error)) if v)[:4000]
+            try:
+                # Escalate immediately, without a second TERM grace. Ownership
+                # is rechecked; already-reaped leaders never select a new group.
+                code, cleanup_error = _cleanup(process, grace, True)
+            except (Exception, KeyboardInterrupt, SystemExit) as retry_error:
+                code, cleanup_error = process.returncode, _message(retry_error)
     if cleanup_error is not None:
         return ProcessResult(
             bytes(raw),
@@ -206,8 +223,10 @@ def _new_destination(destination: Path) -> None:
         "new absolute destination required",
     )
     primary = ROOT.parent.parent if ROOT.parent.name == ".worktrees" else ROOT
+    resolved = destination.resolve(strict=False)
     need(
-        not destination.is_relative_to(primary) and not destination.is_relative_to(ROOT),
+        not resolved.is_relative_to(primary.resolve(strict=False))
+        and not resolved.is_relative_to(ROOT.resolve(strict=False)),
         "output must be outside checkout",
     )
     for parent in destination.parents:
@@ -319,8 +338,10 @@ def capture_cases(
         raw_result = ProcessResult(b"", None, "IO_ERROR", False, None)
         image = b""
         argv: tuple[str, ...] = ()
-        start = time.monotonic_ns()
+        start = None
+        failure = None
         try:
+            start = time.monotonic_ns()
             directory.mkdir(mode=0o700)
             image = build_image(assets, case)
             image_path = directory / "initrd.cpio.gz"
@@ -350,13 +371,19 @@ def capture_cases(
                 failure = None
             else:
                 failure = raw_result.error or raw_result.termination
-        except (OSError, ValueError, subprocess.SubprocessError, KeyboardInterrupt) as error:
+        except (
+            OSError,
+            ValueError,
+            subprocess.SubprocessError,
+            KeyboardInterrupt,
+            SystemExit,
+        ) as error:
             failure = _message(error)
-        end = time.monotonic_ns()
         record = None
         try:
+            end = time.monotonic_ns()
             # A pre-image/setup failure has no invented image or argv receipt.
-            if not image or not argv:
+            if start is None or not image or not argv:
                 raise CaptureFailure(
                     failure or "preparation incomplete",
                     raw_result.raw,
@@ -367,14 +394,14 @@ def capture_cases(
                 case, secrets.token_hex(16), assets, image, argv, raw_result, start, end
             )
             _persist(directory, record, failure)
-        except (OSError, ValueError) as error:
+        except (OSError, ValueError, KeyboardInterrupt, SystemExit) as error:
             raise CaptureFailure(
                 _message(error),
                 raw_result.raw,
                 raw_result.raw_complete,
                 completed,
                 current_record=record,
-                acquisition_error=failure,
+                acquisition_error=failure if record is not None else failure or _message(error),
                 persistence_error=_message(error) if record is not None else None,
             ) from error
         if failure is not None:

@@ -71,6 +71,18 @@ content digest; no universal crash-durability claim is made.
 Every caught collector exception invalidates normal completion, including a
 selector teardown error after EOF/exit. The batch caller also rejects an EXITED
 result with a non-None collection error; valid wire cannot erase that failure.
+The supported first-interruption paths retain the same raw buffer through pipe
+close, owned cleanup, clocks and persistence. An interrupted pipe close gets one
+bounded retry; interrupted cleanup gets one ownership-checked immediate KILL/
+reap attempt, not another TERM grace. Failure to confirm that attempt remains
+CLEANUP_ERROR. An unavailable start/end clock leaves current_record=None while
+retaining actual bytes and earlier cases; no timestamp is fabricated. These
+paths do not promise recovery from arbitrary repeated asynchronous interruption.
+
+Destination containment compares resolved destination/protected-root locations
+before creation, including Linux's double-leading-slash alias. Existing parent
+no-symlink and exclusive-new-directory/write checks remain. This is an ordinary
+placement guard, not hostile-host or atomic filesystem binding qualification.
 
 Collection is bounded to1MiB and180seconds with a2second termination grace.
 The Linux leader remains unreaped using WNOWAIT until the last group signal,

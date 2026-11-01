@@ -378,6 +378,200 @@ def test_selector_teardown_failure_invalidates_normal_exit_and_reaps_worker(monk
             worker.wait(timeout=2)
 
 
+@pytest.mark.skipif(sys.platform != "linux", reason="new Linux first-interrupt process handling")
+@pytest.mark.parametrize(
+    "phase", ("collection", "pipe_close", "pipe_retry_error", "cleanup", "grace", "retry_failure")
+)
+def test_first_interrupt_preserves_batch_prefix_and_owned_cleanup(tmp_path, monkeypatch, phase):
+    original_supervise = api()._supervise
+    launcher = subprocess.Popen
+    r, bundle, tokens = fake_vm(monkeypatch, ("DFD01", "DFD02"))
+    workers = []
+    streams = []
+    fired = False
+
+    def interrupt():
+        nonlocal fired
+        fired = True
+        signal.raise_signal(signal.SIGINT)
+
+    def collect(token, **kwargs):
+        if tokens.index(token) == 0:
+            return r.ProcessResult(serial(bundle), 0, "EXITED", True, None)
+        worker = launcher(
+            [
+                sys.executable,
+                "-I",
+                "-c",
+                "import signal,time;signal.signal(signal.SIGTERM,signal.SIG_IGN);"
+                "print('current-prefix',flush=True);time.sleep(20)",
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            start_new_session=True,
+        )
+        workers.append(worker)
+        stream = worker.stdout
+        streams.append(stream)
+        original_cleanup = r._cleanup
+        original_sleep = r.time.sleep
+        original_read = r.os.read
+        selector_type = r.selectors.DefaultSelector
+        observed = bytearray()
+
+        def read(fd, size):
+            raw = original_read(fd, size)
+            if fd == stream.fileno():
+                observed.extend(raw)
+            return raw
+
+        class Selector:
+            def __init__(self):
+                self.actual = selector_type()
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                self.actual.close()
+
+            def register(self, *args):
+                return self.actual.register(*args)
+
+            def unregister(self, *args):
+                return self.actual.unregister(*args)
+
+            def select(self, timeout):
+                if phase == "collection" and observed and not fired:
+                    interrupt()
+                return self.actual.select(timeout)
+
+        class Stream:
+            def fileno(self):
+                return stream.fileno()
+
+            def close(self):
+                if phase in ("pipe_close", "pipe_retry_error"):
+                    if not fired:
+                        interrupt()
+                    if phase == "pipe_retry_error":
+                        raise OSError("pipe close unavailable after interruption")
+                stream.close()
+
+        def cleanup(*args):
+            if phase in ("cleanup", "retry_failure"):
+                if not fired:
+                    interrupt()
+                if phase == "retry_failure":
+                    raise OSError("owned cleanup unavailable after interruption")
+            return original_cleanup(*args)
+
+        def sleep(delay):
+            if phase == "grace" and not fired:
+                interrupt()
+            return original_sleep(delay)
+
+        worker.stdout = Stream()
+        monkeypatch.setattr(r.os, "read", read)
+        monkeypatch.setattr(r.selectors, "DefaultSelector", Selector)
+        monkeypatch.setattr(r, "_cleanup", cleanup)
+        monkeypatch.setattr(r.time, "sleep", sleep)
+        return original_supervise(worker, timeout=0.3, grace=0.1)
+
+    monkeypatch.setattr(r, "_supervise", collect)
+    output = tmp_path / "evidence"
+    try:
+        with pytest.raises(r.CaptureFailure) as caught:
+            r.capture_cases(("DFD01", "DFD02"), output, run_prepared_guest=True)
+        failure = caught.value
+        assert fired and failure.raw == b"current-prefix\n" and failure.raw_complete is False
+        assert [record.case for record in failure.completed] == ["DFD01"]
+        assert failure.current_record.raw == failure.raw
+        assert "KeyboardInterrupt" in failure.acquisition_error
+        assert (output / "DFD02/serial.bin").read_bytes() == failure.raw
+        assert all(value is False for _, value in failure.current_record.permissions)
+        if phase == "pipe_retry_error":
+            assert "pipe close unavailable" in failure.acquisition_error
+        else:
+            assert streams[0].closed
+        if phase == "retry_failure":
+            assert failure.current_record.termination == "CLEANUP_ERROR"
+            assert "owned cleanup unavailable" in failure.acquisition_error
+        else:
+            assert workers[0].returncode is not None
+            assert failure.current_record.termination in ("TIMEOUT", "IO_ERROR")
+    finally:
+        for worker in workers:
+            if worker.poll() is None:
+                os.killpg(worker.pid, signal.SIGKILL)
+                worker.wait(timeout=2)
+        for stream in streams:
+            stream.close()
+
+
+@pytest.mark.parametrize("boundary", ("start", "end", "persist"))
+@pytest.mark.parametrize("interruption", (KeyboardInterrupt, SystemExit))
+def test_later_handoff_interruption_retains_explicit_available_context(
+    tmp_path, monkeypatch, boundary, interruption
+):
+    r, bundle, tokens = fake_vm(monkeypatch, ("DFD01", "DFD02"))
+    original_clock = r.time.monotonic_ns
+    original_persist = r._persist
+    calls = 0
+
+    def clock():
+        nonlocal calls
+        calls += 1
+        if calls == (3 if boundary == "start" else 4) and boundary != "persist":
+            raise interruption("single handoff interruption")
+        return original_clock()
+
+    def persist(directory, record, error):
+        if record.case == "DFD02":
+            raise interruption("single handoff interruption")
+        return original_persist(directory, record, error)
+
+    monkeypatch.setattr(r.time, "monotonic_ns", clock)
+    if boundary == "persist":
+        monkeypatch.setattr(r, "_persist", persist)
+    output = tmp_path / "evidence"
+    with pytest.raises((r.CaptureFailure, KeyboardInterrupt, SystemExit)) as caught:
+        r.capture_cases(("DFD01", "DFD02"), output, run_prepared_guest=True)
+    assert isinstance(caught.value, r.CaptureFailure), "bare interruption loses evidence payload"
+    failure = caught.value
+    assert [record.case for record in failure.completed] == ["DFD01"]
+    assert failure.raw == (b"" if boundary == "start" else serial(bundle, "DFD02"))
+    assert failure.raw_complete is (boundary != "start")
+    assert (output / "DFD01/serial.bin").read_bytes() == serial(bundle)
+    if boundary == "persist":
+        assert failure.current_record.case == "DFD02"
+        assert failure.persistence_error == "single handoff interruption"
+        assert failure.acquisition_error is None
+    else:
+        assert failure.current_record is None
+        assert failure.persistence_error is None
+        assert failure.acquisition_error == "single handoff interruption"
+    assert len(tokens) == (1 if boundary == "start" else 2)
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="new Linux double-slash alias regression")
+@pytest.mark.parametrize("alias", (False, True))
+@pytest.mark.parametrize("inside", ("primary", "worktree"))
+def test_canonical_and_double_slash_checkout_destinations_are_rejected(
+    tmp_path, monkeypatch, alias, inside
+):
+    r, _, tokens = fake_vm(monkeypatch)
+    primary = tmp_path / "synthetic-checkout"
+    worktree = primary / ".worktrees/current"
+    worktree.mkdir(parents=True)
+    monkeypatch.setattr(r, "ROOT", worktree)
+    actual = (primary if inside == "primary" else worktree) / "must-not-create"
+    destination = Path("/" + str(actual)) if alias else actual
+    with pytest.raises(ValueError, match="outside checkout"):
+        r.capture_cases(("DFD01",), destination, run_prepared_guest=True)
+    assert not actual.exists() and tokens == []
+
+
 def test_existing_or_checkout_output_is_not_overwritten(tmp_path, monkeypatch):
     r, _, processes = fake_vm(monkeypatch)
     marker = tmp_path / "keep"
