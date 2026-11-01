@@ -55,9 +55,16 @@ unqualified. C syntax first exposed a missing grp.h declaration; the exact
 - Replay11integration tests passed and4pinned goldens match.
 - Final19path completeness test was RED while source/result metadata were absent
   from HEAD; committing those paths is its expected GREEN transition.
-- Final whole-project coverage,packaging/fresh-wheel smoke,exact-head internal
-  review and final suite are handoff gates;report their actual results after
-  execution rather than claim they already happened in this checkpoint.
+- Whole-project coverage:5046passed204.69s,98.52%. New Python package/boundary:
+  153passed2.01s,277statements/98branches100%/100%. No exclusions or criteria changes.
+- Unchanged coverage gates:safety100%,residual97.85%,replay98.48%,receipt adapter100%,
+  knowledge99.71%,owner99.41%;research/observability coverage validators pass.
+- Isolated sdist/wheel build passes;all72product-package wheel files byte-identical
+  to base,and tests/compatibility excluded. Fresh outside-checkout wheel imports
+  70submodules;vanilla/research/replay/knowledge/owner/Carrot/receipt/science/friction
+  smoke tests pass,including optional dependency absence before extras installation.
+- Exact-head fresh internal review and final suite outcomes belong to the handoff
+  after observation,not a premature assertion here or independent human approval.
 
 One early malformed-framing test accidentally created valid single CRLF; its
 fixture was corrected to forbidden doubleCR,without relaxing the parser contract.
