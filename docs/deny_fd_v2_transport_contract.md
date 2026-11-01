@@ -23,7 +23,38 @@ No import-time file access/spawn. No new installed-product/estimator/application
 adapter. Ninepermissionsfalse and every inherited blocker remain. Hashes identify
 content only,not authenticity,qualification,approved values or authority.
 
-Implementation checkpoint:assets/types/image present;dualFIFO collection and
-new acquisition serialization/admission are NOT yet implemented at this checkpoint.
-Default CLI/no-spawn must be preserved when those interfaces are added. No actual
-QEMU/probe/guest execution is authorized by this source implementation document.
+## Source collector and evidence envelope
+
+The dualFIFO collector and new dual-acquisition-v1 serialization are implemented
+as test-only source. Fixed QEMU argv adds a second ISA serial index1/pipe chardev;
+the first serial/stdout+stderr stays console. Endpoint paths reject comma/control
+characters;newFIFO paths are exclusively created0600 with no symlink fallback,
+open-handle/path identity and non-inheritable host descriptors. FIFO anchors do
+not imply EOF or successful connection. An exited owned leader plus a bounded
+drain determines byte completeness;early EOF before exit never finishes capture.
+
+Each ready stream gets at most65536bytes per iteration. Aggregate retained data
+is at most1048576bytes,180sdeadline and2sTERM grace;overflow/timeout/read/selector/
+close/cleanup/persistence errors invalidate acquisition and retain actual prefixes.
+Supported first close interruption gets one idempotent close retry. Interrupted
+cleanup gets one immediately escalated ownership-checked attempt,no second TERM
+grace. Reaped or unowned leaders never select an alternate PID. Universal escaped
+session/descendant closure or arbitrary repeated-interruption recovery is unqualified.
+
+The record binds distinct telemetry/console digests,size,complete/error fields,
+actualprocess exit/termination/collector error,source/probe/build-cohort/VM/kernel/
+kernelconfig/transportprofile/init/image identities,exactargv and UInt64hostclock.
+Unknown clock leaves an absent record rather than a fabricated timestamp. Current
+frozen record and earlier completed records remain available on supported storage
+errors;exclusive writes may leave partial files. No crash-durability guarantee.
+Failure_reason remains diagnostic envelope text outside the record contentdigest.
+
+Only telemetry enters the unchanged strict v2 decoder and oldsource/case/policy/
+inventory binding check. Console noise is not filtered into/out of telemetry;
+noise IN telemetry still rejects. Valid telemetry never erases another stream's
+or collector's error. No input is relabelled an original accepted capture.
+
+Default CLI/import performs no preparation/spawn. CLI always exits2/BLOCKED,
+including a future internally consistent RECORDED_UNTRUSTED result. Nineflags
+stayfalse;diagnostic opt-in is not an authority grant. No actual QEMU/probe/guest
+execution or runtime qualification is authorized by this source document.

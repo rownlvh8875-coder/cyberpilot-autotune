@@ -2,6 +2,7 @@
 
 import importlib
 import importlib.util
+import json
 import subprocess
 from pathlib import Path
 
@@ -141,4 +142,68 @@ def test_git_ancestry_failure_is_not_historical_permission(tmp_path, monkeypatch
 
         monkeypatch.setattr(prior, "_ancestor", fail)
         with pytest.raises(ValueError, match="unavailable"):
+            v.validate_transport_successor(root)
+
+
+def test_unmerged_index_cannot_supply_transport_permission(tmp_path):
+    from tests.test_deny_fd_v2_harness_history import checkout, git
+
+    v = api()
+    with checkout(tmp_path, v.PREREGISTRATION) as root:
+        path = "tests/deny_fd_v2/wire.py"
+        oid = git(root, "rev-parse", "HEAD:" + path).decode().strip()
+        git(root, "update-index", "--force-remove", "--", path)
+        payload = f"100644 {oid} 2\t{path}\n100644 {oid} 3\t{path}\n".encode()
+        subprocess.run(
+            ["git", "update-index", "--index-info"],
+            cwd=root,
+            input=payload,
+            check=True,
+            capture_output=True,
+        )
+        with pytest.raises(ValueError, match="unmerged"):
+            v.validate_transport_successor(root)
+
+
+@pytest.mark.parametrize(
+    "mutation", ("shape", "schema", "permission", "paths", "preserved", "routing")
+)
+def test_malformed_pinned_registration_never_grants_permission(tmp_path, monkeypatch, mutation):
+    from tests.test_deny_fd_v2_harness_history import checkout, git
+
+    v = api()
+    pinned = v.PREREGISTRATION
+    with checkout(tmp_path, v.BASE) as root:
+        data = json.loads(git(root, "show", pinned + ":" + v.MANIFEST))
+        for path in v.MODIFIED:
+            (root / path).write_bytes(git(root, "show", pinned + ":" + path))
+        if mutation == "shape":
+            data["unexpected"] = True
+        elif mutation == "schema":
+            data["schema"] = "other"
+        elif mutation == "permission":
+            data["permissions"]["application_authorized"] = 0
+        elif mutation == "paths":
+            data["new_paths"][-1] = data["new_paths"][0]
+        elif mutation == "preserved":
+            data["preserved"][0]["image"]["sha256"] = "0" * 64
+        else:
+            data["modified"][0]["postimage"]["sha256"] = "0" * 64
+        (root / v.MANIFEST).write_text(json.dumps(data))
+        git(root, "add", "--", v.MANIFEST, *sorted(v.MODIFIED))
+        git(
+            root,
+            "-c",
+            "user.name=Test",
+            "-c",
+            "user.email=test@example.invalid",
+            "-c",
+            "commit.gpgsign=false",
+            "commit",
+            "--quiet",
+            "-m",
+            "owned malformed preregistration",
+        )
+        monkeypatch.setattr(v, "PREREGISTRATION", git(root, "rev-parse", "HEAD").decode().strip())
+        with pytest.raises(ValueError):
             v.validate_transport_successor(root)

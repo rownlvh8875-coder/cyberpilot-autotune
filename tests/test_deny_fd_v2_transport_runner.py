@@ -4,6 +4,7 @@ import importlib
 import importlib.util
 import json
 import os
+import runpy
 import subprocess
 import sys
 from pathlib import Path
@@ -199,7 +200,11 @@ def fake_vm(monkeypatch, cases=("DFD01",), close_error=False):
                 self.close_calls += 1
                 if close_error == "interrupt" and self.close_calls == 1:
                     raise KeyboardInterrupt("console close interrupted")
+                if close_error == "repeated_interrupt" and self.close_calls == 1:
+                    raise KeyboardInterrupt("console close interrupted")
                 handle.close()
+                if close_error == "repeated_interrupt":
+                    raise OSError("retry close failed")
                 if close_error is True:
                     raise OSError("late console close failed")
 
@@ -323,7 +328,8 @@ def test_first_interrupted_console_close_gets_one_idempotent_retry(tmp_path, mon
 
 
 @pytest.mark.skipif(sys.platform != "linux", reason="Linux spawned-worker interruption cleanup")
-def test_spawn_handoff_cleanup_interrupt_escalates_owned_worker_once(tmp_path, monkeypatch):
+@pytest.mark.parametrize("mode", ("normal", "retry_error"))
+def test_spawn_handoff_cleanup_interrupt_escalates_owned_worker_once(tmp_path, monkeypatch, mode):
     real_popen = subprocess.Popen
     r, _ = fake_vm(monkeypatch)
     workers = []
@@ -350,16 +356,253 @@ def test_spawn_handoff_cleanup_interrupt_escalates_owned_worker_once(tmp_path, m
         calls.append(normal)
         if len(calls) == 1:
             raise KeyboardInterrupt("cleanup interrupted")
-        return cleanup(process, grace, normal)
+        outcome = cleanup(process, grace, normal)
+        if mode == "retry_error":
+            raise OSError("cleanup retry failed")
+        return outcome
 
     monkeypatch.setattr(r.lifecycle, "_cleanup", interrupt_cleanup)
     try:
-        with pytest.raises(r.TransportCaptureFailure):
+        with pytest.raises(r.TransportCaptureFailure) as caught:
             r.capture_cases(("DFD01",), tmp_path / "capture", run_prepared_guest=True)
         assert workers[0].returncode is not None
         assert calls == [False, True]
+        if mode == "retry_error":
+            assert "cleanup retry failed" in caught.value.result.error
     finally:
         for process in workers:
             if process.returncode is None:
                 os.killpg(process.pid, 9)
                 process.wait()
+
+
+@pytest.mark.parametrize("mode", ("success", "failure", "unavailable"))
+def test_cli_reports_untrusted_or_explicit_failure_only(tmp_path, monkeypatch, capsys, mode):
+    from tests.test_deny_fd_v2_transport_capture import record
+
+    r = api()
+    cli = importlib.import_module("tests.deny_fd_v2_transport.host_main")
+    current = record(monkeypatch)
+
+    def collect(cases, destination, *, run_prepared_guest):
+        assert cases == ("DFD01", "DFD02", "DFD03", "DFD04", "DFD05", "DFD06")
+        assert destination == tmp_path / "never-created" and run_prepared_guest is True
+        if mode == "failure":
+            raise r.TransportCaptureFailure(
+                "failed",
+                current.result,
+                (current,),
+                current_record=current,
+                acquisition_error="bad source",
+                persistence_error="disk",
+            )
+        if mode == "unavailable":
+            raise ValueError("missing assets")
+        return (current,)
+
+    monkeypatch.setattr(r, "capture_cases", collect)
+    assert (
+        cli.main(
+            [
+                "--run-prepared-guest",
+                "--all-cases",
+                "--destination",
+                str(tmp_path / "never-created"),
+            ]
+        )
+        == 2
+    )
+    output = json.loads(capsys.readouterr().out)
+    assert output["status"] == "BLOCKED"
+    assert all(value is False for value in output["permissions"].values())
+    assert (
+        output["capture"]
+        == {"success": "RECORDED_UNTRUSTED", "failure": "FAILED", "unavailable": "UNAVAILABLE"}[
+            mode
+        ]
+    )
+    if mode == "failure":
+        assert output["completed"] == 1
+        assert output["acquisition_error"] == "bad source" and output["persistence_error"] == "disk"
+        assert output["current_record"]["schema"] == "deny-fd-v2-dual-acquisition-v1"
+    assert not (tmp_path / "never-created").exists()
+
+
+def test_real_cli_entry_defaults_blocked():
+    result = subprocess.run(
+        [sys.executable, "-m", "tests.deny_fd_v2_transport.host_main"],
+        capture_output=True,
+        text=True,
+        timeout=5,
+    )
+    assert result.returncode == 2
+    assert json.loads(result.stdout)["capture"] == "NOT_STARTED"
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="Linux FIFO ownership/error provenance")
+@pytest.mark.parametrize("during_setup", (False, True))
+def test_fifo_close_error_keeps_original_context_and_closes_owned_fds(
+    tmp_path, monkeypatch, during_setup
+):
+    r = api()
+    actual_close = os.close
+    actual_open = r.PreparedFifos._open
+    owned = []
+
+    def opened(self, path, flags):
+        if during_setup and owned:
+            raise ValueError("setup failed")
+        fd = actual_open(self, path, flags)
+        owned.append(fd)
+        return fd
+
+    monkeypatch.setattr(r.PreparedFifos, "_open", opened)
+    raised = False
+
+    def close(fd):
+        nonlocal raised
+        actual_close(fd)
+        if fd in owned and not raised:
+            raised = True
+            raise OSError("close failed")
+
+    monkeypatch.setattr(r.os, "close", close)
+    with pytest.raises(ValueError, match="close failed") as caught:
+        with r.PreparedFifos(tmp_path):
+            raise ValueError("body failed")
+    assert ("setup failed" if during_setup else "body failed") in str(caught.value)
+    for fd in owned:
+        with pytest.raises(OSError):
+            os.fstat(fd)
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="Linux owned cleanup failure host worker")
+@pytest.mark.parametrize("mode", ("returned_error", "first_interrupt", "retry_error"))
+def test_supervisor_cleanup_uncertainty_never_reports_complete(monkeypatch, mode):
+    r = api()
+    read_fd, write_fd = os.pipe()
+    process = subprocess.Popen(
+        [
+            sys.executable,
+            "-c",
+            "import os,sys;os.write(int(sys.argv[1]),b't');os.write(1,b'c')",
+            str(write_fd),
+        ],
+        pass_fds=(write_fd,),
+        stdout=subprocess.PIPE,
+        start_new_session=True,
+    )
+    os.close(write_fd)
+    cleanup = r.lifecycle._cleanup
+    calls = 0
+
+    def fail(process, grace, normal):
+        nonlocal calls
+        calls += 1
+        if mode != "returned_error" and calls == 1:
+            raise KeyboardInterrupt("cleanup interrupted")
+        code, error = cleanup(process, grace, normal)
+        if mode == "returned_error":
+            return code, "cleanup uncertain"
+        if mode == "retry_error":
+            raise OSError("retry uncertain")
+        return code, error
+
+    monkeypatch.setattr(r.lifecycle, "_cleanup", fail)
+    try:
+        result = r.supervise(process, read_fd, process.stdout.fileno(), timeout=1, grace=0.2)
+        assert result.telemetry.raw == b"t" and result.console.raw == b"c"
+        assert not result.telemetry.complete and not result.console.complete
+        assert result.error is not None
+        assert process.returncode is not None
+    finally:
+        os.close(read_fd)
+        process.stdout.close()
+        if process.returncode is None:
+            os.killpg(process.pid, 9)
+            process.wait()
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="synthetic VM preparation failure")
+def test_preparation_failure_has_no_fabricated_record(tmp_path, monkeypatch):
+    r, _ = fake_vm(monkeypatch)
+
+    def fail(*args):
+        raise OSError("image unavailable")
+
+    monkeypatch.setattr(r, "build_image", fail)
+    with pytest.raises(r.TransportCaptureFailure) as caught:
+        r.capture_cases(("DFD01",), tmp_path / "capture", run_prepared_guest=True)
+    assert caught.value.current_record is None
+    assert caught.value.result.exit_code is None
+    assert caught.value.result.telemetry.raw == caught.value.result.console.raw == b""
+
+
+def test_inprocess_cli_entry_has_no_implicit_guest_flag(monkeypatch, capsys):
+    monkeypatch.delitem(sys.modules, "tests.deny_fd_v2_transport.host_main", raising=False)
+    monkeypatch.setattr(sys, "argv", ["host_main"])
+    with pytest.raises(SystemExit) as caught:
+        runpy.run_module("tests.deny_fd_v2_transport.host_main", run_name="__main__")
+    assert caught.value.code == 2
+    assert json.loads(capsys.readouterr().out)["capture"] == "NOT_STARTED"
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="synthetic VM close retry failure")
+def test_second_console_close_error_is_retained_without_more_retries(tmp_path, monkeypatch):
+    r, processes = fake_vm(monkeypatch, close_error="repeated_interrupt")
+    with pytest.raises(r.TransportCaptureFailure) as caught:
+        r.capture_cases(("DFD01",), tmp_path / "capture", run_prepared_guest=True)
+    assert processes[0].stdout.close_calls == 2
+    assert "retry close failed" in caught.value.result.error
+    assert not caught.value.result.console.complete
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="synthetic VM missing pipe refusal")
+def test_missing_spawned_stdout_is_not_a_successful_empty_capture(tmp_path, monkeypatch):
+    r, _ = fake_vm(monkeypatch)
+    monkeypatch.setattr(
+        r.subprocess, "Popen", lambda *args, **kwargs: SimpleNamespace(stdout=None, returncode=0)
+    )
+    with pytest.raises(r.TransportCaptureFailure) as caught:
+        r.capture_cases(("DFD01",), tmp_path / "capture", run_prepared_guest=True)
+    assert not caught.value.result.console.complete
+    assert "owned streams unavailable" in caught.value.acquisition_error
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="Linux spurious readiness host worker")
+def test_spurious_ready_read_eagain_does_not_drop_telemetry(monkeypatch):
+    r = api()
+    read_fd, write_fd = os.pipe()
+    process = subprocess.Popen(
+        [
+            sys.executable,
+            "-c",
+            "import os,sys,time;os.write(int(sys.argv[1]),b't');time.sleep(.2);os.write(1,b'c')",
+            str(write_fd),
+        ],
+        pass_fds=(write_fd,),
+        stdout=subprocess.PIPE,
+        start_new_session=True,
+    )
+    os.close(write_fd)
+    actual_read = os.read
+    spurious = False
+
+    def read(fd, count):
+        nonlocal spurious
+        if fd == read_fd and not spurious:
+            spurious = True
+            raise BlockingIOError()
+        return actual_read(fd, count)
+
+    monkeypatch.setattr(r.os, "read", read)
+    try:
+        result = r.supervise(process, read_fd, process.stdout.fileno(), timeout=1, grace=0.2)
+        assert result.telemetry.raw == b"t" and result.console.raw == b"c"
+        assert result.termination == "EXITED" and spurious
+    finally:
+        os.close(read_fd)
+        process.stdout.close()
+        if process.returncode is None:
+            os.killpg(process.pid, 9)
+            process.wait()

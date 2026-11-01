@@ -17,3 +17,15 @@ Prior failedDFD01capture remainsFAILED/BLOCKED;derivedstreamneverpromoted.
 Newsource defaultimport/CLI performsno preparation/spawn;allninepermissionsfalse.
 Successful futurecontentvalidation remainsuntrusted/BLOCKED,not application input.
 No push/PR/merge;fullfinalgatesandfreshwholebranchsource reviewremainrequired.
+
+## Observed pre-final source checkpoint
+
+Atcdf05d9thewholeproject5377PASS181.36s,targetattempts0. Additionalerror/FIFO/
+CLItests brought currentpackagecoverage to441/441statements56/56branches100/100
+after95testsplusactualREAD-ONLYasset/imagepreflight. Earliercoverage91.15% and
+53/56branches were belowtarget;tests were added without changinganygate/exclusion.
+One addedretrytesthadamissingexceptionbindingNameError,correctedbeforepassing;
+thatmistakeisnotcountedasbehavioralRED. NewP5malformedregistration/unmerged/
+image/scope/historychecks29PASS4.37s. Noneofthesearekernel/ttyS1executionproof.
+Finalexactheadfullcoverage/build/wheel/audits/reviewareexternallyobservedfacts
+recordedafterthismetadata/sourcecommit,notclaimedinadvance.
