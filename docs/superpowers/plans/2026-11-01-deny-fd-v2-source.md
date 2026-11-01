@@ -66,5 +66,9 @@
 - [x] Add final current-HEAD completeness check for all19 paths and wheel/source separation;do not use this final check for partial P3 test fixtures.
 - [x] Run full pytest,coverage and unchanged subsystem gates,audits/history,ruff/format/mypy,sdist/wheel,fresh wheel import72byte-identical package files/replay/knowledge/owner/science/friction/receipt smoke. Expected:GREEN;no runtime qualification claims.
 - [x] Verify source M manifest and genuine compile record,39old files/P2postimages/legacyv1,onehookP3 exact;commit pre-review result. Expected:clean final head.
-- [ ] One fresh whole-branch reviewer checks base..exacthead and all ledger rulings. Material findings get one RED→GREEN fix pass/full rerun;no repeated reviewer. Final exact-head full suite and clean status.
-- [ ] Retain local branch/workspace. Report source implemented/compile-only,OBSERVED_V2_CAPTURE_UNAVAILABLE,LEGACY_PR34_M1_OPEN,FD_OFD_LIFETIME_OBSERVER_UNQUALIFIED,APPLICATION_NOT_AUTHORIZED/all9false. No publication or next task auto-start.
+- [x] One fresh whole-branch reviewer checked base..2665a15 and all ledger rulings:C0/I2/M0. BothImportant findings received one RED→GREEN author fix pass,new sourceM2481b84/manifest/genuinecompile and full5049PASS coverage/packaging rerun;no second reviewer or independent-clean-new-head claim.
+- [x] Retain local branch/workspace. Record source implemented/compile-only,OBSERVED_V2_CAPTURE_UNAVAILABLE,LEGACY_PR34_M1_OPEN,FD_OFD_LIFETIME_OBSERVER_UNQUALIFIED,APPLICATION_NOT_AUTHORIZED/all9false. No publication or next task auto-start.
+
+Final metadata head receives one additional full-suite/clean-status handoff gate;
+its observed exact SHA/result belongs to the owned external ledger and final
+handoff after the commit,not a self-referential or premature result here.

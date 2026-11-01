@@ -63,8 +63,11 @@ unqualified. C syntax first exposed a missing grp.h declaration; the exact
   to base,and tests/compatibility excluded. Fresh outside-checkout wheel imports
   70submodules;vanilla/research/replay/knowledge/owner/Carrot/receipt/science/friction
   smoke tests pass,including optional dependency absence before extras installation.
-- Exact-head fresh internal review and final suite outcomes belong to the handoff
-  after observation,not a premature assertion here or independent human approval.
+- Post-fix full coverage at9ae996ce54e08a9e3106ea41ebbeabe453a405d7:
+  5049passed204.60s,98.52%;all unchanged subsystem coverage gates pass.
+- Post-fix fresh sdist/wheel build and all wheel smokes pass again,including
+  72base-byte-identical product files,70isolated imports and optional dependency
+  absence before research installation. No tests/compatibility in the wheel.
 
 ## Independent review and author fix pass
 
@@ -78,7 +81,9 @@ single terminal-CR normalization. Targeted3PASS;new package/boundary156PASS1.99s
 genuine compile-only record above supersede the pre-review source checkpoint
 01847b5fefd3e6c9f5a2db03a3aeaae01c10f86e. Its old compile record remains historical.
 No second review is performed;the new head must not be described as independently
-reviewed C0/I0. Post-fix full regression/packaging results are recorded at handoff.
+reviewed C0/I0. Both fixes passed the full regression and packaging gates above.
+The final metadata-commit exact-head rerun is recorded in the external ledger
+and handoff only after observation. Deferred minor findings:none.
 
 One early malformed-framing test accidentally created valid single CRLF; its
 fixture was corrected to forbidden doubleCR,without relaxing the parser contract.
