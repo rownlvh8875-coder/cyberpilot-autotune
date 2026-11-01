@@ -89,3 +89,12 @@ or image evidence. The focused capture/runner group then passed93tests1.59s.
 Post-fix full gates and fresh exact-head review are recorded in the external
 handoff after observation. This changes no product, producer, permission or
 runtime blocker; it is evidence retention, not qualification or execution.
+
+A second independent review ata3f9a43 confirmed the persistence correction but
+found I2: selector teardown could raise after normal=True,leaving a completed
+result whose collection error the caller ignored. Three reproducing regressions
+failed before correction. All collector exceptions now invalidate completion,
+and the caller rejects an EXITED result with a collection error. The new-package
+group then passed129tests1.97s. The real harmless host-worker regression proves
+the exception ordering/leader reap only,not guest or kernel behavior. Final
+exact-head full gates and fresh review remain externally observed handoff facts.

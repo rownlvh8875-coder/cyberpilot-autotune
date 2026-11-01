@@ -68,6 +68,9 @@ The CLI includes that record's metadata/content digest and both errors. An
 attempt that failed before record creation has current_record=None, not an
 invented image/argv receipt. These diagnostic errors are outside the record's
 content digest; no universal crash-durability claim is made.
+Every caught collector exception invalidates normal completion, including a
+selector teardown error after EOF/exit. The batch caller also rejects an EXITED
+result with a non-None collection error; valid wire cannot erase that failure.
 
 Collection is bounded to1MiB and180seconds with a2second termination grace.
 The Linux leader remains unreaped using WNOWAIT until the last group signal,

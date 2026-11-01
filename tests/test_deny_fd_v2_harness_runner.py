@@ -293,6 +293,91 @@ def test_cli_exposes_cleanup_record_even_when_persistence_fails(
     assert all(value is False for value in result["permissions"].values())
 
 
+def test_completed_exit_with_collection_error_is_not_a_complete_batch(tmp_path, monkeypatch):
+    r, bundle, processes = fake_vm(monkeypatch, ("DFD01", "DFD02"))
+
+    def collect(process, **kwargs):
+        case = "DFD01" if processes.index(process) == 0 else "DFD02"
+        error = None if case == "DFD01" else "selector teardown failure"
+        return r.ProcessResult(serial(bundle, case), 0, "EXITED", True, error)
+
+    monkeypatch.setattr(r, "_supervise", collect)
+    output = tmp_path / "evidence"
+    with pytest.raises(r.CaptureFailure) as error:
+        r.capture_cases(("DFD01", "DFD02"), output, run_prepared_guest=True)
+    failure = error.value
+    assert [record.case for record in failure.completed] == ["DFD01"]
+    assert failure.current_record.case == "DFD02"
+    assert failure.raw == serial(bundle, "DFD02")
+    assert failure.acquisition_error == "selector teardown failure"
+    assert failure.persistence_error is None
+    data = json.loads((output / "DFD02/record.json").read_bytes())
+    assert data["failure_reason"] == failure.acquisition_error
+    assert data["record"]["status"] == "BLOCKED"
+
+
+def test_cli_cannot_erase_error_from_completed_exit(tmp_path, monkeypatch, capsys):
+    r, bundle, _ = fake_vm(monkeypatch)
+    from tests.deny_fd_v2_harness.host_main import main
+
+    monkeypatch.setattr(
+        r,
+        "_supervise",
+        lambda *a: r.ProcessResult(serial(bundle), 0, "EXITED", True, "selector teardown failure"),
+    )
+    assert (
+        main(
+            ["--run-prepared-guest", "--case", "DFD01", "--destination", str(tmp_path / "evidence")]
+        )
+        == 2
+    )
+    result = json.loads(capsys.readouterr().out)
+    assert result["capture"] == "FAILED" and result["status"] == "BLOCKED"
+    assert result["acquisition_error"] == "selector teardown failure"
+    assert result["current_record"]["case"] == "DFD01"
+    assert all(value is False for value in result["permissions"].values())
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="new Linux selector teardown ordering only")
+def test_selector_teardown_failure_invalidates_normal_exit_and_reaps_worker(monkeypatch):
+    r = api()
+    a, _, _ = synthetic_assets(monkeypatch)
+    raw = serial(a.preflight())
+    selector_type = r.selectors.DefaultSelector
+
+    class CloseFailure:
+        def __enter__(self):
+            self.selector = selector_type()
+            return self.selector
+
+        def __exit__(self, *args):
+            self.selector.close()
+            raise OSError("selector teardown failure")
+
+    monkeypatch.setattr(r.selectors, "DefaultSelector", CloseFailure)
+    worker = subprocess.Popen(
+        [
+            sys.executable,
+            "-I",
+            "-c",
+            f"import sys;sys.stdout.buffer.write({raw!r});sys.stdout.flush()",
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        start_new_session=True,
+    )
+    try:
+        result = r._supervise(worker, timeout=1.0, grace=0.2)
+        assert result.raw == raw and result.exit_code == 0
+        assert result.termination == "IO_ERROR" and result.raw_complete is False
+        assert result.error == "selector teardown failure"
+        assert worker.returncode == 0
+    finally:
+        if worker.poll() is None:
+            os.killpg(worker.pid, signal.SIGKILL)
+            worker.wait(timeout=2)
+
+
 def test_existing_or_checkout_output_is_not_overwritten(tmp_path, monkeypatch):
     r, _, processes = fake_vm(monkeypatch)
     marker = tmp_path / "keep"

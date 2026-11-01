@@ -175,6 +175,7 @@ def _supervise(
                     termination = "OUTPUT_LIMIT"
                     break
     except (Exception, KeyboardInterrupt, SystemExit) as error:
+        normal = False
         error_text = _message(error)
     finally:
         if stream is not None:
@@ -344,7 +345,7 @@ def capture_cases(
                 },
             )
             raw_result = _supervise(process)
-            if raw_result.termination == "EXITED":
+            if raw_result.termination == "EXITED" and raw_result.error is None:
                 validate_capture(raw_result.raw, case, assets)
                 failure = None
             else:
