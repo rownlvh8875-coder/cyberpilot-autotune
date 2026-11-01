@@ -40,3 +40,105 @@ def test_missing_git_object_cannot_grant_transport_permission(monkeypatch, const
 def test_invalid_git_root_cannot_be_treated_as_historical(tmp_path):
     with pytest.raises(ValueError):
         api().validate_transport_successor(tmp_path)
+
+
+@pytest.mark.parametrize("layer", ("worktree", "index", "HEAD"))
+@pytest.mark.parametrize(
+    "path",
+    (
+        "tests/deny_fd_v2/wire.py",
+        "tests/history_transition/deny_fd_v2_harness_successor.py",
+        "tests/architecture/test_deny_fd_v2_harness_boundary.py",
+    ),
+)
+def test_preserved_and_routing_images_reject_mutation(tmp_path, layer, path):
+    from tests.test_deny_fd_v2_harness_history import checkout, git
+
+    v = api()
+    with checkout(tmp_path, v.PREREGISTRATION) as root:
+        target = root / path
+        target.write_bytes(target.read_bytes() + b"# forbidden drift\n")
+        if layer in ("index", "HEAD"):
+            git(root, "add", "--", path)
+        if layer == "HEAD":
+            git(
+                root,
+                "-c",
+                "user.name=Test",
+                "-c",
+                "user.email=test@example.invalid",
+                "-c",
+                "commit.gpgsign=false",
+                "commit",
+                "--quiet",
+                "-m",
+                "owned mutation",
+            )
+        with pytest.raises(ValueError, match="IMAGE_CHANGED"):
+            v.validate_transport_successor(root)
+
+
+@pytest.mark.parametrize("layer", ("worktree", "index", "HEAD"))
+def test_unlisted_sibling_never_gets_directory_permission(tmp_path, layer):
+    from tests.test_deny_fd_v2_harness_history import checkout, git
+
+    v = api()
+    with checkout(tmp_path, v.PREREGISTRATION) as root:
+        path = "tests/deny_fd_v2_transport/unlisted.py"
+        target = root / path
+        target.parent.mkdir(parents=True)
+        target.write_bytes(b"# not allowed\n")
+        if layer in ("index", "HEAD"):
+            git(root, "add", "--", path)
+        if layer == "HEAD":
+            git(
+                root,
+                "-c",
+                "user.name=Test",
+                "-c",
+                "user.email=test@example.invalid",
+                "-c",
+                "commit.gpgsign=false",
+                "commit",
+                "--quiet",
+                "-m",
+                "owned mutation",
+            )
+        if layer == "index":
+            target.unlink()
+        with pytest.raises(ValueError, match="scope"):
+            v.validate_transport_successor(root)
+
+
+def test_wrong_p5_parent_refused(tmp_path, monkeypatch):
+    from tests.test_deny_fd_v2_harness_history import checkout
+
+    v = api()
+    with checkout(tmp_path, v.BASE) as root:
+        monkeypatch.setattr(v, "PREREGISTRATION", v.BASE)
+        with pytest.raises(ValueError, match="sole parent"):
+            v.validate_transport_successor(root)
+
+
+def test_mutable_manifest_cannot_replace_pinned_policy(tmp_path):
+    from tests.test_deny_fd_v2_harness_history import checkout
+
+    v = api()
+    with checkout(tmp_path, v.PREREGISTRATION) as root:
+        (root / v.MANIFEST).write_bytes(b'{"allow_everything":true}\n')
+        assert len(v.validate_transport_successor(root)) == 20
+
+
+def test_git_ancestry_failure_is_not_historical_permission(tmp_path, monkeypatch):
+    from tests.history_transition import deny_fd_v2_successor as prior
+    from tests.test_deny_fd_v2_harness_history import checkout
+
+    v = api()
+    with checkout(tmp_path, v.BASE) as root:
+
+        def fail(*args):
+            raise ValueError("ancestry unavailable")
+
+        monkeypatch.setattr(prior, "_ancestor", fail)
+        with pytest.raises(ValueError, match="unavailable"):
+            v.validate_transport_successor(root)
