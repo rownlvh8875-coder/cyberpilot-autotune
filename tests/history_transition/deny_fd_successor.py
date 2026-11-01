@@ -12,6 +12,8 @@ import stat
 import subprocess
 from pathlib import Path
 
+from .deny_fd_v2_successor import validate_v2_successor
+
 SOURCE_BASE = "1c4fb3d26db913645cb2292f362396076e47adcb"
 PRIOR = "127f485437437b3472659784b7b05857d8fbd896"
 PREREGISTRATION = "a7b632f2f331c4029789e2ace7ed8cdb8bb48ca2"
@@ -230,4 +232,4 @@ def validate_successor(root: Path) -> frozenset[str]:
             _need(raw.replace(b"\r\n", b"\n") == contents[path], reason)
             clean = _git(root, "hash-object", "--path", path, "--stdin", raw=raw).decode().strip()
             _need(clean == entry[1], reason)
-    return NEW_PATHS
+    return NEW_PATHS | validate_v2_successor(root)
