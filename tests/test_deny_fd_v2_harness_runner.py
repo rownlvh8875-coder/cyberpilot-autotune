@@ -6,6 +6,7 @@ import json
 import os
 import runpy
 import signal
+import stat
 import subprocess
 import sys
 from pathlib import Path
@@ -50,6 +51,183 @@ def fake_vm(monkeypatch, cases=("DFD01",)):
     monkeypatch.setattr(r.subprocess, "Popen", launch)
     monkeypatch.setattr(r, "_supervise", collect)
     return r, bundle, processes
+
+
+def image_stat_cohorts(monkeypatch, tmp_path, platform):
+    """Control only OS metadata origins; keep file creation/open/read/bytes real."""
+    r = api()
+    path = tmp_path / "identity-image"
+    raw = b"fixed image"
+    path.write_bytes(raw)
+    lstat = Path.lstat
+    open_file = Path.open
+    fstat = os.fstat
+    native = lstat(path)
+    complete = {name: getattr(native, name) for name in dir(native) if name.startswith("st_")}
+    complete.update(
+        st_dev=11,
+        st_ino=22,
+        st_mode=stat.S_IFREG | 0o600,
+        st_size=11,
+        st_mtime_ns=500,
+        st_ctime_ns=100,
+        st_birthtime_ns=100,
+        st_birthtime=0.0000001,
+        st_file_attributes=32,
+        st_reparse_tag=0,
+    )
+    snapshots = [SimpleNamespace(**complete) for _ in range(4)]
+    if platform == "win32":
+        snapshots[1].st_ctime_ns = snapshots[2].st_ctime_ns = 200
+    path_reads = 0
+    handle_reads = 0
+    target_fd = None
+
+    def read_path(candidate, *args, **kwargs):
+        nonlocal path_reads
+        if candidate != path:
+            return lstat(candidate, *args, **kwargs)
+        index = 0 if path_reads == 0 else 3
+        path_reads += 1
+        return snapshots[index]
+
+    def opened(candidate, *args, **kwargs):
+        nonlocal target_fd
+        stream = open_file(candidate, *args, **kwargs)
+        if candidate == path:
+            target_fd = stream.fileno()
+        return stream
+
+    def read_handle(fd):
+        nonlocal handle_reads
+        if fd != target_fd:
+            return fstat(fd)
+        index = 1 if handle_reads == 0 else 2
+        handle_reads += 1
+        return snapshots[index]
+
+    monkeypatch.setattr(r.sys, "platform", platform)
+    monkeypatch.setattr(Path, "lstat", read_path)
+    monkeypatch.setattr(Path, "open", opened)
+    monkeypatch.setattr(r.os, "fstat", read_handle)
+    return r, path, raw, snapshots
+
+
+@pytest.mark.parametrize("birth,handle_change", ((100, 200), (0, 200), (100, 100)))
+def test_windows_static_image_does_not_compare_different_clock_meanings(
+    tmp_path, monkeypatch, birth, handle_change
+):
+    r, path, raw, samples = image_stat_cohorts(monkeypatch, tmp_path, "win32")
+    for sample in samples:
+        sample.st_birthtime_ns = birth
+    samples[0].st_ctime_ns = samples[3].st_ctime_ns = birth
+    samples[1].st_ctime_ns = samples[2].st_ctime_ns = handle_change
+    r._image_bound(path, raw)
+
+
+@pytest.mark.parametrize("platform", ("linux", "win32"))
+@pytest.mark.parametrize(
+    "field,value",
+    (
+        ("st_dev", 12),
+        ("st_ino", 23),
+        ("st_mode", stat.S_IFREG | 0o644),
+        ("st_size", 12),
+        ("st_mtime_ns", 501),
+        ("binding_time", 101),
+    ),
+)
+def test_image_cross_origin_binding_rejects_each_identity_change(
+    tmp_path, monkeypatch, platform, field, value
+):
+    r, path, raw, samples = image_stat_cohorts(monkeypatch, tmp_path, platform)
+    if field == "binding_time":
+        field = "st_birthtime_ns" if platform == "win32" else "st_ctime_ns"
+    setattr(samples[1], field, value)
+    with pytest.raises(ValueError):
+        r._image_bound(path, raw)
+
+
+@pytest.mark.parametrize("platform", ("linux", "win32"))
+@pytest.mark.parametrize("origin", ("handle", "path"))
+@pytest.mark.parametrize(
+    "field,value",
+    (
+        ("st_dev", 12),
+        ("st_ino", 23),
+        ("st_mode", stat.S_IFREG | 0o644),
+        ("st_size", 12),
+        ("st_mtime_ns", 501),
+        ("st_ctime_ns", 201),
+    ),
+)
+def test_image_raw_metadata_stays_strict_within_each_origin(
+    tmp_path, monkeypatch, platform, origin, field, value
+):
+    r, path, raw, samples = image_stat_cohorts(monkeypatch, tmp_path, platform)
+    setattr(samples[2 if origin == "handle" else 3], field, value)
+    with pytest.raises(ValueError):
+        r._image_bound(path, raw)
+
+
+@pytest.mark.parametrize("origin", ("handle", "path", "both"))
+def test_windows_birth_identity_cannot_change_after_open(tmp_path, monkeypatch, origin):
+    r, path, raw, samples = image_stat_cohorts(monkeypatch, tmp_path, "win32")
+    for index in (2, 3) if origin == "both" else (2 if origin == "handle" else 3,):
+        samples[index].st_birthtime_ns = 101
+    with pytest.raises(ValueError):
+        r._image_bound(path, raw)
+
+
+@pytest.mark.parametrize("birth", ("missing", None, False, 100.0, float("nan")))
+def test_windows_unknown_birth_identity_is_not_an_invented_default(tmp_path, monkeypatch, birth):
+    r, path, raw, samples = image_stat_cohorts(monkeypatch, tmp_path, "win32")
+    for sample in samples:
+        sample.st_ctime_ns = 100  # Remove the old unrelated ctime mismatch.
+        if birth == "missing":
+            delattr(sample, "st_birthtime_ns")
+        else:
+            sample.st_birthtime_ns = birth
+    with pytest.raises(ValueError):
+        r._image_bound(path, raw)
+
+
+@pytest.mark.parametrize("platform", ("linux", "win32"))
+@pytest.mark.parametrize("changed", (b"other image", b"fixed image!"))
+def test_matching_metadata_cannot_substitute_changed_image_bytes(
+    tmp_path, monkeypatch, platform, changed
+):
+    r, path, raw, _ = image_stat_cohorts(monkeypatch, tmp_path, platform)
+    path.write_bytes(changed)
+    with pytest.raises(ValueError):
+        r._image_bound(path, raw)
+
+
+@pytest.mark.parametrize("platform", ("linux", "win32"))
+@pytest.mark.parametrize("kind", (stat.S_IFLNK, stat.S_IFDIR))
+def test_nonregular_image_cannot_become_a_regular_receipt(tmp_path, monkeypatch, platform, kind):
+    r, path, raw, samples = image_stat_cohorts(monkeypatch, tmp_path, platform)
+    for sample in samples:
+        sample.st_mode = kind | 0o600
+    with pytest.raises(ValueError):
+        r._image_bound(path, raw)
+
+
+def test_real_prepared_file_retains_its_native_image_binding(tmp_path):
+    r = api()
+    path = tmp_path / "native-image"
+    path.write_bytes(b"fixed image")
+    r._image_bound(path, b"fixed image")
+
+
+def test_missing_group_api_rejects_before_preparation(tmp_path, monkeypatch):
+    r = api()
+    monkeypatch.delattr(r.os, "killpg", raising=False)
+    monkeypatch.setattr(r, "preflight", lambda: pytest.fail("unsupported host must not prepare"))
+    output = tmp_path / "never-created"
+    with pytest.raises(ValueError, match="no fallback"):
+        r.capture_cases(("DFD01",), output, run_prepared_guest=True)
+    assert not output.exists()
 
 
 def test_default_cli_and_import_never_spawn_or_write(tmp_path, monkeypatch, capsys):
@@ -658,7 +836,7 @@ def test_unsupported_platform_never_selects_a_fallback(monkeypatch):
 def test_cleanup_never_signals_a_reaped_or_unowned_leader(monkeypatch):
     r = api()
     monkeypatch.setattr(
-        r.os, "killpg", lambda *a: pytest.fail("unowned group must not be signalled")
+        r.os, "killpg", lambda *a: pytest.fail("unowned group must not be signalled"), raising=False
     )
     code, error = r._cleanup(SimpleNamespace(returncode=0, pid=123), 0.1, False)
     assert code == 0 and "already reaped" in error
@@ -672,7 +850,7 @@ def test_vanished_group_does_not_trigger_an_alternate_target(monkeypatch):
         seen.append((pid, sig))
         raise ProcessLookupError("gone")
 
-    monkeypatch.setattr(r.os, "killpg", gone)
+    monkeypatch.setattr(r.os, "killpg", gone, raising=False)
     r._signal_group(SimpleNamespace(pid=123), signal.SIGTERM)
     assert seen == [(123, signal.SIGTERM)]
 

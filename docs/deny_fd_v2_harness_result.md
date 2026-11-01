@@ -113,3 +113,27 @@ real read-only preflight,Python harness464/464statements and60/60branches100/100
 This is not universal interrupt/crash recovery,hostile-host containment,FD/OFD
 qualification or actual v2 acquisition. Final exact-head gates/review remain
 external post-commit facts;all inherited blockers and ninefalsepermissions stay.
+
+## PR56 Windows CI correction
+
+The earlier no-publication statements describe local implementation checkpoints.
+PR56 was subsequently published Draft atbe7fd7e. Its exact-head push41296166660
+andPR41296183933 CI finished with8success/2failure/2automaticmatrixcancellations.
+Linux/source/schema jobs passed;Windows pytest had5and9failures respectively.
+Two unitfixtures assumed os.killpg existed. A normal Windows image case also
+reported preparedimagebindingchanged;each other old failingtuple was notprinted.
+
+Upstream CPython3.12.3/3.12.10 source explains the cross-origin time mismatch
+described in the contract. New deterministic metadata regressions first showed
+7FAIL/50negativecontrolsPASS;the two existing unitcases withkillpgremoved showed
+2FAIL. The correction retains all original assertions,skips,timeouts andgates:
+coherent cross-origin Windows birthidentity,full raw6field stability inside both
+origins,andunchanged Linuxctime checks. Unitdoubles can be installed when the
+platform API is absent,without granting an actual runtime fallback.
+
+After correction,runner124PASS3.50s andmissingAPI2PASS0.20s. Newpackage202PASS3.99s;
+real read-only preflight appended to coverage yields475/475Pythonstatements and
+62/62branches100/100. These are local unit/content results,not remote Windows
+success,actual target acquisition,interpreter provenance or runtime qualification.
+Fresh exact-head fullgates,independentreview andpush/PRCI results are external
+post-commit handoff evidence. PR56remainsDraft;all9flagsfalse/allblockersretained.

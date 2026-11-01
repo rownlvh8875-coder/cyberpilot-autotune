@@ -91,6 +91,33 @@ fall back to another PID/group. Group termination is not full descendant/session
 closure, continuous FD/OFD proof, qualified watchdog or external executor trust.
 Tests with harmless host Python workers do not establish QEMU/C/kernel behavior.
 
+## Portable image checks, not a Windows runtime
+
+CPython 3.12's Windows path-stat legacy ctime and handle-fstat ctime can denote
+different clocks:creation time versus metadata change time. Their raw values
+must not be equated across origins. `_binding_identity` compares dev/inode/mode/
+size/mtime plus required integer birthtime across Windows origins;zero is valid,
+missing/None/bool/float is unavailable and rejects. `_file_identity` still checks
+all original six fields within each path/handle cohort before and after reading,
+including the handle's raw ctime. Birth identity must also remain unchanged.
+Exact bounded bytes,regular-file and final path checks remain mandatory.
+
+On non-Windows hosts,binding identity is the original six-field identity,
+including ctime. Initial handle=path and final handle=initial handle imply the
+same original final handle=initial path requirement. No Linux check is weakened.
+Windows file-only tests do not enable `_require_linux` or any runtime fallback.
+The two process-group unit tests install explicit test doubles even when the
+host has no killpg;their original no-unowned/no-alternate-signal assertions stay.
+
+Source explanation:CPython commits
+`f6650f9ad73359051f3e558c2431a109bc016664`(3.12.3) and
+`0cc81280367df838c4b199f8f0378837165071c2`(3.12.10),
+Modules/posixmodule.c `win32_xstat`/`os_fstat_impl` and Python/fileutils.c
+`_Py_attribute_data_to_stat`/`_Py_fstat_noraise`. Path-stat copies birthtime into
+legacy ctime;the fstat conversion retains ChangeTime. This is upstream source
+analysis,not attestation of a compiled interpreter or proof of every old failing
+CI tuple. Old CI did not print each differing field;new Windows CI is required.
+
 ## History and retained blockers
 
 P4=06f959c12b2e2fdf3c9a374ee9787001483fc587,sole parentB. The pinned manifest

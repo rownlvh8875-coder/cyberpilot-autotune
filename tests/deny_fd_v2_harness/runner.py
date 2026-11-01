@@ -250,20 +250,37 @@ def _file_identity(info: os.stat_result) -> tuple[int, ...]:
     )
 
 
+def _binding_identity(info: os.stat_result) -> tuple[int, ...]:
+    identity = _file_identity(info)
+    if sys.platform != "win32":
+        return identity
+    # CPython 3.12 path ctime is legacy creation time, but fstat ctime can
+    # be ChangeTime. Compare creation identity across origins, not those clocks.
+    birthtime = getattr(info, "st_birthtime_ns", None)
+    need(type(birthtime) is int, "Windows file birthtime identity unavailable")
+    assert isinstance(birthtime, int)
+    return (*identity[:-1], birthtime)
+
+
 def _image_bound(path: Path, expected: bytes) -> None:
     before = path.lstat()
     need(stat.S_ISREG(before.st_mode) and before.st_size == len(expected), "prepared image changed")
+    binding = _binding_identity(before)
     with path.open("rb") as stream:
+        opened = os.fstat(stream.fileno())
         need(
-            _file_identity(os.fstat(stream.fileno())) == _file_identity(before),
+            _binding_identity(opened) == binding,
             "prepared image binding changed",
         )
         observed = stream.read(len(expected) + 1)
         after = os.fstat(stream.fileno())
+    path_after = path.lstat()
     need(
         observed == expected
-        and _file_identity(after) == _file_identity(before)
-        and _file_identity(path.lstat()) == _file_identity(before),
+        and _file_identity(after) == _file_identity(opened)
+        and _file_identity(path_after) == _file_identity(before)
+        and _binding_identity(after) == binding
+        and _binding_identity(path_after) == binding,
         "prepared image changed",
     )
 
