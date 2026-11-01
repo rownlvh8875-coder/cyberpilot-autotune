@@ -157,7 +157,7 @@ still execute with their own real Git clone before any cleanup.
 
 Observed local gates after both repairs:
 
--5053PASS215.94s,main coverage98.52%;focused5PASS3.28s.
+- 5053PASS215.94s,main coverage98.52%;focused5PASS3.28s.
 - New decoder/build Python package156PASS,278/278statements,98/98branches.
 - Full temporary footprint1.2GiB instead of8.4GiB;no test/sample/gate reduction.
 - Ruff678formatted,mypy76PASS;all existing coverage subgates and source/history
@@ -171,6 +171,8 @@ Observed local gates after both repairs:
 
 Final exact-head review and Windows push/PR CI are separate post-commit gates;
 their actual outcomes belong to the PR report/external ledger after observation.
+The repair code checkpoint is d0000ec78d24087ef77856644626e5b47a68912a;
+later handoff metadata does not change the test implementation or sourceM2.
 Do not treat these Linux/local results as Windows CI success or runtime safety.
 All runtime/capture/application blockers and9false permissions above remain.
 Only PR55 append-only updates are authorized for this follow-up;no other PR/main,
