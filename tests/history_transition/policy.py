@@ -12,6 +12,8 @@ import stat
 import subprocess
 from pathlib import Path
 
+from .deny_fd_successor import validate_successor
+
 BASE = "cfc31c36c1fa99c7d00d9609c5360b9e07894d7e"
 PREREGISTRATION = "127f485437437b3472659784b7b05857d8fbd896"
 MANIFEST = "docs/evidence/strict_input_history_transition_v1.json"
@@ -217,7 +219,7 @@ def assert_history_transition(root: Path, guard_base: str, changed: set[str]) ->
             _need(raw.replace(b"\r\n", b"\n") == expected, "worktree postimage mismatch")
             cleaned = _git(root, "hash-object", "--path", path, "--stdin", raw=raw).decode().strip()
             _need(cleaned == frozen[path][1], "worktree CRLF not Git-clean equivalent")
-    allowed = paths | set(NEW_PATHS)
+    allowed = paths | set(NEW_PATHS) | set(validate_successor(root))
     for args in (
         ("diff", "--no-renames", "--name-only", "-z", BASE, "HEAD", "--"),
         ("diff", "--no-renames", "--name-only", "-z", "--cached", BASE, "--"),
@@ -225,4 +227,4 @@ def assert_history_transition(root: Path, guard_base: str, changed: set[str]) ->
         ("ls-files", "--others", "--exclude-standard", "-z"),
     ):
         observed = {name.decode("utf-8") for name in _git(root, *args).split(b"\0") if name}
-        _need(observed <= allowed, "change outside approved 29-path scope")
+        _need(observed <= allowed, "change outside approved 29-path scope and pinned successor")
