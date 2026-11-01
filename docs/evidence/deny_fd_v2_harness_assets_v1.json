@@ -1,0 +1,29 @@
+{
+  "build_input_closure_qualified": false,
+  "build_record_sha256": "730e9cc3815af4332be13aba19019a6ee59f8cfc08b0d9e14a54fb8be5970a2b",
+  "busybox": {
+    "bytes": 2024544,
+    "sha256": "7ae95c260622412ceba6eb9f45d68f616cdc091a1d71d6c0a08b5875bb2c31dd"
+  },
+  "kernel_sha256": "8d8530d93852968b43c50a11a6c571628e16c074194bc3d293f64871e64e5475",
+  "permissions": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false
+  },
+  "probe": {
+    "bytes": 915376,
+    "sha256": "0eb1891fe5c25a04e5447c637f81fb86a80404efbf8602b1ea31bf4d6a342f41"
+  },
+  "runtime_qualified": false,
+  "schema": "deny-fd-v2-harness-assets-v1",
+  "source_manifest_digest": "1255f050f56240afe14d4fa7479692ed07b00bf59a6396fa6919354d07ace166",
+  "source_revision": "2481b84405beda95a394d1ca0248d7c9d632d28b",
+  "vm_cohort_digest": "d98a259c5a45b56811d40a94e23e50a51ee88b513bb632396f45da6017f7af0c"
+}
