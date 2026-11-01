@@ -3,8 +3,10 @@
 import hashlib
 import importlib
 import importlib.util
+import json
 import os
 import subprocess
+import sys
 
 import pytest
 
@@ -58,6 +60,11 @@ def test_snapshot_refuses_to_overwrite_an_existing_directory(tmp_path):
         materialize_snapshot(tmp_path)
 
 
+def test_successor_policy_requires_its_separate_immutable_preregistration():
+    # The former seven mutable paths cannot implicitly authorize this new scope.
+    assert importlib.util.find_spec("tests.history_transition.deny_fd_successor") is not None
+
+
 def test_exact_history_policy_is_implemented():
     # Changed guards must not gain a path-only exception without content checks.
     assert importlib.util.find_spec("tests.history_transition.policy") is not None
@@ -65,7 +72,7 @@ def test_exact_history_policy_is_implemented():
 
 @pytest.fixture
 def policy_clone(tmp_path):
-    from tests.history_transition import policy
+    from tests.history_transition.deny_fd_successor import PREREGISTRATION
 
     checkout = tmp_path / "checkout"
     subprocess.run(
@@ -74,7 +81,7 @@ def policy_clone(tmp_path):
         capture_output=True,
     )
     subprocess.run(
-        ["git", "-c", "core.autocrlf=false", "checkout", "--quiet", policy.PREREGISTRATION],
+        ["git", "-c", "core.autocrlf=false", "checkout", "--quiet", PREREGISTRATION],
         cwd=checkout,
         check=True,
         capture_output=True,
@@ -159,9 +166,14 @@ def test_old_paths_outside_exception_remain_protected(policy_clone, path):
 
 
 def test_mutable_manifest_is_never_policy_authority(policy_clone):
+    from tests.history_transition import policy
+
+    pinned = policy._load(policy_clone)
     path = policy_clone / "docs/evidence/strict_input_history_transition_v1.json"
     path.write_text('{"allow_everything":true}')
-    _check_policy(policy_clone)  # pinned Git object, not this working file
+    assert policy._load(policy_clone) == pinned  # immutable metadata still wins
+    with pytest.raises(ValueError, match="PRESERVED_FILE_CHANGED"):
+        _check_policy(policy_clone)  # explicitly stronger successor preservation
 
 
 def test_missing_preregistration_fails_closed_without_fetch(policy_clone, monkeypatch):
@@ -223,5 +235,151 @@ def test_index_only_unlisted_change_cannot_hide_behind_restored_worktree(policy_
     target.write_bytes(original + b"\n# forbidden in index\n")
     _git(policy_clone, "add", "--", path)
     target.write_bytes(original)
+    with pytest.raises(ValueError, match="29-path scope"):
+        _check_policy(policy_clone)
+
+
+def test_historical_manifest_acceptance(tmp_path):
+    """Execute the original acceptance assertion, not a rewritten approximation."""
+    checkout = tmp_path / "v1"
+    subprocess.run(
+        ["git", "clone", "--shared", "--quiet", "--no-checkout", str(ROOT), str(checkout)],
+        check=True,
+        capture_output=True,
+    )
+    _git(
+        checkout,
+        "-c",
+        "core.autocrlf=false",
+        "checkout",
+        "--quiet",
+        "1c4fb3d26db913645cb2292f362396076e47adcb",
+    )
+    environment = dict(os.environ)
+    for name in ("PYTEST_ADDOPTS", "PYTEST_PLUGINS", "PYTEST_CURRENT_TEST"):
+        environment.pop(name, None)
+    environment.update(PYTEST_DISABLE_PLUGIN_AUTOLOAD="1", PYTHONDONTWRITEBYTECODE="1")
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-I",
+            "-m",
+            "pytest",
+            "-q",
+            "-p",
+            "no:cacheprovider",
+            "--override-ini=addopts=",
+            "--",
+            "tests/test_history_transition_policy.py::test_mutable_manifest_is_never_policy_authority",
+        ],
+        cwd=checkout,
+        env=environment,
+        capture_output=True,
+        text=True,
+        timeout=60,
+        check=False,
+    )
+    assert result.returncode == 0 and "1 passed" in result.stdout, result.stdout + result.stderr
+
+
+def test_successor_cannot_fallback_to_old_or_missing_policy(policy_clone, monkeypatch):
+    from tests.history_transition import deny_fd_successor as successor
+
+    for revision in ("0" * 40, "127f485437437b3472659784b7b05857d8fbd896"):
+        monkeypatch.setattr(successor, "PREREGISTRATION", revision)
+        with pytest.raises(ValueError):
+            _check_policy(policy_clone)
+
+
+def test_working_successor_manifest_does_not_change_policy(policy_clone):
+    from tests.history_transition import deny_fd_successor as successor
+
+    path = policy_clone / successor.MANIFEST
+    path.write_text('{"allow_everything":true}')
+    _check_policy(policy_clone)
+
+
+def test_every_preserved_old_phase_path_is_still_checked(policy_clone):
+    from tests.history_transition import deny_fd_successor as successor
+
+    manifest = json.loads(
+        _git(policy_clone, "show", successor.PREREGISTRATION + ":" + successor.MANIFEST)
+    )
+    assert len(manifest["preserved"]) == 27
+    for row in manifest["preserved"]:
+        target = policy_clone / row["path"]
+        original = target.read_bytes()
+        try:
+            target.write_bytes(original + b"\n# unapproved preserved-file change\n")
+            with pytest.raises(ValueError, match="PRESERVED_FILE_CHANGED"):
+                successor.validate_successor(policy_clone)
+        finally:
+            target.write_bytes(original)
+
+
+@pytest.mark.parametrize(
+    "path", ("tests/history_transition/policy.py", "tests/test_history_transition_policy.py")
+)
+@pytest.mark.parametrize("layer", ("worktree", "index", "head"))
+@pytest.mark.parametrize("change", ("content", "delete", "rename", "mode"))
+def test_successor_updated_paths_are_exact_not_path_whitelisted(policy_clone, path, layer, change):
+    from tests.history_transition import deny_fd_successor as successor
+
+    target = policy_clone / path
+    renamed = target.with_name("unapproved.py")
+    original = target.read_bytes()
+    if change == "content":
+        target.write_bytes(original + b"\n# unapproved successor postimage\n")
+    elif change == "delete":
+        target.unlink()
+    elif change == "rename":
+        target.rename(renamed)
+    elif layer == "worktree" and os.name != "nt":
+        target.chmod(0o755)
+    else:
+        _git(policy_clone, "update-index", "--chmod=+x", "--", path)
+    if layer != "worktree":
+        if change != "mode":
+            _git(policy_clone, "add", "-A")
+        if layer == "head":
+            _git(
+                policy_clone,
+                "-c",
+                "user.name=Policy Test",
+                "-c",
+                "user.email=policy@example.invalid",
+                "-c",
+                "commit.gpgsign=false",
+                "commit",
+                "--quiet",
+                "-m",
+                "unapproved postimage",
+            )
+        if renamed.exists():
+            renamed.unlink()
+        target.write_bytes(original)
+        target.chmod(0o644)
+    with pytest.raises(ValueError, match="POSTIMAGE_CHANGED"):
+        successor.validate_successor(policy_clone)
+
+
+@pytest.mark.parametrize(
+    "path", ("tests/history_transition/frozen_cases.py", "tests/history_transition/policy.py")
+)
+def test_successor_crlf_requires_actual_git_clean_equivalence(policy_clone, path):
+    target = policy_clone / path
+    raw = target.read_bytes()
+    target.write_bytes(raw.replace(b"\n", b"\r\n"))
+    _git(policy_clone, "config", "core.autocrlf", "false")
+    with pytest.raises(ValueError):
+        _check_policy(policy_clone)
+    _git(policy_clone, "config", "core.autocrlf", "true")
+    _check_policy(policy_clone)
+
+
+def test_successor_additions_are_closed_not_an_entire_prefix(policy_clone):
+    target = policy_clone / "tests/deny_fd_provenance/unapproved.py"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(b"# no directory-wide exception\n")
     with pytest.raises(ValueError, match="29-path scope"):
         _check_policy(policy_clone)
