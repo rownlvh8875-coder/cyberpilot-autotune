@@ -21,7 +21,7 @@ def decode(raw: bytes) -> Capture:
     require(not any(b"DFD2" in line or b"HFD" in line for line in lines[:a] + lines[c + 1 :]))
     events = []
     for line in lines[a + 1 : b]:
-        require(len(line) <= 4096 and line.startswith(b"DFD2 "))
+        require(len(line) <= 4096 and line.startswith(b"DFD2 ") and b"\r" not in line)
         try:
             row = json.loads(
                 line[5:].decode("ascii"),

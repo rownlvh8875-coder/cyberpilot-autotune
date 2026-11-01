@@ -124,6 +124,18 @@ def test_input_must_be_bounded_physical_bytes(value):
 
 
 @pytest.mark.parametrize(
+    "mutate",
+    [
+        lambda raw: raw.replace(b"]\n", b"]\r\r\n", 1),
+        lambda raw: raw.replace(b"[1,100,", b"[1,\r100,", 1),
+    ],
+)
+def test_event_rows_reject_forbidden_carriage_returns(mutate):
+    with pytest.raises(ValueError):
+        api()[1].decode(mutate(encoded()))
+
+
+@pytest.mark.parametrize(
     "index,value",
     [
         (0, 0),

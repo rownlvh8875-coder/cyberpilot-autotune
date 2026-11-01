@@ -233,7 +233,7 @@ def fake_elf():
     return bytes(raw)
 
 
-def compiler_double(monkeypatch, b, output=None, *, corrupt_source=False):
+def compiler_double(monkeypatch, b, output=None, *, corrupt_source=False, expected_source=None):
     calls = []
     real_run = subprocess.run
 
@@ -246,9 +246,12 @@ def compiler_double(monkeypatch, b, output=None, *, corrupt_source=False):
             return subprocess.CompletedProcess(args, 0, stdout=b"unit compiler boundary\n")
         assert "-static" in args and "-no-pie" in args and "-Werror" in args
         assert args[-2] == "-o"
-        assert (
-            Path(args[-3]).read_bytes() == (b.ROOT / "tests/deny_fd_v2/guest/probe.c").read_bytes()
+        expected = (
+            (b.ROOT / "tests/deny_fd_v2/guest/probe.c").read_bytes()
+            if expected_source is None
+            else expected_source
         )
+        assert Path(args[-3]).read_bytes() == expected
         Path(args[-1]).write_bytes(fake_elf() if output is None else output)
         if corrupt_source:
             Path(args[-3]).write_bytes(b"changed during external compile")
@@ -357,6 +360,30 @@ def test_compiler_cannot_silently_change_pinned_input(build_context, tmp_path, m
     compiler_double(monkeypatch, b, corrupt_source=True)
     with pytest.raises(ValueError):
         b.compile_fixed_probe(tmp_path / "changed-input")
+
+
+def test_verification_race_cannot_select_unverified_compiler_input(
+    build_context, tmp_path, monkeypatch
+):
+    b, root, revision, _, _ = build_context
+    source_path = root / "tests/deny_fd_v2/guest/probe.c"
+    pinned = subprocess.check_output(
+        ["git", "show", revision + ":tests/deny_fd_v2/guest/probe.c"], cwd=root
+    )
+    original_read = b._read_regular
+
+    def edit_after_read(path):
+        raw = original_read(path)
+        if path == source_path:
+            source_path.write_bytes(b"changed between verification and input selection")
+        return raw
+
+    monkeypatch.setattr(b, "_read_regular", edit_after_read)
+    compiler_double(monkeypatch, b, expected_source=pinned)
+    out = tmp_path / "race-build"
+    record = b.compile_fixed_probe(out)
+    assert (out / "probe.c").read_bytes() == pinned
+    assert record["source_revision"] == revision and record["runtime_qualified"] is False
 
 
 def test_source_manifest_rejects_git_executable_modes(build_context):

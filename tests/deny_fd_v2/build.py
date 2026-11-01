@@ -105,10 +105,11 @@ def _verified_sources() -> tuple[dict[str, object], str, bytes]:
     revision = _revision(data.get("source_revision"))
     if data != describe_sources(revision):
         raise ValueError("source manifest does not match exact raw source set")
+    pinned = {path: _git("show", revision + ":" + path) for path in SOURCES}
     for path in SOURCES:
-        if _read_regular(ROOT / path) != _git("show", revision + ":" + path):
+        if _read_regular(ROOT / path) != pinned[path]:
             raise ValueError("working source differs from pinned source")
-    return data, revision, _read_regular(ROOT / "tests/deny_fd_v2/guest/probe.c")
+    return data, revision, pinned["tests/deny_fd_v2/guest/probe.c"]
 
 
 def _static_elf(raw: bytes) -> None:
