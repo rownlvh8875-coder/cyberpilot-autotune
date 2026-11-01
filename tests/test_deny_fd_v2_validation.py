@@ -1,6 +1,12 @@
 """Untrusted inventory relationships; the fixture generator is not a producer."""
 
+import hashlib
+import importlib
+import json
+import struct
+import subprocess
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 
@@ -164,3 +170,234 @@ def test_decisions_cannot_carry_permission_or_inconsistent_reasons():
     decision = c.Decision("REJECTED", reasons)
     reasons.clear()
     assert decision.reasons == ("BAD",)
+
+
+@pytest.fixture
+def build_context(tmp_path, monkeypatch):
+    b = importlib.import_module("tests.deny_fd_v2.build")
+    project = Path(__file__).resolve().parents[1]
+    root = tmp_path / "source"
+    root.mkdir()
+    paths = tuple(
+        "tests/deny_fd_v2/" + p
+        for p in (
+            "__init__.py",
+            "build.py",
+            "contracts.py",
+            "guest/probe.c",
+            "validation.py",
+            "wire.py",
+        )
+    )
+    for p in paths:
+        target = root / p
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes((project / p).read_bytes())
+
+    def git(*args):
+        return subprocess.check_output(["git", *args], cwd=root, stderr=subprocess.PIPE)
+
+    git("init", "--quiet")
+    git("-c", "core.autocrlf=false", "add", "-A")
+    git(
+        "-c",
+        "user.name=Test",
+        "-c",
+        "user.email=t@example.invalid",
+        "-c",
+        "commit.gpgsign=false",
+        "commit",
+        "--quiet",
+        "-m",
+        "fixed sources",
+    )
+    revision = git("rev-parse", "HEAD").decode().strip()
+    monkeypatch.setattr(b, "ROOT", root)
+    descriptor = b.describe_sources(revision)
+    assert {r["path"] for r in descriptor["sources"]} == set(paths)
+    for r in descriptor["sources"]:
+        assert r["sha256"] == hashlib.sha256((root / r["path"]).read_bytes()).hexdigest()
+    manifest = root / "docs/evidence/deny_fd_v2_sources.json"
+    manifest.parent.mkdir(parents=True)
+    manifest.write_text(json.dumps(descriptor))
+    return b, root, revision, descriptor, manifest
+
+
+def fake_elf():
+    raw = bytearray(120)
+    raw[:7] = b"\x7fELF\x02\x01\x01"
+    struct.pack_into("<HHI", raw, 16, 2, 62, 1)
+    struct.pack_into("<Q", raw, 32, 64)
+    struct.pack_into("<HHH", raw, 52, 64, 56, 1)
+    struct.pack_into("<I", raw, 64, 1)
+    return bytes(raw)
+
+
+def compiler_double(monkeypatch, b, output=None, *, corrupt_source=False):
+    calls = []
+    real_run = subprocess.run
+
+    def run(args, **kwargs):
+        if args[0] == "git":
+            return real_run(args, **kwargs)
+        calls.append(args)
+        assert args[0] == "/usr/bin/cc"
+        if args[1:] == ["--version"]:
+            return subprocess.CompletedProcess(args, 0, stdout=b"unit compiler boundary\n")
+        assert "-static" in args and "-no-pie" in args and "-Werror" in args
+        assert args[-2] == "-o"
+        assert (
+            Path(args[-3]).read_bytes() == (b.ROOT / "tests/deny_fd_v2/guest/probe.c").read_bytes()
+        )
+        Path(args[-1]).write_bytes(fake_elf() if output is None else output)
+        if corrupt_source:
+            Path(args[-3]).write_bytes(b"changed during external compile")
+        return subprocess.CompletedProcess(args, 0, stdout=b"compile diagnostics\n")
+
+    monkeypatch.setattr(b.subprocess, "run", run)
+    return calls
+
+
+def test_compile_boundary_binds_source_and_never_executes_target(
+    build_context, tmp_path, monkeypatch
+):
+    b, root, revision, descriptor, _ = build_context
+    calls = compiler_double(monkeypatch, b)
+    out = tmp_path / "output"
+    record = b.compile_fixed_probe(out)
+    assert record["source_revision"] == revision
+    expected = hashlib.sha256(
+        json.dumps(descriptor, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
+    ).hexdigest()
+    assert record["source_manifest_digest"] == expected
+    assert record["binary"]["sha256"] == hashlib.sha256(fake_elf()).hexdigest()
+    assert record["runtime_qualified"] is False and record["build_input_closure_qualified"] is False
+    assert all(v is False for v in record["permissions"].values())
+    assert len(calls) == 2 and all(args[0] == "/usr/bin/cc" for args in calls)
+    assert json.loads((out / "build-record.json").read_text()) == record
+    assert (out / "compiler.log").read_bytes() == b"compile diagnostics\n"
+    with pytest.raises(ValueError):
+        b.compile_fixed_probe(out)
+    with pytest.raises(ValueError):
+        b.compile_fixed_probe(root / "unsafe-output")
+
+
+@pytest.mark.parametrize("revision", (None, True, "HEAD", "a" * 39, "f" * 40))
+def test_build_source_revision_is_exact_and_local(build_context, revision):
+    with pytest.raises(ValueError):
+        build_context[0].describe_sources(revision)
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    ("missing", "extra", "duplicate", "source_drift", "malformed", "directory", "nonobject"),
+)
+def test_manifest_or_working_source_drift_cannot_be_compiled(build_context, tmp_path, mutation):
+    b, root, _, descriptor, manifest = build_context
+    if mutation == "missing":
+        manifest.unlink()
+    elif mutation == "extra":
+        descriptor["authority"] = True
+        manifest.write_text(json.dumps(descriptor))
+    elif mutation == "duplicate":
+        manifest.write_text('{"schema":0,"schema":1}')
+    elif mutation == "source_drift":
+        (root / "tests/deny_fd_v2/guest/probe.c").write_bytes(b"changed source")
+    elif mutation == "directory":
+        manifest.unlink()
+        manifest.mkdir()
+    elif mutation == "nonobject":
+        manifest.write_text("[]")
+    else:
+        manifest.write_text("not json")
+    with pytest.raises(ValueError):
+        b.compile_fixed_probe(tmp_path / "must-not-build")
+    assert not (tmp_path / "must-not-build").exists()
+
+
+@pytest.mark.parametrize(
+    "failure",
+    (
+        OSError("no compiler"),
+        subprocess.TimeoutExpired("cc", 60),
+        subprocess.CalledProcessError(1, "cc", output=b"compile failed"),
+    ),
+)
+def test_external_compiler_failure_preserves_failure_not_success(
+    build_context, tmp_path, monkeypatch, failure
+):
+    b = build_context[0]
+    real_run = subprocess.run
+
+    def fail(*args, **kwargs):
+        if args[0][0] == "git":
+            return real_run(*args, **kwargs)
+        raise failure
+
+    monkeypatch.setattr(b.subprocess, "run", fail)
+    out = tmp_path / "failed-build"
+    with pytest.raises(ValueError):
+        b.compile_fixed_probe(out)
+    assert (out / "compiler-failure.log").is_file()
+    assert not (out / "build-record.json").exists()
+
+
+@pytest.mark.parametrize("output", (b"bad ELF", b"\x7fELF" + bytes(116)))
+def test_wrong_compiler_output_is_not_a_verified_build(
+    build_context, tmp_path, monkeypatch, output
+):
+    b = build_context[0]
+    compiler_double(monkeypatch, b, output)
+    with pytest.raises(ValueError):
+        b.compile_fixed_probe(tmp_path / "invalid-elf")
+
+
+def test_compiler_cannot_silently_change_pinned_input(build_context, tmp_path, monkeypatch):
+    b = build_context[0]
+    compiler_double(monkeypatch, b, corrupt_source=True)
+    with pytest.raises(ValueError):
+        b.compile_fixed_probe(tmp_path / "changed-input")
+
+
+def test_source_manifest_rejects_git_executable_modes(build_context):
+    b, root, _, _, _ = build_context
+    subprocess.run(
+        ["git", "update-index", "--chmod=+x", "--", "tests/deny_fd_v2/wire.py"],
+        cwd=root,
+        check=True,
+    )
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=Test",
+            "-c",
+            "user.email=t@example.invalid",
+            "-c",
+            "commit.gpgsign=false",
+            "commit",
+            "--quiet",
+            "-m",
+            "wrong source mode",
+        ],
+        cwd=root,
+        check=True,
+    )
+    revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root).decode().strip()
+    with pytest.raises(ValueError):
+        b.describe_sources(revision)
+
+
+@pytest.mark.parametrize("variant", ("wrong_type", "interpreter", "dynamic"))
+def test_dynamic_or_wrong_target_artifact_is_rejected(
+    build_context, tmp_path, monkeypatch, variant
+):
+    raw = bytearray(fake_elf())
+    if variant == "wrong_type":
+        struct.pack_into("<H", raw, 16, 3)
+    else:
+        struct.pack_into("<I", raw, 64, 3 if variant == "interpreter" else 2)
+    b = build_context[0]
+    compiler_double(monkeypatch, b, bytes(raw))
+    with pytest.raises(ValueError):
+        b.compile_fixed_probe(tmp_path / "wrong-target")
