@@ -274,20 +274,37 @@ def _record(
     )
 
 
-def _persist(directory: Path, record: TransportAcquisitionRecord, failure: str | None) -> None:
-    lifecycle._write(directory / "telemetry.bin", record.result.telemetry.raw)
-    lifecycle._write(directory / "console.bin", record.result.console.raw)
-    lifecycle._write(
-        directory / "record.json",
-        canonical(
-            {
-                "record": record.metadata(),
-                "content_digest": record.content_digest,
-                "failure_reason": failure,
-            }
-        )
-        + b"\n",
-    )
+def _persist(
+    directory: Path,
+    result: TransportProcessResult,
+    record: TransportAcquisitionRecord | None,
+    failure: str | None,
+) -> str | None:
+    # Record/clock availability cannot gate raw preservation, and one failed
+    # destination must never prevent an independent attempt at the other.
+    errors: dict[str, str] = {}
+    outcomes: dict[str, str] = {}
+    for name, raw in (("telemetry.bin", result.telemetry.raw), ("console.bin", result.console.raw)):
+        try:
+            lifecycle._write(directory / name, raw)
+            outcomes[name] = "WRITTEN"
+        except (Exception, KeyboardInterrupt, SystemExit) as error:
+            errors[name] = _message(error)
+            outcomes[name] = "FAILED"
+    raw_error = _join(*(f"{name}: {error}" for name, error in errors.items()))
+    try:
+        envelope = {
+            "record": record.metadata() if record is not None else None,
+            "content_digest": record.content_digest if record is not None else None,
+            "failure_reason": _join(failure, raw_error),
+            "acquisition_error": failure,
+            "persistence_error": raw_error,
+            "raw_write_outcomes": outcomes,
+        }
+        lifecycle._write(directory / "record.json", canonical(envelope) + b"\n")
+    except (Exception, KeyboardInterrupt, SystemExit) as error:
+        errors["record.json"] = _message(error)
+    return _join(*(f"{name}: {error}" for name, error in errors.items()))
 
 
 def capture_cases(
@@ -415,19 +432,21 @@ def capture_cases(
             if start is None or not image or not argv:
                 raise ValueError(failure or "preparation incomplete")
             record = _record(case, assets, image, argv, result, start, end)
-            _persist(directory, record, failure)
         except (Exception, KeyboardInterrupt, SystemExit) as error:
+            failure = _join(failure, _message(error))
+        try:
+            persistence_error = _persist(directory, result, record, failure)
+        except (Exception, KeyboardInterrupt, SystemExit) as error:
+            persistence_error = _message(error)
+        if failure is not None or persistence_error is not None:
             raise TransportCaptureFailure(
-                _message(error),
+                _join(failure, persistence_error) or "acquisition failed",
                 result,
                 tuple(completed),
                 current_record=record,
                 acquisition_error=failure,
-                persistence_error=_message(error) if record is not None else None,
-            ) from error
-        if failure is not None:
-            raise TransportCaptureFailure(
-                failure, result, tuple(completed), current_record=record, acquisition_error=failure
+                persistence_error=persistence_error,
             )
+        assert record is not None
         completed.append(record)
     return tuple(completed)

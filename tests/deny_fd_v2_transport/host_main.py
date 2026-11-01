@@ -1,6 +1,7 @@
 """Explicit fixed diagnostics only; default no IO, every outcome BLOCKED/exit2."""
 
 import argparse
+import base64
 import json
 from pathlib import Path
 
@@ -39,6 +40,13 @@ def main(argv: list[str] | None = None) -> int:
             "current_record": error.current_record.metadata() if error.current_record else None,
             "acquisition_error": error.acquisition_error,
             "persistence_error": error.persistence_error,
+            # Lossless bounded fallback even if every owned file destination
+            # fails. Lengths/digests alone cannot recover observed raw bytes.
+            "raw_evidence": {
+                "encoding": "base64",
+                "telemetry": base64.b64encode(error.result.telemetry.raw).decode("ascii"),
+                "console": base64.b64encode(error.result.console.raw).decode("ascii"),
+            },
         }
     except (OSError, ValueError) as error:
         output |= {"capture": "UNAVAILABLE", "reason": str(error)}

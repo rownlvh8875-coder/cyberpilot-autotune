@@ -46,7 +46,11 @@ actualprocess exit/termination/collector error,source/probe/build-cohort/VM/kern
 kernelconfig/transportprofile/init/image identities,exactargv and UInt64hostclock.
 Unknown clock leaves an absent record rather than a fabricated timestamp. Current
 frozen record and earlier completed records remain available on supported storage
-errors;exclusive writes may leave partial files. No crash-durability guarantee.
+errors;exclusive writes may leave partial files. Each raw file write is attempted
+independently even when the record/end clock is unavailable. A diagnostic envelope
+then records null record/digest if unavailable and explicit raw write outcomes;
+one failed write does not stop the other raw stream or metadata attempt.
+No crash-durability guarantee.
 Failure_reason remains diagnostic envelope text outside the record contentdigest.
 
 Only telemetry enters the unchanged strict v2 decoder and oldsource/case/policy/
@@ -56,5 +60,11 @@ or collector's error. No input is relabelled an original accepted capture.
 
 Default CLI/import performs no preparation/spawn. CLI always exits2/BLOCKED,
 including a future internally consistent RECORDED_UNTRUSTED result. Nineflags
-stayfalse;diagnostic opt-in is not an authority grant. No actual QEMU/probe/guest
+stayfalse;diagnostic opt-in is not an authority grant. FAILED CLI results include
+both bounded raw prefixes losslessly as explicitly labelled base64, including
+when every file write fails. This is a diagnostic recovery envelope,not telemetry
+repair or an accepted observation. Encoding expands at most the aggregate1MiB
+raw data by ordinary base64 overhead;the raw acquisition cap is unchanged.
+If all file and CLI output destinations fail,universal recovery is not promised.
+No actual QEMU/probe/guest
 execution or runtime qualification is authorized by this source document.

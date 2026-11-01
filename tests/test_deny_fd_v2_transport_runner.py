@@ -1,5 +1,6 @@
 """Dual transport tests use only harmless host writers or explicit VM doubles."""
 
+import base64
 import importlib
 import importlib.util
 import json
@@ -606,3 +607,177 @@ def test_spurious_ready_read_eagain_does_not_drop_telemetry(monkeypatch):
         if process.returncode is None:
             os.killpg(process.pid, 9)
             process.wait()
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="synthetic VM end-clock evidence recovery")
+@pytest.mark.parametrize("through_cli", (False, True))
+def test_end_clock_failure_preserves_raw_files_without_fabricated_record(
+    tmp_path, monkeypatch, capsys, through_cli
+):
+    from tests.test_deny_fd_v2_harness_capture import serial
+
+    r, _ = fake_vm(monkeypatch)
+    expected = serial(r.preflight().base)
+    calls = 0
+
+    def clock():
+        nonlocal calls
+        calls += 1
+        if calls == 1:
+            return 10
+        raise OSError("end clock unavailable")
+
+    monkeypatch.setattr(r.time, "monotonic_ns", clock)
+    destination = tmp_path / "capture"
+    if through_cli:
+        cli = importlib.import_module("tests.deny_fd_v2_transport.host_main")
+        assert (
+            cli.main(["--run-prepared-guest", "--case", "DFD01", "--destination", str(destination)])
+            == 2
+        )
+        output = json.loads(capsys.readouterr().out)
+        assert output["capture"] == "FAILED" and output["current_record"] is None
+    else:
+        with pytest.raises(r.TransportCaptureFailure) as caught:
+            r.capture_cases(("DFD01",), destination, run_prepared_guest=True)
+        assert caught.value.current_record is None
+        assert "end clock unavailable" in caught.value.acquisition_error
+        assert caught.value.persistence_error is None
+    directory = destination / "DFD01"
+    assert (directory / "telemetry.bin").exists(), "clock failure discarded telemetry"
+    assert (directory / "telemetry.bin").read_bytes() == expected
+    assert (directory / "console.bin").read_bytes() == b"console noise\n"
+    assert json.loads((directory / "record.json").read_text())["record"] is None
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="synthetic VM independent write recovery")
+@pytest.mark.parametrize("failed_name", ("telemetry.bin", "console.bin", "record.json", "all"))
+@pytest.mark.parametrize("through_cli", (False, True))
+def test_each_write_is_attempted_and_cli_preserves_lossless_raw(
+    tmp_path, monkeypatch, capsys, failed_name, through_cli
+):
+    from tests.test_deny_fd_v2_harness_capture import serial
+
+    r, _ = fake_vm(monkeypatch)
+    expected = {"telemetry": serial(r.preflight().base), "console": b"console noise\n"}
+    actual_write = r.lifecycle._write
+    attempted = []
+
+    def write(path, raw):
+        attempted.append(path.name)
+        if path.name != "initrd.cpio.gz" and (failed_name == "all" or path.name == failed_name):
+            raise OSError("injected storage error")
+        return actual_write(path, raw)
+
+    monkeypatch.setattr(r.lifecycle, "_write", write)
+    destination = tmp_path / "capture"
+    if through_cli:
+        cli = importlib.import_module("tests.deny_fd_v2_transport.host_main")
+        assert (
+            cli.main(["--run-prepared-guest", "--case", "DFD01", "--destination", str(destination)])
+            == 2
+        )
+        output = json.loads(capsys.readouterr().out)
+        assert output["capture"] == "FAILED"
+        assert isinstance(output.get("raw_evidence"), dict), "CLI discarded unwritten bytes"
+        assert output["raw_evidence"]["encoding"] == "base64"
+        for role, raw in expected.items():
+            assert base64.b64decode(output["raw_evidence"][role], validate=True) == raw
+        assert output["acquisition_error"] is None
+        assert "injected storage error" in output["persistence_error"]
+        assert all(value is False for value in output["permissions"].values())
+    else:
+        with pytest.raises(r.TransportCaptureFailure) as caught:
+            r.capture_cases(("DFD01",), destination, run_prepared_guest=True)
+        assert caught.value.result.telemetry.raw == expected["telemetry"]
+        assert caught.value.result.console.raw == expected["console"]
+        assert caught.value.current_record is not None
+        assert caught.value.acquisition_error is None
+        assert "injected storage error" in caught.value.persistence_error
+    assert attempted == ["initrd.cpio.gz", "telemetry.bin", "console.bin", "record.json"]
+    for role, raw in expected.items():
+        name = role + ".bin"
+        if failed_name not in (name, "all"):
+            assert (destination / "DFD01" / name).read_bytes() == raw
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="synthetic VM record construction failure")
+def test_record_validation_failure_keeps_raw_and_null_record(tmp_path, monkeypatch):
+    from tests.test_deny_fd_v2_harness_capture import serial
+
+    r, _ = fake_vm(monkeypatch)
+    expected = serial(r.preflight().base)
+
+    def invalid(*args):
+        raise ValueError("record context unavailable")
+
+    monkeypatch.setattr(r, "_record", invalid)
+    destination = tmp_path / "capture"
+    with pytest.raises(r.TransportCaptureFailure) as caught:
+        r.capture_cases(("DFD01",), destination, run_prepared_guest=True)
+    assert caught.value.current_record is None
+    assert (destination / "DFD01/telemetry.bin").read_bytes() == expected
+    assert (destination / "DFD01/console.bin").read_bytes() == b"console noise\n"
+    assert json.loads((destination / "DFD01/record.json").read_text())["record"] is None
+
+
+@pytest.mark.skipif(sys.platform != "linux", reason="synthetic VM multi-case clock failure")
+def test_second_case_clock_failure_preserves_first_record_and_both_current_streams(
+    tmp_path, monkeypatch
+):
+    r, _ = fake_vm(monkeypatch, ("DFD01", "DFD02"))
+    calls = 0
+
+    def clock():
+        nonlocal calls
+        calls += 1
+        if calls == 4:
+            raise OSError("second case end clock unavailable")
+        return calls
+
+    monkeypatch.setattr(r.time, "monotonic_ns", clock)
+    destination = tmp_path / "capture"
+    with pytest.raises(r.TransportCaptureFailure) as caught:
+        r.capture_cases(("DFD01", "DFD02"), destination, run_prepared_guest=True)
+    assert len(caught.value.completed) == 1
+    first = caught.value.completed[0]
+    assert (destination / "DFD01/telemetry.bin").read_bytes() == first.result.telemetry.raw
+    assert (destination / "DFD02/telemetry.bin").read_bytes() == caught.value.result.telemetry.raw
+    assert (destination / "DFD02/console.bin").read_bytes() == caught.value.result.console.raw
+    assert caught.value.current_record is None
+
+
+def test_cli_lossless_fallback_remains_bounded_by_raw_aggregate_limit(
+    tmp_path, monkeypatch, capsys
+):
+    from tests.deny_fd_v2_transport.contracts import StreamEvidence, TransportProcessResult
+
+    r = api()
+    cli = importlib.import_module("tests.deny_fd_v2_transport.host_main")
+    raw = b"t" * 1048576
+    result = TransportProcessResult(
+        StreamEvidence(raw, False, None), StreamEvidence(b"", False, None), None, "IO_ERROR", None
+    )
+
+    def failed(*args, **kwargs):
+        raise r.TransportCaptureFailure("all files unavailable", result, persistence_error="disk")
+
+    monkeypatch.setattr(r, "capture_cases", failed)
+    assert (
+        cli.main(
+            [
+                "--run-prepared-guest",
+                "--case",
+                "DFD01",
+                "--destination",
+                str(tmp_path / "never-created"),
+            ]
+        )
+        == 2
+    )
+    output = json.loads(capsys.readouterr().out)
+    fallback = output["raw_evidence"]
+    assert len(fallback["telemetry"]) == 1398104
+    assert base64.b64decode(fallback["telemetry"], validate=True) == raw
+    assert base64.b64decode(fallback["console"], validate=True) == b""
+    assert output["current_record"] is None and output["capture"] == "FAILED"
