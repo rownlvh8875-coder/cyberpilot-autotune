@@ -1,0 +1,51 @@
+{
+  "schema": "deny-fd-v2-semantic-schema-v1",
+  "wire_version": "guest-data-fd-denial-observed-v2",
+  "stage": "PRE_EXEC_INVENTORY",
+  "header_evidence_meaning": "OBSERVED_UNTRUSTED_CLAIM_NOT_ACQUISITION_PROOF",
+  "framing": ["DFD2_EXEC", "DFD2 [seq,time_ns,kind,...]", "DFD2_PROBE_EXIT=0", "DFD2_DONE"],
+  "rows": {
+    "BEGIN": ["version", "capture_id", "source_revision", "source_manifest_digest", "clock", "evidence_kind", "case_label"],
+    "POLICY": ["policy_id", "configured_subject_fd_or_null", "expected_count"],
+    "EXPECT": ["policy_id", "fd"],
+    "BIRTH": ["root", "exec"],
+    "FD": ["snapshot_id", "stage", "root", "exec", "fd", "slot_epoch_null"],
+    "SNAP": ["snapshot_id", "stage", "root", "exec", "policy_id", "observed_count", "threads", "uid", "gid", "nnp", "fd_table_generation_null", "ofd_generation_null"],
+    "CAUSE": ["snapshot_id", "fd", "fd_source_seq"],
+    "DENY": ["snapshot_id", "stage", "root", "exec", "policy_id", "UNEXPECTED_FD", "operation_fd_null", "cause_count"],
+    "RESULT": ["snapshot_id", "stage", "root", "exec", "policy_id", "outcome"],
+    "REAP": ["root", "exec", "SIGNALLED", "status9"],
+    "END": ["root", "exec", "dropped_count_null"]
+  },
+  "types": {
+    "ids_times_counts": "UInt64_exact_builtin_integer",
+    "fd": "Int32_nonnegative_exact_builtin_integer",
+    "unknown": "explicit_null_never_zero_false_or_empty",
+    "capture_id": "lowerhex32_content_cohort_not_authenticity",
+    "source_revision": "lowerhex40",
+    "source_manifest_digest": "lowerhex64_no_ELF_or_capture_self_hash"
+  },
+  "resource_bounds": {"events": 1024, "fds_per_set": 64, "line_bytes": 4096, "serial_bytes": 1048576},
+  "source_roles": {
+    "configured_subject_fd": "context_only",
+    "operation_fd": "null_for_inventory_no_syscall",
+    "cause_fds": "all_observed_minus_expected_only_when_missing_empty",
+    "cause_refs": "same_point_original_FD_row_not_case_lookup",
+    "generations": "unknown_kernel_lifetimes_must_null"
+  },
+  "legacy_conversion_allowed": false,
+  "actual_guest_capture_available": false,
+  "runtime_qualified": false,
+  "application_authorized": false,
+  "permissions": {
+    "build_execution_allowed": false,
+    "promotion_authorized": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  }
+}
