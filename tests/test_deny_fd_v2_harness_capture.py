@@ -179,3 +179,53 @@ def test_raw_prefix_and_completed_batch_survive_failure(monkeypatch):
     assert len(failure.completed) == 1 and str(failure) == "output limit"
     with pytest.raises(AttributeError):
         failure.raw = b"replacement"
+
+
+def test_current_failure_record_is_explicit_immutable_context(monkeypatch):
+    v = api()
+    a, _, _ = synthetic_assets(monkeypatch)
+    current = record(
+        a.preflight(), raw=b"prefix", termination="TIMEOUT", exit_code=None, raw_complete=False
+    )
+    failure = v.CaptureFailure(
+        "volume full",
+        current.raw,
+        False,
+        current_record=current,
+        acquisition_error="deadline",
+        persistence_error="volume full",
+    )
+    assert failure.current_record is current and failure.acquisition_error == "deadline"
+    assert failure.persistence_error == "volume full"
+    for field in ("current_record", "acquisition_error", "persistence_error"):
+        with pytest.raises(AttributeError):
+            setattr(failure, field, None)
+    absent = v.CaptureFailure("setup unavailable", b"", False)
+    assert absent.current_record is None
+    assert absent.acquisition_error is None and absent.persistence_error is None
+
+
+@pytest.mark.parametrize(
+    "changes",
+    (
+        {"current_record": False},
+        {"acquisition_error": False},
+        {"acquisition_error": ""},
+        {"acquisition_error": "x" * 4001},
+        {"persistence_error": "bad\x00error"},
+        {"persistence_error": 0},
+    ),
+)
+def test_failure_context_rejects_unknown_or_unbounded_values(changes):
+    v = api()
+    with pytest.raises(ValueError):
+        v.CaptureFailure("failed", b"", False, **changes)
+
+
+def test_failure_current_record_must_match_retained_raw_and_completeness(monkeypatch):
+    v = api()
+    a, _, _ = synthetic_assets(monkeypatch)
+    current = record(a.preflight())
+    for raw, complete in ((b"different", True), (current.raw, False)):
+        with pytest.raises(ValueError):
+            v.CaptureFailure("failed", raw, complete, current_record=current)

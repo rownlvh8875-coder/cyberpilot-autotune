@@ -352,6 +352,7 @@ def capture_cases(
         except (OSError, ValueError, subprocess.SubprocessError, KeyboardInterrupt) as error:
             failure = _message(error)
         end = time.monotonic_ns()
+        record = None
         try:
             # A pre-image/setup failure has no invented image or argv receipt.
             if not image or not argv:
@@ -367,9 +368,22 @@ def capture_cases(
             _persist(directory, record, failure)
         except (OSError, ValueError) as error:
             raise CaptureFailure(
-                _message(error), raw_result.raw, raw_result.raw_complete, completed
+                _message(error),
+                raw_result.raw,
+                raw_result.raw_complete,
+                completed,
+                current_record=record,
+                acquisition_error=failure,
+                persistence_error=_message(error) if record is not None else None,
             ) from error
         if failure is not None:
-            raise CaptureFailure(failure, raw_result.raw, raw_result.raw_complete, completed)
+            raise CaptureFailure(
+                failure,
+                raw_result.raw,
+                raw_result.raw_complete,
+                completed,
+                current_record=record,
+                acquisition_error=failure,
+            )
         completed.append(record)
     return tuple(completed)

@@ -28,12 +28,17 @@ def main(argv: list[str] | None = None) -> int:
         )
         result |= {"capture": "RECORDED_UNTRUSTED", "records": [r.metadata() for r in records]}
     except CaptureFailure as error:
+        current = error.current_record
         result |= {
             "capture": "FAILED",
             "reason": str(error),
             "raw_bytes": len(error.raw),
             "raw_complete": error.raw_complete,
             "completed": len(error.completed),
+            "current_record": current.metadata() if current is not None else None,
+            "current_record_digest": current.content_digest if current is not None else None,
+            "acquisition_error": error.acquisition_error,
+            "persistence_error": error.persistence_error,
         }
     except (OSError, ValueError) as error:
         result |= {"capture": "UNAVAILABLE", "reason": str(error)}

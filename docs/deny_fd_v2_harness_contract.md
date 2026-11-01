@@ -61,7 +61,13 @@ and record.json, all exclusive-created, never an overwrite. Supported timeout,
 output-limit, nonzero, collector/close and persistence failure paths preserve
 the observed raw prefix and earlier completed records through CaptureFailure.
 Persistence failure can leave partial files; the exception retains available
-bytes instead of reporting success. No universal crash-durability claim.
+bytes and the current frozen record whenever one was constructed, rather than
+reporting success. Its bounded acquisition_error and persistence_error are
+distinct; a disk error cannot replace a prior cleanup/termination failure.
+The CLI includes that record's metadata/content digest and both errors. An
+attempt that failed before record creation has current_record=None, not an
+invented image/argv receipt. These diagnostic errors are outside the record's
+content digest; no universal crash-durability claim is made.
 
 Collection is bounded to1MiB and180seconds with a2second termination grace.
 The Linux leader remains unreaped using WNOWAIT until the last group signal,

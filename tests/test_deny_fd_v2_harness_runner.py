@@ -183,6 +183,9 @@ def test_failure_preserves_prefix_and_completed_cases(tmp_path, monkeypatch, ter
     with pytest.raises(r.CaptureFailure) as error:
         r.capture_cases(("DFD01", "DFD02"), output, run_prepared_guest=True)
     assert error.value.raw == b"partial\n" and len(error.value.completed) == 1
+    assert error.value.current_record.termination == termination
+    assert error.value.acquisition_error == "synthetic boundary failure"
+    assert error.value.persistence_error is None
     assert (output / "DFD01/serial.bin").read_bytes() == serial(bundle)
     assert (output / "DFD02/serial.bin").read_bytes() == b"partial\n"
 
@@ -200,6 +203,94 @@ def test_write_failure_is_not_success_and_retains_raw(tmp_path, monkeypatch):
     with pytest.raises(r.CaptureFailure) as error:
         r.capture_cases(("DFD01",), tmp_path / "evidence", run_prepared_guest=True)
     assert error.value.raw == serial(bundle) and error.value.completed == ()
+
+
+@pytest.mark.parametrize("filename", ("serial.bin", "record.json"))
+@pytest.mark.parametrize("termination", ("CLEANUP_ERROR", "TIMEOUT", "EXITED"))
+def test_later_persistence_failure_retains_current_record_and_both_errors(
+    tmp_path, monkeypatch, filename, termination
+):
+    r, bundle, processes = fake_vm(monkeypatch, ("DFD01", "DFD02"))
+    current_raw = serial(bundle, "DFD02") if termination == "EXITED" else b"current-prefix\n"
+    acquisition_error = None if termination == "EXITED" else "owned group outcome unavailable"
+
+    def collect(process, **kwargs):
+        if processes.index(process) == 0:
+            return r.ProcessResult(serial(bundle), 0, "EXITED", True, None)
+        return r.ProcessResult(
+            current_raw,
+            0 if termination == "EXITED" else None,
+            termination,
+            termination == "EXITED",
+            acquisition_error,
+        )
+
+    monkeypatch.setattr(r, "_supervise", collect)
+    original = Path.open
+
+    def failing_open(path, *args, **kwargs):
+        if path.parent.name == "DFD02" and path.name == filename:
+            raise OSError("synthetic evidence volume full")
+        return original(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "open", failing_open)
+    output = tmp_path / "evidence"
+    with pytest.raises(r.CaptureFailure) as error:
+        r.capture_cases(("DFD01", "DFD02"), output, run_prepared_guest=True)
+    failure = error.value
+    assert [record.case for record in failure.completed] == ["DFD01"]
+    assert failure.raw == current_raw and failure.raw_complete is (termination == "EXITED")
+    assert failure.acquisition_error == acquisition_error
+    assert failure.persistence_error == "synthetic evidence volume full"
+    assert str(failure) == failure.persistence_error
+    record = failure.current_record
+    assert record is not None and record.case == "DFD02"
+    assert record.raw == current_raw and record.termination == termination
+    assert record.exit_code == (0 if termination == "EXITED" else None)
+    assert record.host_end_ns >= record.host_start_ns > 0
+    assert len(record.attempt_id) == 32 and record.source_revision == bundle.source_revision
+    assert record.vm_cohort_digest == bundle.vm_cohort_digest
+    assert record.image_sha256 and record.init_sha256 and record.argv
+    assert record.status == "BLOCKED" and all(value is False for _, value in record.permissions)
+    assert (output / "DFD01/serial.bin").read_bytes() == serial(bundle)
+    assert not (output / "DFD02/record.json").exists()
+
+
+@pytest.mark.parametrize("filename", ("serial.bin", "record.json"))
+def test_cli_exposes_cleanup_record_even_when_persistence_fails(
+    tmp_path, monkeypatch, capsys, filename
+):
+    r, _, _ = fake_vm(monkeypatch)
+    from tests.deny_fd_v2_harness.host_main import main
+
+    monkeypatch.setattr(
+        r,
+        "_supervise",
+        lambda *a: r.ProcessResult(b"prefix", None, "CLEANUP_ERROR", False, "cleanup unconfirmed"),
+    )
+    original = Path.open
+
+    def failing_open(path, *args, **kwargs):
+        if path.name == filename:
+            raise OSError("volume full")
+        return original(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "open", failing_open)
+    assert (
+        main(
+            ["--run-prepared-guest", "--case", "DFD01", "--destination", str(tmp_path / "evidence")]
+        )
+        == 2
+    )
+    result = json.loads(capsys.readouterr().out)
+    assert result["capture"] == "FAILED" and result["status"] == "BLOCKED"
+    assert result["acquisition_error"] == "cleanup unconfirmed"
+    assert result["persistence_error"] == result["reason"] == "volume full"
+    assert result["current_record"]["termination"] == "CLEANUP_ERROR"
+    assert result["current_record"]["exit_code"] is None
+    assert result["current_record"]["raw_size"] == 6
+    assert len(result["current_record_digest"]) == 64
+    assert all(value is False for value in result["permissions"].values())
 
 
 def test_existing_or_checkout_output_is_not_overwritten(tmp_path, monkeypatch):
@@ -231,6 +322,9 @@ def test_image_write_failure_does_not_create_a_fake_receipt(tmp_path, monkeypatc
     with pytest.raises(r.CaptureFailure) as error:
         r.capture_cases(("DFD01",), tmp_path / "evidence", run_prepared_guest=True)
     assert error.value.raw == b"" and error.value.raw_complete is False and processes == []
+    assert error.value.current_record is None
+    assert error.value.acquisition_error == "image write failed"
+    assert error.value.persistence_error is None
 
 
 @pytest.mark.parametrize("mode", ("recorded", "unavailable", "failure"))

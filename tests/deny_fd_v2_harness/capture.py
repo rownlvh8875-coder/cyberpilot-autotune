@@ -38,6 +38,10 @@ class CaptureFailure(ValueError):
         raw: bytes,
         raw_complete: bool,
         completed: tuple[AcquisitionRecord, ...] | list[AcquisitionRecord] = (),
+        *,
+        current_record: AcquisitionRecord | None = None,
+        acquisition_error: str | None = None,
+        persistence_error: str | None = None,
     ):
         need(
             type(reason) is str and 0 < len(reason) <= 4096 and "\0" not in reason,
@@ -50,10 +54,28 @@ class CaptureFailure(ValueError):
             and all(type(r) is AcquisitionRecord for r in completed),
             "completed records required",
         )
+        need(
+            current_record is None
+            or (
+                type(current_record) is AcquisitionRecord
+                and current_record.raw == raw
+                and current_record.raw_complete == raw_complete
+            ),
+            "current record must match retained evidence or be unavailable",
+        )
+        for error in (acquisition_error, persistence_error):
+            need(
+                error is None
+                or (type(error) is str and 0 < len(error) <= 4000 and "\0" not in error),
+                "bounded distinct failure context required",
+            )
         super().__init__(reason)
         self._raw = raw
         self._raw_complete = raw_complete
         self._completed = tuple(completed)
+        self._current_record = current_record
+        self._acquisition_error = acquisition_error
+        self._persistence_error = persistence_error
 
     @property
     def raw(self) -> bytes:
@@ -66,3 +88,15 @@ class CaptureFailure(ValueError):
     @property
     def completed(self) -> tuple[AcquisitionRecord, ...]:
         return self._completed
+
+    @property
+    def current_record(self) -> AcquisitionRecord | None:
+        return self._current_record
+
+    @property
+    def acquisition_error(self) -> str | None:
+        return self._acquisition_error
+
+    @property
+    def persistence_error(self) -> str | None:
+        return self._persistence_error

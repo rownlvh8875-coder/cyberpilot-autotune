@@ -76,3 +76,16 @@ post-checkpoint gates. Their actual SHAs/outcomes live in the external handoff
 and review report after observation,not a circular claim inside this commit.
 No GitHub CI result for this unpublished branch,Windows execution,human review,
 merge authority or runtime/vehicle readiness is claimed. No automatic next phase.
+
+## Append-only independent-review correction
+
+Review at59adcf4 found C0/I1/M0: when persistence failed, the exception retained
+the raw prefix and earlier cases but not the current record or prior cleanup
+error. The reproducing regression group failed22cases before the correction.
+CaptureFailure now retains the current frozen record when available and distinct
+bounded acquisition/persistence errors; the CLI exposes that context. A
+preparation failure keeps an explicitly absent record, without fabricated argv
+or image evidence. The focused capture/runner group then passed93tests1.59s.
+Post-fix full gates and fresh exact-head review are recorded in the external
+handoff after observation. This changes no product, producer, permission or
+runtime blocker; it is evidence retention, not qualification or execution.
