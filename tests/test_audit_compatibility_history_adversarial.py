@@ -41,3 +41,38 @@ def test_supplied_errors_and_unavailable_are_retained():
     decision = api("validation").assess_record(record, policy)
     assert "KNOWN" in decision.errors and "SOURCE" in decision.unavailable
     assert decision.consistency == "REJECTED"
+
+
+@pytest.mark.parametrize("damage", ("one_missing", "AR56", "same_count_other"))
+def test_policy_and_record_cannot_jointly_shrink_registered_D_inventory(damage):
+    record, policy = complete()
+    command = policy.commands[3]
+    original = command.expected_nodeids
+    nodes = (
+        original[1:]
+        if damage == "one_missing"
+        else tuple(f"AR-{i}" for i in range(56))
+        if damage == "AR56"
+        else ("tests/other.py::fake", *original[1:])
+    )
+    policy = replace(
+        policy,
+        commands=(
+            *policy.commands[:3],
+            replace(command, expected_nodeids=nodes),
+            *policy.commands[4:],
+        ),
+    )
+    item = record.commands[3]
+    c = api()
+    item = replace(
+        item,
+        collected_nodeids=nodes,
+        outcomes=tuple(c.CaseOutcome(n, "PASSED", "PASSED", "PASSED") for n in nodes),
+    )
+    record = replace(
+        record,
+        policy_digest=policy.content_digest,
+        commands=(*record.commands[:3], item, *record.commands[4:]),
+    )
+    assert api("validation").assess_record(record, policy).consistency == "REJECTED"

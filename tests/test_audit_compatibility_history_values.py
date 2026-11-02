@@ -125,3 +125,69 @@ def test_permission_or_historical_pass_fields_cannot_be_injected():
         value["record"][key] = True
         with pytest.raises(ValueError):
             c.decode_record(json.dumps(value).encode())
+
+
+def test_invalid_unicode_and_archive_member_paths_cannot_enter_record():
+    c = api()
+    with pytest.raises(ValueError):
+        c.OriginPin("a", "bad\ud800.py", "1" * 64, None)
+    with pytest.raises(ValueError):
+        c.OriginPin("a", "legacy.zip", "1" * 64, "../outside.py")
+    record, _ = complete()
+    item = replace(
+        record.commands[0], origins=(c.OriginPin("a", "legacy.zip", "1" * 64, "inner.py"),)
+    )
+    record = replace(record, commands=(item,))
+    assert c.decode_record(c.canonical_record(record)) == record
+
+
+def test_partial_and_empty_record_roundtrips_without_filling_missing_fields():
+    c = api()
+    record, _ = complete()
+    item = replace(
+        record.commands[0],
+        subject=None,
+        entrypoint=None,
+        argv=None,
+        exit_code=None,
+        collected_nodeids=None,
+        outcomes=None,
+        origins=None,
+        coverage=None,
+        coverage_artifact_sha256=None,
+        coverage_producer_command_id=None,
+    )
+    for value in (
+        replace(record, commands=(item,), policy_digest=None),
+        replace(record, commands=()),
+    ):
+        assert c.decode_record(c.canonical_record(value)) == value
+
+
+def test_wire_rejects_nested_unknown_keys_and_nonarray_container():
+    c = api()
+    record, _ = complete()
+    for target in ("source", "coverage", "array", "float", "bool", "schema", "record"):
+        value = json.loads(c.canonical_record(record))
+        item = value["record"]["commands"][0]
+        if target == "source":
+            item["subject"]["authority"] = True
+        elif target == "coverage":
+            item["coverage"][0]["unknown"] = 0
+        elif target == "array":
+            item["argv"] = {}
+        elif target == "float":
+            item["exit_code"] = 0.0
+        elif target == "bool":
+            item["exit_code"] = False
+        elif target == "schema":
+            value["schema"] = "other"
+        else:
+            value["record"] = []
+        with pytest.raises(ValueError):
+            c.decode_record(json.dumps(value).encode())
+
+
+def test_excessive_wire_nesting_is_value_error_not_recursion_escape():
+    with pytest.raises(ValueError):
+        api().decode_record(b"[" * 1500 + b"0" + b"]" * 1500)

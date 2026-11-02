@@ -1,5 +1,8 @@
 """Pure consistency of supplied claims. Never observes or authorizes execution."""
 
+import json
+from hashlib import sha256
+
 from .contracts import (
     PROFILE,
     HistoricalCommandPolicy,
@@ -98,6 +101,17 @@ def _policy_command(item: HistoricalCommandPolicy, errors: set[str], missing: se
         bool(item.expected_nodeids) != (item.kind == "PYTEST")
     ):
         errors.add("POLICY_NODE_INVENTORY")
+    if item.command_id == "D-PYTEST" and item.expected_nodeids is not None:
+        # Content pin from the design's D499 inventory,not an authority token.
+        diagnostic = sorted(
+            n for n in item.expected_nodeids if n.startswith("tests/diagnostics/actual_binding/")
+        )
+        raw = json.dumps(diagnostic, ensure_ascii=True, separators=(",", ":")).encode()
+        if (
+            sha256(raw).hexdigest()
+            != "403787af65a67f069df2d13d3e91d1cd95d99642ba3a3d3e658bc286485a5ab4"
+        ):
+            errors.add("REGISTERED_D_CASE_INVENTORY")
     if item.origins is None:
         missing.add("EXPECTED_ORIGIN_INVENTORY")
     elif not item.origins or _duplicates(tuple(o.module for o in item.origins)):

@@ -222,3 +222,104 @@ def test_coverage_inventory_is_complete_and_same_artifact_same_counts(damage):
         counts = (replace(counts[0], covered=100), counts[1])
     record = changed(record, coverage=counts)
     assert decide(record, policy).consistency == "REJECTED"
+
+
+@pytest.mark.parametrize(
+    "kind",
+    (
+        "duplicate_nodes",
+        "pytest_empty",
+        "audit_nonempty",
+        "origin_empty",
+        "duplicate_origin",
+        "groups_empty",
+        "duplicate_group",
+        "duplicate_module",
+        "group_empty",
+        "wrong_prefix",
+        "cohort_duplicate",
+        "cohort_missing",
+        "command_duplicate",
+        "command_missing",
+        "command_unknown",
+        "registry_mismatch",
+        "peer_groups",
+    ),
+)
+def test_policy_inconsistencies_cannot_register_themselves(kind):
+    record, policy = complete()
+    item = policy.commands[0]
+    if kind == "duplicate_nodes":
+        item = replace(item, expected_nodeids=(*item.expected_nodeids, *item.expected_nodeids))
+    elif kind == "pytest_empty":
+        item = replace(item, expected_nodeids=())
+    elif kind == "audit_nonempty":
+        item = replace(policy.commands[1], expected_nodeids=("tests/a.py::test_x",))
+    elif kind == "origin_empty":
+        item = replace(item, origins=())
+    elif kind == "duplicate_origin":
+        item = replace(item, origins=(*item.origins, *item.origins))
+    elif kind in (
+        "groups_empty",
+        "duplicate_group",
+        "duplicate_module",
+        "group_empty",
+        "wrong_prefix",
+        "peer_groups",
+    ):
+        group = item.coverage_groups[0]
+        groups = {
+            "groups_empty": (),
+            "duplicate_group": (*item.coverage_groups, group),
+            "duplicate_module": ((group[0], (*group[1], *group[1])), item.coverage_groups[1]),
+            "group_empty": ((group[0], ()), item.coverage_groups[1]),
+            "wrong_prefix": ((group[0], ("src/other.py",)), item.coverage_groups[1]),
+            "peer_groups": (
+                (group[0], (group[1][0].replace("TEST_ONLY", "different"),)),
+                item.coverage_groups[1],
+            ),
+        }[kind]
+        item = replace(item, coverage_groups=groups)
+    elif kind == "cohort_duplicate":
+        policy = replace(policy, cohorts=(*policy.cohorts, policy.cohorts[0]))
+    elif kind == "cohort_missing":
+        policy = replace(policy, cohorts=policy.cohorts[:1])
+    elif kind == "command_duplicate":
+        policy = replace(policy, commands=(*policy.commands, item))
+    elif kind == "command_missing":
+        policy = replace(policy, commands=policy.commands[:-1])
+    elif kind == "command_unknown":
+        item = replace(item, command_id="O-UNKNOWN")
+    else:
+        item = replace(item, entrypoint="wrong.entrypoint")
+    if kind not in ("cohort_duplicate", "cohort_missing", "command_duplicate", "command_missing"):
+        policy = replace(policy, commands=(item, *policy.commands[1:]))
+    record = replace(record, policy_digest=policy.content_digest)
+    expected = "UNAVAILABLE" if kind in ("cohort_missing", "command_missing") else "REJECTED"
+    assert decide(record, policy).consistency == expected
+
+
+@pytest.mark.parametrize(
+    "field",
+    ("subject", "entrypoint", "argv", "coverage_artifact_sha256", "coverage_producer_command_id"),
+)
+def test_missing_observation_is_not_zero_or_default(field):
+    record, policy = complete()
+    assert decide(changed(record, **{field: None}), policy).consistency == "UNAVAILABLE"
+
+
+def test_duplicate_outcomes_and_empty_origins_reject_independently():
+    record, policy = complete()
+    item = record.commands[0]
+    assert (
+        decide(changed(record, outcomes=(*item.outcomes, *item.outcomes)), None).consistency
+        == "REJECTED"
+    )
+    assert decide(changed(record, origins=()), policy).consistency == "REJECTED"
+
+
+def test_in_progress_partial_outcomes_are_unavailable_not_completed():
+    record, policy = complete()
+    item = record.commands[3]
+    decision = decide(changed(record, 3, exit_code=None, outcomes=item.outcomes[:1]), policy)
+    assert decision.consistency == "UNAVAILABLE"
