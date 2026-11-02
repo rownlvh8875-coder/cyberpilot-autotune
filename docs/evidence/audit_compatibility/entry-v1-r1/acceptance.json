@@ -1,0 +1,402 @@
+{
+  "kind": "PLANNED_ACCEPTANCE_NOT_TEST_EXECUTION",
+  "cases": [
+    {
+      "id": "HC-01",
+      "finding": "R01",
+      "name": "valid_ENTRY_exact_three_way_and_registered_postimages",
+      "expected": "Both H and C pass;CONTENT_MATCH withall9false.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-02",
+      "finding": "R02",
+      "name": "auto_merged_guard_union_without_registration",
+      "expected": "REJECTED;do not inherit either original helper grant.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-03",
+      "finding": "R01",
+      "name": "unresolved_marker_tree_or_index",
+      "expected": "REJECTED before replay/admission.",
+      "owner": "tests/audit_compatibility/git_reader.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-04",
+      "finding": "R02",
+      "name": "arbitrary_extra_code_in_allowed_path",
+      "expected": "REJECTED exactpostimage drift.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-05",
+      "finding": "R02",
+      "name": "unlisted_extra_or_deleted_tracked_path",
+      "expected": "REJECTED whole-tree mismatch,includingoutsideprovidedsubset.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-06",
+      "finding": "R02",
+      "name": "unknown_path_below_allowed_directory",
+      "expected": "REJECTED;no directory grant.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-07",
+      "finding": "R02",
+      "name": "MANIFEST_include_dropped_or_legacyZIP_missing",
+      "expected": "REJECTED;sdist/actualoldtype test fails.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-08",
+      "finding": "R03",
+      "name": "old_manifest_or_old_digest_relabelled",
+      "expected": "REJECTED frozenhistoricalimage mismatch.",
+      "owner": "tests/audit_compatibility/historical_replay.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-09",
+      "finding": "R03",
+      "name": "historical_H6_bytes_from_D_reported_as_O",
+      "expected": "REJECTED module/sourceorigin mismatch.",
+      "owner": "tests/audit_compatibility/historical_replay.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-10",
+      "finding": "R03",
+      "name": "historical_replay_pass_current_source_modified",
+      "expected": "REJECTED fromC;H alone insufficient.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-11",
+      "finding": "R03",
+      "name": "current_match_historical_replay_unavailable",
+      "expected": "UNAVAILABLE;noCONTENT_MATCH.",
+      "owner": "tests/audit_compatibility/cli.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-12",
+      "finding": "R03",
+      "name": "fake_ROOT_or_filtered_changed_set_used",
+      "expected": "REJECTED;actualtree/index/worktree inputs mandatory.",
+      "owner": "tests/audit_compatibility/git_reader.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-13",
+      "finding": "R04",
+      "name": "STACK_or_S_tree_presented_under_ENTRY",
+      "expected": "REJECTED profile/fullinventory mismatch.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-14",
+      "finding": "R04",
+      "name": "P_P2_P3_P4_P5_manifests_or_loader_cohorts_rewritten",
+      "expected": "REJECTED original replay/provenance mismatch.",
+      "owner": "tests/audit_compatibility/historical_replay.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-15",
+      "finding": "R04",
+      "name": "old_policy_initial_path_gate_sentinel_instead_full_replay",
+      "expected": "REJECTED missingregisteredfullreplayresult.",
+      "owner": "tests/audit_compatibility/historical_replay.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-16",
+      "finding": "R04",
+      "name": "mutable_working_manifest_with_plausible_hash",
+      "expected": "REJECTED;loadonlyfromQobject.",
+      "owner": "tests/audit_compatibility/git_reader.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-17",
+      "finding": "R04",
+      "name": "wrong_R_Q_I_parent_order_or_unrelated_registration",
+      "expected": "REJECTED graphmismatch.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-18",
+      "finding": "R04",
+      "name": "missing_local_Git_object_timeout_or_permission_error",
+      "expected": "UNAVAILABLE/error,noautofetch/historicalfallback.",
+      "owner": "tests/audit_compatibility/git_reader.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-19",
+      "finding": "R04",
+      "name": "replacement_refs_or_grafts_change_ancestry",
+      "expected": "REJECTED/disabled,originalobjectsrequired.",
+      "owner": "tests/audit_compatibility/git_reader.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-20",
+      "finding": "R04",
+      "name": "postimage_exists_only_outside_Q_or_wrong_inert_blob",
+      "expected": "REJECTED.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-21",
+      "finding": "R04",
+      "name": "bootstrap_Q_selfhash_or_I_SHA_cycle",
+      "expected": "REJECTEDinvalidmanifestshape;derivebindingfromgraph.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-22",
+      "finding": "R04",
+      "name": "valid_append_only_repair_Rprime_Qprime_Iprime",
+      "expected": "CONTENT_MATCHonlynewregistrationandexactsourceheadreviewCI;oldattemptpreserved.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-23",
+      "finding": "R04",
+      "name": "ordinary_unregistered_fix_or_result_commit_after_I",
+      "expected": "REJECTED unexpectedsubject/treedelta.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-24",
+      "finding": "R04",
+      "name": "GitHub_PR_virtual_merge_wrong_base_or_head_or_extra_tree_change",
+      "expected": "REJECTED;nohead-onlygreenreuse.",
+      "owner": "tests/audit_compatibility/git_reader.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-25",
+      "finding": "R05",
+      "name": "STACK_attributes_oldprefix_then_D_rules",
+      "expected": "Prefixobligationpasses;fullattrs/Windows stillrequired.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-26",
+      "finding": "R05",
+      "name": "D_attributes_prepended_before_old_stack_or_rule_lost",
+      "expected": "REJECTED.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-27",
+      "finding": "R05",
+      "name": "CRLF_only_where_registered_and_Gitclean_equal",
+      "expected": "Acceptedcontent-equivalenceonly;otherwiseREJECTED.",
+      "owner": "tests/audit_compatibility/git_reader.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-28",
+      "finding": "R05",
+      "name": "custom_filter_or_info_attributes_override",
+      "expected": "REJECTEDwithoutexecutingfilter.",
+      "owner": "tests/audit_compatibility/git_reader.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-29",
+      "finding": "R02",
+      "name": "mode_symlink_path_escape_case_collision_duplicate_path",
+      "expected": "REJECTED.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-30",
+      "finding": "R04",
+      "name": "staged_unmerged_untracked_or_worktree_only_change",
+      "expected": "REJECTED,evenwhenHEADcorrect.",
+      "owner": "tests/audit_compatibility/git_reader.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-31",
+      "finding": "R04",
+      "name": "snapshot_HEAD_or_index_changes_midread",
+      "expected": "REJECTEDSNAPSHOT_CHANGED.",
+      "owner": "tests/audit_compatibility/git_reader.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-32",
+      "finding": "R03",
+      "name": "shared_process_stale_tests_namespace_or_top_level_alias",
+      "expected": "REJECTEDorigin;freshchildrequired.",
+      "owner": "tests/audit_compatibility/historical_replay.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-33",
+      "finding": "R03",
+      "name": "current_invalid_manifest_mutations_hidden_by_good_historical_copy",
+      "expected": "REJECTED;alloldnegativesreachcurrentphaseaswell.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-34",
+      "finding": "R02",
+      "name": "original_476_nodeid_missing_skipped_xfailed_or_renamed_without_mapping",
+      "expected": "REJECTEDacceptanceinventory.",
+      "owner": "tests/audit_compatibility/cli.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-35",
+      "finding": "R02",
+      "name": "old_golden_runtime_or_controller_receipt_bytes_changed",
+      "expected": "REJECTED preservation mismatch;noestimatorbridge.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-36",
+      "finding": "R04",
+      "name": "true_permission_or_identification_application_result_in_any_profile",
+      "expected": "REJECTED;fixed9false/ BLOCKED.",
+      "owner": "tests/audit_compatibility/contracts.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-37",
+      "finding": "R04",
+      "name": "None_zero_false_empty_or_int_bool_coercion",
+      "expected": "REJECTEDinvalidtypes;unavailablekeptdistinct.",
+      "owner": "tests/audit_compatibility/contracts.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-38",
+      "finding": "R04",
+      "name": "noncanonical_JSON_duplicate_unknown_key_NaN_Inf",
+      "expected": "REJECTEDparse/shape.",
+      "owner": "tests/audit_compatibility/contracts.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-39",
+      "finding": "R02",
+      "name": "statement97_branch100_or_statement100_branch94",
+      "expected": "CoveragegateFAIL;floors98/95independent.",
+      "owner": "tests/audit_compatibility/cli.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-40",
+      "finding": "R02",
+      "name": "freshwheel_imports_checkout_or_ships_audittooling",
+      "expected": "REJECTED;vanillawheel bothneutralnamespacesrequired.",
+      "owner": "tests/audit_compatibility/cli.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-41",
+      "finding": "R04",
+      "name": "mandatory_STACK_test_requires_VM_QEMU_guest_or_vehicle_execution",
+      "expected": "BLOCKEDscope;noskip/qualificationclaim.",
+      "owner": "tests/audit_compatibility/cli.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-42",
+      "finding": "R04",
+      "name": "semantic_registration_only_content_postimages_missing",
+      "expected": "UNAVAILABLE;specificationnotactualQ.",
+      "owner": "tests/audit_compatibility/validation.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-43",
+      "finding": "R04",
+      "name": "same_bytes_reordered_fields_and_stable_explicit_domains",
+      "expected": "Samecontentidentityonly;doesnotproveauthenticity.",
+      "owner": "tests/audit_compatibility/contracts.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HC-44",
+      "finding": "R04",
+      "name": "old_failed_review_or_greenCI_reused_for_new_I",
+      "expected": "REJECTEDhandoffgate;fresh exactheadreview/eventsrequired.",
+      "owner": "tests/audit_compatibility/cli.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    }
+  ],
+  "source_failures_preserved": "R01-R05 from pr58-stack-readiness.lxLMbg,notrelabeledresolved"
+}
