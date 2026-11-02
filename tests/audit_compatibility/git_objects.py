@@ -76,6 +76,7 @@ class TreeSnapshot:
     def __post_init__(self) -> None:
         require(type(self.entries) is tuple)
         seen: set[str] = set()
+        prefixes: dict[str, str] = {}
         for pair in self.entries:
             require(type(pair) is tuple and len(pair) == 2)
             path, image = pair
@@ -83,6 +84,9 @@ class TreeSnapshot:
             GitImage.__post_init__(image)
             require(path.casefold() not in seen)
             seen.add(path.casefold())
+            for i in range(1, len(path.split("/")) + 1):
+                prefix = "/".join(path.split("/")[:i])
+                require(prefixes.setdefault(prefix.casefold(), prefix) == prefix)
         require(
             not any(
                 "/".join(p.split("/")[:i]).casefold() in seen
@@ -113,10 +117,14 @@ def _commit_parts(raw: bytes) -> tuple[str, tuple[str, ...]]:
     try:
         tree = lines[0][5:].decode("ascii")
         parents = []
+        other_header = False
         for line in lines[1:]:
-            if not line.startswith(b"parent "):
-                break
-            parents.append(line[7:].decode("ascii"))
+            require(not line.startswith(b"tree "))
+            if line.startswith(b"parent "):
+                require(not other_header)
+                parents.append(line[7:].decode("ascii"))
+            else:
+                other_header = True
     except UnicodeError as error:
         raise ValueError("invalid commit header") from error
     require(oid(tree) and all(oid(p) for p in parents) and len(set(parents)) == len(parents))
