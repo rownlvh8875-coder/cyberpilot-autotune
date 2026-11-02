@@ -2,6 +2,7 @@
 
 import copy
 import json
+import subprocess
 from dataclasses import FrozenInstanceError, replace
 
 import pytest
@@ -439,3 +440,110 @@ def test_complete_manifest_and_raw_commit_hashes_are_content_sensitive():
         v.bundle, commits=tuple(reversed(v.bundle.commits)), trees=tuple(reversed(v.bundle.trees))
     )
     assert assess_compatibility(changed, v.manifest) == decision(v)
+
+
+@pytest.mark.parametrize(
+    "change",
+    (
+        {"source_preimages": {"M": {"unknown": True}}},
+        {"operation": "ADD"},
+    ),
+)
+def test_review_missing_source_cannot_mask_known_transition_errors(change):
+    def mutate(content):
+        row = content["transition_rows"][0]
+        if "source_preimages" in change:
+            row["source_preimages"].update(change["source_preimages"])
+        else:
+            row.update(change)
+
+    v = mutate_content(complete(), mutate)
+    v.bundle = replace(v.bundle, commits=tuple(c for c in v.bundle.commits if c != v.named["M"]))
+    r = decision(v)
+    assert "Q_TRANSITIONS" in r.errors and "COMMIT_M" in r.unavailable_checks
+
+
+@pytest.mark.parametrize("operation", ("MODIFY", "DELETE"))
+def test_review_missing_source_cannot_mask_registered_active_postimage_drift(operation):
+    v = complete(operation=operation)
+    current = files(v, "I") | {"guard.py": GitImage("100644", b"contradiction")}
+    rewrite(v, "I", current)
+    v.bundle = replace(v.bundle, commits=tuple(c for c in v.bundle.commits if c != v.named["M"]))
+    r = decision(v)
+    assert "CURRENT_REGISTERED_POSTIMAGE" in r.errors
+    assert "COMMIT_M" in r.unavailable_checks
+
+
+def test_review_missing_source_cannot_mask_validation_candidate_tree_mismatch():
+    v = complete()
+    changed = TreeSnapshot(tuple((files(v, "I") | {"extra": GitImage("100644", b"x")}).items()))
+    virtual = commit(changed, (v.named["O"], v.named["I"]), "VIRTUAL_TEST_ONLY")
+    extend(
+        v,
+        commits=(virtual,),
+        trees=(changed,),
+        validation_head=virtual.oid,
+        declared_base=v.named["O"].oid,
+    )
+    v.bundle = replace(v.bundle, commits=tuple(c for c in v.bundle.commits if c != v.named["M"]))
+    assert "VALIDATION_CANDIDATE_TREE" in decision(v).errors
+
+
+@pytest.mark.parametrize("separator", (b"\r", b"\r\n"))
+def test_review_raw_commit_headers_match_git_lf_only_oracle(tmp_path, separator):
+    subprocess.run(["git", "init", "--bare", "--quiet", str(tmp_path)], check=True)
+    prefix = b"tree " + b"1" * 40
+    suffix = (
+        b"parent " + b"2" * 40 + b"\nauthor Test <test@example.invalid> 0 +0000"
+        b"\ncommitter Test <test@example.invalid> 0 +0000\n\nTEST_ONLY\n"
+    )
+    valid = prefix + b"\n" + suffix
+    good = subprocess.run(
+        ["git", "-C", str(tmp_path), "hash-object", "-t", "commit", "--stdin"],
+        input=valid,
+        capture_output=True,
+        check=True,
+    )
+    assert CommitObject(valid).oid == good.stdout.decode().strip()
+    malformed = prefix + separator + suffix
+    bad = subprocess.run(
+        ["git", "-C", str(tmp_path), "hash-object", "-t", "commit", "--stdin"],
+        input=malformed,
+        capture_output=True,
+    )
+    assert bad.returncode != 0 and b"badTreeSha1" in bad.stderr
+    with pytest.raises(ValueError):
+        CommitObject(malformed)
+
+
+@pytest.mark.parametrize(
+    "change",
+    (
+        {"mode": "120000"},
+        {"mode": None},
+        {"git_blob": "A" * 40},
+        {"git_blob": False},
+        {"sha256": None},
+        {"sha256": "0" * 63},
+        {"bytes": True},
+        {"bytes": -1},
+        {"bytes": "0"},
+        {"extra": False},
+    ),
+)
+def test_closed_preimage_descriptor_is_checked_without_its_source(change):
+    v = mutate_content(
+        complete(), lambda c: c["transition_rows"][0]["source_preimages"]["M"].update(change)
+    )
+    v.bundle = replace(v.bundle, commits=tuple(c for c in v.bundle.commits if c != v.named["M"]))
+    assert "Q_TRANSITIONS" in decision(v).errors
+
+
+def test_virtual_tree_identity_contradiction_survives_missing_tree_snapshots():
+    v = complete()
+    different = TreeSnapshot((("other", GitImage("100644", b"different")),))
+    virtual = commit(different, (v.named["O"], v.named["I"]), "VIRTUAL_TEST_ONLY")
+    extend(v, commits=(virtual,), validation_head=virtual.oid, declared_base=v.named["O"].oid)
+    v.bundle = replace(v.bundle, trees=())
+    r = decision(v)
+    assert "VALIDATION_CANDIDATE_TREE" in r.errors and "TREE_CANDIDATE" in r.unavailable_checks

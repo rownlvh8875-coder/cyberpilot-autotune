@@ -1,10 +1,11 @@
 """Closed preparation schemas. R binds source bytes; Q requires canonical wire bytes."""
 
 import json
+import re
 from typing import Any, cast
 
 from .contracts import PERMISSIONS, PinnedCompatibilityManifest
-from .git_objects import GitImage, require
+from .git_objects import GitImage, oid, require
 
 
 def canonical(value: Any) -> bytes:
@@ -100,3 +101,16 @@ def content_rows(raw: bytes, pin: PinnedCompatibilityManifest) -> list[dict[str,
     require(all(type(p) is str for p in names))
     require(len(set(names)) == len(names) and set(names) == set(pin.active_paths))
     return rows
+
+
+def validate_descriptor(value: Any) -> None:
+    """Validate declared facts even when the corresponding raw source is missing."""
+    if value is None:
+        return
+    require(type(value) is dict and set(value) == {"mode", "git_blob", "sha256", "bytes"})
+    require(type(value["mode"]) is str and value["mode"] in ("100644", "100755"))
+    require(oid(value["git_blob"]))
+    require(
+        type(value["sha256"]) is str and re.fullmatch("[0-9a-f]{64}", value["sha256"]) is not None
+    )
+    require(type(value["bytes"]) is int and value["bytes"] >= 0)

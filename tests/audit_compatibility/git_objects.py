@@ -112,7 +112,7 @@ class TreeSnapshot:
 
 def _commit_parts(raw: bytes) -> tuple[str, tuple[str, ...]]:
     require(type(raw) is bytes and b"\n\n" in raw and b"\0" not in raw)
-    lines = raw.split(b"\n\n", 1)[0].splitlines()
+    lines = raw.split(b"\n\n", 1)[0].split(b"\n")
     require(bool(lines) and lines[0].startswith(b"tree "))
     try:
         tree = lines[0][5:].decode("ascii")

@@ -9,7 +9,7 @@ from .contracts import (
     PinnedCompatibilityManifest,
 )
 from .git_objects import CommitObject, GitImage, TreeSnapshot, path_value, require
-from .schema import canonical, content_rows, descriptor, validate_semantics
+from .schema import canonical, content_rows, descriptor, validate_descriptor, validate_semantics
 
 type Files = dict[str, GitImage]
 
@@ -47,12 +47,13 @@ def _postimages(
         pre = row["source_preimages"]
         require(type(pre) is dict and set(pre) == set(sources))
         for name, files in sources.items():
+            validate_descriptor(pre[name])
             if files is not None:
                 require(canonical(pre[name]) == canonical(descriptor(files.get(path))))
         spec, frozen = row["postimage"], row["inert_postimage_path"]
         if spec is None:
             require(frozen is None and row["operation"] == "DELETE")
-            require(any(files is None or path in files for files in sources.values()))
+            require(any(value is not None for value in pre.values()))
             deleted.add(path)
         else:
             require(type(spec) is dict and path_value(frozen))
@@ -61,14 +62,8 @@ def _postimages(
             assert image is not None
             require(canonical(spec) == canonical(descriptor(image)))
             require(frozen == pin.inert_root + "/" + image.sha256 + ".blob")
-            require(row["operation"] in ("MODIFY", "ADD"))
-            if all(files is not None for files in sources.values()):
-                operation = (
-                    "MODIFY"
-                    if any(files is not None and path in files for files in sources.values())
-                    else "ADD"
-                )
-                require(row["operation"] == operation)
+            operation = "MODIFY" if any(value is not None for value in pre.values()) else "ADD"
+            require(row["operation"] == operation)
             posts[path] = image
             inert.add(frozen)
     return posts, deleted, inert
@@ -176,6 +171,8 @@ def assess_compatibility(
             ("VALIDATION", validation),
         )
     )
+    if candidate is not None and validation is not None:
+        check(candidate.tree == validation.tree, "VALIDATION_CANDIDATE_TREE")
     if rf is not None:
         try:
             image = rf.get(manifest.semantic_path)
@@ -207,6 +204,12 @@ def assess_compatibility(
         except ValueError:
             errors.add("Q_TRANSITIONS")
         else:
+            for role, current in (("CURRENT", cf), ("VALIDATION", vf)):
+                if current is not None:
+                    check(
+                        all(current.get(path) == posts.get(path) for path in manifest.active_paths),
+                        role + "_REGISTERED_POSTIMAGE",
+                    )
             if rf is not None:
                 additions = inert | {manifest.manifest_path}
                 check(_delta(rf, qf) == additions and not additions & rf.keys(), "Q_DELTA")
