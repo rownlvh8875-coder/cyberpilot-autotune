@@ -1,0 +1,166 @@
+{
+  "document_kind": "NEUTRAL_DIAGNOSTICS_INTEGRATION_SOURCE_PROVENANCE_NOT_AUTHENTICITY",
+  "base_sha": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+  "canonical_namespace": "cyberpilot_autotune.diagnostics.actual_binding",
+  "portable": {
+    "hf_dataset": "jjuinho/autoyune",
+    "private": true,
+    "commit": "13c746d4bfed31733badd1d90024a7c020fe8667",
+    "archive_sha256": "173cb5ec77f9956c93b105869e6a5434cc4493c1699ddf840e4a94c17a6f2bce",
+    "release_manifest_sha256": "e077bdbe4a8e95eb4b7f4aa967a601021f585c4221ed63c3bbaee7b984b36e08",
+    "prior_review_does_not_cover_this_integration": true
+  },
+  "runtime_files": [
+    {
+      "file": "__init__.py",
+      "original_path": "actual_binding/__init__.py",
+      "original_sha256": "ba9d906bc6297f8bd0766ef26d514b3d6fcd1701dfa77203507266f22671cea9",
+      "transformation": "Path relocation only; byte-identical source, relative imports retained"
+    },
+    {
+      "file": "_codec.py",
+      "original_path": "actual_binding/_codec.py",
+      "original_sha256": "a809c5dafb6e02b87865239cc46fbf756383e79e8f8362203849adff2f948e2c",
+      "transformation": "Path relocation only; byte-identical source, relative imports retained"
+    },
+    {
+      "file": "_identity.py",
+      "original_path": "actual_binding/_identity.py",
+      "original_sha256": "d35b28e33fff05abb7a436691b64a73876cea8f04a41749e87be8bebccf935eb",
+      "transformation": "Path relocation only; byte-identical source, relative imports retained"
+    },
+    {
+      "file": "_linkage.py",
+      "original_path": "actual_binding/_linkage.py",
+      "original_sha256": "cd95850c53a6d16d4b51a1e524e1509c2ca2da69b95337ad96dd35ddc348c86b",
+      "transformation": "Path relocation only; byte-identical source, relative imports retained"
+    },
+    {
+      "file": "_schema.py",
+      "original_path": "actual_binding/_schema.py",
+      "original_sha256": "6010f490573e8f2e7ce486c52e5d8d878158a89376ddbc76c315720708f15e5d",
+      "transformation": "Path relocation only; byte-identical source, relative imports retained"
+    },
+    {
+      "file": "_state.py",
+      "original_path": "actual_binding/_state.py",
+      "original_sha256": "a8dd4a7ec8211a56c569b1d40ae6e46b1636fd74d304e245e4d0540fa15f6636",
+      "transformation": "Path relocation only; byte-identical source, relative imports retained"
+    },
+    {
+      "file": "assessment.py",
+      "original_path": "actual_binding/assessment.py",
+      "original_sha256": "1e16cfdccbe500a709c8d97a82814efa761a21bc96a603bf994503fc5bc7be36",
+      "transformation": "Path relocation only; byte-identical source, relative imports retained"
+    },
+    {
+      "file": "constants.py",
+      "original_path": "actual_binding/constants.py",
+      "original_sha256": "bec1c6f3e54359c1a1698592af7bd8f811259b4de17cbaef6c4e744b662b7e97",
+      "transformation": "Path relocation only; byte-identical source, relative imports retained"
+    },
+    {
+      "file": "values.py",
+      "original_path": "actual_binding/values.py",
+      "original_sha256": "de98f808732c24c1ad234df64b7074c0b58e35790440acdbbef7fa013da6c3cb",
+      "transformation": "Path relocation only; byte-identical source, relative imports retained"
+    }
+  ],
+  "tests": [
+    {
+      "original_path": "checks/__init__.py",
+      "original_sha256": "474009e64458639266f8cb3e1238b2572a4896d7f798fd6c973c528451df12fe",
+      "integrated_path": "tests/diagnostics/actual_binding/__init__.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    },
+    {
+      "original_path": "checks/cold_probe.py",
+      "original_sha256": "a45bb17539c9e9306599eec10185e8380196e1f04d65f329add13bb95651388a",
+      "integrated_path": "tests/diagnostics/actual_binding/cold_probe.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    },
+    {
+      "original_path": "checks/test_architecture.py",
+      "original_sha256": "e390682a44bcbfba0bcec5150f71399c1c31095765b17334464d79b3e410f1fc",
+      "integrated_path": "tests/diagnostics/actual_binding/test_architecture.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    },
+    {
+      "original_path": "checks/test_assessment.py",
+      "original_sha256": "246bf52eafabaee2f657f31123d2edda015889d393f908505107a8516c00d345",
+      "integrated_path": "tests/diagnostics/actual_binding/test_assessment.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    },
+    {
+      "original_path": "checks/test_boundaries.py",
+      "original_sha256": "c6695993451e8c2e9b8303996eb8a2935b1c272dcfcb392011eb5dc9451c59d1",
+      "integrated_path": "tests/diagnostics/actual_binding/test_boundaries.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    },
+    {
+      "original_path": "checks/test_cold.py",
+      "original_sha256": "f438f5df4e3a147a3c3980ef5c8993b523f7113d1ca7fc8cc78cad8b36a30cab",
+      "integrated_path": "tests/diagnostics/actual_binding/test_cold.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    },
+    {
+      "original_path": "checks/test_conformance.py",
+      "original_sha256": "068f2108678b8eef1bdd72b97a9a42604a1c5112b6d6f5cc17c80e29d60de2c8",
+      "integrated_path": "tests/diagnostics/actual_binding/test_conformance.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    },
+    {
+      "original_path": "checks/test_documents.py",
+      "original_sha256": "13c62ade72343f0b5a77cccec5caa0ea0f8ef132212240d699d63243bafc887a",
+      "integrated_path": "tests/diagnostics/actual_binding/test_documents.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    },
+    {
+      "original_path": "checks/test_linkage.py",
+      "original_sha256": "ed3afa17298e95833d5b6d8db8b8a4fc41d073fcaa369e78a45242cdeca48588",
+      "integrated_path": "tests/diagnostics/actual_binding/test_linkage.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    },
+    {
+      "original_path": "checks/test_missing_facts.py",
+      "original_sha256": "d422ec87b256ba5d5c027ca12f0904d9243e3121d480809fc441248f418dfa0c",
+      "integrated_path": "tests/diagnostics/actual_binding/test_missing_facts.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    },
+    {
+      "original_path": "checks/test_state.py",
+      "original_sha256": "f1056a92e651f727bd17ccda95478ce91d04c7368bcddc9a292b4284af550f6d",
+      "integrated_path": "tests/diagnostics/actual_binding/test_state.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    },
+    {
+      "original_path": "checks/test_values.py",
+      "original_sha256": "ea051e9bcc8adce6381f0fa75d8fd5f6ab493ce11ddda492b0944a21d86de20c",
+      "integrated_path": "tests/diagnostics/actual_binding/test_values.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    },
+    {
+      "original_path": "checks/vectors.py",
+      "original_sha256": "92dad7ab04b0f9fdc51d8f5ce06d8cdbc8b151e6710b526ae989ad3338638eb2",
+      "integrated_path": "tests/diagnostics/actual_binding/actual_binding_test_vectors.py",
+      "transformation": "Canonical namespaced imports; relocated synthetic vector/helper/evidence paths; formatting. Actual old constructor behavior and assertions retained via isolated ZIP helper."
+    }
+  ],
+  "original_test_case_count": 476,
+  "mapping": {
+    "original_sha256": "ab680f3f3d3f1cf4296d50023ff0b406d5c83cbc9bdd43e9e13e085d706cd2c6",
+    "integrated_path": "tests/fixtures/actual_binding/acceptance-coverage-map.json",
+    "changes": "Test paths relocated; historical execution/evidence explicitly labeled, not rerelabelled as current CI."
+  },
+  "historical_fixture": {
+    "path": "tests/fixtures/actual_binding/legacy_contracts.zip",
+    "sha256": "a53ddbac195f273843af05e79235985823ecc954f50018d28e5e329297de14c7",
+    "source_files": 9,
+    "members": 11,
+    "original_metadata_preserved": true,
+    "runtime_dependency": false,
+    "known_original_lint": "content.py Ruff I001 import order; intentionally preserved as historical test data, not active lint-clean source",
+    "origin_assertions": "All nine actual imported legacy modules must originate inside this ZIP; no repository root in child source roots."
+  },
+  "permissions_and_qualification": "Unchanged: all9false, integrated_admission false, D01-D04 OPEN; no authenticity, independent custody, anti-replay, durability, kernel or vehicle proof"
+}
