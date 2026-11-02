@@ -10,6 +10,7 @@ from .contracts import (
     HistoricalReplayDecision,
     HistoricalReplayPolicy,
     HistoricalReplayRecord,
+    OriginPin,
     SourcePin,
     children,
 )
@@ -46,6 +47,31 @@ def _duplicates(values: tuple[str, ...]) -> bool:
     return len(values) != len(set(values))
 
 
+def _registered_D_nodes(nodes: tuple[str, ...]) -> bool:
+    diagnostic = sorted(n for n in nodes if n.startswith("tests/diagnostics/actual_binding/"))
+    raw = json.dumps(diagnostic, ensure_ascii=True, separators=(",", ":")).encode()
+    return (
+        sha256(raw).hexdigest()
+        == "403787af65a67f069df2d13d3e91d1cd95d99642ba3a3d3e658bc286485a5ab4"
+    )
+
+
+def _known_origins(
+    command_id: str, cohort_id: str, origins: tuple[OriginPin, ...], errors: set[str]
+) -> None:
+    if command_id in ("O-H6", "D-H6") and not any(
+        o.module == "tests.audit.validate_friction_model" for o in origins
+    ):
+        errors.add("MISSING_H6_ORIGIN")
+    for origin in origins:
+        if origin.module == "tests.audit.validate_friction_model" and (
+            origin.path != "tests/audit/validate_friction_model.py"
+            or origin.archive_member is not None
+            or origin.sha256 != dict(H6_HASHES).get(cohort_id)
+        ):
+            errors.add("H6_COHORT_ORIGIN")
+
+
 def _observed(item: HistoricalCommandRecord, errors: set[str], missing: set[str]) -> None:
     errors.update(item.errors)
     missing.update(item.unavailable)
@@ -71,6 +97,15 @@ def _observed(item: HistoricalCommandRecord, errors: set[str], missing: set[str]
             missing.add("COMMAND_OBSERVATION_MISSING")
     if item.collected_nodeids is not None and _duplicates(item.collected_nodeids):
         errors.add("DUPLICATE_NODE")
+    if item.command_id == "D-PYTEST":
+        if item.collected_nodeids is not None and not _registered_D_nodes(item.collected_nodeids):
+            errors.add("REGISTERED_D_COLLECTION")
+        if (
+            item.exit_code == 0
+            and item.outcomes is not None
+            and not _registered_D_nodes(tuple(o.nodeid for o in item.outcomes))
+        ):
+            errors.add("REGISTERED_D_OUTCOMES")
     if item.outcomes is not None:
         if _duplicates(tuple(o.nodeid for o in item.outcomes)):
             errors.add("DUPLICATE_OUTCOME")
@@ -83,15 +118,23 @@ def _observed(item: HistoricalCommandRecord, errors: set[str], missing: set[str]
     if item.origins is not None:
         if not item.origins or _duplicates(tuple(o.module for o in item.origins)):
             errors.add("ORIGIN_INVENTORY")
-        for origin in item.origins:
-            if origin.module == "tests.audit.validate_friction_model" and (
-                origin.path != "tests/audit/validate_friction_model.py"
-                or origin.archive_member is not None
-                or origin.sha256 != dict(H6_HASHES).get(item.cohort_id)
-            ):
-                errors.add("H6_COHORT_ORIGIN")
+        _known_origins(item.command_id, item.cohort_id, item.origins, errors)
     if item.coverage is not None and _duplicates(tuple(c.path.casefold() for c in item.coverage)):
         errors.add("DUPLICATE_COVERAGE_MODULE")
+    if item.coverage is not None:
+        statements = sum(c.statements for c in item.coverage)
+        covered = sum(c.covered for c in item.coverage)
+        branches = sum(c.branches for c in item.coverage)
+        covered_branches = sum(c.covered_branches for c in item.coverage)
+        # Passing groups imply a passing weighted union;the converse is false.
+        # Never impose a per-module floor or call this an independent group pass.
+        if (
+            statements == 0
+            or branches == 0
+            or covered * 100 < statements * 98
+            or covered_branches * 100 < branches * 95
+        ):
+            errors.add("IMPOSSIBLE_COVERAGE")
 
 
 def _policy_command(item: HistoricalCommandPolicy, errors: set[str], missing: set[str]) -> None:
@@ -103,19 +146,14 @@ def _policy_command(item: HistoricalCommandPolicy, errors: set[str], missing: se
         errors.add("POLICY_NODE_INVENTORY")
     if item.command_id == "D-PYTEST" and item.expected_nodeids is not None:
         # Content pin from the design's D499 inventory,not an authority token.
-        diagnostic = sorted(
-            n for n in item.expected_nodeids if n.startswith("tests/diagnostics/actual_binding/")
-        )
-        raw = json.dumps(diagnostic, ensure_ascii=True, separators=(",", ":")).encode()
-        if (
-            sha256(raw).hexdigest()
-            != "403787af65a67f069df2d13d3e91d1cd95d99642ba3a3d3e658bc286485a5ab4"
-        ):
+        if not _registered_D_nodes(item.expected_nodeids):
             errors.add("REGISTERED_D_CASE_INVENTORY")
     if item.origins is None:
         missing.add("EXPECTED_ORIGIN_INVENTORY")
     elif not item.origins or _duplicates(tuple(o.module for o in item.origins)):
         errors.add("POLICY_ORIGIN_INVENTORY")
+    if item.origins is not None:
+        _known_origins(item.command_id, item.cohort_id, item.origins, errors)
     if item.coverage_groups is None:
         missing.add("EXPECTED_COVERAGE_INVENTORY")
     else:

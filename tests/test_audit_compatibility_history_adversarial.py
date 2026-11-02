@@ -76,3 +76,134 @@ def test_policy_and_record_cannot_jointly_shrink_registered_D_inventory(damage):
         commands=(*record.commands[:3], item, *record.commands[4:]),
     )
     assert api("validation").assess_record(record, policy).consistency == "REJECTED"
+
+
+@pytest.mark.parametrize(
+    "damage",
+    (
+        "joint_absence",
+        "wrong_policy_hash",
+        "wrong_policy_path",
+        "wrong_policy_archive",
+        "missing_observed_H6",
+    ),
+)
+def test_review_known_H6_identity_is_not_conditional_on_matching_policy(damage):
+    record, policy = complete()
+    c = api()
+    if damage == "joint_absence":
+        other = (c.OriginPin("unrelated", "tests/unrelated.py", "f" * 64, None),)
+        policy = replace(policy, commands=tuple(replace(p, origins=other) for p in policy.commands))
+        record = replace(record, commands=tuple(replace(r, origins=other) for r in record.commands))
+    elif damage == "missing_observed_H6":
+        record = replace(
+            record,
+            commands=(
+                *record.commands[:1],
+                replace(
+                    record.commands[1],
+                    origins=(c.OriginPin("unrelated", "tests/unrelated.py", "f" * 64, None),),
+                ),
+                *record.commands[2:],
+            ),
+        )
+        policy = None
+    else:
+        p = policy.commands[0]
+        origin = replace(
+            p.origins[0],
+            **{
+                "wrong_policy_hash": {"sha256": "f" * 64},
+                "wrong_policy_path": {"path": "tests/wrong.py"},
+                "wrong_policy_archive": {"archive_member": "helper.py"},
+            }[damage],
+        )
+        policy = replace(policy, commands=(replace(p, origins=(origin,)), *policy.commands[1:]))
+        record = replace(
+            record, commands=(replace(record.commands[0], origins=None), *record.commands[1:])
+        )
+    if policy is not None:
+        record = replace(record, policy_digest=policy.content_digest)
+    assert api("validation").assess_record(record, policy).consistency == "REJECTED"
+
+
+@pytest.mark.parametrize("policy_damage", ("absent", "command_absent", "expected_absent"))
+@pytest.mark.parametrize("record_damage", ("collected_missing", "completed_outcome_missing"))
+def test_review_D499_is_known_even_when_expected_inventory_unavailable(
+    policy_damage, record_damage
+):
+    record, policy = complete()
+    item = record.commands[3]
+    item = replace(
+        item,
+        **(
+            {"collected_nodeids": item.collected_nodeids[1:]}
+            if record_damage == "collected_missing"
+            else {"outcomes": item.outcomes[1:]}
+        ),
+    )
+    record = replace(record, commands=(*record.commands[:3], item, *record.commands[4:]))
+    if policy_damage == "absent":
+        policy = None
+    else:
+        commands = (
+            (*policy.commands[:3], *policy.commands[4:])
+            if policy_damage == "command_absent"
+            else (
+                *policy.commands[:3],
+                replace(policy.commands[3], expected_nodeids=None),
+                *policy.commands[4:],
+            )
+        )
+        policy = replace(policy, commands=commands)
+        record = replace(record, policy_digest=policy.content_digest)
+    assert api("validation").assess_record(record, policy).consistency == "REJECTED"
+
+
+@pytest.mark.parametrize("dimension", ("statements", "branches", "both", "zero_totals", "empty"))
+def test_review_impossible_coverage_is_known_without_policy(dimension):
+    record, _ = complete()
+    rows = []
+    for item in record.commands:
+        if dimension in ("zero_totals", "empty"):
+            counts = (
+                tuple(
+                    replace(c, statements=0, covered=0, branches=0, covered_branches=0)
+                    for c in item.coverage
+                )
+                if dimension == "zero_totals"
+                else ()
+            )
+            rows.append(replace(item, coverage=counts))
+            continue
+        counts = tuple(
+            replace(
+                c,
+                covered=0 if dimension in ("statements", "both") else c.covered,
+                covered_branches=0 if dimension in ("branches", "both") else c.covered_branches,
+            )
+            for c in item.coverage
+        )
+        rows.append(replace(item, coverage=counts))
+    record = replace(record, commands=tuple(rows))
+    assert api("validation").assess_record(record, None).consistency == "REJECTED"
+
+
+def test_review_low_individual_module_can_be_compensated_within_a_group():
+    record, _ = complete()
+    rows = []
+    for item in record.commands:
+        first, second = item.coverage
+        rows.append(
+            replace(
+                item,
+                coverage=(
+                    replace(first, covered=96, covered_branches=90),
+                    replace(second, covered=100, covered_branches=100),
+                ),
+            )
+        )
+    assert (
+        api("validation").assess_record(replace(record, commands=tuple(rows)), None).consistency
+        == "UNAVAILABLE"
+    )
