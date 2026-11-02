@@ -1,0 +1,569 @@
+{
+  "schema": "entry-git-capture-planned-acceptance-v1",
+  "kind": "PLANNED_ACCEPTANCE_NOT_TEST_EXECUTION",
+  "cases": [
+    {
+      "id": "GC-001",
+      "name": "exact_raw_object_roundtrip",
+      "expected": "OBSERVED_FACT_NOT_AUTHORITY",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-002",
+      "name": "CR_CRLF_commit_headers",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-003",
+      "name": "wrong_object_type_or_hash",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-004",
+      "name": "missing_blob",
+      "expected": "UNAVAILABLE_NO_FETCH",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-005",
+      "name": "missing_ancestry_node",
+      "expected": "UNAVAILABLE_NO_FETCH",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-006",
+      "name": "replace_refs_loose_or_packed",
+      "expected": "REJECTED_NO_REWRITE",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-007",
+      "name": "nonempty_graft",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-008",
+      "name": "partial_promisor_object_missing",
+      "expected": "UNAVAILABLE_NO_NETWORK",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-009",
+      "name": "shallow_metadata",
+      "expected": "UNAVAILABLE",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-010",
+      "name": "alternate_object_store",
+      "expected": "UNAVAILABLE",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-011",
+      "name": "SHA256_object_format",
+      "expected": "UNAVAILABLE",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-012",
+      "name": "declared_linked_worktree_layout",
+      "expected": "OBSERVED_LAYOUT",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-013",
+      "name": "wrong_root_or_gitfile_escape",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-014",
+      "name": "ambient_repository_environment_redirect",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-015",
+      "name": "config_include_or_unknown_grammar",
+      "expected": "UNAVAILABLE_NO_FOLLOW",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-016",
+      "name": "fsmonitor_helper_canary",
+      "expected": "REJECTED_CANARY_NOT_EXECUTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-017",
+      "name": "config_secret_redaction",
+      "expected": "NO_SECRET_OR_IDENTITY_OUTPUT",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-018",
+      "name": "complete_v2_index",
+      "expected": "OBSERVED_INDEX",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-019",
+      "name": "index_checksum_corrupt",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-020",
+      "name": "nonzero_index_stage",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-021",
+      "name": "skip_worktree_flag",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-022",
+      "name": "assume_unchanged_flag",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-023",
+      "name": "intent_to_add_flag",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-024",
+      "name": "duplicate_index_path",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-025",
+      "name": "index_v3_v4_split_sparse",
+      "expected": "UNAVAILABLE_NO_REWRITE",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-026",
+      "name": "unknown_index_extension",
+      "expected": "UNAVAILABLE",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-027",
+      "name": "unexpected_executable_index_mode",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-028",
+      "name": "index_HEAD_inventory_difference",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-029",
+      "name": "NUL_framing_not_display_quotes",
+      "expected": "EXACT_PARSE_OR_UNSAFE_PATH_REJECTION",
+      "owner": "tests/test_audit_compatibility_capture_git.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-030",
+      "name": "nested_regular_safe_open",
+      "expected": "OBSERVED_FILE",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-031",
+      "name": "symlink_leaf",
+      "expected": "REJECTED_NO_FOLLOW",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-032",
+      "name": "symlink_ancestor",
+      "expected": "REJECTED_NO_FOLLOW",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-033",
+      "name": "special_file",
+      "expected": "REJECTED_NO_BLOCKING_OPEN",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-034",
+      "name": "leaf_replaced_during_read",
+      "expected": "REJECTED_OR_IO_UNAVAILABLE",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-035",
+      "name": "root_renamed_during_capture",
+      "expected": "REJECTED_OR_IO_UNAVAILABLE",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-036",
+      "name": "tracked_deletion",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-037",
+      "name": "tracked_raw_byte_drift",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-038",
+      "name": "case_and_directory_collisions",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-039",
+      "name": "ignored_secret_file",
+      "expected": "REJECTED_WITHOUT_CONTENT_READ",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-040",
+      "name": "cache_directory_prefix_is_not_exception",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-041",
+      "name": "empty_untracked_directory",
+      "expected": "DIAGNOSTIC_NOT_GIT_IMAGE",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-042",
+      "name": "complete_effective_attribute_vector",
+      "expected": "OBSERVED_ATTRIBUTES",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-043",
+      "name": "cached_worktree_attribute_disagreement",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-044",
+      "name": "nonempty_info_attributes",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-045",
+      "name": "global_external_attributes",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-046",
+      "name": "filter_driver_canary",
+      "expected": "REJECTED_CANARY_NOT_EXECUTED",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-047",
+      "name": "working_tree_encoding_and_ident",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-048",
+      "name": "unknown_extra_attribute",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-049",
+      "name": "CRLF_not_raw_LF_identity",
+      "expected": "REJECTED_NO_NORMALIZATION",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-050",
+      "name": "ZIP_binary_exactness",
+      "expected": "EXACT_BYTES_OR_REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-051",
+      "name": "unsafe_native_path_and_surrogate",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_worktree.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-052",
+      "name": "HEAD_changes_between_passes",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_cohort.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-053",
+      "name": "index_same_size_bytes_change",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_cohort.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-054",
+      "name": "ignored_inventory_changes",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_cohort.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-055",
+      "name": "file_same_stat_bytes_change",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_capture_cohort.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-056",
+      "name": "unobserved_ABA_restored_all_bytes",
+      "expected": "ATOMICITY_UNAVAILABLE_EVEN_IF_OBSERVED_STABLE",
+      "owner": "tests/test_audit_compatibility_capture_cohort.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-057",
+      "name": "readonly_bind_or_boolean_snapshot_claim",
+      "expected": "ATOMICITY_UNAVAILABLE",
+      "owner": "tests/test_audit_compatibility_capture_cohort.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-058",
+      "name": "resource_exhaustion",
+      "expected": "UNAVAILABLE_WITH_KNOWN_ERRORS_RETAINED",
+      "owner": "tests/test_audit_compatibility_capture_cohort.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-059",
+      "name": "known_invalid_plus_missing_source",
+      "expected": "REJECTED_AND_UNAVAILABLE_REASONS_RETAINED",
+      "owner": "tests/test_audit_compatibility_capture_cohort.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-060",
+      "name": "stable_double_capture",
+      "expected": "OBSERVED_STABLE_NOT_ATOMIC_OR_ADMITTED",
+      "owner": "tests/test_audit_compatibility_capture_cohort.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-061",
+      "name": "capture_reports_no_caller_qualification_switch",
+      "expected": "ALL9FALSE_AND_BLOCKED",
+      "owner": "tests/test_audit_compatibility_capture_cohort.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-062",
+      "name": "immutable_defensive_copy",
+      "expected": "FROZEN_VALUES",
+      "owner": "tests/test_audit_compatibility_capture_values.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-063",
+      "name": "None_empty_false_zero_distinction",
+      "expected": "DISTINCT",
+      "owner": "tests/test_audit_compatibility_capture_values.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-064",
+      "name": "canonical_digest_no_authority",
+      "expected": "CONTENT_ONLY",
+      "owner": "tests/test_audit_compatibility_capture_values.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-065",
+      "name": "import_first_call_no_effects",
+      "expected": "IMPORT_INERT",
+      "owner": "tests/test_audit_compatibility_capture_architecture.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-066",
+      "name": "no_adapter_file_writes",
+      "expected": "NO_CHECKOUT_INDEX_OBJECT_REF_WRITES",
+      "owner": "tests/test_audit_compatibility_capture_architecture.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-067",
+      "name": "pure_core_import_guard_unchanged",
+      "expected": "ORIGINAL_GUARD_PASS",
+      "owner": "tests/test_audit_compatibility_capture_architecture.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-068",
+      "name": "Windows_without_safe_open",
+      "expected": "UNAVAILABLE_NOT_SKIP_OR_FALLBACK",
+      "owner": "tests/test_audit_compatibility_capture_architecture.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-069",
+      "name": "no_historical_runtime_or_network_execution",
+      "expected": "NO_EXECUTION_OR_NETWORK",
+      "owner": "tests/test_audit_compatibility_capture_architecture.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "GC-070",
+      "name": "all_existing_1931_tests_preserved",
+      "expected": "EXISTING_REGRESSION_REQUIRED_AT_IMPLEMENTATION",
+      "owner": "tests/test_audit_compatibility_capture_architecture.py",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    }
+  ],
+  "total": 70,
+  "all9permissionsfalse": true,
+  "full_ENTRY_acceptance": false
+}

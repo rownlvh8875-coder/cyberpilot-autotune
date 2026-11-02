@@ -1,0 +1,248 @@
+{
+  "schema": "entry-git-capture-design-semantics-v1",
+  "registration_kind": "DESIGN_ONLY_K1_NOT_ENTRY_R_Q_I",
+  "parent_preparation_W": "2160085a1fed5999c4e25fbbb5480eea355e05c9",
+  "basis": {
+    "M": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+    "D": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+    "O": "5357d5d555d49b258affa237d83b8491b8a8c6ce"
+  },
+  "prior_R0": "d3811778683b7e1659a8b3bb92dab5e01a59d61a",
+  "later_STACK_reference_only": "eb305bfa373d92669217617bcdf667798118d0d8",
+  "metadata_additions_only": [
+    "docs/superpowers/specs/2026-11-02-entry-git-capture-design.md",
+    "docs/evidence/audit_compatibility/capture-design-v1/semantics.json",
+    "docs/evidence/audit_compatibility/capture-design-v1/acceptance.json",
+    "docs/evidence/audit_compatibility/capture-design-v1/sources.json"
+  ],
+  "current_implementation_paths": [],
+  "future_new_path_ceiling": [
+    "tests/audit_compatibility_capture/__init__.py",
+    "tests/audit_compatibility_capture/contracts.py",
+    "tests/audit_compatibility_capture/git_reader.py",
+    "tests/audit_compatibility_capture/worktree_reader.py",
+    "tests/audit_compatibility_capture/capture.py",
+    "tests/fixtures/audit_compatibility_capture.py",
+    "tests/test_audit_compatibility_capture_values.py",
+    "tests/test_audit_compatibility_capture_git.py",
+    "tests/test_audit_compatibility_capture_worktree.py",
+    "tests/test_audit_compatibility_capture_cohort.py",
+    "tests/test_audit_compatibility_capture_architecture.py"
+  ],
+  "existing_W_paths": "PRESERVE_ALL_EXACT_BYTES_AND_MODES",
+  "capture_profile": "C1_POSIX_RAW_BYTES_V1",
+  "capture_schema_version": "entry-git-capture-v1",
+  "implementation_status": "NOT_IMPLEMENTED",
+  "proposed_interfaces": {
+    "CaptureRequest": [
+      "candidate_head:Sha1",
+      "validation_head:Sha1",
+      "declared_base:Sha1|None",
+      "source_oids:tuple[Sha1,...]",
+      "layout:RepoLayout",
+      "profile_version:enum",
+      "budget:CaptureBudget"
+    ],
+    "RepoLayout": [
+      "worktree_root:explicit_absolute_path",
+      "git_dir:explicit_absolute_path",
+      "common_dir:explicit_absolute_path",
+      "control_roots:tuple[explicit_absolute_path,...]"
+    ],
+    "ObjectCapture": [
+      "raw_commits:tuple[CommitObject,...]",
+      "trees:tuple[TreeSnapshot,...]",
+      "missing_oids:tuple[Sha1,...]",
+      "errors:tuple[Reason,...]"
+    ],
+    "IndexCapture": [
+      "raw_sha256:Sha256",
+      "version:exact_int",
+      "entries:tuple[IndexEntry,...]",
+      "extensions:tuple[IndexExtension,...]"
+    ],
+    "FileCapture": [
+      "path:validated_relative_utf8",
+      "type:enum",
+      "mode:enum",
+      "raw_length:exact_int",
+      "raw_sha256:Sha256",
+      "git_blob:Sha1",
+      "raw_bytes:bytes|None",
+      "stat_identity:diagnostic_only"
+    ],
+    "AttributeCapture": [
+      "per_path_vectors:tuple[AttributeVector,...]",
+      "tracked_sources:tuple[ExactImage,...]",
+      "config_control_identities:tuple[ContentIdentity,...]"
+    ],
+    "CapturePass": [
+      "control_identities:tuple[ContentIdentity,...]",
+      "objects:ObjectCapture",
+      "index:IndexCapture|None",
+      "files:tuple[FileCapture,...]",
+      "tracked_inventory:tuple[RelativePath,...]",
+      "untracked_including_ignored:tuple[PathDigest,...]",
+      "attributes:AttributeCapture|None",
+      "unavailable:tuple[Reason,...]"
+    ],
+    "CaptureReport": [
+      "pass_a:CapturePass|None",
+      "pass_b:CapturePass|None",
+      "partial_bundle:CompatibilityInputBundle|None",
+      "errors:tuple[Reason,...]",
+      "unavailable:tuple[Reason,...]",
+      "consistency:enum",
+      "atomicity:NOT_ESTABLISHED",
+      "permissions:all9false"
+    ],
+    "CaptureBudget": [
+      "maximum_output_bytes:positive_exact_int",
+      "maximum_total_read_bytes:positive_exact_int",
+      "maximum_entries:positive_exact_int",
+      "subprocess_timeout_ns:positive_exact_int"
+    ]
+  },
+  "value_rules": [
+    "frozen_slotted_exact_types",
+    "defensive_immutable_tuples",
+    "None_is_not_empty_zero_or_false",
+    "bool_is_not_int",
+    "no_nonfinite_values",
+    "canonical_digest_content_only",
+    "no_secret_or_host_identity_values_in_report"
+  ],
+  "decision_order": [
+    "REJECTED",
+    "UNAVAILABLE",
+    "OBSERVED_STABLE"
+  ],
+  "unconditionally_unavailable": [
+    "SOURCE_CAPTURE_ATOMICITY",
+    "HISTORICAL_REPLAY",
+    "ACTUAL_Q_I",
+    "ENTRY_GUARD_INTEGRATION",
+    "EXACT_I_CI",
+    "STACK_ADOPTION"
+  ],
+  "pure_core_unavailable_constants": "ALL_FOUR_UNCHANGED_NO_BRIDGE",
+  "normalization": "RAW_BYTES_ONLY",
+  "supported_tracked_modes": [
+    "100644"
+  ],
+  "supported_index_versions": [
+    2
+  ],
+  "supported_index_extensions": [
+    "TREE"
+  ],
+  "registered_untracked_allowance": [],
+  "git_environment_required": {
+    "GIT_NO_LAZY_FETCH": "1",
+    "GIT_NO_REPLACE_OBJECTS": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "GIT_TERMINAL_PROMPT": "0",
+    "GIT_ALLOW_PROTOCOL": ""
+  },
+  "git_command_families": [
+    "rev-parse(layout_and_HEAD_only)",
+    "ls-tree(-rz,--full-tree,exact_oid)",
+    "cat-file(--batch,exact_hex_ids)",
+    "ls-files(--stage,-z)",
+    "ls-files(--others,-z,no_exclusions)",
+    "check-attr(-z,--all,--stdin,explicit_vector,cached_and_current)"
+  ],
+  "git_commands_forbidden": [
+    "status",
+    "diff",
+    "textconv",
+    "cat-file --filters",
+    "hash-object --path",
+    "checkout",
+    "read-tree",
+    "update-index",
+    "clean",
+    "reset",
+    "fetch",
+    "submodule",
+    "merge"
+  ],
+  "known_forbidden_rejected": [
+    "wrong_layout",
+    "symlink_or_control_escape",
+    "ambient_repository_redirect",
+    "nonempty_grafts",
+    "replacement_refs",
+    "nonempty_info_attributes",
+    "external_attributes_file",
+    "custom_filter_or_driver",
+    "fsmonitor_helper",
+    "encoding_or_ident_attribute",
+    "unexpected_attribute",
+    "unsafe_case_or_duplicate_path",
+    "invalid_index_checksum_or_flags",
+    "nonzero_stage",
+    "skip_worktree_or_assume_unchanged_or_intent_to_add",
+    "unexpected_mode_or_type",
+    "unregistered_untracked_or_ignored_path",
+    "raw_byte_mismatch_including_CRLF",
+    "observed_cohort_drift"
+  ],
+  "unsupported_unavailable": [
+    "SHA256_Git_objects",
+    "alternates",
+    "shallow",
+    "partial_clone",
+    "index_v3_v4",
+    "split_or_sparse_index",
+    "unknown_index_extension",
+    "config_include_or_unsupported_syntax",
+    "unavailable_safe_open_platform",
+    "resource_budget_exceeded",
+    "missing_object_or_IO_fact"
+  ],
+  "capture_write_permissions": [],
+  "permissions": {
+    "build_execution_allowed": false,
+    "promotion_authorized": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  },
+  "status": "BLOCKED",
+  "integrated_admission": false,
+  "Q_registered": false,
+  "I_created": false,
+  "runtime_qualification": false,
+  "authority_statement": "CONTENT_IDENTITY_ONLY_NOT_AUTHENTICITY_CUSTODY_OR_EXECUTION_AUTHORITY",
+  "retained_blockers": [
+    "D01_OPEN",
+    "D02_OPEN",
+    "D03_OPEN",
+    "D04_OPEN",
+    "FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE",
+    "FACTOR_IDENTIFICATION_UNQUALIFIED_FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE",
+    "VEHICLE_APPLICATION_BOUNDS_UNRESOLVED",
+    "RUNTIME_FINGERPRINT_UNCONFIRMED",
+    "WATCHDOG_EXECUTION_MODEL_UNRESOLVED",
+    "EXTERNAL_EXECUTOR_UNQUALIFIED",
+    "PARAMETER_IDENTIFICATION_QUALIFICATION_UNRESOLVED",
+    "APPLICATION_NOT_AUTHORIZED"
+  ],
+  "non_goals": [
+    "historical_executor",
+    "old_guard_routing",
+    "formal_ENTRY_R_Q_I",
+    "STACK",
+    "runtime_producer",
+    "vehicle_VM_guest",
+    "Params_controller_cereal",
+    "estimator_candidate_application_owner",
+    "external_AI_upstream_PR",
+    "push_or_cloud_publication"
+  ]
+}

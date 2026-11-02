@@ -1,0 +1,204 @@
+{
+  "schema": "entry-git-capture-source-pins-v1",
+  "commits": {
+    "W": {
+      "revision": "2160085a1fed5999c4e25fbbb5480eea355e05c9",
+      "tree": "b31498bdad656318251df749b048a4fa50d0589d",
+      "parents": [
+        "2c76cf5a213156830a2ba11b3f86ec32e235c097"
+      ],
+      "raw_commit_sha256": "dc8ab1375d9b1220ac711ca87f3183794d95155661878532dbbca6df1977f886"
+    },
+    "D": {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "tree": "d0dd929f3bb46d1a33d8bb00f29e7638b48d9483",
+      "parents": [
+        "3eb0864117f375b2bc2d748865eefa9e3f7f7537"
+      ],
+      "raw_commit_sha256": "0f23a8ce02ff85125c01c28eaaaf811161ab012a86ab4de1a2651d64896dd942"
+    },
+    "O": {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "tree": "18e63fc8e03077684cd14c1ed33e2c7a8ceb89a5",
+      "parents": [
+        "7ca88e481a7fc136913cc4e815df3a072a0e752a"
+      ],
+      "raw_commit_sha256": "fb6bd4cd04aec5e05612373d6d7ed9c6564a0849f6e76f1d7978547382b96111"
+    },
+    "M": {
+      "revision": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+      "tree": "9bffdf88eb43d073fed841949934c853be71c755",
+      "parents": [
+        "43ca6761749e71ec575906f099b02386bc76d994",
+        "e3dd29df5d54a179017badf351138cdd4da977a5"
+      ],
+      "raw_commit_sha256": "8aa5ac3be37244fb6a26ae7b152dac3595c8205cf7bc10c7501fb0625b9cbecc"
+    },
+    "R0": {
+      "revision": "d3811778683b7e1659a8b3bb92dab5e01a59d61a",
+      "tree": "c678e6095da0df708742a4dd78322459f736f843",
+      "parents": [
+        "75e00280a09323ad4a3fc82453383f220c92f6c6"
+      ],
+      "raw_commit_sha256": "71c1525522d7cb14b156efa6ac8abf8e0c9a8b05dd0cc31a4c0b936646fbaf65"
+    },
+    "S": {
+      "revision": "eb305bfa373d92669217617bcdf667798118d0d8",
+      "tree": "43d31b1fa91756995567d4487cf07d394d6e8c2e",
+      "parents": [
+        "070dea7ca4e2c7d13b9d1aa9856fa695cee6424b"
+      ],
+      "raw_commit_sha256": "976d6f7d656c0a16acfc4c072e344a24b32cfad241be32cf36d71c2e1f946afb"
+    }
+  },
+  "anchors": [
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "2160085a1fed5999c4e25fbbb5480eea355e05c9",
+      "path": "tests/audit_compatibility/contracts.py",
+      "start_line": 1,
+      "end_line": 128,
+      "blob_sha1": "cd5bb5e515d9019bc184e01a7d3dfbca9c5b1bca",
+      "file_sha256": "727c603c1e3a23dae78f6b50db27ef173733a9cffdee9a9f32bd1bb8b296fb5c",
+      "range_sha256": "727c603c1e3a23dae78f6b50db27ef173733a9cffdee9a9f32bd1bb8b296fb5c",
+      "claim": "Immutable bundle and permanently unavailable IO"
+    },
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "2160085a1fed5999c4e25fbbb5480eea355e05c9",
+      "path": "tests/audit_compatibility/git_objects.py",
+      "start_line": 1,
+      "end_line": 151,
+      "blob_sha1": "dc8eca4cb60a437831592e321bc4a683c15afa3b",
+      "file_sha256": "e8e923d85f3d7eea423d4588bd809b103a048156bd0091f822b4c5f307a3e73f",
+      "range_sha256": "e8e923d85f3d7eea423d4588bd809b103a048156bd0091f822b4c5f307a3e73f",
+      "claim": "Raw Git framing,literal LF,safe paths,whole tree"
+    },
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "2160085a1fed5999c4e25fbbb5480eea355e05c9",
+      "path": "tests/audit_compatibility/schema.py",
+      "start_line": 1,
+      "end_line": 116,
+      "blob_sha1": "2fc4b51c2ee05bf8874db42bc313b5205b0053b3",
+      "file_sha256": "270b8e29c6191ff326cdc2604d8cd750f7c3162c0e83fc6fd832502655767935",
+      "range_sha256": "270b8e29c6191ff326cdc2604d8cd750f7c3162c0e83fc6fd832502655767935",
+      "claim": "Closed descriptors/canonical metadata"
+    },
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "2160085a1fed5999c4e25fbbb5480eea355e05c9",
+      "path": "tests/audit_compatibility/validation.py",
+      "start_line": 1,
+      "end_line": 226,
+      "blob_sha1": "9bc24f34f725891f9b7a125082e95c6a37b3b926",
+      "file_sha256": "5ba7a43664cf0c244c024cce406c520a10eab3bd6ecc4b587a37026f1042de8a",
+      "range_sha256": "5ba7a43664cf0c244c024cce406c520a10eab3bd6ecc4b587a37026f1042de8a",
+      "claim": "Known contradiction over unavailable source"
+    },
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "2160085a1fed5999c4e25fbbb5480eea355e05c9",
+      "path": "tests/test_audit_compatibility_architecture.py",
+      "start_line": 1,
+      "end_line": 79,
+      "blob_sha1": "804d2cee190faa2a0a83a5f421d9c19a1a67d1a5",
+      "file_sha256": "daba07f5292a6232caf2c9cb4bd6d43a996cdcb077f1df1a62d31006a1abad6d",
+      "range_sha256": "daba07f5292a6232caf2c9cb4bd6d43a996cdcb077f1df1a62d31006a1abad6d",
+      "claim": "Pure namespace glob rejects I/O"
+    },
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "2160085a1fed5999c4e25fbbb5480eea355e05c9",
+      "path": "tests/test_audit_compatibility_adversarial.py",
+      "start_line": 438,
+      "end_line": 549,
+      "blob_sha1": "e07ab6b9e4d94aa5133d003b47f5906bb9ee7098",
+      "file_sha256": "23df2a518baede534e7e003e48133377d2b519c8157dfb1d71e5ee5c22170faa",
+      "range_sha256": "c9f5c8ad590cb89810f74599afb6b6e3eb22b5a41b182007e93af856ab5d1407",
+      "claim": "Combined missing/invalid regressions"
+    },
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "2160085a1fed5999c4e25fbbb5480eea355e05c9",
+      "path": "docs/superpowers/specs/2026-11-02-audit-compatibility-design.md",
+      "start_line": 1,
+      "end_line": 286,
+      "blob_sha1": "3b1e8be68aceb2065bd6c5fc5d8676fffa17fbe7",
+      "file_sha256": "5ccfcb925cf1fb1e5e0083a46a680c5bb57cecab357d73066d6422b158646992",
+      "range_sha256": "5ccfcb925cf1fb1e5e0083a46a680c5bb57cecab357d73066d6422b158646992",
+      "claim": "H/C,whole current inventory and R/Q/I"
+    },
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "2160085a1fed5999c4e25fbbb5480eea355e05c9",
+      "path": "docs/evidence/audit_compatibility/entry-v1-r1/semantics.json",
+      "start_line": 1,
+      "end_line": 47,
+      "blob_sha1": "6cf7747eba9dcff06f3753c0b31326374cee9ee2",
+      "file_sha256": "c088ce12dfa743efe1dae84fe7a7050b33a2dbf9e6802f4eab146d7d236b0f47",
+      "range_sha256": "c088ce12dfa743efe1dae84fe7a7050b33a2dbf9e6802f4eab146d7d236b0f47",
+      "claim": "R0 finite ten-path ceiling"
+    },
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": ".gitattributes",
+      "start_line": 1,
+      "end_line": 4,
+      "blob_sha1": "00ee9cbe463afea171532906955aa045ee04d9f3",
+      "file_sha256": "3da824d0f37be4082aecb38cef9b01c8f0b9e66ab67d574cfbe3b2e3553db908",
+      "range_sha256": "3da824d0f37be4082aecb38cef9b01c8f0b9e66ab67d574cfbe3b2e3553db908",
+      "claim": "ENTRY D tracked attribute policy"
+    },
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "eb305bfa373d92669217617bcdf667798118d0d8",
+      "path": "tests/history_transition/policy.py",
+      "start_line": 69,
+      "end_line": 118,
+      "blob_sha1": "1ff48682f4104ab9a9b8c640da71212d8f2b171c",
+      "file_sha256": "66276eb2dfe4d280acb29a8ad8160f2a61d84019c0145550fd46584752582139",
+      "range_sha256": "03a3d7e2ac41b726d607ac7c40e02228c7800d975024b4c1db12f1b95d2a412a",
+      "claim": "Historical Git environment,reference only"
+    },
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "eb305bfa373d92669217617bcdf667798118d0d8",
+      "path": "tests/history_transition/policy.py",
+      "start_line": 198,
+      "end_line": 230,
+      "blob_sha1": "1ff48682f4104ab9a9b8c640da71212d8f2b171c",
+      "file_sha256": "66276eb2dfe4d280acb29a8ad8160f2a61d84019c0145550fd46584752582139",
+      "range_sha256": "ca877a7e473006a043972e05f3b90261c9cfdc40cb7852ea5be517d5632190f7",
+      "claim": "Historical clean-filter path,not reused"
+    },
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "eb305bfa373d92669217617bcdf667798118d0d8",
+      "path": "tests/history_transition/deny_fd_v2_transport_successor.py",
+      "start_line": 136,
+      "end_line": 172,
+      "blob_sha1": "4a03434e21a1775e87f8b1b3ea80c7c0d5d753ff",
+      "file_sha256": "c0605eadf77ed2b1c4af789880bc5c82805779986667be1d5ac3a319f77525f3",
+      "range_sha256": "1d277930323ba18fadcc4e466fe8da369f803127cfdc55f0de6588eb8ed203ec",
+      "claim": "Later reader reference only"
+    }
+  ],
+  "known_absence": [
+    {
+      "repo": "rownlvh8875-coder/cyberpilot-autotune",
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": ".gitattributes",
+      "tree": "18e63fc8e03077684cd14c1ed33e2c7a8ceb89a5",
+      "status": "ABSENT_NOT_UNAVAILABLE"
+    }
+  ],
+  "inherited_entry_sources": {
+    "revision": "2160085a1fed5999c4e25fbbb5480eea355e05c9",
+    "path": "docs/evidence/audit_compatibility/entry-v1-r1/source_pins.json",
+    "blob_sha1": "2e5081c911a8fd6f07c4be40e37dfc530393d575",
+    "sha256": "5b4f3bf0664e28c29b869960652bc3cb349751d9fa129671ca42516e0e70cb52"
+  },
+  "later_S_reference_only": true
+}
