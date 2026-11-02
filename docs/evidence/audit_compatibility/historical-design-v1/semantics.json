@@ -1,0 +1,250 @@
+{
+  "schema": "historical-replay-design-v1",
+  "profile_id": "ENTRY_HISTORICAL_SOURCE_AUDIT_V1",
+  "stage": "DESIGN_PREREGISTRATION_NOT_R_Q_I_OR_EXECUTION",
+  "base_C1": "16ccf73b9956d6f5c29e34b174133046c0d54fdb",
+  "cohorts": {
+    "O": {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "tree": "18e63fc8e03077684cd14c1ed33e2c7a8ceb89a5",
+      "parents": [
+        "7ca88e481a7fc136913cc4e815df3a072a0e752a"
+      ],
+      "attributes_policy": "KNOWN_ABSENT"
+    },
+    "D": {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "tree": "d0dd929f3bb46d1a33d8bb00f29e7638b48d9483",
+      "parents": [
+        "3eb0864117f375b2bc2d748865eefa9e3f7f7537"
+      ],
+      "attributes_policy": "D_EXACT_RAW_BYTES"
+    }
+  },
+  "commands": [
+    {
+      "id": "O-PYTEST",
+      "cohort": "O",
+      "entrypoint": "pytest.main",
+      "argv": [
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "-p",
+        "pytest_cov.plugin",
+        "-p",
+        "_hypothesis_pytestplugin",
+        "--strict-config",
+        "--strict-markers",
+        "--basetemp=<FRESH_SCRATCH>/pytest",
+        "--cov=cyberpilot_autotune.research.friction_model",
+        "--cov=cyberpilot_autotune.observability",
+        "--cov-branch",
+        "--cov-report=json:<RUN_OUTPUT>/coverage.json",
+        "tests/architecture/test_friction_receipt_boundary.py",
+        "tests/architecture/test_knowledge_boundary.py",
+        "tests/audit/test_carrot_writer_ownership.py",
+        "tests/audit/test_hoya_c3_atune_evidence.py",
+        "tests/audit/test_friction_audit.py",
+        "tests/audit/test_friction_receipt_schema.py",
+        "tests/audit/test_friction_receipt_sources.py",
+        "tests/audit/test_h7_namespace_preservation.py",
+        "tests/property/test_friction_properties.py",
+        "tests/property/test_friction_receipt_properties.py",
+        "tests/unit/test_friction_experiments.py",
+        "tests/unit/test_friction_models.py",
+        "tests/unit/test_friction_receipt.py",
+        "tests/unit/test_friction_receipt_adversarial.py",
+        "tests/unit/test_friction_receipt_cycle_order.py"
+      ],
+      "classification": "TEST_ONLY_SCRATCH_WRITES_AND_REVIEWED_LOCAL_CHILDREN",
+      "expected_nodeids_status": "REQUIRES_SEPARATE_CONTENT_FREEZE_BEFORE_EXECUTION"
+    },
+    {
+      "id": "O-H6",
+      "cohort": "O",
+      "entrypoint": "tests.audit.validate_friction_model",
+      "argv": [
+        "--reference-checkout",
+        "<PREPARED_CARROT>",
+        "--verify-history",
+        "--coverage-json",
+        "<RUN_OUTPUT>/coverage.json"
+      ],
+      "classification": "READ_ONLY_SOURCE_HISTORY_AUDIT"
+    },
+    {
+      "id": "O-H7",
+      "cohort": "O",
+      "entrypoint": "tests.audit.validate_friction_receipt",
+      "argv": [
+        "--reference-checkout",
+        "<PREPARED_CARROT>",
+        "--verify-history",
+        "--coverage-json",
+        "<RUN_OUTPUT>/coverage.json"
+      ],
+      "classification": "READ_ONLY_SOURCE_HISTORY_AND_SYNTHETIC_RECEIPT_AUDIT"
+    },
+    {
+      "id": "D-PYTEST",
+      "cohort": "D",
+      "entrypoint": "pytest.main",
+      "argv": [
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "-p",
+        "pytest_cov.plugin",
+        "-p",
+        "_hypothesis_pytestplugin",
+        "--strict-config",
+        "--strict-markers",
+        "--basetemp=<FRESH_SCRATCH>/pytest",
+        "--cov=cyberpilot_autotune.research.friction_model",
+        "--cov=cyberpilot_autotune.diagnostics.actual_binding",
+        "--cov-branch",
+        "--cov-report=json:<RUN_OUTPUT>/coverage.json",
+        "tests/architecture/test_knowledge_boundary.py",
+        "tests/audit/test_carrot_writer_ownership.py",
+        "tests/audit/test_hoya_c3_atune_evidence.py",
+        "tests/audit/test_friction_audit.py",
+        "tests/diagnostics/actual_binding/test_architecture.py",
+        "tests/diagnostics/actual_binding/test_assessment.py",
+        "tests/diagnostics/actual_binding/test_boundaries.py",
+        "tests/diagnostics/actual_binding/test_cold.py",
+        "tests/diagnostics/actual_binding/test_conformance.py",
+        "tests/diagnostics/actual_binding/test_coverage_gate.py",
+        "tests/diagnostics/actual_binding/test_documents.py",
+        "tests/diagnostics/actual_binding/test_integration.py",
+        "tests/diagnostics/actual_binding/test_linkage.py",
+        "tests/diagnostics/actual_binding/test_missing_facts.py",
+        "tests/diagnostics/actual_binding/test_state.py",
+        "tests/diagnostics/actual_binding/test_values.py"
+      ],
+      "classification": "TEST_ONLY_SCRATCH_WRITES_AND_REVIEWED_LOCAL_CHILDREN",
+      "expected_nodeids_status": "REQUIRES_SEPARATE_CONTENT_FREEZE_BEFORE_EXECUTION"
+    },
+    {
+      "id": "D-H6",
+      "cohort": "D",
+      "entrypoint": "tests.audit.validate_friction_model",
+      "argv": [
+        "--reference-checkout",
+        "<PREPARED_CARROT>",
+        "--verify-history",
+        "--coverage-json",
+        "<RUN_OUTPUT>/coverage.json"
+      ],
+      "classification": "READ_ONLY_SOURCE_HISTORY_AUDIT"
+    },
+    {
+      "id": "D-COVERAGE",
+      "cohort": "D",
+      "entrypoint": "tests.audit.validate_actual_binding_coverage",
+      "argv": [
+        "<RUN_OUTPUT>/coverage.json"
+      ],
+      "classification": "READ_ONLY_COVERAGE_GATE"
+    }
+  ],
+  "metadata_paths": [
+    "docs/superpowers/specs/2026-11-02-entry-historical-replay-design.md",
+    "docs/evidence/audit_compatibility/historical-design-v1/semantics.json",
+    "docs/evidence/audit_compatibility/historical-design-v1/sources.json",
+    "docs/evidence/audit_compatibility/historical-design-v1/acceptance.json",
+    "docs/evidence/audit_compatibility/historical-design-v1/case_inventory.json",
+    "docs/superpowers/plans/2026-11-02-entry-historical-replay.md"
+  ],
+  "future_pure_preparation_paths": [
+    "tests/audit_compatibility_history/__init__.py",
+    "tests/audit_compatibility_history/contracts.py",
+    "tests/audit_compatibility_history/validation.py",
+    "tests/fixtures/audit_compatibility_history.py",
+    "tests/test_audit_compatibility_history_values.py",
+    "tests/test_audit_compatibility_history_validation.py",
+    "tests/test_audit_compatibility_history_adversarial.py",
+    "tests/test_audit_compatibility_history_architecture.py"
+  ],
+  "status": "BLOCKED",
+  "permissions": {
+    "build_execution_allowed": false,
+    "promotion_authorized": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  },
+  "integrated_admission": false,
+  "H_executed": false,
+  "H_executor_implemented": false,
+  "formal_ENTRY_R_Q_I_created": false,
+  "source_capture_atomicity": "NOT_ESTABLISHED",
+  "scope_expansion_authorized": false,
+  "pure_result_values": [
+    "REJECTED",
+    "UNAVAILABLE",
+    "STRUCTURAL_RECORD_MATCH"
+  ],
+  "decision_precedence": [
+    "REJECTED",
+    "UNAVAILABLE",
+    "STRUCTURAL_RECORD_MATCH"
+  ],
+  "required_execution_prerequisites": [
+    "EXACT_EXECUTOR_CONTENT_FREEZE_AND_REVIEW",
+    "TRUSTED_PREPARED_TOOLCHAIN_AND_DEPENDENCY_INVENTORY",
+    "BOTH_COMPLETE_CASE_INVENTORIES_SEPARATELY_FROZEN",
+    "PRIVATE_COMPLETE_GIT_SNAPSHOTS_AND_REFERENCE_OBJECT_CLOSURE",
+    "ENFORCED_SUBJECT_READ_ONLY_AND_NETWORK_DENIAL_FOR_DESCENDANTS",
+    "EXPLICIT_BOUNDED_SCRATCH_AND_PROCESS_OUTPUT_BUDGET",
+    "EXPLICIT_SCOPE_AUTHORIZATION_FOR_REGISTERED_COMMANDS"
+  ],
+  "preserved_blockers": [
+    "HISTORICAL_REPLAY",
+    "SOURCE_CAPTURE_ATOMICITY",
+    "ACTUAL_Q_I",
+    "ENTRY_GUARD_INTEGRATION",
+    "EXACT_I_CI",
+    "STACK_ADOPTION",
+    "APPLICATION_NOT_AUTHORIZED"
+  ],
+  "forbidden": [
+    "historical_execution_in_this_task",
+    "old_manifest_hash_rewrite",
+    "C1_O_attribute_policy_fallback",
+    "current_guard_patch",
+    "filtered_changed_set",
+    "skip_xfail_or_threshold_waiver",
+    "vehicle_VM_guest_QEMU",
+    "Params_controller_cereal",
+    "estimator_application_owner_bridge",
+    "network_fetch_install_during_H",
+    "PR_push_merge_rebase_force_push",
+    "external_AI",
+    "longitudinal"
+  ],
+  "record_binding": {
+    "schema": "historical-replay-record-v1",
+    "run_id": "32lowercase hex;one prepared run;not source or authority",
+    "coverage_lineage": "same run/cohort;PYTEST producer command ID and identical raw artifact SHA256 on all three records",
+    "coverage_groups": {
+      "O": [
+        "friction_model",
+        "observability"
+      ],
+      "D": [
+        "friction_model",
+        "diagnostics.actual_binding"
+      ]
+    },
+    "coverage_floors_per_group": {
+      "statement_percent": 98,
+      "branch_percent": 95
+    },
+    "missing_module_inventory": "UNAVAILABLE"
+  }
+}

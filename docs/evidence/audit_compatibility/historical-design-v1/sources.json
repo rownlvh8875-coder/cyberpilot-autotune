@@ -1,0 +1,500 @@
+{
+  "schema": "historical-replay-source-pins-v1",
+  "kind": "READ_ONLY_CONTENT_PINS_NOT_TRUST_OR_AUTHORITY",
+  "base_C1": "16ccf73b9956d6f5c29e34b174133046c0d54fdb",
+  "cohorts": {
+    "O": {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "tree": "18e63fc8e03077684cd14c1ed33e2c7a8ceb89a5",
+      "parents": [
+        "7ca88e481a7fc136913cc4e815df3a072a0e752a"
+      ],
+      "pytest_files": [
+        "tests/architecture/test_friction_receipt_boundary.py",
+        "tests/architecture/test_knowledge_boundary.py",
+        "tests/audit/test_carrot_writer_ownership.py",
+        "tests/audit/test_hoya_c3_atune_evidence.py",
+        "tests/audit/test_friction_audit.py",
+        "tests/audit/test_friction_receipt_schema.py",
+        "tests/audit/test_friction_receipt_sources.py",
+        "tests/audit/test_h7_namespace_preservation.py",
+        "tests/property/test_friction_properties.py",
+        "tests/property/test_friction_receipt_properties.py",
+        "tests/unit/test_friction_experiments.py",
+        "tests/unit/test_friction_models.py",
+        "tests/unit/test_friction_receipt.py",
+        "tests/unit/test_friction_receipt_adversarial.py",
+        "tests/unit/test_friction_receipt_cycle_order.py"
+      ],
+      "attributes": null
+    },
+    "D": {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "tree": "d0dd929f3bb46d1a33d8bb00f29e7638b48d9483",
+      "parents": [
+        "3eb0864117f375b2bc2d748865eefa9e3f7f7537"
+      ],
+      "pytest_files": [
+        "tests/architecture/test_knowledge_boundary.py",
+        "tests/audit/test_carrot_writer_ownership.py",
+        "tests/audit/test_hoya_c3_atune_evidence.py",
+        "tests/audit/test_friction_audit.py",
+        "tests/diagnostics/actual_binding/test_architecture.py",
+        "tests/diagnostics/actual_binding/test_assessment.py",
+        "tests/diagnostics/actual_binding/test_boundaries.py",
+        "tests/diagnostics/actual_binding/test_cold.py",
+        "tests/diagnostics/actual_binding/test_conformance.py",
+        "tests/diagnostics/actual_binding/test_coverage_gate.py",
+        "tests/diagnostics/actual_binding/test_documents.py",
+        "tests/diagnostics/actual_binding/test_integration.py",
+        "tests/diagnostics/actual_binding/test_linkage.py",
+        "tests/diagnostics/actual_binding/test_missing_facts.py",
+        "tests/diagnostics/actual_binding/test_state.py",
+        "tests/diagnostics/actual_binding/test_values.py"
+      ],
+      "attributes": {
+        "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+        "path": ".gitattributes",
+        "mode": "100644",
+        "git_blob": "00ee9cbe463afea171532906955aa045ee04d9f3",
+        "sha256": "3da824d0f37be4082aecb38cef9b01c8f0b9e66ab67d574cfbe3b2e3553db908",
+        "bytes": 253
+      }
+    }
+  },
+  "anchors": [
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/architecture/test_friction_receipt_boundary.py",
+      "mode": "100644",
+      "git_blob": "36b267fa114b71891461768dde27366e3c28f746",
+      "sha256": "0807a748202476f6956ae681e77ec6903a24b2794f9c51b1d996eac92bdcab91",
+      "bytes": 2193
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/architecture/test_knowledge_boundary.py",
+      "mode": "100644",
+      "git_blob": "726106853e97a4c3fa3a6ce4a08e094d3c87bdee",
+      "sha256": "0494325a7d3c6d24152e325dc102f1e93ed89d617ba4d82edb5747a2feeebd73",
+      "bytes": 4995
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/audit/test_carrot_writer_ownership.py",
+      "mode": "100644",
+      "git_blob": "a4c1ab80762b54a46fdf2e6fdd91d1245e3adcb1",
+      "sha256": "54b404e692bde0f12a9492c1728356bfd341f8836468543b1e822536d710405d",
+      "bytes": 9129
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/audit/test_hoya_c3_atune_evidence.py",
+      "mode": "100644",
+      "git_blob": "31c6a51b2c97b274843991c9de4dc3f2b097e35f",
+      "sha256": "ed239bfd336b9687ed56c988b7debbe813d8eb07bb1a00507694c91de7352829",
+      "bytes": 7591
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/audit/test_friction_audit.py",
+      "mode": "100644",
+      "git_blob": "0ecf6030fead77238998ad685fd70fd8afc2f73f",
+      "sha256": "3127ac7dc0ded7281210966212e1b181df08963fb6d959969300dd3068710c82",
+      "bytes": 4241
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/audit/test_friction_receipt_schema.py",
+      "mode": "100644",
+      "git_blob": "f5fe841193f3b381fe1c69a822febed0ba3a03d1",
+      "sha256": "565686599afffe475a634d6b3774ce334db34225b375d7ba86d89dd4b49d98f4",
+      "bytes": 2807
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/audit/test_friction_receipt_sources.py",
+      "mode": "100644",
+      "git_blob": "498457a5cc528dc97b643f44c89318baa710edd4",
+      "sha256": "319c5c8195375bad1f3d96ef30834bd051f8ade030183f63dc554e60694e4aa0",
+      "bytes": 5871
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/audit/test_h7_namespace_preservation.py",
+      "mode": "100644",
+      "git_blob": "4170390f25c67b66612db271ddc1af683fa342d9",
+      "sha256": "439110df116074fa96a6e28bebec43b27ac084b572099e88242b5e3ac84081b2",
+      "bytes": 1004
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/property/test_friction_properties.py",
+      "mode": "100644",
+      "git_blob": "c740fa1a035a94d5b8922ac3b95d8908ea7b244c",
+      "sha256": "1d909e807e29e3ebbee2b639dd28e9c4987223f49f374ebcbbf674100b1e9900",
+      "bytes": 1741
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/property/test_friction_receipt_properties.py",
+      "mode": "100644",
+      "git_blob": "b35dc23a2af4f8078fb1d6b38fe596a4815bcd28",
+      "sha256": "8aab321d53399fff9f1bddd08689c8fd8a3c8f1366555965c547bc31df7977a2",
+      "bytes": 4974
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/unit/test_friction_experiments.py",
+      "mode": "100644",
+      "git_blob": "562c11b206c6488cc6484c6bff9413c2b62afb69",
+      "sha256": "f6e380ae312e73bfe3765ae590ce8cc01e47e0fe302d87eef62ccdb96435a512",
+      "bytes": 1883
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/unit/test_friction_models.py",
+      "mode": "100644",
+      "git_blob": "48a34cab2f1e9f3fd40c4477c7f98f4baeded9ce",
+      "sha256": "56ccee4a0ed174128272453c03c9338bff878d5bf2f8cd8247b56212addf2ce5",
+      "bytes": 16375
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/unit/test_friction_receipt.py",
+      "mode": "100644",
+      "git_blob": "ce6804ccd62e66275ba891d9e2d25cce93a8a684",
+      "sha256": "a19461b962d1e27c5890d643af04aa31721a3039c7aa21c432a441dca8283ace",
+      "bytes": 9475
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/unit/test_friction_receipt_adversarial.py",
+      "mode": "100644",
+      "git_blob": "90c2e99e9972f4c372c3b09fab2d56811049e9ca",
+      "sha256": "556cc597f1d9bf29a203ccea7a0de6091895fcd5716a2d346244e97808ea4494",
+      "bytes": 23752
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/unit/test_friction_receipt_cycle_order.py",
+      "mode": "100644",
+      "git_blob": "e5b126c81732f6b3e813a1a4a931b90023df255d",
+      "sha256": "23a840280488cb60bc5e4561f39cf87fe71d0129e5a54d967940e715a0a6a630",
+      "bytes": 8206
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/audit/validate_friction_model.py",
+      "mode": "100644",
+      "git_blob": "de7e06d27f582f82e065ce642f6ea78b2a551461",
+      "sha256": "aa27d15517e693b0288ed37893deae4515a7c1f88388bb29e871c9fe0e68d032",
+      "bytes": 17090
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "docs/evidence/friction_model_policy.json",
+      "mode": "100644",
+      "git_blob": "f17f040532cd362a8d678fa17d20d024004ea4b0",
+      "sha256": "9395bfe35cdea6199f5697de7aad39946617d7a687086b8b239e98ef6c9d407c",
+      "bytes": 7433
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "docs/evidence/friction_model_sources.json",
+      "mode": "100644",
+      "git_blob": "36817707a13a21ecb635adbc9dafdd3851935ca4",
+      "sha256": "2f65a57f385434e13e79faaf44ddd601f063fc319305862ce30f5c05590f8658",
+      "bytes": 21599
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "docs/evidence/friction_model_synthetic_results.json",
+      "mode": "100644",
+      "git_blob": "e4bbf601079dfe78a7f84c75807f1062cd1efc4e",
+      "sha256": "7d9c74d483ef553564c6326fcbe49024bdd377440c927fe0a209b0e7594c7dbd",
+      "bytes": 133756
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "pyproject.toml",
+      "mode": "100644",
+      "git_blob": "9ed3f94a469dfc6c9758eeb6a4e418cb3f9438a4",
+      "sha256": "27929999dcf694e1056f4f3e66ab351337c7a91857019401084756d20c69de78",
+      "bytes": 1116
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "tests/audit/validate_friction_receipt.py",
+      "mode": "100644",
+      "git_blob": "132b73a67bb99b7c97f95810258b3a99220ddf88",
+      "sha256": "64d12ca55b1fc4c0c75f71d599d98d703623a75e1ad94f4e9b7f523e2000b415",
+      "bytes": 32598
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "docs/evidence/friction_observability_receipt_sources.json",
+      "mode": "100644",
+      "git_blob": "12ef56db4bec42dde0bd82fac7ecb9d3f5c5825b",
+      "sha256": "20085ce3d9aac1f58b818c870e6fee0c8bd6924ed9f889022e0217b74cc7c390",
+      "bytes": 53385
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": "docs/evidence/friction_observability_receipt_schema.json",
+      "mode": "100644",
+      "git_blob": "1f9659728dee6deebefe27adb48c50a43c964e7e",
+      "sha256": "840d5f0071ceec3c63e7d10d3c65563ae7de4f1ef7d9d281998d4618bdccb5ee",
+      "bytes": 86627
+    },
+    {
+      "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+      "path": ".github/workflows/ci.yml",
+      "mode": "100644",
+      "git_blob": "96fc35c43693fcf56bd9417a9a422a5b1a784f89",
+      "sha256": "108ea16855d91a4bdc08866277652e58df7b559b1a672abb0828c167c6bed1da",
+      "bytes": 12702
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/architecture/test_knowledge_boundary.py",
+      "mode": "100644",
+      "git_blob": "7376b946174307da546ea34382ab665d6f312b1c",
+      "sha256": "caf1aad9af49cca4cd68423587f1ee68e22c966347cba7fbe49cba267d876f8a",
+      "bytes": 5047
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/audit/test_carrot_writer_ownership.py",
+      "mode": "100644",
+      "git_blob": "8bcf0eba53f64a436dced37f87815406f8ad35df",
+      "sha256": "bdc5d9f7063a25ca6e65f128f1f6b7246b19499c0052cf8e7c41494ca6d18dc2",
+      "bytes": 9134
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/audit/test_hoya_c3_atune_evidence.py",
+      "mode": "100644",
+      "git_blob": "d636b9927e8b646b4107bad999755c20a4a281c7",
+      "sha256": "30e6e7a019d44cc64ae1063355e1cf7d354f877d1b7837827432a986b51b9b58",
+      "bytes": 7672
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/audit/test_friction_audit.py",
+      "mode": "100644",
+      "git_blob": "0ecf6030fead77238998ad685fd70fd8afc2f73f",
+      "sha256": "3127ac7dc0ded7281210966212e1b181df08963fb6d959969300dd3068710c82",
+      "bytes": 4241
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/test_architecture.py",
+      "mode": "100644",
+      "git_blob": "54f7410d8151221c3a4c9c4d6055cb07a5aced6c",
+      "sha256": "68f8a3ecf7bbd14cfe266f1b02d7009efe63ffd6ad96536f2e6aad70231287c5",
+      "bytes": 3037
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/test_assessment.py",
+      "mode": "100644",
+      "git_blob": "7447c61e74e88297a4d76bcc1bf893dd71d445f1",
+      "sha256": "6fd044171d5612cd2c7737e7524f78b239cd17515dd7db38ff5c774627dbfccb",
+      "bytes": 5528
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/test_boundaries.py",
+      "mode": "100644",
+      "git_blob": "68a385b56bd89aa02ae75f5993704a83db9c289c",
+      "sha256": "a885339838e81e3527e80937cdd672c079fdc804f27eaf2a09b87516e496512d",
+      "bytes": 4314
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/test_cold.py",
+      "mode": "100644",
+      "git_blob": "0c51a3dfedfdbe5c95491588d88b07e22886e854",
+      "sha256": "b52833d00e5bf0aa058e5b367c2420ee147865f4e0e585f7c836cba2f2e30a53",
+      "bytes": 1161
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/test_conformance.py",
+      "mode": "100644",
+      "git_blob": "69376aa085c2aa14cab7c8c1b3332b3402224077",
+      "sha256": "ea43cfefa5b3cfe6d9c0df0b87352af84ad86214341dafdf52b4ef17d7dd89c5",
+      "bytes": 10337
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/test_coverage_gate.py",
+      "mode": "100644",
+      "git_blob": "17c7b5a7ec063ebfd84114fae2979fd1505ce3de",
+      "sha256": "e8fb870adbb263e3337bc73eeadc7edf723b8fbeb1462f1f47fa4ac088ecd97d",
+      "bytes": 1442
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/test_documents.py",
+      "mode": "100644",
+      "git_blob": "024ad93a9145ce41bf2135c90ab103fea7c9b834",
+      "sha256": "f70e5f7f6706aeb6a81cf6a5f83b561d0c18ca572e1c4810941a3a3c2a144b37",
+      "bytes": 9968
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/test_integration.py",
+      "mode": "100644",
+      "git_blob": "57729e12e17180fae36d227d5dadcae8e8c81e96",
+      "sha256": "fb40cc86806eb243341f559f341e2b025a555b81da213bd90e3738ba98723117",
+      "bytes": 6465
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/test_linkage.py",
+      "mode": "100644",
+      "git_blob": "0f68a47de00bdeb637987ae25a215bc6a1c0c1db",
+      "sha256": "6f9bab322fa18c3c2955c22fc69fe6b8a1ae7672ac1bd472d22c48871c981de9",
+      "bytes": 10083
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/test_missing_facts.py",
+      "mode": "100644",
+      "git_blob": "cd237de39f2aaec82c0b109e522e77992357f396",
+      "sha256": "239d9516061c96a056b5be1dddbea0772e5b5c41e4a83c523968c3cf3996aed2",
+      "bytes": 3805
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/test_state.py",
+      "mode": "100644",
+      "git_blob": "aac28f2510b21555a4d65c0cf23280ee89a716cd",
+      "sha256": "773479f72d59914f74efad49310a9f83cce01d3dad54f2f79df066f53922f878",
+      "bytes": 7801
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/test_values.py",
+      "mode": "100644",
+      "git_blob": "bdc1512735aebdcbaa4389b2899627611539c750",
+      "sha256": "0460cd0529ad7ac914f4b4bb73281794b1c5acb758ca8c88d137d9e6d9d374c5",
+      "bytes": 8433
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/audit/validate_friction_model.py",
+      "mode": "100644",
+      "git_blob": "8aee713a05ba62cff1b631c7211f8673c0dde19e",
+      "sha256": "eaddb6091b5054613ec8e7f0eb15cae9b64aa3d1d8f4e1205c688b89f1947efe",
+      "bytes": 17876
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "docs/evidence/friction_model_policy.json",
+      "mode": "100644",
+      "git_blob": "f17f040532cd362a8d678fa17d20d024004ea4b0",
+      "sha256": "9395bfe35cdea6199f5697de7aad39946617d7a687086b8b239e98ef6c9d407c",
+      "bytes": 7433
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "docs/evidence/friction_model_sources.json",
+      "mode": "100644",
+      "git_blob": "36817707a13a21ecb635adbc9dafdd3851935ca4",
+      "sha256": "2f65a57f385434e13e79faaf44ddd601f063fc319305862ce30f5c05590f8658",
+      "bytes": 21599
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "docs/evidence/friction_model_synthetic_results.json",
+      "mode": "100644",
+      "git_blob": "e4bbf601079dfe78a7f84c75807f1062cd1efc4e",
+      "sha256": "7d9c74d483ef553564c6326fcbe49024bdd377440c927fe0a209b0e7594c7dbd",
+      "bytes": 133756
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "pyproject.toml",
+      "mode": "100644",
+      "git_blob": "9ed3f94a469dfc6c9758eeb6a4e418cb3f9438a4",
+      "sha256": "27929999dcf694e1056f4f3e66ab351337c7a91857019401084756d20c69de78",
+      "bytes": 1116
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/audit/diagnostic_inventory.py",
+      "mode": "100644",
+      "git_blob": "0edba42f128aca9aac82524ded90302e87ebadc7",
+      "sha256": "4ab8c34b41429b1c0d4833e5d3820f7ee3c4fca410fea93c856a1ce2e598263e",
+      "bytes": 1594
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/audit/validate_actual_binding_coverage.py",
+      "mode": "100644",
+      "git_blob": "ce65e52f744245f7744de43e5e3e555d64e83218",
+      "sha256": "c23031ab6fac6fb9e6bb93fd39edf9cd1d06dd902b16c10787dd7f3a49aea223",
+      "bytes": 1257
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/diagnostics/actual_binding/legacy_probe.py",
+      "mode": "100644",
+      "git_blob": "2ebcf35bf670460c39bd23b7b995ea3032e8596f",
+      "sha256": "f4b40f5dd677119d8c7b39aeff2fc0daa7d607b494075363a93ab58a96a2a937",
+      "bytes": 3234
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/fixtures/actual_binding/legacy_contracts.zip",
+      "mode": "100644",
+      "git_blob": "8170c6bc0766e3bac5be466e87e7e704cf0e49d7",
+      "sha256": "a53ddbac195f273843af05e79235985823ecc954f50018d28e5e329297de14c7",
+      "bytes": 45818
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "tests/fixtures/actual_binding/acceptance-coverage-map.json",
+      "mode": "100644",
+      "git_blob": "fcc2628607fd6d89188dbaff346b08bcd91d84de",
+      "sha256": "196b91936a174efb6dc87537faf70067de1fddf3e9cf5062ebf02cc85c5f4b29",
+      "bytes": 40862
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": "docs/evidence/actual_binding_integration_sources.json",
+      "mode": "100644",
+      "git_blob": "b9ff11551b38f50a62add468a589f4ba1fe9eea8",
+      "sha256": "32c41b92b6ba02ff8ccd153eaec10366fe0a0978cda29c197cde47045c3f18df",
+      "bytes": 9965
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": ".github/workflows/diagnostic-actual-binding.yml",
+      "mode": "100644",
+      "git_blob": "a83e826dfa979ff643aed1870d2ea3bc49f9347c",
+      "sha256": "206c1fc76e5c6b809906947d82324aa3c39d61f0a777879e10f35413a2954d39",
+      "bytes": 1947
+    },
+    {
+      "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+      "path": ".gitattributes",
+      "mode": "100644",
+      "git_blob": "00ee9cbe463afea171532906955aa045ee04d9f3",
+      "sha256": "3da824d0f37be4082aecb38cef9b01c8f0b9e66ab67d574cfbe3b2e3553db908",
+      "bytes": 253
+    }
+  ],
+  "complete_tree_binding": "Tree SHA pins every tracked path/mode/blob including helpers/fixtures/config;anchors are audit navigation,not a filtered allowed source subset.",
+  "H6_hashes": {
+    "O": "aa27d15517e693b0288ed37893deae4515a7c1f88388bb29e871c9fe0e68d032",
+    "D": "eaddb6091b5054613ec8e7f0eb15cae9b64aa3d1d8f4e1205c688b89f1947efe"
+  },
+  "reference_setup": "Prepared exact local raw source objects only;no Openpilot imports,producer,device or network in H.",
+  "original_runtime_sources_preserved": true,
+  "historical_execution_performed": false,
+  "toolchain_authenticity_qualified": false
+}
