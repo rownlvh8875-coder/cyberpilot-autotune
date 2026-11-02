@@ -234,3 +234,242 @@ def test_recursive_tree_entries_obey_budget_even_with_cached_blobs(tmp_path):
         replace(req, budget=replace(req.budget, maximum_entries=8))
     )
     assert "RESOURCE_LIMIT" in result.unavailable and not result.trees
+
+
+@pytest.mark.parametrize("separator", (b"\r", b"\r\n"))
+def test_raw_malformed_commit_cannot_enter_capture_graph(tmp_path, separator):
+    from dataclasses import replace
+
+    root = prepared(tmp_path)
+    req = request(root)
+    tree = git(root, "rev-parse", "HEAD^{tree}").strip()
+    raw = b"tree " + tree + separator + b"author Test <t@example.invalid> 0 +0000\n\nTEST\n"
+    bad = (
+        git(root, "hash-object", "--literally", "-w", "-t", "commit", "--stdin", input=raw)
+        .decode()
+        .strip()
+    )
+    result = api("git_reader").read_objects(replace(req, source_oids=(bad,)))
+    assert "COMMIT_FORMAT" in result.errors
+
+
+def test_missing_ancestor_is_not_inferred_from_shallow_or_empty_state(tmp_path):
+    from dataclasses import replace
+
+    root = prepared(tmp_path)
+    req = request(root)
+    tree = git(root, "rev-parse", "HEAD^{tree}").strip()
+    raw = b"tree " + tree + b"\nparent " + b"0" * 40 + b"\n\nTEST\n"
+    source = (
+        git(root, "hash-object", "--literally", "-w", "-t", "commit", "--stdin", input=raw)
+        .decode()
+        .strip()
+    )
+    result = api("git_reader").read_objects(replace(req, source_oids=(source,)))
+    assert result.missing_oids == ("0" * 40,) and result.unavailable
+
+
+def test_nested_tree_and_binary_and_diagnostic_attribute_vectors(tmp_path):
+    root = prepared(tmp_path)
+    for name, raw in (
+        ("tests/fixtures/actual_binding/x.zip", b"\0ZIP\r\n"),
+        ("src/cyberpilot_autotune/diagnostics/x.py", b"# LF\n"),
+    ):
+        p = root / name
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_bytes(raw)
+    git(root, "add", ".")
+    git(root, "commit", "--quiet", "-m", "NESTED_TEST")
+    result = api("capture").capture_checkout(request(root))
+    assert result.consistency == "OBSERVED_STABLE", result.errors
+    vectors = dict(result.pass_a.attributes.vectors)
+    assert vectors["tests/fixtures/actual_binding/x.zip"] == (
+        ("binary", "set"),
+        ("diff", "unset"),
+        ("merge", "unset"),
+        ("text", "unset"),
+    )
+    assert vectors["src/cyberpilot_autotune/diagnostics/x.py"] == (("eol", "lf"), ("text", "set"))
+
+
+@pytest.mark.parametrize("name", ("한글 space", "tab\tname", "bad\nname"))
+def test_actual_nul_framing_does_not_use_display_quotes(tmp_path, name):
+    root = prepared(tmp_path)
+    (root / name).write_bytes(b"test")
+    git(root, "add", ".")
+    git(root, "commit", "--quiet", "-m", "NAMES")
+    result = api("git_reader").read_objects(request(root))
+    if "\n" in name:
+        assert "TREE_FORMAT" in result.errors
+    else:
+        assert not result.errors and name in dict(result.trees[0].entries)
+
+
+@pytest.mark.parametrize("kind", ("filter", "fsmonitor", "merge"))
+def test_real_helper_canary_never_executes(tmp_path, kind):
+    root = prepared(tmp_path)
+    req = request(root)
+    marker = tmp_path / "EXECUTED"
+    key = {
+        "filter": '[filter "evil"]\nclean',
+        "fsmonitor": "[core]\nfsmonitor",
+        "merge": '[merge "evil"]\ndriver',
+    }[kind]
+    p = root / ".git/config"
+    p.write_bytes(p.read_bytes() + f"{key} = touch {marker}\n".encode())
+    result = api("git_reader").read_objects(req)
+    assert "CUSTOM_HELPER" in result.errors and not marker.exists()
+
+
+def test_loose_replace_and_promisor_metadata_are_observed(tmp_path):
+    root = prepared(tmp_path)
+    req = request(root)
+    p = root / ".git/refs/replace"
+    p.mkdir()
+    (p / ("1" * 40)).write_bytes(b"2" * 40 + b"\n")
+    pack = root / ".git/objects/pack"
+    (pack / "test.promisor").write_bytes(b"")
+    result = api("git_reader").read_objects(req)
+    assert "REPLACE_REFS" in result.errors and "PARTIAL_CLONE" in result.unavailable
+
+
+def test_raw_object_wire_corruption_is_not_treated_as_missing(tmp_path, monkeypatch):
+    root = prepared(tmp_path)
+    req = request(root)
+    a = api("git_reader")
+    reader = a.GitReader(req, api("contracts").ReadBudget(req.budget))
+    monkeypatch.setattr(
+        reader, "run", lambda args, raw=b"": req.validation_head.encode() + b" commit 1\nx\n"
+    )
+    with pytest.raises(api("contracts").CaptureFault) as e:
+        reader.object(req.validation_head, "commit")
+    assert e.value.reason == "OBJECT_HASH"
+
+
+def test_unavailable_git_executable_is_reported_without_raw_stderr(tmp_path, monkeypatch):
+    import subprocess
+
+    root = prepared(tmp_path)
+    req = request(root)
+
+    def absent(*args, **kwargs):
+        raise FileNotFoundError("SECRET_PATH_NOT_FOR_REPORT")
+
+    monkeypatch.setattr(subprocess, "Popen", absent)
+    result = api("git_reader").read_objects(req)
+    assert "GIT_IO" in result.unavailable and "SECRET_PATH" not in repr(result)
+
+
+@pytest.mark.parametrize("raw", (b"HEAD\n", b"HEAD:a\n", b"0" * 40 + b"\nEXTRA\n", b""))
+def test_raw_batch_requests_cannot_select_branches_or_paths(tmp_path, raw):
+    root = prepared(tmp_path)
+    req = request(root)
+    reader = api("git_reader").GitReader(req, api("contracts").ReadBudget(req.budget))
+    with pytest.raises(api("contracts").CaptureFault) as e:
+        reader.run(("cat-file", "--batch"), raw)
+    assert e.value.reason == "INPUT_FORBIDDEN"
+
+
+def test_empty_environment_redirect_is_not_default_or_absent(tmp_path, monkeypatch):
+    root = prepared(tmp_path)
+    req = request(root)
+    monkeypatch.setenv("GIT_INDEX_FILE", "")
+    assert "ENV_REDIRECT" in api("git_reader").read_objects(req).errors
+
+
+def test_actual_split_index_is_unavailable_and_never_rewritten(tmp_path):
+    root = prepared(tmp_path)
+    git(root, "update-index", "--split-index")
+    raw = (root / ".git/index").read_bytes()
+    with pytest.raises(api("contracts").CaptureFault) as e:
+        api("worktree_reader").parse_index(raw)
+    assert e.value.unavailable is True
+    assert (root / ".git/index").read_bytes() == raw
+
+
+def test_promisor_configuration_is_unsupported_even_with_objects_present(tmp_path):
+    root = prepared(tmp_path)
+    req = request(root)
+    p = root / ".git/config"
+    p.write_bytes(
+        p.read_bytes() + b'[remote "origin"]\npromisor = true\npartialCloneFilter = blob:none\n'
+    )
+    assert "PARTIAL_CLONE" in api("git_reader").read_objects(req).unavailable
+
+
+@pytest.mark.parametrize("signature", (b"link", b"sdir"))
+def test_split_and_sparse_index_markers_are_explicitly_unavailable(signature):
+    with pytest.raises(api("contracts").CaptureFault) as e:
+        api("worktree_reader").parse_index(index_bytes(extension=signature + struct.pack(">I", 0)))
+    assert e.value.unavailable is True
+
+
+def test_actual_SHA256_repository_is_unavailable_not_bad_SHA1_index(tmp_path):
+    from dataclasses import replace
+
+    original = prepared(tmp_path)
+    req = request(original)
+    other = tmp_path / "sha256"
+    other.mkdir()
+    git(other, "init", "--quiet", "--object-format=sha256")
+    git(other, "config", "user.name", "Test")
+    git(other, "config", "user.email", "test@example.invalid")
+    (other / "a").write_bytes(b"test")
+    git(other, "add", ".")
+    git(other, "commit", "--quiet", "-m", "SHA256_TEST")
+    layout = replace(
+        req.layout,
+        worktree_root=str(other),
+        git_dir=str(other / ".git"),
+        common_dir=str(other / ".git"),
+    )
+    result = api("capture").capture_checkout(replace(req, layout=layout))
+    assert result.consistency == "UNAVAILABLE" and "OBJECT_FORMAT" in result.unavailable
+
+
+def test_invalid_native_utf8_filename_is_not_normalized(tmp_path):
+    import os
+
+    root = prepared(tmp_path)
+    fd = os.open(os.fsencode(root) + b"/bad\xff", os.O_CREAT | os.O_WRONLY, 0o644)
+    os.close(fd)
+    git(root, "add", ".")
+    git(root, "commit", "--quiet", "-m", "INVALID_UTF8")
+    assert "TREE_FORMAT" in api("git_reader").read_objects(request(root)).errors
+
+
+def test_existing_but_wrong_gitdir_is_rejected_not_used_as_source(tmp_path):
+    from dataclasses import replace
+
+    root = prepared(tmp_path)
+    base = tmp_path / "other"
+    base.mkdir()
+    other = prepared(base)
+    req = request(root)
+    req = replace(
+        req, layout=replace(req.layout, git_dir=str(other / ".git"), common_dir=str(other / ".git"))
+    )
+    assert "WRONG_LAYOUT" in api("git_reader").read_objects(req).errors
+
+
+def test_cached_and_worktree_attribute_disagreement_is_independently_rejected(tmp_path):
+    from tests.fixtures.audit_compatibility_capture import ATTRIBUTES
+
+    root = prepared(tmp_path)
+    req = request(root)
+    p = root / ".gitattributes"
+    p.write_bytes(ATTRIBUTES + b"a other=unknown\n")
+    git(root, "add", ".gitattributes")
+    p.write_bytes(ATTRIBUTES)
+    result = api("capture").capture_checkout(req)
+    assert "INDEX_HEAD_MISMATCH" in result.errors and "ATTRIBUTE_OVERRIDE" in result.errors
+
+
+@pytest.mark.parametrize("raw", (b"../outside\0", b"bad\xff\0", b"missing-nul"))
+def test_attribute_stdin_paths_stay_inside_literal_utf8_namespace(tmp_path, raw):
+    root = prepared(tmp_path)
+    req = request(root)
+    reader = api("git_reader").GitReader(req, api("contracts").ReadBudget(req.budget))
+    with pytest.raises(api("contracts").CaptureFault) as e:
+        reader.run(("check-attr", "-z", "--all", "--stdin"), raw)
+    assert e.value.reason == "INPUT_FORBIDDEN"

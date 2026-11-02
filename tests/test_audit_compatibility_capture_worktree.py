@@ -134,3 +134,253 @@ def test_preflight_config_secret_values_never_enter_report(tmp_path):
     )
     report = api("worktree_reader").preflight(request(root), budget(request(root)))
     assert "SECRET_TOKEN" not in repr(report)
+
+
+@pytest.mark.parametrize(
+    "raw,reason",
+    (
+        (b"\xff", "CONFIG_SYNTAX"),
+        (b"[bad\nkey=x\n", "CONFIG_SYNTAX"),
+        (b'[core "sub"]\nfilemode=true\n', "CONFIG_SYNTAX"),
+        (b'[core]\neditor="unfinished\n', "CONFIG_SYNTAX"),
+        (b'[core]\neditor="bad\\q"\n', "CONFIG_SYNTAX"),
+        (b"[core]\nunknown=true\n", "CONFIG_SYNTAX"),
+        (b"[unknown]\nkey=true\n", "CONFIG_SYNTAX"),
+        (b"[core]\nbare=true\n", "WRONG_LAYOUT"),
+        (b"[core]\nsparseCheckout=true\n", "CONFIG_FEATURE"),
+        (b"[extensions]\nobjectFormat=sha256\n", "OBJECT_FORMAT"),
+        (b"[extensions]\npartialClone=origin\n", "CONFIG_FEATURE"),
+    ),
+)
+def test_closed_config_grammar_and_features_are_never_approximated(tmp_path, raw, reason):
+    root = prepared(tmp_path)
+    req = request(root)
+    errors, missing = set(), set()
+    api("worktree_reader").inspect_config(raw, errors, missing, req.layout)
+    assert reason in errors | missing
+
+
+def test_supported_config_escapes_bare_boolean_comments_and_inert_values(tmp_path):
+    root = prepared(tmp_path)
+    errors, missing = set(), set()
+    raw = (
+        b'# comment\n[core]\nfilemode\neditor="a\\t\\n\\b\\\\\\"b" ; tail\n'
+        b"[extensions]\nobjectFormat=sha1\nworktreeConfig=true\n"
+    )
+    api("worktree_reader").inspect_config(raw, errors, missing, request(root).layout)
+    assert not errors and not missing
+
+
+def test_missing_declared_config_scope_remains_unavailable(tmp_path):
+    root = prepared(tmp_path)
+    req = request(root)
+    req = replace(req, layout=replace(req.layout, control_roots=()))
+    r = api("worktree_reader").preflight(req, budget(req))
+    assert "CONFIG_SCOPE" in r.unavailable
+
+
+@pytest.mark.parametrize("suffix", ("/info/attributes", "/info/grafts", "/config", "/packed-refs"))
+def test_control_read_errors_are_not_silently_absent(tmp_path, monkeypatch, suffix):
+    root = prepared(tmp_path)
+    req = request(root)
+    a = api("worktree_reader")
+    real = a.read_file
+
+    def unavailable(path, *args, **kwargs):
+        if path == str(root / ".git") + suffix:
+            raise api("contracts").CaptureFault("TEST_READ_UNAVAILABLE", True)
+        return real(path, *args, **kwargs)
+
+    monkeypatch.setattr(a, "read_file", unavailable)
+    assert "TEST_READ_UNAVAILABLE" in a.preflight(req, budget(req)).unavailable
+
+
+def test_attribute_policy_default_source_checked_not_hidden_by_sanitization(tmp_path, monkeypatch):
+    root = prepared(tmp_path)
+    req = request(root)
+    configs = (str(tmp_path / "system"), str(tmp_path / "user"), str(tmp_path / "git/config"))
+    (tmp_path / "git").mkdir()
+    (tmp_path / "git/attributes").write_bytes(b"* filter=evil\n")
+    req = replace(req, layout=replace(req.layout, control_roots=configs))
+    a = api("worktree_reader")
+    monkeypatch.setattr(a, "config_candidates", lambda layout: configs)
+    assert "ATTRIBUTE_OVERRIDE" in a.preflight(req, budget(req)).errors
+
+
+@pytest.mark.parametrize("mutation", ("replace", "root_rename", "read_error"))
+def test_safe_read_detects_real_leaf_or_root_changes_and_IO_failure(
+    tmp_path, monkeypatch, mutation
+):
+    root = prepared(tmp_path)
+    req = request(root)
+    target = root / "a"
+    inode = target.stat().st_ino
+    a = api("worktree_reader")
+    real = os.read
+    changed = False
+
+    def read(fd, size):
+        nonlocal changed
+        if not changed and os.fstat(fd).st_ino == inode:
+            changed = True
+            if mutation == "read_error":
+                raise PermissionError("TEST_ONLY")
+            if mutation == "replace":
+                new = root / "replacement"
+                new.write_bytes(b"other")
+                new.replace(target)
+            else:
+                root.rename(tmp_path / "moved")
+        return real(fd, size)
+
+    monkeypatch.setattr(os, "read", read)
+    with pytest.raises(api("contracts").CaptureFault) as e:
+        a.read_file(str(target), budget(req))
+    assert e.value.reason in ("FILE_CHANGED", "FILE_IO", "ROOT_CHANGED")
+
+
+def test_inventory_empty_directories_do_not_become_untracked_files(tmp_path):
+    root = prepared(tmp_path)
+    (root / "empty").mkdir()
+    req = request(root)
+    r = api("worktree_reader").read_worktree(
+        req, ((".gitattributes", ATTRIBUTES), ("a", b"hello\n")), budget(req)
+    )
+    assert not r.errors and not r.untracked_including_ignored
+
+
+def test_unsafe_tracked_path_never_opens_outside_root(tmp_path):
+    root = prepared(tmp_path)
+    req = request(root)
+    r = api("worktree_reader").read_worktree(req, (("../secret", b""),), budget(req))
+    assert "UNSAFE_PATH" in r.errors
+
+
+def test_control_directory_symlink_is_known_rejection_not_missing(tmp_path):
+    root = prepared(tmp_path)
+    req = request(root)
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    (root / ".git/refs/replace").symlink_to(outside, target_is_directory=True)
+    assert "UNSAFE_PATH" in api("worktree_reader").preflight(req, budget(req)).errors
+
+
+@pytest.mark.parametrize(
+    "kind", ("layout", "ambient_attribute", "control_directory", "inventory", "tracked_leaf")
+)
+def test_unavailable_read_component_never_becomes_an_empty_success(tmp_path, monkeypatch, kind):
+    root = prepared(tmp_path)
+    req = request(root)
+    a = api("worktree_reader")
+    if kind == "layout":
+        (root / ".git").rename(root / ".moved_git")
+        r = a.preflight(req, budget(req))
+        assert r.unavailable
+        return
+    if kind in ("ambient_attribute", "tracked_leaf"):
+        real = a.read_file
+
+        def unavailable(path, *args, **kwargs):
+            if (kind == "ambient_attribute" and path == "/etc/gitattributes") or (
+                kind == "tracked_leaf" and path == str(root / "a")
+            ):
+                raise api("contracts").CaptureFault("TEST_UNAVAILABLE", True)
+            return real(path, *args, **kwargs)
+
+        monkeypatch.setattr(a, "read_file", unavailable)
+    else:
+        real = os.listdir
+        inode = (root / ".git/objects/pack" if kind == "control_directory" else root).stat().st_ino
+
+        def unavailable(fd):
+            if os.fstat(fd).st_ino == inode:
+                raise PermissionError("TEST_ONLY")
+            return real(fd)
+
+        monkeypatch.setattr(os, "listdir", unavailable)
+    if kind in ("ambient_attribute", "control_directory"):
+        r = a.preflight(req, budget(req))
+    else:
+        r = a.read_worktree(req, ((".gitattributes", ATTRIBUTES), ("a", b"hello\n")), budget(req))
+    assert r.unavailable
+
+
+def test_duplicate_directory_iteration_is_rejected_not_collapsed(tmp_path, monkeypatch):
+    root = prepared(tmp_path)
+    req = request(root)
+    inode = root.stat().st_ino
+    real = os.listdir
+
+    def duplicate(fd):
+        names = real(fd)
+        return [*names, "a"] if os.fstat(fd).st_ino == inode else names
+
+    monkeypatch.setattr(os, "listdir", duplicate)
+    r = api("worktree_reader").read_worktree(
+        req, ((".gitattributes", ATTRIBUTES), ("a", b"hello\n")), budget(req)
+    )
+    assert "DUPLICATE_PATH" in r.errors
+
+
+def test_actual_case_conflict_does_not_get_normalized(tmp_path):
+    root = prepared(tmp_path)
+    (root / "A").write_bytes(b"other")
+    req = request(root)
+    r = api("worktree_reader").read_worktree(
+        req, ((".gitattributes", ATTRIBUTES), ("a", b"hello\n")), budget(req)
+    )
+    assert "UNSAFE_PATH" in r.errors
+
+
+@pytest.mark.parametrize("path", (".venv/cache", ".cache/hidden"))
+def test_cache_prefix_is_not_an_untracked_exception(tmp_path, path):
+    root = prepared(tmp_path)
+    p = root / path
+    p.parent.mkdir()
+    p.write_bytes(b"not read")
+    r = api("capture").capture_checkout(request(root))
+    assert "UNTRACKED_PATH" in r.errors
+
+
+def test_nonempty_info_attributes_are_rejected_before_Git(tmp_path):
+    root = prepared(tmp_path)
+    req = request(root)
+    (root / ".git/info/attributes").write_bytes(b"* filter=evil\n")
+    r = api("git_reader").read_objects(req)
+    assert "ATTRIBUTE_OVERRIDE" in r.errors
+
+
+def test_same_size_and_restored_mtime_does_not_hide_raw_byte_drift(tmp_path):
+    root = prepared(tmp_path)
+    req = request(root)
+    p = root / "a"
+    before = p.stat()
+    p.write_bytes(b"drift\n")
+    os.utime(p, ns=(before.st_atime_ns, before.st_mtime_ns))
+    assert p.stat().st_size == before.st_size and p.stat().st_mtime_ns == before.st_mtime_ns
+    assert "RAW_BYTES_CHANGED" in api("capture").capture_checkout(req).errors
+
+
+@pytest.mark.parametrize(
+    "raw", ('" "', '"trailing "', '" leading"', '"a\\t"', '"quoted # value" # comment')
+)
+def test_supported_config_value_grammar_has_actual_Git_parity(tmp_path, raw):
+    from tests.fixtures.audit_compatibility_capture import git
+
+    root = prepared(tmp_path)
+    config = tmp_path / "value.config"
+    config.write_bytes(("[core]\neditor=" + raw + "\n").encode())
+    expected = (
+        git(root, "config", "--file", str(config), "--get", "core.editor")
+        .decode()
+        .removesuffix("\n")
+    )
+    assert api("worktree_reader")._value(raw) == expected
+
+
+def test_quoted_empty_looking_attribute_path_is_not_ignored(tmp_path):
+    root = prepared(tmp_path)
+    req = request(root)
+    p = root / ".git/config"
+    p.write_bytes(p.read_bytes() + b'[core]\nattributesFile=" "\n')
+    assert "ATTRIBUTE_OVERRIDE" in api("worktree_reader").preflight(req, budget(req)).errors

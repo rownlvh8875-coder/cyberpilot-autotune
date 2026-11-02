@@ -11,15 +11,18 @@ from tests.audit_compatibility.git_objects import (
     TreeSnapshot,
     object_id,
     oid,
+    path_value,
 )
 
 from .contracts import (
+    ATTRIBUTE_SHA256,
     AttributeCapture,
     CaptureFault,
     CaptureRequest,
     ObjectCapture,
     ReadBudget,
     digest,
+    expected_attributes,
     require,
 )
 from .worktree_reader import preflight, read_file
@@ -62,6 +65,24 @@ class GitReader:
             "COMMAND_FORBIDDEN",
         )
         require(type(raw) is bytes, "INPUT_TYPE")
+        if args == ("cat-file", "--batch"):
+            require(
+                len(raw) == 41
+                and raw[-1:] == b"\n"
+                and all(c in b"0123456789abcdef" for c in raw[:40]),
+                "INPUT_FORBIDDEN",
+            )
+        elif args[0] == "check-attr":
+            try:
+                require(not raw or raw.endswith(b"\0"), "INPUT_FORBIDDEN")
+                require(
+                    all(path_value(p.decode("utf-8", "strict")) for p in raw.split(b"\0")[:-1]),
+                    "INPUT_FORBIDDEN",
+                )
+            except UnicodeError as error:
+                raise CaptureFault("INPUT_FORBIDDEN") from error
+        else:
+            require(not raw, "INPUT_FORBIDDEN")
         require(
             not self.controls.errors and not self.controls.unavailable,
             "PREFLIGHT_BLOCKED",
@@ -198,7 +219,7 @@ class GitReader:
             while pos < len(raw):
                 self.budget.consume(0, 1)
                 end = raw.index(b"\0", pos)
-                header = raw[pos:end].split(b" ")
+                header = raw[pos:end].split(b" ", 1)
                 require(len(header) == 2 and b"/" not in header[1], "TREE_FRAME")
                 mode, name = header[0], header[1].decode("utf-8", "strict")
                 require(end + 21 <= len(raw), "TREE_FRAME")
@@ -293,25 +314,11 @@ def read_objects(request: CaptureRequest) -> ObjectCapture:
     return read_objects_with(reader, ids)
 
 
-def _expected_attributes(path: str) -> tuple[tuple[str, str], ...]:
-    if path.startswith("src/cyberpilot_autotune/diagnostics/"):
-        return (("eol", "lf"), ("text", "set"))
-    if (
-        path.startswith("tests/fixtures/actual_binding/")
-        and "/" not in path.removeprefix("tests/fixtures/actual_binding/")
-        and path.endswith(".zip")
-    ):
-        return (("binary", "set"), ("diff", "unset"), ("merge", "unset"), ("text", "unset"))
-    return ()
-
-
 def read_attributes(reader: GitReader, tree: TreeSnapshot) -> AttributeCapture:
     entries = dict(tree.entries)
     image = entries.get(".gitattributes")
     require(
-        image is not None
-        and digest(image.data)
-        == "3da824d0f37be4082aecb38cef9b01c8f0b9e66ab67d574cfbe3b2e3553db908",
+        image is not None and digest(image.data) == ATTRIBUTE_SHA256,
         "ATTRIBUTE_POLICY",
     )
     require(not any(p.endswith("/.gitattributes") for p in entries), "ATTRIBUTE_OVERRIDE")
@@ -319,7 +326,7 @@ def read_attributes(reader: GitReader, tree: TreeSnapshot) -> AttributeCapture:
     require(image is not None and actual == image.data, "ATTRIBUTE_POLICY")
     names = tuple(entries)
     raw = b"".join(p.encode() + b"\0" for p in names)
-    expected = {p: _expected_attributes(p) for p in names}
+    expected = {p: expected_attributes(p) for p in names}
     for cached in ((), ("--cached",)):
         for all_values in (True, False):
             tail = ("--all", "--stdin") if all_values else ("--stdin", *ATTR_NAMES)

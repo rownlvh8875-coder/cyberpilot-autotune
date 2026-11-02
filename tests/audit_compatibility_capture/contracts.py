@@ -1,7 +1,9 @@
 """Immutable capture inputs and diagnostic values;no authority or implicit I/O."""
 
-from dataclasses import dataclass
+import json
+from dataclasses import dataclass, fields
 from hashlib import sha256
+from typing import Any
 
 from tests.audit_compatibility.contracts import PERMISSIONS, CompatibilityInputBundle
 from tests.audit_compatibility.git_objects import (
@@ -13,6 +15,7 @@ from tests.audit_compatibility.git_objects import (
 )
 
 PROFILE = "C1_POSIX_RAW_BYTES_V1"
+ATTRIBUTE_SHA256 = "3da824d0f37be4082aecb38cef9b01c8f0b9e66ab67d574cfbe3b2e3553db908"
 BLOCKERS = (
     "ACTUAL_Q_I",
     "ENTRY_GUARD_INTEGRATION",
@@ -31,6 +34,28 @@ def need(value: bool) -> None:
 def reasons(value: tuple[str, ...]) -> None:
     need(type(value) is tuple and all(type(x) is str and bool(x) for x in value))
     need(value == tuple(sorted(set(value))))
+
+
+def records(values: Any, cls: type[Any]) -> None:
+    need(type(values) is tuple and all(type(v) is cls for v in values))
+    for value in values:
+        cls.__post_init__(value)
+
+
+def hash256(value: object) -> bool:
+    return type(value) is str and len(value) == 64 and all(x in "0123456789abcdef" for x in value)
+
+
+def expected_attributes(path: str) -> tuple[tuple[str, str], ...]:
+    if path.startswith("src/cyberpilot_autotune/diagnostics/"):
+        return (("eol", "lf"), ("text", "set"))
+    if (
+        path.startswith("tests/fixtures/actual_binding/")
+        and "/" not in path.removeprefix("tests/fixtures/actual_binding/")
+        and path.endswith(".zip")
+    ):
+        return (("binary", "set"), ("diff", "unset"), ("merge", "unset"), ("text", "unset"))
+    return ()
 
 
 def absolute(value: str) -> bool:
@@ -187,6 +212,7 @@ class IndexCapture:
     extensions: tuple[tuple[str, bytes], ...]
 
     def __post_init__(self) -> None:
+        need(hash256(self.raw_sha256))
         need(type(self.version) is int and self.version == 2)
         need(type(self.entries) is tuple and all(type(x) is IndexEntry for x in self.entries))
         for x in self.entries:
@@ -207,6 +233,21 @@ class ControlCapture:
     errors: tuple[str, ...]
     unavailable: tuple[str, ...]
 
+    def __post_init__(self) -> None:
+        need(type(self.identities) is tuple)
+        need(
+            all(
+                type(p) is tuple
+                and len(p) == 2
+                and type(p[0]) is str
+                and (p[1] is None or hash256(p[1]))
+                for p in self.identities
+            )
+        )
+        need(len({p[0] for p in self.identities}) == len(self.identities))
+        reasons(self.errors)
+        reasons(self.unavailable)
+
 
 @dataclass(frozen=True, slots=True)
 class ObjectCapture:
@@ -216,12 +257,28 @@ class ObjectCapture:
     errors: tuple[str, ...]
     unavailable: tuple[str, ...]
 
+    def __post_init__(self) -> None:
+        records(self.raw_commits, CommitObject)
+        records(self.trees, TreeSnapshot)
+        need(len({v.oid for v in self.raw_commits}) == len(self.raw_commits))
+        need(len({v.oid for v in self.trees}) == len(self.trees))
+        reasons(self.missing_oids)
+        need(all(oid(v) for v in self.missing_oids))
+        reasons(self.errors)
+        reasons(self.unavailable)
+
 
 @dataclass(frozen=True, slots=True)
 class FileCapture:
     path: str
     image: GitImage
     stat_identity: tuple[int, ...]
+
+    def __post_init__(self) -> None:
+        need(path_value(self.path) and type(self.image) is GitImage)
+        GitImage.__post_init__(self.image)
+        need(self.image.mode == "100644" and type(self.stat_identity) is tuple)
+        need(len(self.stat_identity) == 7 and all(type(x) is int for x in self.stat_identity))
 
 
 @dataclass(frozen=True, slots=True)
@@ -232,10 +289,38 @@ class WorktreeCapture:
     errors: tuple[str, ...]
     unavailable: tuple[str, ...]
 
+    def __post_init__(self) -> None:
+        records(self.files, FileCapture)
+        reasons(self.inventory)
+        need(all(path_value(x) for x in self.inventory))
+        reasons(self.untracked_including_ignored)
+        need(all(hash256(x) for x in self.untracked_including_ignored))
+        need(len({v.path for v in self.files}) == len(self.files))
+        reasons(self.errors)
+        reasons(self.unavailable)
+
 
 @dataclass(frozen=True, slots=True)
 class AttributeCapture:
     vectors: tuple[tuple[str, tuple[tuple[str, str], ...]], ...]
+
+    def __post_init__(self) -> None:
+        need(type(self.vectors) is tuple)
+        for pair in self.vectors:
+            need(
+                type(pair) is tuple
+                and len(pair) == 2
+                and path_value(pair[0])
+                and type(pair[1]) is tuple
+            )
+            need(
+                all(
+                    type(v) is tuple and len(v) == 2 and all(type(x) is str for x in v)
+                    for v in pair[1]
+                )
+            )
+            need(len({v[0] for v in pair[1]}) == len(pair[1]))
+        need(len({p[0] for p in self.vectors}) == len(self.vectors))
 
 
 @dataclass(frozen=True, slots=True)
@@ -249,6 +334,20 @@ class CapturePass:
     errors: tuple[str, ...]
     unavailable: tuple[str, ...]
 
+    def __post_init__(self) -> None:
+        need(self.head_oid is None or oid(self.head_oid))
+        records((self.controls,), ControlCapture)
+        records((self.objects,), ObjectCapture)
+        for value, cls in (
+            (self.index, IndexCapture),
+            (self.worktree, WorktreeCapture),
+            (self.attributes, AttributeCapture),
+        ):
+            if value is not None:
+                records((value,), cls)
+        reasons(self.errors)
+        reasons(self.unavailable)
+
 
 @dataclass(frozen=True, slots=True)
 class CaptureReport:
@@ -258,9 +357,37 @@ class CaptureReport:
     errors: tuple[str, ...]
     unavailable: tuple[str, ...]
 
+    def __post_init__(self) -> None:
+        for value in (self.pass_a, self.pass_b):
+            if value is not None:
+                records((value,), CapturePass)
+        if self.partial_bundle is not None:
+            records((self.partial_bundle,), CompatibilityInputBundle)
+        reasons(self.errors)
+        reasons(self.unavailable)
+
     @property
     def consistency(self) -> str:
-        return CaptureConsistencyDecision(self.errors, self.unavailable).decision
+        return evaluate_report(self).decision
+
+    @property
+    def content_digest(self) -> str:
+        CaptureReport.__post_init__(self)
+
+        def encode(value: Any) -> Any:
+            if type(value) is bytes:
+                return {"bytes_hex": value.hex()}
+            if type(value) is tuple:
+                return [encode(v) for v in value]
+            if value is None or type(value) in (str, int, bool):
+                return value
+            return {f.name: encode(getattr(value, f.name)) for f in fields(value)}
+
+        return digest(
+            json.dumps(
+                encode(self), sort_keys=True, separators=(",", ":"), allow_nan=False
+            ).encode()
+        )
 
     @property
     def atomicity(self) -> str:
@@ -281,3 +408,74 @@ class CaptureReport:
 
 def digest(raw: bytes) -> str:
     return sha256(raw).hexdigest()
+
+
+def evaluate_report(report: CaptureReport) -> CaptureConsistencyDecision:
+    need(type(report) is CaptureReport)
+    CaptureReport.__post_init__(report)
+    errors, missing = set(report.errors), set(report.unavailable)
+    for observed in (report.pass_a, report.pass_b):
+        if observed is None:
+            missing.add("CAPTURE_PASS_MISSING")
+            continue
+        for part in (observed, observed.controls, observed.objects, observed.worktree):
+            if part is not None:
+                errors.update(part.errors)
+                missing.update(part.unavailable)
+        if observed.objects.missing_oids:
+            missing.add("OBJECT_MISSING")
+        if (
+            observed.head_oid is None
+            or observed.index is None
+            or observed.worktree is None
+            or observed.attributes is None
+        ):
+            missing.add("CURRENT_COMPONENT_MISSING")
+        commits = {v.oid: v for v in observed.objects.raw_commits}
+        trees = {v.oid: v for v in observed.objects.trees}
+        head = commits.get(observed.head_oid or "")
+        tree = trees.get(head.tree) if head is not None else None
+        if tree is None:
+            missing.add("CURRENT_TREE_MISSING")
+        else:
+            attribute_source = dict(tree.entries).get(".gitattributes")
+            if attribute_source is None or digest(attribute_source.data) != ATTRIBUTE_SHA256:
+                errors.add("ATTRIBUTE_POLICY")
+            if observed.attributes is not None and observed.attributes.vectors != tuple(
+                (p, expected_attributes(p)) for p, _ in tree.entries
+            ):
+                errors.add("ATTRIBUTE_POLICY")
+            if observed.index is not None:
+                actual = tuple((v.path, v.mode, v.oid) for v in observed.index.entries)
+                if actual != tuple((p, image.mode, image.oid) for p, image in tree.entries):
+                    errors.add("INDEX_HEAD_MISMATCH")
+            if observed.worktree is not None:
+                files = {v.path: v.image for v in observed.worktree.files}
+                expected_files = dict(tree.entries)
+                if any(expected_files.get(p) != image for p, image in files.items()) or (
+                    not observed.worktree.unavailable and files != expected_files
+                ):
+                    errors.add("WORKTREE_HEAD_MISMATCH")
+    a, b = report.pass_a, report.pass_b
+    if a is not None and b is not None:
+        for left, right in (
+            (a.head_oid, b.head_oid),
+            (a.index, b.index),
+            (a.attributes, b.attributes),
+        ):
+            if left is not None and right is not None and left != right:
+                errors.add("COHORT_CHANGED")
+        left_controls, right_controls = dict(a.controls.identities), dict(b.controls.identities)
+        if any(
+            left_controls[p] != right_controls[p]
+            for p in left_controls.keys() & right_controls.keys()
+        ):
+            errors.add("COHORT_CHANGED")
+        if a.worktree is not None and b.worktree is not None:
+            if (
+                not a.worktree.unavailable
+                and not b.worktree.unavailable
+                and a.worktree != b.worktree
+            ):
+                errors.add("COHORT_CHANGED")
+    return CaptureConsistencyDecision(tuple(sorted(errors)), tuple(sorted(missing)))

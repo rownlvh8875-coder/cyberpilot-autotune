@@ -109,7 +109,7 @@ def _value(raw: str) -> str:
     for char in raw.strip():
         if escaped:
             require(char in '\\"ntb', "CONFIG_SYNTAX", unavailable=True)
-            output.append({"n": "\n", "t": "\t", "b": "\b"}.get(char, char))
+            output.append(({"n": "\n", "t": "\t", "b": "\b"}.get(char, char), True))
             escaped = False
         elif char == "\\":
             escaped = True
@@ -118,9 +118,11 @@ def _value(raw: str) -> str:
         elif char in "#;" and not quoted:
             break
         else:
-            output.append(char)
+            output.append((char, quoted))
     require(not quoted and not escaped, "CONFIG_SYNTAX", unavailable=True)
-    return "".join(output).strip()
+    while output and output[-1][0].isspace() and not output[-1][1]:
+        output.pop()
+    return "".join(char for char, _ in output)
 
 
 def inspect_config(raw: bytes, errors: set[str], missing: set[str], layout: RepoLayout) -> None:
@@ -215,6 +217,12 @@ def inspect_config(raw: bytes, errors: set[str], missing: set[str], layout: Repo
                 missing.add("OBJECT_FORMAT")
             elif key not in ("objectformat", "worktreeconfig"):
                 missing.add("CONFIG_FEATURE")
+        elif (
+            section == "remote"
+            and key in ("promisor", "partialclonefilter")
+            and value not in ("", "false", "no", "off", "0")
+        ):
+            missing.add("PARTIAL_CLONE")
         elif section not in (
             "user",
             "remote",
@@ -282,24 +290,20 @@ def preflight(request: CaptureRequest, budget: ReadBudget) -> ControlCapture:
         verify_layout(request, budget)
     except CaptureFault as error:
         fault(error)
-    for key, value in os.environ.items():
-        if value and (
-            key.startswith("GIT_CONFIG")
-            or key
-            in {
-                "GIT_DIR",
-                "GIT_WORK_TREE",
-                "GIT_INDEX_FILE",
-                "GIT_COMMON_DIR",
-                "GIT_OBJECT_DIRECTORY",
-                "GIT_ALTERNATE_OBJECT_DIRECTORIES",
-                "GIT_NAMESPACE",
-                "GIT_ATTR_SOURCE",
-                "GIT_REPLACE_REF_BASE",
-                "GIT_GRAFT_FILE",
-                "GIT_SHALLOW_FILE",
-            }
-        ):
+    for key in os.environ:
+        if key.startswith("GIT_CONFIG") or key in {
+            "GIT_DIR",
+            "GIT_WORK_TREE",
+            "GIT_INDEX_FILE",
+            "GIT_COMMON_DIR",
+            "GIT_OBJECT_DIRECTORY",
+            "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+            "GIT_NAMESPACE",
+            "GIT_ATTR_SOURCE",
+            "GIT_REPLACE_REF_BASE",
+            "GIT_GRAFT_FILE",
+            "GIT_SHALLOW_FILE",
+        }:
             errors.add("ENV_REDIRECT")
     try:
         candidates = config_candidates(request.layout)
@@ -364,8 +368,11 @@ def preflight(request: CaptureRequest, budget: ReadBudget) -> ControlCapture:
             identities.append((code, None))
         except CaptureFault as error:
             fault(error)
-        except OSError:
-            missing.add("CONTROL_IO")
+        except OSError as error:
+            if error.errno in (errno.ELOOP, errno.ENOTDIR):
+                errors.add("UNSAFE_PATH")
+            else:
+                missing.add("CONTROL_IO")
     try:
         raw, _ = read_file(request.layout.common_dir + "/packed-refs", budget, missing_ok=True)
         identities.append(("packedrefs", None if raw is None else digest(raw)))
@@ -502,14 +509,16 @@ def _cache_tree(raw: bytes) -> None:
     require(node(0) == len(raw), "INDEX_TREE")
 
 
-def parse_index(raw: bytes) -> IndexCapture:
+def parse_index(raw: bytes, budget: ReadBudget | None = None) -> IndexCapture:
     try:
         require(type(raw) is bytes and len(raw) >= 32 and raw[:4] == b"DIRC", "INDEX_FORMAT")
         require(sha1(raw[:-20]).digest() == raw[-20:], "INDEX_CHECKSUM")
         version, count = struct.unpack(">II", raw[4:12])
         require(version in (2, 3), "INDEX_VERSION", unavailable=True)
-        pos, rows = 12, []
+        pos, raw_rows = 12, []
         for _ in range(count):
+            if budget is not None:
+                budget.consume(0, 1)
             start = pos
             require(pos + 62 <= len(raw) - 20, "INDEX_ENTRY")
             mode = struct.unpack(">I", raw[pos + 24 : pos + 28])[0]
@@ -522,12 +531,9 @@ def parse_index(raw: bytes) -> IndexCapture:
             pos = start + ((end + 1 - start + 7) // 8) * 8
             require(pos <= len(raw) - 20 and not any(raw[end:pos]), "INDEX_PADDING")
             require(mode == 0o100644, "INDEX_MODE")
-            rows.append(IndexEntry(name, "100644", obj, flags))
-        # Validate the complete set before an unsupported extension/version can hide errors.
-        TreeSnapshot(tuple((r.path, GitImage(r.mode, b"")) for r in rows))
-        require([r.path for r in rows] == sorted(r.path for r in rows), "INDEX_ORDER")
+            raw_rows.append((name, "100644", obj, flags))
         extensions: list[tuple[str, bytes]] = []
-        unsupported = version != 2
+        unsupported, split = version != 2, False
         while pos < len(raw) - 20:
             require(pos + 8 <= len(raw) - 20, "INDEX_EXTENSION")
             signature, size = raw[pos : pos + 4], struct.unpack(">I", raw[pos + 4 : pos + 8])[0]
@@ -541,6 +547,13 @@ def parse_index(raw: bytes) -> IndexCapture:
                 extensions.append(("TREE", value))
             else:
                 unsupported = True
+                split = split or signature == b"link"
+        # Split-index replacement entries may have empty names;do not reinterpret
+        # that unsupported representation as an invalid ordinary index.
+        require(not split, "INDEX_FEATURE", unavailable=True)
+        rows = [IndexEntry(*row) for row in raw_rows]
+        TreeSnapshot(tuple((r.path, GitImage(r.mode, b"")) for r in rows))
+        require([r.path for r in rows] == sorted(r.path for r in rows), "INDEX_ORDER")
         require(not unsupported, "INDEX_FEATURE", unavailable=True)
         return IndexCapture(digest(raw), version, tuple(rows), tuple(extensions))
     except (ValueError, struct.error, RecursionError) as error:
