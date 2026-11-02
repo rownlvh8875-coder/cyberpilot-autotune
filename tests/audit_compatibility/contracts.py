@@ -116,5 +116,13 @@ class AuditCompatibilityDecision:
         return False
 
     @property
+    def content_identity_only(self) -> bool:
+        return True
+
+    @property
+    def scientific_qualified(self) -> bool:
+        return False
+
+    @property
     def permissions(self) -> tuple[tuple[str, bool], ...]:
         return PERMISSIONS

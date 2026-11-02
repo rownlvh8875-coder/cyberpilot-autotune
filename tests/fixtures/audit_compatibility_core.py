@@ -54,12 +54,20 @@ class Vector:
     metadata: dict
 
 
-def complete(*, content_changes=None, r_extra=None, q_extra=None, candidate_extra=None):
-    m = tree({"kept.py": b"preserve", "guard.py": b"base"})
+def complete(
+    *, content_changes=None, r_extra=None, q_extra=None, candidate_extra=None, operation="MODIFY"
+):
+    m = tree({"kept.py": b"preserve"} | ({} if operation == "ADD" else {"guard.py": b"base"}))
     cm = commit(m)
-    d = tree({"kept.py": b"preserve", "guard.py": b"diagnostic", "MANIFEST.in": b"ZIP include"})
+    d = tree(
+        {"kept.py": b"preserve", "MANIFEST.in": b"ZIP include"}
+        | ({} if operation == "ADD" else {"guard.py": b"diagnostic"})
+    )
     cd = commit(d, (cm,))
-    o = tree({"kept.py": b"preserve", "guard.py": b"observation", "obs.py": b"observation"})
+    o = tree(
+        {"kept.py": b"preserve", "obs.py": b"observation"}
+        | ({} if operation == "ADD" else {"guard.py": b"observation"})
+    )
     co = commit(o, (cm,))
     permissions = dict.fromkeys(
         (
@@ -94,8 +102,8 @@ def complete(*, content_changes=None, r_extra=None, q_extra=None, candidate_extr
     rfiles = {p: b.data for p, b in d.entries} | {"meta/semantics.json": encoded(meta)}
     r = tree(rfiles | (r_extra or {}))
     cr = commit(r, (cd,))
-    post = GitImage("100644", b"exact composed guard")
-    inert = "meta/frozen/" + sha256(post.data).hexdigest() + ".blob"
+    post = None if operation == "DELETE" else GitImage("100644", b"exact composed guard")
+    inert = None if post is None else "meta/frozen/" + sha256(post.data).hexdigest() + ".blob"
     content = {
         "schema": "history-audit-compatibility-content-v1",
         "profile_id": "ENTRY_COMPOSITION_V1",
@@ -105,7 +113,7 @@ def complete(*, content_changes=None, r_extra=None, q_extra=None, candidate_extr
         "transition_rows": [
             {
                 "path": "guard.py",
-                "operation": "MODIFY",
+                "operation": operation,
                 "source_preimages": {
                     n: descriptor(dict(t.entries).get("guard.py"))
                     for n, t in (("M", m), ("D", d), ("O", o))
@@ -116,10 +124,15 @@ def complete(*, content_changes=None, r_extra=None, q_extra=None, candidate_extr
         ],
     }
     content.update(content_changes or {})
-    qfiles = rfiles | {inert: post.data, "meta/content.json": encoded(content)} | (r_extra or {})
+    blobs = {} if post is None else {inert: post.data}
+    qfiles = rfiles | blobs | {"meta/content.json": encoded(content)} | (r_extra or {})
     q = tree(qfiles | (q_extra or {}))
     cq = commit(q, (cr,))
-    expected = qfiles | {"obs.py": b"observation", "guard.py": post.data}
+    expected = qfiles | {"obs.py": b"observation"}
+    if post is None:
+        expected.pop("guard.py", None)
+    else:
+        expected["guard.py"] = post.data
     candidate = tree(expected | (q_extra or {}) | (candidate_extra or {}))
     ci = commit(candidate, (cq, co))
     ts = {t.oid: t for t in (m, d, o, r, q, candidate)}

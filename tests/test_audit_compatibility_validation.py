@@ -23,6 +23,12 @@ def test_structurally_complete_never_qualifies_without_IO():
     assert "HISTORICAL_REPLAY" in r.unavailable_checks
 
 
+def test_diagnostic_identity_is_never_scientific_qualification():
+    r = assess(complete())
+    assert r.content_identity_only is True
+    assert r.scientific_qualified is False
+
+
 @pytest.mark.parametrize("variant", ("r_extra", "q_extra", "candidate_extra"))
 def test_unknown_file_in_any_registration_or_current_tree_rejects(variant):
     r = assess(complete(**{variant: {"unknown.py": b"not approved"}}))
