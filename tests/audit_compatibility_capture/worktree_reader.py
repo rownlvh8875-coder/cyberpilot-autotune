@@ -13,6 +13,7 @@ from hashlib import sha1
 from tests.audit_compatibility.git_objects import GitImage, TreeSnapshot, oid, path_value
 
 from .contracts import (
+    ALLOWED_GIT_ENV,
     CaptureFault,
     CaptureRequest,
     ControlCapture,
@@ -95,6 +96,43 @@ def read_file(
         raise CaptureFault("UNSAFE_PATH" if unsafe else "FILE_IO", not unsafe) from error
 
 
+def directory_names(fd: int, budget: ReadBudget) -> list[str]:
+    """Charge each entry/name before retaining it;never listdir an unbounded namespace."""
+    names = []
+    with os.scandir(fd) as entries:
+        for entry in entries:
+            budget.consume(len(os.fsencode(entry.name)) + 1, 1)
+            names.append(entry.name)
+    return sorted(names)
+
+
+def control_namespace(path: str, budget: ReadBudget) -> str:
+    """Observed no-follow manifest,not a seal against unobserved concurrent ABA."""
+    rows = []
+    pending: list[tuple[int, str]] = []
+    try:
+        with directory(path) as root:
+            pending.append((os.dup(root), ""))
+        while pending:
+            fd, prefix = pending.pop()
+            try:
+                for name in directory_names(fd, budget):
+                    info = os.stat(name, dir_fd=fd, follow_symlinks=False)
+                    require(stat.S_ISREG(info.st_mode) or stat.S_ISDIR(info.st_mode), "UNSAFE_PATH")
+                    rows.append((prefix + name, _identity(info)))
+                    if stat.S_ISDIR(info.st_mode):
+                        child = os.open(
+                            name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd
+                        )
+                        pending.append((child, prefix + name + "/"))
+            finally:
+                os.close(fd)
+        return digest(repr(sorted(rows)).encode("utf-8", "backslashreplace"))
+    finally:
+        for fd, _ in pending:
+            os.close(fd)
+
+
 def config_candidates(layout: RepoLayout) -> tuple[str, ...]:
     user = os.environ.get("HOME")
     require(user is not None and absolute(user), "CONFIG_SCOPE", unavailable=True)
@@ -106,7 +144,7 @@ def config_candidates(layout: RepoLayout) -> tuple[str, ...]:
 
 def _value(raw: str) -> str:
     output, quoted, escaped = [], False, False
-    for char in raw.strip():
+    for char in raw.strip(" \t\r\n\v\f"):
         if escaped:
             require(char in '\\"ntb', "CONFIG_SYNTAX", unavailable=True)
             output.append(({"n": "\n", "t": "\t", "b": "\b"}.get(char, char), True))
@@ -120,7 +158,7 @@ def _value(raw: str) -> str:
         else:
             output.append((char, quoted))
     require(not quoted and not escaped, "CONFIG_SYNTAX", unavailable=True)
-    while output and output[-1][0].isspace() and not output[-1][1]:
+    while output and output[-1][0] in " \t\r\n\v\f" and not output[-1][1]:
         output.pop()
     return "".join(char for char, _ in output)
 
@@ -150,7 +188,7 @@ def inspect_config(raw: bytes, errors: set[str], missing: set[str], layout: Repo
         "excludesfile",
     }
     for line in text.split("\n"):
-        line = line.strip()
+        line = line.strip(" \t\r\n\v\f")
         if not line or line.startswith(("#", ";")):
             continue
         if line.startswith("["):
@@ -161,7 +199,7 @@ def inspect_config(raw: bytes, errors: set[str], missing: set[str], layout: Repo
             else:
                 section, subsection = match[1].lower(), match[2] or ""
             continue
-        match = re.fullmatch(r"([A-Za-z][A-Za-z0-9-]*)(?:\s*=\s*(.*))?", line)
+        match = re.fullmatch(r"([A-Za-z][A-Za-z0-9-]*)(?:[ \t]*=[ \t]*(.*))?", line)
         if match is None or not section:
             missing.add("CONFIG_SYNTAX")
             continue
@@ -291,19 +329,7 @@ def preflight(request: CaptureRequest, budget: ReadBudget) -> ControlCapture:
     except CaptureFault as error:
         fault(error)
     for key in os.environ:
-        if key.startswith("GIT_CONFIG") or key in {
-            "GIT_DIR",
-            "GIT_WORK_TREE",
-            "GIT_INDEX_FILE",
-            "GIT_COMMON_DIR",
-            "GIT_OBJECT_DIRECTORY",
-            "GIT_ALTERNATE_OBJECT_DIRECTORIES",
-            "GIT_NAMESPACE",
-            "GIT_ATTR_SOURCE",
-            "GIT_REPLACE_REF_BASE",
-            "GIT_GRAFT_FILE",
-            "GIT_SHALLOW_FILE",
-        }:
+        if key.startswith("GIT_") and key not in ALLOWED_GIT_ENV:
             errors.add("ENV_REDIRECT")
     try:
         candidates = config_candidates(request.layout)
@@ -358,7 +384,7 @@ def preflight(request: CaptureRequest, budget: ReadBudget) -> ControlCapture:
     for relative, code in (("refs/replace", "REPLACE_REFS"), ("objects/pack", "PARTIAL_CLONE")):
         try:
             with directory(request.layout.common_dir + "/" + relative) as fd:
-                names = sorted(os.listdir(fd))
+                names = directory_names(fd, budget)
                 if names if code == "REPLACE_REFS" else any(n.endswith(".promisor") for n in names):
                     (errors if code == "REPLACE_REFS" else missing).add(code)
                 identities.append(
@@ -373,6 +399,19 @@ def preflight(request: CaptureRequest, budget: ReadBudget) -> ControlCapture:
                 errors.add("UNSAFE_PATH")
             else:
                 missing.add("CONTROL_IO")
+    for label, relative in (("objectstore", "objects"), ("refstore", "refs")):
+        try:
+            identities.append(
+                (label, control_namespace(request.layout.common_dir + "/" + relative, budget))
+            )
+        except CaptureFault as error:
+            fault(error)
+        except OSError as error:
+            (errors if error.errno in (errno.ELOOP, errno.ENOTDIR) else missing).add(
+                "UNSAFE_PATH" if error.errno in (errno.ELOOP, errno.ENOTDIR) else "CONTROL_IO"
+            )
+        except RecursionError:
+            missing.add("RESOURCE_LIMIT")
     try:
         raw, _ = read_file(request.layout.common_dir + "/packed-refs", budget, missing_ok=True)
         identities.append(("packedrefs", None if raw is None else digest(raw)))
@@ -430,8 +469,7 @@ def read_worktree(
     unknown: set[str] = set()
 
     def walk(fd: int, prefix: str) -> None:
-        for name in sorted(os.listdir(fd)):
-            budget.consume(0, 1)
+        for name in directory_names(fd, budget):
             if not prefix and name == ".git":
                 continue
             path = prefix + name
@@ -453,6 +491,7 @@ def read_worktree(
                     errors.add("FILE_TYPE")
                 if path not in expected:
                     unknown.add(digest(path.encode("utf-8", "surrogateescape")))
+                    errors.add("UNTRACKED_PATH")
 
     try:
         verify_layout(request, budget)
@@ -482,6 +521,8 @@ def read_worktree(
         (missing if error.unavailable else errors).add(error.reason)
     except OSError:
         missing.add("WORKTREE_IO")
+    except RecursionError:
+        missing.add("RESOURCE_LIMIT")
     return WorktreeCapture(
         tuple(files),
         tuple(sorted(observed & expected.keys())),

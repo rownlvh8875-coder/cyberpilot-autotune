@@ -245,3 +245,26 @@ def test_index_entries_are_bounded_before_full_materialization(tmp_path):
     req = replace(req, budget=replace(req.budget, maximum_entries=1))
     result = api("capture").capture_checkout(req)
     assert result.pass_a.index is None and "RESOURCE_LIMIT" in result.unavailable
+
+
+@pytest.mark.parametrize(
+    "kind,expected",
+    (("untracked", "REJECTED"), ("inventory", "REJECTED"), ("controls", "UNAVAILABLE")),
+)
+def test_review_assessment_derives_observation_errors_independently(tmp_path, kind, expected):
+    root = prepared(tmp_path)
+    r = api("capture").capture_checkout(request(root))
+    a, b = r.pass_a, r.pass_b
+    if kind == "controls":
+        c = api("contracts").ControlCapture((), (), ())
+        a, b = replace(a, controls=c), replace(b, controls=c)
+    else:
+        changed = (
+            {"untracked_including_ignored": ("1" * 64,)}
+            if kind == "untracked"
+            else {"inventory": ()}
+        )
+        a = replace(a, worktree=replace(a.worktree, **changed))
+        b = replace(b, worktree=replace(b.worktree, **changed))
+    forged = replace(r, pass_a=a, pass_b=b, errors=(), unavailable=())
+    assert api("capture").assess_capture(forged).decision == expected

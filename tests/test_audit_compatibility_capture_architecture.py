@@ -8,7 +8,24 @@ import sys
 from hashlib import sha256
 from pathlib import Path
 
+import pytest
+
 from tests.fixtures.audit_compatibility_capture import api, prepared, request
+
+
+@pytest.mark.parametrize("function", ("prepared", "request"))
+def test_native_fixture_rejects_unsupported_platform_before_IO(tmp_path, monkeypatch, function):
+    from tests.fixtures import audit_compatibility_capture as fixtures
+
+    monkeypatch.setattr(api("worktree_reader"), "capable", lambda: False)
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("native fixture executed on unsupported platform")
+
+    monkeypatch.setattr(fixtures, "git", forbidden)
+    with pytest.raises(pytest.skip.Exception, match="C1_POSIX_RAW_BYTES_V1"):
+        getattr(fixtures, function)(tmp_path)
+    assert not (tmp_path / "repo").exists()
 
 
 def test_import_fresh_has_no_process_network_or_filesystem_writes(tmp_path):

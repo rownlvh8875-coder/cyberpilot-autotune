@@ -289,15 +289,15 @@ def test_unavailable_read_component_never_becomes_an_empty_success(tmp_path, mon
 
         monkeypatch.setattr(a, "read_file", unavailable)
     else:
-        real = os.listdir
+        real = a.directory_names
         inode = (root / ".git/objects/pack" if kind == "control_directory" else root).stat().st_ino
 
-        def unavailable(fd):
+        def unavailable(fd, counter):
             if os.fstat(fd).st_ino == inode:
                 raise PermissionError("TEST_ONLY")
-            return real(fd)
+            return real(fd, counter)
 
-        monkeypatch.setattr(os, "listdir", unavailable)
+        monkeypatch.setattr(a, "directory_names", unavailable)
     if kind in ("ambient_attribute", "control_directory"):
         r = a.preflight(req, budget(req))
     else:
@@ -309,17 +309,31 @@ def test_duplicate_directory_iteration_is_rejected_not_collapsed(tmp_path, monke
     root = prepared(tmp_path)
     req = request(root)
     inode = root.stat().st_ino
-    real = os.listdir
+    a = api("worktree_reader")
+    real = a.directory_names
 
-    def duplicate(fd):
-        names = real(fd)
+    def duplicate(fd, counter):
+        names = real(fd, counter)
         return [*names, "a"] if os.fstat(fd).st_ino == inode else names
 
-    monkeypatch.setattr(os, "listdir", duplicate)
+    monkeypatch.setattr(a, "directory_names", duplicate)
     r = api("worktree_reader").read_worktree(
         req, ((".gitattributes", ATTRIBUTES), ("a", b"hello\n")), budget(req)
     )
     assert "DUPLICATE_PATH" in r.errors
+
+
+def test_review_recursive_namespace_exhaustion_is_unavailable(tmp_path, monkeypatch):
+    root = prepared(tmp_path)
+    req = request(root)
+    a = api("worktree_reader")
+
+    def exhausted(fd, counter):
+        raise RecursionError("TEST_ONLY")
+
+    monkeypatch.setattr(a, "directory_names", exhausted)
+    result = a.read_worktree(req, (("a", b"hello\n"),), budget(req))
+    assert "RESOURCE_LIMIT" in result.unavailable
 
 
 def test_actual_case_conflict_does_not_get_normalized(tmp_path):
@@ -384,3 +398,75 @@ def test_quoted_empty_looking_attribute_path_is_not_ignored(tmp_path):
     p = root / ".git/config"
     p.write_bytes(p.read_bytes() + b'[core]\nattributesFile=" "\n')
     assert "ATTRIBUTE_OVERRIDE" in api("worktree_reader").preflight(req, budget(req)).errors
+
+
+@pytest.mark.parametrize("value", ("\u00a0", "\u2000", "\u202f"))
+def test_review_unquoted_unicode_whitespace_has_native_Git_semantics(tmp_path, value):
+    from tests.fixtures.audit_compatibility_capture import git
+
+    root = prepared(tmp_path)
+    req = request(root)
+    p = root / ".git/config"
+    p.write_bytes(p.read_bytes() + ("[core]\nattributesFile = " + value + "\n").encode())
+    native = git(root, "config", "--get", "core.attributesFile").decode().removesuffix("\n")
+    assert native == value
+    assert "ATTRIBUTE_OVERRIDE" in api("worktree_reader").preflight(req, budget(req)).errors
+
+
+def test_review_directory_names_are_charged_before_materialization(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+
+    root = prepared(tmp_path)
+    req = request(root)
+    a = api("worktree_reader")
+    limits = replace(req.budget, maximum_entries=1)
+    count = 0
+
+    class Entries:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            pass
+
+        def __iter__(self):
+            nonlocal count
+            for n in range(1000):
+                count += 1
+                yield SimpleNamespace(name=f"item{n}")
+
+    with a.directory(str(root / ".git/objects/pack")) as fd:
+        monkeypatch.setattr(os, "scandir", lambda unused: Entries())
+        with pytest.raises(api("contracts").CaptureFault) as e:
+            a.directory_names(fd, api("contracts").ReadBudget(limits))
+    assert e.value.unavailable is True and count <= 2
+
+
+def test_review_full_capture_does_not_use_unbounded_listdir(tmp_path, monkeypatch):
+    root = prepared(tmp_path)
+    req = request(root)
+
+    def forbidden(*args):
+        raise AssertionError("UNBOUNDED_LISTDIR")
+
+    monkeypatch.setattr(os, "listdir", forbidden)
+    assert api("capture").capture_checkout(req).consistency == "OBSERVED_STABLE"
+
+
+def test_review_known_untracked_survives_later_directory_failure(tmp_path, monkeypatch):
+    root = prepared(tmp_path)
+    req = request(root)
+    (root / "a_secret").write_bytes(b"never read")
+    bad = root / "z_bad"
+    bad.mkdir()
+    inode = bad.stat().st_ino
+    original = os.scandir
+
+    def unreadable(fd):
+        if type(fd) is int and os.fstat(fd).st_ino == inode:
+            raise PermissionError("TEST_ONLY")
+        return original(fd)
+
+    monkeypatch.setattr(os, "scandir", unreadable)
+    result = api("capture").capture_checkout(req)
+    assert "UNTRACKED_PATH" in result.errors and "WORKTREE_IO" in result.unavailable

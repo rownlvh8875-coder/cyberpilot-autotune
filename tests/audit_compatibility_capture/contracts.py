@@ -16,6 +16,32 @@ from tests.audit_compatibility.git_objects import (
 
 PROFILE = "C1_POSIX_RAW_BYTES_V1"
 ATTRIBUTE_SHA256 = "3da824d0f37be4082aecb38cef9b01c8f0b9e66ab67d574cfbe3b2e3553db908"
+ALLOWED_GIT_ENV = frozenset(
+    (
+        "GIT_PAGER",
+        "GIT_NO_LAZY_FETCH",
+        "GIT_NO_REPLACE_OBJECTS",
+        "GIT_OPTIONAL_LOCKS",
+        "GIT_TERMINAL_PROMPT",
+        "GIT_ALLOW_PROTOCOL",
+        "GIT_ATTR_NOSYSTEM",
+        "GIT_ASKPASS",
+        "GIT_SSH",
+        "GIT_SSH_COMMAND",
+        "GIT_SSH_VARIANT",
+        "GIT_PROXY_COMMAND",
+        "GIT_SSL_CAINFO",
+        "GIT_SSL_CAPATH",
+        "GIT_SSL_CERT",
+        "GIT_SSL_KEY",
+        "GIT_SSL_NO_VERIFY",
+        "GIT_SSL_CERT_PASSWORD_PROTECTED",
+        "GIT_HTTP_USER_AGENT",
+        "GIT_HTTP_PROXY_AUTHMETHOD",
+        "GIT_HTTP_LOW_SPEED_LIMIT",
+        "GIT_HTTP_LOW_SPEED_TIME",
+    )
+)
 BLOCKERS = (
     "ACTUAL_Q_I",
     "ENTRY_GUARD_INTEGRATION",
@@ -424,6 +450,25 @@ def evaluate_report(report: CaptureReport) -> CaptureConsistencyDecision:
                 missing.update(part.unavailable)
         if observed.objects.missing_oids:
             missing.add("OBJECT_MISSING")
+        required_controls = {
+            *(f"config{i}" for i in range(5)),
+            "ambientattrs0",
+            "ambientattrs1",
+            "attributes0",
+            "grafts0",
+            "shallow0",
+            "alternates0",
+            "REPLACE_REFS",
+            "PARTIAL_CLONE",
+            "objectstore",
+            "refstore",
+            "packedrefs",
+            "HEAD",
+        }
+        if not required_controls <= dict(observed.controls.identities).keys():
+            missing.add("CONTROL_OBSERVATIONS_INCOMPLETE")
+        if observed.worktree is not None and observed.worktree.untracked_including_ignored:
+            errors.add("UNTRACKED_PATH")
         if (
             observed.head_oid is None
             or observed.index is None
@@ -452,6 +497,13 @@ def evaluate_report(report: CaptureReport) -> CaptureConsistencyDecision:
             if observed.worktree is not None:
                 files = {v.path: v.image for v in observed.worktree.files}
                 expected_files = dict(tree.entries)
+                inventory = set(observed.worktree.inventory)
+                if (
+                    not files.keys() <= inventory
+                    or not inventory <= expected_files.keys()
+                    or (not observed.worktree.unavailable and inventory != expected_files.keys())
+                ):
+                    errors.add("INVENTORY_HEAD_MISMATCH")
                 if any(expected_files.get(p) != image for p, image in files.items()) or (
                     not observed.worktree.unavailable and files != expected_files
                 ):

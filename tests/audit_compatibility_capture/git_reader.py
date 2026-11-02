@@ -15,6 +15,7 @@ from tests.audit_compatibility.git_objects import (
 )
 
 from .contracts import (
+    ALLOWED_GIT_ENV,
     ATTRIBUTE_SHA256,
     AttributeCapture,
     CaptureFault,
@@ -58,6 +59,8 @@ class GitReader:
         self.controls = preflight(request, budget)
         self.cache: dict[str, tuple[str, bytes]] = {}
         self.missing: set[str] = set()
+        self.tree_errors: set[str] = set()
+        self.tree_unavailable: set[str] = set()
 
     def run(self, args: tuple[str, ...], raw: bytes = b"") -> bytes:
         require(
@@ -89,7 +92,9 @@ class GitReader:
             unavailable=True,
         )
         layout = self.request.layout
-        env = dict(os.environ)
+        env = {
+            k: v for k, v in os.environ.items() if not k.startswith("GIT_") or k in ALLOWED_GIT_ENV
+        }
         env.update(
             GIT_NO_LAZY_FETCH="1",
             GIT_NO_REPLACE_OBJECTS="1",
@@ -212,6 +217,8 @@ class GitReader:
 
     def tree(self, identity: str) -> TreeSnapshot:
         rows: list[tuple[str, GitImage]] = []
+        faults: list[CaptureFault] = []
+        paths: set[str] = set()
 
         def walk(tree: str, prefix: str) -> None:
             raw = self.object(tree, "tree")
@@ -220,18 +227,37 @@ class GitReader:
                 self.budget.consume(0, 1)
                 end = raw.index(b"\0", pos)
                 header = raw[pos:end].split(b" ", 1)
-                require(len(header) == 2 and b"/" not in header[1], "TREE_FRAME")
-                mode, name = header[0], header[1].decode("utf-8", "strict")
                 require(end + 21 <= len(raw), "TREE_FRAME")
                 child = raw[end + 1 : end + 21].hex()
                 pos = end + 21
-                if mode == b"40000":
-                    walk(child, prefix + name + "/")
-                else:
-                    require(mode == b"100644", "OBJECT_MODE")
-                    rows.append((prefix + name, GitImage("100644", self.object(child, "blob"))))
+                try:
+                    require(len(header) == 2 and b"/" not in header[1], "TREE_FRAME")
+                    mode, name = header[0], header[1].decode("utf-8", "strict")
+                    path = prefix + name
+                    require(path_value(path) and path.casefold() not in paths, "TREE_FORMAT")
+                    paths.add(path.casefold())
+                    if mode == b"40000":
+                        walk(child, path + "/")
+                    else:
+                        require(mode == b"100644", "OBJECT_MODE")
+                        rows.append((path, GitImage("100644", self.object(child, "blob"))))
+                except CaptureFault as error:
+                    faults.append(error)
+                except ValueError:
+                    faults.append(CaptureFault("TREE_FORMAT"))
 
-        walk(identity, "")
+        try:
+            walk(identity, "")
+        except CaptureFault as error:
+            faults.append(error)
+        except ValueError:
+            faults.append(CaptureFault("TREE_FORMAT"))
+        except RecursionError:
+            faults.append(CaptureFault("RESOURCE_LIMIT", True))
+        for problem in faults:
+            (self.tree_unavailable if problem.unavailable else self.tree_errors).add(problem.reason)
+        if faults:
+            raise next((e for e in faults if not e.unavailable), faults[0])
         result = TreeSnapshot(tuple(rows))
         require(result.oid == identity, "TREE_HASH")
         listing = self.run(("ls-tree", "-rz", "--full-tree", identity))
@@ -288,8 +314,18 @@ def read_objects_with(reader: GitReader, identities: tuple[str, ...]) -> ObjectC
             trees[tree.oid] = tree
         except CaptureFault as error:
             (missing if error.unavailable else errors).add(error.reason)
-        except (ValueError, RecursionError):
+        except ValueError:
             errors.add("TREE_FORMAT")
+        except RecursionError:
+            missing.add("RESOURCE_LIMIT")
+    errors.update(reader.tree_errors)
+    missing.update(reader.tree_unavailable)
+    after = preflight(reader.request, reader.budget)
+    errors.update(after.errors)
+    missing.update(after.unavailable)
+    before_values, after_values = dict(reader.controls.identities), dict(after.identities)
+    if any(before_values[p] != after_values[p] for p in before_values.keys() & after_values.keys()):
+        errors.add("CONTROL_CHANGED")
     return ObjectCapture(
         tuple(commits[k] for k in sorted(commits)),
         tuple(trees[k] for k in sorted(trees)),

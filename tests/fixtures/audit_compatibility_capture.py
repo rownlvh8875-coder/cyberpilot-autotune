@@ -8,6 +8,8 @@ import subprocess
 from hashlib import sha1
 from pathlib import Path
 
+import pytest
+
 
 def api(name):
     assert importlib.util.find_spec("tests.audit_compatibility_capture") is not None, (
@@ -48,6 +50,8 @@ def git(root, *args, input=None):
 
 
 def prepared(tmp_path):
+    if not api("worktree_reader").capable():
+        pytest.skip("C1_POSIX_RAW_BYTES_V1 native fixture requires POSIX no-follow support")
     root = tmp_path / "repo"
     root.mkdir()
     git(root, "init", "--quiet")
@@ -62,6 +66,8 @@ def prepared(tmp_path):
 
 
 def request(root, **changes):
+    if not api("worktree_reader").capable():
+        pytest.skip("C1_POSIX_RAW_BYTES_V1 native fixture requires POSIX no-follow support")
     c = api("contracts")
     gitdir = Path(git(root, "rev-parse", "--absolute-git-dir").decode().strip())
     common = Path(

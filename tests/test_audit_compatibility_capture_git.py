@@ -230,10 +230,14 @@ def test_recursive_tree_entries_obey_budget_even_with_cached_blobs(tmp_path):
     git(root, "add", ".")
     git(root, "commit", "--quiet", "-m", "MANY_SAME_BLOBS")
     req = request(root)
-    result = api("git_reader").read_objects(
-        replace(req, budget=replace(req.budget, maximum_entries=8))
-    )
-    assert "RESOURCE_LIMIT" in result.unavailable and not result.trees
+    c, a = api("contracts"), api("git_reader")
+    reader = a.GitReader(req, c.ReadBudget(req.budget))
+    tree = reader.object(req.validation_head, "commit").split(b"\n", 1)[0][5:].decode()
+    reader.tree(tree)
+    reader.budget = c.ReadBudget(replace(req.budget, maximum_entries=8))
+    with pytest.raises(c.CaptureFault) as error:
+        reader.tree(tree)
+    assert error.value.reason == "RESOURCE_LIMIT" and reader.budget.entries == 9
 
 
 @pytest.mark.parametrize("separator", (b"\r", b"\r\n"))
@@ -473,3 +477,73 @@ def test_attribute_stdin_paths_stay_inside_literal_utf8_namespace(tmp_path, raw)
     with pytest.raises(api("contracts").CaptureFault) as e:
         reader.run(("check-attr", "-z", "--all", "--stdin"), raw)
     assert e.value.reason == "INPUT_FORBIDDEN"
+
+
+@pytest.mark.parametrize("key", ("GIT_TRACE", "GIT_TRACE2_EVENT"))
+def test_review_child_trace_controls_cannot_write_any_file(tmp_path, monkeypatch, key):
+    root = prepared(tmp_path)
+    req = request(root)
+    marker = tmp_path / "FORBIDDEN_TRACE"
+    monkeypatch.setenv(key, str(marker))
+    r = api("capture").capture_checkout(req)
+    assert "ENV_REDIRECT" in r.errors and not marker.exists()
+
+
+@pytest.mark.parametrize("during", (False, True))
+def test_review_object_store_symlink_escape_is_rejected_when_observed(
+    tmp_path, monkeypatch, during
+):
+    root = prepared(tmp_path)
+    req = request(root)
+    blob = git(root, "rev-parse", "HEAD:a").decode().strip()
+    obj = root / ".git/objects" / blob[:2] / blob[2:]
+    outside = tmp_path / "outside-object"
+    outside.write_bytes(obj.read_bytes())
+
+    def escape():
+        obj.unlink()
+        obj.symlink_to(outside)
+
+    if during:
+        a = api("git_reader")
+        original = a.GitReader.run
+        changed = False
+
+        def read(self, args, raw=b""):
+            nonlocal changed
+            if args == ("cat-file", "--batch") and raw == blob.encode() + b"\n" and not changed:
+                changed = True
+                escape()
+            return original(self, args, raw)
+
+        monkeypatch.setattr(a.GitReader, "run", read)
+    else:
+        escape()
+    result = api("git_reader").read_objects(req)
+    assert "UNSAFE_PATH" in result.errors
+
+
+def test_review_missing_blob_cannot_hide_later_forbidden_tree_mode(tmp_path):
+    from dataclasses import replace
+
+    root = prepared(tmp_path)
+    req = request(root)
+    blob = git(root, "rev-parse", "HEAD:a").strip()
+    raw = b"100644 a\0" + b"\0" * 20 + b"100755 b\0" + bytes.fromhex(blob.decode())
+    tree = git(root, "hash-object", "--literally", "-t", "tree", "-w", "--stdin", input=raw).strip()
+    source = (
+        git(
+            root,
+            "hash-object",
+            "--literally",
+            "-t",
+            "commit",
+            "-w",
+            "--stdin",
+            input=b"tree " + tree + b"\n\nTEST\n",
+        )
+        .decode()
+        .strip()
+    )
+    result = api("git_reader").read_objects(replace(req, source_oids=(source,)))
+    assert "OBJECT_MODE" in result.errors and "OBJECT_MISSING" in result.unavailable
