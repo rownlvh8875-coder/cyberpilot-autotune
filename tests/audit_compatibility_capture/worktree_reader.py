@@ -6,9 +6,9 @@ import posixpath
 import re
 import stat
 import struct
+from collections.abc import Iterator
 from contextlib import contextmanager
 from hashlib import sha1
-from typing import Iterator
 
 from tests.audit_compatibility.git_objects import GitImage, TreeSnapshot, oid, path_value
 
@@ -123,7 +123,7 @@ def _value(raw: str) -> str:
     return "".join(output).strip()
 
 
-def inspect_config(raw: bytes, errors: set[str], missing: set[str]) -> None:
+def inspect_config(raw: bytes, errors: set[str], missing: set[str], layout: RepoLayout) -> None:
     try:
         text = raw.decode("utf-8", "strict")
     except UnicodeError:
@@ -173,13 +173,20 @@ def inspect_config(raw: bytes, errors: set[str], missing: set[str]) -> None:
             errors.add("CUSTOM_HELPER")
             continue
         try:
-            value = _value(match[2] if match[2] is not None else "true").lower()
+            original = _value(match[2] if match[2] is not None else "true")
+            value = original.lower()
         except CaptureFault:
             missing.add("CONFIG_SYNTAX")
             continue
         if section == "core":
             if subsection:
                 missing.add("CONFIG_SYNTAX")
+            elif (
+                key == "worktree"
+                and posixpath.normpath(posixpath.join(layout.git_dir, original))
+                != layout.worktree_root
+            ):
+                errors.add("WRONG_LAYOUT")
             elif key == "attributesfile" and value:
                 errors.add("ATTRIBUTE_OVERRIDE")
             elif key == "fsmonitor" and value not in ("false", "no", "off", "0"):
@@ -312,7 +319,7 @@ def preflight(request: CaptureRequest, budget: ReadBudget) -> ControlCapture:
             raw, _ = read_file(path, budget, missing_ok=True)
             identities.append((f"config{i}", None if raw is None else digest(raw)))
             if raw is not None:
-                inspect_config(raw, errors, missing)
+                inspect_config(raw, errors, missing, request.layout)
         except CaptureFault as error:
             fault(error)
     controls = (
@@ -321,6 +328,16 @@ def preflight(request: CaptureRequest, budget: ReadBudget) -> ControlCapture:
         ("shallow", "shallow", False),
         ("alternates", "objects/info/alternates", False),
     )
+    for n, path in enumerate(
+        ("/etc/gitattributes", *(p.removesuffix("config") + "attributes" for p in candidates[-1:]))
+    ):
+        try:
+            raw, _ = read_file(path, budget, missing_ok=True)
+            identities.append((f"ambientattrs{n}", None if raw is None else digest(raw)))
+            if raw:
+                errors.add("ATTRIBUTE_OVERRIDE")
+        except CaptureFault as error:
+            fault(error)
     for label, relative, forbidden in controls:
         for n, base in enumerate(
             dict.fromkeys((request.layout.git_dir, request.layout.common_dir))
@@ -345,6 +362,8 @@ def preflight(request: CaptureRequest, budget: ReadBudget) -> ControlCapture:
                 )
         except FileNotFoundError:
             identities.append((code, None))
+        except CaptureFault as error:
+            fault(error)
         except OSError:
             missing.add("CONTROL_IO")
     try:
