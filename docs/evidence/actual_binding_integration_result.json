@@ -1,0 +1,141 @@
+{
+  "document_kind": "MAIN_BASED_NEUTRAL_DIAGNOSTICS_LOCAL_VERIFICATION_CHECKPOINT",
+  "integration_base": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+  "implementation_commit": "3eb0864117f375b2bc2d748865eefa9e3f7f7537",
+  "branch": "feat/diagnostic-actual-binding",
+  "scope": "Pure offline reported-structure checker; not controller observability or an actual runtime producer",
+  "baseline": {
+    "tests": 1261,
+    "passed": 1261
+  },
+  "migrated_portable_suite": {
+    "tests": 476,
+    "all_original_nodeids_retained": true,
+    "missing": 0
+  },
+  "added_integration_tests": 16,
+  "added_coverage_gate_tests": 7,
+  "full_regression": {
+    "passed": 1760,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 26.3
+  },
+  "full_coverage": {
+    "passed": 1760,
+    "seconds": 61.91,
+    "total_percent": 98.5
+  },
+  "diagnostics_coverage": {
+    "source_modules": 9,
+    "statements": 680,
+    "covered_statements": 680,
+    "branches": 348,
+    "covered_branches": 348,
+    "excluded_lines": 0,
+    "statement_percent": 100,
+    "branch_percent": 100,
+    "gate_statement_percent": 98,
+    "gate_branch_percent": 95
+  },
+  "optional_schema_regression": {
+    "passed": 1897,
+    "failed": 0,
+    "seconds": 58.18,
+    "total_percent": 99.38,
+    "reference": "7a2f051b1f3847786318900444c88c2ba7a74a67",
+    "pycapnp": "2.1.0",
+    "runtime_or_vehicle_execution": false
+  },
+  "static": {
+    "ruff": "PASS repository-wide E/F/I/UP/B unchanged",
+    "format": "PASS repository-wide",
+    "mypy": "PASS strict75sourcefiles"
+  },
+  "audit": {
+    "observation_v1": 40,
+    "observation_v2": 69,
+    "knowledge_exact_sources": {
+      "files": 39,
+      "claims": 78
+    },
+    "science_exact_sources": {
+      "files": 24,
+      "ranges": 50,
+      "synthetic_cases": 43
+    },
+    "friction_exact_sources": {
+      "files": 30,
+      "synthetic_scenarios": 26
+    },
+    "history": "PASS with exact inventory-patch equivalence only; no historical policy/result changes"
+  },
+  "replay": {
+    "goldens": 4,
+    "focused_tests": 11,
+    "pass": true
+  },
+  "installed_wheel": {
+    "outside_checkout": true,
+    "no_project_dependencies_before_optional_extra": true,
+    "runtime_source_hashes": 9,
+    "canonical_api": true,
+    "legacy_fixture_absent_from_wheel": true,
+    "source_distribution_includes_fixture": true,
+    "all_package_imports": true,
+    "smokes": [
+      "diagnostics",
+      "replay",
+      "carrot optional absent",
+      "knowledge",
+      "owner",
+      "science optional absent",
+      "friction optional absent",
+      "science research extra",
+      "friction research extra"
+    ]
+  },
+  "current_platform": "Author CPython3.12.14 Linux only; fresh GitHub matrix and independent review must be checked on final exact head",
+  "runtime_sources_changed_bytes": 0,
+  "original_portable_release_manifest_entries_verified": 38,
+  "historical_fixture_original_known_lint": "content.py I001 retained in immutable test-data ZIP, no lint-rule relaxation",
+  "historical_audit_extensions": "Three exact test-inventory edits plus exact MANIFEST.in fixture include; old source/golden assertions unchanged; H6 test-only history validator permits only those exact transformations",
+  "existing_common_ci_and_thresholds_changed": false,
+  "actual_collector_or_vm_qemu_guest_vehicle_execution": false,
+  "independent_review": "PENDING final exact head; prior portable C0/I0/M0 is not this integration review",
+  "github_ci": "PENDING push and Draft PR; not implied by local tests",
+  "D01": "OPEN",
+  "D02": "OPEN",
+  "D03": "OPEN",
+  "D04": "OPEN",
+  "integrated_admission": false,
+  "status": "BLOCKED",
+  "content_status": "NOT_EVALUATED",
+  "provenance": "BLOCKED_NO_INDEPENDENT_VERIFICATION",
+  "history": "UNAVAILABLE",
+  "permissions": {
+    "build_execution_allowed": false,
+    "promotion_authorized": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  },
+  "retained_blockers": [
+    "FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE",
+    "FACTOR_IDENTIFICATION_UNQUALIFIED_FROZEN_DEVELOPMENT_ARTIFACT_UNAVAILABLE",
+    "VEHICLE_APPLICATION_BOUNDS_UNRESOLVED",
+    "RUNTIME_FINGERPRINT_UNCONFIRMED",
+    "WATCHDOG_EXECUTION_MODEL_UNRESOLVED",
+    "EXTERNAL_EXECUTOR_UNQUALIFIED",
+    "APPLICATION_NOT_AUTHORIZED",
+    "PARAMETER_IDENTIFICATION_QUALIFICATION_UNRESOLVED"
+  ],
+  "existing_PRs": "8,9,16-57 unchanged; recheck head/base/draft after new PR creation",
+  "no_ready_or_merge": true,
+  "previous_rulings_and_technical_debts": "Not closed by this integration. In particular inherited legacy algorithms, hostile-tool/native-containment/authentication/anti-replay/custody/durability proofs remain outside the software-check boundary.",
+  "handoff": "Final exact-head CI/review and PR URL will be reported externally after freezing this commit; this JSON is a truthful earlier local checkpoint, not final approval."
+}
