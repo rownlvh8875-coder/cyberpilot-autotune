@@ -1,11 +1,9 @@
 """Dedicated owned helper and bounded pipes. Synthetic observations,never H proof."""
 
-import fcntl
 import hashlib
 import importlib
 import json
 import os
-import resource
 import selectors
 import signal
 import socket
@@ -67,6 +65,8 @@ def _decode(raw: bytes, case: SyntheticCase) -> dict[str, Any]:
 
 
 def _limits() -> None:
+    import resource
+
     for kind, value in (
         (resource.RLIMIT_CPU, 3),
         (resource.RLIMIT_AS, 268435456),
@@ -266,6 +266,8 @@ def _check_observation(raw: bytes, host: dict[str, str]) -> bool:
 
 
 def _inner(case: SyntheticCase, root: str) -> dict[str, Any]:
+    import fcntl
+
     filter_fd = runner._sealed_filter()
     directory = runner._open_directory(root)
     handles: list[int] = []

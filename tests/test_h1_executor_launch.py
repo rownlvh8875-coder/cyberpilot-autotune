@@ -1,6 +1,5 @@
 """Launch logic versus actual host observations are deliberately separate."""
 
-import fcntl
 import importlib
 import inspect
 import json
@@ -32,7 +31,7 @@ def _require_host(record_property):
 def test_required_controls_fail_closed(tmp_path, monkeypatch):
     m = runner()
     monkeypatch.setattr(m, "_preflight", lambda: ("TOOL_PIN_UNAVAILABLE",))
-    result = m.run_synthetic(SyntheticRequest(SyntheticCase.FD_CLOSED, str(tmp_path)))
+    result = m.run_synthetic(SyntheticRequest(SyntheticCase.FD_CLOSED, "/unused"))
     assert result.outcome == "UNAVAILABLE"
     assert result.run_directory is None and list(tmp_path.iterdir()) == []
 
@@ -42,15 +41,17 @@ def test_no_public_fd_or_argv_override(tmp_path):
     assert tuple(inspect.signature(m.run_synthetic).parameters) == ("request",)
     with pytest.raises(ValueError):
         m.run_synthetic(object())
-    value = SyntheticRequest(SyntheticCase.FD_CLOSED, str(tmp_path))
+    value = SyntheticRequest(SyntheticCase.FD_CLOSED, "/unused")
     object.__setattr__(value, "case", "arbitrary")
     with pytest.raises(ValueError):
         m.run_synthetic(value)
     assert list(tmp_path.iterdir()) == []
 
 
-def test_fresh_owned_roots_only(tmp_path):
+def test_fresh_owned_roots_only(tmp_path, record_property):
     m = runner()
+    if not _require_host(record_property):
+        return
     root = Path(m._prepare(str(tmp_path)))
     assert root.parent == tmp_path and root.stat().st_mode & 0o777 == 0o700
     assert (root / "protected/canary").read_bytes() == b"SYNTHETIC_ONLY_PROTECTED_V1\n"
@@ -71,6 +72,8 @@ def test_exact_launch_policy(tmp_path, record_property):
     m = runner()
     if not _require_host(record_property):
         return
+    import fcntl
+
     root = m._prepare(str(tmp_path))
     fd = m._sealed_filter()
     try:
@@ -135,6 +138,10 @@ def test_preflight_missing_capability_and_bad_pin(monkeypatch):
     monkeypatch.setattr(m.platform, "machine", lambda: "aarch64")
     assert "UNSUPPORTED_HOST" in m._preflight()
     monkeypatch.setattr(m.platform, "machine", lambda: "x86_64")
+    # Pure pin diagnostics,not a host qualification or native API emulation.
+    monkeypatch.setattr(m.platform, "system", lambda: "Linux")
+    monkeypatch.setattr(m.os, "getuid", lambda: 1000, raising=False)
+    monkeypatch.setattr(m.os, "getgid", lambda: 1000, raising=False)
     monkeypatch.setattr(m, "_PINNED", (("/definitely/not/a/tool", "0" * 64),))
     assert "TOOL_PIN_UNAVAILABLE" in m._preflight()
     monkeypatch.setattr(m, "_PINNED", ((str(Path(__file__)), "0" * 64),))
@@ -151,8 +158,10 @@ def test_fixture_is_closed_and_inert(tmp_path):
     assert len(manifest) == 6 and all(len(value) == 64 for value in manifest.values())
 
 
-def test_no_historical_subject_in_launch(tmp_path):
+def test_no_historical_subject_in_launch(tmp_path, record_property):
     m = runner()
+    if not _require_host(record_property):
+        return
     root = m._prepare(str(tmp_path))
     state = json.loads((Path(root) / "state.json").read_bytes())
     assert state["schema"] == "h1-owned-toy-v1"
@@ -221,14 +230,16 @@ def test_filter_rejects_short_write_or_missing_seals(monkeypatch, record_propert
     m = runner()
     if not _require_host(record_property):
         return
+    import fcntl
+
     real = os.write
     monkeypatch.setattr(m.os, "write", lambda fd, raw: 0)
     with pytest.raises(OSError, match="short filter"):
         m._sealed_filter()
     monkeypatch.setattr(m.os, "write", real)
-    real_fcntl = m.fcntl.fcntl
+    real_fcntl = fcntl.fcntl
     monkeypatch.setattr(
-        m.fcntl, "fcntl", lambda fd, op, *args: 0 if op == 1034 else real_fcntl(fd, op, *args)
+        fcntl, "fcntl", lambda fd, op, *args: 0 if op == 1034 else real_fcntl(fd, op, *args)
     )
     with pytest.raises(OSError, match="missing filter seals"):
         m._sealed_filter()
@@ -262,8 +273,10 @@ def test_observed_launch_roles_include_access_flags(tmp_path, record_property):
     assert launch["filter_seals"] == 15
 
 
-def test_changed_fresh_root_identity_is_rejected(tmp_path, monkeypatch):
+def test_changed_fresh_root_identity_is_rejected(tmp_path, monkeypatch, record_property):
     m = runner()
+    if not _require_host(record_property):
+        return
     real = os.stat
 
     def drift(path, **kwargs):
@@ -295,7 +308,10 @@ def test_ambiguous_or_credential_bearing_proxy_is_unavailable_before_effects(
 ):
     m = runner()
     monkeypatch.setenv("HTTP_PROXY", value)
-    result = m.run_synthetic(SyntheticRequest(SyntheticCase.FD_CLOSED, str(tmp_path)))
+    # The parser itself must reject this even on a host that cannot execute S.
+    with pytest.raises(ValueError):
+        m._child_environment()
+    result = m.run_synthetic(SyntheticRequest(SyntheticCase.FD_CLOSED, "/unused"))
     assert result.outcome == "UNAVAILABLE"
     assert list(tmp_path.iterdir()) == [] and result.run_directory is None
     assert value == os.environ["HTTP_PROXY"]
@@ -327,12 +343,15 @@ def test_host_observations_never_launch_unpinned_tools(tmp_path, monkeypatch):
     test_owner_identity_and_missing_controls_cannot_be_waived(
         tmp_path, monkeypatch, property_record
     )
+    test_fresh_owned_roots_only(tmp_path, property_record)
+    test_no_historical_subject_in_launch(tmp_path, property_record)
+    test_changed_fresh_root_identity_is_rejected(tmp_path, monkeypatch, property_record)
     assert (
         recorded
         == [
             ("host_observation", "UNAVAILABLE_NOT_KERNEL_PASS"),
             ("unavailable", ("TOOL_PIN_UNAVAILABLE",)),
         ]
-        * 5
+        * 8
     )
     assert list(tmp_path.iterdir()) == []

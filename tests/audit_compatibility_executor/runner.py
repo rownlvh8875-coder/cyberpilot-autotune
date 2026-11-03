@@ -1,7 +1,7 @@
 """Closed owned-toy launcher. No arbitrary command/source/FD API and no H bridge."""
 
-import fcntl
 import hashlib
+import importlib
 import json
 import os
 import platform
@@ -82,6 +82,8 @@ def _child_environment() -> dict[str, str]:
 
 
 def _sealed_filter() -> int:
+    import fcntl
+
     fd = os.memfd_create("h1-S-only-filter", os.MFD_CLOEXEC | os.MFD_ALLOW_SEALING)
     try:
         raw = seccomp_bytes()
@@ -98,13 +100,19 @@ def _sealed_filter() -> int:
 
 
 def _preflight() -> tuple[str, ...]:
-    missing = []
+    # This is still one exact Linux profile,not a portable execution backend.
+    # Unsupported hosts must not probe handles,prepare artifacts or spawn.
+    getuid = getattr(os, "getuid", None)
+    getgid = getattr(os, "getgid", None)
     if (
         platform.system() != "Linux"
         or platform.machine() != "x86_64"
-        or (os.getuid(), os.getgid()) != (1000, 1000)
+        or getuid is None
+        or getgid is None
+        or (getuid(), getgid()) != (1000, 1000)
     ):
-        missing.append("UNSUPPORTED_HOST")
+        return ("UNSUPPORTED_HOST",)
+    missing = []
     for path, expected in _PINNED:
         try:
             if hashlib.sha256(Path(path).read_bytes()).hexdigest() != expected:
@@ -114,13 +122,17 @@ def _preflight() -> tuple[str, ...]:
     try:
         _source_hashes()
         _child_environment()
+        # Check both native modules before even allocating a sealed filter.
+        # Inert imports and pure protocol/value tests need neither module.
+        importlib.import_module("fcntl")
+        importlib.import_module("resource")
         fd = _sealed_filter()
         os.close(fd)
         fd = os.pidfd_open(os.getpid())
         os.close(fd)
         if not hasattr(os, "P_PIDFD") or not hasattr(signal, "pidfd_send_signal"):
             missing.append("PIDFD_UNAVAILABLE")
-    except (OSError, ValueError, AttributeError):
+    except (ImportError, OSError, ValueError, AttributeError):
         missing.append("REQUIRED_CONTROL_UNAVAILABLE")
     return tuple(dict.fromkeys(missing))
 

@@ -83,7 +83,7 @@ def test_old_non_guard_functions_and_all_other_bytes_unchanged():
     env = {**os.environ, "GIT_NO_LAZY_FETCH": "1", "GIT_OPTIONAL_LOCKS": "0"}
     old = subprocess.check_output(
         [
-            "/usr/bin/git",
+            "git",
             "show",
             "ac6adf32ab163fa1fe9eaeb635644037c0de8cde:"
             "tests/test_audit_compatibility_history_architecture.py",
@@ -115,5 +115,117 @@ def test_no_historical_command_or_permission_can_be_supplied(tmp_path):
         with pytest.raises(ValueError):
             m.SyntheticCase(command)
     with pytest.raises(TypeError):
-        run(m.SyntheticRequest(m.SyntheticCase.FD_CLOSED, str(tmp_path)), argv=("anything",))
+        run(m.SyntheticRequest(m.SyntheticCase.FD_CLOSED, "/not-used"), argv=("anything",))
     assert list(tmp_path.iterdir()) == []
+
+
+_BLOCK_NATIVE = r"""
+import importlib.abc,sys
+class MissingNative(importlib.abc.MetaPathFinder):
+ def find_spec(self,fullname,path=None,target=None):
+  if fullname in blocked:
+   raise ModuleNotFoundError(fullname,name=fullname)
+for name in blocked:
+ sys.modules.pop(name,None)
+sys.meta_path.insert(0,MissingNative())
+"""
+
+
+def _fresh_portability_check(tmp_path, script):
+    root = Path(__file__).resolve().parents[1]
+    result = subprocess.run(
+        [sys.executable, "-I", "-B", "-c", script, str(root)],
+        cwd=tmp_path,
+        env={**os.environ, "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1"},
+        capture_output=True,
+        timeout=30,
+        check=False,
+    )
+    assert result.returncode == 0, (result.stdout + result.stderr).decode(errors="replace")
+    assert result.stdout.rstrip().endswith(b"PORTABILITY_CHECK_COMPLETE")
+    assert list(tmp_path.iterdir()) == []
+
+
+@pytest.mark.parametrize("blocked", [("fcntl",), ("resource",), ("fcntl", "resource")])
+def test_missing_native_modules_are_unavailable_before_effects(tmp_path, blocked):
+    script = (
+        f"blocked={blocked!r}\n"
+        + _BLOCK_NATIVE
+        + r"""
+sys.path.insert(0,sys.argv[1])
+import os,importlib
+from tests.audit_compatibility_executor import runner,supervision,contracts
+from tests.fixtures import h1_synthetic_payload
+runner.platform.system=lambda: 'Linux'
+runner.platform.machine=lambda: 'x86_64'
+runner.os.getuid=runner.os.getgid=lambda: 1000
+def forbidden(*args,**kwargs):
+ raise AssertionError('effect before native prerequisites')
+runner._prepare=forbidden
+runner._sealed_filter=forbidden
+os.pidfd_open=forbidden
+result=runner.run_synthetic(contracts.SyntheticRequest(contracts.SyntheticCase.FD_CLOSED,'/unused'))
+assert result.outcome=='UNAVAILABLE' and result.run_directory is None
+assert 'REQUIRED_CONTROL_UNAVAILABLE' in result.unavailable
+assert result.status=='BLOCKED' and not any(v for _,v in result.permissions)
+assert h1_synthetic_payload.main(())==2
+try:
+ supervision._decode(b'not JSON',contracts.SyntheticCase.FD_CLOSED)
+except ValueError:
+ pass
+else:
+ raise AssertionError('invalid protocol accepted')
+print('PORTABILITY_CHECK_COMPLETE')
+"""
+    )
+    _fresh_portability_check(tmp_path, script)
+
+
+@pytest.mark.parametrize(
+    "host", ["Windows", "Darwin", "aarch64", "no-getuid", "no-getgid", "uid-zero", "gid-zero"]
+)
+def test_unsupported_hosts_return_before_any_native_probe(tmp_path, host):
+    script = (
+        f"host={host!r}\nblocked=('fcntl','resource')\n"
+        + _BLOCK_NATIVE
+        + r"""
+sys.path.insert(0,sys.argv[1])
+from tests.audit_compatibility_executor import runner,contracts
+runner.platform.system=lambda: host if host in ('Windows','Darwin') else 'Linux'
+runner.platform.machine=lambda: 'aarch64' if host=='aarch64' else 'x86_64'
+runner.os.getuid=lambda: 0 if host=='uid-zero' else 1000
+runner.os.getgid=lambda: 0 if host=='gid-zero' else 1000
+if host.startswith('no-'):
+ delattr(runner.os,host[3:])
+def forbidden(*args,**kwargs):
+ raise AssertionError('unsupported host touched native control/source/artifact')
+runner._sealed_filter=runner._source_hashes=runner._prepare=forbidden
+runner.os.pidfd_open=forbidden
+assert runner._preflight()==('UNSUPPORTED_HOST',)
+result=runner.run_synthetic(contracts.SyntheticRequest(contracts.SyntheticCase.FD_CLOSED,'/unused'))
+assert result.outcome=='UNAVAILABLE' and result.run_directory is None
+try:
+ runner.run_synthetic(object())
+except ValueError:
+ pass
+else:
+ raise AssertionError('request validation bypassed')
+print('PORTABILITY_CHECK_COMPLETE')
+"""
+    )
+    _fresh_portability_check(tmp_path, script)
+
+
+def test_all_harness_tests_collect_without_native_modules(tmp_path):
+    script = (
+        "import pytest\nblocked=('fcntl','resource')\n"
+        + _BLOCK_NATIVE
+        + r"""
+sys.path.insert(0,sys.argv[1])
+files=[sys.argv[1]+'/tests/test_h1_executor_'+name+'.py'
+ for name in ('values','launch','supervision','architecture')]
+assert pytest.main(['--collect-only','-q','-p','no:cacheprovider',*files])==0
+print('PORTABILITY_CHECK_COMPLETE')
+"""
+    )
+    _fresh_portability_check(tmp_path, script)

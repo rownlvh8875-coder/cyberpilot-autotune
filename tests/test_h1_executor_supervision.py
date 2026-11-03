@@ -152,6 +152,8 @@ def test_closed_helper_protocol_rejects_unknown_duplicate_and_nonfinite(raw):
 )
 def test_registered_host_case(tmp_path, record_property, case, first_error):
     supervision()
+    if not _require_host(record_property):
+        return
     runner = importlib.import_module("tests.audit_compatibility_executor.runner")
     started = time.monotonic()
     result = runner.run_synthetic(SyntheticRequest(case, str(tmp_path)))
@@ -259,8 +261,12 @@ def test_matching_namespace_is_not_isolation():
         ("abort", ()),
     ],
 )
-def test_helper_decides_from_observed_facts_not_exit_zero(tmp_path, monkeypatch, mode, expected):
+def test_helper_decides_from_observed_facts_not_exit_zero(
+    tmp_path, monkeypatch, record_property, mode, expected
+):
     m = supervision()
+    if not _require_host(record_property):
+        return
     from tests.audit_compatibility_executor import runner
 
     root = runner._prepare(str(tmp_path))
@@ -297,8 +303,10 @@ def test_helper_decides_from_observed_facts_not_exit_zero(tmp_path, monkeypatch,
         stderr.close()
 
 
-def test_artifact_limits_links_and_run_identity_are_enforced(tmp_path):
+def test_artifact_limits_links_and_run_identity_are_enforced(tmp_path, record_property):
     m = supervision()
+    if not _require_host(record_property):
+        return
     from tests.audit_compatibility_executor import runner
 
     root = runner._prepare(str(tmp_path))
@@ -343,7 +351,9 @@ def test_reap_has_bounded_known_or_unknown_result(monkeypatch, failure):
             raise ChildProcessError
         return value
 
-    monkeypatch.setattr(m.os, "waitpid", waitpid)
+    # Both the syscall and its flag are mocked protocol inputs,not POSIX proof.
+    # Do not mutate the host os module used by pytest/subprocess itself.
+    monkeypatch.setattr(m, "os", SimpleNamespace(waitpid=waitpid, WNOHANG=1))
     assert m._reap(SimpleNamespace(wait=wait)) is (failure in ("success", "adopted"))
 
 
@@ -368,12 +378,20 @@ def test_helper_request_does_not_expand_scope(tmp_path, monkeypatch, capsys, kin
     m = supervision()
     from tests.audit_compatibility_executor import runner
 
-    root = runner._prepare(str(tmp_path))
+    # This tests the closed protocol only;owned-root binding has its own native
+    # test above. Never fabricate a native root or claim a kernel observation.
+    root = "/owned-protocol-fixture"
+    sources = runner._source_hashes()
+
+    def verify_root(actual_root, actual_sources):
+        assert actual_root == root and actual_sources == sources
+
+    monkeypatch.setattr(m, "_verify_root", verify_root)
     request = {
         "schema": "h1-helper-request-v1",
         "case": "FD_CLOSED",
         "root": root,
-        "sources": runner._source_hashes(),
+        "sources": sources,
     }
     if kind == "version":
         request["schema"] = "unknown"
@@ -395,6 +413,7 @@ def test_helper_request_does_not_expand_scope(tmp_path, monkeypatch, capsys, kin
     monkeypatch.setattr(m, "_inner", lambda *args: {"schema": "TEST_ONLY_NO_PROCESS"})
     assert m._helper_main() == (0 if kind == "valid" else 2)
     assert ("TEST_ONLY_NO_PROCESS" in capsys.readouterr().out) is (kind == "valid")
+    assert list(tmp_path.iterdir()) == []
 
 
 def test_controller_refuses_payload_without_pidfd(tmp_path, monkeypatch, record_property):
@@ -411,8 +430,10 @@ def test_controller_refuses_payload_without_pidfd(tmp_path, monkeypatch, record_
     assert not (Path(root) / "launch.json").exists()
 
 
-def test_controller_rejects_corrupted_helper_protocol(tmp_path, monkeypatch):
+def test_controller_rejects_corrupted_helper_protocol(tmp_path, monkeypatch, record_property):
     m = supervision()
+    if not _require_host(record_property):
+        return
     from tests.audit_compatibility_executor import runner
 
     root = runner._prepare(str(tmp_path))
@@ -439,8 +460,12 @@ def test_controller_rejects_corrupted_helper_protocol(tmp_path, monkeypatch):
     assert (Path(root) / "controller-stdout.bin").read_bytes() == b"invalid-protocol\n"
 
 
-def test_control_artifact_failure_does_not_erase_known_helper_failure(tmp_path, monkeypatch):
+def test_control_artifact_failure_does_not_erase_known_helper_failure(
+    tmp_path, monkeypatch, record_property
+):
     m = supervision()
+    if not _require_host(record_property):
+        return
     from tests.audit_compatibility_executor import runner
 
     root = runner._prepare(str(tmp_path))
@@ -477,7 +502,9 @@ def test_stream_wait_fault_and_cleanup_fault_both_survive(monkeypatch, record_pr
         os.close(fd)
 
 
-def test_nonregular_owned_artifact_cannot_block_controller(tmp_path):
+def test_nonregular_owned_artifact_cannot_block_controller(tmp_path, record_property):
+    if not _require_host(record_property):
+        return
     from tests.audit_compatibility_executor import runner
 
     root = runner._prepare(str(tmp_path))
@@ -528,12 +555,18 @@ def test_private_bootstrap_never_adds_repository_import_roots(monkeypatch):
     assert result.value.code == 17 and sys.path == before
 
 
-def test_limit_dispatch_uses_exact_per_process_values_without_mutating_worker(monkeypatch):
+def test_limit_dispatch_uses_exact_per_process_values_without_mutating_worker(
+    monkeypatch, record_property
+):
     m = supervision()
+    if not _require_host(record_property):
+        return
+    import resource
+
     limits = {}
-    monkeypatch.setattr(m.resource, "setrlimit", lambda kind, pair: limits.update({kind: pair}))
+    monkeypatch.setattr(resource, "setrlimit", lambda kind, pair: limits.update({kind: pair}))
     m._limits()
-    r = m.resource
+    r = resource
     assert limits == {
         r.RLIMIT_CPU: (3, 3),
         r.RLIMIT_AS: (268435456, 268435456),
@@ -555,9 +588,11 @@ def test_invalid_pipe_contract_rejects_without_signalling_unowned_process(monkey
 
 @pytest.mark.parametrize("missing_artifact", ["stdout.bin", "stderr.bin"])
 def test_decoded_failure_survives_missing_artifacts_and_preserves_available_output(
-    tmp_path, monkeypatch, missing_artifact
+    tmp_path, monkeypatch, record_property, missing_artifact
 ):
     m = supervision()
+    if not _require_host(record_property):
+        return
     from tests.audit_compatibility_executor import runner
 
     root = runner._prepare(str(tmp_path))
@@ -577,8 +612,12 @@ def test_decoded_failure_survives_missing_artifacts_and_preserves_available_outp
 
 
 @pytest.mark.parametrize("failure", ["stdout.bin", "canary"])
-def test_helper_known_failure_survives_later_evidence_IO(tmp_path, monkeypatch, failure):
+def test_helper_known_failure_survives_later_evidence_IO(
+    tmp_path, monkeypatch, record_property, failure
+):
     m = supervision()
+    if not _require_host(record_property):
+        return
     from tests.audit_compatibility_executor import runner
 
     root = runner._prepare(str(tmp_path))
@@ -643,14 +682,33 @@ def test_process_observations_are_unavailable_without_registered_controls(tmp_pa
     test_first_failure_survives_cleanup(record)
     test_controller_refuses_payload_without_pidfd(tmp_path, monkeypatch, record)
     test_stream_wait_fault_and_cleanup_fault_both_survive(monkeypatch, record)
+    test_decoded_error_survives_controller_wait_failure(tmp_path, monkeypatch, record)
+    for case in SyntheticCase:
+        test_registered_host_case(tmp_path, record, case, None)
+    for mode in ("valid", "invalid", "mismatch", "cleanup", "canary", "abort"):
+        test_helper_decides_from_observed_facts_not_exit_zero(
+            tmp_path, monkeypatch, record, mode, ()
+        )
+    test_artifact_limits_links_and_run_identity_are_enforced(tmp_path, record)
+    test_controller_rejects_corrupted_helper_protocol(tmp_path, monkeypatch, record)
+    test_control_artifact_failure_does_not_erase_known_helper_failure(tmp_path, monkeypatch, record)
+    test_nonregular_owned_artifact_cannot_block_controller(tmp_path, record)
+    test_limit_dispatch_uses_exact_per_process_values_without_mutating_worker(monkeypatch, record)
+    for artifact in ("stdout.bin", "stderr.bin"):
+        test_decoded_failure_survives_missing_artifacts_and_preserves_available_output(
+            tmp_path, monkeypatch, record, artifact
+        )
+    for failure in ("stdout.bin", "canary"):
+        test_helper_known_failure_survives_later_evidence_IO(tmp_path, monkeypatch, record, failure)
     assert (
         recorded
         == [
             ("host_observation", "UNAVAILABLE_NOT_KERNEL_PASS"),
             ("unavailable", ("REQUIRED_CONTROL_UNAVAILABLE",)),
         ]
-        * 6
+        * 30
     )
+    assert list(tmp_path.iterdir()) == []
 
 
 def test_decoded_error_survives_controller_wait_failure(tmp_path, monkeypatch, record_property):

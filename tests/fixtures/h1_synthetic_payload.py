@@ -3,7 +3,6 @@
 import errno
 import json
 import os
-import resource
 import socket
 import subprocess
 import sys
@@ -13,6 +12,7 @@ from pathlib import Path
 
 def _observe() -> dict[str, object]:
     import ctypes
+    import resource
 
     state = {
         line.split(":")[0]: line.split(":")[1].strip()
