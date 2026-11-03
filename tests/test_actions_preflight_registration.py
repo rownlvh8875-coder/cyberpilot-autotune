@@ -225,4 +225,6 @@ def test_real_consumer_checks_all_legacy_ranges_and_literal_checkpoint(monkeypat
     assert ("diff", "--no-renames", "--name-status", BASE, REGISTRATION_END) in calls
     repair_base = "a8b2bf1e6f27a4157212298928a50c8e970babf5"
     assert ("diff", "--no-renames", "--name-status", REGISTRATION_END, repair_base) in calls
-    assert ("diff", "--no-renames", "--name-status", repair_base) in calls
+    outcome_end = "209edaa83b398e6204af1097fda4b651807cc815"
+    assert ("diff", "--no-renames", "--name-status", repair_base, outcome_end) in calls
+    assert ("diff", "--no-renames", "--name-status", outcome_end) in calls

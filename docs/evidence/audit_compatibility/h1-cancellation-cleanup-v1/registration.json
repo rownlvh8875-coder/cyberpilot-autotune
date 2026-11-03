@@ -1,0 +1,40 @@
+{
+  "schema": "h1-cancellation-cleanup-repair-v1",
+  "base": "209edaa83b398e6204af1097fda4b651807cc815",
+  "new_paths": [
+    "docs/superpowers/specs/2026-11-03-h1-cancellation-cleanup-design.md",
+    "docs/superpowers/plans/2026-11-03-h1-cancellation-cleanup.md",
+    "tests/test_h1_cancellation_cleanup.py",
+    "docs/evidence/audit_compatibility/h1-cancellation-cleanup-v1/registration.json"
+  ],
+  "modified_paths": [
+    "tests/audit_compatibility_executor/supervision.py",
+    "tests/test_audit_compatibility_history_architecture.py",
+    "tests/test_h1_outcome_consistency.py",
+    "tests/test_actions_preflight_registration.py"
+  ],
+  "status": "BLOCKED",
+  "manifest_is_authority": false,
+  "content_identity_only": true,
+  "historical_execution": false,
+  "native_cancellation_cleanup_qualified": false,
+  "permissions": {
+    "build_execution_allowed": false,
+    "promotion_authorized": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  },
+  "retained_obligations": ["ALL_PRIOR_H1_PREREQUISITES", "ALL_PROJECT_AND_APPLICATION_BLOCKERS"],
+  "retained_blockers": [
+    "HISTORICAL_REPLAY", "SOURCE_CAPTURE_ATOMICITY", "ACTUAL_Q_I",
+    "ENTRY_GUARD_INTEGRATION", "EXACT_I_CI", "STACK_ADOPTION",
+    "APPLICATION_NOT_AUTHORIZED",
+    "EXECUTOR_CONTENT_TOOLCHAIN_ENFORCEMENT_AND_BUDGET_FREEZE_UNAVAILABLE",
+    "FULL_O_AND_ADDITIONAL_D_CASE_INVENTORIES_UNAVAILABLE"
+  ]
+}

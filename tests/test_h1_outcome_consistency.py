@@ -157,11 +157,19 @@ def successor():
 
 
 def test_scope_is_exact_and_registration_does_not_authorize_it():
-    rows = source_git("diff", "--no-renames", "--name-status", BASE).decode().splitlines()
-    rows += [
-        "A\t" + p
-        for p in source_git("ls-files", "--others", "--exclude-standard").decode().splitlines()
-    ]
+    # Freeze this completed repair; the current successor consumer below still
+    # checks every tracked and untracked change after this literal checkpoint.
+    rows = (
+        source_git(
+            "diff",
+            "--no-renames",
+            "--name-status",
+            BASE,
+            "209edaa83b398e6204af1097fda4b651807cc815",
+        )
+        .decode()
+        .splitlines()
+    )
     assert sorted(rows) == sorted(
         ["A\t" + p for p in ADDITIONS] + ["M\t" + p for p in MODIFICATIONS]
     )

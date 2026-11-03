@@ -148,6 +148,25 @@ def _h1_outcome_changes(rows):
     )
 
 
+def _h1_cancellation_changes(rows):
+    # New repair boundary; none of the earlier phase ceilings are enlarged.
+    _phase_changes(
+        rows,
+        {
+            "docs/superpowers/specs/2026-11-03-h1-cancellation-cleanup-design.md",
+            "docs/superpowers/plans/2026-11-03-h1-cancellation-cleanup.md",
+            "tests/test_h1_cancellation_cleanup.py",
+            "docs/evidence/audit_compatibility/h1-cancellation-cleanup-v1/registration.json",
+        },
+        modifications={
+            "tests/audit_compatibility_executor/supervision.py",
+            "tests/test_audit_compatibility_history_architecture.py",
+            "tests/test_h1_outcome_consistency.py",
+            "tests/test_actions_preflight_registration.py",
+        },
+    )
+
+
 def test_all_earlier_files_and_guard_bytes_are_preserved():
     root = Path(__file__).resolve().parents[1]
     env = {**os.environ, "GIT_NO_LAZY_FETCH": "1", "GIT_OPTIONAL_LOCKS": "0"}
@@ -202,11 +221,15 @@ def test_all_earlier_files_and_guard_bytes_are_preserved():
     _ci_portability_changes(
         git("diff", "--no-renames", "--name-status", registration_end, portability_end).splitlines()
     )
-    successor = git("diff", "--no-renames", "--name-status", portability_end).splitlines()
+    outcome_end = "209edaa83b398e6204af1097fda4b651807cc815"
+    _h1_outcome_changes(
+        git("diff", "--no-renames", "--name-status", portability_end, outcome_end).splitlines()
+    )
+    successor = git("diff", "--no-renames", "--name-status", outcome_end).splitlines()
     successor += [
         "A\t" + path for path in git("ls-files", "--others", "--exclude-standard").splitlines()
     ]
-    _h1_outcome_changes(successor)
+    _h1_cancellation_changes(successor)
     module = importlib.import_module("tests.audit_compatibility.contracts")
     assert module.IO_UNAVAILABLE == (
         "CURRENT_INDEX_WORKTREE",

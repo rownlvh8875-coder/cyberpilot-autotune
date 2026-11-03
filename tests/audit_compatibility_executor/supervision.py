@@ -423,6 +423,114 @@ def _helper_main() -> int:
         return 2
 
 
+def _supervise_started(
+    case: SyntheticCase,
+    run_root: str,
+    request: bytes,
+    helper: subprocess.Popen[bytes],
+    fd: int,
+) -> SyntheticResult:
+    """Protocol evaluation; the caller owns helper handles on every exit."""
+    assert helper.stdin is not None
+    errors: tuple[str, ...] = ()
+    missing: tuple[str, ...] = ()
+    out, err = b"", b""
+    try:
+        helper.stdin.write(request)
+        helper.stdin.close()
+        wall = 0.4 if case is SyntheticCase.TIMEOUT_SETSID else 5.0
+        raw, control_err, control_errors, _ = _collect(helper, fd, wall + 4, group=False)
+        errors = tuple(e.replace("NONZERO_EXIT_", "SUPERVISOR_EXIT_") for e in control_errors)
+        cleaned = False
+        protocol_invalid = False
+        if not control_errors:
+            try:
+                value = _decode(raw, case)
+            except ValueError:
+                errors += ("CONTROLLER_OR_PROTOCOL_ERROR",)
+                protocol_invalid = True
+            else:
+                # Retain these BEFORE any persistence/read can fail.
+                errors += tuple(value["errors"])
+                missing = tuple(value["unavailable"])
+                cleaned = value["cleanup"] == "CONFIRMED"
+        helper.wait(timeout=2)
+        directory = runner._open_directory(run_root)
+        try:
+            for name, data in (
+                ("controller-stdout.bin", raw),
+                ("controller-stderr.bin", control_err),
+            ):
+                try:
+                    runner._write_new(directory, name, data)
+                except OSError:
+                    errors += ("ARTIFACT_WRITE_UNAVAILABLE_" + name,)
+        finally:
+            os.close(directory)
+        if control_errors or protocol_invalid:
+            return _finish(case, run_root, b"", b"", errors, ("MISSING_PROTOCOL",), False)
+        try:
+            out = _read_owned(run_root, "stdout.bin", 65536)
+        except (OSError, ValueError):
+            errors += ("STDOUT_ARTIFACT_UNAVAILABLE",)
+            missing += ("STDOUT_ARTIFACT_UNAVAILABLE",)
+        try:
+            err = _read_owned(run_root, "stderr.bin", 65536 - len(out))
+        except (OSError, ValueError):
+            errors += ("STDERR_ARTIFACT_UNAVAILABLE",)
+            missing += ("STDERR_ARTIFACT_UNAVAILABLE",)
+        return _result(
+            case,
+            run_root,
+            errors=errors,
+            unavailable=missing,
+            cleanup="CONFIRMED" if cleaned else "UNCONFIRMED",
+            stdout=out,
+            stderr=err,
+        )
+    except (OSError, ValueError, subprocess.TimeoutExpired):
+        try:
+            signal.pidfd_send_signal(fd, signal.SIGKILL)
+            helper.wait(timeout=2)
+        except (OSError, subprocess.TimeoutExpired):
+            pass
+        return _finish(
+            case, run_root, out, err, errors + ("CONTROLLER_OR_PROTOCOL_ERROR",), missing, False
+        )
+
+
+def _close_helper_streams(helper: subprocess.Popen[bytes]) -> bool:
+    clean = True
+    for stream in (helper.stdin, helper.stdout, helper.stderr):
+        if stream is not None:
+            try:
+                stream.close()
+            except (OSError, ValueError):
+                clean = False
+    return clean
+
+
+def _abort_helper(helper: subprocess.Popen[bytes], fd: int | None, primary: BaseException) -> None:
+    # Cleanup is finite best effort. Each operation is independent: a second
+    # cancellation must not hide the first or skip the remaining owned handles.
+    operations = []
+    if helper.stdin is not None:
+        operations.append(helper.stdin.close)
+    if fd is not None:
+        operations.append(lambda: signal.pidfd_send_signal(fd, signal.SIGKILL))
+    operations.append(lambda: helper.wait(timeout=2))
+    for stream in (helper.stdout, helper.stderr):
+        if stream is not None:
+            operations.append(stream.close)
+    for operation in operations:
+        try:
+            operation()
+        except BaseException:
+            pass
+    # Reaping the helper alone is not proof that every descendant was cleaned.
+    BaseException.add_note(primary, "CLEANUP_UNCONFIRMED")
+
+
 def supervise(case: SyntheticCase, run_root: str) -> SyntheticResult:
     sources = runner._source_hashes()
     _verify_root(run_root, sources)
@@ -445,83 +553,49 @@ def supervise(case: SyntheticCase, run_root: str) -> SyntheticResult:
         start_new_session=True,
         env=runner._child_environment(),
     )
-    assert helper.stdin is not None
+    fd: int | None = None
+    primary: BaseException | None = None
+    clean = True
     try:
-        fd = os.pidfd_open(helper.pid)
-    except OSError:
-        helper.stdin.close()  # no request sent;no payload permitted before handshake.
+        assert helper.stdin is not None
         try:
-            helper.wait(timeout=2)
-        finally:
-            for stream in (helper.stdout, helper.stderr):
-                if stream is not None:
-                    stream.close()
-        return _result(case, run_root, unavailable=("PIDFD_UNAVAILABLE",), cleanup="UNCONFIRMED")
-    try:
-        errors: tuple[str, ...] = ()
-        missing: tuple[str, ...] = ()
-        out, err = b"", b""
-        try:
-            helper.stdin.write(request)
+            fd = os.pidfd_open(helper.pid)
+        except OSError:
+            # No request was sent. EOF is the safe stop without a retained pidfd.
             helper.stdin.close()
-            wall = 0.4 if case is SyntheticCase.TIMEOUT_SETSID else 5.0
-            raw, control_err, control_errors, _ = _collect(helper, fd, wall + 4, group=False)
-            errors = tuple(e.replace("NONZERO_EXIT_", "SUPERVISOR_EXIT_") for e in control_errors)
-            cleaned = False
-            protocol_invalid = False
-            if not control_errors:
-                try:
-                    value = _decode(raw, case)
-                except ValueError:
-                    errors += ("CONTROLLER_OR_PROTOCOL_ERROR",)
-                    protocol_invalid = True
-                else:
-                    # Retain these BEFORE any persistence/read can fail.
-                    errors += tuple(value["errors"])
-                    missing = tuple(value["unavailable"])
-                    cleaned = value["cleanup"] == "CONFIRMED"
             helper.wait(timeout=2)
-            directory = runner._open_directory(run_root)
-            try:
-                for name, data in (
-                    ("controller-stdout.bin", raw),
-                    ("controller-stderr.bin", control_err),
-                ):
-                    try:
-                        runner._write_new(directory, name, data)
-                    except OSError:
-                        errors += ("ARTIFACT_WRITE_UNAVAILABLE_" + name,)
-            finally:
-                os.close(directory)
-            if control_errors or protocol_invalid:
-                return _finish(case, run_root, b"", b"", errors, ("MISSING_PROTOCOL",), False)
-            try:
-                out = _read_owned(run_root, "stdout.bin", 65536)
-            except (OSError, ValueError):
-                errors += ("STDOUT_ARTIFACT_UNAVAILABLE",)
-                missing += ("STDOUT_ARTIFACT_UNAVAILABLE",)
-            try:
-                err = _read_owned(run_root, "stderr.bin", 65536 - len(out))
-            except (OSError, ValueError):
-                errors += ("STDERR_ARTIFACT_UNAVAILABLE",)
-                missing += ("STDERR_ARTIFACT_UNAVAILABLE",)
-            return _result(
-                case,
-                run_root,
-                errors=errors,
-                unavailable=missing,
-                cleanup="CONFIRMED" if cleaned else "UNCONFIRMED",
-                stdout=out,
-                stderr=err,
+            result = _result(
+                case, run_root, unavailable=("PIDFD_UNAVAILABLE",), cleanup="UNCONFIRMED"
             )
-        except (OSError, ValueError, subprocess.TimeoutExpired):
-            try:
-                signal.pidfd_send_signal(fd, signal.SIGKILL)
-                helper.wait(timeout=2)
-            except (OSError, subprocess.TimeoutExpired):
-                pass
-            return _finish(
-                case, run_root, out, err, errors + ("CONTROLLER_OR_PROTOCOL_ERROR",), missing, False
-            )
+        else:
+            result = _supervise_started(case, run_root, request, helper, fd)
+        clean = _close_helper_streams(helper)
+    except BaseException as error:
+        primary = error
+        _abort_helper(helper, fd, error)
+        raise
     finally:
-        os.close(fd)
+        # Retain the pidfd until after stop/reap. Never retry a released or
+        # interrupted close, and never mask an already propagating exception.
+        if fd is not None:
+            try:
+                os.close(fd)
+            except BaseException as error:
+                if primary is not None:
+                    BaseException.add_note(primary, "CLEANUP_UNCONFIRMED")
+                elif isinstance(error, (OSError, ValueError)):
+                    clean = False
+                else:
+                    BaseException.add_note(error, "CLEANUP_UNCONFIRMED")
+                    raise
+    if not clean:
+        return _result(
+            case,
+            run_root,
+            errors=result.errors + ("CONTROLLER_HANDLE_CLEANUP_UNCONFIRMED",),
+            unavailable=result.unavailable,
+            cleanup="UNCONFIRMED",
+            stdout=result.stdout,
+            stderr=result.stderr,
+        )
+    return result
