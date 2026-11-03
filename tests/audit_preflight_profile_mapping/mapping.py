@@ -174,7 +174,8 @@ def map_registered_preflight(
             value, meaning = REDACTED, "SOURCE_TEXT_REDACTED"
         elif pointer.startswith("/tools/") and pointer.endswith("/pin_matches") and value is False:
             tool = _at(document, pointer.rsplit("/", 1)[0])
-            if tool["sha256"] is not None and tool["sha256"] != tool["expected_sha256"]:
+            registered_pin = dict(DECLARATIONS)[pointer.rsplit("/", 1)[0] + "/expected_sha256"]
+            if tool["sha256"] is not None and tool["sha256"] != registered_pin:
                 meaning = "LEGACY_TOOL_PIN_MISMATCH"
         diagnostics.append(SourceDiagnostic(pointer, value, meaning))
     result = PreflightMappingDecision(

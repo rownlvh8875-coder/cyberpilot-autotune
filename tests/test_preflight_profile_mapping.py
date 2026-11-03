@@ -256,3 +256,215 @@ def test_security_reads_are_collector_process_context_not_declared_flags():
     security = [d for d in result.diagnostics if d.source_pointer.startswith("/security/")]
     assert len(security) == 3
     assert all(d.meaning == "HOST_PROCESS_CONTEXT_ONLY" for d in security)
+
+
+def test_forged_expected_pin_cannot_fabricate_a_legacy_content_mismatch():
+    module = api()
+    doc = source_document()
+    tool = doc["tools"]["/usr/bin/setpriv"]
+    tool["sha256"] = tool["expected_sha256"]  # Actual equals the registered legacy pin.
+    tool["expected_sha256"] = "3" * 64
+    tool["pin_matches"] = False
+    result = module.map_registered_preflight(encoded(doc), source_profile_id=S0)
+    diagnostic = next(
+        d
+        for d in result.diagnostics
+        if d.source_pointer == "/tools/~1usr~1bin~1setpriv/pin_matches"
+    )
+    assert diagnostic.value is False
+    assert diagnostic.meaning == "LEGACY_TOOL_CONTENT_ONLY"
+    assert any(r.code == "SOURCE_DECLARATION_CONTRADICTION" for r in result.errors)
+
+
+@pytest.mark.parametrize(
+    "available,required,inconsistent",
+    [(True, None, True), (False, True, True), (False, None, False), (True, False, False)],
+)
+@pytest.mark.parametrize("name", ["fcntl", "resource"])
+def test_native_module_presence_and_api_availability_are_separate(
+    available, required, inconsistent, name
+):
+    module = api()
+    doc = source_document()
+    doc["native_apis"][name].update(module_available=available, required_apis_present=required)
+    result = module.map_registered_preflight(encoded(doc), source_profile_id=S0)
+    found = [(r.code, r.subject) for r in result.errors]
+    assert (
+        ("SOURCE_TOOL_RELATION_INCONSISTENT", f"source:/native_apis/{name}/required_apis_present")
+        in found
+    ) is inconsistent
+    diagnostic = next(
+        d
+        for d in result.diagnostics
+        if d.source_pointer == f"/native_apis/{name}/required_apis_present"
+    )
+    assert diagnostic.value is required and result.profile_record is None
+
+
+@pytest.mark.parametrize(
+    "status,membership,coherent",
+    [
+        ("UNAVAILABLE_MEMBERSHIP", False, True),
+        ("UNAVAILABLE_MEMBERSHIP", None, True),
+        ("UNAVAILABLE_MEMBERSHIP", True, False),
+        ("UNAVAILABLE_COHORT_DRIFT", None, True),
+        ("UNAVAILABLE_COHORT_DRIFT", False, False),
+        ("UNAVAILABLE_MAPPING", None, True),
+        ("UNAVAILABLE_MAPPING", True, False),
+        ("MEMBERSHIP_OBSERVED_NOT_DELEGATION", False, False),
+    ],
+)
+def test_cgroup_source_branch_relations_never_imply_h_ownership(status, membership, coherent):
+    module = api()
+    doc = source_document()
+    doc["cgroup"].update(status=status, membership_confirmed=membership)
+    if status != "MEMBERSHIP_OBSERVED_NOT_DELEGATION":
+        doc["cgroup"].update(directory=None, controls=None)
+    result = module.map_registered_preflight(encoded(doc), source_profile_id=S0)
+    found = {(r.code, r.subject) for r in result.errors}
+    assert (("SOURCE_DECLARATION_CONTRADICTION", "source:/cgroup/status") in found) is (
+        not coherent
+    )
+    assert len(result.target_gaps) == 132 and not result.H_executed
+
+
+def test_false_pin_without_content_is_not_a_known_legacy_hash_failure():
+    module = api()
+    doc = source_document()
+    doc["tools"]["/usr/bin/bwrap"]["pin_matches"] = False
+    result = module.map_registered_preflight(encoded(doc), source_profile_id=S0)
+    diagnostic = next(
+        d for d in result.diagnostics if d.source_pointer == "/tools/~1usr~1bin~1bwrap/pin_matches"
+    )
+    assert diagnostic.value is False and diagnostic.meaning == "LEGACY_TOOL_CONTENT_ONLY"
+    assert any(r.code == "SOURCE_TOOL_RELATION_INCONSISTENT" for r in result.errors)
+
+
+def test_incomplete_and_forged_dtos_are_revalidated_without_echoing_values():
+    module = api()
+    incomplete = object.__new__(module.PreflightRunBinding)
+    with pytest.raises(ValueError):
+        module.map_registered_preflight(source_bytes(), incomplete, source_profile_id=S0)
+    result = complete()
+    with pytest.raises(ValueError):
+        replace(
+            result, diagnostics=(object.__new__(module.SourceDiagnostic),) + result.diagnostics[1:]
+        )
+    with pytest.raises(ValueError):
+        module.TargetGap(result.target_gaps[0].target_path, "UNKNOWN")
+    with pytest.raises(ValueError):
+        replace(
+            result, unavailable=(module.MappingReason("BINDING_VALUE_MISMATCH", "binding.job_id"),)
+        )
+    with pytest.raises(ValueError):
+        replace(result, errors=[])
+
+
+@pytest.mark.parametrize(
+    "path,value",
+    [
+        (("host", "python_version", 0), 2**64),
+        (("host", "uid"), -1),
+        (("host", "uid"), False),
+        (("security", "Seccomp"), 3),
+        (("security", "NoNewPrivs"), 2),
+        (("security", "CapEff"), "NOT_HEX"),
+        (("cgroup", "controls", "cpu.max", "value"), "0 1"),
+        (("cgroup", "controls", "cpu.max", "value"), "max 0"),
+        (("cgroup", "controls", "memory.max", "value"), "-1"),
+        (("cgroup", "controls", "cgroup.controllers", "value"), "cpu cpu"),
+        (("cgroup", "controls", "cgroup.controllers", "value"), "UNKNOWN"),
+        (("cgroup", "directory", "mode"), "0999"),
+        (("cgroup", "directory", "effective_write_access"), 0),
+        (("host", "python_version"), [3, 12]),
+    ],
+)
+def test_strict_source_formats_types_and_ranges_are_not_coerced(path, value):
+    module = api()
+    doc = source_document()
+    parent = doc
+    for key in path[:-1]:
+        parent = parent[key]
+    parent[path[-1]] = value
+    with pytest.raises(ValueError):
+        module.map_registered_preflight(encoded(doc), source_profile_id=S0)
+
+
+@pytest.mark.parametrize("value", [float("nan"), float("inf"), float("-inf")])
+def test_nonfinite_json_is_rejected_without_input_echo(value):
+    module = api()
+    doc = source_document()
+    doc["host"]["python_version"][0] = value
+    with pytest.raises(ValueError):
+        module.map_registered_preflight(json.dumps(doc).encode(), source_profile_id=S0)
+
+
+def test_null_metadata_is_unavailable_while_zero_remains_available():
+    module = api()
+    doc = source_document()
+    doc["cgroup"]["directory"] = None
+    doc["cgroup"]["controls"]["pids.max"]["metadata"] = None
+    result = module.map_registered_preflight(encoded(doc), source_profile_id=S0)
+    diagnostics = {d.source_pointer: d for d in result.diagnostics}
+    assert diagnostics["/cgroup/directory/mode"].value is None
+    assert (
+        diagnostics["/cgroup/controls/pids.max/metadata/effective_write_access"].availability
+        == "UNAVAILABLE"
+    )
+    assert diagnostics["/security/NoNewPrivs"].value == 0
+    assert diagnostics["/security/NoNewPrivs"].availability == "AVAILABLE"
+
+
+def test_default_profile_never_selects_synthetic_input_automatically():
+    module = api()
+    result = module.map_registered_preflight(
+        source_bytes(), module.PreflightRunBinding(**binding_fields())
+    )
+    assert result.source_profile_id == "REGISTERED_PREFLIGHT_R0"
+    assert result.source_consistency == "REGISTERED_SNAPSHOT_MISMATCH"
+    assert result.evidence_kind == "REGISTERED_SOURCE_CONTEXT_ONLY_NOT_H"
+
+
+@pytest.mark.parametrize(
+    "pointer", registration()["contract"]["diagnostic_string_policy"]["safe_values_by_pointer"]
+)
+def test_every_string_pointer_rejects_forged_unregistered_text(pointer):
+    module = api()
+    result = complete()
+    diagnostics = list(copy.deepcopy(result.diagnostics))
+    index = next(i for i, d in enumerate(diagnostics) if d.source_pointer == pointer)
+    object.__setattr__(diagnostics[index], "value", "FICTIONAL_PRIVATE_CANARY")
+    with pytest.raises(ValueError) as caught:
+        replace(result, diagnostics=tuple(diagnostics))
+    assert "FICTIONAL_PRIVATE_CANARY" not in str(caught.value)
+    marker = module.SourceDiagnostic(
+        pointer, "[REDACTED_UNREGISTERED_SOURCE_TEXT]", "SOURCE_TEXT_REDACTED"
+    )
+    assert marker.availability == "AVAILABLE"
+
+
+@pytest.mark.parametrize(
+    "path,value,pointer",
+    [
+        (("cgroup", "directory", "mode"), "0777", "/cgroup/directory/mode"),
+        (("execution_context", "run_id"), "2", "/execution_context/run_id"),
+        (("tools", "/usr/bin/setpriv", "sha256"), "3" * 64, "/tools/~1usr~1bin~1setpriv/sha256"),
+        (
+            ("cgroup", "controls", "cgroup.controllers", "value"),
+            "cpu",
+            "/cgroup/controls/cgroup.controllers/value",
+        ),
+    ],
+)
+def test_unregistered_but_valid_source_text_is_redacted_not_unavailable(path, value, pointer):
+    module = api()
+    doc = source_document()
+    parent = doc
+    for key in path[:-1]:
+        parent = parent[key]
+    parent[path[-1]] = value
+    result = module.map_registered_preflight(encoded(doc), source_profile_id=S0)
+    diagnostic = next(d for d in result.diagnostics if d.source_pointer == pointer)
+    assert diagnostic.value == "[REDACTED_UNREGISTERED_SOURCE_TEXT]"
+    assert diagnostic.meaning == "SOURCE_TEXT_REDACTED" and diagnostic.availability == "AVAILABLE"
+    assert any(r.code == "REGISTERED_SNAPSHOT_CONTENT_MISMATCH" for r in result.errors)
