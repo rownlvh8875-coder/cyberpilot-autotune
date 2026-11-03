@@ -20,6 +20,15 @@ def runner():
         pytest.fail("closed owned launcher not implemented")
 
 
+def _require_host(record_property):
+    missing = runner()._preflight()
+    if missing:
+        record_property("host_observation", "UNAVAILABLE_NOT_KERNEL_PASS")
+        record_property("unavailable", missing)
+        return False
+    return True
+
+
 def test_required_controls_fail_closed(tmp_path, monkeypatch):
     m = runner()
     monkeypatch.setattr(m, "_preflight", lambda: ("TOOL_PIN_UNAVAILABLE",))
@@ -58,8 +67,10 @@ def test_fresh_owned_roots_only(tmp_path):
     assert (root / "protected/canary").read_bytes() == b"SYNTHETIC_ONLY_PROTECTED_V1\n"
 
 
-def test_exact_launch_policy(tmp_path):
+def test_exact_launch_policy(tmp_path, record_property):
     m = runner()
+    if not _require_host(record_property):
+        return
     root = m._prepare(str(tmp_path))
     fd = m._sealed_filter()
     try:
@@ -151,6 +162,8 @@ def test_no_historical_subject_in_launch(tmp_path):
 
 def test_expected_unsafe_fd_control_is_private_and_actually_writes(tmp_path, record_property):
     m = runner()
+    if not _require_host(record_property):
+        return
     from tests.audit_compatibility_executor.supervision import _collect
 
     # Deliberate private violation. Only this new test fixture can be overwritten.
@@ -204,8 +217,10 @@ print(os.write(v['fd'],b'OWNED_FD_ESCAPE_CONTROL\\n'),flush=True)
         os.close(victim)
 
 
-def test_filter_rejects_short_write_or_missing_seals(monkeypatch):
+def test_filter_rejects_short_write_or_missing_seals(monkeypatch, record_property):
     m = runner()
+    if not _require_host(record_property):
+        return
     real = os.write
     monkeypatch.setattr(m.os, "write", lambda fd, raw: 0)
     with pytest.raises(OSError, match="short filter"):
@@ -219,8 +234,12 @@ def test_filter_rejects_short_write_or_missing_seals(monkeypatch):
         m._sealed_filter()
 
 
-def test_owner_identity_and_missing_controls_cannot_be_waived(tmp_path, monkeypatch):
+def test_owner_identity_and_missing_controls_cannot_be_waived(
+    tmp_path, monkeypatch, record_property
+):
     m = runner()
+    if not _require_host(record_property):
+        return
     with pytest.raises(ValueError):
         m._open_directory("/usr")
     monkeypatch.setattr(m, "_sealed_filter", lambda: (_ for _ in ()).throw(OSError("UNSUPPORTED")))
@@ -230,8 +249,10 @@ def test_owner_identity_and_missing_controls_cannot_be_waived(tmp_path, monkeypa
     assert "PIDFD_UNAVAILABLE" in m._preflight()
 
 
-def test_observed_launch_roles_include_access_flags(tmp_path):
+def test_observed_launch_roles_include_access_flags(tmp_path, record_property):
     m = runner()
+    if not _require_host(record_property):
+        return
     result = m.run_synthetic(SyntheticRequest(SyntheticCase.FD_CLOSED, str(tmp_path)))
     assert result.outcome == "SYNTHETIC_OBSERVATION_COMPLETE", result
     launch = json.loads((Path(result.run_directory) / "launch.json").read_bytes())
@@ -256,3 +277,62 @@ def test_changed_fresh_root_identity_is_rejected(tmp_path, monkeypatch):
     monkeypatch.setattr(m.os, "stat", drift)
     with pytest.raises(ValueError, match="identity changed"):
         m._prepare(str(tmp_path))
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        "synthetic-user:TEST_ONLY_PASSWORD@proxy.invalid:8080",
+        "//synthetic-user:TEST_ONLY_PASSWORD@proxy.invalid:8080",
+        "proxy.invalid:8080",
+        "http://proxy.invalid:8080/?token=TEST_ONLY_PASSWORD",
+        "http://proxy.invalid:8080/#TEST_ONLY_PASSWORD",
+        "http://proxy.invalid:badport",
+    ],
+)
+def test_ambiguous_or_credential_bearing_proxy_is_unavailable_before_effects(
+    tmp_path, monkeypatch, value
+):
+    m = runner()
+    monkeypatch.setenv("HTTP_PROXY", value)
+    result = m.run_synthetic(SyntheticRequest(SyntheticCase.FD_CLOSED, str(tmp_path)))
+    assert result.outcome == "UNAVAILABLE"
+    assert list(tmp_path.iterdir()) == [] and result.run_directory is None
+    assert value == os.environ["HTTP_PROXY"]
+
+
+def test_host_observations_never_launch_unpinned_tools(tmp_path, monkeypatch):
+    m = runner()
+    monkeypatch.setattr(m, "_preflight", lambda: ("TOOL_PIN_UNAVAILABLE",))
+    recorded = []
+
+    def unexpected(*args, **kwargs):
+        pytest.fail("host payload launched despite missing registered controls")
+
+    monkeypatch.setattr(
+        m.subprocess if hasattr(m, "subprocess") else subprocess, "Popen", unexpected
+    )
+    test_expected_unsafe_fd_control_is_private_and_actually_writes(
+        tmp_path, lambda key, value: recorded.append((key, value))
+    )
+    test_observed_launch_roles_include_access_flags(
+        tmp_path, lambda key, value: recorded.append((key, value))
+    )
+
+    def property_record(key, value):
+        recorded.append((key, value))
+
+    test_exact_launch_policy(tmp_path, property_record)
+    test_filter_rejects_short_write_or_missing_seals(monkeypatch, property_record)
+    test_owner_identity_and_missing_controls_cannot_be_waived(
+        tmp_path, monkeypatch, property_record
+    )
+    assert (
+        recorded
+        == [
+            ("host_observation", "UNAVAILABLE_NOT_KERNEL_PASS"),
+            ("unavailable", ("TOOL_PIN_UNAVAILABLE",)),
+        ]
+        * 5
+    )
+    assert list(tmp_path.iterdir()) == []

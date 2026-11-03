@@ -368,10 +368,18 @@ def _inner(case: SyntheticCase, root: str) -> dict[str, Any]:
                         errors += ("OBSERVATION_MISMATCH",)
                 except (ValueError, KeyError, TypeError):
                     errors += ("INVALID_OBSERVATION",)
-            if (Path(root) / "protected/canary").read_bytes() != runner._CANARY:
-                errors += ("PROTECTED_CONTENT_CHANGED",)
-            runner._write_new(directory, "stdout.bin", out)
-            runner._write_new(directory, "stderr.bin", err)
+            try:
+                if _read_owned(root + "/protected", "canary", 65536) != runner._CANARY:
+                    errors += ("PROTECTED_CONTENT_CHANGED",)
+            except (OSError, ValueError):
+                errors += ("PROTECTED_ARTIFACT_UNAVAILABLE",)
+            # A failed artifact must not hide the observed command failure or
+            # prevent an independent attempt to preserve the other stream.
+            for name, data in (("stdout.bin", out), ("stderr.bin", err)):
+                try:
+                    runner._write_new(directory, name, data)
+                except OSError:
+                    errors += ("ARTIFACT_WRITE_UNAVAILABLE_" + name,)
             result = _finish(case, root, out, err, errors, (), cleaned)
             return {
                 "schema": "h1-supervisor-v1",
@@ -449,30 +457,58 @@ def supervise(case: SyntheticCase, run_root: str) -> SyntheticResult:
         return _result(case, run_root, unavailable=("PIDFD_UNAVAILABLE",), cleanup="UNCONFIRMED")
     try:
         errors: tuple[str, ...] = ()
+        missing: tuple[str, ...] = ()
+        out, err = b"", b""
         try:
             helper.stdin.write(request)
             helper.stdin.close()
             wall = 0.4 if case is SyntheticCase.TIMEOUT_SETSID else 5.0
             raw, control_err, control_errors, _ = _collect(helper, fd, wall + 4, group=False)
-            helper.wait(timeout=2)
             errors = tuple(e.replace("NONZERO_EXIT_", "SUPERVISOR_EXIT_") for e in control_errors)
+            cleaned = False
+            protocol_invalid = False
+            if not control_errors:
+                try:
+                    value = _decode(raw, case)
+                except ValueError:
+                    errors += ("CONTROLLER_OR_PROTOCOL_ERROR",)
+                    protocol_invalid = True
+                else:
+                    # Retain these BEFORE any persistence/read can fail.
+                    errors += tuple(value["errors"])
+                    missing = tuple(value["unavailable"])
+                    cleaned = value["cleanup"] == "CONFIRMED"
+            helper.wait(timeout=2)
             directory = runner._open_directory(run_root)
             try:
-                runner._write_new(directory, "controller-stdout.bin", raw)
-                runner._write_new(directory, "controller-stderr.bin", control_err)
+                for name, data in (
+                    ("controller-stdout.bin", raw),
+                    ("controller-stderr.bin", control_err),
+                ):
+                    try:
+                        runner._write_new(directory, name, data)
+                    except OSError:
+                        errors += ("ARTIFACT_WRITE_UNAVAILABLE_" + name,)
             finally:
                 os.close(directory)
-            if errors:
+            if control_errors or protocol_invalid:
                 return _finish(case, run_root, b"", b"", errors, ("MISSING_PROTOCOL",), False)
-            value = _decode(raw, case)
-            out = _read_owned(run_root, "stdout.bin", 65536)
-            err = _read_owned(run_root, "stderr.bin", 65536 - len(out))
+            try:
+                out = _read_owned(run_root, "stdout.bin", 65536)
+            except (OSError, ValueError):
+                errors += ("STDOUT_ARTIFACT_UNAVAILABLE",)
+                missing += ("STDOUT_ARTIFACT_UNAVAILABLE",)
+            try:
+                err = _read_owned(run_root, "stderr.bin", 65536 - len(out))
+            except (OSError, ValueError):
+                errors += ("STDERR_ARTIFACT_UNAVAILABLE",)
+                missing += ("STDERR_ARTIFACT_UNAVAILABLE",)
             return _result(
                 case,
                 run_root,
-                errors=value["errors"],
-                unavailable=value["unavailable"],
-                cleanup=value["cleanup"],
+                errors=errors,
+                unavailable=missing,
+                cleanup="CONFIRMED" if cleaned else "UNCONFIRMED",
                 stdout=out,
                 stderr=err,
             )
@@ -483,7 +519,7 @@ def supervise(case: SyntheticCase, run_root: str) -> SyntheticResult:
             except (OSError, subprocess.TimeoutExpired):
                 pass
             return _finish(
-                case, run_root, b"", b"", errors + ("CONTROLLER_OR_PROTOCOL_ERROR",), (), False
+                case, run_root, out, err, errors + ("CONTROLLER_OR_PROTOCOL_ERROR",), missing, False
             )
     finally:
         os.close(fd)

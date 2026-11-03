@@ -63,8 +63,20 @@ def _child_environment() -> dict[str, str]:
             value = os.environ[name]
             if name.lower().endswith("proxy") and name.lower() != "no_proxy":
                 parsed = urlsplit(value)
-                if parsed.username is not None or parsed.password is not None:
+                if (
+                    parsed.scheme not in ("http", "https")
+                    or not parsed.hostname
+                    or parsed.username is not None
+                    or parsed.password is not None
+                    or parsed.path not in ("", "/")
+                    or parsed.query
+                    or parsed.fragment
+                    or value != value.strip()
+                ):
                     raise ValueError("CREDENTIAL_FREE_GUARD_INCOMPATIBLE")
+                # Reading port also rejects ambiguous/non-numeric/out-of-range
+                # authorities. Never normalize a credential-bearing bare string.
+                _ = parsed.port
             result[name] = value
     return result
 

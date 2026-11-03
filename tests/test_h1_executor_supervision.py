@@ -22,6 +22,15 @@ def supervision():
         pytest.fail("bounded owned process supervision not implemented")
 
 
+def _require_host(record_property):
+    missing = supervision().runner._preflight()
+    if missing:
+        record_property("host_observation", "UNAVAILABLE_NOT_KERNEL_PASS")
+        record_property("unavailable", missing)
+        return False
+    return True
+
+
 def controlled(code):
     child = subprocess.Popen(
         [sys.executable, "-I", "-B", "-S", "-c", code],
@@ -34,8 +43,10 @@ def controlled(code):
     return child, os.pidfd_open(child.pid)
 
 
-def test_combined_output_cap():
+def test_combined_output_cap(record_property):
     m = supervision()
+    if not _require_host(record_property):
+        return
     child, fd = controlled("import os;os.write(1,b'a'*32768);os.write(2,b'b'*32769)")
     try:
         out, err, errors, code = m._collect(child, fd, 2)
@@ -46,8 +57,10 @@ def test_combined_output_cap():
         os.close(fd)
 
 
-def test_deadline_with_open_descendant_pipe():
+def test_deadline_with_open_descendant_pipe(record_property):
     m = supervision()
+    if not _require_host(record_property):
+        return
     # Same-group short-lived child holds the pipes after its parent exits.
     child, fd = controlled("import os,time;pid=os.fork();time.sleep(1) if pid==0 else None")
     started = time.monotonic()
@@ -59,8 +72,10 @@ def test_deadline_with_open_descendant_pipe():
         os.close(fd)
 
 
-def test_owned_pidfd_only_cleanup(monkeypatch):
+def test_owned_pidfd_only_cleanup(monkeypatch, record_property):
     m = supervision()
+    if not _require_host(record_property):
+        return
     child, fd = controlled("import time;time.sleep(.3)")
     try:
         with pytest.raises(ValueError):
@@ -73,8 +88,10 @@ def test_owned_pidfd_only_cleanup(monkeypatch):
         os.close(fd)
 
 
-def test_first_failure_survives_cleanup():
+def test_first_failure_survives_cleanup(record_property):
     m = supervision()
+    if not _require_host(record_property):
+        return
     child, fd = controlled("import sys;print('FAILED_FIRST',flush=True);sys.exit(7)")
     try:
         out, err, errors, code = m._collect(child, fd, 2)
@@ -380,8 +397,10 @@ def test_helper_request_does_not_expand_scope(tmp_path, monkeypatch, capsys, kin
     assert ("TEST_ONLY_NO_PROCESS" in capsys.readouterr().out) is (kind == "valid")
 
 
-def test_controller_refuses_payload_without_pidfd(tmp_path, monkeypatch):
+def test_controller_refuses_payload_without_pidfd(tmp_path, monkeypatch, record_property):
     m = supervision()
+    if not _require_host(record_property):
+        return
     from tests.audit_compatibility_executor import runner
 
     root = runner._prepare(str(tmp_path))
@@ -437,8 +456,10 @@ def test_control_artifact_failure_does_not_erase_known_helper_failure(tmp_path, 
     assert result.errors[0] == "SUPERVISOR_EXIT_31"
 
 
-def test_stream_wait_fault_and_cleanup_fault_both_survive(monkeypatch):
+def test_stream_wait_fault_and_cleanup_fault_both_survive(monkeypatch, record_property):
     m = supervision()
+    if not _require_host(record_property):
+        return
     child, fd = controlled("import time;time.sleep(.3)")
     try:
         monkeypatch.setattr(m, "_exit_code", lambda _: (_ for _ in ()).throw(OSError("FAULT")))
@@ -530,3 +551,132 @@ def test_invalid_pipe_contract_rejects_without_signalling_unowned_process(monkey
     )
     with pytest.raises(AssertionError):
         m._collect(child, -1, 1)
+
+
+@pytest.mark.parametrize("missing_artifact", ["stdout.bin", "stderr.bin"])
+def test_decoded_failure_survives_missing_artifacts_and_preserves_available_output(
+    tmp_path, monkeypatch, missing_artifact
+):
+    m = supervision()
+    from tests.audit_compatibility_executor import runner
+
+    root = runner._prepare(str(tmp_path))
+    real = m._read_owned
+
+    def unavailable(root, name, limit):
+        if name == missing_artifact:
+            raise FileNotFoundError("OWNED_NEGATIVE")
+        return real(root, name, limit)
+
+    monkeypatch.setattr(m, "_read_owned", unavailable)
+    result = m.supervise(SyntheticCase.NONZERO_EXIT, root)
+    assert result.errors[0] == "NONZERO_EXIT_7"
+    assert result.outcome == "REJECTED" and result.unavailable
+    if missing_artifact == "stderr.bin":
+        assert b"OWNED_NONZERO_CONTROL" in result.stdout
+
+
+@pytest.mark.parametrize("failure", ["stdout.bin", "canary"])
+def test_helper_known_failure_survives_later_evidence_IO(tmp_path, monkeypatch, failure):
+    m = supervision()
+    from tests.audit_compatibility_executor import runner
+
+    root = runner._prepare(str(tmp_path))
+    stdout, stderr = open(os.devnull, "rb"), open(os.devnull, "rb")
+    monkeypatch.setattr(
+        m.subprocess,
+        "Popen",
+        lambda *args, **kwargs: SimpleNamespace(pid=os.getpid(), stdout=stdout, stderr=stderr),
+    )
+    monkeypatch.setattr(
+        m, "_collect", lambda *args: (b"KNOWN_FIRST", b"KEEP_STDERR", ("NONZERO_EXIT_7",), 7)
+    )
+    monkeypatch.setattr(m, "_reap", lambda _: True)
+    real_write = runner._write_new
+    real_read = Path.read_bytes
+    real_owned = m._read_owned
+
+    def fail_write(directory, name, raw):
+        if name == failure:
+            raise OSError("OWNED_WRITE_FAILURE")
+        real_write(directory, name, raw)
+
+    def fail_read(path):
+        if path.name == failure:
+            raise OSError("OWNED_READ_FAILURE")
+        return real_read(path)
+
+    def fail_owned(root, name, limit):
+        if name == failure:
+            raise OSError("OWNED_READ_FAILURE")
+        return real_owned(root, name, limit)
+
+    monkeypatch.setattr(runner, "_write_new", fail_write)
+    monkeypatch.setattr(Path, "read_bytes", fail_read)
+    monkeypatch.setattr(m, "_read_owned", fail_owned)
+    try:
+        result = m._inner(SyntheticCase.NONZERO_EXIT, root)
+        assert result["errors"][0] == "NONZERO_EXIT_7"
+        assert len(result["errors"]) >= 2
+        assert (Path(root) / "stderr.bin").read_bytes() == b"KEEP_STDERR"
+    finally:
+        stdout.close()
+        stderr.close()
+
+
+def test_process_observations_are_unavailable_without_registered_controls(tmp_path, monkeypatch):
+    m = supervision()
+    monkeypatch.setattr(m.runner, "_preflight", lambda: ("REQUIRED_CONTROL_UNAVAILABLE",))
+
+    def unexpected(*args, **kwargs):
+        pytest.fail("process observation launched with missing registered controls")
+
+    monkeypatch.setattr(m.subprocess, "Popen", unexpected)
+    recorded = []
+
+    def record(key, value):
+        recorded.append((key, value))
+
+    test_combined_output_cap(record)
+    test_deadline_with_open_descendant_pipe(record)
+    test_owned_pidfd_only_cleanup(monkeypatch, record)
+    test_first_failure_survives_cleanup(record)
+    test_controller_refuses_payload_without_pidfd(tmp_path, monkeypatch, record)
+    test_stream_wait_fault_and_cleanup_fault_both_survive(monkeypatch, record)
+    assert (
+        recorded
+        == [
+            ("host_observation", "UNAVAILABLE_NOT_KERNEL_PASS"),
+            ("unavailable", ("REQUIRED_CONTROL_UNAVAILABLE",)),
+        ]
+        * 6
+    )
+
+
+def test_decoded_error_survives_controller_wait_failure(tmp_path, monkeypatch, record_property):
+    m = supervision()
+    if not _require_host(record_property):
+        return
+    root = m.runner._prepare(str(tmp_path))
+    real = subprocess.Popen
+
+    def faulty_wait(args, **kwargs):
+        child = real(args, **kwargs)
+        original = child.wait
+        calls = 0
+
+        def wait(*args, **kwargs):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise OSError("OWNED_WAIT_FAULT")
+            return original(*args, **kwargs)
+
+        child.wait = wait
+        return child
+
+    monkeypatch.setattr(m.subprocess, "Popen", faulty_wait)
+    result = m.supervise(SyntheticCase.NONZERO_EXIT, root)
+    assert result.errors[0] == "NONZERO_EXIT_7"
+    assert "CONTROLLER_OR_PROTOCOL_ERROR" in result.errors
+    assert result.cleanup == "UNCONFIRMED"
