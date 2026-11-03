@@ -5,6 +5,7 @@ import importlib
 import json
 import os
 import subprocess
+import sys
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -26,6 +27,7 @@ def controller(monkeypatch):
         signalled=False,
         wait_calls=0,
         fd_close_calls=0,
+        pidfd_value=91,
         fault_type=KeyboardInterrupt,
         fault_error=None,
     )
@@ -92,16 +94,16 @@ def controller(monkeypatch):
     def pidfd(pid):
         assert pid == helper.pid
         event("pidfd")
-        return 91
+        return state.pidfd_value
 
     def send(fd, sig):
-        assert (fd, sig) == (91, 9)
+        assert (fd, sig) == (state.pidfd_value, 9)
         event("signal")
         state.signalled = True
 
     def close(fd):
-        assert fd in (91, 92)
-        if fd == 91:
+        assert fd in (state.pidfd_value, 92)
+        if fd == state.pidfd_value:
             state.fd_close_calls += 1
             assert state.fd_close_calls == 1, "released/uncertain pidfd retried"
             event("fd.close")
@@ -113,7 +115,7 @@ def controller(monkeypatch):
         pytest.fail("numeric PID fallback")
 
     def collect(child, fd, wall, *, group):
-        assert child is helper and fd == 91 and wall == 9 and group is False
+        assert child is helper and fd == state.pidfd_value and wall == 9 and group is False
         event("collect")
         helper.stdout.close()
         helper.stderr.close()
@@ -168,6 +170,107 @@ def controller(monkeypatch):
         lambda root, name, limit: {"stdout.bin": b"OUT", "stderr.bin": b"ERR"}[name],
     )
     return m, state, helper, calls
+
+
+def _owned_line_targets():
+    """Locate live owned boundaries, not source-text or line-number decisions."""
+    targets = []
+    with pytest.MonkeyPatch.context() as patch:
+        module, _, helper, calls = controller.__wrapped__(patch)
+
+        def trace(frame, event, arg):
+            if frame.f_code is not module.supervise.__code__:
+                return None
+            if event == "line" and frame.f_locals.get("helper") is helper and "pidfd" not in calls:
+                targets.append(frame.f_lineno)
+            return trace
+
+        previous = sys.gettrace()
+        sys.settrace(trace)
+        try:
+            module.supervise(module.SyntheticCase.FD_CLOSED, "/owned/fake")
+        finally:
+            sys.settrace(previous)
+        assert "pidfd" in calls and targets, "owned interval was not exercised"
+    return tuple(dict.fromkeys(targets))
+
+
+def _interrupt_owned_line(module, helper, calls, line, primary):
+    fired = False
+
+    def trace(frame, event, arg):
+        nonlocal fired
+        if frame.f_code is not module.supervise.__code__:
+            return None
+        if event == "line" and frame.f_lineno == line:
+            assert frame.f_locals.get("helper") is helper and "pidfd" not in calls
+            fired = True
+            raise primary
+        return trace
+
+    previous = sys.gettrace()
+    sys.settrace(trace)
+    try:
+        with pytest.raises(type(primary)) as caught:
+            module.supervise(module.SyntheticCase.FD_CLOSED, "/owned/fake")
+    finally:
+        sys.settrace(previous)
+    assert fired and caught.value is primary
+    assert sys.gettrace() is previous
+
+
+@pytest.mark.parametrize("kind", [KeyboardInterrupt, SystemExit, RuntimeError])
+def test_each_owned_line_before_pidfd_is_cleanup_protected(kind):
+    # Moving acquisition outside the handler must leave open streams and fail.
+    for line in _owned_line_targets():
+        with pytest.MonkeyPatch.context() as patch:
+            module, state, helper, calls = controller.__wrapped__(patch)
+            primary = kind("POST_ASSIGNMENT_PRIMARY")
+            _interrupt_owned_line(module, helper, calls, line, primary)
+            assert helper.stdin.closed and helper.stdout.closed and helper.stderr.closed
+            assert state.wait_calls == 1 and not state.signalled and state.fd_close_calls == 0
+            assert "pidfd" not in calls and "write" not in calls
+            assert "NUMERIC_PID_FORBIDDEN" not in calls
+            assert primary.__notes__ == ["CLEANUP_UNCONFIRMED"]
+
+
+@pytest.mark.parametrize("kind", [KeyboardInterrupt, SystemExit, RuntimeError])
+@pytest.mark.parametrize("phase", ["argument", "factory"])
+def test_incomplete_acquisition_never_cleans_an_unowned_helper(
+    controller, monkeypatch, kind, phase
+):
+    module, state, helper, calls = controller
+    primary = kind("UNACQUIRED_PRIMARY")
+
+    def fail(*args, **kwargs):
+        calls.append("acquisition_failed")
+        raise primary
+
+    if phase == "argument":
+        monkeypatch.setattr(module.runner, "_child_environment", fail)
+    else:
+        monkeypatch.setattr(module.subprocess, "Popen", fail)
+    with pytest.raises(kind) as caught:
+        module.supervise(module.SyntheticCase.FD_CLOSED, "/owned/fake")
+    assert caught.value is primary and calls == ["acquisition_failed"]
+    assert state.wait_calls == state.fd_close_calls == 0 and not state.signalled
+    assert not helper.stdin.closed and not helper.stdout.closed and not helper.stderr.closed
+
+
+@pytest.mark.parametrize("fault", ["stdin.close", "stdout.close", "stderr.close", "wait"])
+@pytest.mark.parametrize("secondary", [OSError, SystemExit])
+def test_first_owned_boundary_preserves_primary_through_cleanup_fault(fault, secondary):
+    line = _owned_line_targets()[0]
+    with pytest.MonkeyPatch.context() as patch:
+        module, state, helper, calls = controller.__wrapped__(patch)
+        state.fault, state.fault_type = fault, secondary
+        primary = KeyboardInterrupt("FIRST_OWNED_PRIMARY")
+        _interrupt_owned_line(module, helper, calls, line, primary)
+        assert state.fault_fired and state.wait_calls == 1
+        assert "stdout.close" in calls and "stderr.close" in calls
+        assert not state.signalled and state.fd_close_calls == 0
+        assert "pidfd" not in calls and "NUMERIC_PID_FORBIDDEN" not in calls
+        assert primary.__notes__ == ["CLEANUP_UNCONFIRMED"]
 
 
 @pytest.mark.parametrize("point", ["pidfd", "write", "stdin.close", "collect", "wait", "artifact"])
@@ -401,6 +504,16 @@ def test_normal_protocol_output_and_false_permissions_survive_resource_release(c
     assert len(result.permissions) == 9 and all(v is False for _, v in result.permissions)
     assert helper.stdin.closed and helper.stdout.closed and helper.stderr.closed
     assert state.wait_calls == state.fd_close_calls == 1
+    assert not state.signalled and "NUMERIC_PID_FORBIDDEN" not in calls
+
+
+def test_zero_pidfd_is_an_owned_descriptor_not_unavailable(controller):
+    m, state, helper, calls = controller
+    state.pidfd_value = 0
+    result = m.supervise(m.SyntheticCase.FD_CLOSED, "/owned/fake")
+    assert result.outcome == "SYNTHETIC_OBSERVATION_COMPLETE" and result.unavailable == ()
+    assert result.cleanup == "CONFIRMED" and state.fd_close_calls == state.wait_calls == 1
+    assert helper.stdin.closed and helper.stdout.closed and helper.stderr.closed
     assert not state.signalled and "NUMERIC_PID_FORBIDDEN" not in calls
 
 

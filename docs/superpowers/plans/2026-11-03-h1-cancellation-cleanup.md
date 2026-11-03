@@ -77,3 +77,44 @@ allows _collect/_read_owned plus runner's directory/write helpers to preserve
 primary exceptions. Add real imported nested cleanup fake regressions first,
 observe RED,fix once,full rerun and append-only commit. No second independent
 review;the final report must distinguish reviewed98626b9 from parent-verified fix.
+
+### Task 2: Cover the first owned post-assignment boundary
+
+Task1 is completed at701;do not repeat its implementation. Start this new repair
+at exact70173931c6548bb82ad8a7a372869f8561d8ce8a on the existing isolated branch.
+The spec's Task2 section supersedes only Task1's start pin for this task.
+
+**Files:** Modify only tests/audit_compatibility_executor/supervision.py,
+tests/test_h1_cancellation_cleanup.py,this plan and its named spec. No new paths.
+**Interfaces:** Preserve supervise(case:SyntheticCase,run_root:str)->SyntheticResult;
+existing _abort_helper remains the sole owned abort consumer. Unacquired helper
+is None,not an assumed valid object. No change to capture,history or scope APIs.
+Private _helper_pidfd(helper)->int|None isolates the unchanged pidfd OSError
+handling from the owner frame's traceable nested-try entry;None alone means unavailable.
+
+- [ ] Run whole baseline from701 with external temporary outputs.
+  Expected:2768passed;preserve any unsupported native observations as unavailable.
+- [ ] Add test_each_owned_line_before_pidfd_is_cleanup_protected(kind),discovering
+  live owned line points through the fake fixture. At each point require same
+  primary,stdin/stdout/stderr closed,wait exactly1,no pidfd/request/signal/numeric
+  fallback and fixed CLEANUP_UNCONFIRMED. Add incomplete-acquisition and secondary
+  cleanup controls,restoring prior tracing after every execution.
+- [ ] Run new tests against701 before code changes.
+  Expected:genuine missing-cleanup failures,not a renamed-source/import error.
+- [ ] Move bookkeeping before acquisition and acquisition inside the ownership
+  try;abort only an actually assigned helper. Run every cancellation regression.
+  Expected:all new and old cases pass,no loosened assertion or timing bound.
+- [ ] Run whole pytest,branchcoverage,ruff/format/mypy,old source/history validators,
+  replaygoldens,build from exactsourcearchive,and fresh vanilla/research wheel smoke.
+  Expected:green existing floors;new cancellation remains fake-only qualification.
+- [ ] Commit only the four paths locally,verify committed head with fresh tests,
+  then obtain one fresh independent review of the entire701..repair range plus
+  all cumulative actualmain0dd..repair commits/78paths. Record the actual scope,
+  never infer cumulative clearance from a narrow patch. New Critical/Important receives one TDD fix/full rerun;
+  no repeated review seat. Preserve branch/worktree/archive;publication remains
+  a separate next task,all inherited blockers/9false unchanged.
+
+Task2 Review Focus:immediate owned line;pre-pidfd try entry;factory/argument
+failure before assignment;secondary close/wait cancellation;prior tracer restore.
+One coupled task,no inter-task interfaces. User delegated routine execution choices;
+author chooses existing Python/inline execution and final independent repair review.

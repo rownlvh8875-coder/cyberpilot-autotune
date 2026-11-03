@@ -80,3 +80,42 @@ the previous one;never retry an uncertain close. Add real imported helper/collec
 fake-edge regressions,not only mocks at their entry points. This is the one planned
 review-fix pass;final repaired head will be parent-verified,not independently
 re-reviewed. The original C0/I1/M0 review stays bound to98626b9 without relabeling.
+
+## Post-assignment ownership repair (Task 2)
+
+The fresh cumulative review of actualmain0dd/head701 reported C0/I1/M0:lines
+559-562 had an assigned helper outside the try boundary. Task1's original and
+nested interruption symptoms are addressed,not the entire ownership obligation.
+After the user requested this next repair,the environment temporarily went offline;
+resume at701 without recreating completed Task1 or changing environment settings.
+
+Choose bookkeeping initialization before ownership acquisition and acquire the
+helper inside the existing protected lifetime. A successfully assigned helper is
+covered at its very first subsequent Python line. A factory/argument failure
+before assignment owns no helper and must not close or signal an unrelated one.
+Keep the existing public signature,normal results,secondary-failure handling,
+no-pidfd EOF/bounded wait and all original bounds/permissions unchanged.
+
+Reject merely relocating the outer try after Popen or adding a destructor:neither
+proves an immediately assigned handle's explicit lifetime. Numeric PID fallback,
+signal masking,new threads and native cancellation experiments remain out of scope.
+
+Add real-function fake-edge line tracing that discovers every executed line after
+helper assignment and before the first pidfd operation,not hardcoded line numbers.
+Inject the same primary exception independently at each boundary;assert EOF,one
+bounded wait,all stream closes,no request/signal/fd release,and fixed uncertainty.
+Include incomplete acquisition and secondary-cleanup controls. Trace selection
+locates the boundary;literal observable cleanup requirements determine expectations.
+Restore any prior tracer. These tests prove Python control flow,not uninstrumented
+SIGINT timing,CPython bytecode atomicity or native process-tree cleanup efficacy.
+
+The live-line regression also exposes the nested try header's traceable NOP
+outside Python3.12's exception table. Keep the owner body flat:private
+_helper_pidfd(helper)->int|None catches the same OSError in its own call frame;
+its call site is protected by the owner. None retains the existing unavailable
+branch;zero remains an actual returned descriptor. No new fallback or API.
+
+Only four already-registered paths change in Task2:supervision.py,the cancellation
+test,this spec and its plan. Current4A5M scope,old freezes/manifests/workflow remain
+unchanged. Local append-only commit,full regression/static/source/replay/build/
+freshwheel verification and a fresh independent repair review;no push/Ready/merge.

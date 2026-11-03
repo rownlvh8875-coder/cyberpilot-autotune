@@ -534,6 +534,13 @@ def _abort_helper(helper: subprocess.Popen[bytes], fd: int | None, primary: Base
     BaseException.add_note(primary, "CLEANUP_UNCONFIRMED")
 
 
+def _helper_pidfd(helper: subprocess.Popen[bytes]) -> int | None:
+    try:
+        return os.pidfd_open(helper.pid)
+    except OSError:
+        return None
+
+
 def supervise(case: SyntheticCase, run_root: str) -> SyntheticResult:
     sources = runner._source_hashes()
     _verify_root(run_root, sources)
@@ -546,24 +553,24 @@ def supervise(case: SyntheticCase, run_root: str) -> SyntheticResult:
         },
         sort_keys=True,
     ).encode()
-    helper = subprocess.Popen(
-        [runner._PYTHON, "-I", "-B", "-S", __file__],
-        cwd="/",
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        close_fds=True,
-        start_new_session=True,
-        env=runner._child_environment(),
-    )
+    helper: subprocess.Popen[bytes] | None = None
     fd: int | None = None
     primary: BaseException | None = None
     clean = True
     try:
+        helper = subprocess.Popen(
+            [runner._PYTHON, "-I", "-B", "-S", __file__],
+            cwd="/",
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            close_fds=True,
+            start_new_session=True,
+            env=runner._child_environment(),
+        )
         assert helper.stdin is not None
-        try:
-            fd = os.pidfd_open(helper.pid)
-        except OSError:
+        fd = _helper_pidfd(helper)
+        if fd is None:
             # No request was sent. EOF is the safe stop without a retained pidfd.
             helper.stdin.close()
             helper.wait(timeout=2)
@@ -575,7 +582,8 @@ def supervise(case: SyntheticCase, run_root: str) -> SyntheticResult:
         clean = _close_helper_streams(helper)
     except BaseException as error:
         primary = error
-        _abort_helper(helper, fd, error)
+        if helper is not None:
+            _abort_helper(helper, fd, error)
         raise
     finally:
         # Retain the pidfd until after stop/reap. Never retry a released or
