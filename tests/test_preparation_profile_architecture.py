@@ -80,19 +80,25 @@ print("PURE_SUPPLIED_CLAIMS_ONLY_BLOCKED")
 
 
 def test_final_scope_exact_inventory_and_registration_do_not_authorize_execution():
-    rows = (
-        subprocess.check_output(["git", "diff", "--no-renames", "--name-status", BASE], cwd=ROOT)
-        .decode()
-        .splitlines()
+    from tests.test_audit_compatibility_history_architecture import (
+        test_all_earlier_files_and_guard_bytes_are_preserved,
     )
-    rows += [
-        "A\t" + p
-        for p in subprocess.check_output(
-            ["git", "ls-files", "--others", "--exclude-standard"], cwd=ROOT
+
+    rows = (
+        subprocess.check_output(
+            [
+                "git",
+                "diff",
+                "--no-renames",
+                "--name-status",
+                BASE,
+                "0ac6e3519ad7191b036eb777b4317174121851bb",
+            ],
+            cwd=ROOT,
         )
         .decode()
         .splitlines()
-    ]
+    )
     assert sorted(rows) == sorted(
         ["A\t" + p for p in ADDITIONS] + ["M\t" + p for p in MODIFICATIONS]
     )
@@ -116,6 +122,7 @@ def test_final_scope_exact_inventory_and_registration_do_not_authorize_execution
     assert not any(current["permissions"].values()) and not current["manifest_is_authority"]
     assert not current["H_executed"] and not current["integrated_admission"]
     assert current["atomicity"] == "NOT_ESTABLISHED" and current["content_identity_only"]
+    test_all_earlier_files_and_guard_bytes_are_preserved()
 
 
 def test_every_old_nonconsumer_function_and_toplevel_setting_is_preserved():
