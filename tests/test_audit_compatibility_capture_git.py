@@ -6,6 +6,9 @@ from hashlib import sha1
 import pytest
 
 from tests.fixtures.audit_compatibility_capture import api, git, index_bytes, prepared, request
+from tests.fixtures.audit_compatibility_capture import (
+    isolated_capture_config as isolated_capture_config,
+)
 
 
 def test_hand_framed_v2_index_and_actual_git_index():

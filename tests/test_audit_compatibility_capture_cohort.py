@@ -5,6 +5,9 @@ from dataclasses import FrozenInstanceError, replace
 import pytest
 
 from tests.fixtures.audit_compatibility_capture import api, git, prepared, request
+from tests.fixtures.audit_compatibility_capture import (
+    isolated_capture_config as isolated_capture_config,
+)
 
 
 def test_stable_capture_is_not_atomic_or_admitted(tmp_path):

@@ -11,6 +11,9 @@ from pathlib import Path
 import pytest
 
 from tests.fixtures.audit_compatibility_capture import api, prepared, request
+from tests.fixtures.audit_compatibility_capture import (
+    isolated_capture_config as isolated_capture_config,
+)
 
 
 @pytest.mark.parametrize("function", ("prepared", "request"))
@@ -71,6 +74,7 @@ import os,sys,json,stat
 sys.dont_write_bytecode=True
 from tests.audit_compatibility_capture.contracts import RepoLayout,CaptureRequest,CaptureBudget
 from tests.audit_compatibility_capture.capture import capture_checkout
+from tests.fixtures.audit_compatibility_capture import synthetic_config_scope
 v=json.loads(sys.argv[1]);r=CaptureRequest(v["head"],v["head"],None,(v["head"],),
  RepoLayout(v["root"],v["gitdir"],v["common"],tuple(v["configs"])),CaptureBudget(8000000,64000000,50000,5000000000))
 def audit(event,args):
@@ -81,8 +85,9 @@ def audit(event,args):
    raise AssertionError("FILESYSTEM_WRITE")
  if event=="subprocess.Popen":
   assert args[0]=="/usr/bin/git"
-sys.addaudithook(audit)
-result=capture_checkout(r)
+with synthetic_config_scope(tuple(v["configs"])):
+ sys.addaudithook(audit)
+ result=capture_checkout(r)
 assert result.consistency=="OBSERVED_STABLE",result
 assert not any(v for _,v in result.permissions)
 print("READ_ONLY_CAPTURE")

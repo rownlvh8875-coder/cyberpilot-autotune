@@ -14,6 +14,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "33d358fdac148fccc7f02c19e24bb35c4b09e417"
 DESIGN = "ac6adf32ab163fa1fe9eaeb635644037c0de8cde"
+REGISTRATION_END = "ce138c503ff320a2a6956ceff3d8735418b72bcc"
 GUARD = "tests/test_audit_compatibility_history_architecture.py"
 REGISTRATION = "docs/evidence/audit_compatibility/actions-runner-preflight-v1/registration.json"
 ADDITIONS = {
@@ -132,10 +133,9 @@ def test_registration_does_not_authorize_itself_or_execution():
 
 
 def test_new_phase_inventory_and_plain_files_are_exact():
-    rows = git("diff", "--no-renames", "--name-status", BASE).decode().splitlines()
-    rows += [
-        "A\t" + p for p in git("ls-files", "--others", "--exclude-standard").decode().splitlines()
-    ]
+    rows = (
+        git("diff", "--no-renames", "--name-status", BASE, REGISTRATION_END).decode().splitlines()
+    )
     assert sorted(rows) == sorted(
         ["A\t" + p for p in ADDITIONS] + ["M\t" + p for p in MODIFICATIONS]
     )
@@ -171,7 +171,7 @@ def test_frozen_source_and_workflow_have_exact_lf_identities():
 
 def test_attributes_only_append_two_nonoverlapping_frozen_paths():
     old = git("show", BASE + ":.gitattributes").decode()
-    assert (ROOT / ".gitattributes").read_text() == old + (
+    assert git("show", REGISTRATION_END + ":.gitattributes").decode() == old + (
         "tools/actions_runner_preflight.py text eol=lf\n"
         ".github/workflows/runner-preflight.yml text eol=lf\n"
     )
@@ -222,4 +222,5 @@ def test_real_consumer_checks_all_legacy_ranges_and_literal_checkpoint(monkeypat
         (DESIGN, BASE),
     ):
         assert ("diff", "--no-renames", "--name-status", start, end) in calls
-    assert ("diff", "--no-renames", "--name-status", BASE) in calls
+    assert ("diff", "--no-renames", "--name-status", BASE, REGISTRATION_END) in calls
+    assert ("diff", "--no-renames", "--name-status", REGISTRATION_END) in calls

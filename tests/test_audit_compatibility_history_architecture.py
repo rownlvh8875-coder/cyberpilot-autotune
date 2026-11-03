@@ -106,6 +106,29 @@ def _registered_preflight_changes(rows):
     )
 
 
+def _ci_portability_changes(rows):
+    # Separate successor,never a wider allowance for either frozen older range.
+    _phase_changes(
+        rows,
+        {
+            "docs/superpowers/specs/2026-11-03-ci-portability-design.md",
+            "docs/superpowers/plans/2026-11-03-ci-portability.md",
+            "tests/test_audit_compatibility_capture_portability.py",
+            "docs/evidence/audit_compatibility/ci-portability-v1/registration.json",
+        },
+        modifications={
+            ".gitattributes",
+            "tests/test_audit_compatibility_capture_cohort.py",
+            "tests/test_audit_compatibility_capture_git.py",
+            "tests/test_audit_compatibility_capture_worktree.py",
+            "tests/fixtures/audit_compatibility_capture.py",
+            "tests/test_audit_compatibility_capture_architecture.py",
+            "tests/test_audit_compatibility_history_architecture.py",
+            "tests/test_actions_preflight_registration.py",
+        },
+    )
+
+
 def test_all_earlier_files_and_guard_bytes_are_preserved():
     root = Path(__file__).resolve().parents[1]
     env = {**os.environ, "GIT_NO_LAZY_FETCH": "1", "GIT_OPTIONAL_LOCKS": "0"}
@@ -152,11 +175,15 @@ def test_all_earlier_files_and_guard_bytes_are_preserved():
     assert {row.split("\t")[1] for row in changed} == set(profile["future_synthetic_paths"]) | {
         "tests/test_audit_compatibility_history_architecture.py"
     }
-    successor = git("diff", "--no-renames", "--name-status", synthetic_end).splitlines()
+    registration_end = "ce138c503ff320a2a6956ceff3d8735418b72bcc"
+    _registered_preflight_changes(
+        git("diff", "--no-renames", "--name-status", synthetic_end, registration_end).splitlines()
+    )
+    successor = git("diff", "--no-renames", "--name-status", registration_end).splitlines()
     successor += [
         "A\t" + path for path in git("ls-files", "--others", "--exclude-standard").splitlines()
     ]
-    _registered_preflight_changes(successor)
+    _ci_portability_changes(successor)
     module = importlib.import_module("tests.audit_compatibility.contracts")
     assert module.IO_UNAVAILABLE == (
         "CURRENT_INDEX_WORKTREE",

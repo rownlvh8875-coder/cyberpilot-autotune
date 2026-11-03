@@ -6,6 +6,9 @@ from dataclasses import replace
 import pytest
 
 from tests.fixtures.audit_compatibility_capture import ATTRIBUTES, api, prepared, request
+from tests.fixtures.audit_compatibility_capture import (
+    isolated_capture_config as isolated_capture_config,
+)
 
 
 def budget(req):

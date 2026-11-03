@@ -5,6 +5,7 @@ import importlib.util
 import os
 import struct
 import subprocess
+from contextlib import contextmanager
 from hashlib import sha1
 from pathlib import Path
 
@@ -44,9 +45,39 @@ ATTRIBUTES = (
 
 
 def git(root, *args, input=None):
+    # Test-only Git plumbing. Never rewrite the worker's real Git configuration.
+    env = {
+        **os.environ,
+        "GIT_CONFIG_NOSYSTEM": "1",
+        "GIT_CONFIG_SYSTEM": os.devnull,
+        "GIT_CONFIG_GLOBAL": os.devnull,
+    }
     return subprocess.check_output(
-        ["git", "-C", str(root), *args], input=input, stderr=subprocess.PIPE
+        ["git", "-C", str(root), *args], input=input, stderr=subprocess.PIPE, env=env
     )
+
+
+@contextmanager
+def synthetic_config_scope(paths):
+    """Explicit test namespace,not proof about actual system/global configuration."""
+    assert type(paths) is tuple and len(paths) == len(set(paths)) == 3
+    assert all(type(p) is str and Path(p).is_absolute() for p in paths)
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setattr(api("worktree_reader"), "config_candidates", lambda layout: paths)
+        yield
+
+
+@pytest.fixture(autouse=True)
+def isolated_capture_config(request, tmp_path_factory):
+    if not request.node.path.name.startswith("test_audit_compatibility_capture_"):
+        yield
+        return
+    root = tmp_path_factory.mktemp("capture-config")
+    paths = tuple(str(root / name) for name in ("system.config", "user.config", "xdg.config"))
+    for path in paths:
+        Path(path).write_bytes(b"")
+    with synthetic_config_scope(paths):
+        yield
 
 
 def prepared(tmp_path):
@@ -74,14 +105,8 @@ def request(root, **changes):
         git(root, "rev-parse", "--path-format=absolute", "--git-common-dir").decode().strip()
     )
     head = git(root, "rev-parse", "HEAD").decode().strip()
-    configs = (
-        "/etc/gitconfig",
-        str(Path(os.environ["HOME"]) / ".gitconfig"),
-        str(
-            Path(os.environ.get("XDG_CONFIG_HOME", str(Path(os.environ["HOME"]) / ".config")))
-            / "git/config"
-        ),
-    )
+    layout = c.RepoLayout(str(root), str(gitdir), str(common), ())
+    configs = api("worktree_reader").config_candidates(layout)
     layout = c.RepoLayout(str(root), str(gitdir), str(common), configs)
     values = dict(
         candidate_head=head,
