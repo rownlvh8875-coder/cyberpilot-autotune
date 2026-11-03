@@ -110,45 +110,53 @@ def _collect(
     errors: list[str] = []
     end = time.monotonic() + wall
     code = None
-    try:
-        with selectors.DefaultSelector() as poll:
-            for index, stream in enumerate((child.stdout, child.stderr)):
-                assert stream is not None
-                os.set_blocking(stream.fileno(), False)
-                poll.register(stream, selectors.EVENT_READ, index)
-            while True:
-                code = _exit_code(fd)  # WNOWAIT:leader remains owned/unreaped.
-                if code not in (None, 0) and not errors:
-                    errors.append(f"NONZERO_EXIT_{code}")
-                if time.monotonic() >= end:
-                    errors.append("TIMEOUT")
-                    break
-                for key, _ in poll.select(min(0.02, max(0, end - time.monotonic()))):
-                    data = os.read(key.fd, 4096)
-                    if not data:
-                        poll.unregister(key.fileobj)
-                        continue
-                    room = 65536 - sum(map(len, buffers))
-                    buffers[key.data].extend(data[:room])
-                    if len(data) > room:
-                        errors.append("OUTPUT_LIMIT")
-                        break
-                if errors or (not poll.get_map() and code is not None):
-                    break
-    except (OSError, ValueError):
-        errors.append("STREAM_OR_WAIT_ERROR")
-    finally:
-        if errors or code is None:
-            try:
-                if group:
-                    _kill_owned(child, fd)
-                else:
-                    signal.pidfd_send_signal(fd, signal.SIGKILL)
-            except (OSError, ValueError):
-                errors.append("CLEANUP_SIGNAL_UNCONFIRMED")
-        for stream in (child.stdout, child.stderr):
+
+    def cleanup() -> None:
+        def close(stream: Any) -> None:
             if stream is not None:
                 stream.close()
+
+        # Nested guards attempt both closes while retaining any body/signal fault.
+        with runner._preserve_cleanup(lambda: close(child.stderr)):
+            with runner._preserve_cleanup(lambda: close(child.stdout)):
+                if errors or code is None:
+                    try:
+                        if group:
+                            _kill_owned(child, fd)
+                        else:
+                            signal.pidfd_send_signal(fd, signal.SIGKILL)
+                    except (OSError, ValueError):
+                        errors.append("CLEANUP_SIGNAL_UNCONFIRMED")
+
+    with runner._preserve_cleanup(cleanup):
+        try:
+            poll = selectors.DefaultSelector()
+            with runner._preserve_cleanup(poll.close):
+                for index, stream in enumerate((child.stdout, child.stderr)):
+                    assert stream is not None
+                    os.set_blocking(stream.fileno(), False)
+                    poll.register(stream, selectors.EVENT_READ, index)
+                while True:
+                    code = _exit_code(fd)  # WNOWAIT:leader remains owned/unreaped.
+                    if code not in (None, 0) and not errors:
+                        errors.append(f"NONZERO_EXIT_{code}")
+                    if time.monotonic() >= end:
+                        errors.append("TIMEOUT")
+                        break
+                    for key, _ in poll.select(min(0.02, max(0, end - time.monotonic()))):
+                        data = os.read(key.fd, 4096)
+                        if not data:
+                            poll.unregister(key.fileobj)
+                            continue
+                        room = 65536 - sum(map(len, buffers))
+                        buffers[key.data].extend(data[:room])
+                        if len(data) > room:
+                            errors.append("OUTPUT_LIMIT")
+                            break
+                    if errors or (not poll.get_map() and code is not None):
+                        break
+        except (OSError, ValueError):
+            errors.append("STREAM_OR_WAIT_ERROR")
     return bytes(buffers[0]), bytes(buffers[1]), tuple(errors), code
 
 
@@ -192,11 +200,11 @@ def _finish(
 
 def _read_owned(root: str, name: str, limit: int) -> bytes:
     directory = runner._open_directory(root)
-    try:
+    with runner._preserve_cleanup(lambda: os.close(directory)):
         fd = os.open(
             name, os.O_RDONLY | os.O_NOFOLLOW | os.O_CLOEXEC | os.O_NONBLOCK, dir_fd=directory
         )
-        try:
+        with runner._preserve_cleanup(lambda: os.close(fd)):
             info = os.fstat(fd)
             if (
                 not stat.S_ISREG(info.st_mode)
@@ -205,12 +213,9 @@ def _read_owned(root: str, name: str, limit: int) -> bytes:
                 or info.st_size > limit
             ):
                 raise ValueError("bounded owned regular artifact required")
-            with os.fdopen(fd, "rb", closefd=False) as stream:
+            stream = os.fdopen(fd, "rb", closefd=False)
+            with runner._preserve_cleanup(stream.close):
                 return stream.read(limit + 1)
-        finally:
-            os.close(fd)
-    finally:
-        os.close(directory)
 
 
 def _verify_root(root: str, sources: dict[str, str]) -> None:
@@ -456,7 +461,7 @@ def _supervise_started(
                 cleaned = value["cleanup"] == "CONFIRMED"
         helper.wait(timeout=2)
         directory = runner._open_directory(run_root)
-        try:
+        with runner._preserve_cleanup(lambda: os.close(directory)):
             for name, data in (
                 ("controller-stdout.bin", raw),
                 ("controller-stderr.bin", control_err),
@@ -465,8 +470,6 @@ def _supervise_started(
                     runner._write_new(directory, name, data)
                 except OSError:
                     errors += ("ARTIFACT_WRITE_UNAVAILABLE_" + name,)
-        finally:
-            os.close(directory)
         if control_errors or protocol_invalid:
             return _finish(case, run_root, b"", b"", errors, ("MISSING_PROTOCOL",), False)
         try:

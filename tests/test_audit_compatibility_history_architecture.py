@@ -159,6 +159,7 @@ def _h1_cancellation_changes(rows):
             "docs/evidence/audit_compatibility/h1-cancellation-cleanup-v1/registration.json",
         },
         modifications={
+            "tests/audit_compatibility_executor/runner.py",
             "tests/audit_compatibility_executor/supervision.py",
             "tests/test_audit_compatibility_history_architecture.py",
             "tests/test_h1_outcome_consistency.py",

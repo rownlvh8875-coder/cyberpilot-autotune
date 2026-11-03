@@ -8,6 +8,7 @@ import platform
 import signal
 import tempfile
 from pathlib import Path
+from typing import Any
 from urllib.parse import urlsplit
 
 from .contracts import SyntheticCase, SyntheticRequest, SyntheticResult, _result
@@ -154,6 +155,29 @@ def _preflight() -> tuple[str, ...]:
     return tuple(dict.fromkeys(missing))
 
 
+class _PreserveCleanup:
+    """Keep the body exception primary while attempting this owned close once."""
+
+    def __init__(self, close: Any) -> None:
+        self._close = close
+
+    def __enter__(self) -> None:
+        pass
+
+    def __exit__(self, kind: Any, primary: BaseException | None, traceback: Any) -> None:
+        if primary is None:
+            self._close()
+            return
+        try:
+            self._close()
+        except BaseException:
+            BaseException.add_note(primary, "CLEANUP_UNCONFIRMED")
+
+
+def _preserve_cleanup(close: Any) -> _PreserveCleanup:
+    return _PreserveCleanup(close)
+
+
 def _open_directory(path: str) -> int:
     fd = os.open("/", os.O_RDONLY | os.O_DIRECTORY | os.O_CLOEXEC)
     try:
@@ -161,14 +185,14 @@ def _open_directory(path: str) -> int:
             following = os.open(
                 part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | os.O_CLOEXEC, dir_fd=fd
             )
-            os.close(fd)
-            fd = following
+            previous, fd = fd, following
+            os.close(previous)
         if os.fstat(fd).st_uid != os.getuid():
             raise ValueError("owner directory must belong to caller")
         return fd
     except BaseException:
-        os.close(fd)
-        raise
+        with _preserve_cleanup(lambda: os.close(fd)):
+            raise
 
 
 def _write_new(directory_fd: int, name: str, raw: bytes) -> None:
@@ -178,11 +202,10 @@ def _write_new(directory_fd: int, name: str, raw: bytes) -> None:
         0o600,
         dir_fd=directory_fd,
     )
-    try:
-        with os.fdopen(fd, "wb", closefd=False) as stream:
+    with _preserve_cleanup(lambda: os.close(fd)):
+        stream = os.fdopen(fd, "wb", closefd=False)
+        with _preserve_cleanup(stream.close):
             stream.write(raw)
-    finally:
-        os.close(fd)
 
 
 def _prepare(owner: str) -> str:

@@ -56,9 +56,9 @@ exception identity, no numeric fallback, EOF-before-reap and normal regressions.
 These tests establish control flow, not a kernel/process-tree qualification.
 
 Freeze the old outcome repair at literal209. Add a separate current successor
-consumer with exactly four additions and four modifications, enumerated in the
-descriptive registration and literal code/test inventories. Old helper bodies,
-pins, ranges, thresholds and manifests remain unchanged. A current manifest cannot
+consumer with exactly four additions and five modifications, enumerated in the
+descriptive registration and literal code/test inventories. Old history-helper
+bodies,pins,ranges,thresholds and manifests remain unchanged. A current manifest cannot
 grant another path. Reject unknown/status/alias/duplicate/untracked/frozen changes.
 
 No src/, application, controller, Params, schema, workflow, collector, historical
@@ -66,3 +66,17 @@ executor, vehicle or HF changes. D01-D04 and every inherited blocker/permission
 remain. Verify full software regressions, source/history validators, lint/format,
 type checks, package/wheel/replay smoke and a fresh independent repair review.
 New-head hosted CI remains a separate publication prerequisite; no Ready/merge here.
+
+## Independent-review fix-pass adjustment
+
+Review of exact98626b9 found that inner collector/selector/artifact cleanup could
+mask primary cancellation before the new outer boundary received it. Extend only
+this current successor by runner.py (one exact path,no directory grant),for a
+private primary-preserving cleanup context and the two existing directory/write
+helpers. Update _collect,_read_owned and controller artifact cleanup to use it.
+Do not widen any historical ceiling or change workloads,bounds or permissions.
+Directory traversal transfers ownership to the newly opened handle before closing
+the previous one;never retry an uncertain close. Add real imported helper/collector
+fake-edge regressions,not only mocks at their entry points. This is the one planned
+review-fix pass;final repaired head will be parent-verified,not independently
+re-reviewed. The original C0/I1/M0 review stays bound to98626b9 without relabeling.

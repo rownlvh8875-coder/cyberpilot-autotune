@@ -14,6 +14,7 @@ import pytest
 @pytest.fixture
 def controller(monkeypatch):
     m = importlib.import_module("tests.audit_compatibility_executor.supervision")
+    actual_collect, actual_read = m._collect, m._read_owned
     calls = []
     state = SimpleNamespace(
         point=None,
@@ -37,6 +38,8 @@ def controller(monkeypatch):
         if state.fault == name and not state.fault_fired:
             state.fault_fired = True
             raise state.fault_error or state.fault_type("SECONDARY_CLEANUP_ONLY")
+
+    state.event, state.actual_collect, state.actual_read = event, actual_collect, actual_read
 
     class Stream:
         def __init__(self, name):
@@ -150,6 +153,11 @@ def controller(monkeypatch):
             _child_environment=lambda: {},
             _open_directory=open_directory,
             _write_new=lambda *args: None,
+            _preserve_cleanup=getattr(
+                importlib.import_module("tests.audit_compatibility_executor.runner"),
+                "_preserve_cleanup",
+                None,
+            ),
         ),
     )
     monkeypatch.setattr(m, "_verify_root", lambda *args: None)
@@ -212,6 +220,142 @@ def test_normal_pidfd_close_failure_invalidates_clean_result_without_retry(contr
     assert state.fd_close_calls == state.wait_calls == 1 and not state.signalled
     assert helper.stdin.closed and helper.stdout.closed and helper.stderr.closed
     assert "NUMERIC_PID_FORBIDDEN" not in calls
+
+
+@pytest.mark.parametrize("kind", [KeyboardInterrupt, SystemExit, RuntimeError])
+@pytest.mark.parametrize("secondary", [OSError, SystemExit])
+def test_artifact_write_cancellation_survives_directory_close(
+    controller, monkeypatch, kind, secondary
+):
+    m, state, helper, calls = controller
+    primary = kind("NESTED_PRIMARY")
+
+    def write(*args):
+        raise primary
+
+    monkeypatch.setattr(m.runner, "_write_new", write)
+    state.fault, state.fault_type = "artifact.close", secondary
+    with pytest.raises(kind) as caught:
+        m.supervise(m.SyntheticCase.FD_CLOSED, "/owned/fake")
+    assert caught.value is primary and state.fault_fired
+    assert helper.stdin.closed and helper.stdout.closed and helper.stderr.closed
+    assert state.wait_calls >= 2 and state.signalled and state.fd_close_calls == 1
+    assert calls.index("signal") < calls.index("fd.close")
+
+
+@pytest.mark.parametrize("kind", [KeyboardInterrupt, SystemExit, RuntimeError])
+@pytest.mark.parametrize("secondary", [OSError, SystemExit])
+@pytest.mark.parametrize("fault", ["selector.close", "stdout.close", "stderr.close", "signal"])
+def test_actual_collector_preserves_cancellation_through_nested_cleanup(
+    controller, monkeypatch, kind, secondary, fault
+):
+    m, state, helper, calls = controller
+    primary = kind("COLLECTION_PRIMARY")
+
+    class Selector:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            self.close()
+            return False
+
+        def register(self, *args):
+            pass
+
+        def close(self):
+            state.event("selector.close")
+
+    def exit_code(fd):
+        assert fd == 91
+        raise primary
+
+    helper.stdout.fileno, helper.stderr.fileno = lambda: 93, lambda: 94
+    monkeypatch.setattr(m.os, "set_blocking", lambda *args: None, raising=False)
+    monkeypatch.setattr(m, "selectors", SimpleNamespace(DefaultSelector=Selector, EVENT_READ=1))
+    monkeypatch.setattr(m, "_exit_code", exit_code)
+    monkeypatch.setattr(m, "_collect", state.actual_collect)
+    state.fault, state.fault_type = fault, secondary
+    with pytest.raises(kind) as caught:
+        m.supervise(m.SyntheticCase.FD_CLOSED, "/owned/fake")
+    assert caught.value is primary and state.fault_fired
+    assert helper.stdin.closed and helper.stdout.closed and helper.stderr.closed
+    assert state.wait_calls >= 1 and state.fd_close_calls == 1
+    assert calls.index("signal") < calls.index("fd.close")
+    assert "NUMERIC_PID_FORBIDDEN" not in calls
+
+
+@pytest.mark.parametrize("kind", [KeyboardInterrupt, SystemExit, RuntimeError])
+@pytest.mark.parametrize("secondary", [OSError, SystemExit])
+@pytest.mark.parametrize("boundary", ["write", "read", "open_directory", "directory_transfer"])
+def test_real_artifact_helpers_preserve_primary_across_nested_closes(
+    monkeypatch, kind, secondary, boundary
+):
+    r = importlib.import_module("tests.audit_compatibility_executor.runner")
+    m = importlib.import_module("tests.audit_compatibility_executor.supervision")
+    primary, calls = kind("ARTIFACT_PRIMARY"), []
+
+    def fail(*args):
+        raise primary
+
+    class Stream:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            self.close()
+
+        read = write = fail
+
+        def close(self):
+            calls.append("stream.close")
+            raise secondary("SECONDARY_CLOSE")
+
+    def close(fd):
+        calls.append(fd)
+        if boundary == "open_directory" and fd == 95:
+            return
+        if boundary == "directory_transfer" and fd == 95:
+            raise primary
+        raise secondary("SECONDARY_FD_CLOSE")
+
+    opened = iter((95, 97))
+    fake_os = SimpleNamespace(
+        O_RDONLY=0,
+        O_WRONLY=1,
+        O_CREAT=2,
+        O_EXCL=4,
+        O_NOFOLLOW=8,
+        O_CLOEXEC=16,
+        O_NONBLOCK=32,
+        O_DIRECTORY=64,
+        open=lambda *args, **kwargs: next(opened),
+        close=close,
+        fdopen=lambda *args, **kwargs: Stream(),
+        getuid=lambda: 1000,
+        fstat=lambda fd: SimpleNamespace(st_mode=0o100600, st_uid=1000, st_nlink=1, st_size=0),
+    )
+    if boundary in ("open_directory", "directory_transfer"):
+        fake_os.fstat = fail
+    else:
+        monkeypatch.setattr(r, "_open_directory", lambda root: 96)
+
+    def target():
+        if boundary in ("open_directory", "directory_transfer"):
+            return r._open_directory("/owned")
+        if boundary == "write":
+            return r._write_new(96, "fake.bin", b"x")
+        return m._read_owned("/fake", "fake.bin", 10)
+
+    monkeypatch.setattr(r, "os", fake_os)
+    monkeypatch.setattr(m, "os", fake_os)
+    with pytest.raises(kind) as caught:
+        target()
+    assert caught.value is primary
+    if boundary in ("open_directory", "directory_transfer"):
+        assert calls == [95, 97]
+    else:
+        assert calls == (["stream.close", 95] if boundary == "write" else ["stream.close", 95, 96])
 
 
 def test_late_pidfd_close_cancellation_propagates_without_using_released_descriptor(controller):
@@ -280,6 +424,7 @@ ADDITIONS = {
     "docs/evidence/audit_compatibility/h1-cancellation-cleanup-v1/registration.json",
 }
 MODIFICATIONS = {
+    "tests/audit_compatibility_executor/runner.py",
     "tests/audit_compatibility_executor/supervision.py",
     "tests/test_audit_compatibility_history_architecture.py",
     "tests/test_h1_outcome_consistency.py",
@@ -380,7 +525,12 @@ def test_actual_consumer_rejects_old_and_current_scope_tampering(monkeypatch, ta
 
 def test_only_owned_lifetime_and_explicit_scope_consumers_change():
     allowed = {
-        "tests/audit_compatibility_executor/supervision.py": {"supervise"},
+        "tests/audit_compatibility_executor/supervision.py": {
+            "supervise",
+            "_collect",
+            "_read_owned",
+        },
+        "tests/audit_compatibility_executor/runner.py": {"_open_directory", "_write_new"},
         "tests/test_audit_compatibility_history_architecture.py": {
             "test_all_earlier_files_and_guard_bytes_are_preserved"
         },
