@@ -124,14 +124,31 @@ def _preflight() -> tuple[str, ...]:
         _child_environment()
         # Check both native modules before even allocating a sealed filter.
         # Inert imports and pure protocol/value tests need neither module.
-        importlib.import_module("fcntl")
-        importlib.import_module("resource")
-        fd = _sealed_filter()
-        os.close(fd)
-        fd = os.pidfd_open(os.getpid())
-        os.close(fd)
+        native_fcntl = importlib.import_module("fcntl")
+        native_resource = importlib.import_module("resource")
+        # Resolve required native APIs before allocating handles. This does not
+        # apply worker limits or claim these controls work on an untested host.
+        _ = (
+            os.memfd_create,
+            os.MFD_CLOEXEC,
+            os.MFD_ALLOW_SEALING,
+            os.pidfd_open,
+            native_fcntl.fcntl,
+            native_fcntl.F_GETFL,
+            native_resource.setrlimit,
+            native_resource.RLIMIT_CPU,
+            native_resource.RLIMIT_AS,
+            native_resource.RLIMIT_FSIZE,
+            native_resource.RLIMIT_NOFILE,
+            native_resource.RLIMIT_CORE,
+        )
         if not hasattr(os, "P_PIDFD") or not hasattr(signal, "pidfd_send_signal"):
             missing.append("PIDFD_UNAVAILABLE")
+        else:
+            fd = _sealed_filter()
+            os.close(fd)
+            fd = os.pidfd_open(os.getpid())
+            os.close(fd)
     except (ImportError, OSError, ValueError, AttributeError):
         missing.append("REQUIRED_CONTROL_UNAVAILABLE")
     return tuple(dict.fromkeys(missing))

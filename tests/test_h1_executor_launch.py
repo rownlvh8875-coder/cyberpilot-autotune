@@ -148,6 +148,71 @@ def test_preflight_missing_capability_and_bad_pin(monkeypatch):
     assert "TOOL_PIN_MISMATCH" in m._preflight()
 
 
+@pytest.mark.parametrize(
+    "module,attribute,reason",
+    [
+        ("os", "memfd_create", "REQUIRED_CONTROL_UNAVAILABLE"),
+        ("os", "MFD_CLOEXEC", "REQUIRED_CONTROL_UNAVAILABLE"),
+        ("os", "MFD_ALLOW_SEALING", "REQUIRED_CONTROL_UNAVAILABLE"),
+        ("os", "pidfd_open", "REQUIRED_CONTROL_UNAVAILABLE"),
+        ("os", "P_PIDFD", "PIDFD_UNAVAILABLE"),
+        ("signal", "pidfd_send_signal", "PIDFD_UNAVAILABLE"),
+        ("fcntl", "fcntl", "REQUIRED_CONTROL_UNAVAILABLE"),
+        ("fcntl", "F_GETFL", "REQUIRED_CONTROL_UNAVAILABLE"),
+        ("resource", "setrlimit", "REQUIRED_CONTROL_UNAVAILABLE"),
+        ("resource", "RLIMIT_CPU", "REQUIRED_CONTROL_UNAVAILABLE"),
+        ("resource", "RLIMIT_AS", "REQUIRED_CONTROL_UNAVAILABLE"),
+        ("resource", "RLIMIT_FSIZE", "REQUIRED_CONTROL_UNAVAILABLE"),
+        ("resource", "RLIMIT_NOFILE", "REQUIRED_CONTROL_UNAVAILABLE"),
+        ("resource", "RLIMIT_CORE", "REQUIRED_CONTROL_UNAVAILABLE"),
+    ],
+)
+def test_missing_native_api_is_diagnosed_before_handles(monkeypatch, module, attribute, reason):
+    from types import SimpleNamespace
+
+    m = runner()
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("native handle/artifact allocated despite missing control API")
+
+    # Pure dependency-absence test;never changes the real os module or executes
+    # a replacement backend. Bad available pin facts must still be retained.
+    native = {
+        "os": SimpleNamespace(
+            getuid=lambda: 1000,
+            getgid=lambda: 1000,
+            environ=os.environ,
+            memfd_create=forbidden,
+            pidfd_open=forbidden,
+            MFD_CLOEXEC=1,
+            MFD_ALLOW_SEALING=2,
+            P_PIDFD=3,
+        ),
+        "signal": SimpleNamespace(pidfd_send_signal=forbidden),
+        "fcntl": SimpleNamespace(fcntl=forbidden, F_GETFL=3),
+        "resource": SimpleNamespace(
+            setrlimit=forbidden,
+            RLIMIT_CPU=0,
+            RLIMIT_AS=1,
+            RLIMIT_FSIZE=2,
+            RLIMIT_NOFILE=3,
+            RLIMIT_CORE=4,
+        ),
+    }
+    delattr(native[module], attribute)
+    monkeypatch.setattr(m.platform, "system", lambda: "Linux")
+    monkeypatch.setattr(m.platform, "machine", lambda: "x86_64")
+    monkeypatch.setattr(m, "os", native["os"])
+    monkeypatch.setattr(m, "signal", native["signal"])
+    monkeypatch.setattr(m, "importlib", SimpleNamespace(import_module=lambda name: native[name]))
+    monkeypatch.setattr(m, "_PINNED", ((str(Path(__file__)), "0" * 64),))
+    monkeypatch.setattr(m, "_sealed_filter", forbidden)
+    monkeypatch.setattr(m, "_prepare", forbidden)
+    result = m.run_synthetic(SyntheticRequest(SyntheticCase.FD_CLOSED, "/unused"))
+    assert result.outcome == "UNAVAILABLE" and result.run_directory is None
+    assert result.unavailable == ("TOOL_PIN_MISMATCH", reason)
+
+
 def test_fixture_is_closed_and_inert(tmp_path):
     m = runner()
     module = importlib.import_module("tests.fixtures.h1_synthetic_payload")
