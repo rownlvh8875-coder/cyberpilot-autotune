@@ -137,6 +137,8 @@ def test_import_catalog_and_digests_have_no_added_side_effects(monkeypatch):
 def test_new_namespaces_are_only_knowledge_and_isolated_reference_protocol():
     import json
 
+    from tests.audit.diagnostic_inventory import verified_diagnostic_paths
+
     base = ROOT.parents[1]
     frozen = json.loads((base / "docs/evidence/hoya_c3_atune_sources.json").read_text())
     original = {p for p in frozen["preserved_files"] if p.startswith("src/")}
@@ -154,5 +156,5 @@ def test_new_namespaces_are_only_knowledge_and_isolated_reference_protocol():
                 "src/cyberpilot_autotune/research/",
             )
         )
-        for p in current - original
+        for p in current - original - verified_diagnostic_paths(base)
     )

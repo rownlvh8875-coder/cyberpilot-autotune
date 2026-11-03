@@ -3,3 +3,4 @@ recursive-include docs *.md *.json
 recursive-include examples *.py
 recursive-include tests *.py *.json
 recursive-include compatibility *.py
+include tests/fixtures/actual_binding/legacy_contracts.zip

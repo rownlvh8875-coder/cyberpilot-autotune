@@ -1,0 +1,4 @@
+# Keep the relocated frozen runtime's exact LF byte identities on every platform.
+src/cyberpilot_autotune/diagnostics/** text eol=lf
+# Historical source fixture, never a platform-normalized active source tree.
+tests/fixtures/actual_binding/*.zip binary

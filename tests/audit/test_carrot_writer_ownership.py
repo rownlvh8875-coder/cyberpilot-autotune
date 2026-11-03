@@ -172,6 +172,8 @@ state.friction = settings.get_float("LateralTorqueFriction") * 0.001
 
 
 def test_production_and_replay_are_frozen_to_the_merge_basis():
+    from tests.audit.diagnostic_inventory import verified_diagnostic_paths
+
     sources, _ = evidence()
     for path, expected in sources["preserved_files"].items():
         # Tracked Python/JSON text only; tolerate checkout CRLF, unlike raw upstream hashes.
@@ -192,7 +194,7 @@ def test_production_and_replay_are_frozen_to_the_merge_basis():
             ("src/cyberpilot_autotune/owner_protocol/", "src/cyberpilot_autotune/research/")
         )
     }
-    assert actual == expected
+    assert actual - verified_diagnostic_paths(ROOT) == expected
 
 
 def test_h2_is_only_a_read_only_proof_index():

@@ -205,6 +205,8 @@ def test_adoption_table_decisions_and_score_axes_match_structured_evidence():
 def test_audit_keeps_the_entire_existing_source_and_replay_goldens_unchanged():
     import hashlib
 
+    from tests.audit.diagnostic_inventory import verified_diagnostic_paths
+
     sources, _ = evidence()
     for path, expected in sources["preserved_files"].items():
         data = (ROOT / path).read_bytes().replace(b"\r\n", b"\n")
@@ -217,4 +219,6 @@ def test_audit_keeps_the_entire_existing_source_and_replay_goldens_unchanged():
         and "knowledge" not in p.parts
         and "owner_protocol" not in p.parts
         and "research" not in p.parts
-    } == {p for p in sources["preserved_files"] if p.startswith("src/")}
+    } - verified_diagnostic_paths(ROOT) == {
+        p for p in sources["preserved_files"] if p.startswith("src/")
+    }
