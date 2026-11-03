@@ -42,3 +42,27 @@
 - [ ] Publication hold: because of the documented development host-config incident, finish local verification/review only. After environment recovery/verification and renewed publication direction, check the remote base and publish a normal fast-forward feature update; monitor only automatic exact-head push CI. Do not merge or dispatch.
 
 Expected: local gates green, no unrelated paths, unchanged runtime qualification; hosted CI results reported exactly, including cancellations/failures.
+
+### Task 2: Separate source inspection from neutral synthetic Git
+
+**Follow-up base:** `3fc532d5c2634e716401701278cb45b49dbea3ac`. Task 1 is not to be repeated: that exact head was reviewed/published after the user adopted a verified current baseline. Its Windows CI exposed the follow-up defect; the original host-state equality remains unconfirmed.
+
+**Files:** modify only `tests/test_audit_compatibility_capture_portability.py` and append this existing plan/spec. No new source file or expanded old allowlist.
+
+**Interfaces:** module-local `source_git(*args) -> bytes` executes the existing trusted source `diff`, `show`, and `ls-files` calls at `ROOT`, preserving inherited Git configuration/environment plus no-lazy-fetch/no-optional-lock guards. The unchanged fixture `git(root,*args,input=None)` remains the neutral synthetic setup path. It is not a new public execution boundary.
+
+**Review Focus:**
+
+- Source metadata retains checkout normalization while the synthetic helper remains isolated.
+- CRLF representation changes do not hide real content edits or untracked files.
+- Every real source-metadata consumer uses the source path, not just the new regression helper.
+- K1 object bytes and direct raw-byte comparison remain exact; no data promotion or guard weakening.
+- Follow-up changes are exactly three registered modifications; host config and all frozen runtime/workflow bytes stay untouched.
+
+- [x] Write a real Git LF-blob/fresh-CRLF-checkout regression using only private paths; it must show the current neutral source route misclassifies `sample.py` as modified. Also test actual content edits, raw blob bytes and untracked inventory.
+- [x] Add four real-consumer routing regressions: K1 fresh checkout, checkout policy, repair inventory, frozen namespaces. Make the neutral setup route reject the real source root; run and observe RED before implementation.
+- [x] Implement `source_git(*args)` without neutralizing inherited source config. Route every `git(ROOT,...)` metadata call in this module through it, leaving synthetic setup calls untouched. Pin the follow-up's exact three-path inventory.
+- [ ] Run the new cases, full pytest, coverage and unchanged floors, Ruff/format, mypy, existing source/history audits/replay/build/fresh wheel. Commit append-only and obtain one fresh exact-head independent review.
+- [ ] After clean scoped review, verify the remote still equals this base; publish a normal fast-forward on the same feature branch and monitor its automatic exact-head CI to terminal state. No PR/merge/force/manual dispatch; report actual failures/cancellations instead of waiving them.
+
+Expected: RED source-normalization/routing cases become GREEN without relaxing any existing assertion; no host settings writes; remote Windows/Linux outcomes reported separately from synthetic checks.
