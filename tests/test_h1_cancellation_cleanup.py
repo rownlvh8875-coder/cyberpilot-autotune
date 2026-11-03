@@ -563,11 +563,17 @@ def scope():
 def test_successor_accepts_only_the_literal_cancellation_repair_inventory():
     # Removing current scope checks or granting a prefix must fail these consumers.
     module, check = scope()
-    rows = source_git("diff", "--no-renames", "--name-status", BASE).decode().splitlines()
-    rows += [
-        "A\t" + p
-        for p in source_git("ls-files", "--others", "--exclude-standard").decode().splitlines()
-    ]
+    rows = (
+        source_git(
+            "diff",
+            "--no-renames",
+            "--name-status",
+            BASE,
+            "db91591637f9e73ecbbb009b6e122443636390a8",
+        )
+        .decode()
+        .splitlines()
+    )
     assert sorted(rows) == sorted(
         ["A\t" + p for p in ADDITIONS] + ["M\t" + p for p in MODIFICATIONS]
     )

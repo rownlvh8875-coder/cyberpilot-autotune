@@ -226,11 +226,19 @@ def test_all_earlier_files_and_guard_bytes_are_preserved():
     _h1_outcome_changes(
         git("diff", "--no-renames", "--name-status", portability_end, outcome_end).splitlines()
     )
-    successor = git("diff", "--no-renames", "--name-status", outcome_end).splitlines()
-    successor += [
+    checkpoint = "db91591637f9e73ecbbb009b6e122443636390a8"
+    base = "4b77b31dd23010f2d2b394466d88b04a4a2720e2"
+    tree = "c8534fed7baa56ec3754b64774aba2dbbeab85de"
+    assert git("rev-parse", base + "^{tree}").strip() == tree
+    assert git("rev-parse", checkpoint + "^{tree}").strip() == tree
+    frozen = git("diff", "--no-renames", "--name-status", outcome_end, checkpoint).splitlines()
+    _h1_cancellation_changes(frozen)
+    untracked = [
         "A\t" + path for path in git("ls-files", "--others", "--exclude-standard").splitlines()
     ]
-    _h1_cancellation_changes(successor)
+    new = git("diff", "--no-renames", "--name-status", base).splitlines() + untracked
+    successor = git("diff", "--no-renames", "--name-status", outcome_end).splitlines() + untracked
+    _preparation_profile_composed_changes(frozen, new, successor)
     module = importlib.import_module("tests.audit_compatibility.contracts")
     assert module.IO_UNAVAILABLE == (
         "CURRENT_INDEX_WORKTREE",
@@ -269,3 +277,57 @@ def test_phase_guard_requires_exact_historical_sets_without_widening_current_sco
     check(["M\tguard.py", "A\ta.py"], {"a.py"}, modifications={"guard.py"})
     with pytest.raises(AssertionError):
         check(["M\tother.py"], {"a.py"}, modifications={"guard.py"})
+
+
+def _preparation_profile_changes(rows: list[str]) -> None:
+    _phase_changes(
+        rows,
+        {
+            "tests/audit_preparation_profile/__init__.py",
+            "tests/audit_preparation_profile/contracts.py",
+            "tests/audit_preparation_profile/wire.py",
+            "tests/audit_preparation_profile/validation.py",
+            "tests/fixtures/preparation_profile.py",
+            "tests/test_preparation_profile_values.py",
+            "tests/test_preparation_profile_wire.py",
+            "tests/test_preparation_profile_validation.py",
+            "tests/test_preparation_profile_adversarial.py",
+            "tests/test_preparation_profile_architecture.py",
+            "tests/test_preparation_profile_scope.py",
+            "docs/evidence/audit_compatibility/preparation-profile-v1/registration.json",
+            "docs/superpowers/specs/2026-11-04-preparation-profile-contract.md",
+            "docs/superpowers/plans/2026-11-04-preparation-profile-contract.md",
+        },
+        modifications={
+            "tests/test_audit_compatibility_history_architecture.py",
+            "tests/test_h1_cancellation_cleanup.py",
+        },
+    )
+
+
+def _preparation_profile_composed_changes(
+    frozen_rows: list[str], new_rows: list[str], current_rows: list[str]
+) -> None:
+    expected = {
+        "A\tdocs/superpowers/specs/2026-11-03-h1-cancellation-cleanup-design.md",
+        "A\tdocs/superpowers/plans/2026-11-03-h1-cancellation-cleanup.md",
+        "A\ttests/test_h1_cancellation_cleanup.py",
+        "A\tdocs/evidence/audit_compatibility/h1-cancellation-cleanup-v1/registration.json",
+        "M\ttests/audit_compatibility_executor/runner.py",
+        "M\ttests/audit_compatibility_executor/supervision.py",
+        "M\ttests/test_audit_compatibility_history_architecture.py",
+        "M\ttests/test_h1_outcome_consistency.py",
+        "M\ttests/test_actions_preflight_registration.py",
+    }
+    assert len(frozen_rows) == len(expected) and set(frozen_rows) == expected
+    _h1_cancellation_changes(frozen_rows)
+    _preparation_profile_changes(new_rows)
+    composed = {row.split("\t")[1]: row.split("\t")[0] for row in frozen_rows}
+    for row in new_rows:
+        status, path = row.split("\t")
+        if path in composed:
+            assert status == "M"
+        else:
+            composed[path] = status
+    assert len(current_rows) == len(composed)
+    assert set(current_rows) == {status + "\t" + path for path, status in composed.items()}

@@ -1,0 +1,2749 @@
+{
+  "schema": "preparation-profile-registration-v1",
+  "status": "BLOCKED",
+  "manifest_is_authority": false,
+  "base": "4b77b31dd23010f2d2b394466d88b04a4a2720e2",
+  "checkpoint": "db91591637f9e73ecbbb009b6e122443636390a8",
+  "new_paths": [
+    "tests/audit_preparation_profile/__init__.py",
+    "tests/audit_preparation_profile/contracts.py",
+    "tests/audit_preparation_profile/wire.py",
+    "tests/audit_preparation_profile/validation.py",
+    "tests/fixtures/preparation_profile.py",
+    "tests/test_preparation_profile_values.py",
+    "tests/test_preparation_profile_wire.py",
+    "tests/test_preparation_profile_validation.py",
+    "tests/test_preparation_profile_adversarial.py",
+    "tests/test_preparation_profile_architecture.py",
+    "tests/test_preparation_profile_scope.py",
+    "docs/evidence/audit_compatibility/preparation-profile-v1/registration.json",
+    "docs/superpowers/specs/2026-11-04-preparation-profile-contract.md",
+    "docs/superpowers/plans/2026-11-04-preparation-profile-contract.md"
+  ],
+  "modified_paths": [
+    "tests/test_audit_compatibility_history_architecture.py",
+    "tests/test_h1_cancellation_cleanup.py"
+  ],
+  "permissions": {
+    "build_execution_allowed": false,
+    "promotion_authorized": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  },
+  "retained_blockers": [
+    "HISTORICAL_REPLAY",
+    "SOURCE_CAPTURE_ATOMICITY",
+    "ACTUAL_Q_I",
+    "ENTRY_GUARD_INTEGRATION",
+    "EXACT_I_CI",
+    "STACK_ADOPTION",
+    "APPLICATION_NOT_AUTHORIZED",
+    "EXECUTOR_CONTENT_TOOLCHAIN_ENFORCEMENT_AND_BUDGET_FREEZE_UNAVAILABLE",
+    "FULL_O_AND_ADDITIONAL_D_CASE_INVENTORIES_UNAVAILABLE",
+    "PREPARATION_PROFILE_SUPPLIED_CLAIMS_ONLY",
+    "H_PREPARATION_RUNTIME_POLICY_UNAVAILABLE",
+    "OPERATIONAL_I1_UNCONFIRMED",
+    "ORIGINAL_HOST_GIT_CONFIG_EQUALITY_UNCONFIRMED"
+  ],
+  "H_executed": false,
+  "integrated_admission": false,
+  "content_identity_only": true,
+  "atomicity": "NOT_ESTABLISHED",
+  "reviewed_manifest_sha256": "0b6bfd80de523e689fc2c6a81fb5d0b59eae13aa78f199f619559753aa43aee2",
+  "reviewed_HF_commit": "379fc0ad4f857ecde87beed5f0364a8d7b69bd2c",
+  "registry": {
+    "schema": "preparation-profile-closed-registries-v1",
+    "profile_id": "H_PREPARATION_PROFILE_V1",
+    "wire_schema": "preparation-profile-claims-v1",
+    "UInt64_max_decimal": "18446744073709551615",
+    "artifact_roles": [
+      "executor_content",
+      "bootstrap_content",
+      "provider_implementation",
+      "syscall_policy",
+      "collection_policy",
+      "toolchain_inventory",
+      "dependency_inventory",
+      "private_snapshot_manifest",
+      "full_expected_node_inventory",
+      "materialized_command_manifest",
+      "scope_record"
+    ],
+    "batch_limits": [
+      [
+        "batch_memory_max_bytes",
+        "byte"
+      ],
+      [
+        "batch_pids_max",
+        "process_or_thread_count"
+      ],
+      [
+        "cpu_bandwidth_quota_us",
+        "microsecond"
+      ],
+      [
+        "cpu_bandwidth_period_us",
+        "microsecond"
+      ],
+      [
+        "cpu_usage_accounting_budget_ns",
+        "nanosecond"
+      ],
+      [
+        "cpu_accounting_latency_bound_ns",
+        "nanosecond"
+      ],
+      [
+        "scratch_max_bytes",
+        "byte"
+      ],
+      [
+        "scratch_max_inodes",
+        "inode_count"
+      ],
+      [
+        "retained_combined_stdout_stderr_bytes",
+        "byte"
+      ],
+      [
+        "batch_wall_limit_ns",
+        "nanosecond_duration"
+      ],
+      [
+        "command_wall_limit_ns",
+        "nanosecond_duration"
+      ],
+      [
+        "stop_and_cleanup_limit_ns",
+        "nanosecond_duration"
+      ]
+    ],
+    "command_limits": [
+      [
+        "memory_max_bytes",
+        "byte",
+        "batch_memory_max_bytes"
+      ],
+      [
+        "pids_max",
+        "process_or_thread_count",
+        "batch_pids_max"
+      ],
+      [
+        "cpu_usage_budget_ns",
+        "nanosecond",
+        "cpu_usage_accounting_budget_ns"
+      ],
+      [
+        "scratch_max_bytes",
+        "byte",
+        "scratch_max_bytes"
+      ],
+      [
+        "scratch_max_inodes",
+        "inode_count",
+        "scratch_max_inodes"
+      ],
+      [
+        "retained_combined_stdout_stderr_bytes",
+        "byte",
+        "retained_combined_stdout_stderr_bytes"
+      ],
+      [
+        "wall_limit_ns",
+        "nanosecond_duration",
+        "command_wall_limit_ns"
+      ]
+    ],
+    "controls": [
+      "subject_ro_enforced",
+      "network_denial_enforced",
+      "batch_boundary_placement_observed",
+      "pre_payload_gate_observed",
+      "bootstrap_outer_boundary_observed",
+      "aggregate_memory_pids_observed",
+      "aggregate_scratch_bytes_inodes_observed",
+      "stream_output_deadline_observed",
+      "FD_policy_observed",
+      "owned_cleanup_observed",
+      "provider_guard_compatible",
+      "toolchain_closure_reviewed",
+      "expected_inventory_separately_frozen",
+      "consumed_origins_lineage_observed"
+    ],
+    "commands": [
+      [
+        "O-PYTEST",
+        "O"
+      ],
+      [
+        "O-H6",
+        "O"
+      ],
+      [
+        "O-H7",
+        "O"
+      ],
+      [
+        "D-PYTEST",
+        "D"
+      ],
+      [
+        "D-H6",
+        "D"
+      ],
+      [
+        "D-COVERAGE",
+        "D"
+      ]
+    ],
+    "cohorts": [
+      [
+        "O",
+        "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+        "18e63fc8e03077684cd14c1ed33e2c7a8ceb89a5"
+      ],
+      [
+        "D",
+        "75e00280a09323ad4a3fc82453383f220c92f6c6",
+        "d0dd929f3bb46d1a33d8bb00f29e7638b48d9483"
+      ]
+    ],
+    "table_order": "NORMATIVE_REGISTRY_ORDER_NOT_CALLER_OR_LEXICAL_COMMAND_ORDER",
+    "known_unlimited_value": "UNBOUNDED",
+    "unknown_value": null,
+    "recorded_budget_zero_is_known_not_unavailable": true,
+    "boundary_generation_zero_is_valid": true,
+    "all_domain_permissions_false": true
+  },
+  "dto": {
+    "schema": "preparation-profile-dto-wire-design-v1",
+    "all_DTOs": "EXACT_FROZEN_SLOTTED_DEFENSIVELY_TUPLE_OWNED_AND_REVALIDATED",
+    "types_in_field_order": {
+      "ArtifactPin": [
+        [
+          "role",
+          "REGISTRY_ARTIFACT_ROLE"
+        ],
+        [
+          "sha256",
+          "HEX64_OR_NULL"
+        ]
+      ],
+      "LimitValue": [
+        [
+          "name",
+          "BATCH_OR_COMMAND_LIMIT_NAME"
+        ],
+        [
+          "unit",
+          "EXACT_REGISTERED_UNIT"
+        ],
+        [
+          "value",
+          "UINT64_OR_UNBOUNDED_OR_NULL"
+        ]
+      ],
+      "ControlClaim": [
+        [
+          "name",
+          "REGISTRY_CONTROL_ID"
+        ],
+        [
+          "value",
+          "EXACT_BOOL_OR_NULL"
+        ]
+      ],
+      "CohortPin": [
+        [
+          "cohort_id",
+          "O_OR_D"
+        ],
+        [
+          "revision",
+          "HEX40_OR_NULL"
+        ],
+        [
+          "tree",
+          "HEX40_OR_NULL"
+        ]
+      ],
+      "BoundaryRef": [
+        [
+          "identity_digest",
+          "HEX64_OR_NULL"
+        ],
+        [
+          "generation",
+          "UINT64_OR_NULL"
+        ],
+        [
+          "clock_domain",
+          "CLOCK_TEXT_OR_NULL"
+        ]
+      ],
+      "TimingClaim": [
+        [
+          "start_ns",
+          "UINT64_OR_NULL"
+        ],
+        [
+          "deadline_ns",
+          "UINT64_OR_NULL"
+        ],
+        [
+          "clock_domain",
+          "CLOCK_TEXT_OR_NULL"
+        ]
+      ],
+      "CommandProfile": [
+        [
+          "command_id",
+          "REGISTRY_COMMAND_ID"
+        ],
+        [
+          "cohort_id",
+          "O_OR_D"
+        ],
+        [
+          "boundary",
+          "BoundaryRef_OR_NULL"
+        ],
+        [
+          "limits",
+          "TUPLE_LimitValue_OR_NULL"
+        ],
+        [
+          "timing",
+          "TimingClaim_OR_NULL"
+        ]
+      ],
+      "PreparationProfilePolicy": [
+        [
+          "profile_id",
+          "IDENTIFIER_TEXT"
+        ],
+        [
+          "run_id",
+          "HEX32_OR_NULL"
+        ],
+        [
+          "artifacts",
+          "TUPLE_ArtifactPin_OR_NULL"
+        ],
+        [
+          "cohorts",
+          "TUPLE_CohortPin_OR_NULL"
+        ],
+        [
+          "batch_boundary",
+          "BoundaryRef_OR_NULL"
+        ],
+        [
+          "batch_limits",
+          "TUPLE_LimitValue_OR_NULL"
+        ],
+        [
+          "commands",
+          "TUPLE_CommandProfile_OR_NULL"
+        ],
+        [
+          "controls",
+          "TUPLE_ControlClaim_OR_NULL"
+        ]
+      ],
+      "PreparationProfileRecord": [
+        [
+          "profile_id",
+          "IDENTIFIER_TEXT"
+        ],
+        [
+          "run_id",
+          "HEX32_OR_NULL"
+        ],
+        [
+          "policy_digest",
+          "HEX64_OR_NULL"
+        ],
+        [
+          "artifacts",
+          "TUPLE_ArtifactPin_OR_NULL"
+        ],
+        [
+          "cohorts",
+          "TUPLE_CohortPin_OR_NULL"
+        ],
+        [
+          "batch_boundary",
+          "BoundaryRef_OR_NULL"
+        ],
+        [
+          "batch_limits",
+          "TUPLE_LimitValue_OR_NULL"
+        ],
+        [
+          "commands",
+          "TUPLE_CommandProfile_OR_NULL"
+        ],
+        [
+          "controls",
+          "TUPLE_ControlClaim_OR_NULL"
+        ],
+        [
+          "producer_errors",
+          "UNIQUE_TUPLE_PRODUCER_REPORTED_FAILURE"
+        ],
+        [
+          "producer_unavailable",
+          "UNIQUE_TUPLE_PRODUCER_REPORTED_UNAVAILABLE"
+        ]
+      ],
+      "ProfileReason": [
+        [
+          "code",
+          "REGISTERED_ERROR_OR_UNAVAILABLE_CODE"
+        ],
+        [
+          "subject",
+          "DERIVED_CLOSED_LOCATOR"
+        ]
+      ],
+      "PreparationProfileDecision": [
+        [
+          "errors",
+          "TUPLE_ProfileReason_ERROR_CODES_ONLY"
+        ],
+        [
+          "unavailable",
+          "TUPLE_ProfileReason_UNAVAILABLE_CODES_ONLY"
+        ]
+      ]
+    },
+    "table_identity_fields": {
+      "ArtifactPin": "role",
+      "LimitValue": "name",
+      "ControlClaim": "name",
+      "CohortPin": "cohort_id",
+      "CommandProfile": "command_id"
+    },
+    "table_normalization": "COPY_IN_NORMATIVE_REGISTRY_ORDER;DUPLICATE_OR_UNKNOWN_ID_VALUEERROR;VALID_SUBSET_REMAINS_SUBSET_FOR_SEMANTIC_INVENTORY_REJECTION",
+    "decision_normalization": "SORT_DEDUPLICATE_BY_CODE_THEN_SUBJECT",
+    "fixed_facets_not_fields_or_wire": {
+      "status": "BLOCKED",
+      "integrated_admission": false,
+      "content_identity_only": true,
+      "H_executed": false,
+      "atomicity": "NOT_ESTABLISHED",
+      "permissions": "ORIGINAL_LITERAL_NINE_FALSE_PAIRS"
+    },
+    "UInt64_max_decimal": "18446744073709551615",
+    "bool_is_integer": false,
+    "floats_allowed": false,
+    "text_alphabet": "ASCII_AZ_az_09_DOT_UNDERSCORE_COLON_HYPHEN",
+    "text_length_min": 1,
+    "text_length_max": 128,
+    "wire": {
+      "version": "preparation-profile-claims-v1",
+      "envelope_keys": [
+        "schema",
+        "kind",
+        "body"
+      ],
+      "kinds": [
+        "POLICY",
+        "RECORD"
+      ],
+      "maximum_input_bytes": 1048576,
+      "empty_input_allowed": false,
+      "UTF8_BOM_allowed": false,
+      "duplicate_unknown_or_missing_keys_allowed": false,
+      "nonfinite_or_float_values_allowed": false,
+      "trailing_data_allowed": false,
+      "insignificant_whitespace_allowed": true,
+      "canonical_sort_keys": true,
+      "canonical_ensure_ascii": true,
+      "canonical_separators": [
+        ",",
+        ":"
+      ],
+      "canonical_allow_nan": false,
+      "canonical_trailing_newline": false
+    },
+    "API": [
+      "canonical_policy(policy:PreparationProfilePolicy)->bytes",
+      "decode_policy(raw:bytes)->PreparationProfilePolicy",
+      "canonical_profile(record:PreparationProfileRecord)->bytes",
+      "decode_profile(raw:bytes)->PreparationProfileRecord",
+      "assess_profile(record:PreparationProfileRecord,policy:PreparationProfilePolicy|None=None)->PreparationProfileDecision"
+    ],
+    "no_executor_or_IO_capability": true,
+    "all_nine_domain_permissions_false": true
+  },
+  "assessment": {
+    "schema": "preparation-profile-assessment-semantics-v1",
+    "decision_precedence": [
+      "REJECTED",
+      "UNAVAILABLE",
+      "STRUCTURAL_PROFILE_MATCH"
+    ],
+    "always_fixed": {
+      "status": "BLOCKED",
+      "integrated_admission": false,
+      "content_identity_only": true,
+      "H_executed": false,
+      "atomicity": "NOT_ESTABLISHED",
+      "all_nine_permissions": false
+    },
+    "error_codes": [
+      "PROFILE_ID_MISMATCH",
+      "PRODUCER_FAILURE",
+      "TABLE_INVENTORY_MISMATCH",
+      "COHORT_PIN_MISMATCH",
+      "COMMAND_CONTEXT_MISMATCH",
+      "LIMIT_NONPOSITIVE",
+      "LIMIT_UNBOUNDED",
+      "LIMIT_SCOPE_INCONSISTENT",
+      "CONTROL_CLAIM_FALSE",
+      "BOUNDARY_REUSE",
+      "CLOCK_DOMAIN_MISMATCH",
+      "TIME_ORDER_INVALID",
+      "TIME_OVERFLOW",
+      "DEADLINE_MISMATCH",
+      "POLICY_RECORD_MISMATCH",
+      "POLICY_DIGEST_MISMATCH"
+    ],
+    "unavailable_codes": [
+      "POLICY_UNAVAILABLE",
+      "TABLE_UNAVAILABLE",
+      "VALUE_UNAVAILABLE",
+      "PRODUCER_UNAVAILABLE"
+    ],
+    "subject_grammar": {
+      "side": [
+        "record",
+        "policy"
+      ],
+      "literal_subjects": [
+        "policy",
+        "record.producer",
+        "record.policy_digest"
+      ],
+      "side_suffixes": [
+        "profile_id",
+        "run_id",
+        "artifacts",
+        "cohorts",
+        "batch_boundary",
+        "batch_limits",
+        "commands",
+        "controls"
+      ],
+      "artifact_suffix": "artifacts.<registered_role>.sha256",
+      "cohort_suffix": "cohorts.<O_or_D>.<revision_or_tree>",
+      "batch_boundary_suffix": "batch_boundary.<identity_digest_or_generation_or_clock_domain>",
+      "batch_limit_suffix": "batch_limits.<registered_batch_name>.value",
+      "command_suffixes": [
+        "commands.<registered_id>",
+        "commands.<registered_id>.cohort_id",
+        "commands.<registered_id>.boundary",
+        "commands.<registered_id>.boundary.<identity_digest_or_generation_or_clock_domain>",
+        "commands.<registered_id>.limits",
+        "commands.<registered_id>.limits.<registered_command_limit>.value",
+        "commands.<registered_id>.timing",
+        "commands.<registered_id>.timing.<start_ns_or_deadline_ns_or_clock_domain>"
+      ],
+      "control_suffix": "controls.<registered_name>.value",
+      "arbitrary_subjects_or_source_paths": false
+    },
+    "algorithm": [
+      "Revalidate exact record graph and non-null policy graph;structural malformed values raise ValueError before assessment",
+      "Add producer errors/unavailable at record.producer;missing policy adds POLICY_UNAVAILABLE at policy",
+      "Traverse record then any supplied policy under universal checks without early exit",
+      "Require exact profile_id,run_id availability;known foreign profile adds PROFILE_ID_MISMATCH at side.profile_id",
+      "Null table adds TABLE_UNAVAILABLE;non-null table missing registered slots adds TABLE_INVENTORY_MISMATCH;still inspect all present members",
+      "Null scalar or nullable DTO adds VALUE_UNAVAILABLE at that field/root;do not invent its missing children or substitute other facts",
+      "Known original cohort revision/tree differences add COHORT_PIN_MISMATCH at the differing field;known command/cohort pair differences add COMMAND_CONTEXT_MISMATCH at command.cohort_id",
+      "Known budget0 adds LIMIT_NONPOSITIVE;known UNBOUNDED adds LIMIT_UNBOUNDED,at the value locator;either beats unknown policy/fields",
+      "Known per-command numeric limit above corresponding known batch numeric cap adds LIMIT_SCOPE_INCONSISTENT at command limit value",
+      "Known False control adds CONTROL_CLAIM_FALSE at side.controls.name.value;None remains unavailable;True is only a claim",
+      "Within a supplied side,command boundary identity equal to batch identity or reused by an earlier command in registry order adds BOUNDARY_REUSE at the later command.boundary.identity_digest;unknown identities are not equal identities",
+      "For each command,all available clock strings from batch boundary,command boundary and timing must be identical;more than one distinct known value adds CLOCK_DOMAIN_MISMATCH at command root",
+      "Known deadline<start adds TIME_ORDER_INVALID at command.timing.deadline_ns",
+      "If known command wall_limit_ns is an int>0 and start is known,checked start+limit>UInt64max adds TIME_OVERFLOW at command.timing.deadline_ns;otherwise a known unequal deadline adds DEADLINE_MISMATCH;do not use UNBOUNDED/None/0 in addition",
+      "When policy is supplied,compare corresponding known scalar values by keys,never tuple positions;unequal available values add POLICY_RECORD_MISMATCH at the record field;unknown differences add no mismatch beyond unavailable traversal",
+      "Table-shape differences are already diagnosed by universal inventory checks;compare any common present keys despite missing others;nullable DTO mismatch None is unavailable not inequality",
+      "When record.policy_digest is None add VALUE_UNAVAILABLE at record.policy_digest;when supplied policy and digest are both available compare with SHA256(canonical_policy(policy)),adding POLICY_DIGEST_MISMATCH on unequal content identity",
+      "Collect all applicable reasons,including multiple distinct codes on one field;sort/deduplicate by(code,subject);never hide known errors behind unavailable",
+      "Return derived consistency only;all fixed blockers/permissions remain regardless of empty or nonempty reason sets"
+    ],
+    "comparison_fields": "ALL_CORRESPONDING_FIELDS_EXCEPT_RECORD_ONLY_PRODUCER_LISTS_AND_POLICY_DIGEST;root profile_id/run_id and all nested available scalars included",
+    "producer_error_mapping": {
+      "PRODUCER_REPORTED_FAILURE": "PRODUCER_FAILURE"
+    },
+    "producer_unavailable_mapping": {
+      "PRODUCER_REPORTED_UNAVAILABLE": "PRODUCER_UNAVAILABLE"
+    },
+    "malformed_vs_semantic": {
+      "duplicate_keys_names_or_unknown_identifier": "ValueError",
+      "missing_known_slots_in_nonnull_table": "TABLE_INVENTORY_MISMATCH",
+      "null_table": "TABLE_UNAVAILABLE",
+      "nonfinite_float_or_bool_as_integer": "ValueError",
+      "well_shaped_known_false_zero_unbounded": "REJECTED_NOT_UNAVAILABLE"
+    },
+    "proof_or_execution_capability": false
+  },
+  "scope": {
+    "schema": "preparation-profile-proposed-successor-scope-v1",
+    "status": "PROPOSED_CLOSED_SUCCESSOR_NOT_APPLIED_TO_CURRENT_GUARD",
+    "manifest_is_authority": false,
+    "implementation_base": "4b77b31dd23010f2d2b394466d88b04a4a2720e2",
+    "frozen_source_checkpoint": "db91591637f9e73ecbbb009b6e122443636390a8",
+    "base_and_checkpoint_tree": "c8534fed7baa56ec3754b64774aba2dbbeab85de",
+    "frozen_cancellation_start": "209edaa83b398e6204af1097fda4b651807cc815",
+    "new_paths": [
+      "tests/audit_preparation_profile/__init__.py",
+      "tests/audit_preparation_profile/contracts.py",
+      "tests/audit_preparation_profile/wire.py",
+      "tests/audit_preparation_profile/validation.py",
+      "tests/fixtures/preparation_profile.py",
+      "tests/test_preparation_profile_values.py",
+      "tests/test_preparation_profile_wire.py",
+      "tests/test_preparation_profile_validation.py",
+      "tests/test_preparation_profile_adversarial.py",
+      "tests/test_preparation_profile_architecture.py",
+      "tests/test_preparation_profile_scope.py",
+      "docs/evidence/audit_compatibility/preparation-profile-v1/registration.json",
+      "docs/superpowers/specs/2026-11-04-preparation-profile-contract.md",
+      "docs/superpowers/plans/2026-11-04-preparation-profile-contract.md"
+    ],
+    "modified_paths": [
+      "tests/test_audit_compatibility_history_architecture.py",
+      "tests/test_h1_cancellation_cleanup.py"
+    ],
+    "allowed_existing_function_changes": {
+      "tests/test_audit_compatibility_history_architecture.py": [
+        "test_all_earlier_files_and_guard_bytes_are_preserved"
+      ],
+      "tests/test_h1_cancellation_cleanup.py": [
+        "test_successor_accepts_only_the_literal_cancellation_repair_inventory"
+      ]
+    },
+    "allowed_new_guard_functions": [
+      "_preparation_profile_changes",
+      "_preparation_profile_composed_changes"
+    ],
+    "old_helper_and_nonconsumer_bodies": "BYTE_EXACT_AT_FROZEN_SOURCE_CHECKPOINT",
+    "old_nonfunction_top_level_AST": "UNCHANGED;NO_NEW_IMPORT_OR_GLOBAL_SETTING",
+    "consumer_strategy": [
+      "Keep every earlier frozen-range check and old helper unchanged",
+      "Freeze cancellation209edaa..db915 and assert exact literal4additions5modifications;old cancellation helper validates it",
+      "Assert fixed4b77/db915 trees equal literalc853;validate new tracked4b77..workingtree and untracked rows against literal14additions2modifications in new helper,not current manifest",
+      "Still request raw git diff --no-renames --name-status 209edaa with no end plus actual untracked rows so old current/untracked tamper hooks remain effective",
+      "Compose frozen repair and validated successor statuses by path:A followed by M stays A,M followed by M stays M,new A must be absent;no delete/rename/alias/duplicate allowed",
+      "Assert raw combined current rows exactly equal composition;new/frozen/current/untracked contradictions all reject",
+      "Change only old cancellation inventory consumer to read frozen209edaa..db915 without adding current untracked rows there;it still invokes the real global consumer,which checks every current/untracked successor row",
+      "Keep all other old tests,including current/frozen/untracked tamper hooks and preflight legacy-call assertions,unchanged"
+    ],
+    "frozen_repair_expected_rows": [
+      [
+        "A",
+        "docs/superpowers/specs/2026-11-03-h1-cancellation-cleanup-design.md"
+      ],
+      [
+        "A",
+        "docs/superpowers/plans/2026-11-03-h1-cancellation-cleanup.md"
+      ],
+      [
+        "A",
+        "tests/test_h1_cancellation_cleanup.py"
+      ],
+      [
+        "A",
+        "docs/evidence/audit_compatibility/h1-cancellation-cleanup-v1/registration.json"
+      ],
+      [
+        "M",
+        "tests/audit_compatibility_executor/runner.py"
+      ],
+      [
+        "M",
+        "tests/audit_compatibility_executor/supervision.py"
+      ],
+      [
+        "M",
+        "tests/test_audit_compatibility_history_architecture.py"
+      ],
+      [
+        "M",
+        "tests/test_h1_outcome_consistency.py"
+      ],
+      [
+        "M",
+        "tests/test_actions_preflight_registration.py"
+      ]
+    ],
+    "required_scope_negatives": [
+      "UNKNOWN_TRACKED_OR_UNTRACKED_PATH",
+      "UNKNOWN_STATUS_DELETION_OR_RENAME",
+      "DUPLICATE_ROW_OR_PATH_ALIAS",
+      "OLD_RANGE_TAMPER_OR_MISSING_ROW",
+      "CURRENT_COMBINED_TAMPER_OR_MISSING_ROW",
+      "NEW_RANGE_TAMPER_OR_MISSING_FINAL_INVENTORY",
+      "MANIFEST_SELF_AUTHORIZATION",
+      "OLD_NONCONSUMER_OR_HELPER_EDIT",
+      "REPAIR_FILE_EDIT_AFTER_CHECKPOINT",
+      "WORKFLOW_PRODUCT_APPLICATION_OR_EXECUTOR_CHANGE",
+      "SOURCE_CHECKPOINT_OR_BASE_TREE_DRIFT"
+    ],
+    "new_package_allowed_imports": [
+      "dataclasses",
+      "hashlib",
+      "json",
+      "typing",
+      "EXACT_LOCAL_CONTRACTS_WIRE_VALIDATION_SIBLINGS"
+    ],
+    "allowed_relative_modules": {
+      "__init__": [
+        "contracts",
+        "wire",
+        "validation"
+      ],
+      "contracts": [],
+      "wire": [
+        "contracts"
+      ],
+      "validation": [
+        "contracts",
+        "wire"
+      ]
+    },
+    "new_package_statement_floor_percent": 98,
+    "new_package_branch_floor_percent": 95,
+    "old_test_threshold_skip_xfail_or_acceptance_change": false,
+    "H_or_runtime_execution_authorized": false,
+    "all_nine_domain_permissions_false": true
+  },
+  "conformance": {
+    "schema": "preparation-profile-synthetic-conformance-design-v1",
+    "fixture_kind": "SYNTHETIC_SUPPLIED_CLAIMS_ONLY_NOT_H_BUDGETS_OR_EXECUTION",
+    "implemented_or_executed": false,
+    "mutation_format": "list path starts policy/record;last item replaces the addressed value;apply to deepcopies,do not auto-recompute policy_digest",
+    "baseline_policy": {
+      "profile_id": "H_PREPARATION_PROFILE_V1",
+      "run_id": "00000000000000000000000000000000",
+      "artifacts": [
+        {
+          "role": "executor_content",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "bootstrap_content",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "provider_implementation",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "syscall_policy",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "collection_policy",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "toolchain_inventory",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "dependency_inventory",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "private_snapshot_manifest",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "full_expected_node_inventory",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "materialized_command_manifest",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "scope_record",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        }
+      ],
+      "cohorts": [
+        {
+          "cohort_id": "O",
+          "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+          "tree": "18e63fc8e03077684cd14c1ed33e2c7a8ceb89a5"
+        },
+        {
+          "cohort_id": "D",
+          "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+          "tree": "d0dd929f3bb46d1a33d8bb00f29e7638b48d9483"
+        }
+      ],
+      "batch_boundary": {
+        "identity_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "generation": 0,
+        "clock_domain": "synthetic-monotonic-v1"
+      },
+      "batch_limits": [
+        {
+          "name": "batch_memory_max_bytes",
+          "unit": "byte",
+          "value": 1000000
+        },
+        {
+          "name": "batch_pids_max",
+          "unit": "process_or_thread_count",
+          "value": 1000000
+        },
+        {
+          "name": "cpu_bandwidth_quota_us",
+          "unit": "microsecond",
+          "value": 1000000
+        },
+        {
+          "name": "cpu_bandwidth_period_us",
+          "unit": "microsecond",
+          "value": 1000000
+        },
+        {
+          "name": "cpu_usage_accounting_budget_ns",
+          "unit": "nanosecond",
+          "value": 1000000
+        },
+        {
+          "name": "cpu_accounting_latency_bound_ns",
+          "unit": "nanosecond",
+          "value": 1000000
+        },
+        {
+          "name": "scratch_max_bytes",
+          "unit": "byte",
+          "value": 1000000
+        },
+        {
+          "name": "scratch_max_inodes",
+          "unit": "inode_count",
+          "value": 1000000
+        },
+        {
+          "name": "retained_combined_stdout_stderr_bytes",
+          "unit": "byte",
+          "value": 1000000
+        },
+        {
+          "name": "batch_wall_limit_ns",
+          "unit": "nanosecond_duration",
+          "value": 1000000
+        },
+        {
+          "name": "command_wall_limit_ns",
+          "unit": "nanosecond_duration",
+          "value": 1000000
+        },
+        {
+          "name": "stop_and_cleanup_limit_ns",
+          "unit": "nanosecond_duration",
+          "value": 1000000
+        }
+      ],
+      "commands": [
+        {
+          "command_id": "O-PYTEST",
+          "cohort_id": "O",
+          "boundary": {
+            "identity_digest": "d198392a804353fd31a25c6906ed856c9d73e2dd250485befcc69b5e25bdf8f5",
+            "generation": 0,
+            "clock_domain": "synthetic-monotonic-v1"
+          },
+          "limits": [
+            {
+              "name": "memory_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "pids_max",
+              "unit": "process_or_thread_count",
+              "value": 1000
+            },
+            {
+              "name": "cpu_usage_budget_ns",
+              "unit": "nanosecond",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_inodes",
+              "unit": "inode_count",
+              "value": 1000
+            },
+            {
+              "name": "retained_combined_stdout_stderr_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "wall_limit_ns",
+              "unit": "nanosecond_duration",
+              "value": 1000
+            }
+          ],
+          "timing": {
+            "start_ns": 0,
+            "deadline_ns": 1000,
+            "clock_domain": "synthetic-monotonic-v1"
+          }
+        },
+        {
+          "command_id": "O-H6",
+          "cohort_id": "O",
+          "boundary": {
+            "identity_digest": "75badf5e0df3bdb0a93796c9339d8bc7b5bd4207e5987b16067e8075a06439b5",
+            "generation": 0,
+            "clock_domain": "synthetic-monotonic-v1"
+          },
+          "limits": [
+            {
+              "name": "memory_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "pids_max",
+              "unit": "process_or_thread_count",
+              "value": 1000
+            },
+            {
+              "name": "cpu_usage_budget_ns",
+              "unit": "nanosecond",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_inodes",
+              "unit": "inode_count",
+              "value": 1000
+            },
+            {
+              "name": "retained_combined_stdout_stderr_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "wall_limit_ns",
+              "unit": "nanosecond_duration",
+              "value": 1000
+            }
+          ],
+          "timing": {
+            "start_ns": 10,
+            "deadline_ns": 1010,
+            "clock_domain": "synthetic-monotonic-v1"
+          }
+        },
+        {
+          "command_id": "O-H7",
+          "cohort_id": "O",
+          "boundary": {
+            "identity_digest": "1476eb33ca6d3c0a5d1533ebeb3616e0d4b4ef929ba5f16777abc7222c352c71",
+            "generation": 0,
+            "clock_domain": "synthetic-monotonic-v1"
+          },
+          "limits": [
+            {
+              "name": "memory_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "pids_max",
+              "unit": "process_or_thread_count",
+              "value": 1000
+            },
+            {
+              "name": "cpu_usage_budget_ns",
+              "unit": "nanosecond",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_inodes",
+              "unit": "inode_count",
+              "value": 1000
+            },
+            {
+              "name": "retained_combined_stdout_stderr_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "wall_limit_ns",
+              "unit": "nanosecond_duration",
+              "value": 1000
+            }
+          ],
+          "timing": {
+            "start_ns": 20,
+            "deadline_ns": 1020,
+            "clock_domain": "synthetic-monotonic-v1"
+          }
+        },
+        {
+          "command_id": "D-PYTEST",
+          "cohort_id": "D",
+          "boundary": {
+            "identity_digest": "5f523681697a842d512e495175a760ad11a68edd3ad10607206d354b00b2b242",
+            "generation": 0,
+            "clock_domain": "synthetic-monotonic-v1"
+          },
+          "limits": [
+            {
+              "name": "memory_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "pids_max",
+              "unit": "process_or_thread_count",
+              "value": 1000
+            },
+            {
+              "name": "cpu_usage_budget_ns",
+              "unit": "nanosecond",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_inodes",
+              "unit": "inode_count",
+              "value": 1000
+            },
+            {
+              "name": "retained_combined_stdout_stderr_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "wall_limit_ns",
+              "unit": "nanosecond_duration",
+              "value": 1000
+            }
+          ],
+          "timing": {
+            "start_ns": 30,
+            "deadline_ns": 1030,
+            "clock_domain": "synthetic-monotonic-v1"
+          }
+        },
+        {
+          "command_id": "D-H6",
+          "cohort_id": "D",
+          "boundary": {
+            "identity_digest": "87296c660a4e0c78c544ab2c5bf48a868a26053899ee6fec1f956a39229a81ea",
+            "generation": 0,
+            "clock_domain": "synthetic-monotonic-v1"
+          },
+          "limits": [
+            {
+              "name": "memory_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "pids_max",
+              "unit": "process_or_thread_count",
+              "value": 1000
+            },
+            {
+              "name": "cpu_usage_budget_ns",
+              "unit": "nanosecond",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_inodes",
+              "unit": "inode_count",
+              "value": 1000
+            },
+            {
+              "name": "retained_combined_stdout_stderr_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "wall_limit_ns",
+              "unit": "nanosecond_duration",
+              "value": 1000
+            }
+          ],
+          "timing": {
+            "start_ns": 40,
+            "deadline_ns": 1040,
+            "clock_domain": "synthetic-monotonic-v1"
+          }
+        },
+        {
+          "command_id": "D-COVERAGE",
+          "cohort_id": "D",
+          "boundary": {
+            "identity_digest": "bc45983c5c58bd7b8f1040698ead93ca474ff24fc30a788b2c51e1c0455eab00",
+            "generation": 0,
+            "clock_domain": "synthetic-monotonic-v1"
+          },
+          "limits": [
+            {
+              "name": "memory_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "pids_max",
+              "unit": "process_or_thread_count",
+              "value": 1000
+            },
+            {
+              "name": "cpu_usage_budget_ns",
+              "unit": "nanosecond",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_inodes",
+              "unit": "inode_count",
+              "value": 1000
+            },
+            {
+              "name": "retained_combined_stdout_stderr_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "wall_limit_ns",
+              "unit": "nanosecond_duration",
+              "value": 1000
+            }
+          ],
+          "timing": {
+            "start_ns": 50,
+            "deadline_ns": 1050,
+            "clock_domain": "synthetic-monotonic-v1"
+          }
+        }
+      ],
+      "controls": [
+        {
+          "name": "subject_ro_enforced",
+          "value": true
+        },
+        {
+          "name": "network_denial_enforced",
+          "value": true
+        },
+        {
+          "name": "batch_boundary_placement_observed",
+          "value": true
+        },
+        {
+          "name": "pre_payload_gate_observed",
+          "value": true
+        },
+        {
+          "name": "bootstrap_outer_boundary_observed",
+          "value": true
+        },
+        {
+          "name": "aggregate_memory_pids_observed",
+          "value": true
+        },
+        {
+          "name": "aggregate_scratch_bytes_inodes_observed",
+          "value": true
+        },
+        {
+          "name": "stream_output_deadline_observed",
+          "value": true
+        },
+        {
+          "name": "FD_policy_observed",
+          "value": true
+        },
+        {
+          "name": "owned_cleanup_observed",
+          "value": true
+        },
+        {
+          "name": "provider_guard_compatible",
+          "value": true
+        },
+        {
+          "name": "toolchain_closure_reviewed",
+          "value": true
+        },
+        {
+          "name": "expected_inventory_separately_frozen",
+          "value": true
+        },
+        {
+          "name": "consumed_origins_lineage_observed",
+          "value": true
+        }
+      ]
+    },
+    "baseline_record": {
+      "profile_id": "H_PREPARATION_PROFILE_V1",
+      "run_id": "00000000000000000000000000000000",
+      "artifacts": [
+        {
+          "role": "executor_content",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "bootstrap_content",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "provider_implementation",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "syscall_policy",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "collection_policy",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "toolchain_inventory",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "dependency_inventory",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "private_snapshot_manifest",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "full_expected_node_inventory",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "materialized_command_manifest",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        {
+          "role": "scope_record",
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        }
+      ],
+      "cohorts": [
+        {
+          "cohort_id": "O",
+          "revision": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+          "tree": "18e63fc8e03077684cd14c1ed33e2c7a8ceb89a5"
+        },
+        {
+          "cohort_id": "D",
+          "revision": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+          "tree": "d0dd929f3bb46d1a33d8bb00f29e7638b48d9483"
+        }
+      ],
+      "batch_boundary": {
+        "identity_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "generation": 0,
+        "clock_domain": "synthetic-monotonic-v1"
+      },
+      "batch_limits": [
+        {
+          "name": "batch_memory_max_bytes",
+          "unit": "byte",
+          "value": 1000000
+        },
+        {
+          "name": "batch_pids_max",
+          "unit": "process_or_thread_count",
+          "value": 1000000
+        },
+        {
+          "name": "cpu_bandwidth_quota_us",
+          "unit": "microsecond",
+          "value": 1000000
+        },
+        {
+          "name": "cpu_bandwidth_period_us",
+          "unit": "microsecond",
+          "value": 1000000
+        },
+        {
+          "name": "cpu_usage_accounting_budget_ns",
+          "unit": "nanosecond",
+          "value": 1000000
+        },
+        {
+          "name": "cpu_accounting_latency_bound_ns",
+          "unit": "nanosecond",
+          "value": 1000000
+        },
+        {
+          "name": "scratch_max_bytes",
+          "unit": "byte",
+          "value": 1000000
+        },
+        {
+          "name": "scratch_max_inodes",
+          "unit": "inode_count",
+          "value": 1000000
+        },
+        {
+          "name": "retained_combined_stdout_stderr_bytes",
+          "unit": "byte",
+          "value": 1000000
+        },
+        {
+          "name": "batch_wall_limit_ns",
+          "unit": "nanosecond_duration",
+          "value": 1000000
+        },
+        {
+          "name": "command_wall_limit_ns",
+          "unit": "nanosecond_duration",
+          "value": 1000000
+        },
+        {
+          "name": "stop_and_cleanup_limit_ns",
+          "unit": "nanosecond_duration",
+          "value": 1000000
+        }
+      ],
+      "commands": [
+        {
+          "command_id": "O-PYTEST",
+          "cohort_id": "O",
+          "boundary": {
+            "identity_digest": "d198392a804353fd31a25c6906ed856c9d73e2dd250485befcc69b5e25bdf8f5",
+            "generation": 0,
+            "clock_domain": "synthetic-monotonic-v1"
+          },
+          "limits": [
+            {
+              "name": "memory_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "pids_max",
+              "unit": "process_or_thread_count",
+              "value": 1000
+            },
+            {
+              "name": "cpu_usage_budget_ns",
+              "unit": "nanosecond",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_inodes",
+              "unit": "inode_count",
+              "value": 1000
+            },
+            {
+              "name": "retained_combined_stdout_stderr_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "wall_limit_ns",
+              "unit": "nanosecond_duration",
+              "value": 1000
+            }
+          ],
+          "timing": {
+            "start_ns": 0,
+            "deadline_ns": 1000,
+            "clock_domain": "synthetic-monotonic-v1"
+          }
+        },
+        {
+          "command_id": "O-H6",
+          "cohort_id": "O",
+          "boundary": {
+            "identity_digest": "75badf5e0df3bdb0a93796c9339d8bc7b5bd4207e5987b16067e8075a06439b5",
+            "generation": 0,
+            "clock_domain": "synthetic-monotonic-v1"
+          },
+          "limits": [
+            {
+              "name": "memory_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "pids_max",
+              "unit": "process_or_thread_count",
+              "value": 1000
+            },
+            {
+              "name": "cpu_usage_budget_ns",
+              "unit": "nanosecond",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_inodes",
+              "unit": "inode_count",
+              "value": 1000
+            },
+            {
+              "name": "retained_combined_stdout_stderr_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "wall_limit_ns",
+              "unit": "nanosecond_duration",
+              "value": 1000
+            }
+          ],
+          "timing": {
+            "start_ns": 10,
+            "deadline_ns": 1010,
+            "clock_domain": "synthetic-monotonic-v1"
+          }
+        },
+        {
+          "command_id": "O-H7",
+          "cohort_id": "O",
+          "boundary": {
+            "identity_digest": "1476eb33ca6d3c0a5d1533ebeb3616e0d4b4ef929ba5f16777abc7222c352c71",
+            "generation": 0,
+            "clock_domain": "synthetic-monotonic-v1"
+          },
+          "limits": [
+            {
+              "name": "memory_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "pids_max",
+              "unit": "process_or_thread_count",
+              "value": 1000
+            },
+            {
+              "name": "cpu_usage_budget_ns",
+              "unit": "nanosecond",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_inodes",
+              "unit": "inode_count",
+              "value": 1000
+            },
+            {
+              "name": "retained_combined_stdout_stderr_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "wall_limit_ns",
+              "unit": "nanosecond_duration",
+              "value": 1000
+            }
+          ],
+          "timing": {
+            "start_ns": 20,
+            "deadline_ns": 1020,
+            "clock_domain": "synthetic-monotonic-v1"
+          }
+        },
+        {
+          "command_id": "D-PYTEST",
+          "cohort_id": "D",
+          "boundary": {
+            "identity_digest": "5f523681697a842d512e495175a760ad11a68edd3ad10607206d354b00b2b242",
+            "generation": 0,
+            "clock_domain": "synthetic-monotonic-v1"
+          },
+          "limits": [
+            {
+              "name": "memory_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "pids_max",
+              "unit": "process_or_thread_count",
+              "value": 1000
+            },
+            {
+              "name": "cpu_usage_budget_ns",
+              "unit": "nanosecond",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_inodes",
+              "unit": "inode_count",
+              "value": 1000
+            },
+            {
+              "name": "retained_combined_stdout_stderr_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "wall_limit_ns",
+              "unit": "nanosecond_duration",
+              "value": 1000
+            }
+          ],
+          "timing": {
+            "start_ns": 30,
+            "deadline_ns": 1030,
+            "clock_domain": "synthetic-monotonic-v1"
+          }
+        },
+        {
+          "command_id": "D-H6",
+          "cohort_id": "D",
+          "boundary": {
+            "identity_digest": "87296c660a4e0c78c544ab2c5bf48a868a26053899ee6fec1f956a39229a81ea",
+            "generation": 0,
+            "clock_domain": "synthetic-monotonic-v1"
+          },
+          "limits": [
+            {
+              "name": "memory_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "pids_max",
+              "unit": "process_or_thread_count",
+              "value": 1000
+            },
+            {
+              "name": "cpu_usage_budget_ns",
+              "unit": "nanosecond",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_inodes",
+              "unit": "inode_count",
+              "value": 1000
+            },
+            {
+              "name": "retained_combined_stdout_stderr_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "wall_limit_ns",
+              "unit": "nanosecond_duration",
+              "value": 1000
+            }
+          ],
+          "timing": {
+            "start_ns": 40,
+            "deadline_ns": 1040,
+            "clock_domain": "synthetic-monotonic-v1"
+          }
+        },
+        {
+          "command_id": "D-COVERAGE",
+          "cohort_id": "D",
+          "boundary": {
+            "identity_digest": "bc45983c5c58bd7b8f1040698ead93ca474ff24fc30a788b2c51e1c0455eab00",
+            "generation": 0,
+            "clock_domain": "synthetic-monotonic-v1"
+          },
+          "limits": [
+            {
+              "name": "memory_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "pids_max",
+              "unit": "process_or_thread_count",
+              "value": 1000
+            },
+            {
+              "name": "cpu_usage_budget_ns",
+              "unit": "nanosecond",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "scratch_max_inodes",
+              "unit": "inode_count",
+              "value": 1000
+            },
+            {
+              "name": "retained_combined_stdout_stderr_bytes",
+              "unit": "byte",
+              "value": 1000
+            },
+            {
+              "name": "wall_limit_ns",
+              "unit": "nanosecond_duration",
+              "value": 1000
+            }
+          ],
+          "timing": {
+            "start_ns": 50,
+            "deadline_ns": 1050,
+            "clock_domain": "synthetic-monotonic-v1"
+          }
+        }
+      ],
+      "controls": [
+        {
+          "name": "subject_ro_enforced",
+          "value": true
+        },
+        {
+          "name": "network_denial_enforced",
+          "value": true
+        },
+        {
+          "name": "batch_boundary_placement_observed",
+          "value": true
+        },
+        {
+          "name": "pre_payload_gate_observed",
+          "value": true
+        },
+        {
+          "name": "bootstrap_outer_boundary_observed",
+          "value": true
+        },
+        {
+          "name": "aggregate_memory_pids_observed",
+          "value": true
+        },
+        {
+          "name": "aggregate_scratch_bytes_inodes_observed",
+          "value": true
+        },
+        {
+          "name": "stream_output_deadline_observed",
+          "value": true
+        },
+        {
+          "name": "FD_policy_observed",
+          "value": true
+        },
+        {
+          "name": "owned_cleanup_observed",
+          "value": true
+        },
+        {
+          "name": "provider_guard_compatible",
+          "value": true
+        },
+        {
+          "name": "toolchain_closure_reviewed",
+          "value": true
+        },
+        {
+          "name": "expected_inventory_separately_frozen",
+          "value": true
+        },
+        {
+          "name": "consumed_origins_lineage_observed",
+          "value": true
+        }
+      ],
+      "policy_digest": "7fe5d9a86fafab5223e2cae7ac19f7303daa70b7a7670b0ccd33d7d6f4f895bd",
+      "producer_errors": [],
+      "producer_unavailable": []
+    },
+    "canonical_policy_utf8": "{\"body\":{\"artifacts\":[{\"role\":\"executor_content\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"bootstrap_content\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"provider_implementation\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"syscall_policy\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"collection_policy\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"toolchain_inventory\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"dependency_inventory\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"private_snapshot_manifest\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"full_expected_node_inventory\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"materialized_command_manifest\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"scope_record\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"}],\"batch_boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"},\"batch_limits\":[{\"name\":\"batch_memory_max_bytes\",\"unit\":\"byte\",\"value\":1000000},{\"name\":\"batch_pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000000},{\"name\":\"cpu_bandwidth_quota_us\",\"unit\":\"microsecond\",\"value\":1000000},{\"name\":\"cpu_bandwidth_period_us\",\"unit\":\"microsecond\",\"value\":1000000},{\"name\":\"cpu_usage_accounting_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000000},{\"name\":\"cpu_accounting_latency_bound_ns\",\"unit\":\"nanosecond\",\"value\":1000000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000000},{\"name\":\"batch_wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000000},{\"name\":\"command_wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000000},{\"name\":\"stop_and_cleanup_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000000}],\"cohorts\":[{\"cohort_id\":\"O\",\"revision\":\"5357d5d555d49b258affa237d83b8491b8a8c6ce\",\"tree\":\"18e63fc8e03077684cd14c1ed33e2c7a8ceb89a5\"},{\"cohort_id\":\"D\",\"revision\":\"75e00280a09323ad4a3fc82453383f220c92f6c6\",\"tree\":\"d0dd929f3bb46d1a33d8bb00f29e7638b48d9483\"}],\"commands\":[{\"boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"d198392a804353fd31a25c6906ed856c9d73e2dd250485befcc69b5e25bdf8f5\"},\"cohort_id\":\"O\",\"command_id\":\"O-PYTEST\",\"limits\":[{\"name\":\"memory_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000},{\"name\":\"cpu_usage_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000}],\"timing\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"deadline_ns\":1000,\"start_ns\":0}},{\"boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"75badf5e0df3bdb0a93796c9339d8bc7b5bd4207e5987b16067e8075a06439b5\"},\"cohort_id\":\"O\",\"command_id\":\"O-H6\",\"limits\":[{\"name\":\"memory_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000},{\"name\":\"cpu_usage_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000}],\"timing\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"deadline_ns\":1010,\"start_ns\":10}},{\"boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"1476eb33ca6d3c0a5d1533ebeb3616e0d4b4ef929ba5f16777abc7222c352c71\"},\"cohort_id\":\"O\",\"command_id\":\"O-H7\",\"limits\":[{\"name\":\"memory_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000},{\"name\":\"cpu_usage_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000}],\"timing\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"deadline_ns\":1020,\"start_ns\":20}},{\"boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"5f523681697a842d512e495175a760ad11a68edd3ad10607206d354b00b2b242\"},\"cohort_id\":\"D\",\"command_id\":\"D-PYTEST\",\"limits\":[{\"name\":\"memory_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000},{\"name\":\"cpu_usage_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000}],\"timing\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"deadline_ns\":1030,\"start_ns\":30}},{\"boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"87296c660a4e0c78c544ab2c5bf48a868a26053899ee6fec1f956a39229a81ea\"},\"cohort_id\":\"D\",\"command_id\":\"D-H6\",\"limits\":[{\"name\":\"memory_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000},{\"name\":\"cpu_usage_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000}],\"timing\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"deadline_ns\":1040,\"start_ns\":40}},{\"boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"bc45983c5c58bd7b8f1040698ead93ca474ff24fc30a788b2c51e1c0455eab00\"},\"cohort_id\":\"D\",\"command_id\":\"D-COVERAGE\",\"limits\":[{\"name\":\"memory_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000},{\"name\":\"cpu_usage_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000}],\"timing\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"deadline_ns\":1050,\"start_ns\":50}}],\"controls\":[{\"name\":\"subject_ro_enforced\",\"value\":true},{\"name\":\"network_denial_enforced\",\"value\":true},{\"name\":\"batch_boundary_placement_observed\",\"value\":true},{\"name\":\"pre_payload_gate_observed\",\"value\":true},{\"name\":\"bootstrap_outer_boundary_observed\",\"value\":true},{\"name\":\"aggregate_memory_pids_observed\",\"value\":true},{\"name\":\"aggregate_scratch_bytes_inodes_observed\",\"value\":true},{\"name\":\"stream_output_deadline_observed\",\"value\":true},{\"name\":\"FD_policy_observed\",\"value\":true},{\"name\":\"owned_cleanup_observed\",\"value\":true},{\"name\":\"provider_guard_compatible\",\"value\":true},{\"name\":\"toolchain_closure_reviewed\",\"value\":true},{\"name\":\"expected_inventory_separately_frozen\",\"value\":true},{\"name\":\"consumed_origins_lineage_observed\",\"value\":true}],\"profile_id\":\"H_PREPARATION_PROFILE_V1\",\"run_id\":\"00000000000000000000000000000000\"},\"kind\":\"POLICY\",\"schema\":\"preparation-profile-claims-v1\"}",
+    "canonical_record_utf8": "{\"body\":{\"artifacts\":[{\"role\":\"executor_content\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"bootstrap_content\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"provider_implementation\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"syscall_policy\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"collection_policy\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"toolchain_inventory\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"dependency_inventory\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"private_snapshot_manifest\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"full_expected_node_inventory\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"materialized_command_manifest\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"},{\"role\":\"scope_record\",\"sha256\":\"1111111111111111111111111111111111111111111111111111111111111111\"}],\"batch_boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"},\"batch_limits\":[{\"name\":\"batch_memory_max_bytes\",\"unit\":\"byte\",\"value\":1000000},{\"name\":\"batch_pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000000},{\"name\":\"cpu_bandwidth_quota_us\",\"unit\":\"microsecond\",\"value\":1000000},{\"name\":\"cpu_bandwidth_period_us\",\"unit\":\"microsecond\",\"value\":1000000},{\"name\":\"cpu_usage_accounting_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000000},{\"name\":\"cpu_accounting_latency_bound_ns\",\"unit\":\"nanosecond\",\"value\":1000000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000000},{\"name\":\"batch_wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000000},{\"name\":\"command_wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000000},{\"name\":\"stop_and_cleanup_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000000}],\"cohorts\":[{\"cohort_id\":\"O\",\"revision\":\"5357d5d555d49b258affa237d83b8491b8a8c6ce\",\"tree\":\"18e63fc8e03077684cd14c1ed33e2c7a8ceb89a5\"},{\"cohort_id\":\"D\",\"revision\":\"75e00280a09323ad4a3fc82453383f220c92f6c6\",\"tree\":\"d0dd929f3bb46d1a33d8bb00f29e7638b48d9483\"}],\"commands\":[{\"boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"d198392a804353fd31a25c6906ed856c9d73e2dd250485befcc69b5e25bdf8f5\"},\"cohort_id\":\"O\",\"command_id\":\"O-PYTEST\",\"limits\":[{\"name\":\"memory_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000},{\"name\":\"cpu_usage_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000}],\"timing\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"deadline_ns\":1000,\"start_ns\":0}},{\"boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"75badf5e0df3bdb0a93796c9339d8bc7b5bd4207e5987b16067e8075a06439b5\"},\"cohort_id\":\"O\",\"command_id\":\"O-H6\",\"limits\":[{\"name\":\"memory_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000},{\"name\":\"cpu_usage_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000}],\"timing\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"deadline_ns\":1010,\"start_ns\":10}},{\"boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"1476eb33ca6d3c0a5d1533ebeb3616e0d4b4ef929ba5f16777abc7222c352c71\"},\"cohort_id\":\"O\",\"command_id\":\"O-H7\",\"limits\":[{\"name\":\"memory_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000},{\"name\":\"cpu_usage_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000}],\"timing\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"deadline_ns\":1020,\"start_ns\":20}},{\"boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"5f523681697a842d512e495175a760ad11a68edd3ad10607206d354b00b2b242\"},\"cohort_id\":\"D\",\"command_id\":\"D-PYTEST\",\"limits\":[{\"name\":\"memory_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000},{\"name\":\"cpu_usage_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000}],\"timing\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"deadline_ns\":1030,\"start_ns\":30}},{\"boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"87296c660a4e0c78c544ab2c5bf48a868a26053899ee6fec1f956a39229a81ea\"},\"cohort_id\":\"D\",\"command_id\":\"D-H6\",\"limits\":[{\"name\":\"memory_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000},{\"name\":\"cpu_usage_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000}],\"timing\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"deadline_ns\":1040,\"start_ns\":40}},{\"boundary\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"generation\":0,\"identity_digest\":\"bc45983c5c58bd7b8f1040698ead93ca474ff24fc30a788b2c51e1c0455eab00\"},\"cohort_id\":\"D\",\"command_id\":\"D-COVERAGE\",\"limits\":[{\"name\":\"memory_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"pids_max\",\"unit\":\"process_or_thread_count\",\"value\":1000},{\"name\":\"cpu_usage_budget_ns\",\"unit\":\"nanosecond\",\"value\":1000},{\"name\":\"scratch_max_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"scratch_max_inodes\",\"unit\":\"inode_count\",\"value\":1000},{\"name\":\"retained_combined_stdout_stderr_bytes\",\"unit\":\"byte\",\"value\":1000},{\"name\":\"wall_limit_ns\",\"unit\":\"nanosecond_duration\",\"value\":1000}],\"timing\":{\"clock_domain\":\"synthetic-monotonic-v1\",\"deadline_ns\":1050,\"start_ns\":50}}],\"controls\":[{\"name\":\"subject_ro_enforced\",\"value\":true},{\"name\":\"network_denial_enforced\",\"value\":true},{\"name\":\"batch_boundary_placement_observed\",\"value\":true},{\"name\":\"pre_payload_gate_observed\",\"value\":true},{\"name\":\"bootstrap_outer_boundary_observed\",\"value\":true},{\"name\":\"aggregate_memory_pids_observed\",\"value\":true},{\"name\":\"aggregate_scratch_bytes_inodes_observed\",\"value\":true},{\"name\":\"stream_output_deadline_observed\",\"value\":true},{\"name\":\"FD_policy_observed\",\"value\":true},{\"name\":\"owned_cleanup_observed\",\"value\":true},{\"name\":\"provider_guard_compatible\",\"value\":true},{\"name\":\"toolchain_closure_reviewed\",\"value\":true},{\"name\":\"expected_inventory_separately_frozen\",\"value\":true},{\"name\":\"consumed_origins_lineage_observed\",\"value\":true}],\"policy_digest\":\"7fe5d9a86fafab5223e2cae7ac19f7303daa70b7a7670b0ccd33d7d6f4f895bd\",\"producer_errors\":[],\"producer_unavailable\":[],\"profile_id\":\"H_PREPARATION_PROFILE_V1\",\"run_id\":\"00000000000000000000000000000000\"},\"kind\":\"RECORD\",\"schema\":\"preparation-profile-claims-v1\"}",
+    "canonical_policy_sha256": "7fe5d9a86fafab5223e2cae7ac19f7303daa70b7a7670b0ccd33d7d6f4f895bd",
+    "canonical_record_sha256": "9ef9a6a2d8a1e58e8b4da0ac8bf7d72c8ef8e229e1e6feb0f78ac25c957c2707",
+    "cases": [
+      {
+        "id": "PC-001",
+        "description": "complete synthetic claims still grant nothing",
+        "policy": "BASELINE",
+        "mutations": [],
+        "expected_consistency": "STRUCTURAL_PROFILE_MATCH",
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-002",
+        "description": "missing policy is not waived",
+        "policy": "NONE",
+        "mutations": [],
+        "expected_consistency": "UNAVAILABLE",
+        "required_error_codes": [],
+        "required_unavailable_codes": [
+          "POLICY_UNAVAILABLE"
+        ],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-003",
+        "description": "known False control outranks missing policy",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "controls",
+            0,
+            "value",
+            false
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "CONTROL_CLAIM_FALSE"
+        ],
+        "required_unavailable_codes": [
+          "POLICY_UNAVAILABLE"
+        ],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-004",
+        "description": "known zero not missing",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "batch_limits",
+            0,
+            "value",
+            0
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "LIMIT_NONPOSITIVE"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-005",
+        "description": "known unlimited not missing",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "batch_limits",
+            0,
+            "value",
+            "UNBOUNDED"
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "LIMIT_UNBOUNDED"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-006",
+        "description": "unknown control is not False",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "controls",
+            0,
+            "value",
+            null
+          ]
+        ],
+        "expected_consistency": "UNAVAILABLE",
+        "required_error_codes": [],
+        "required_unavailable_codes": [
+          "VALUE_UNAVAILABLE",
+          "POLICY_UNAVAILABLE"
+        ],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-007",
+        "description": "explicit empty control table claims wrong inventory",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "controls",
+            []
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "TABLE_INVENTORY_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-008",
+        "description": "well-shaped wrong source rejects without policy",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "cohorts",
+            0,
+            "revision",
+            "2222222222222222222222222222222222222222"
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "COHORT_PIN_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-009",
+        "description": "known command/cohort cannot fallback",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "commands",
+            0,
+            "cohort_id",
+            "D"
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "COMMAND_CONTEXT_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-010",
+        "description": "foreign profile is not implicitly supported",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "profile_id",
+            "OTHER"
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "PROFILE_ID_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-011",
+        "description": "boundary identity reuse rejects",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "commands",
+            1,
+            "boundary",
+            "identity_digest",
+            "d198392a804353fd31a25c6906ed856c9d73e2dd250485befcc69b5e25bdf8f5"
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "BOUNDARY_REUSE"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-012",
+        "description": "mixed clocks reject",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "commands",
+            0,
+            "timing",
+            "clock_domain",
+            "other-clock"
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "CLOCK_DOMAIN_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-013",
+        "description": "time reversal remains known contradiction",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "commands",
+            0,
+            "timing",
+            "start_ns",
+            2000
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "TIME_ORDER_INVALID"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-014",
+        "description": "UInt64 addition is checked",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "commands",
+            0,
+            "timing",
+            "start_ns",
+            18446744073709551615
+          ],
+          [
+            "record",
+            "commands",
+            0,
+            "timing",
+            "deadline_ns",
+            18446744073709551615
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "TIME_OVERFLOW"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-015",
+        "description": "deadline not duration or arbitrary timestamp",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "commands",
+            0,
+            "timing",
+            "deadline_ns",
+            1001
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "DEADLINE_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-016",
+        "description": "known artifact differs from supplied policy",
+        "policy": "BASELINE",
+        "mutations": [
+          [
+            "record",
+            "artifacts",
+            0,
+            "sha256",
+            "2222222222222222222222222222222222222222222222222222222222222222"
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "POLICY_RECORD_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-017",
+        "description": "record binds supplied canonical policy content",
+        "policy": "BASELINE",
+        "mutations": [
+          [
+            "record",
+            "policy_digest",
+            "0000000000000000000000000000000000000000000000000000000000000000"
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "POLICY_DIGEST_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-018",
+        "description": "producer failure survives missing policy",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "producer_errors",
+            [
+              "PRODUCER_REPORTED_FAILURE"
+            ]
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "PRODUCER_FAILURE"
+        ],
+        "required_unavailable_codes": [
+          "POLICY_UNAVAILABLE"
+        ],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-019",
+        "description": "producer unavailable not success",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "producer_unavailable",
+            [
+              "PRODUCER_REPORTED_UNAVAILABLE"
+            ]
+          ]
+        ],
+        "expected_consistency": "UNAVAILABLE",
+        "required_error_codes": [],
+        "required_unavailable_codes": [
+          "PRODUCER_UNAVAILABLE"
+        ],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-020",
+        "description": "whole unknown table not empty",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "commands",
+            null
+          ]
+        ],
+        "expected_consistency": "UNAVAILABLE",
+        "required_error_codes": [],
+        "required_unavailable_codes": [
+          "TABLE_UNAVAILABLE"
+        ],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-021",
+        "description": "command cap cannot exceed declared parent",
+        "policy": "NONE",
+        "mutations": [
+          [
+            "record",
+            "commands",
+            0,
+            "limits",
+            0,
+            "value",
+            1000001
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "LIMIT_SCOPE_INCONSISTENT"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-022",
+        "description": "supplied policy cannot waive required True",
+        "policy": "BASELINE",
+        "mutations": [
+          [
+            "policy",
+            "controls",
+            0,
+            "value",
+            false
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "CONTROL_CLAIM_FALSE",
+          "POLICY_RECORD_MISMATCH",
+          "POLICY_DIGEST_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-023",
+        "description": "bool is not integer",
+        "policy": "BASELINE",
+        "mutations": [
+          [
+            "record",
+            "batch_limits",
+            0,
+            "value",
+            false
+          ]
+        ],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "expected_ValueError": true,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-024",
+        "description": "float timestamp is malformed",
+        "policy": "BASELINE",
+        "mutations": [
+          [
+            "record",
+            "commands",
+            0,
+            "timing",
+            "start_ns",
+            1.0
+          ]
+        ],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "expected_ValueError": true,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-025",
+        "description": "unknown artifact role cannot expand registry",
+        "policy": "BASELINE",
+        "mutations": [
+          [
+            "record",
+            "artifacts",
+            0,
+            "role",
+            "OTHER"
+          ]
+        ],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "expected_ValueError": true,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-026",
+        "description": "duplicate artifact identifiers ambiguous",
+        "policy": "BASELINE",
+        "mutations": [
+          [
+            "record",
+            "artifacts",
+            1,
+            "role",
+            "executor_content"
+          ]
+        ],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "expected_ValueError": true,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-027",
+        "description": "unknown/extra wire key never authority",
+        "policy": "BASELINE",
+        "mutations": [
+          [
+            "record",
+            "application_authorized",
+            true
+          ]
+        ],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "expected_ValueError": true,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-028",
+        "description": "generation0 remains available identity",
+        "policy": "BASELINE",
+        "mutations": [],
+        "expected_consistency": "STRUCTURAL_PROFILE_MATCH",
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-029",
+        "description": "missing run does not borrow policy run",
+        "policy": "BASELINE",
+        "mutations": [
+          [
+            "record",
+            "run_id",
+            null
+          ]
+        ],
+        "expected_consistency": "UNAVAILABLE",
+        "required_error_codes": [],
+        "required_unavailable_codes": [
+          "VALUE_UNAVAILABLE"
+        ],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      },
+      {
+        "id": "PC-030",
+        "description": "known boundary context change rejects",
+        "policy": "BASELINE",
+        "mutations": [
+          [
+            "record",
+            "batch_boundary",
+            "generation",
+            1
+          ]
+        ],
+        "expected_consistency": "REJECTED",
+        "required_error_codes": [
+          "POLICY_RECORD_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "expected_ValueError": false,
+        "status": "SPEC_EXPECTATION_NOT_IMPLEMENTATION_EXECUTED"
+      }
+    ],
+    "additional_wire_cases": [
+      "duplicate identical schema key in otherwise validpolicy",
+      "wrong kind/version/missing field",
+      "UTF8invalid/BOM/trailing data",
+      "oversize before parser invocation",
+      "UInt64max exact and max+1invalid",
+      "reversed keyedtables canonical equality",
+      "None/0/False/UNBOUNDED remain distinct"
+    ],
+    "every_valid_decision_fixed_facets": {
+      "status": "BLOCKED",
+      "integrated_admission": false,
+      "H_executed": false,
+      "all_nine_permissions": false
+    }
+  },
+  "sources": {
+    "schema": "preparation-profile-contract-source-manifest-v1",
+    "repository": "rownlvh8875-coder/cyberpilot-autotune",
+    "source_revision": "4b77b31dd23010f2d2b394466d88b04a4a2720e2",
+    "source_checkpoint": "db91591637f9e73ecbbb009b6e122443636390a8",
+    "source_tree": "c8534fed7baa56ec3754b64774aba2dbbeab85de",
+    "prior_blueprint": {
+      "hf_commit": "8912748b41100cae759a26bf14dcef46038d7aff",
+      "manifest_sha256": "e94a1e469fa77a13944f6e0e97e498e62a886e36e7d9eebbcbb645e183150160"
+    },
+    "scope_source_files": [
+      {
+        "blob": "a8d4fb8a2d4b85d8c2888325407da148faa8cd76",
+        "file_sha256": "639e55cfd0bbf46d5baa3d852de6b15982a89d6fa8c6ab68dd28557d9c434adb",
+        "functions": [
+          {
+            "AST_sha256": "6dbe63d5bb9291bfab61b9c969142455bb66d61077c8e5723ad4ffede6597d53",
+            "end": 45,
+            "name": "test_fresh_import_is_inert_and_does_not_load_old_core_or_runtime",
+            "source_sha256": "913527cbb37cfe3f7a6952ab0c37d4d8481edc8578d817632d8d37973e309a47",
+            "start": 16
+          },
+          {
+            "AST_sha256": "f994a61f23e87242efd1612de5cdb36b94cdd564e295dc6dfc88681b51fa235f",
+            "end": 58,
+            "name": "test_package_uses_only_pure_stdlib_and_sibling_imports",
+            "source_sha256": "f9e0dcd3a14a78e4135e389948f395f0486ff3b809b8e12251cda9d816f14cad",
+            "start": 48
+          },
+          {
+            "AST_sha256": "b24819b949d1d017fa0f2f4c52a30007a813a26a761de30ede778d949914f591",
+            "end": 73,
+            "name": "test_h_record_cannot_override_bad_current_C_or_supply_old_IO",
+            "source_sha256": "4c601ab84d2f84f68a611380f8b8602009b0b590f3bc6c22d59da73529c2bbca",
+            "start": 61
+          },
+          {
+            "AST_sha256": "dd3d8af617e0a7d4d30d57c7747a30dbe9e8fb304ac85d05641ef80e3bf9eb3a",
+            "end": 86,
+            "name": "_phase_changes",
+            "source_sha256": "6c21484784627cc97b64b4cfd6127bfa548370603cc91381d998d464c0a9b47e",
+            "start": 76
+          },
+          {
+            "AST_sha256": "eb8a6bbea94355639b4b2205d4898b4daca569f6e9dacbca9b09f921f68b46b4",
+            "end": 106,
+            "name": "_registered_preflight_changes",
+            "source_sha256": "75ab88b58908618200ae53d3716443045f0a6eb6397f4d91a7b5281d53b305a7",
+            "start": 89
+          },
+          {
+            "AST_sha256": "4ba3161a04a8262bc61395768c549852e08c24f75a631f0c4abed0fb33f5a155",
+            "end": 129,
+            "name": "_ci_portability_changes",
+            "source_sha256": "bc7bf62c0055ac13a3f1c603ab4dcfb3e7ea8b5a19d82d3a782c480e3d8b3099",
+            "start": 109
+          },
+          {
+            "AST_sha256": "b1e4bb3c6ea4af8d88d2107562bc2e2a68e6b622cdb46831faac11853721ed58",
+            "end": 148,
+            "name": "_h1_outcome_changes",
+            "source_sha256": "6d3157207be918231e4755ee2a85bd44d0ddeb5ac89090a0a51191c7d93cf3a6",
+            "start": 132
+          },
+          {
+            "AST_sha256": "7a4c83bd592babb4156e477dd330c1ab907f6d02fbf25c8b9d3dbe4bebd212c5",
+            "end": 168,
+            "name": "_h1_cancellation_changes",
+            "source_sha256": "f57664ae95ddcef73363c4666297b73ca4aaa47b494c61538c5ff5cc8aab8ade",
+            "start": 151
+          },
+          {
+            "AST_sha256": "be8451eeaa7295249bba80821ca686ba8f50bca9e5c641291c09234e765875f0",
+            "end": 240,
+            "name": "test_all_earlier_files_and_guard_bytes_are_preserved",
+            "source_sha256": "b21dd7a43572e8876995ca296e37d1eccb8418b3543df78148b83399e807f92c",
+            "start": 171
+          },
+          {
+            "AST_sha256": "fb50bfd85131d46189554918387b7b4732837c13e0a75c7d7772f52049c2ca75",
+            "end": 260,
+            "name": "test_phase_guard_rejects_edits_deletions_aliases_and_unknown_additions",
+            "source_sha256": "c13716968bf96a827548ffb41c9ce6525af408bf4ba016aa0adc8f051f69b3c7",
+            "start": 256
+          },
+          {
+            "AST_sha256": "4e6ef4ad61ea7d54ec798e5de1e682becdb71465aeceb48c49247ab6dfc35d67",
+            "end": 271,
+            "name": "test_phase_guard_requires_exact_historical_sets_without_widening_current_scope",
+            "source_sha256": "ec34e4907cd2f7bb32fc80ebc204924d135964e2cc50bf32032eefdef585db3f",
+            "start": 263
+          }
+        ],
+        "nonfunction_top_level_AST_sha256": "696888249a7a44eaa3843fa8c399ac0d783a5418c05dbea918806b8ffe9ebae3",
+        "path": "tests/test_audit_compatibility_history_architecture.py",
+        "source_executed": false
+      },
+      {
+        "blob": "87fad96cf3665cf237f2c60e629afb11fd1be21a",
+        "file_sha256": "cdc1f5c4d337190d5dc444efc3c738d8aa9d515c107bb87dd094097b16ce05b8",
+        "functions": [
+          {
+            "AST_sha256": "e24e4c30d2b9b5b20ac17f98c6c65a62d83c15873b4b0210bae6ec9deae197ee",
+            "end": 36,
+            "name": "git",
+            "source_sha256": "d9d314c57dfaa647a254b0fa20a1c8ad00bf52e60430d1e67870eddea50efbe9",
+            "start": 31
+          },
+          {
+            "AST_sha256": "3f89d69d5d88bcf55119968790c4c1b85157e76a4d7f5e073bfc7220b9f4085f",
+            "end": 43,
+            "name": "scope",
+            "source_sha256": "46a214836f25556eb60d5f44edda70fbe27429a576fe23d252a110c33c7ed297",
+            "start": 39
+          },
+          {
+            "AST_sha256": "81bc66732bc56ad5aa803d8af51bb2d0ca0aebdc333f936eaa2512a8aa02d567",
+            "end": 47,
+            "name": "test_registered_phase_accepts_only_explicit_successor_paths",
+            "source_sha256": "bf88d1d02975824ffa825855bf44c1ee9783581818cce6cb7479014ad0f8f580",
+            "start": 46
+          },
+          {
+            "AST_sha256": "42b2f18be1dfe5a298ccb890651e0557be360964f3e90d249ce0f9d0ffe7b9d3",
+            "end": 70,
+            "name": "test_registered_phase_rejects_scope_status_and_alias_expansion",
+            "source_sha256": "347d2448796fa05f166d5540e469858f3e81ba9e543dec80add27ffd1ab95c0f",
+            "start": 67
+          },
+          {
+            "AST_sha256": "dd7be06b264dd0fb2e08a4778b2cf85323b2abe8589ecbb8941a7439311e30a8",
+            "end": 88,
+            "name": "test_old_nonconsumer_functions_and_top_level_semantics_stay_exact",
+            "source_sha256": "b887620291285ecc21e3e6a2c67beee6b634f4d118e29db4aea14d3bc404315b",
+            "start": 73
+          },
+          {
+            "AST_sha256": "1295430bcd0d60fee75e2476b280eef584f8a66fd739c65dfb8d64384947f2bb",
+            "end": 132,
+            "name": "test_registration_does_not_authorize_itself_or_execution",
+            "source_sha256": "c040506ebaf6904ea4489dd19246f181f99a5cc9d75d6daf1871d9b7d0f70a0f",
+            "start": 91
+          },
+          {
+            "AST_sha256": "45b714fcae0cca65db343ad34ebc3c1c38e0a73966e0e380544ee5759ac4d555",
+            "end": 145,
+            "name": "test_new_phase_inventory_and_plain_files_are_exact",
+            "source_sha256": "d9f9e970b42a6e66f7910b893b36514aec80947f8d81d7b41741ffa6c37f982b",
+            "start": 135
+          },
+          {
+            "AST_sha256": "d836a486719df209643f2f1ded56d9615ff80d549540bdaed80894bef906b04f",
+            "end": 169,
+            "name": "test_frozen_source_and_workflow_have_exact_lf_identities",
+            "source_sha256": "61ce8fa314dd8c72ed70c5a143ac515ddcba6a4d2fdea30331659d12e8ca1cb0",
+            "start": 148
+          },
+          {
+            "AST_sha256": "20d4e3e7f708e99cc772d80a93e3eb74407f32461d4bf793e27a999c524df724",
+            "end": 177,
+            "name": "test_attributes_only_append_two_nonoverlapping_frozen_paths",
+            "source_sha256": "c93b9c7215d3cdac20ddd1b6204be0e0169c933a6282b8e966d0f7f0f5c00399",
+            "start": 172
+          },
+          {
+            "AST_sha256": "6a8c47b3ba27df8e5f45baa8c9184494b2af4f4fc969135f90327808edbe55ad",
+            "end": 205,
+            "name": "test_real_consumer_rejects_frozen_or_untracked_scope_tampering",
+            "source_sha256": "272d21df09f0ce4bca778f8b11aa17375822ffbd542ff951d9d3b2b0da5caf38",
+            "start": 181
+          },
+          {
+            "AST_sha256": "f6d311dcc9e5a598ab49bc2a506c0150e9505e4da37ed7803fa4345cce19b76f",
+            "end": 230,
+            "name": "test_real_consumer_checks_all_legacy_ranges_and_literal_checkpoint",
+            "source_sha256": "aa58ce4b623b99b711007f635909c3d4f28307eb85ab3f97b28b1db87fa1f7f7",
+            "start": 208
+          }
+        ],
+        "nonfunction_top_level_AST_sha256": "78044bbb04107b19018806cd418d213c6b53bf354a3fcb4096456c0550605613",
+        "path": "tests/test_actions_preflight_registration.py",
+        "source_executed": false
+      },
+      {
+        "blob": "e74c02ae0dd2d004b6c16adc6e5578002d82d1a9",
+        "file_sha256": "db41c95fd425b9ab39ea5b415874d1023bfae6b53d7ed861e79597e6920ec259",
+        "functions": [
+          {
+            "AST_sha256": "5de2497a33e1ce010c7836b05de09607132f18e828bb89cb43cc7c9440aec994",
+            "end": 172,
+            "name": "controller",
+            "source_sha256": "04ee5566bfc8b49e5fd1299c168c5ec354bfa5a356e09949203817cb2f6bfa6f",
+            "start": 16
+          },
+          {
+            "AST_sha256": "8a417c4549aa1a493d233b46a2ef88e97280a91f6c3b7d05cd5855f3aa4ce641",
+            "end": 195,
+            "name": "_owned_line_targets",
+            "source_sha256": "beddeb0640e2a4d1b7a808e85c26919529192bb43484015a6d2d8c6592486f32",
+            "start": 175
+          },
+          {
+            "AST_sha256": "cd2a6381ae4a6577583e906782a4dfc868eb3c3f0d62af2b2d04fc5d4a95df34",
+            "end": 219,
+            "name": "_interrupt_owned_line",
+            "source_sha256": "d9c5c1ac10a0c852bd9afcca06704d34db383854dc4fde94a02583ab9cc69fc8",
+            "start": 198
+          },
+          {
+            "AST_sha256": "e0aea2421bdd6156dab41437ff40f48cd78e5408af6e7563ec90679c07ce5127",
+            "end": 234,
+            "name": "test_each_owned_line_before_pidfd_is_cleanup_protected",
+            "source_sha256": "8f5333cd08a80130d42c516c9814437252e963993f8362d7e1baf878873e4a7c",
+            "start": 223
+          },
+          {
+            "AST_sha256": "96b234ea3711bb1b2f8dbabca5fb60b9ef797f1171b34413f3a613c90a7e3e2e",
+            "end": 257,
+            "name": "test_incomplete_acquisition_never_cleans_an_unowned_helper",
+            "source_sha256": "a40b80a6b525edc09706a2a0e301a89b33aad1ab54b3cbb18a43bcb05d296a97",
+            "start": 239
+          },
+          {
+            "AST_sha256": "60a09ba71d80b4614a42bd632f135f7c256dfb7dcd9c1bfa8f7730c9c6446d44",
+            "end": 273,
+            "name": "test_first_owned_boundary_preserves_primary_through_cleanup_fault",
+            "source_sha256": "7a31a8d18603150ac4d4018e55724c2d44112b6e8cc399c0f86ae7ac98755594",
+            "start": 262
+          },
+          {
+            "AST_sha256": "5fc7b5302c81937dbced1397b1517999b49e7fc4b07e3bf6ada817162f554e55",
+            "end": 293,
+            "name": "test_cancellation_closes_owned_streams_and_reaps_before_pidfd_release",
+            "source_sha256": "94e8952efdc107707be3128fe16a0a5fd1cdeded901a6e6079727a27f40b14da",
+            "start": 278
+          },
+          {
+            "AST_sha256": "e49740a7439029b1145a20bfee101c892f65044aa1d81029eadd5cf1e039aceb",
+            "end": 313,
+            "name": "test_secondary_cleanup_cancellation_never_masks_original_or_skips_later_cleanup",
+            "source_sha256": "28f43ccc9ad8250159c0832ea076f864138e3a356be40be397d6c9ceaa846d63",
+            "start": 300
+          },
+          {
+            "AST_sha256": "04d7613fe217b1268756e729c10125d8f769efa1d7e00483a54741a9da5d66b0",
+            "end": 325,
+            "name": "test_normal_pidfd_close_failure_invalidates_clean_result_without_retry",
+            "source_sha256": "8f78b30da48dfc1f59ad22be61aaf7290a514162a5b40b64a75f024a7515dba6",
+            "start": 316
+          },
+          {
+            "AST_sha256": "7f283eed580a1e1d5616bc659eab5c02fc1800a5edfdd2f5098ed33d6662f16e",
+            "end": 346,
+            "name": "test_artifact_write_cancellation_survives_directory_close",
+            "source_sha256": "46945973b6327429a86ab48c15a4d8fc092390fff96d30364a132e2989d0632c",
+            "start": 330
+          },
+          {
+            "AST_sha256": "3ac74eb8ebeb071fb5382c3a7270a0ed1b3d2f63bca3d8dd0073f38948a06d2f",
+            "end": 388,
+            "name": "test_actual_collector_preserves_cancellation_through_nested_cleanup",
+            "source_sha256": "3dbdd0c611c4c884dfc9a62cc3dffe3f62a991c12a580a5c3b827f5a13fbe1d0",
+            "start": 352
+          },
+          {
+            "AST_sha256": "b5310a488fe4e2b3de764b2ebc520eaf1025df6c7ace7a9b548b25bdd683bb2d",
+            "end": 461,
+            "name": "test_real_artifact_helpers_preserve_primary_across_nested_closes",
+            "source_sha256": "87fcf1b46cec7db90cf8d245ccbfcce4ef04694ad565d6241ad0e4a6d091f59f",
+            "start": 394
+          },
+          {
+            "AST_sha256": "f3f372386f3bb5046c8a44490b4757c18c9491494613487af7b5d3cb1ee2f653",
+            "end": 473,
+            "name": "test_late_pidfd_close_cancellation_propagates_without_using_released_descriptor",
+            "source_sha256": "e3ae998dc05ad1790f2870904469c16fd4bfc08f32c9f472dd21b9590ed02326",
+            "start": 464
+          },
+          {
+            "AST_sha256": "77d290c0d3b62e426de8c079331418fa114e0dbf197f41465298896437301f95",
+            "end": 485,
+            "name": "test_known_failure_is_preserved_when_final_stream_close_is_unconfirmed",
+            "source_sha256": "9149de03a41bc6ba5c5c8f72a18014bd902afcde11ba0a2a2324e90ac2be5f81",
+            "start": 476
+          },
+          {
+            "AST_sha256": "c1e1b08d24239a74aa05353f5bbb0365c1adb0ee07f7682138a5139e66de4fc1",
+            "end": 496,
+            "name": "test_unavailable_pidfd_sends_no_request_and_uses_eof_not_numeric_signalling",
+            "source_sha256": "6a4f7e6f93206edb8f58778a6f6ba79876b4738797adc3d76930408f25c1bfd5",
+            "start": 488
+          },
+          {
+            "AST_sha256": "73758494ac2e52e2981c3df69e52a0ee156a225cdda4bf3764a0fcafbd78589c",
+            "end": 507,
+            "name": "test_normal_protocol_output_and_false_permissions_survive_resource_release",
+            "source_sha256": "f139c85903d5f129cee992057671159aac766c7c057934d425e1011c37aa8285",
+            "start": 499
+          },
+          {
+            "AST_sha256": "fc39e020ae04e68274de98d2f579e76445c0b9f36fb2eebe6bb00a5d221ac6ba",
+            "end": 517,
+            "name": "test_zero_pidfd_is_an_owned_descriptor_not_unavailable",
+            "source_sha256": "a6bb8a2b4142e080cea93a468f6f5291d317e691cb97c7803388b8bb96e485f9",
+            "start": 510
+          },
+          {
+            "AST_sha256": "24a43234f0dfba5a38e002b84824d678023f92bc9acc9b572c677867c7594aa0",
+            "end": 528,
+            "name": "test_known_controller_error_remains_primary_and_cleanup_unconfirmed",
+            "source_sha256": "ec0586d56cc9b23cd16db084e9345217a1e6eba40a368993a202b1c2391e821f",
+            "start": 520
+          },
+          {
+            "AST_sha256": "e02e02a8fef03ad1e9d01c827a596588708860f6624c9ff7f1b7dae0041f3c81",
+            "end": 553,
+            "name": "source_git",
+            "source_sha256": "cd5f65382a3ca989b5cbda987449afd036ab60e62ef7612179f271d563f93960",
+            "start": 548
+          },
+          {
+            "AST_sha256": "9b894266b611f986ac9bf9d68a3e8a84ed3cc22c68c1a0516414fff4ca86229f",
+            "end": 560,
+            "name": "scope",
+            "source_sha256": "20fd92bd90be70d4e459c551759c2663f949a6f5fa6b9cb31189446e7e379e96",
+            "start": 556
+          },
+          {
+            "AST_sha256": "1f185d7e5ddf6c3988fe331177f8ec7a8351652eeb884f0361dd386af8a30614",
+            "end": 588,
+            "name": "test_successor_accepts_only_the_literal_cancellation_repair_inventory",
+            "source_sha256": "4ced3b3fdd10adc0a8850e8be2f50ee669f946cf5a93df06530604c4dbcfd382",
+            "start": 563
+          },
+          {
+            "AST_sha256": "f47e4f6895293be414ea1f1218dad131a3ae09b51c0d6132c986f1ad49dcb6ae",
+            "end": 610,
+            "name": "test_successor_rejects_unknown_status_alias_and_duplicate_rows",
+            "source_sha256": "09364afc314659786e574aeb517612c4fb2cbc36880425c566da13c00621036b",
+            "start": 607
+          },
+          {
+            "AST_sha256": "37e923529a222b8fad2facc82017a92ef7949cdf50d4d1682e83f2b64c98e011",
+            "end": 636,
+            "name": "test_actual_consumer_rejects_old_and_current_scope_tampering",
+            "source_sha256": "66815188ab3f18fd0a0d5d77a72b858e1e2929b530003247e44944f37586749f",
+            "start": 614
+          },
+          {
+            "AST_sha256": "1d33877550ec9df846b9be5741e240e9e5b65fae708ef5d4af9b76ec301109fc",
+            "end": 663,
+            "name": "test_only_owned_lifetime_and_explicit_scope_consumers_change",
+            "source_sha256": "48ea5ae9e727fab2e449ad2d8a467d35329caf597adeacb4b70f25533096c421",
+            "start": 639
+          }
+        ],
+        "nonfunction_top_level_AST_sha256": "1dc46cd99e7f2ac298646d2f965fd7628d50cd4ba390688cc6b2d8ccafe54571",
+        "path": "tests/test_h1_cancellation_cleanup.py",
+        "source_executed": false
+      }
+    ],
+    "allowed_consumer_exceptions": {
+      "tests/test_audit_compatibility_history_architecture.py": [
+        "test_all_earlier_files_and_guard_bytes_are_preserved"
+      ],
+      "tests/test_h1_cancellation_cleanup.py": [
+        "test_successor_accepts_only_the_literal_cancellation_repair_inventory"
+      ]
+    },
+    "proposed_new_paths": [
+      "tests/audit_preparation_profile/__init__.py",
+      "tests/audit_preparation_profile/contracts.py",
+      "tests/audit_preparation_profile/wire.py",
+      "tests/audit_preparation_profile/validation.py",
+      "tests/fixtures/preparation_profile.py",
+      "tests/test_preparation_profile_values.py",
+      "tests/test_preparation_profile_wire.py",
+      "tests/test_preparation_profile_validation.py",
+      "tests/test_preparation_profile_adversarial.py",
+      "tests/test_preparation_profile_architecture.py",
+      "tests/test_preparation_profile_scope.py",
+      "docs/evidence/audit_compatibility/preparation-profile-v1/registration.json",
+      "docs/superpowers/specs/2026-11-04-preparation-profile-contract.md",
+      "docs/superpowers/plans/2026-11-04-preparation-profile-contract.md"
+    ],
+    "proposed_modified_paths": [
+      "tests/test_audit_compatibility_history_architecture.py",
+      "tests/test_h1_cancellation_cleanup.py"
+    ],
+    "current_guard_changed": false,
+    "source_imported_or_executed": false,
+    "content_identity_only": true,
+    "all_inherited_blockers_retained": true,
+    "all_nine_permissions_false": true
+  }
+}
