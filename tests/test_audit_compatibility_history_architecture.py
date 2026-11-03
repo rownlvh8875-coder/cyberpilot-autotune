@@ -8,6 +8,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from tests.fixtures.audit_compatibility_history import api, complete
 
 
@@ -71,24 +73,64 @@ def test_h_record_cannot_override_bad_current_C_or_supply_old_IO():
     assert assess_compatibility(clean.bundle, clean.manifest).decision == "UNAVAILABLE"
 
 
+def _phase_changes(rows, additions, *, modifications=frozenset(), exact=False):
+    seen = set()
+    for row in rows:
+        parts = row.split("\t")
+        assert len(parts) == 2
+        status, path = parts
+        assert path not in seen
+        seen.add(path)
+        assert (status == "A" and path in additions) or (status == "M" and path in modifications)
+    if exact:
+        assert seen == additions
+
+
 def test_all_earlier_files_and_guard_bytes_are_preserved():
     root = Path(__file__).resolve().parents[1]
     env = {**os.environ, "GIT_NO_LAZY_FETCH": "1", "GIT_OPTIONAL_LOCKS": "0"}
-    paths = json.loads(
-        (
-            root / "docs/evidence/audit_compatibility/historical-design-v1/semantics.json"
-        ).read_bytes()
-    )["future_pure_preparation_paths"]
-    changed = (
-        subprocess.check_output(
-            ["git", "diff", "--name-status", "fa33fbf970adfdcb6b23d35489364158740cc6d9"],
-            cwd=root,
-            env=env,
-        )
-        .decode()
-        .splitlines()
+
+    def git(*args):
+        return subprocess.check_output(["git", *args], cwd=root, env=env).decode()
+
+    original = "fa33fbf970adfdcb6b23d35489364158740cc6d9"
+    h1 = "61245f6bbf3fdbc3d14ce8c93ff7349234da46f7"
+    design = "ac6adf32ab163fa1fe9eaeb635644037c0de8cde"
+    original_paths = set(
+        json.loads(
+            git(
+                "show",
+                original + ":docs/evidence/audit_compatibility/historical-design-v1/semantics.json",
+            )
+        )["future_pure_preparation_paths"]
     )
-    assert all(row.startswith("A\t") and row[2:] in paths for row in changed)
+    profile = json.loads(
+        git(
+            "show", design + ":docs/evidence/audit_compatibility/executor-profile-v1/semantics.json"
+        )
+    )
+    assert len(original_paths) == 8
+    assert len(set(profile["design_paths"])) == 5
+    assert len(set(profile["future_synthetic_paths"])) == 10
+    _phase_changes(
+        git("diff", "--no-renames", "--name-status", original, h1).splitlines(),
+        original_paths,
+        exact=True,
+    )
+    _phase_changes(
+        git("diff", "--no-renames", "--name-status", h1, design).splitlines(),
+        set(profile["design_paths"]),
+        exact=True,
+    )
+    changed = git("diff", "--no-renames", "--name-status", design).splitlines()
+    changed += [
+        "A\t" + path for path in git("ls-files", "--others", "--exclude-standard").splitlines()
+    ]
+    _phase_changes(
+        changed,
+        set(profile["future_synthetic_paths"]),
+        modifications={"tests/test_audit_compatibility_history_architecture.py"},
+    )
     module = importlib.import_module("tests.audit_compatibility.contracts")
     assert module.IO_UNAVAILABLE == (
         "CURRENT_INDEX_WORKTREE",
@@ -96,3 +138,34 @@ def test_all_earlier_files_and_guard_bytes_are_preserved():
         "HISTORICAL_REPLAY",
         "SOURCE_CAPTURE_ATOMICITY",
     )
+
+
+@pytest.mark.parametrize(
+    "rows",
+    [
+        ["M\ta.py"],
+        ["D\ta.py"],
+        ["A\tunknown.py"],
+        ["A\ta.py", "A\ta.py"],
+        ["R100\ta.py\tb.py"],
+        ["A\t../a.py"],
+        ["A\tdir/a.py"],
+        ["A a.py"],
+    ],
+)
+def test_phase_guard_rejects_edits_deletions_aliases_and_unknown_additions(rows):
+    check = globals().get("_phase_changes")
+    assert callable(check), "phase-specific path guard not implemented"
+    with pytest.raises(AssertionError):
+        check(rows, {"a.py"})
+
+
+def test_phase_guard_requires_exact_historical_sets_without_widening_current_scope():
+    check = globals().get("_phase_changes")
+    assert callable(check), "phase-specific path guard not implemented"
+    check(["A\ta.py"], {"a.py"}, exact=True)
+    with pytest.raises(AssertionError):
+        check([], {"a.py"}, exact=True)
+    check(["M\tguard.py", "A\ta.py"], {"a.py"}, modifications={"guard.py"})
+    with pytest.raises(AssertionError):
+        check(["M\tother.py"], {"a.py"}, modifications={"guard.py"})
