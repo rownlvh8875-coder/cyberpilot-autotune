@@ -1,0 +1,5307 @@
+{
+  "schema": "preflight-profile-diagnostic-mapping-registration-v1",
+  "status": "DIAGNOSTIC_ONLY",
+  "base": "0ac6e3519ad7191b036eb777b4317174121851bb",
+  "new_paths": [
+    "tests/audit_preflight_profile_mapping/__init__.py",
+    "tests/audit_preflight_profile_mapping/contracts.py",
+    "tests/audit_preflight_profile_mapping/mapping.py",
+    "tests/fixtures/preflight_profile_mapping.py",
+    "tests/test_preflight_profile_mapping.py",
+    "tests/test_preflight_profile_mapping_architecture.py",
+    "tests/test_preflight_profile_mapping_scope.py",
+    "docs/evidence/audit_compatibility/preflight-profile-mapping-v1/registration.json",
+    "docs/superpowers/specs/2026-11-04-preflight-profile-mapping.md",
+    "docs/superpowers/plans/2026-11-04-preflight-profile-mapping.md"
+  ],
+  "modified_paths": [
+    "tests/test_audit_compatibility_history_architecture.py",
+    "tests/test_preparation_profile_architecture.py"
+  ],
+  "allowed_existing_function_changes": {
+    "tests/test_audit_compatibility_history_architecture.py": [
+      "test_all_earlier_files_and_guard_bytes_are_preserved"
+    ],
+    "tests/test_preparation_profile_architecture.py": [
+      "test_final_scope_exact_inventory_and_registration_do_not_authorize_execution"
+    ]
+  },
+  "manifest_is_authority": false,
+  "permissions": {
+    "build_execution_allowed": false,
+    "promotion_authorized": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  },
+  "retained_blockers": [
+    "HISTORICAL_REPLAY",
+    "SOURCE_CAPTURE_ATOMICITY",
+    "ACTUAL_Q_I",
+    "ENTRY_GUARD_INTEGRATION",
+    "EXACT_I_CI",
+    "STACK_ADOPTION",
+    "APPLICATION_NOT_AUTHORIZED",
+    "EXECUTOR_CONTENT_TOOLCHAIN_ENFORCEMENT_AND_BUDGET_FREEZE_UNAVAILABLE",
+    "FULL_O_AND_ADDITIONAL_D_CASE_INVENTORIES_UNAVAILABLE",
+    "PREPARATION_PROFILE_SUPPLIED_CLAIMS_ONLY",
+    "H_PREPARATION_RUNTIME_POLICY_UNAVAILABLE",
+    "OPERATIONAL_I1_UNCONFIRMED",
+    "ORIGINAL_HOST_GIT_CONFIG_EQUALITY_UNCONFIRMED",
+    "NO_H_RECORD_FROM_PREFLIGHT_DIAGNOSTICS",
+    "PREFLIGHT_CONTENT_NOT_AUTHENTICITY"
+  ],
+  "H_executed": false,
+  "profile_record": null,
+  "integrated_admission": false,
+  "reviewed_manifest_sha256": "603af85000bdb16d99dced93f5a18a670dc0b7ed240b68d01325942c59e95e45",
+  "reviewed_HF_commit": "e41a3c4e9d470ad1dd96dd144ce8645516ba4937",
+  "contract": {
+    "schema": "registered-preflight-diagnostic-mapping-contract-v1",
+    "design_only_not_implemented": true,
+    "API": "map_registered_preflight(raw:bytes,binding:PreflightRunBinding|None=None,*,source_profile_id:str='REGISTERED_PREFLIGHT_R0')->PreflightMappingDecision",
+    "source_profiles": {
+      "REGISTERED_PREFLIGHT_R0": {
+        "evidence_kind": "REGISTERED_SOURCE_CONTEXT_ONLY_NOT_H",
+        "repository": "rownlvh8875-coder/cyberpilot-autotune",
+        "run_id": 41653951704,
+        "attempt": 1,
+        "job_id": 125979186623,
+        "source_revision": "4b77b31dd23010f2d2b394466d88b04a4a2720e2",
+        "workflow_sha256": "40781c65ecb75467cdcd1204902e72869249ad018c7c4bc51e11996830572b1d",
+        "collector_sha256": "3b3b99e4fb1dab67b2972c06cc432ed80f6b38c3f48c3aa69a4d13517750429e",
+        "observation_sha256": "4b6aa465bacb157eee17852fdacc5f4da69d7e9401d027f6db3cafa741929597"
+      },
+      "SYNTHETIC_MAPPING_S0": {
+        "evidence_kind": "SYNTHETIC_NOT_OBSERVED_OR_H_BUDGET",
+        "repository": "rownlvh8875-coder/cyberpilot-autotune",
+        "run_id": 1,
+        "attempt": 1,
+        "job_id": 1,
+        "source_revision": "1111111111111111111111111111111111111111",
+        "workflow_sha256": "40781c65ecb75467cdcd1204902e72869249ad018c7c4bc51e11996830572b1d",
+        "collector_sha256": "3b3b99e4fb1dab67b2972c06cc432ed80f6b38c3f48c3aa69a4d13517750429e",
+        "observation_sha256": "5d813832979c34b7efc5c15c5312d83c266a14ce63144e3f4bb9fe9ca027040d"
+      }
+    },
+    "profile_selection": "EXACT_EXPLICIT_ID_ONLY;DEFAULT_R0;NEVER_FALLBACK_TO_S0_OR_REGISTER_NEW_PROFILE_FROM_INPUT",
+    "fixed_facets": {
+      "mapping_status": "DIAGNOSTIC_ONLY",
+      "profile_record": null,
+      "H_executed": false,
+      "integrated_admission": false,
+      "content_identity_only": true,
+      "atomicity": "NOT_ESTABLISHED",
+      "all_nine_permissions": false
+    },
+    "DTOs": {
+      "PreflightRunBinding": [
+        [
+          "repository",
+          "str|None"
+        ],
+        [
+          "run_id",
+          "int|None"
+        ],
+        [
+          "attempt",
+          "int|None"
+        ],
+        [
+          "job_id",
+          "int|None"
+        ],
+        [
+          "source_revision",
+          "str|None"
+        ],
+        [
+          "workflow_sha256",
+          "str|None"
+        ],
+        [
+          "collector_sha256",
+          "str|None"
+        ],
+        [
+          "observation_sha256",
+          "str|None"
+        ]
+      ],
+      "SourceDiagnostic": [
+        [
+          "source_pointer",
+          "str"
+        ],
+        [
+          "value",
+          "bool|int|str|None"
+        ],
+        [
+          "meaning",
+          "str"
+        ]
+      ],
+      "TargetGap": [
+        [
+          "target_path",
+          "str"
+        ],
+        [
+          "reason",
+          "str"
+        ]
+      ],
+      "MappingReason": [
+        [
+          "code",
+          "str"
+        ],
+        [
+          "subject",
+          "str"
+        ]
+      ],
+      "PreflightMappingDecision": [
+        [
+          "source_profile_id",
+          "str"
+        ],
+        [
+          "source_sha256",
+          "str"
+        ],
+        [
+          "diagnostics",
+          "tuple[SourceDiagnostic,...]"
+        ],
+        [
+          "target_gaps",
+          "tuple[TargetGap,...]"
+        ],
+        [
+          "errors",
+          "tuple[MappingReason,...]"
+        ],
+        [
+          "unavailable",
+          "tuple[MappingReason,...]"
+        ]
+      ]
+    },
+    "all_DTOs": "EXACT_TYPES_FROZEN_SLOTS_DEFENSIVE_TUPLES_REVALIDATE_GRAPH;NO_FLOATS;NO_AUTHORITY_INPUT_FIELDS",
+    "integer": "UInt64 exact int excluding bool;0 is data,not unknown;binding run/attempt/job0 are well-shaped mismatches to positive selected-profile constants",
+    "text": "Exact str;repository1..201 ASCII owner/name [A-Za-z0-9_.-];revision lowerhex40;hash lowerhex64;identifiers/reasons/pointers closed enumerations",
+    "diagnostic_pointers": [
+      "/H_executed",
+      "/aggregate_resource_boundary_qualified",
+      "/atomic",
+      "/cgroup/atomic",
+      "/cgroup/controls/cgroup.controllers/metadata/effective_write_access",
+      "/cgroup/controls/cgroup.controllers/metadata/mode",
+      "/cgroup/controls/cgroup.controllers/value",
+      "/cgroup/controls/cgroup.max.depth/metadata/effective_write_access",
+      "/cgroup/controls/cgroup.max.depth/metadata/mode",
+      "/cgroup/controls/cgroup.max.depth/value",
+      "/cgroup/controls/cgroup.max.descendants/metadata/effective_write_access",
+      "/cgroup/controls/cgroup.max.descendants/metadata/mode",
+      "/cgroup/controls/cgroup.max.descendants/value",
+      "/cgroup/controls/cgroup.subtree_control/metadata/effective_write_access",
+      "/cgroup/controls/cgroup.subtree_control/metadata/mode",
+      "/cgroup/controls/cgroup.subtree_control/value",
+      "/cgroup/controls/cgroup.type/metadata/effective_write_access",
+      "/cgroup/controls/cgroup.type/metadata/mode",
+      "/cgroup/controls/cgroup.type/value",
+      "/cgroup/controls/cpu.max/metadata/effective_write_access",
+      "/cgroup/controls/cpu.max/metadata/mode",
+      "/cgroup/controls/cpu.max/value",
+      "/cgroup/controls/memory.max/metadata/effective_write_access",
+      "/cgroup/controls/memory.max/metadata/mode",
+      "/cgroup/controls/memory.max/value",
+      "/cgroup/controls/pids.max/metadata/effective_write_access",
+      "/cgroup/controls/pids.max/metadata/mode",
+      "/cgroup/controls/pids.max/value",
+      "/cgroup/directory/effective_write_access",
+      "/cgroup/directory/mode",
+      "/cgroup/membership_confirmed",
+      "/cgroup/status",
+      "/cgroup/write_delegation_verified",
+      "/content_identity_only",
+      "/execution_context/actions",
+      "/execution_context/repository",
+      "/execution_context/run_attempt",
+      "/execution_context/run_id",
+      "/execution_context/sha",
+      "/execution_context/trust",
+      "/execution_verdict",
+      "/global_status",
+      "/host/machine",
+      "/host/python_version/0",
+      "/host/python_version/1",
+      "/host/python_version/2",
+      "/host/system",
+      "/limitations/0",
+      "/limitations/1",
+      "/limitations/2",
+      "/limitations/3",
+      "/native_apis/fcntl/module_available",
+      "/native_apis/fcntl/required_apis_present",
+      "/native_apis/os/MFD_ALLOW_SEALING",
+      "/native_apis/os/MFD_CLOEXEC",
+      "/native_apis/os/P_PIDFD",
+      "/native_apis/os/memfd_create",
+      "/native_apis/os/pidfd_open",
+      "/native_apis/resource/module_available",
+      "/native_apis/resource/required_apis_present",
+      "/permissions/application_authorized",
+      "/permissions/build_execution_allowed",
+      "/permissions/candidate_generation_allowed",
+      "/permissions/device_class_qualified",
+      "/permissions/owner_proposal_allowed",
+      "/permissions/policy_adopted",
+      "/permissions/promotion_authorized",
+      "/permissions/runtime_accepted",
+      "/permissions/runtime_qualified",
+      "/schema",
+      "/security/CapEff",
+      "/security/NoNewPrivs",
+      "/security/Seccomp",
+      "/status",
+      "/tools/~1opt~1codex~1runtimes~1codex-primary-runtime~1dependencies~1python~1bin~1python3.12/expected_sha256",
+      "/tools/~1opt~1codex~1runtimes~1codex-primary-runtime~1dependencies~1python~1bin~1python3.12/pin_matches",
+      "/tools/~1opt~1codex~1runtimes~1codex-primary-runtime~1dependencies~1python~1bin~1python3.12/sha256",
+      "/tools/~1usr~1bin~1bwrap/expected_sha256",
+      "/tools/~1usr~1bin~1bwrap/pin_matches",
+      "/tools/~1usr~1bin~1bwrap/sha256",
+      "/tools/~1usr~1bin~1setpriv/expected_sha256",
+      "/tools/~1usr~1bin~1setpriv/pin_matches",
+      "/tools/~1usr~1bin~1setpriv/sha256"
+    ],
+    "forbidden_output_identity_leaf_names": [
+      "uid",
+      "gid",
+      "euid",
+      "egid"
+    ],
+    "diagnostic_inventory_count": 83,
+    "source_diagnostic_value_availability": "DERIVED_UNAVAILABLE_IF_VALUE_IS_NONE;OTHERWISE_AVAILABLE;False/0/empty/max_preserved;null_parent_yields_unknown_children_not_false",
+    "diagnostic_meanings": [
+      "NON_AUTHORITY_DECLARATION",
+      "CALLER_METADATA_ONLY",
+      "HOST_PROCESS_CONTEXT_ONLY",
+      "CGROUP_MEMBERSHIP_NOT_OWNERSHIP",
+      "CGROUP_CONTROL_NOT_H_BUDGET",
+      "W_OK_NOT_DELEGATION",
+      "DECLARED_NOT_VERIFIED",
+      "LEGACY_TOOL_CONTENT_ONLY",
+      "LEGACY_TOOL_PIN_MISMATCH",
+      "NATIVE_API_PRESENCE_ONLY",
+      "SOURCE_VALUE_UNAVAILABLE",
+      "SOURCE_STATIC_LIMITATION",
+      "SOURCE_TEXT_REDACTED"
+    ],
+    "diagnostic_meaning_rules": [
+      "After original-source validation/comparison,any string not in that pointer safe vocabulary -> fixed redaction marker/SOURCE_TEXT_REDACTED/AVAILABLE;do not turn intoNone. Normal meaning rules apply only to unredacted values.",
+      "None value -> SOURCE_VALUE_UNAVAILABLE first;never claim binary absent",
+      "tools pin_matches=False with nonnull actual hash unequal expected -> LEGACY_TOOL_PIN_MISMATCH;all other tool fields -> LEGACY_TOOL_CONTENT_ONLY;inconsistent relation is independently errored",
+      "execution_context -> CALLER_METADATA_ONLY;native_apis -> NATIVE_API_PRESENCE_ONLY;host -> HOST_PROCESS_CONTEXT_ONLY",
+      "any effective_write_access pointer -> W_OK_NOT_DELEGATION",
+      "cgroup atomic/write_delegation_verified -> DECLARED_NOT_VERIFIED;cgroup controls -> CGROUP_CONTROL_NOT_H_BUDGET;remaining cgroup -> CGROUP_MEMBERSHIP_NOT_OWNERSHIP",
+      "limitations -> SOURCE_STATIC_LIMITATION;remaining source headers/permissions -> NON_AUTHORITY_DECLARATION"
+    ],
+    "target_gaps": [
+      {
+        "target_path": "run_id",
+        "reason": "NO_H_BATCH_OR_POLICY_BINDING"
+      },
+      {
+        "target_path": "artifacts.executor_content.sha256",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT"
+      },
+      {
+        "target_path": "artifacts.bootstrap_content.sha256",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT"
+      },
+      {
+        "target_path": "artifacts.provider_implementation.sha256",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT"
+      },
+      {
+        "target_path": "artifacts.syscall_policy.sha256",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT"
+      },
+      {
+        "target_path": "artifacts.collection_policy.sha256",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT"
+      },
+      {
+        "target_path": "artifacts.toolchain_inventory.sha256",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT"
+      },
+      {
+        "target_path": "artifacts.dependency_inventory.sha256",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT"
+      },
+      {
+        "target_path": "artifacts.private_snapshot_manifest.sha256",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT"
+      },
+      {
+        "target_path": "artifacts.full_expected_node_inventory.sha256",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT"
+      },
+      {
+        "target_path": "artifacts.materialized_command_manifest.sha256",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT"
+      },
+      {
+        "target_path": "artifacts.scope_record.sha256",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT"
+      },
+      {
+        "target_path": "cohorts.O.revision",
+        "reason": "NO_CONSUMED_O_D_COHORT"
+      },
+      {
+        "target_path": "cohorts.O.tree",
+        "reason": "NO_CONSUMED_O_D_COHORT"
+      },
+      {
+        "target_path": "cohorts.D.revision",
+        "reason": "NO_CONSUMED_O_D_COHORT"
+      },
+      {
+        "target_path": "cohorts.D.tree",
+        "reason": "NO_CONSUMED_O_D_COHORT"
+      },
+      {
+        "target_path": "batch_boundary.identity_digest",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "batch_boundary.generation",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "batch_boundary.clock_domain",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "batch_limits.batch_memory_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "batch_limits.batch_pids_max.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "batch_limits.cpu_bandwidth_quota_us.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "batch_limits.cpu_bandwidth_period_us.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "batch_limits.cpu_usage_accounting_budget_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "batch_limits.cpu_accounting_latency_bound_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "batch_limits.scratch_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "batch_limits.scratch_max_inodes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "batch_limits.retained_combined_stdout_stderr_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "batch_limits.batch_wall_limit_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "batch_limits.command_wall_limit_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "batch_limits.stop_and_cleanup_limit_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-PYTEST.cohort_id",
+        "reason": "NO_CONSUMED_O_D_COHORT"
+      },
+      {
+        "target_path": "commands.O-PYTEST.boundary.identity_digest",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.O-PYTEST.boundary.generation",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.O-PYTEST.boundary.clock_domain",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.O-PYTEST.limits.memory_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-PYTEST.limits.pids_max.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-PYTEST.limits.cpu_usage_budget_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-PYTEST.limits.scratch_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-PYTEST.limits.scratch_max_inodes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-PYTEST.limits.retained_combined_stdout_stderr_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-PYTEST.limits.wall_limit_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-PYTEST.timing.start_ns",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.O-PYTEST.timing.deadline_ns",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.O-PYTEST.timing.clock_domain",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.O-H6.cohort_id",
+        "reason": "NO_CONSUMED_O_D_COHORT"
+      },
+      {
+        "target_path": "commands.O-H6.boundary.identity_digest",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.O-H6.boundary.generation",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.O-H6.boundary.clock_domain",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.O-H6.limits.memory_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H6.limits.pids_max.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H6.limits.cpu_usage_budget_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H6.limits.scratch_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H6.limits.scratch_max_inodes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H6.limits.retained_combined_stdout_stderr_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H6.limits.wall_limit_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H6.timing.start_ns",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.O-H6.timing.deadline_ns",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.O-H6.timing.clock_domain",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.O-H7.cohort_id",
+        "reason": "NO_CONSUMED_O_D_COHORT"
+      },
+      {
+        "target_path": "commands.O-H7.boundary.identity_digest",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.O-H7.boundary.generation",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.O-H7.boundary.clock_domain",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.O-H7.limits.memory_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H7.limits.pids_max.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H7.limits.cpu_usage_budget_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H7.limits.scratch_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H7.limits.scratch_max_inodes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H7.limits.retained_combined_stdout_stderr_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H7.limits.wall_limit_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.O-H7.timing.start_ns",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.O-H7.timing.deadline_ns",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.O-H7.timing.clock_domain",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.D-PYTEST.cohort_id",
+        "reason": "NO_CONSUMED_O_D_COHORT"
+      },
+      {
+        "target_path": "commands.D-PYTEST.boundary.identity_digest",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.D-PYTEST.boundary.generation",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.D-PYTEST.boundary.clock_domain",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.D-PYTEST.limits.memory_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-PYTEST.limits.pids_max.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-PYTEST.limits.cpu_usage_budget_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-PYTEST.limits.scratch_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-PYTEST.limits.scratch_max_inodes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-PYTEST.limits.retained_combined_stdout_stderr_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-PYTEST.limits.wall_limit_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-PYTEST.timing.start_ns",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.D-PYTEST.timing.deadline_ns",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.D-PYTEST.timing.clock_domain",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.D-H6.cohort_id",
+        "reason": "NO_CONSUMED_O_D_COHORT"
+      },
+      {
+        "target_path": "commands.D-H6.boundary.identity_digest",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.D-H6.boundary.generation",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.D-H6.boundary.clock_domain",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.D-H6.limits.memory_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-H6.limits.pids_max.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-H6.limits.cpu_usage_budget_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-H6.limits.scratch_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-H6.limits.scratch_max_inodes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-H6.limits.retained_combined_stdout_stderr_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-H6.limits.wall_limit_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-H6.timing.start_ns",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.D-H6.timing.deadline_ns",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.D-H6.timing.clock_domain",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.cohort_id",
+        "reason": "NO_CONSUMED_O_D_COHORT"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.boundary.identity_digest",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.boundary.generation",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.boundary.clock_domain",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.limits.memory_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.limits.pids_max.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.limits.cpu_usage_budget_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.limits.scratch_max_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.limits.scratch_max_inodes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.limits.retained_combined_stdout_stderr_bytes.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.limits.wall_limit_ns.value",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.timing.start_ns",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.timing.deadline_ns",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "commands.D-COVERAGE.timing.clock_domain",
+        "reason": "NO_H_MONOTONIC_TIMING"
+      },
+      {
+        "target_path": "controls.subject_ro_enforced.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.network_denial_enforced.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.batch_boundary_placement_observed.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.pre_payload_gate_observed.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.bootstrap_outer_boundary_observed.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.aggregate_memory_pids_observed.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.aggregate_scratch_bytes_inodes_observed.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.stream_output_deadline_observed.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.FD_policy_observed.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.owned_cleanup_observed.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.provider_guard_compatible.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.toolchain_closure_reviewed.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.expected_inventory_separately_frozen.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "controls.consumed_origins_lineage_observed.value",
+        "reason": "NO_H_CONTROL_EXERCISE"
+      },
+      {
+        "target_path": "policy_digest",
+        "reason": "NO_H_BATCH_OR_POLICY_BINDING"
+      },
+      {
+        "target_path": "producer_errors",
+        "reason": "NO_H_PRODUCER_STREAM"
+      },
+      {
+        "target_path": "producer_unavailable",
+        "reason": "NO_H_PRODUCER_STREAM"
+      }
+    ],
+    "target_gap_count": 132,
+    "target_gap_policy": "EXACT_COMPLETE_CLOSED_PATH_REASON_TUPLE_ALWAYS;DO_NOT_INSTANTIATE_TARGET_DTO_OR_FILL_REQUIRED_STRINGS_WITH_NONE",
+    "error_codes": [
+      "REGISTERED_SNAPSHOT_CONTENT_MISMATCH",
+      "SOURCE_DECLARATION_CONTRADICTION",
+      "SOURCE_CONTEXT_MISMATCH",
+      "SOURCE_TOOL_RELATION_INCONSISTENT",
+      "BINDING_VALUE_MISMATCH"
+    ],
+    "unavailable_codes": [
+      "BINDING_UNAVAILABLE",
+      "BINDING_VALUE_UNAVAILABLE",
+      "CALLER_CONTEXT_UNAVAILABLE"
+    ],
+    "reason_subjects": {
+      "literal": [
+        "source",
+        "binding"
+      ],
+      "binding_fields": [
+        "binding.repository",
+        "binding.run_id",
+        "binding.attempt",
+        "binding.job_id",
+        "binding.source_revision",
+        "binding.workflow_sha256",
+        "binding.collector_sha256",
+        "binding.observation_sha256"
+      ],
+      "source_pointers": "source:any exact source scalar pointer in mapping-matrix.source_leaf_inventory;no arbitrary subjects"
+    },
+    "source_shape": {
+      "encoding": "Exact bytes1..32768;UTF8_no_BOM;oneJSONobject;duplicate/unknown/missingkeys,float/nonfinite,subclass/bytearray,invalidnesting/out_of_rangeinteger_reject_ValueError;recursion/Unicode/overflow_errors_ValueError",
+      "schema": "actions-runner-preflight-v1 exact;no v2 reinterpretation",
+      "object_keys": "Exact object/array graph and all keys from source collector collect() at pinned3b3b...;nullable branches only below;no arbitrary extra keys even if ignored for privacy",
+      "root_objects": [
+        "host",
+        "security",
+        "tools",
+        "native_apis",
+        "cgroup",
+        "execution_context",
+        "permissions"
+      ],
+      "root_array": "limitations exact list4boundedASCIIstrings;expected values/order from collect() checked semantically",
+      "nullable": "source strings/values only where producer can return None;host identities/system/machine;security3values;toolactualhash/pin_matches;execution_context fields except trust;entire cgroup directory/controls;control.value/metadata;metadata effective_write_access;membership_confirmed",
+      "host": "system None or Linux;machine None or [A-Za-z0-9_.-]{1,64};python_version exact list3UInt64;uid/gid/euid/egid None or UInt64;never expose identity leaves",
+      "security": "CapEff None or hex[0-9a-fA-F]{1,32};NoNewPrivs None/0/1 exact int;Seccomp None/0/1/2 exact int;False is malformed not0",
+      "tool_paths": [
+        "/usr/bin/bwrap",
+        "/usr/bin/setpriv",
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12"
+      ],
+      "tools": "Exactly3path entries with sha256(None/lowerhex64),expected_sha256(lowerhex64),pin_matches(None/bool).Expected pins vs collector _PINS and expected/actual relation checked semantically,not silently corrected",
+      "native_apis": "fcntl/resource exact module_available bool and required_apis_present bool|None;os exact memfd_create/pidfd_open/MFD_CLOEXEC/MFD_ALLOW_SEALING/P_PIDFD bool;False module requires null required_apis,True module requires bool;wrong relation is semantic contradiction",
+      "cgroup_status": [
+        "UNAVAILABLE_MAPPING",
+        "UNAVAILABLE_MEMBERSHIP",
+        "UNAVAILABLE_COHORT_DRIFT",
+        "MEMBERSHIP_OBSERVED_NOT_DELEGATION"
+      ],
+      "metadata": "None or exact {uid:UInt64,gid:UInt64,mode:octal4chars,effective_write_access:bool|None}",
+      "controls": "None or exact8controls from collector _CONTROLS,each{value:str|None,metadata:metadata};value grammar identical to pinned _valid_control;strings<=1024;no budget conversion",
+      "context": "actions bool|None,repository str|None,run_id decimalASCII1..20|None,run_attempt decimalASCII1..8|None,sha lowerhex40|None,trust boundedASCIIstr;expected UNVERIFIED_CALLER_METADATA checked semantically;never infer API authenticity",
+      "constant_formats": "Except schema/profile IDs unsupported structurally,declared constant strings are boundedASCII1..128 (limitations <=128);wrong well-shaped expected values yield SOURCE_DECLARATION_CONTRADICTION. Bool fields remain exact bool. Do not reject semantic contradictions as missing or overwrite them.",
+      "cgroup_branch_relations": "MEMBERSHIP_OBSERVED_NOT_DELEGATION requires membershipTrue and nonnull8controltable,directory mayNone;UNAVAILABLE_MAPPING/COHORT_DRIFT require membershipNone/directoryNone/controlsNone;UNAVAILABLE_MEMBERSHIP permits membershipFalse|None with directoryNone/controlsNone;violations SOURCE_DECLARATION_CONTRADICTION at source:/cgroup/status",
+      "malformed": "Structural/unsupported source schema/profile/duplicate/missing/unknown/wrongtype/format -> ValueError,never partial target record;ValueError messages are constant and do not echo raw text or binding values;do not log inputs;parser details suppressed from normal error rendering",
+      "semantic": "Well-shaped false/zero/pin relation/binding/declaration contradictions remain reasoned mismatch,not unavailable;inspect all independent available facts despite missing binding"
+    },
+    "algorithm": [
+      "Revalidate raw/binding/explicit profile types,parse strict source graph with no effects",
+      "SHA256 exact raw bytes including newline returned as decision.source_sha256 and compared vs selected profile observation_sha256;unequal -> REGISTERED_SNAPSHOT_CONTENT_MISMATCH/source even if binding absent",
+      "Validate declared fixed constants and cgroup branch relations against pinned producer schema: status/global_status/execution_verdict/atomic/aggregate_resource_boundary_qualified/H_executed/content_identity_only/all9permissions/cgroup.atomic/cgroup.write_delegation_verified/trust/limitations/tools.expected_sha256;well-shaped contradictory values -> SOURCE_DECLARATION_CONTRADICTION at exact source pointer",
+      "Check tool pin_matches relation:sha=None requires None,known sha requires bool equality to expected;also required_apis_present null when module_available false;violations -> SOURCE_TOOL_RELATION_INCONSISTENT at corresponding source pointer",
+      "Known execution_context.actions mustTrue,repository/run_id/run_attempt/sha must match selected profile (IDs string-compared to decimal selected ints);each None -> CALLER_CONTEXT_UNAVAILABLE at exact pointer;known mismatch -> SOURCE_CONTEXT_MISMATCH;do not borrow binding values",
+      "No binding -> BINDING_UNAVAILABLE/binding;else each of8fields None -> BINDING_VALUE_UNAVAILABLE;available field unequal selected profile -> BINDING_VALUE_MISMATCH;job association only supplied consistency to registered instance,not independent transport authenticity",
+      "Generate exact83diagnostics,lexicographic pointer order;null parent -> None/UNAVAILABLE. Original bool/int/None remain typed;strings use closed per-pointer vocabularies. Unexpected well-shaped text -> fixed marker/SOURCE_TEXT_REDACTED/AVAILABLE after all raw-byte/context/declaration checks;never echo it. No raw source/UID/GID output.",
+      "Generate exact132target gaps from frozen catalog,lexicographic target_path order;all142configuration rows are catalog metadata only",
+      "Sort/deduplicate reasons by(code,subject);errors outrank unavailable;otherwise REGISTERED_SNAPSHOT_MATCH. Result status stillDIAGNOSTIC_ONLY,profile_recordNone,all9false",
+      "Result evidence_kind derives explicit R0/S0 label;S0 always SYNTHETIC_NOT_OBSERVED_OR_H_BUDGET,not observed R0",
+      "Revalidate graph at pure API and any formatter boundary;no background state,persistence,network,clock,filesystem/process/source collector/prep H/application import"
+    ],
+    "source_consistency_values": [
+      "REGISTERED_SNAPSHOT_MISMATCH",
+      "UNAVAILABLE_BINDING",
+      "REGISTERED_SNAPSHOT_MATCH"
+    ],
+    "construction_rules": "All exact immutable fields;source_sha256 lowerhex64 content identity;diagnostics exactly83pointers once. Raw values obey field grammar/nullable ancestor EXCEPT the fixed redaction marker is explicitly allowed at string-capable pointers only with SOURCE_TEXT_REDACTED/AVAILABLE. Forbid unregistered strings in constructor and forged DTO revalidation. Gap tuple exact132pairs;reasons closed;sort owned tuples;no permission/record/status inputs.",
+    "no_actual_H_values_or_thresholds": true,
+    "no_raw_observed_fixture_in_future_public_source": true,
+    "synthetic_fixture": {
+      "canonical_source_utf8": "{\"H_executed\":false,\"aggregate_resource_boundary_qualified\":false,\"atomic\":false,\"cgroup\":{\"atomic\":false,\"controls\":{\"cgroup.controllers\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0444\",\"uid\":0},\"value\":\"cpuset cpu io memory pids\"},\"cgroup.max.depth\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"max\"},\"cgroup.max.descendants\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"max\"},\"cgroup.subtree_control\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"\"},\"cgroup.type\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"domain\"},\"cpu.max\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"max 100000\"},\"memory.max\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"max\"},\"pids.max\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"1\"}},\"directory\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0755\",\"uid\":0},\"membership_confirmed\":true,\"status\":\"MEMBERSHIP_OBSERVED_NOT_DELEGATION\",\"write_delegation_verified\":false},\"content_identity_only\":true,\"execution_context\":{\"actions\":true,\"repository\":\"rownlvh8875-coder/cyberpilot-autotune\",\"run_attempt\":\"1\",\"run_id\":\"1\",\"sha\":\"1111111111111111111111111111111111111111\",\"trust\":\"UNVERIFIED_CALLER_METADATA\"},\"execution_verdict\":\"NOT_EVALUATED\",\"global_status\":\"BLOCKED\",\"host\":{\"egid\":0,\"euid\":0,\"gid\":0,\"machine\":\"synthetic\",\"python_version\":[3,12,3],\"system\":\"Linux\",\"uid\":0},\"limitations\":[\"NO_EXECUTION_OR_WRITE_PROBE\",\"NO_PRIVATE_BUDGET_OR_DELEGATION_PROOF\",\"NO_ATOMICITY_OR_AUTHENTICITY\",\"NO_RUNTIME_QUALIFICATION\"],\"native_apis\":{\"fcntl\":{\"module_available\":true,\"required_apis_present\":true},\"os\":{\"MFD_ALLOW_SEALING\":true,\"MFD_CLOEXEC\":true,\"P_PIDFD\":true,\"memfd_create\":true,\"pidfd_open\":true},\"resource\":{\"module_available\":true,\"required_apis_present\":true}},\"permissions\":{\"application_authorized\":false,\"build_execution_allowed\":false,\"candidate_generation_allowed\":false,\"device_class_qualified\":false,\"owner_proposal_allowed\":false,\"policy_adopted\":false,\"promotion_authorized\":false,\"runtime_accepted\":false,\"runtime_qualified\":false},\"schema\":\"actions-runner-preflight-v1\",\"security\":{\"CapEff\":\"0000000000000000\",\"NoNewPrivs\":0,\"Seccomp\":0},\"status\":\"READ_ONLY_OBSERVATION_NOT_QUALIFICATION\",\"tools\":{\"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12\":{\"expected_sha256\":\"fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7\",\"pin_matches\":null,\"sha256\":null},\"/usr/bin/bwrap\":{\"expected_sha256\":\"573236e5328ac2ebb08f59ae3a9805b4f8d12bdef14be8af4450d5463294985f\",\"pin_matches\":null,\"sha256\":null},\"/usr/bin/setpriv\":{\"expected_sha256\":\"f7cedc63bbc1df7912b343a1240a77d16db7633563d69897ec8ad2a99c24024b\",\"pin_matches\":false,\"sha256\":\"2222222222222222222222222222222222222222222222222222222222222222\"}}}\n",
+      "fixture_kind": "SYNTHETIC_MAPPING_S0_NOT_OBSERVED_OR_H_BUDGET",
+      "future_mapper_cases_implemented_or_executed": false,
+      "source_bytes": 2975,
+      "source_profile_id": "SYNTHETIC_MAPPING_S0",
+      "source_sha256": "5d813832979c34b7efc5c15c5312d83c266a14ce63144e3f4bb9fe9ca027040d"
+    },
+    "diagnostic_string_policy": {
+      "unregistered_text_action": "REDACT_BEFORE_OUTPUT",
+      "string_capable_pointer_count": 40,
+      "safe_values_by_pointer": {
+        "/cgroup/controls/cgroup.controllers/metadata/mode": [
+          "0444"
+        ],
+        "/cgroup/controls/cgroup.controllers/value": [
+          "cpuset cpu io memory pids"
+        ],
+        "/cgroup/controls/cgroup.max.depth/metadata/mode": [
+          "0644"
+        ],
+        "/cgroup/controls/cgroup.max.depth/value": [
+          "max"
+        ],
+        "/cgroup/controls/cgroup.max.descendants/metadata/mode": [
+          "0644"
+        ],
+        "/cgroup/controls/cgroup.max.descendants/value": [
+          "max"
+        ],
+        "/cgroup/controls/cgroup.subtree_control/metadata/mode": [
+          "0644"
+        ],
+        "/cgroup/controls/cgroup.subtree_control/value": [
+          ""
+        ],
+        "/cgroup/controls/cgroup.type/metadata/mode": [
+          "0644"
+        ],
+        "/cgroup/controls/cgroup.type/value": [
+          "domain"
+        ],
+        "/cgroup/controls/cpu.max/metadata/mode": [
+          "0644"
+        ],
+        "/cgroup/controls/cpu.max/value": [
+          "max 100000"
+        ],
+        "/cgroup/controls/memory.max/metadata/mode": [
+          "0644"
+        ],
+        "/cgroup/controls/memory.max/value": [
+          "max"
+        ],
+        "/cgroup/controls/pids.max/metadata/mode": [
+          "0644"
+        ],
+        "/cgroup/controls/pids.max/value": [
+          "1",
+          "17441"
+        ],
+        "/cgroup/directory/mode": [
+          "0755"
+        ],
+        "/cgroup/status": [
+          "MEMBERSHIP_OBSERVED_NOT_DELEGATION"
+        ],
+        "/execution_context/repository": [
+          "rownlvh8875-coder/cyberpilot-autotune"
+        ],
+        "/execution_context/run_attempt": [
+          "1"
+        ],
+        "/execution_context/run_id": [
+          "1",
+          "41653951704"
+        ],
+        "/execution_context/sha": [
+          "1111111111111111111111111111111111111111",
+          "4b77b31dd23010f2d2b394466d88b04a4a2720e2"
+        ],
+        "/execution_context/trust": [
+          "UNVERIFIED_CALLER_METADATA"
+        ],
+        "/execution_verdict": [
+          "NOT_EVALUATED"
+        ],
+        "/global_status": [
+          "BLOCKED"
+        ],
+        "/host/machine": [
+          "synthetic",
+          "x86_64"
+        ],
+        "/host/system": [
+          "Linux"
+        ],
+        "/limitations/0": [
+          "NO_EXECUTION_OR_WRITE_PROBE"
+        ],
+        "/limitations/1": [
+          "NO_PRIVATE_BUDGET_OR_DELEGATION_PROOF"
+        ],
+        "/limitations/2": [
+          "NO_ATOMICITY_OR_AUTHENTICITY"
+        ],
+        "/limitations/3": [
+          "NO_RUNTIME_QUALIFICATION"
+        ],
+        "/schema": [
+          "actions-runner-preflight-v1"
+        ],
+        "/security/CapEff": [
+          "0000000000000000"
+        ],
+        "/status": [
+          "READ_ONLY_OBSERVATION_NOT_QUALIFICATION"
+        ],
+        "/tools/~1opt~1codex~1runtimes~1codex-primary-runtime~1dependencies~1python~1bin~1python3.12/expected_sha256": [
+          "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7"
+        ],
+        "/tools/~1opt~1codex~1runtimes~1codex-primary-runtime~1dependencies~1python~1bin~1python3.12/sha256": [],
+        "/tools/~1usr~1bin~1bwrap/expected_sha256": [
+          "573236e5328ac2ebb08f59ae3a9805b4f8d12bdef14be8af4450d5463294985f"
+        ],
+        "/tools/~1usr~1bin~1bwrap/sha256": [],
+        "/tools/~1usr~1bin~1setpriv/expected_sha256": [
+          "f7cedc63bbc1df7912b343a1240a77d16db7633563d69897ec8ad2a99c24024b"
+        ],
+        "/tools/~1usr~1bin~1setpriv/sha256": [
+          "2222222222222222222222222222222222222222222222222222222222222222",
+          "62ec0120791f3afcfb689fed52384ec2b0accc6e118a6b9a1d6fcfa7450aaf37"
+        ]
+      },
+      "redaction_marker": "[REDACTED_UNREGISTERED_SOURCE_TEXT]",
+      "marker_meaning": "SOURCE_TEXT_REDACTED",
+      "original_value_available_not_unknown": true,
+      "availability_when_redacted": "AVAILABLE",
+      "source_comparisons_and_digest_before_redaction": true,
+      "numeric_bool_None_types_unchanged": true,
+      "source_string_grammar_unchanged": true,
+      "diagnostic_grammar_override": "Marker allowed only at one of40string-capable pointers with SOURCE_TEXT_REDACTED meaning;it need not satisfy original hex/control/string grammar. Marker forbidden at bool/int-only pointers,for None,and in safe source vocabularies. All other diagnostic strings must be exact per-pointer safe vocabulary members. Revalidate constructors and forged graphs.",
+      "output_scope": "SourceDiagnostic/PreflightMappingDecision exported values only,not raw/binding input objects or Python memory;no logs. Fixed errors/messages/subjects do not echo source values.",
+      "limit": "CONTROLLED_FIELDS_AND_TEXT_POLICY_NOT_UNIVERSAL_DLP_OR_COVERT_CHANNEL_OR_COMPROMISED_PROCESS_SECURITY"
+    }
+  },
+  "matrix": {
+    "schema": "preflight-profile-field-mapping-v1",
+    "source_leaf_inventory": [
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "H_executed"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "aggregate_resource_boundary_qualified"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "atomic"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "atomic"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.controllers",
+          "metadata",
+          "effective_write_access"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.controllers",
+          "metadata",
+          "gid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.controllers",
+          "metadata",
+          "mode"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.controllers",
+          "metadata",
+          "uid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.controllers",
+          "value"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.max.depth",
+          "metadata",
+          "effective_write_access"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.max.depth",
+          "metadata",
+          "gid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.max.depth",
+          "metadata",
+          "mode"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.max.depth",
+          "metadata",
+          "uid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.max.depth",
+          "value"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.max.descendants",
+          "metadata",
+          "effective_write_access"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.max.descendants",
+          "metadata",
+          "gid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.max.descendants",
+          "metadata",
+          "mode"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.max.descendants",
+          "metadata",
+          "uid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.max.descendants",
+          "value"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.subtree_control",
+          "metadata",
+          "effective_write_access"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.subtree_control",
+          "metadata",
+          "gid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.subtree_control",
+          "metadata",
+          "mode"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.subtree_control",
+          "metadata",
+          "uid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.subtree_control",
+          "value"
+        ],
+        "value_kind": "STR_EMPTY"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.type",
+          "metadata",
+          "effective_write_access"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.type",
+          "metadata",
+          "gid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.type",
+          "metadata",
+          "mode"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.type",
+          "metadata",
+          "uid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cgroup.type",
+          "value"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cpu.max",
+          "metadata",
+          "effective_write_access"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cpu.max",
+          "metadata",
+          "gid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cpu.max",
+          "metadata",
+          "mode"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cpu.max",
+          "metadata",
+          "uid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "cpu.max",
+          "value"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "memory.max",
+          "metadata",
+          "effective_write_access"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "memory.max",
+          "metadata",
+          "gid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "memory.max",
+          "metadata",
+          "mode"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "memory.max",
+          "metadata",
+          "uid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "memory.max",
+          "value"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "pids.max",
+          "metadata",
+          "effective_write_access"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "pids.max",
+          "metadata",
+          "gid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "pids.max",
+          "metadata",
+          "mode"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "pids.max",
+          "metadata",
+          "uid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "controls",
+          "pids.max",
+          "value"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "directory",
+          "effective_write_access"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "directory",
+          "gid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "directory",
+          "mode"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "directory",
+          "uid"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "membership_confirmed"
+        ],
+        "value_kind": "BOOL_TRUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "status"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "cgroup",
+          "write_delegation_verified"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "content_identity_only"
+        ],
+        "value_kind": "BOOL_TRUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "execution_context",
+          "actions"
+        ],
+        "value_kind": "BOOL_TRUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "execution_context",
+          "repository"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "execution_context",
+          "run_attempt"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "execution_context",
+          "run_id"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "execution_context",
+          "sha"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "execution_context",
+          "trust"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "execution_verdict"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "global_status"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "host",
+          "egid"
+        ],
+        "value_kind": "INT_NONZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "host",
+          "euid"
+        ],
+        "value_kind": "INT_NONZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "host",
+          "gid"
+        ],
+        "value_kind": "INT_NONZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "host",
+          "machine"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "host",
+          "python_version",
+          0
+        ],
+        "value_kind": "INT_NONZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "host",
+          "python_version",
+          1
+        ],
+        "value_kind": "INT_NONZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "host",
+          "python_version",
+          2
+        ],
+        "value_kind": "INT_NONZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "host",
+          "system"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "host",
+          "uid"
+        ],
+        "value_kind": "INT_NONZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "limitations",
+          0
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "limitations",
+          1
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "limitations",
+          2
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "limitations",
+          3
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "native_apis",
+          "fcntl",
+          "module_available"
+        ],
+        "value_kind": "BOOL_TRUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "native_apis",
+          "fcntl",
+          "required_apis_present"
+        ],
+        "value_kind": "BOOL_TRUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "native_apis",
+          "os",
+          "MFD_ALLOW_SEALING"
+        ],
+        "value_kind": "BOOL_TRUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "native_apis",
+          "os",
+          "MFD_CLOEXEC"
+        ],
+        "value_kind": "BOOL_TRUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "native_apis",
+          "os",
+          "P_PIDFD"
+        ],
+        "value_kind": "BOOL_TRUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "native_apis",
+          "os",
+          "memfd_create"
+        ],
+        "value_kind": "BOOL_TRUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "native_apis",
+          "os",
+          "pidfd_open"
+        ],
+        "value_kind": "BOOL_TRUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "native_apis",
+          "resource",
+          "module_available"
+        ],
+        "value_kind": "BOOL_TRUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "native_apis",
+          "resource",
+          "required_apis_present"
+        ],
+        "value_kind": "BOOL_TRUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "permissions",
+          "application_authorized"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "permissions",
+          "build_execution_allowed"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "permissions",
+          "candidate_generation_allowed"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "permissions",
+          "device_class_qualified"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "permissions",
+          "owner_proposal_allowed"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "permissions",
+          "policy_adopted"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "permissions",
+          "promotion_authorized"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "permissions",
+          "runtime_accepted"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "permissions",
+          "runtime_qualified"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "schema"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "security",
+          "CapEff"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "security",
+          "NoNewPrivs"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "security",
+          "Seccomp"
+        ],
+        "value_kind": "INT_ZERO"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "status"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "tools",
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+          "expected_sha256"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "tools",
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+          "pin_matches"
+        ],
+        "value_kind": "NULL_UNAVAILABLE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "tools",
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+          "sha256"
+        ],
+        "value_kind": "NULL_UNAVAILABLE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "tools",
+          "/usr/bin/bwrap",
+          "expected_sha256"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "tools",
+          "/usr/bin/bwrap",
+          "pin_matches"
+        ],
+        "value_kind": "NULL_UNAVAILABLE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "tools",
+          "/usr/bin/bwrap",
+          "sha256"
+        ],
+        "value_kind": "NULL_UNAVAILABLE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "tools",
+          "/usr/bin/setpriv",
+          "expected_sha256"
+        ],
+        "value_kind": "STR_VALUE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "tools",
+          "/usr/bin/setpriv",
+          "pin_matches"
+        ],
+        "value_kind": "BOOL_FALSE"
+      },
+      {
+        "raw_value_exported": false,
+        "source_path": [
+          "tools",
+          "/usr/bin/setpriv",
+          "sha256"
+        ],
+        "value_kind": "STR_VALUE"
+      }
+    ],
+    "target_mapping": [
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "profile_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_BATCH_OR_POLICY_BINDING",
+        "source_h_value_substituted": false,
+        "target_path": "run_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.executor_content.role",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.executor_content.sha256",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.bootstrap_content.role",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.bootstrap_content.sha256",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.provider_implementation.role",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.provider_implementation.sha256",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.syscall_policy.role",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.syscall_policy.sha256",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.collection_policy.role",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.collection_policy.sha256",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.toolchain_inventory.role",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.toolchain_inventory.sha256",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.dependency_inventory.role",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.dependency_inventory.sha256",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.private_snapshot_manifest.role",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.private_snapshot_manifest.sha256",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.full_expected_node_inventory.role",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.full_expected_node_inventory.sha256",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.materialized_command_manifest.role",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.materialized_command_manifest.sha256",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.scope_record.role",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_FULL_REVIEWED_H_ARTIFACT",
+        "source_h_value_substituted": false,
+        "target_path": "artifacts.scope_record.sha256",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "cohorts.O.cohort_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_CONSUMED_O_D_COHORT",
+        "source_h_value_substituted": false,
+        "target_path": "cohorts.O.revision",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_CONSUMED_O_D_COHORT",
+        "source_h_value_substituted": false,
+        "target_path": "cohorts.O.tree",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "cohorts.D.cohort_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_CONSUMED_O_D_COHORT",
+        "source_h_value_substituted": false,
+        "target_path": "cohorts.D.revision",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_CONSUMED_O_D_COHORT",
+        "source_h_value_substituted": false,
+        "target_path": "cohorts.D.tree",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "batch_boundary.identity_digest",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "batch_boundary.generation",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "batch_boundary.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.batch_memory_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.batch_memory_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.batch_memory_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.batch_pids_max.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.batch_pids_max.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.batch_pids_max.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.cpu_bandwidth_quota_us.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.cpu_bandwidth_quota_us.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.cpu_bandwidth_quota_us.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.cpu_bandwidth_period_us.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.cpu_bandwidth_period_us.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.cpu_bandwidth_period_us.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.cpu_usage_accounting_budget_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.cpu_usage_accounting_budget_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.cpu_usage_accounting_budget_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.cpu_accounting_latency_bound_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.cpu_accounting_latency_bound_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.cpu_accounting_latency_bound_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.scratch_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.scratch_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.scratch_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.scratch_max_inodes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.scratch_max_inodes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.scratch_max_inodes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.retained_combined_stdout_stderr_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.retained_combined_stdout_stderr_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.retained_combined_stdout_stderr_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.batch_wall_limit_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.batch_wall_limit_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.batch_wall_limit_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.command_wall_limit_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.command_wall_limit_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.command_wall_limit_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.stop_and_cleanup_limit_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.stop_and_cleanup_limit_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "batch_limits.stop_and_cleanup_limit_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.command_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_CONSUMED_O_D_COHORT",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.cohort_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.boundary.identity_digest",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.boundary.generation",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.boundary.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.memory_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.memory_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.memory_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.pids_max.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.pids_max.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.pids_max.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.cpu_usage_budget_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.cpu_usage_budget_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.cpu_usage_budget_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.scratch_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.scratch_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.scratch_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.scratch_max_inodes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.scratch_max_inodes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.scratch_max_inodes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.retained_combined_stdout_stderr_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.retained_combined_stdout_stderr_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.retained_combined_stdout_stderr_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.wall_limit_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.wall_limit_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.limits.wall_limit_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.timing.start_ns",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.timing.deadline_ns",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-PYTEST.timing.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.command_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_CONSUMED_O_D_COHORT",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.cohort_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.boundary.identity_digest",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.boundary.generation",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.boundary.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.memory_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.memory_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.memory_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.pids_max.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.pids_max.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.pids_max.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.cpu_usage_budget_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.cpu_usage_budget_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.cpu_usage_budget_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.scratch_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.scratch_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.scratch_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.scratch_max_inodes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.scratch_max_inodes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.scratch_max_inodes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.retained_combined_stdout_stderr_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.retained_combined_stdout_stderr_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.retained_combined_stdout_stderr_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.wall_limit_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.wall_limit_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.limits.wall_limit_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.timing.start_ns",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.timing.deadline_ns",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H6.timing.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.command_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_CONSUMED_O_D_COHORT",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.cohort_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.boundary.identity_digest",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.boundary.generation",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.boundary.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.memory_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.memory_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.memory_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.pids_max.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.pids_max.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.pids_max.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.cpu_usage_budget_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.cpu_usage_budget_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.cpu_usage_budget_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.scratch_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.scratch_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.scratch_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.scratch_max_inodes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.scratch_max_inodes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.scratch_max_inodes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.retained_combined_stdout_stderr_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.retained_combined_stdout_stderr_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.retained_combined_stdout_stderr_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.wall_limit_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.wall_limit_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.limits.wall_limit_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.timing.start_ns",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.timing.deadline_ns",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.O-H7.timing.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.command_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_CONSUMED_O_D_COHORT",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.cohort_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.boundary.identity_digest",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.boundary.generation",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.boundary.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.memory_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.memory_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.memory_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.pids_max.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.pids_max.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.pids_max.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.cpu_usage_budget_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.cpu_usage_budget_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.cpu_usage_budget_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.scratch_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.scratch_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.scratch_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.scratch_max_inodes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.scratch_max_inodes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.scratch_max_inodes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.retained_combined_stdout_stderr_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.retained_combined_stdout_stderr_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.retained_combined_stdout_stderr_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.wall_limit_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.wall_limit_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.limits.wall_limit_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.timing.start_ns",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.timing.deadline_ns",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-PYTEST.timing.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.command_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_CONSUMED_O_D_COHORT",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.cohort_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.boundary.identity_digest",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.boundary.generation",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.boundary.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.memory_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.memory_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.memory_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.pids_max.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.pids_max.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.pids_max.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.cpu_usage_budget_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.cpu_usage_budget_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.cpu_usage_budget_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.scratch_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.scratch_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.scratch_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.scratch_max_inodes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.scratch_max_inodes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.scratch_max_inodes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.retained_combined_stdout_stderr_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.retained_combined_stdout_stderr_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.retained_combined_stdout_stderr_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.wall_limit_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.wall_limit_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.limits.wall_limit_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.timing.start_ns",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.timing.deadline_ns",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-H6.timing.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.command_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_CONSUMED_O_D_COHORT",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.cohort_id",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.boundary.identity_digest",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.boundary.generation",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_OWNED_H_BOUNDARY_IDENTITY",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.boundary.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.memory_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.memory_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.memory_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.pids_max.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.pids_max.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.pids_max.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.cpu_usage_budget_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.cpu_usage_budget_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.cpu_usage_budget_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.scratch_max_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.scratch_max_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.scratch_max_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.scratch_max_inodes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.scratch_max_inodes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.scratch_max_inodes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.retained_combined_stdout_stderr_bytes.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.retained_combined_stdout_stderr_bytes.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.retained_combined_stdout_stderr_bytes.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.wall_limit_ns.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.wall_limit_ns.unit",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "WRONG_SCOPE_NOT_H_BUDGET",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.limits.wall_limit_ns.value",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.timing.start_ns",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.timing.deadline_ns",
+        "value_type": "int"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_MONOTONIC_TIMING",
+        "source_h_value_substituted": false,
+        "target_path": "commands.D-COVERAGE.timing.clock_domain",
+        "value_type": "str"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.subject_ro_enforced.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.subject_ro_enforced.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.network_denial_enforced.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.network_denial_enforced.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.batch_boundary_placement_observed.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.batch_boundary_placement_observed.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.pre_payload_gate_observed.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.pre_payload_gate_observed.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.bootstrap_outer_boundary_observed.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.bootstrap_outer_boundary_observed.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.aggregate_memory_pids_observed.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.aggregate_memory_pids_observed.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.aggregate_scratch_bytes_inodes_observed.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.aggregate_scratch_bytes_inodes_observed.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.stream_output_deadline_observed.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.stream_output_deadline_observed.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.FD_policy_observed.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.FD_policy_observed.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.owned_cleanup_observed.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.owned_cleanup_observed.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.provider_guard_compatible.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.provider_guard_compatible.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.toolchain_closure_reviewed.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.toolchain_closure_reviewed.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.expected_inventory_separately_frozen.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.expected_inventory_separately_frozen.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "STATIC_CONTRACT_CONFIGURATION",
+        "reason": "NOT_AN_OBSERVATION",
+        "source_h_value_substituted": false,
+        "target_path": "controls.consumed_origins_lineage_observed.name",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_CONTROL_EXERCISE",
+        "source_h_value_substituted": false,
+        "target_path": "controls.consumed_origins_lineage_observed.value",
+        "value_type": "bool"
+      },
+      {
+        "classification": "H_OBSERVATION_UNAVAILABLE",
+        "reason": "NO_H_BATCH_OR_POLICY_BINDING",
+        "source_h_value_substituted": false,
+        "target_path": "policy_digest",
+        "value_type": "str"
+      },
+      {
+        "classification": "H_PRODUCER_STREAM_UNAVAILABLE",
+        "reason": "NO_H_PRODUCER_STREAM",
+        "source_h_value_substituted": false,
+        "target_path": "producer_errors",
+        "value_type": "tuple[str,...]"
+      },
+      {
+        "classification": "H_PRODUCER_STREAM_UNAVAILABLE",
+        "reason": "NO_H_PRODUCER_STREAM",
+        "source_h_value_substituted": false,
+        "target_path": "producer_unavailable",
+        "value_type": "tuple[str,...]"
+      }
+    ],
+    "counts": {
+      "H_producer_stream_gaps": 2,
+      "H_value_gaps": 130,
+      "mapped_H_observation_values": 0,
+      "source_leaves": 105,
+      "static_contract_rows": 142,
+      "target_rows": 274,
+      "target_scalar_rows": 272
+    },
+    "profile_record_emitted": false,
+    "all_nine_permissions_false": true,
+    "meaning": "DESIGN_CATALOG_NOT_RECEIPT_BODY_OR_IMPLEMENTED_ADAPTER"
+  },
+  "acceptance": {
+    "schema": "preflight-profile-mapping-acceptance-design-v1",
+    "future_adapter_implemented": false,
+    "cases_executed": 0,
+    "fixture": {
+      "canonical_source_utf8": "{\"H_executed\":false,\"aggregate_resource_boundary_qualified\":false,\"atomic\":false,\"cgroup\":{\"atomic\":false,\"controls\":{\"cgroup.controllers\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0444\",\"uid\":0},\"value\":\"cpuset cpu io memory pids\"},\"cgroup.max.depth\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"max\"},\"cgroup.max.descendants\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"max\"},\"cgroup.subtree_control\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"\"},\"cgroup.type\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"domain\"},\"cpu.max\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"max 100000\"},\"memory.max\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"max\"},\"pids.max\":{\"metadata\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0644\",\"uid\":0},\"value\":\"1\"}},\"directory\":{\"effective_write_access\":false,\"gid\":0,\"mode\":\"0755\",\"uid\":0},\"membership_confirmed\":true,\"status\":\"MEMBERSHIP_OBSERVED_NOT_DELEGATION\",\"write_delegation_verified\":false},\"content_identity_only\":true,\"execution_context\":{\"actions\":true,\"repository\":\"rownlvh8875-coder/cyberpilot-autotune\",\"run_attempt\":\"1\",\"run_id\":\"1\",\"sha\":\"1111111111111111111111111111111111111111\",\"trust\":\"UNVERIFIED_CALLER_METADATA\"},\"execution_verdict\":\"NOT_EVALUATED\",\"global_status\":\"BLOCKED\",\"host\":{\"egid\":0,\"euid\":0,\"gid\":0,\"machine\":\"synthetic\",\"python_version\":[3,12,3],\"system\":\"Linux\",\"uid\":0},\"limitations\":[\"NO_EXECUTION_OR_WRITE_PROBE\",\"NO_PRIVATE_BUDGET_OR_DELEGATION_PROOF\",\"NO_ATOMICITY_OR_AUTHENTICITY\",\"NO_RUNTIME_QUALIFICATION\"],\"native_apis\":{\"fcntl\":{\"module_available\":true,\"required_apis_present\":true},\"os\":{\"MFD_ALLOW_SEALING\":true,\"MFD_CLOEXEC\":true,\"P_PIDFD\":true,\"memfd_create\":true,\"pidfd_open\":true},\"resource\":{\"module_available\":true,\"required_apis_present\":true}},\"permissions\":{\"application_authorized\":false,\"build_execution_allowed\":false,\"candidate_generation_allowed\":false,\"device_class_qualified\":false,\"owner_proposal_allowed\":false,\"policy_adopted\":false,\"promotion_authorized\":false,\"runtime_accepted\":false,\"runtime_qualified\":false},\"schema\":\"actions-runner-preflight-v1\",\"security\":{\"CapEff\":\"0000000000000000\",\"NoNewPrivs\":0,\"Seccomp\":0},\"status\":\"READ_ONLY_OBSERVATION_NOT_QUALIFICATION\",\"tools\":{\"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12\":{\"expected_sha256\":\"fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7\",\"pin_matches\":null,\"sha256\":null},\"/usr/bin/bwrap\":{\"expected_sha256\":\"573236e5328ac2ebb08f59ae3a9805b4f8d12bdef14be8af4450d5463294985f\",\"pin_matches\":null,\"sha256\":null},\"/usr/bin/setpriv\":{\"expected_sha256\":\"f7cedc63bbc1df7912b343a1240a77d16db7633563d69897ec8ad2a99c24024b\",\"pin_matches\":false,\"sha256\":\"2222222222222222222222222222222222222222222222222222222222222222\"}}}\n",
+      "fixture_kind": "SYNTHETIC_MAPPING_S0_NOT_OBSERVED_OR_H_BUDGET",
+      "future_mapper_cases_implemented_or_executed": false,
+      "source_bytes": 2975,
+      "source_profile_id": "SYNTHETIC_MAPPING_S0",
+      "source_sha256": "5d813832979c34b7efc5c15c5312d83c266a14ce63144e3f4bb9fe9ca027040d"
+    },
+    "baseline_binding": {
+      "repository": "rownlvh8875-coder/cyberpilot-autotune",
+      "run_id": 1,
+      "attempt": 1,
+      "job_id": 1,
+      "source_revision": "1111111111111111111111111111111111111111",
+      "workflow_sha256": "40781c65ecb75467cdcd1204902e72869249ad018c7c4bc51e11996830572b1d",
+      "collector_sha256": "3b3b99e4fb1dab67b2972c06cc432ed80f6b38c3f48c3aa69a4d13517750429e",
+      "observation_sha256": "5d813832979c34b7efc5c15c5312d83c266a14ce63144e3f4bb9fe9ca027040d"
+    },
+    "mutation_format": "Each path starts source or binding,last element replaces addressed value;deepcopy S0 JSON body and selected binding;serialize altered body canonical ASCII separators(',',':') plus newline unless raw_transform;do not recompute registered profile hashes",
+    "every_successful_return": {
+      "mapping_status": "DIAGNOSTIC_ONLY",
+      "profile_record": null,
+      "diagnostic_inventory": 83,
+      "target_gaps": 132,
+      "all_nine_permissions": false,
+      "H_executed": false,
+      "integrated_admission": false
+    },
+    "cases": [
+      {
+        "id": "PM-001",
+        "description": "Complete S0 diagnostics still emit no H record",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MATCH",
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-002",
+        "description": "Missing binding never hides known setpriv mismatch or zero",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "NONE",
+        "mutations": [],
+        "expected_consistency": "UNAVAILABLE_BINDING",
+        "required_error_codes": [],
+        "required_unavailable_codes": [
+          "BINDING_UNAVAILABLE"
+        ],
+        "diagnostic_assertions": [
+          {
+            "pointer": "/security/Seccomp",
+            "value": 0,
+            "availability": "AVAILABLE"
+          },
+          {
+            "pointer": "/tools/~1usr~1bin~1setpriv/pin_matches",
+            "value": false,
+            "meaning": "LEGACY_TOOL_PIN_MISMATCH"
+          }
+        ],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-003",
+        "description": "Unknown job association not borrowed",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "binding",
+            "job_id",
+            null
+          ]
+        ],
+        "expected_consistency": "UNAVAILABLE_BINDING",
+        "required_error_codes": [],
+        "required_unavailable_codes": [
+          "BINDING_VALUE_UNAVAILABLE"
+        ],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-004",
+        "description": "Different job identity is not same registered instance",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "binding",
+            "job_id",
+            2
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "BINDING_VALUE_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-005",
+        "description": "Attempt cannot be pooled",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "binding",
+            "attempt",
+            2
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "BINDING_VALUE_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-006",
+        "description": "Source revision drift not silently adopted",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "binding",
+            "source_revision",
+            "2222222222222222222222222222222222222222"
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "BINDING_VALUE_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-007",
+        "description": "Wrong supplied content hash rejects",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "binding",
+            "observation_sha256",
+            "0000000000000000000000000000000000000000000000000000000000000000"
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "BINDING_VALUE_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-008",
+        "description": "H execution assertion in preflight not promoted",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "H_executed",
+            true
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "REGISTERED_SNAPSHOT_CONTENT_MISMATCH",
+          "SOURCE_DECLARATION_CONTRADICTION"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-009",
+        "description": "Caller authority declaration cannot change fixed permissions",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "permissions",
+            "application_authorized",
+            true
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "SOURCE_DECLARATION_CONTRADICTION"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-010",
+        "description": "Declared delegation True not accepted as probe",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "cgroup",
+            "write_delegation_verified",
+            true
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "SOURCE_DECLARATION_CONTRADICTION"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-011",
+        "description": "Security zero is available source-process context",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MATCH",
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [
+          {
+            "pointer": "/security/NoNewPrivs",
+            "value": 0,
+            "availability": "AVAILABLE"
+          },
+          {
+            "pointer": "/security/Seccomp",
+            "value": 0,
+            "availability": "AVAILABLE"
+          }
+        ],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-012",
+        "description": "Missing security field is not zero",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "security",
+            "CapEff",
+            null
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "REGISTERED_SNAPSHOT_CONTENT_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [
+          {
+            "pointer": "/security/CapEff",
+            "value": null,
+            "availability": "UNAVAILABLE"
+          }
+        ],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-013",
+        "description": "W_OK false is known source value not H delegation result",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MATCH",
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [
+          {
+            "pointer": "/cgroup/directory/effective_write_access",
+            "value": false,
+            "availability": "AVAILABLE",
+            "meaning": "W_OK_NOT_DELEGATION"
+          }
+        ],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-014",
+        "description": "max strings remain wrong-scope source data",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MATCH",
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [
+          {
+            "pointer": "/cgroup/controls/memory.max/value",
+            "value": "max"
+          },
+          {
+            "pointer": "/cgroup/controls/cpu.max/value",
+            "value": "max 100000"
+          }
+        ],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-015",
+        "description": "Synthetic numeric PID control is not an approved H budget",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MATCH",
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [
+          {
+            "pointer": "/cgroup/controls/pids.max/value",
+            "value": "1",
+            "meaning": "CGROUP_CONTROL_NOT_H_BUDGET"
+          }
+        ],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-016",
+        "description": "Known legacy content-pin mismatch preserved",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MATCH",
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [
+          {
+            "pointer": "/tools/~1usr~1bin~1setpriv/pin_matches",
+            "value": false,
+            "meaning": "LEGACY_TOOL_PIN_MISMATCH"
+          }
+        ],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-017",
+        "description": "Unobservable tool content is not absent binary",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MATCH",
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [
+          {
+            "pointer": "/tools/~1usr~1bin~1bwrap/sha256",
+            "value": null,
+            "availability": "UNAVAILABLE"
+          }
+        ],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-018",
+        "description": "Inconsistent pin relation remains contradiction",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "tools",
+            "/usr/bin/setpriv",
+            "pin_matches",
+            true
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "SOURCE_TOOL_RELATION_INCONSISTENT"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-019",
+        "description": "API presence not exercised FD/cleanup/network controls",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MATCH",
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [
+          {
+            "pointer": "/native_apis/os/pidfd_open",
+            "value": true,
+            "meaning": "NATIVE_API_PRESENCE_ONLY"
+          }
+        ],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-020",
+        "description": "Caller run drift rejects even supplied metadata unchanged",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "execution_context",
+            "run_id",
+            "2"
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "SOURCE_CONTEXT_MISMATCH",
+          "REGISTERED_SNAPSHOT_CONTENT_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-021",
+        "description": "Missing caller context not filled from binding",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "execution_context",
+            "run_id",
+            null
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "REGISTERED_SNAPSHOT_CONTENT_MISMATCH"
+        ],
+        "required_unavailable_codes": [
+          "CALLER_CONTEXT_UNAVAILABLE"
+        ],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-022",
+        "description": "Missing cgroup parent produces null diagnostics not false",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "cgroup",
+            "status",
+            "UNAVAILABLE_MAPPING"
+          ],
+          [
+            "source",
+            "cgroup",
+            "membership_confirmed",
+            null
+          ],
+          [
+            "source",
+            "cgroup",
+            "directory",
+            null
+          ],
+          [
+            "source",
+            "cgroup",
+            "controls",
+            null
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "REGISTERED_SNAPSHOT_CONTENT_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [
+          {
+            "pointer": "/cgroup/controls/pids.max/value",
+            "value": null,
+            "availability": "UNAVAILABLE"
+          }
+        ],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-023",
+        "description": "Duplicate JSON keys rejected",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": true,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED",
+        "raw_transform": "DUPLICATE_IDENTICAL_SCHEMA_KEY"
+      },
+      {
+        "id": "PM-024",
+        "description": "Float security input not silently integer",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "security",
+            "Seccomp",
+            0.5
+          ]
+        ],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": true,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-025",
+        "description": "Boolean is not security integer",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "security",
+            "NoNewPrivs",
+            false
+          ]
+        ],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": true,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-026",
+        "description": "Unknown potentially identifying field rejected",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "VIN",
+            "FORBIDDEN_SYNTHETIC_FIELD"
+          ]
+        ],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": true,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-027",
+        "description": "Invalid UTF8 rejected",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": true,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED",
+        "raw_override": {
+          "hex": "ff"
+        }
+      },
+      {
+        "id": "PM-028",
+        "description": "Oversized source rejected before parsing",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": true,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED",
+        "raw_transform": "ASCII_SPACE_32769_BYTES"
+      },
+      {
+        "id": "PM-029",
+        "description": "Source v2 is not v1 upgrade",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "schema",
+            "actions-runner-preflight-v2"
+          ]
+        ],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": true,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-030",
+        "description": "S0 never selected automatically for default R0",
+        "source_profile_id": "REGISTERED_PREFLIGHT_R0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "REGISTERED_SNAPSHOT_CONTENT_MISMATCH",
+          "BINDING_VALUE_MISMATCH",
+          "SOURCE_CONTEXT_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-031",
+        "description": "Unknown source profile rejected",
+        "source_profile_id": "UNKNOWN",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": null,
+        "required_error_codes": [],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": true,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      },
+      {
+        "id": "PM-032",
+        "description": "JSON reorder parses but changes registered raw identity",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "REGISTERED_SNAPSHOT_CONTENT_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED",
+        "raw_transform": "REVERSE_ROOT_KEY_ORDER_PRETTY_JSON_NO_RECOMPUTED_PROFILE_HASH"
+      },
+      {
+        "id": "PM-033",
+        "description": "Unexpected well-shaped secret canary is not echoed or made unknown",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "status",
+            "FICTIONAL_SOURCE_SECRET_CANARY_123"
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "REGISTERED_SNAPSHOT_CONTENT_MISMATCH",
+          "SOURCE_DECLARATION_CONTRADICTION"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [
+          {
+            "pointer": "/status",
+            "value": "[REDACTED_UNREGISTERED_SOURCE_TEXT]",
+            "meaning": "SOURCE_TEXT_REDACTED",
+            "availability": "AVAILABLE"
+          }
+        ],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED",
+        "no_unexpected_text_in_decision": "FICTIONAL_SOURCE_SECRET_CANARY_123"
+      },
+      {
+        "id": "PM-034",
+        "description": "Redacted valid-but-unregistered hex has an explicit output-grammar exception",
+        "source_profile_id": "SYNTHETIC_MAPPING_S0",
+        "binding": "S0_COMPLETE",
+        "mutations": [
+          [
+            "source",
+            "security",
+            "CapEff",
+            "123abc"
+          ]
+        ],
+        "expected_consistency": "REGISTERED_SNAPSHOT_MISMATCH",
+        "required_error_codes": [
+          "REGISTERED_SNAPSHOT_CONTENT_MISMATCH"
+        ],
+        "required_unavailable_codes": [],
+        "diagnostic_assertions": [
+          {
+            "pointer": "/security/CapEff",
+            "value": "[REDACTED_UNREGISTERED_SOURCE_TEXT]",
+            "meaning": "SOURCE_TEXT_REDACTED",
+            "availability": "AVAILABLE"
+          }
+        ],
+        "expected_ValueError": false,
+        "status": "PLANNED_NOT_IMPLEMENTED_OR_EXECUTED"
+      }
+    ],
+    "additional_required_properties": [
+      "Malformed exact raw/binding/DTO graphs,subclasses,lists-as-tuples,duplicates/unknown pointers or gap pairs reject",
+      "All8 nullable binding fields independently unavailable;every known wrong binding field rejects including0,without hiding source contradictions",
+      "UTF8BOM/empty/bytearray/wrongtopshape/missingextra keys/nonfinite/UInt64overflow/deepnesting -> ValueError",
+      "No source host identity/rawblob/export;83 whitelist pointers exactly once;132 exact gap pairs on every result",
+      "Partial/null cgroup directory/control metadata preserves unknown vs actualFalse/0/empty;NoNewPrivs bool invalid",
+      "Expected-tool-pin mutation and caller trust VERIFIED produce known declaration errors,not qualification",
+      "Native module/required_apis consistency and cgroup status/membership/controls branch contradictions reported",
+      "R0/S0 explicit output label differs;S0 never described as real observation;real raw R0 not embedded into public test fixtures",
+      "Source order/whitespace not silently canonicalized before raw-byte identity check;diagnostics values may agree while registered-content mismatch remains",
+      "Exact10A2M future scope;all current/frozen/new/untracked/tree hooks and old helper/function/top-level AST preservation",
+      "No IO/network/thread/process/clock/imported collector/old prep/H1/product/application;import/call audit in fresh subprocess",
+      "Retained R0 input can be separately checked only when actually supplied;not claimed from S0 or skipped CI",
+      "Every unregistered diagnostic string,including constructor/forged graphs,is rejected unless exact fixed marker at allowed string pointer with SOURCE_TEXT_REDACTED;redacted values are AVAILABLE,notNone;raw comparisons/digest still expose known mismatch without echoing text"
+    ],
+    "retained_R0_this_task": {
+      "checks": "FRESH_API_LOG_CONTENT_AND_SOURCE_AUDIT_ONLY",
+      "mapper_executed": false,
+      "raw_observed_blob_in_pack": false
+    }
+  },
+  "scope": {
+    "schema": "preflight-profile-mapping-proposed-successor-v1",
+    "status": "PROPOSED_NOT_APPLIED",
+    "manifest_is_authority": false,
+    "base": "0ac6e3519ad7191b036eb777b4317174121851bb",
+    "base_tree": "974837bb773c5e18b90f01e9ce7491769a3d4b2a",
+    "branch": "feat/preflight-profile-diagnostic-mapping",
+    "future_Draft_PR_base": "feat/preparation-profile-receipt",
+    "PR60_may_not_be_changed_or_merged_by_this_task": true,
+    "additions": [
+      "tests/audit_preflight_profile_mapping/__init__.py",
+      "tests/audit_preflight_profile_mapping/contracts.py",
+      "tests/audit_preflight_profile_mapping/mapping.py",
+      "tests/fixtures/preflight_profile_mapping.py",
+      "tests/test_preflight_profile_mapping.py",
+      "tests/test_preflight_profile_mapping_architecture.py",
+      "tests/test_preflight_profile_mapping_scope.py",
+      "docs/evidence/audit_compatibility/preflight-profile-mapping-v1/registration.json",
+      "docs/superpowers/specs/2026-11-04-preflight-profile-mapping.md",
+      "docs/superpowers/plans/2026-11-04-preflight-profile-mapping.md"
+    ],
+    "modifications": {
+      "tests/test_audit_compatibility_history_architecture.py": [
+        "test_all_earlier_files_and_guard_bytes_are_preserved"
+      ],
+      "tests/test_preparation_profile_architecture.py": [
+        "test_final_scope_exact_inventory_and_registration_do_not_authorize_execution"
+      ]
+    },
+    "new_scope_helpers_only_in": "tests/test_preflight_profile_mapping_scope.py",
+    "old_modules_new_top_level_import_global_or_function_definition_allowed": false,
+    "consumer_strategy": [
+      "Keep every older range/tree check;freeze old profile 4b77..0ac6 literal14A2M and verify its exact inventory with old profile helper unchanged",
+      "Freeze cancellation209edaa..db915 literal4A5M and retain existing old guards unchanged",
+      "Use unchanged old profile composed helper on frozen cancellation+profile vs209edaa..0ac6",
+      "Read new0ac6..current plus untracked;new scope test helper validates only literal10A2M,not current manifest",
+      "Still read literal raw4b77..current and209edaa..current with no end argument;compare each against separately validated frozen profile/repair plus new status composition",
+      "Global history consumer invokes new helper via existing importlib inside function;new scope module has no consumer invocation/import cycle at module import",
+      "Old profile final-inventory consumer reads frozen4b77..0ac6 without current untracked augmentation,retains every old inventory/registration assertion,and invokes real global consumer inside function",
+      "No old helper or other test/function/top-level AST changes;new helper definitions stay outside old history module so its current function-name preservation assertion stays true",
+      "Preserve all existing frozen/current/new/untracked/tree tamper hooks and preflight raw-range call tracker;all still reach live assertions",
+      "New final test enforces all10A2M plus all old nonconsumer bytes at0ac6;construction may be subset only before final gate"
+    ],
+    "new_package_allowed_imports": [
+      "dataclasses",
+      "hashlib",
+      "json",
+      "re",
+      "typing",
+      "EXACT_RELATIVE_CONTRACTS_MAPPING_ONLY"
+    ],
+    "forbidden_imports": [
+      "tools.actions_runner_preflight",
+      "tests.audit_preparation_profile",
+      "tests.audit_compatibility*",
+      "cyberpilot_autotune",
+      "os",
+      "sys",
+      "socket",
+      "threading",
+      "subprocess",
+      "pathlib",
+      "time"
+    ],
+    "new_package_min_statement_percent": 98,
+    "new_package_min_branch_percent": 95,
+    "exclusions_or_old_threshold_skip_xfail_change": false,
+    "source_ref_PR_workflow_or_guard_changes_now": false,
+    "all_nine_permissions_false": true,
+    "H_execution_or_target_record_generation": false
+  },
+  "sources": {
+    "schema": "preflight-profile-source-provenance-v1",
+    "repository": "rownlvh8875-coder/cyberpilot-autotune",
+    "target_contract_head": "0ac6e3519ad7191b036eb777b4317174121851bb",
+    "main": "4b77b31dd23010f2d2b394466d88b04a4a2720e2",
+    "source_profile_id": "REGISTERED_PREFLIGHT_R0",
+    "source_instance": {
+      "run_id": 41653951704,
+      "attempt": 1,
+      "job_id": 125979186623,
+      "source_revision": "4b77b31dd23010f2d2b394466d88b04a4a2720e2",
+      "workflow_id": 405774698,
+      "workflow_sha256": "40781c65ecb75467cdcd1204902e72869249ad018c7c4bc51e11996830572b1d",
+      "collector_sha256": "3b3b99e4fb1dab67b2972c06cc432ed80f6b38c3f48c3aa69a4d13517750429e",
+      "observation_sha256": "4b6aa465bacb157eee17852fdacc5f4da69d7e9401d027f6db3cafa741929597",
+      "observation_bytes": 2998
+    },
+    "source_pins": [
+      {
+        "blob_sha": "dcd87c6a1098fca0cc99bb8a99f903fc034d77a6",
+        "bytes": 11081,
+        "path": "tools/actions_runner_preflight.py",
+        "ranges": [
+          {
+            "end": 54,
+            "range_sha256": "803656dac4d4cc33288782ba6e5319e46da60c7b16301ae514b4ea7660a6a309",
+            "start": 35,
+            "symbol": "_read"
+          },
+          {
+            "end": 73,
+            "range_sha256": "8a214519e1ae6200db9b0f1a37f013de6d4afca67c1e9d294d4623b322698747",
+            "start": 57,
+            "symbol": "_metadata"
+          },
+          {
+            "end": 103,
+            "range_sha256": "a8812feea8e2bf8edffaaefede0e2f3d92d68e8312ca434613cd31e80ec0f2e5",
+            "start": 76,
+            "symbol": "_location"
+          },
+          {
+            "end": 109,
+            "range_sha256": "51ae3ae4eb4035e08ab880a96ae8b92eb005e93bbc90b5ba993f4283b44b9f09",
+            "start": 106,
+            "symbol": "_contains_pid"
+          },
+          {
+            "end": 124,
+            "range_sha256": "e956ba119f3f3ac49e130ea0fc4079724e606194cab1840a2dd5e3c508fbf67e",
+            "start": 112,
+            "symbol": "_valid_control"
+          },
+          {
+            "end": 137,
+            "range_sha256": "081d0b479ced6ae5cd6249d1773d3fe126768b526b10700f797c43ba317b8b38",
+            "start": 127,
+            "symbol": "_control"
+          },
+          {
+            "end": 171,
+            "range_sha256": "48fc973e84eeb34e066d094fe64c07503de21f0ab4cc044e069dd74d5c9c1aeb",
+            "start": 140,
+            "symbol": "_cgroup"
+          },
+          {
+            "end": 193,
+            "range_sha256": "349da11143abea98f8103f082e807d25ae619b5990df7aed9ead37a1063caeac",
+            "start": 174,
+            "symbol": "_security"
+          },
+          {
+            "end": 206,
+            "range_sha256": "479a3b21bf7aae835a457caab64b357e09cbc6cc54e2c12080027090455a850b",
+            "start": 196,
+            "symbol": "_tools"
+          },
+          {
+            "end": 214,
+            "range_sha256": "649207b485687980b38dff7347e20ebb94aa590a2fa512646dcb7743773d5d94",
+            "start": 209,
+            "symbol": "_identity"
+          },
+          {
+            "end": 245,
+            "range_sha256": "7dacbd034b1b670b91c0d623b435854a09829e3bb5dec6c4c974b17929821bbe",
+            "start": 217,
+            "symbol": "_native"
+          },
+          {
+            "end": 265,
+            "range_sha256": "e08d3f0b528746dcbd2f1d9cad1812be75aa42fa2babbad8d7f22b81bf93a339",
+            "start": 248,
+            "symbol": "_context"
+          },
+          {
+            "end": 318,
+            "range_sha256": "bbb8e56e65b44c60c95500f0444f95278224128fbeb17ae5cad934d05dbd37f3",
+            "start": 268,
+            "symbol": "collect"
+          },
+          {
+            "end": 330,
+            "range_sha256": "4d4f83a55bbe8423073d41a8f7f8bd5d2b1e4128dddfcd136b49875644027a81",
+            "start": 321,
+            "symbol": "main"
+          },
+          {
+            "end": 19,
+            "range_sha256": "bcb8ba4bb884507459797d26d06ed73de7a22081d27c51e580489e9c30ac788b",
+            "start": 12,
+            "symbol": "_PINS"
+          },
+          {
+            "end": 29,
+            "range_sha256": "7c25978e0b2369914810017f3e1d73bb16507c4871fdcd60e0713f4578b5325d",
+            "start": 20,
+            "symbol": "_CONTROLS"
+          },
+          {
+            "end": 32,
+            "range_sha256": "bed8a9503571ac04c216e8dbb2b0acaec9b43b709a0d29a11f600d9ba61fcaf9",
+            "start": 30,
+            "symbol": "_CONTROLLER_NAMES"
+          }
+        ],
+        "repository": "rownlvh8875-coder/cyberpilot-autotune",
+        "revision": "0ac6e3519ad7191b036eb777b4317174121851bb",
+        "same_blob_at_source_run_revision": "4b77b31dd23010f2d2b394466d88b04a4a2720e2",
+        "sha256": "3b3b99e4fb1dab67b2972c06cc432ed80f6b38c3f48c3aa69a4d13517750429e"
+      },
+      {
+        "blob_sha": "d14c30a4511da5bbeb83530f841ca0ba051a4846",
+        "bytes": 14410,
+        "path": ".github/workflows/runner-preflight.yml",
+        "repository": "rownlvh8875-coder/cyberpilot-autotune",
+        "revision": "0ac6e3519ad7191b036eb777b4317174121851bb",
+        "same_blob_at_source_run_revision": "4b77b31dd23010f2d2b394466d88b04a4a2720e2",
+        "sha256": "40781c65ecb75467cdcd1204902e72869249ad018c7c4bc51e11996830572b1d"
+      },
+      {
+        "blob_sha": "cd6f7cfad40b20cdd4e9cb7c7f034f5ac0a57431",
+        "bytes": 13325,
+        "path": "tests/audit_preparation_profile/contracts.py",
+        "ranges": [
+          {
+            "end": 142,
+            "range_sha256": "1ac30235e5931dce23e3dc0a8d38349a5d3d08dff8b9478122994338c00024f4",
+            "start": 113,
+            "symbol": "_Claim"
+          },
+          {
+            "end": 148,
+            "range_sha256": "5648ed61e0470b7b8e5f60c5366d3c942283a06af5d79373c88be48f29d294ff",
+            "start": 146,
+            "symbol": "ArtifactPin"
+          },
+          {
+            "end": 155,
+            "range_sha256": "661d4d318b7c69aa668346a739637b8796fa1f4258592fe253967cbb9612b65b",
+            "start": 152,
+            "symbol": "LimitValue"
+          },
+          {
+            "end": 161,
+            "range_sha256": "2c2c90eb11065d5669d462a4b071aac5e498272af1187b3630f02dfa3013a1a1",
+            "start": 159,
+            "symbol": "ControlClaim"
+          },
+          {
+            "end": 168,
+            "range_sha256": "630a617cc2727526101a5d81f7e246178eb121516793e2facd325339bbba4a04",
+            "start": 165,
+            "symbol": "CohortPin"
+          },
+          {
+            "end": 175,
+            "range_sha256": "c94ff148c2635d4555dfc9ee92d9be4be590c7d694c98111b2f2cffc8ff44b70",
+            "start": 172,
+            "symbol": "BoundaryRef"
+          },
+          {
+            "end": 182,
+            "range_sha256": "d4d6caf333dfa03934a9e2544d8b4066a6cdc566aaf014bb5370518be7ea5d92",
+            "start": 179,
+            "symbol": "TimingClaim"
+          },
+          {
+            "end": 191,
+            "range_sha256": "25f1e5aed1fd6e1e8979fec5e6e468814f67c5a603cd8cbcbd2be0f41bb5bf2d",
+            "start": 186,
+            "symbol": "CommandProfile"
+          },
+          {
+            "end": 203,
+            "range_sha256": "b7cba19938933fce4b190a7e90644ec5963ce289a3f50c6f09cb7b4b20701485",
+            "start": 195,
+            "symbol": "PreparationProfilePolicy"
+          },
+          {
+            "end": 218,
+            "range_sha256": "84c27866c2856a69c77b6af850f5b105e4682d69b73dbe9e2073b6d805c06b0c",
+            "start": 207,
+            "symbol": "PreparationProfileRecord"
+          },
+          {
+            "end": 224,
+            "range_sha256": "6845da3690129b74796b483e344ba96f4051516b7da43738e802256b400c5310",
+            "start": 222,
+            "symbol": "ProfileReason"
+          },
+          {
+            "end": 236,
+            "range_sha256": "5cb7d017699c0280d4ad7214b25dba9e237007ff38286c2767e9236caae0be65",
+            "start": 228,
+            "symbol": "PreparationProfileDecision"
+          },
+          {
+            "end": 241,
+            "range_sha256": "d419b4b1abb7272ccc6fa99524449d8a5f8d464752bd0d559fe0bc9a26f0083a",
+            "start": 239,
+            "symbol": "need"
+          },
+          {
+            "end": 285,
+            "range_sha256": "7f565f9f3171b651089f38ab5b40e545fb96330c1f3166c8697033f94a49ca50",
+            "start": 244,
+            "symbol": "_subjects"
+          },
+          {
+            "end": 351,
+            "range_sha256": "9e6aaf495d58f1c190b1f2be54754b6aab31ea067e29f54126889461e7e86b0c",
+            "start": 342,
+            "symbol": "normalized_fields"
+          },
+          {
+            "end": 407,
+            "range_sha256": "f3bb467d307460152b92d5f26aad9b50da1a0c63be6c5f19e939e57c7eee4f9c",
+            "start": 354,
+            "symbol": "_normalize"
+          }
+        ],
+        "repository": "rownlvh8875-coder/cyberpilot-autotune",
+        "revision": "0ac6e3519ad7191b036eb777b4317174121851bb",
+        "sha256": "add3d7c5e19ced75146754c3fa9c72607f2b8cc950956a607fa325caa333aac6"
+      },
+      {
+        "blob_sha": "62a888b29c18932360fcf569de0b465cfeaf282c",
+        "bytes": 3048,
+        "path": "tests/audit_preparation_profile/wire.py",
+        "ranges": [
+          {
+            "end": 21,
+            "range_sha256": "3a23c63c132731c8e978312b94973266ca3cd88426de28e495ef1aee1394d279",
+            "start": 16,
+            "symbol": "_body"
+          },
+          {
+            "end": 32,
+            "range_sha256": "067c84dfaedba5448824b67af8a3db0ddbc78aa230a06e0ac1eaa953ee20ea58",
+            "start": 24,
+            "symbol": "_canonical"
+          },
+          {
+            "end": 36,
+            "range_sha256": "88e6f51026bf703c65eca8861a386f0215ecea4ced3f497024c7b9669759c49a",
+            "start": 35,
+            "symbol": "canonical_policy"
+          },
+          {
+            "end": 40,
+            "range_sha256": "3fb4d8007ab1c91c1645d0936a17e78a6be004dd83aa7db5208200114a3f87e4",
+            "start": 39,
+            "symbol": "canonical_profile"
+          },
+          {
+            "end": 45,
+            "range_sha256": "85dfcfd832c745d61fda24907bf2d640952c1548a9e05e8dd17a462dd5a2f645",
+            "start": 43,
+            "symbol": "_pairs"
+          },
+          {
+            "end": 49,
+            "range_sha256": "28e0f27704f865d219a9fa61e81c5be8c38f9b5b40a228f4ebea3d00a0148d70",
+            "start": 48,
+            "symbol": "_not_numeric"
+          },
+          {
+            "end": 54,
+            "range_sha256": "058d88af043f75a79ad4c380847296ea7363ce7fa674382054c0ed91119d296b",
+            "start": 52,
+            "symbol": "_decode_dto"
+          },
+          {
+            "end": 70,
+            "range_sha256": "2cde722f63c5f73ebf7b54811c040f3b16297eac5d7e8c8fcf34c9628466047b",
+            "start": 57,
+            "symbol": "_decode_value"
+          },
+          {
+            "end": 86,
+            "range_sha256": "8e8db726bab1e513235bfd35ab46efb182cdef7c0cf232432b7e100377407982",
+            "start": 73,
+            "symbol": "_decode"
+          },
+          {
+            "end": 90,
+            "range_sha256": "5bf9e2b9f6f8d9ac5a6f8258d9cfaccf329692cef6cbeaad72a7836c6067832c",
+            "start": 89,
+            "symbol": "decode_policy"
+          },
+          {
+            "end": 94,
+            "range_sha256": "2b7dcfc20e296f302e0a770a0509e9a02231b56e4c6bd2c35747498c3db06a9c",
+            "start": 93,
+            "symbol": "decode_profile"
+          }
+        ],
+        "repository": "rownlvh8875-coder/cyberpilot-autotune",
+        "revision": "0ac6e3519ad7191b036eb777b4317174121851bb",
+        "sha256": "7ef5210dd66fdb5b6173de90994cd9047cf2cdebfbbcf172045c60c5d23ceac2"
+      },
+      {
+        "blob_sha": "1293a12c277d76acdf82eadefeaa3a3ea9434c6e",
+        "bytes": 7996,
+        "path": "tests/audit_preparation_profile/validation.py",
+        "ranges": [
+          {
+            "end": 184,
+            "range_sha256": "08b2dfe4aac8bde61faf5ca457eeb5fbf4677114b4d26ba92a154f7b41222b68",
+            "start": 25,
+            "symbol": "assess_profile"
+          }
+        ],
+        "repository": "rownlvh8875-coder/cyberpilot-autotune",
+        "revision": "0ac6e3519ad7191b036eb777b4317174121851bb",
+        "sha256": "b93e4ffc74d9307dadf7ff6f196c7586be39640c5cb48d403ffaa926edf65ee2"
+      },
+      {
+        "blob_sha": "2aa5faf3a3337c6e089d7972973bf407f702c4c7",
+        "bytes": 13728,
+        "path": "tests/test_audit_compatibility_history_architecture.py",
+        "ranges": [
+          {
+            "end": 45,
+            "range_sha256": "b2ebe5ed2a57f3ed774a7360648731581c7f04e96afe9bcad047273fb927d74c",
+            "start": 16,
+            "symbol": "test_fresh_import_is_inert_and_does_not_load_old_core_or_runtime"
+          },
+          {
+            "end": 58,
+            "range_sha256": "4a64166f23eef7c2a189e95e7bc4cbdc0caccff64a1648b7b9aa4d07afef5635",
+            "start": 48,
+            "symbol": "test_package_uses_only_pure_stdlib_and_sibling_imports"
+          },
+          {
+            "end": 73,
+            "range_sha256": "e65258eed908e1eccec5c565f670db2dffd57fad9fa461cd1ce2c34386e78b91",
+            "start": 61,
+            "symbol": "test_h_record_cannot_override_bad_current_C_or_supply_old_IO"
+          },
+          {
+            "end": 86,
+            "range_sha256": "43c69b9b1ff10ca3d31b91a5ce6f436584dd6ccb13ce83e7a4c7a42632bd66e3",
+            "start": 76,
+            "symbol": "_phase_changes"
+          },
+          {
+            "end": 106,
+            "range_sha256": "5e5bc5b158b636edcbd7c78a0a42c1ce0538850b61ebfe0376e696445de50988",
+            "start": 89,
+            "symbol": "_registered_preflight_changes"
+          },
+          {
+            "end": 129,
+            "range_sha256": "a358adc7bc0073fd638eb2442713730c832dba47a8b06d2edd8696ab2ee6f2fb",
+            "start": 109,
+            "symbol": "_ci_portability_changes"
+          },
+          {
+            "end": 148,
+            "range_sha256": "4c970f6827955a0bf1f80f2cd1beb99cb6f83c03554e19817832e4da57beb4fd",
+            "start": 132,
+            "symbol": "_h1_outcome_changes"
+          },
+          {
+            "end": 168,
+            "range_sha256": "b6392c503cda33e4a1716e75615aadf06071c54ae3bbcf5e4339c72f8f4d9ed5",
+            "start": 151,
+            "symbol": "_h1_cancellation_changes"
+          },
+          {
+            "end": 248,
+            "range_sha256": "11284560f04bb8d0c966bdb4a9bb951c7725c33e7ab66a1b69bd42322bdda6ab",
+            "start": 171,
+            "symbol": "test_all_earlier_files_and_guard_bytes_are_preserved"
+          },
+          {
+            "end": 268,
+            "range_sha256": "d7d28fe5a067e10cb7f5ccd605cb196ff581b251b7fafb6a02cfcb6f82472948",
+            "start": 264,
+            "symbol": "test_phase_guard_rejects_edits_deletions_aliases_and_unknown_additions"
+          },
+          {
+            "end": 279,
+            "range_sha256": "5ec5524a20d82a462da5164c5fd0dfab92147b898f113d7fdbe23e3077d27a04",
+            "start": 271,
+            "symbol": "test_phase_guard_requires_exact_historical_sets_without_widening_current_scope"
+          },
+          {
+            "end": 305,
+            "range_sha256": "15421432999a32341177200d537e52c8d0e9c5491be44ffc95ec7768784f93d9",
+            "start": 282,
+            "symbol": "_preparation_profile_changes"
+          },
+          {
+            "end": 333,
+            "range_sha256": "db7e5869ec88e2792109ba50b4933df65dc151840f4a5af4b3ad910fdf9461fd",
+            "start": 308,
+            "symbol": "_preparation_profile_composed_changes"
+          }
+        ],
+        "repository": "rownlvh8875-coder/cyberpilot-autotune",
+        "revision": "0ac6e3519ad7191b036eb777b4317174121851bb",
+        "sha256": "f0ba9560b8f9829d43ed5804d3fe689f3acf8077db7503584e1bf444e386a717"
+      },
+      {
+        "blob_sha": "45eb8e22f82ea11e5fa51935935d3ea09189ae28",
+        "bytes": 6260,
+        "path": "tests/test_preparation_profile_architecture.py",
+        "ranges": [
+          {
+            "end": 38,
+            "range_sha256": "f4d4499a22a899f9f0d9fa1192a5acdbd2e2493bcb4c2eb78a3a95743a5b526d",
+            "start": 16,
+            "symbol": "test_package_imports_only_closed_stdlib_and_exact_siblings"
+          },
+          {
+            "end": 79,
+            "range_sha256": "b3ab3443ae1488571a2380ce91e3dec3fbc14059434007562469bad81a2fe8d5",
+            "start": 41,
+            "symbol": "test_fresh_import_decode_and_assessment_have_no_effects_or_runtime_bridge"
+          },
+          {
+            "end": 118,
+            "range_sha256": "f4c896d6c3f30bfecf63485dbeb1f5d028fc6e25aa299ec88e3bb5fde007a237",
+            "start": 82,
+            "symbol": "test_final_scope_exact_inventory_and_registration_do_not_authorize_execution"
+          },
+          {
+            "end": 151,
+            "range_sha256": "7344223ffe2d1f2d71bd808faae2be81bfcd0bb2169109fe12e7490b6c725ff1",
+            "start": 121,
+            "symbol": "test_every_old_nonconsumer_function_and_toplevel_setting_is_preserved"
+          }
+        ],
+        "repository": "rownlvh8875-coder/cyberpilot-autotune",
+        "revision": "0ac6e3519ad7191b036eb777b4317174121851bb",
+        "sha256": "fb537f0b6217f4b0137596824bd3c18f8adf817a4e23509accdbb74e6f0d4f52"
+      }
+    ],
+    "workflow_inline_collector_byte_equal": true,
+    "fresh_API_metadata_and_saved_output_content_consistent": true,
+    "fresh_job_log_one_matching_JSON_line": true,
+    "new_workflow_dispatch_or_rerun": false,
+    "raw_log_or_UID_GID_exported": false,
+    "API_metadata_not_authenticity_or_H_execution": true,
+    "all_inherited_blockers_retained": true
+  }
+}

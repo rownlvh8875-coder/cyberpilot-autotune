@@ -236,9 +236,20 @@ def test_all_earlier_files_and_guard_bytes_are_preserved():
     untracked = [
         "A\t" + path for path in git("ls-files", "--others", "--exclude-standard").splitlines()
     ]
-    new = git("diff", "--no-renames", "--name-status", base).splitlines() + untracked
+    profile_end = "0ac6e3519ad7191b036eb777b4317174121851bb"
+    assert git("rev-parse", profile_end + "^{tree}").strip() == (
+        "974837bb773c5e18b90f01e9ce7491769a3d4b2a"
+    )
+    profile = git("diff", "--no-renames", "--name-status", base, profile_end).splitlines()
+    old_combined = git(
+        "diff", "--no-renames", "--name-status", outcome_end, profile_end
+    ).splitlines()
+    _preparation_profile_composed_changes(frozen, profile, old_combined)
+    profile_current = git("diff", "--no-renames", "--name-status", base).splitlines() + untracked
     successor = git("diff", "--no-renames", "--name-status", outcome_end).splitlines() + untracked
-    _preparation_profile_composed_changes(frozen, new, successor)
+    new = git("diff", "--no-renames", "--name-status", profile_end).splitlines() + untracked
+    mapping_scope = importlib.import_module("tests.test_preflight_profile_mapping_scope")
+    mapping_scope.assert_mapping_composition(frozen, profile, new, profile_current, successor)
     module = importlib.import_module("tests.audit_compatibility.contracts")
     assert module.IO_UNAVAILABLE == (
         "CURRENT_INDEX_WORKTREE",
