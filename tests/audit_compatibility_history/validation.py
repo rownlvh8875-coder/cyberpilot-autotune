@@ -97,6 +97,14 @@ def _observed(item: HistoricalCommandRecord, errors: set[str], missing: set[str]
             missing.add("COMMAND_OBSERVATION_MISSING")
     if item.collected_nodeids is not None and _duplicates(item.collected_nodeids):
         errors.add("DUPLICATE_NODE")
+    if item.collected_nodeids is not None and item.outcomes is not None:
+        collected = set(item.collected_nodeids)
+        observed = {outcome.nodeid for outcome in item.outcomes}
+        # Available record facts do not depend on an optional policy witness.
+        if observed - collected or (item.exit_code == 0 and observed != collected):
+            errors.add("OUTCOME_COLLECTION_MISMATCH")
+        elif observed != collected:
+            missing.add("CASE_OUTCOMES_INCOMPLETE")
     if item.command_id == "D-PYTEST":
         if item.collected_nodeids is not None and not _registered_D_nodes(item.collected_nodeids):
             errors.add("REGISTERED_D_COLLECTION")

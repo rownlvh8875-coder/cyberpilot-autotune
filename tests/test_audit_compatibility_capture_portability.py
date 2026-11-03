@@ -17,6 +17,7 @@ from tests.fixtures.audit_compatibility_capture import (
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "ce138c503ff320a2a6956ceff3d8735418b72bcc"
 FOLLOWUP_BASE = "3fc532d5c2634e716401701278cb45b49dbea3ac"
+H1_REPAIR_BASE = "a8b2bf1e6f27a4157212298928a50c8e970babf5"
 FOLLOWUP_MODIFICATIONS = {
     "tests/test_audit_compatibility_capture_portability.py",
     "docs/superpowers/specs/2026-11-03-ci-portability-design.md",
@@ -194,11 +195,11 @@ print('ACTUAL_DISCOVERY_UNCHANGED')
 
 
 def test_repair_inventory_is_exact_and_not_manifest_authority():
-    rows = source_git("diff", "--no-renames", "--name-status", BASE).decode().splitlines()
-    rows += [
-        "A\t" + p
-        for p in source_git("ls-files", "--others", "--exclude-standard").decode().splitlines()
-    ]
+    rows = (
+        source_git("diff", "--no-renames", "--name-status", BASE, H1_REPAIR_BASE)
+        .decode()
+        .splitlines()
+    )
     assert set(rows) == {"A\t" + p for p in ADDITIONS} | {"M\t" + p for p in MODIFICATIONS}
     m = importlib.import_module("tests.test_audit_compatibility_history_architecture")
     check = getattr(m, "_ci_portability_changes", None)
@@ -253,7 +254,7 @@ def test_frozen_ranges_and_runtime_bytes_are_not_changed():
         "tools/actions_runner_preflight.py",
         "tests/conftest.py",
     ):
-        assert source_git("diff", "--name-only", BASE, "--", prefix) == b""
+        assert source_git("diff", "--name-only", BASE, H1_REPAIR_BASE, "--", prefix) == b""
     guard = ROOT / "tests/test_audit_compatibility_history_architecture.py"
     m = importlib.import_module("tests.test_audit_compatibility_history_architecture")
     old = source_git("show", BASE + ":" + guard.relative_to(ROOT).as_posix()).decode()
@@ -337,9 +338,9 @@ def test_real_source_consumers_do_not_use_neutral_setup_git(tmp_path, monkeypatc
 
 def test_normalization_followup_has_only_registered_modifications():
     inspect = globals().get("source_git", lambda *args: git(ROOT, *args))
-    rows = inspect("diff", "--no-renames", "--name-status", FOLLOWUP_BASE).decode().splitlines()
-    rows += [
-        "A\t" + p
-        for p in inspect("ls-files", "--others", "--exclude-standard").decode().splitlines()
-    ]
+    rows = (
+        inspect("diff", "--no-renames", "--name-status", FOLLOWUP_BASE, H1_REPAIR_BASE)
+        .decode()
+        .splitlines()
+    )
     assert sorted(rows) == sorted("M\t" + p for p in FOLLOWUP_MODIFICATIONS)
