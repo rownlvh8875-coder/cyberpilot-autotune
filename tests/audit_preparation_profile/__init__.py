@@ -13,9 +13,11 @@ from .contracts import (
     ProfileReason,
     TimingClaim,
 )
+from .validation import assess_profile
 from .wire import canonical_policy, canonical_profile, decode_policy, decode_profile
 
 __all__ = [
+    "assess_profile",
     "ArtifactPin",
     "BoundaryRef",
     "CohortPin",

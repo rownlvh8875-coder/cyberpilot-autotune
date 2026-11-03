@@ -1,7 +1,7 @@
 """Canonical closed wire values with no reader, persistence or producer."""
 
 import json
-from typing import Any
+from typing import Any, cast
 
 from .contracts import (
     SPECS,
@@ -87,8 +87,8 @@ def _decode(raw: bytes, cls: type, kind: str) -> Any:
 
 
 def decode_policy(raw: bytes) -> PreparationProfilePolicy:
-    return _decode(raw, PreparationProfilePolicy, "POLICY")
+    return cast(PreparationProfilePolicy, _decode(raw, PreparationProfilePolicy, "POLICY"))
 
 
 def decode_profile(raw: bytes) -> PreparationProfileRecord:
-    return _decode(raw, PreparationProfileRecord, "RECORD")
+    return cast(PreparationProfileRecord, _decode(raw, PreparationProfileRecord, "RECORD"))
