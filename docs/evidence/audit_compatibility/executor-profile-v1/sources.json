@@ -1,0 +1,37 @@
+{
+  "schema": "h1-executor-profile-reference-manifest-v1",
+  "base_revision": "61245f6bbf3fdbc3d14ce8c93ff7349234da46f7",
+  "historical_cohorts_not_executed": {
+    "O": "5357d5d555d49b258affa237d83b8491b8a8c6ce",
+    "D": "75e00280a09323ad4a3fc82453383f220c92f6c6"
+  },
+  "authoritative_inherited_documents": [
+    "docs/superpowers/specs/2026-11-02-entry-historical-replay-design.md",
+    "docs/evidence/audit_compatibility/historical-design-v1/semantics.json",
+    "docs/evidence/audit_compatibility/historical-design-v1/sources.json",
+    "docs/evidence/audit_compatibility/historical-design-v1/acceptance.json",
+    "docs/evidence/audit_compatibility/historical-design-v1/case_inventory.json"
+  ],
+  "external_references": [
+    {"path": "/workspace/verification-archive/h1-isolation-preflight.SzkX0r/RESULT.json", "sha256": "5ca3d90a206ef9041931b71fde79af658469e12892f7454a79375fcbc4881ce5", "role": "REFERENCE_ONLY_NOT_ADOPTED_EXECUTOR"},
+    {"path": "/workspace/verification-archive/h1-bwrap-synthetic.QVuFkH/RESULT.json", "sha256": "2370df7f35ebd79206a4882da073f07bc67623c1ad165ad336446318a0e406e3", "role": "REFERENCE_ONLY_NOT_ADOPTED_EXECUTOR"},
+    {"path": "/workspace/verification-archive/h1-bwrap-synthetic.QVuFkH/run-probes.py", "sha256": "b1d3009c1b30de0c20936fcee9b7dcb14c04a50cab6d017e066f300fdf4f64c1", "role": "REFERENCE_ONLY_NOT_ADOPTED_EXECUTOR"},
+    {"path": "/workspace/verification-archive/h1-bwrap-synthetic.QVuFkH/probe.py", "sha256": "0e8b489013a12205dcbf478075a43d8e81ee38aba82cf5c3bf32dadda780750a", "role": "REFERENCE_ONLY_NOT_ADOPTED_EXECUTOR"},
+    {"path": "/workspace/verification-archive/h1-bwrap-synthetic.QVuFkH/hardened-results.json", "sha256": "656bae9a320d7fe66f1b3dd2ddb1dc45a4e02b60556d955968e69eec4c97b664", "role": "REFERENCE_ONLY_NOT_ADOPTED_EXECUTOR"},
+    {"path": "/workspace/verification-archive/h1-bwrap-synthetic.QVuFkH/checks.json", "sha256": "209f54c57f66ce991d423a6a0eb09bb863ed8560047f11fb00d9077c193065a9", "role": "REFERENCE_ONLY_NOT_ADOPTED_EXECUTOR"}
+  ],
+  "candidate_S_tool_pins_not_authenticity": [
+    {"path": "/usr/bin/bwrap", "version": "0.12.0", "sha256": "573236e5328ac2ebb08f59ae3a9805b4f8d12bdef14be8af4450d5463294985f"},
+    {"path": "/usr/bin/setpriv", "version": "2.41.5", "sha256": "f7cedc63bbc1df7912b343a1240a77d16db7633563d69897ec8ad2a99c24024b"},
+    {"path": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12", "version": "3.12.14", "sha256": "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7"}
+  ],
+  "candidate_python_home": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python",
+  "claims_not_promoted": [
+    "NO_COMPLETE_USR_PYTHON_TRANSITIVE_FREEZE", "NO_BINARY_AUTHENTICITY_OR_INDEPENDENT_CUSTODY",
+    "NO_GENERAL_HOSTILE_CODE_SECURITY_QUALIFICATION", "NO_AGGREGATE_RESOURCE_BOUNDARY",
+    "NO_REAL_H_EXECUTION", "NO_NEW_REMOTE_PR_CI_QUERY"
+  ],
+  "observation_scope": "ONE_WORKER_ONE_TOOL_VERSION_OWNED_TOYS_ONLY",
+  "credential_values_included": false,
+  "self_digest_included": false
+}

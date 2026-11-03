@@ -1,0 +1,384 @@
+{
+  "schema": "historical-replay-planned-acceptance-v1",
+  "kind": "PLANNED_NOT_EXECUTED_NOT_H_RESULTS",
+  "cases": [
+    {
+      "id": "HR-001",
+      "name": "wrong_cohort_H6_D_as_O",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Exact source revision/tree/module pins differ.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-002",
+      "name": "same_hash_wrong_source_revision",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Content hash is not source cohort identity.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-003",
+      "name": "missing_O_case_inventory",
+      "expected": "UNAVAILABLE",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "No expected test identities for O.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-004",
+      "name": "D_original_476_missing_one",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Exact original case set required;count alone insufficient.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-005",
+      "name": "D_499_same_count_substituted_node",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Duplicate/addition/rename cannot satisfy exact nodes.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-006",
+      "name": "AR56_claimed_as476",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Scenario mapping not full node inventory.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-007",
+      "name": "mandatory_skipped_xfailed_deselected",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "No omitted mandatory node even on platform.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-008",
+      "name": "zero_exit_missing_protocol_frame",
+      "expected": "UNAVAILABLE",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Exit0/stdout sentinel not complete witness.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-009",
+      "name": "nonzero_exit_beside_unavailable",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Known failure retained over missing peers.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-010",
+      "name": "coverage_statement97_branch100",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Independent98/95floors.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-011",
+      "name": "coverage_statement100_branch94",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Independent98/95floors.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-012",
+      "name": "coverage_missing_module_or_reused_run",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Exact source module set and run identity.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-013",
+      "name": "None_zero_false_bool_int",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_values.py",
+      "requirement": "No implicit unavailable/default conversions.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-014",
+      "name": "nonfinite_unknown_duplicate_schema_keys",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_values.py",
+      "requirement": "Closed strict canonical representation.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-015",
+      "name": "frozen_defensive_nested_records",
+      "expected": "STRUCTURAL_RECORD_MATCH",
+      "owner": "tests/test_audit_compatibility_history_values.py",
+      "requirement": "No mutable mapping/list aliases.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-016",
+      "name": "same_fields_same_content_digest",
+      "expected": "STRUCTURAL_RECORD_MATCH",
+      "owner": "tests/test_audit_compatibility_history_values.py",
+      "requirement": "Canonical digest is content only.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-017",
+      "name": "revision_mode_command_generation_change_digest",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Any bound source/command/profile change differs.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-018",
+      "name": "truthy_domain_permission_or_H_authority",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_values.py",
+      "requirement": "All9false/BLOCKED;receipt never authority.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-019",
+      "name": "valid_complete_synthetic_record",
+      "expected": "STRUCTURAL_RECORD_MATCH",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Structural consistency only,not actual execution.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-020",
+      "name": "missing_required_command_with_good_peer",
+      "expected": "UNAVAILABLE",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Both cohorts and all6commands mandatory.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-021",
+      "name": "current_C_bad_after_good_H",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_architecture.py",
+      "requirement": "Architecture negative:separately assess bad current C;H has no bridge that can override it.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-022",
+      "name": "unsupported_STACK_profile",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "No S/P..P5 adoption under ENTRY.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-023",
+      "name": "partial_known_origin_error_and_missing",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_validation.py",
+      "requirement": "Known module mismatch not hidden by unavailable.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-024",
+      "name": "nested_type_tamper_revalidated",
+      "expected": "REJECTED",
+      "owner": "tests/test_audit_compatibility_history_values.py",
+      "requirement": "Exact types and nested validation on assessment.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-025",
+      "name": "pure_import_and_no_IO_or_bridge",
+      "expected": "STRUCTURAL_RECORD_MATCH",
+      "owner": "tests/test_audit_compatibility_history_architecture.py",
+      "requirement": "No process/file/network/clock/application dependency.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-026",
+      "name": "old_IO_UNAVAILABLE_and_C1_unchanged",
+      "expected": "STRUCTURAL_RECORD_MATCH",
+      "owner": "tests/test_audit_compatibility_history_architecture.py",
+      "requirement": "Sibling not connected to old core or C1.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-027",
+      "name": "hostile_current_cwd_or_stale_sys_modules",
+      "expected": "REJECTED",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "Fresh isolated child;actual origins checked.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-028",
+      "name": "sitecustomize_editable_or_plugin_injection",
+      "expected": "REJECTED",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "-I -B -S;fixed dependency roots/plugins.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-029",
+      "name": "legacy_archive_missing_changed_or_wrong_origin",
+      "expected": "REJECTED",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "ZIP digest/member origins exact.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-030",
+      "name": "snapshot_graph_shallow_alternate_replace_graft",
+      "expected": "REJECTED_OR_UNAVAILABLE",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "No fake graph/auto-fetch.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-031",
+      "name": "O_absent_attrs_forced_through_C1",
+      "expected": "REJECTED",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "O policy distinct;no C1 weakening.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-032",
+      "name": "snapshot_changed_during_execution",
+      "expected": "REJECTED",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "Observed drift is not masked by passing tests.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-033",
+      "name": "no_enforced_snapshot_or_network_denial",
+      "expected": "UNAVAILABLE",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "Self booleans/digests/rereads insufficient.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-034",
+      "name": "scratch_existing_or_outside_owned_root",
+      "expected": "REJECTED",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "No destructive basetemp reuse.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-035",
+      "name": "child_writes_audited_or_original_repository",
+      "expected": "REJECTED",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "Write denial enforced for all descendants.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-036",
+      "name": "trace_output_env_or_nested_process_escape",
+      "expected": "REJECTED",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "Finite Git controls;no unauthorized children.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-037",
+      "name": "missing_object_or_dependency",
+      "expected": "UNAVAILABLE",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "No fetch/install/network fallback.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-038",
+      "name": "timeout_pipe_flood_process_leak",
+      "expected": "UNAVAILABLE",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "Bound resources;terminate/reap process group.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-039",
+      "name": "old_test_needs_vehicle_VM_guest_or_Params",
+      "expected": "UNAVAILABLE",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "Scope blocked;no mandatory waiver.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    },
+    {
+      "id": "HR-040",
+      "name": "raw_output_contains_private_data",
+      "expected": "REJECTED_FOR_PUBLICATION",
+      "owner": "FUTURE_IO_RUNNER_NOT_AUTHORIZED_BY_PURE_PLAN",
+      "requirement": "Raw logs private;public report hashes/status only.",
+      "status": "PLANNED_NOT_EXECUTED",
+      "runtime_qualified": false
+    }
+  ],
+  "original_HC_obligations_unchanged": [
+    "HC-08",
+    "HC-09",
+    "HC-10",
+    "HC-11",
+    "HC-12",
+    "HC-14",
+    "HC-15",
+    "HC-32",
+    "HC-33",
+    "HC-34",
+    "HC-39"
+  ],
+  "notes": [
+    "First26cases are pure preparatory contract cases;last14require a separately scoped IO runner.",
+    "No case executed in this design task.",
+    "Original acceptance files and all rejection/coverage criteria remain byte-identical."
+  ]
+}

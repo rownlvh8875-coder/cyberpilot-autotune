@@ -1,0 +1,47 @@
+{
+  "schema": "history-audit-compatibility-semantics-v1",
+  "profile_id": "ENTRY_COMPOSITION_V1",
+  "stage": "PURE_CORE_PREPARATION_NOT_REGISTERED_INTEGRATION",
+  "basis": {
+    "M": "a5d3514f23797829eb58d08c638b22cf4dd30c8a",
+    "D": "75e00280a09323ad4a3fc82453383f220c92f6c6",
+    "O": "5357d5d555d49b258affa237d83b8491b8a8c6ce"
+  },
+  "semantic_paths": [
+    "docs/superpowers/specs/2026-11-02-audit-compatibility-design.md",
+    "docs/evidence/audit_compatibility/entry-v1-r1/source_pins.json",
+    "docs/evidence/audit_compatibility/entry-v1-r1/acceptance.json",
+    "docs/superpowers/plans/2026-11-02-audit-compatibility-entry-core.md",
+    "docs/evidence/audit_compatibility/entry-v1-r1/semantics.json"
+  ],
+  "active_paths": [
+    "tests/audit_compatibility/__init__.py",
+    "tests/audit_compatibility/contracts.py",
+    "tests/audit_compatibility/git_objects.py",
+    "tests/audit_compatibility/schema.py",
+    "tests/audit_compatibility/validation.py",
+    "tests/fixtures/audit_compatibility_core.py",
+    "tests/test_audit_compatibility_objects.py",
+    "tests/test_audit_compatibility_validation.py",
+    "tests/test_audit_compatibility_adversarial.py",
+    "tests/test_audit_compatibility_architecture.py"
+  ],
+  "manifest_path": "docs/evidence/audit_compatibility/entry-v1-r1/content.json",
+  "inert_root": "docs/evidence/audit_compatibility/entry-v1-r1/frozen",
+  "permissions": {
+    "build_execution_allowed": false,
+    "promotion_authorized": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  },
+  "historical_replay_implemented": false,
+  "current_capture_implemented": false,
+  "Q_registered": false,
+  "I_created": false,
+  "old_PR_heads_must_remain_unchanged": true
+}

@@ -1,0 +1,113 @@
+{
+  "schema": "h1-executor-isolation-semantic-registration-v1",
+  "date_kst": "2026-11-03",
+  "profile_id": "H1_EXECUTOR_ISOLATION_DESIGN_V1",
+  "synthetic_profile_id": "H1_SYNTHETIC_CONTAINMENT_V1",
+  "scope": "DESIGN_ONLY_NO_EXECUTOR_IMPLEMENTATION",
+  "status": "BLOCKED",
+  "semantic_registration": "READY_NOT_EXECUTABLE_CONTENT_FREEZE",
+  "permissions": {
+    "build_execution_allowed": false,
+    "promotion_authorized": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  },
+  "integrated_admission": false,
+  "H_executed": false,
+  "executor_implemented": false,
+  "source_capture_atomicity": "NOT_ESTABLISHED",
+  "historical_replay": "UNAVAILABLE",
+  "content_identity_only": true,
+  "decision_precedence": ["REJECTED", "UNAVAILABLE", "SYNTHETIC_OBSERVATION_COMPLETE"],
+  "design_paths": [
+    "docs/superpowers/specs/2026-11-03-h1-executor-profile-design.md",
+    "docs/superpowers/plans/2026-11-03-h1-synthetic-executor.md",
+    "docs/evidence/audit_compatibility/executor-profile-v1/semantics.json",
+    "docs/evidence/audit_compatibility/executor-profile-v1/sources.json",
+    "docs/evidence/audit_compatibility/executor-profile-v1/acceptance.json"
+  ],
+  "future_synthetic_paths": [
+    "tests/audit_compatibility_executor/__init__.py",
+    "tests/audit_compatibility_executor/contracts.py",
+    "tests/audit_compatibility_executor/seccomp.py",
+    "tests/audit_compatibility_executor/supervision.py",
+    "tests/audit_compatibility_executor/runner.py",
+    "tests/fixtures/h1_synthetic_payload.py",
+    "tests/test_h1_executor_values.py",
+    "tests/test_h1_executor_launch.py",
+    "tests/test_h1_executor_supervision.py",
+    "tests/test_h1_executor_architecture.py"
+  ],
+  "synthetic_backend": {
+    "platform": "Linux x86_64",
+    "uid_gid": [1000, 1000],
+    "bwrap": "/usr/bin/bwrap",
+    "setpriv": "/usr/bin/setpriv",
+    "required_flags": [
+      "--no-new-privs", "--unshare-user", "--unshare-pid", "--unshare-net",
+      "--unshare-ipc", "--unshare-uts", "--cap-drop ALL", "--disable-userns",
+      "--assert-userns-disabled", "--die-with-parent", "--new-session", "--seccomp"
+    ],
+    "fallback": "FORBIDDEN",
+    "payload_environment": "CREDENTIAL_FREE_WITHOUT_BYPASSING_PROVIDER_GUARDS",
+    "close_fds": true,
+    "pass_fd_roles": ["SEALED_SECCOMP_MEMFD_ONLY"],
+    "stdin": "NEW_DEVNULL",
+    "stdout_stderr": "NEW_BOUNDED_PIPES",
+    "readonly_mounts": ["/usr", "PINNED_PYTHON_HOME", "NEW_SYNTHETIC_FIXTURE", "NEW_PROTECTED_DIRECTORY"],
+    "writable_mounts": ["NEW_OWNED_SCRATCH", "PRIVATE_TMPFS", "MINIMAL_DEV_AND_PID_PROC"],
+    "host_repository_or_socket_mount": false
+  },
+  "synthetic_seccomp": {
+    "policy_kind": "NARROW_DENYLIST_FOR_TRUSTED_TOYS_ONLY",
+    "architecture": "AUDIT_ARCH_X86_64_0xc000003e",
+    "other_arch_or_x32": "KILL_PROCESS",
+    "deny_errno": 1,
+    "deny_syscalls": [41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 155, 165, 166, 272, 288, 299, 307, 308, 428, 429, 430, 431, 432, 435, 442],
+    "default_action": "ALLOW",
+    "bytes_sha256": "12e1d308af4e6ed61ae5beccc2c3d2fc3f89506e13215ad31965e97c6fe66901",
+    "H_policy_qualified": false
+  },
+  "synthetic_bounds": {
+    "normal_wall_seconds": 5,
+    "timeout_case_wall_seconds": 0.4,
+    "cleanup_seconds": 2,
+    "controller_extra_seconds": 2,
+    "fixture_self_deadline_seconds": 3,
+    "CPU_seconds_per_process": 3,
+    "AS_bytes_per_process": 268435456,
+    "FSIZE_bytes_per_process": 1048576,
+    "NOFILE_per_process": 64,
+    "CORE_bytes": 0,
+    "retained_combined_output_bytes": 65536,
+    "read_chunk_bytes": 4096,
+    "aggregate_resource_qualification": false,
+    "scientific_selection_thresholds": false
+  },
+  "real_H_prerequisites": {
+    "executor_bootstrap_content_freeze_and_independent_review": null,
+    "complete_syscall_enforcement_policy": null,
+    "aggregate_resource_boundary_and_positive_budgets": null,
+    "toolchain_dependencies_transitive_inventory": null,
+    "full_O_and_additional_D_expected_nodeids": null,
+    "materialized_six_commands_origins_and_coverage_sets": null,
+    "private_complete_Git_and_reference_snapshots": null,
+    "observed_directory_FD_descendant_controls_and_cleanup": null,
+    "actual_execution_scope_and_ENTRY_adoption": null
+  },
+  "retained_blockers": [
+    "HISTORICAL_REPLAY", "SOURCE_CAPTURE_ATOMICITY", "ACTUAL_Q_I",
+    "ENTRY_GUARD_INTEGRATION", "EXACT_I_CI", "STACK_ADOPTION",
+    "APPLICATION_NOT_AUTHORIZED",
+    "EXECUTOR_CONTENT_TOOLCHAIN_ENFORCEMENT_AND_BUDGET_FREEZE_UNAVAILABLE",
+    "FULL_O_AND_ADDITIONAL_D_CASE_INVENTORIES_UNAVAILABLE"
+  ],
+  "retained_obligations": ["ALL_PRIOR_H1_PREREQUISITES", "HR_001_040", "ALL_PRIOR_HC", "D01_D04", "ALL_PROJECT_AND_APPLICATION_BLOCKERS"],
+  "next_single_task": "IMPLEMENT_CLOSED_SYNTHETIC_HARNESS_ONLY",
+  "next_task_started": false
+}

@@ -1,0 +1,349 @@
+name: Read-only runner preflight (unregistered draft)
+"on":
+  workflow_dispatch:
+permissions: {}
+jobs:
+  observe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    permissions: {}
+    steps:
+      - name: Observe without executing a workload
+        shell: bash
+        run: |
+          python3 -I -B -S - <<'PY'
+          """Read-only candidate-host facts. Never an executor or qualification receipt."""
+
+          import hashlib
+          import importlib
+          import json
+          import os
+          import re
+          import stat
+          import sys
+          from typing import Any
+
+          _PINS = (
+              ("/usr/bin/bwrap", "573236e5328ac2ebb08f59ae3a9805b4f8d12bdef14be8af4450d5463294985f"),
+              ("/usr/bin/setpriv", "f7cedc63bbc1df7912b343a1240a77d16db7633563d69897ec8ad2a99c24024b"),
+              (
+                  "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+                  "fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7",
+              ),
+          )
+          _CONTROLS = (
+              "cpu.max",
+              "memory.max",
+              "pids.max",
+              "cgroup.controllers",
+              "cgroup.subtree_control",
+              "cgroup.type",
+              "cgroup.max.depth",
+              "cgroup.max.descendants",
+          )
+          _CONTROLLER_NAMES = frozenset(
+              ("cpuset", "cpu", "io", "memory", "hugetlb", "pids", "rdma", "misc", "dmem")
+          )
+
+
+          def _read(path: str, limit: int) -> bytes | None:
+              try:
+                  fd = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK)
+                  try:
+                      info = os.fstat(fd)
+                      if not stat.S_ISREG(info.st_mode) or info.st_size > limit:
+                          return None
+                      chunks: list[bytes] = []
+                      size = 0
+                      while size <= limit:
+                          chunk = os.read(fd, min(65536, limit + 1 - size))
+                          if not chunk:
+                              return b"".join(chunks)
+                          chunks.append(chunk)
+                          size += len(chunk)
+                      return None
+                  finally:
+                      os.close(fd)
+              except (OSError, AttributeError):
+                  return None
+
+
+          def _metadata(path: str) -> dict[str, Any] | None:
+              try:
+                  info = os.stat(path, follow_symlinks=False)
+                  if not (stat.S_ISREG(info.st_mode) or stat.S_ISDIR(info.st_mode)):
+                      return None
+                  try:
+                      writable = os.access(path, os.W_OK, effective_ids=True)
+                  except (OSError, NotImplementedError):
+                      writable = None
+                  return {
+                      "uid": info.st_uid,
+                      "gid": info.st_gid,
+                      "mode": format(stat.S_IMODE(info.st_mode), "04o"),
+                      "effective_write_access": writable,
+                  }
+              except OSError:
+                  return None
+
+
+          def _location(member: bytes | None, mounts: bytes | None) -> str | None:
+              if member is None or mounts is None:
+                  return None
+              try:
+                  rows = member.decode("ascii").splitlines()
+                  candidates = []
+                  for line in mounts.decode("ascii").splitlines():
+                      left, right = line.split(" - ")
+                      fields, fs = left.split(), right.split()
+                      if len(fields) < 6 or len(fs) < 3:
+                          return None
+                      if fs[0] == "cgroup2":
+                          candidates.append(fields)
+                  if len(rows) != 1 or not rows[0].startswith("0::/") or len(candidates) != 1:
+                      return None
+                  fields = candidates[0]
+                  if fields[3:5] != ["/", "/sys/fs/cgroup"]:
+                      return None
+                  relative = rows[0][3:]
+                  if relative != "/":
+                      parts = relative[1:].split("/")
+                      if any(
+                          p in ("", ".", "..") or not re.fullmatch(r"[A-Za-z0-9_.@:-]+", p) for p in parts
+                      ):
+                          return None
+                  return "/sys/fs/cgroup" + ("" if relative == "/" else relative)
+              except (ValueError, UnicodeError):
+                  return None
+
+
+          def _contains_pid(raw: bytes | None) -> bool | None:
+              if raw is None or any(not p.isdigit() for p in raw.splitlines()):
+                  return None
+              return str(os.getpid()).encode("ascii") in raw.splitlines()
+
+
+          def _valid_control(name: str, text: str) -> bool:
+              if name == "cpu.max":
+                  return re.fullmatch(r"(?:max|[1-9][0-9]*) [1-9][0-9]*", text) is not None
+              if name in ("memory.max", "pids.max", "cgroup.max.depth", "cgroup.max.descendants"):
+                  return re.fullmatch(r"(?:max|0|[1-9][0-9]*)", text) is not None
+              if name == "cgroup.type":
+                  return text in ("domain", "domain threaded", "domain invalid", "threaded")
+              if name in ("cgroup.controllers", "cgroup.subtree_control"):
+                  words = text.split(" ")
+                  return text == "" or (
+                      len(words) == len(set(words)) and all(w in _CONTROLLER_NAMES for w in words)
+                  )
+              return False
+
+
+          def _control(path: str) -> dict[str, Any]:
+              raw = _read(path, 1024)
+              value = None
+              if raw is not None and len(raw) <= 1024:
+                  try:
+                      text = raw.decode("ascii").strip()
+                      if _valid_control(path.rsplit("/", 1)[-1], text):
+                          value = text
+                  except UnicodeError:
+                      pass
+              return {"value": value, "metadata": _metadata(path)}
+
+
+          def _cgroup() -> dict[str, Any]:
+              result: dict[str, Any] = {
+                  "status": "UNAVAILABLE_MAPPING",
+                  "membership_confirmed": None,
+                  "directory": None,
+                  "controls": None,
+                  "atomic": False,
+                  "write_delegation_verified": False,
+              }
+              member = _read("/proc/self/cgroup", 65536)
+              mounts = _read("/proc/self/mountinfo", 131072)
+              location = _location(member, mounts)
+              if location is None:
+                  return result
+              contains = _contains_pid(_read(location + "/cgroup.procs", 65536))
+              if contains is not True:
+                  return {**result, "status": "UNAVAILABLE_MEMBERSHIP", "membership_confirmed": contains}
+              directory = _metadata(location)
+              controls = {name: _control(location + "/" + name) for name in _CONTROLS}
+              if (
+                  _read("/proc/self/cgroup", 65536) != member
+                  or _read("/proc/self/mountinfo", 131072) != mounts
+                  or _contains_pid(_read(location + "/cgroup.procs", 65536)) is not True
+              ):
+                  return {**result, "status": "UNAVAILABLE_COHORT_DRIFT"}
+              return {
+                  **result,
+                  "status": "MEMBERSHIP_OBSERVED_NOT_DELEGATION",
+                  "membership_confirmed": True,
+                  "directory": directory,
+                  "controls": controls,
+              }
+
+
+          def _security() -> dict[str, Any]:
+              result: dict[str, Any] = {"CapEff": None, "NoNewPrivs": None, "Seccomp": None}
+              raw = _read("/proc/self/status", 65536)
+              if raw is None:
+                  return result
+              try:
+                  lines = raw.decode("ascii").splitlines()
+              except UnicodeError:
+                  return result
+              for key in result:
+                  values = [line.split(":", 1)[1].strip() for line in lines if line.startswith(key + ":")]
+                  if len(values) != 1:
+                      continue
+                  value = values[0]
+                  if key == "CapEff":
+                      if re.fullmatch(r"[0-9a-fA-F]{1,32}", value):
+                          result[key] = value
+                  elif value in (("0", "1") if key == "NoNewPrivs" else ("0", "1", "2")):
+                      result[key] = int(value)
+              return result
+
+
+          def _tools() -> dict[str, Any]:
+              result = {}
+              for path, expected in _PINS:
+                  raw = _read(path, 64 * 1024 * 1024)
+                  digest = None if raw is None else hashlib.sha256(raw).hexdigest()
+                  result[path] = {
+                      "sha256": digest,
+                      "expected_sha256": expected,
+                      "pin_matches": None if digest is None else digest == expected,
+                  }
+              return result
+
+
+          def _identity(name: str) -> int | None:
+              method = getattr(os, name, None)
+              if method is None:
+                  return None
+              value = method()
+              return value if type(value) is int and value >= 0 else None
+
+
+          def _native() -> dict[str, Any]:
+              result: dict[str, Any] = {}
+              for name, fields in (
+                  ("fcntl", ("fcntl", "F_GETFL")),
+                  (
+                      "resource",
+                      (
+                          "setrlimit",
+                          "RLIMIT_CPU",
+                          "RLIMIT_AS",
+                          "RLIMIT_FSIZE",
+                          "RLIMIT_NOFILE",
+                          "RLIMIT_CORE",
+                      ),
+                  ),
+              ):
+                  try:
+                      module = importlib.import_module(name)
+                      result[name] = {
+                          "module_available": True,
+                          "required_apis_present": all(hasattr(module, f) for f in fields),
+                      }
+                  except ImportError:
+                      result[name] = {"module_available": False, "required_apis_present": None}
+              result["os"] = {
+                  name: hasattr(os, name)
+                  for name in ("memfd_create", "pidfd_open", "MFD_CLOEXEC", "MFD_ALLOW_SEALING", "P_PIDFD")
+              }
+              return result
+
+
+          def _context() -> dict[str, Any]:
+              actions = os.environ.get("GITHUB_ACTIONS")
+              repo = os.environ.get("GITHUB_REPOSITORY")
+              run_id = os.environ.get("GITHUB_RUN_ID")
+              attempt = os.environ.get("GITHUB_RUN_ATTEMPT")
+              sha = os.environ.get("GITHUB_SHA")
+
+              def valid(value: str | None, pattern: str) -> str | None:
+                  return value if value is not None and re.fullmatch(pattern, value) else None
+
+              return {
+                  "actions": {"true": True, "false": False}.get(actions or ""),
+                  "repository": repo if repo == "rownlvh8875-coder/cyberpilot-autotune" else None,
+                  "run_id": valid(run_id, r"[0-9]{1,20}"),
+                  "run_attempt": valid(attempt, r"[0-9]{1,8}"),
+                  "sha": valid(sha, r"[0-9a-f]{40}"),
+                  "trust": "UNVERIFIED_CALLER_METADATA",
+              }
+
+
+          def collect() -> dict[str, Any]:
+              try:
+                  uname = os.uname()
+                  system = uname.sysname if uname.sysname == "Linux" else None
+                  machine = uname.machine if re.fullmatch(r"[A-Za-z0-9_.-]{1,64}", uname.machine) else None
+              except AttributeError:
+                  system = machine = None
+              return {
+                  "schema": "actions-runner-preflight-v1",
+                  "status": "READ_ONLY_OBSERVATION_NOT_QUALIFICATION",
+                  "global_status": "BLOCKED",
+                  "execution_verdict": "NOT_EVALUATED",
+                  "atomic": False,
+                  "aggregate_resource_boundary_qualified": False,
+                  "H_executed": False,
+                  "content_identity_only": True,
+                  "permissions": {
+                      name: False
+                      for name in (
+                          "build_execution_allowed",
+                          "promotion_authorized",
+                          "runtime_qualified",
+                          "device_class_qualified",
+                          "policy_adopted",
+                          "candidate_generation_allowed",
+                          "application_authorized",
+                          "runtime_accepted",
+                          "owner_proposal_allowed",
+                      )
+                  },
+                  "host": {
+                      "system": system,
+                      "machine": machine,
+                      "python_version": list(sys.version_info[:3]),
+                      "uid": _identity("getuid"),
+                      "gid": _identity("getgid"),
+                      "euid": _identity("geteuid"),
+                      "egid": _identity("getegid"),
+                  },
+                  "security": _security(),
+                  "tools": _tools(),
+                  "native_apis": _native(),
+                  "cgroup": _cgroup(),
+                  "execution_context": _context(),
+                  "limitations": [
+                      "NO_EXECUTION_OR_WRITE_PROBE",
+                      "NO_PRIVATE_BUDGET_OR_DELEGATION_PROOF",
+                      "NO_ATOMICITY_OR_AUTHENTICITY",
+                      "NO_RUNTIME_QUALIFICATION",
+                  ],
+              }
+
+
+          def main() -> int:
+              if len(sys.argv) != 1:
+                  return 2
+              encoded = json.dumps(
+                  collect(), sort_keys=True, separators=(",", ":"), allow_nan=False, ensure_ascii=True
+              )
+              if len(encoded.encode("ascii")) > 32768:
+                  return 2
+              print(encoded)
+              return 0
+
+
+          if __name__ == "__main__":
+              raise SystemExit(main())
+          PY
