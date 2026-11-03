@@ -2,3 +2,5 @@
 src/cyberpilot_autotune/diagnostics/** text eol=lf
 # Historical source fixture, never a platform-normalized active source tree.
 tests/fixtures/actual_binding/*.zip binary
+tools/actions_runner_preflight.py text eol=lf
+.github/workflows/runner-preflight.yml text eol=lf

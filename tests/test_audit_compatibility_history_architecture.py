@@ -86,6 +86,26 @@ def _phase_changes(rows, additions, *, modifications=frozenset(), exact=False):
         assert seen == additions
 
 
+def _registered_preflight_changes(rows):
+    # A successor phase,not an enlargement of the frozen synthetic allowlist.
+    # Current manifest data cannot grant another path or mutation permission.
+    _phase_changes(
+        rows,
+        {
+            ".github/workflows/runner-preflight.yml",
+            "tools/actions_runner_preflight.py",
+            "tests/test_actions_runner_preflight.py",
+            "tests/test_actions_preflight_registration.py",
+            "docs/actions_runner_preflight.md",
+            "docs/evidence/audit_compatibility/actions-runner-preflight-v1/registration.json",
+        },
+        modifications={
+            ".gitattributes",
+            "tests/test_audit_compatibility_history_architecture.py",
+        },
+    )
+
+
 def test_all_earlier_files_and_guard_bytes_are_preserved():
     root = Path(__file__).resolve().parents[1]
     env = {**os.environ, "GIT_NO_LAZY_FETCH": "1", "GIT_OPTIONAL_LOCKS": "0"}
@@ -96,6 +116,7 @@ def test_all_earlier_files_and_guard_bytes_are_preserved():
     original = "fa33fbf970adfdcb6b23d35489364158740cc6d9"
     h1 = "61245f6bbf3fdbc3d14ce8c93ff7349234da46f7"
     design = "ac6adf32ab163fa1fe9eaeb635644037c0de8cde"
+    synthetic_end = "33d358fdac148fccc7f02c19e24bb35c4b09e417"
     original_paths = set(
         json.loads(
             git(
@@ -122,15 +143,20 @@ def test_all_earlier_files_and_guard_bytes_are_preserved():
         set(profile["design_paths"]),
         exact=True,
     )
-    changed = git("diff", "--no-renames", "--name-status", design).splitlines()
-    changed += [
-        "A\t" + path for path in git("ls-files", "--others", "--exclude-standard").splitlines()
-    ]
+    changed = git("diff", "--no-renames", "--name-status", design, synthetic_end).splitlines()
     _phase_changes(
         changed,
         set(profile["future_synthetic_paths"]),
         modifications={"tests/test_audit_compatibility_history_architecture.py"},
     )
+    assert {row.split("\t")[1] for row in changed} == set(profile["future_synthetic_paths"]) | {
+        "tests/test_audit_compatibility_history_architecture.py"
+    }
+    successor = git("diff", "--no-renames", "--name-status", synthetic_end).splitlines()
+    successor += [
+        "A\t" + path for path in git("ls-files", "--others", "--exclude-standard").splitlines()
+    ]
+    _registered_preflight_changes(successor)
     module = importlib.import_module("tests.audit_compatibility.contracts")
     assert module.IO_UNAVAILABLE == (
         "CURRENT_INDEX_WORKTREE",

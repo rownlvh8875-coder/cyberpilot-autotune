@@ -1,0 +1,58 @@
+{
+  "schema": "actions-runner-preflight-registration-v1",
+  "base": "33d358fdac148fccc7f02c19e24bb35c4b09e417",
+  "synthetic_phase_end": "33d358fdac148fccc7f02c19e24bb35c4b09e417",
+  "phase": "ACTIONS_RUNNER_READ_ONLY_PREFLIGHT_V1_LOCAL",
+  "new_paths": [
+    ".github/workflows/runner-preflight.yml",
+    "tools/actions_runner_preflight.py",
+    "tests/test_actions_runner_preflight.py",
+    "tests/test_actions_preflight_registration.py",
+    "docs/actions_runner_preflight.md",
+    "docs/evidence/audit_compatibility/actions-runner-preflight-v1/registration.json"
+  ],
+  "modified_paths": [
+    "tests/test_audit_compatibility_history_architecture.py",
+    ".gitattributes"
+  ],
+  "prepared_manifest_sha256": "2b7ffd5d32014d74a24e442f1b14b6a81cd73b1a8c66b7deb069d80064fa7f60",
+  "collector_sha256": "3b3b99e4fb1dab67b2972c06cc432ed80f6b38c3f48c3aa69a4d13517750429e",
+  "prepared_workflow_sha256": "36bb270a74d831637c44f6cb9eb73e431366af127c2de61461797c58be0e668f",
+  "workflow_sha256": "40781c65ecb75467cdcd1204902e72869249ad018c7c4bc51e11996830572b1d",
+  "workflow_normalization": "REMOVE_ONE_FINAL_EMPTY_LINE_ONLY",
+  "global_status": "BLOCKED",
+  "local_registration_only": true,
+  "github_registered": false,
+  "github_execution_observed": false,
+  "content_identity_only": true,
+  "execution_verdict": "NOT_EVALUATED",
+  "aggregate_resource_boundary_qualified": false,
+  "atomic": false,
+  "H_executed": false,
+  "permissions": {
+    "build_execution_allowed": false,
+    "promotion_authorized": false,
+    "runtime_qualified": false,
+    "device_class_qualified": false,
+    "policy_adopted": false,
+    "candidate_generation_allowed": false,
+    "application_authorized": false,
+    "runtime_accepted": false,
+    "owner_proposal_allowed": false
+  },
+  "registration_is_not_authority": true,
+  "retained_blockers": [
+    "HISTORICAL_REPLAY",
+    "SOURCE_CAPTURE_ATOMICITY",
+    "ACTUAL_Q_I",
+    "ENTRY_GUARD_INTEGRATION",
+    "EXACT_I_CI",
+    "STACK_ADOPTION",
+    "APPLICATION_NOT_AUTHORIZED",
+    "EXECUTOR_CONTENT_TOOLCHAIN_ENFORCEMENT_AND_BUDGET_FREEZE_UNAVAILABLE",
+    "FULL_O_AND_ADDITIONAL_D_CASE_INVENTORIES_UNAVAILABLE"
+  ],
+  "retained_obligations": ["ALL_PRIOR_H1_PREREQUISITES", "ALL_PROJECT_AND_APPLICATION_BLOCKERS"],
+  "next_single_task": "READ_ONLY_REMOTE_PUBLICATION_AND_ACTIONS_ACCESS_PREFLIGHT",
+  "next_task_started": false
+}
