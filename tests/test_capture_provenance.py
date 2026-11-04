@@ -485,6 +485,78 @@ def test_issue_order_is_owned_sorted_and_deduplicated():
     assert first == second and len(first.unavailable) == 2
 
 
+def partial_pair_document():
+    doc = document()
+    a = find(doc)
+    b = find(doc, role="REVIEWED_CONTENT")
+    c = find(doc, "artifacts.bootstrap_content.sha256", "PREPARED_CONTENT")
+    a.update(source_id="a" * 64, sequence=None, event_id="e" * 64, event_time_ns=0)
+    b.update(source_id=None, sequence=42, event_id="e" * 64, event_time_ns=0)
+    c.update(source_id="a" * 64, sequence=42, event_id=None, event_time_ns=0)
+    return doc, a, b, c
+
+
+@pytest.mark.parametrize("variant", ["event_id", "content_digest", "consistent"])
+def test_complementary_identity_facts_retain_known_conflicts_and_original_unknowns(variant):
+    doc, _, _, c = partial_pair_document()
+    if variant == "event_id":
+        c["event_id"] = "f" * 64
+    if variant == "content_digest":
+        c["content_digest"] = "5" * 64
+    bundle = materialize(doc)
+    result = api().assess_capture_bundle(bundle)
+    assert ("SOURCE_EVENT_ALIAS" in codes(result)) is (variant != "consistent")
+    if variant != "consistent":
+        marked = {
+            (i.target_path, i.role)
+            for i in result.errors
+            if i.code == "SOURCE_EVENT_ALIAS" and i.field == variant
+        }
+        assert marked == {
+            ("artifacts.executor_content.sha256", "PREPARED_CONTENT"),
+            ("artifacts.executor_content.sha256", "REVIEWED_CONTENT"),
+            ("artifacts.bootstrap_content.sha256", "PREPARED_CONTENT"),
+        }
+        assert result.alignment_status == "REJECTED"
+    else:
+        assert result.alignment_status == "UNAVAILABLE" and not result.errors
+    missing = {(i.target_path, i.role, i.field) for i in result.unavailable}
+    assert ("artifacts.executor_content.sha256", "PREPARED_CONTENT", "sequence") in missing
+    assert ("artifacts.executor_content.sha256", "REVIEWED_CONTENT", "source_id") in missing
+    a = next(
+        w
+        for w in bundle.witnesses
+        if w.role == "PREPARED_CONTENT" and w.target_path == "artifacts.executor_content.sha256"
+    )
+    assert a.sequence is None
+
+
+def test_ambiguous_event_identity_does_not_invent_cross_product_source_pairs():
+    doc, _, b, _ = partial_pair_document()
+    b["source_id"] = "b" * 64
+    result = evaluate(doc)
+    assert "SOURCE_EVENT_ALIAS" in codes(result)
+    assert not any(
+        i.code == "SOURCE_EVENT_ALIAS" and i.target_path == "artifacts.bootstrap_content.sha256"
+        for i in result.errors
+    )
+
+
+@pytest.mark.parametrize("domain", ["same", "missing", "other"])
+def test_joint_event_identity_supports_time_constraints_but_never_borrows_clock(domain):
+    doc, a, b, c = partial_pair_document()
+    a.update(sequence=42, event_time_ns=None)
+    b.update(sequence=None, event_time_ns=80)
+    c.update(sequence=43, event_id="f" * 64, event_time_ns=0)
+    if domain == "missing":
+        b["context"]["epoch"]["clock_domain"] = None
+    if domain == "other":
+        b["context"]["epoch"]["clock_domain"] = "other-clock"
+    result = evaluate(doc)
+    assert ("TIME_ORDER_INVALID" in codes(result)) is (domain == "same")
+    assert "EVENT_IDENTITY_UNAVAILABLE" in codes(result, "unavailable")
+
+
 @pytest.mark.parametrize("conflict", [False, True])
 def test_partial_identity_bridges_cannot_hide_a_proven_event_conflict(conflict):
     doc = document()

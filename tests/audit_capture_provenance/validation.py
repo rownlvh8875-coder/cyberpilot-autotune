@@ -161,10 +161,45 @@ def assess_capture_bundle(bundle: CaptureWitnessBundle) -> CaptureAlignmentDecis
     for members in events.values():
         for key in members[1:]:
             parents[event_root(key)] = event_root(members[0])
-    components: dict[tuple[str, str], list[tuple[str, str]]] = {}
-    for key in actual:
-        components.setdefault(event_root(key), []).append(key)
+
+    def known_pair(members: list[tuple[str, str]]) -> tuple[str, int] | None:
+        source_ids = {
+            notes[key]["source_id"] for key in members if notes[key]["source_id"] is not None
+        }
+        sequences = {
+            notes[key]["sequence"] for key in members if notes[key]["sequence"] is not None
+        }
+        if len(source_ids) == 1 and len(sequences) == 1:
+            return next(iter(source_ids)), next(iter(sequences))
+        return None
+
+    # Complementary facts at one event can establish a source pair that
+    # connects another component. Close those constraints monotonically;
+    # ambiguous identity components never create cross-product guesses.
+    while True:
+        components: dict[tuple[str, str], list[tuple[str, str]]] = {}
+        for key in actual:
+            components.setdefault(event_root(key), []).append(key)
+        owners: dict[tuple[str, int], tuple[str, str]] = {}
+        changed = False
+        for members in components.values():
+            pair = known_pair(members)
+            if pair is not None:
+                owner = owners.setdefault(pair, members[0])
+                left, right = event_root(owner), event_root(members[0])
+                if left != right:
+                    parents[right] = left
+                    changed = True
+        if not changed:
+            break
+    positions = {key: (w.source_id, w.sequence) for key, w in actual.items()}
     for members in components.values():
+        pair = known_pair(members)
+        if pair is not None:
+            for key in members:
+                positions[key] = pair
+                if key not in sources.get(pair[0], ()):
+                    sources.setdefault(pair[0], []).append(key)
         if len(members) < 2:
             continue
         for field in (
@@ -215,7 +250,7 @@ def assess_capture_bundle(bundle: CaptureWitnessBundle) -> CaptureAlignmentDecis
         for comparable in timed_groups(members).values():
             sequences: dict[int, list[tuple[str, str]]] = {}
             for key in comparable:
-                seq = notes[key]["sequence"]
+                seq = positions[key][1]
                 if seq is not None:
                     sequences.setdefault(seq, []).append(key)
             highest: int | None = None
