@@ -1,6 +1,7 @@
 """Supplied metadata consistency is not observed capture or runtime authority."""
 
 from dataclasses import FrozenInstanceError, fields, replace
+from random import Random
 
 import pytest
 
@@ -214,7 +215,7 @@ def test_window_comparison_requires_known_equal_domains(domain):
         assert "CLOCK_DOMAIN_MISMATCH" in codes(result)
 
 
-@pytest.mark.parametrize("domain", ["same", "missing", "other"])
+@pytest.mark.parametrize("domain", ["same", "missing", "other", "missing_root"])
 def test_source_time_order_requires_comparable_domains(domain):
     doc = document()
     w = find(doc)
@@ -223,7 +224,9 @@ def test_source_time_order_requires_comparable_domains(domain):
         w["context"]["epoch"]["clock_domain"] = None
     if domain == "other":
         w["context"]["epoch"]["clock_domain"] = "other"
-    assert ("TIME_ORDER_INVALID" in codes(evaluate(doc))) is (domain == "same")
+    if domain == "missing_root":
+        doc["epoch"] = None
+    assert ("TIME_ORDER_INVALID" in codes(evaluate(doc))) is (domain in ("same", "missing_root"))
 
 
 @pytest.mark.parametrize("domain", ["same", "missing", "other", "missing_root"])
@@ -338,3 +341,244 @@ def test_decision_issues_are_closed_and_category_separated():
     with pytest.raises(ValueError):
         module.CaptureIssue("WITNESS_MISSING", *KEYS[0], "UNKNOWN")
     assert {f.name for f in fields(decision)} == {"errors", "unavailable"}
+
+
+def test_reserved_bundle_locator_cannot_bypass_exact_string_type_validation():
+    module = api()
+
+    class ForeignText(str):
+        pass
+
+    with pytest.raises(ValueError):
+        module.CaptureIssue("EPOCH_UNAVAILABLE", ForeignText("@bundle"), "BUNDLE", "epoch")
+
+
+def test_locator_type_is_rejected_before_foreign_equality_can_execute():
+    module = api()
+
+    class ForeignText(str):
+        def __eq__(self, other):
+            raise AssertionError("foreign equality executed")
+
+    with pytest.raises(ValueError):
+        module.CaptureIssue("EPOCH_UNAVAILABLE", ForeignText("@bundle"), "BUNDLE", "epoch")
+
+
+def test_incomplete_and_foreign_graphs_fail_without_input_bearing_exception_context():
+    module = api()
+    incomplete = object.__new__(module.CaptureWitnessBundle)
+    with pytest.raises(ValueError) as caught:
+        module.assess_capture_bundle(incomplete)
+    assert caught.value.__context__ is None
+    with pytest.raises(ValueError):
+        module.assess_capture_bundle(object())
+
+    class ForeignBundle(module.CaptureWitnessBundle):
+        pass
+
+    with pytest.raises(ValueError):
+        module.assess_capture_bundle(object.__new__(ForeignBundle))
+    bundle = materialize(document())
+    for cls in (module.CaptureEpoch, module.WitnessContext, module.CaptureWitness):
+        forged = object.__new__(cls)
+        with pytest.raises(ValueError):
+            if cls is module.CaptureEpoch:
+                replace(bundle, epoch=forged)
+            elif cls is module.WitnessContext:
+                replace(bundle.witnesses[0], context=forged)
+            else:
+                replace(bundle, witnesses=(forged,))
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("run_id", ""),
+        ("run_id", "A" * 32),
+        ("run_id", 1),
+        ("policy_digest", True),
+        ("clock_domain", ""),
+        ("clock_domain", "x" * 129),
+        ("clock_domain", "bad domain"),
+        ("clock_domain", "비공개"),
+        ("clock_domain", 0),
+    ],
+)
+def test_epoch_primitive_grammar_is_strict(field, value):
+    doc = document()
+    doc["epoch"][field] = value
+    with pytest.raises(ValueError):
+        evaluate(doc)
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("command_id", False),
+        ("command_id", "UNREGISTERED"),
+        ("attempt", True),
+        ("attempt", -1),
+        ("attempt", 2**64),
+        ("boundary_digest", "UPPER"),
+        ("boundary_generation", float("inf")),
+        ("boundary_generation", -1),
+    ],
+)
+def test_context_primitive_grammar_is_strict(field, value):
+    doc = document()
+    find(doc)["context"][field] = value
+    with pytest.raises(ValueError):
+        evaluate(doc)
+
+
+def test_uint64_max_is_exact_data_not_missing_or_coerced():
+    doc = document()
+    find(doc)["sequence"] = 2**64 - 1
+    bundle = materialize(doc)
+    observed = next(
+        w
+        for w in bundle.witnesses
+        if (w.target_path, w.role) == ("artifacts.executor_content.sha256", "PREPARED_CONTENT")
+    )
+    assert observed.sequence == 2**64 - 1
+    facets(api().assess_capture_bundle(bundle))
+
+
+def test_missing_context_epoch_leaf_and_issue_containers_are_closed():
+    doc = document()
+    find(doc)["context"]["epoch"]["run_id"] = None
+    assert "CONTEXT_UNAVAILABLE" in codes(evaluate(doc), "unavailable")
+    module = api()
+    with pytest.raises(ValueError):
+        module.CaptureAlignmentDecision([], ())
+    with pytest.raises(ValueError):
+        module.CaptureAlignmentDecision((), [])
+
+
+@pytest.mark.parametrize("field,value", [("run_id", "5" * 32), ("policy_digest", "5" * 64)])
+def test_known_wrong_root_fact_is_not_repaired_from_witnesses(field, value):
+    doc = document()
+    doc["epoch"][field] = value
+    result = evaluate(doc)
+    assert "EPOCH_MISMATCH" in codes(result)
+    assert any(i.target_path == "@bundle" and i.field == "epoch." + field for i in result.errors)
+
+
+def test_known_zero_instants_and_inclusive_window_are_not_missing():
+    doc = document()
+    doc["capture_end_ns"] = 0
+    for witness in doc["witnesses"]:
+        witness["event_time_ns"] = 0
+    assert evaluate(doc).alignment_status == "COHORT_METADATA_CONSISTENT"
+    doc = document()
+    find(doc)["event_time_ns"] = 100
+    renumber(doc["witnesses"])
+    assert evaluate(doc).alignment_status == "COHORT_METADATA_CONSISTENT"
+
+
+def test_issue_order_is_owned_sorted_and_deduplicated():
+    module = api()
+    a = module.CaptureIssue("WITNESS_MISSING", *KEYS[0], "witnesses")
+    b = module.CaptureIssue("WITNESS_MISSING", *KEYS[-1], "witnesses")
+    first = module.CaptureAlignmentDecision((), (a, b, a))
+    second = module.CaptureAlignmentDecision((), (b, a))
+    assert first == second and len(first.unavailable) == 2
+
+
+@pytest.mark.parametrize("conflict", [False, True])
+def test_partial_identity_bridges_cannot_hide_a_proven_event_conflict(conflict):
+    doc = document()
+    a = find(doc)
+    b = find(doc, role="REVIEWED_CONTENT")
+    c = find(doc, "artifacts.bootstrap_content.sha256", "PREPARED_CONTENT")
+    a["event_id"] = None
+    b.update(source_id=a["source_id"], sequence=a["sequence"], event_time_ns=None)
+    c.update(
+        source_id=None, sequence=None, event_id=b["event_id"], event_time_ns=1 if conflict else 0
+    )
+    bundle = materialize(doc)
+    result = api().assess_capture_bundle(bundle)
+    assert ("SOURCE_EVENT_ALIAS" in codes(result)) is conflict
+    assert "EVENT_IDENTITY_UNAVAILABLE" in codes(result, "unavailable")
+    assert (
+        next(
+            w
+            for w in bundle.witnesses
+            if (w.target_path, w.role) == ("artifacts.executor_content.sha256", "PREPARED_CONTENT")
+        ).event_id
+        is None
+    )
+
+
+@pytest.mark.parametrize("batch_context_missing", [False, True])
+def test_known_batch_scope_is_not_unknown_command_scope_for_shared_event(batch_context_missing):
+    doc = document()
+    a = find(doc)
+    b = find(doc, "commands.O-PYTEST.limits.memory_max_bytes.value", "APPROVED_LIMIT")
+    for name in ("source_id", "event_id", "sequence", "event_time_ns", "stage", "content_digest"):
+        b[name] = a[name]
+    for witness in (a, b):
+        witness["context"].update(boundary_digest=None, boundary_generation=None)
+    if batch_context_missing:
+        a["context"] = None
+    result = evaluate(doc)
+    assert ("SOURCE_EVENT_ALIAS" in codes(result)) is (not batch_context_missing)
+
+
+@pytest.mark.parametrize("seed", range(10))
+def test_time_and_stage_reason_sets_match_independent_pairwise_oracle(seed):
+    rng = Random(seed)
+    doc = document()
+    doc["witnesses"] = [w for w in doc["witnesses"] if w["context"]["command_id"] == "O-PYTEST"][
+        :16
+    ]
+    allowed = {
+        (row["target_path"], r["role"]): r["allowed_stages"]
+        for row in registration()["catalog"]["rows"]
+        for r in row["required_witnesses"]
+    }
+    for w in doc["witnesses"]:
+        w["source_id"] = rng.choice([None, "5" * 64, "6" * 64])
+        w["sequence"] = rng.choice([None, 0, 1, 2, 3])
+        w["event_time_ns"] = rng.choice([None, 0, 10, 50, 80])
+        w["stage"] = rng.choice(allowed[w["target_path"], w["role"]])
+        w["context"]["epoch"]["clock_domain"] = rng.choice([None, "synthetic-H-clock-v1", "other"])
+    order = [
+        "BOUNDARY_READY",
+        "LIMITS_APPLIED",
+        "PRE_RELEASE",
+        "COMMAND_START",
+        "COMMAND_FINISH",
+        "BATCH_FINISH",
+    ]
+    expected_time, expected_stage = set(), set()
+    for a in doc["witnesses"]:
+        for b in doc["witnesses"]:
+            ac = a["context"]["epoch"]["clock_domain"]
+            bc = b["context"]["epoch"]["clock_domain"]
+            if ac is None or ac != bc or a["event_time_ns"] is None or b["event_time_ns"] is None:
+                continue
+            if (
+                a["source_id"] is not None
+                and a["source_id"] == b["source_id"]
+                and a["sequence"] is not None
+                and b["sequence"] is not None
+                and a["sequence"] < b["sequence"]
+                and a["event_time_ns"] > b["event_time_ns"]
+            ):
+                expected_time.add((b["target_path"], b["role"], "event_time_ns"))
+            if (
+                a["stage"] in order
+                and b["stage"] in order
+                and order.index(a["stage"]) < order.index(b["stage"])
+                and a["event_time_ns"] > b["event_time_ns"]
+            ):
+                expected_stage.add((b["target_path"], b["role"], "event_time_ns"))
+    result = evaluate(doc)
+    for code, expected in (
+        ("TIME_ORDER_INVALID", expected_time),
+        ("STAGE_ORDER_INVALID", expected_stage),
+    ):
+        assert {
+            (i.target_path, i.role, i.field) for i in result.errors if i.code == code
+        } == expected

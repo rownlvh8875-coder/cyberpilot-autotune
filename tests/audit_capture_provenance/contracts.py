@@ -1046,6 +1046,9 @@ OUTCOMES = (
 )
 
 
+KEYS = tuple(key for key, _, _ in CATALOG)
+
+
 def need(condition: bool) -> None:
     if not condition:
         raise ValueError(ERROR)
@@ -1186,7 +1189,7 @@ _TYPES = (
 def _key(value: Any) -> tuple[str, str]:
     need(type(value.target_path) is str and type(value.role) is str)
     result = value.target_path, value.role
-    need(result in tuple(key for key, _, _ in CATALOG))
+    need(result in KEYS)
     return result
 
 
@@ -1226,7 +1229,7 @@ def validate(value: Any, expected: type) -> dict[str, Any]:
         _uint(data["boundary_generation"])
     elif expected is CaptureWitness:
         key = _key(value)
-        stages = next(stages for k, stages, _ in CATALOG if k == key)
+        stages = CATALOG[KEYS.index(key)][1]
         _member(data["stage"], stages)
         _nested(data["context"], WitnessContext)
         for name in ("source_id", "event_id", "content_digest"):
@@ -1248,6 +1251,7 @@ def validate(value: Any, expected: type) -> dict[str, Any]:
         data["witnesses"] = tuple(sorted((w for w in witnesses), key=lambda w: order[_key(w)]))
     elif expected is CaptureIssue:
         _member(data["code"], ERROR_CODES + UNAVAILABLE_CODES)
+        need(type(data["target_path"]) is str and type(data["role"]) is str)
         if (data["target_path"], data["role"]) != ("@bundle", "BUNDLE"):
             _key(value)
         _member(data["field"], ISSUE_FIELDS)

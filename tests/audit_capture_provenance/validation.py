@@ -149,7 +149,24 @@ def assess_capture_bundle(bundle: CaptureWitnessBundle) -> CaptureAlignmentDecis
         if len({scopes[key] for key in members}) > 1:
             for key in members:
                 report("BOUNDARY_REUSE", key, "context.boundary_digest")
+    # Partial identities can bridge multiple buckets. Preserve contradictions
+    # across the entire equality-connected component without filling None.
+    parents = {key: key for key in actual}
+
+    def event_root(key: tuple[str, str]) -> tuple[str, str]:
+        while parents[key] != key:
+            key = parents[key]
+        return key
+
     for members in events.values():
+        for key in members[1:]:
+            parents[event_root(key)] = event_root(members[0])
+    components: dict[tuple[str, str], list[tuple[str, str]]] = {}
+    for key in actual:
+        components.setdefault(event_root(key), []).append(key)
+    for members in components.values():
+        if len(members) < 2:
+            continue
         for field in (
             "source_id",
             "event_id",
@@ -160,11 +177,29 @@ def assess_capture_bundle(bundle: CaptureWitnessBundle) -> CaptureAlignmentDecis
             *("context." + f for f in _CONTEXT_FIELDS),
             *("context.epoch." + f for f in _EPOCH_FIELDS),
         ):
-            conflicts([(key, field, notes[key][field]) for key in members], "SOURCE_EVENT_ALIAS")
+            candidates = []
+            for key in members:
+                value = notes[key][field]
+                # None is a known absence for a present batch context,not a
+                # missing command/attempt. Never infer a missing command context.
+                if (
+                    field in ("context.command_id", "context.attempt")
+                    and value is None
+                    and actual[key].context is not None
+                    and scopes[key] is None
+                ):
+                    value = ("KNOWN_BATCH_ABSENCE",)
+                candidates.append((key, field, value))
+            conflicts(candidates, "SOURCE_EVENT_ALIAS")
 
-    def comparable(left: dict[str, Any], right: dict[str, Any]) -> bool:
-        clock = left["context.epoch.clock_domain"]
-        return clock is not None and clock == right["context.epoch.clock_domain"]
+    def timed_groups(members: list[tuple[str, str]]) -> dict[str, list[tuple[str, str]]]:
+        clocks: dict[str, list[tuple[str, str]]] = {}
+        for key in members:
+            note = notes[key]
+            clock = note["context.epoch.clock_domain"]
+            if clock is not None and note["event_time_ns"] is not None:
+                clocks.setdefault(clock, []).append(key)
+        return clocks
 
     root_clock = None if bundle.epoch is None else bundle.epoch.clock_domain
     for key, note in notes.items():
@@ -177,35 +212,33 @@ def assess_capture_bundle(bundle: CaptureWitnessBundle) -> CaptureAlignmentDecis
             if (begin is not None and time < begin) or (end is not None and time > end):
                 report("EVENT_OUTSIDE_CAPTURE_WINDOW", key, "event_time_ns")
     for members in sources.values():
-        for left_key in members:
-            a = notes[left_key]
-            for right_key in members:
-                b = notes[right_key]
-                if (
-                    comparable(a, b)
-                    and a["sequence"] is not None
-                    and b["sequence"] is not None
-                    and a["event_time_ns"] is not None
-                    and b["event_time_ns"] is not None
-                    and a["sequence"] < b["sequence"]
-                    and a["event_time_ns"] > b["event_time_ns"]
-                ):
-                    report("TIME_ORDER_INVALID", right_key, "event_time_ns")
+        for comparable in timed_groups(members).values():
+            sequences: dict[int, list[tuple[str, str]]] = {}
+            for key in comparable:
+                seq = notes[key]["sequence"]
+                if seq is not None:
+                    sequences.setdefault(seq, []).append(key)
+            highest: int | None = None
+            for seq in sorted(sequences):
+                for key in sequences[seq]:
+                    if highest is not None and notes[key]["event_time_ns"] < highest:
+                        report("TIME_ORDER_INVALID", key, "event_time_ns")
+                current = max(notes[key]["event_time_ns"] for key in sequences[seq])
+                highest = current if highest is None else max(highest, current)
     for scope, members in groups.items():
         if scope is None:
             continue
-        for left_key in members:
-            a = notes[left_key]
-            for right_key in members:
-                b = notes[right_key]
-                if (
-                    a["stage"] in _ORDER
-                    and b["stage"] in _ORDER
-                    and _ORDER.index(a["stage"]) < _ORDER.index(b["stage"])
-                    and comparable(a, b)
-                    and a["event_time_ns"] is not None
-                    and b["event_time_ns"] is not None
-                    and a["event_time_ns"] > b["event_time_ns"]
-                ):
-                    report("STAGE_ORDER_INVALID", right_key, "event_time_ns")
+        for comparable in timed_groups(members).values():
+            maxima: dict[int, int] = {}
+            for key in comparable:
+                note = notes[key]
+                if note["stage"] in _ORDER:
+                    rank, time = _ORDER.index(note["stage"]), note["event_time_ns"]
+                    maxima[rank] = max(maxima.get(rank, time), time)
+            for key in comparable:
+                note = notes[key]
+                if note["stage"] in _ORDER:
+                    rank = _ORDER.index(note["stage"])
+                    if any(r < rank and time > note["event_time_ns"] for r, time in maxima.items()):
+                        report("STAGE_ORDER_INVALID", key, "event_time_ns")
     return CaptureAlignmentDecision(tuple(errors), tuple(unavailable))
