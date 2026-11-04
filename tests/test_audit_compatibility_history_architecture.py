@@ -249,7 +249,23 @@ def test_all_earlier_files_and_guard_bytes_are_preserved():
     successor = git("diff", "--no-renames", "--name-status", outcome_end).splitlines() + untracked
     new = git("diff", "--no-renames", "--name-status", profile_end).splitlines() + untracked
     mapping_scope = importlib.import_module("tests.test_preflight_profile_mapping_scope")
-    mapping_scope.assert_mapping_composition(frozen, profile, new, profile_current, successor)
+    mapping_end = "7422a868a5802ab49b496429448795e88c4de074"
+    assert git("rev-parse", mapping_end + "^{tree}").strip() == (
+        "14154790b5379280c2b24cdd50cde6e9a7a35229"
+    )
+    mapping = git("diff", "--no-renames", "--name-status", profile_end, mapping_end).splitlines()
+    mapping_scope.assert_mapping_composition(
+        frozen,
+        profile,
+        mapping,
+        git("diff", "--no-renames", "--name-status", base, mapping_end).splitlines(),
+        git("diff", "--no-renames", "--name-status", outcome_end, mapping_end).splitlines(),
+    )
+    capture = git("diff", "--no-renames", "--name-status", mapping_end).splitlines() + untracked
+    capture_scope = importlib.import_module("tests.test_capture_provenance_scope")
+    capture_scope.assert_capture_composition(
+        frozen, profile, mapping, capture, profile_current, successor, new
+    )
     module = importlib.import_module("tests.audit_compatibility.contracts")
     assert module.IO_UNAVAILABLE == (
         "CURRENT_INDEX_WORKTREE",
