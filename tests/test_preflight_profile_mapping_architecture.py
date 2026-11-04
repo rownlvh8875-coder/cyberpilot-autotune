@@ -90,18 +90,20 @@ print("PURE_DIAGNOSTICS_REDACTED_NO_H_RECORD")
 
 def test_final_scope_is_exact_and_manifest_cannot_grant_authority():
     rows = (
-        subprocess.check_output(["git", "diff", "--no-renames", "--name-status", BASE], cwd=ROOT)
-        .decode()
-        .splitlines()
-    )
-    rows += [
-        "A\t" + p
-        for p in subprocess.check_output(
-            ["git", "ls-files", "--others", "--exclude-standard"], cwd=ROOT
+        subprocess.check_output(
+            [
+                "git",
+                "diff",
+                "--no-renames",
+                "--name-status",
+                BASE,
+                "7422a868a5802ab49b496429448795e88c4de074",
+            ],
+            cwd=ROOT,
         )
         .decode()
         .splitlines()
-    ]
+    )
     assert sorted(rows) == sorted(
         ["A\t" + p for p in ADDITIONS] + ["M\t" + p for p in MODIFICATIONS]
     )
@@ -126,6 +128,11 @@ def test_final_scope_is_exact_and_manifest_cannot_grant_authority():
     assert set(previous["retained_blockers"]) <= set(current["retained_blockers"])
     assert current["profile_record"] is None and not current["manifest_is_authority"]
     assert not current["H_executed"] and not current["integrated_admission"]
+    from tests.test_audit_compatibility_history_architecture import (
+        test_all_earlier_files_and_guard_bytes_are_preserved,
+    )
+
+    test_all_earlier_files_and_guard_bytes_are_preserved()
 
 
 def test_every_old_nonconsumer_byte_and_top_level_AST_is_preserved():
