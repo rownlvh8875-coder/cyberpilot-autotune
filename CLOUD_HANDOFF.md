@@ -15,6 +15,10 @@ All 135 tracked files at that research revision are copied byte-for-byte.
 CLOUD_SOURCE_MANIFEST.json binds their SHA256, Git blob identity and mode.
 The original local Git history and private evidence remain local; this snapshot does not prove their ancestry.
 The verifier checks workspace byte consistency, not authenticity, custody or execution authorization.
+Run CLOUD_VERIFY.py as an initial baseline check before modifying anything.
+During successor work,133 non-ledger originals remain byte-exact; PLAN.md and PROGRESS.md are append-only.
+Compare their original prefixes with the pinned published commit. The unchanged baseline verifier intentionally
+reports a changed full hash after legitimate ledger appends; it is not the post-work acceptance command.
 
 The product's frozen path/history guards remain unchanged in its own tree.
 An independent research branch avoids widening those guards or treating research code as a provider.

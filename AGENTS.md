@@ -5,6 +5,8 @@ Read CLOUD_HANDOFF.md and CLOUD_NEXT_TASK.md before implementation.
 Do not import Carrot/Jetson instructions from a different checkout.
 
 - Preserve original snapshot source/tests/reports. CLOUD_SOURCE_MANIFEST.json records135 originals.
+- Verify all135 before work; then freeze133 non-ledgers and preserve the original prefixes of the two ledgers.
+- CLOUD_VERIFY.py is an initial baseline check; do not rewrite its manifest after legitimate ledger appends.
 - Append to PLAN.md and PROGRESS.md; add successor modules instead of rewriting frozen evidence or guards.
 - Reuse existing native/bootstrap/framing/manager/intent/D helpers after checking their real semantics.
 - The next task is dynamic owner/job binding in a private synthetic sd-bus fixture, not actual manager deployment.

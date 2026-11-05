@@ -13,8 +13,10 @@ The persistent factory intent and actual local D lab do not solve dynamic manage
 ## Deliverable
 
 A new isolated native component and test-only private sd-bus fixture supporting dynamic owner and job identities.
-Reuse existing framing/request/lifecycle helpers after auditing them. Preserve every original135 snapshot file.
-Add new source/tests/design/report files; append PLAN/PROGRESS. No product integration or actual system bus connection.
+Reuse existing framing/request/lifecycle helpers after auditing them. Verify all135 original files before work.
+Thereafter preserve133 non-ledger files byte-for-byte; PLAN.md and PROGRESS.md may only gain appended text.
+Verify their original prefixes against the pinned published commit. Do not rewrite the baseline manifest.
+Add new source/tests/design/report files. No product integration or actual system bus connection.
 
 Default constructor remains unavailable/ENOSYS. No caller command/path/PID/FD/unit/receipt execution/recovery API.
 Only factory-created live connection/endpoint/context can participate. Keep one attempt per process and consume
