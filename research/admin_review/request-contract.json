@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "kind": "REQUEST_CONTRACT_ONLY",
+  "manager": "SYSTEM_MANAGER",
+  "method": "StartTransientUnit",
+  "mode": "fail",
+  "unit_name": "cyberpilot-native-e-lab-<factory_nonce>.service",
+  "factory_state": "UNIMPLEMENTED",
+  "stdin_fd": "LIVE_FACTORY_E_ENDPOINT_UNAVAILABLE",
+  "stdin_property": {
+    "name": "StandardInputFileDescriptor",
+    "signature": "h"
+  },
+  "aux": [],
+  "restart": "no",
+  "limit_properties": {
+    "RuntimeMaxUSec": 30000000,
+    "TimeoutStartUSec": 5000000,
+    "TimeoutStopUSec": 5000000,
+    "MemoryMax": 134217728,
+    "MemorySwapMax": 0,
+    "TasksMax": 8,
+    "CPUQuotaPerSecUSec": 250000
+  },
+  "delegate_properties": {
+    "DelegateControllers": [
+      "cpu",
+      "memory",
+      "pids"
+    ],
+    "DelegateSubgroup": ".supervisor"
+  },
+  "credential_properties": {
+    "User": "cp-e-lab",
+    "Group": "cp-e-lab",
+    "CapabilityBoundingSet": 192,
+    "AmbientCapabilities": 192,
+    "NoNewPrivileges": true
+  },
+  "exec_artifact": "UNAVAILABLE_NO_CURRENT_RESEARCH_BINARY_ALLOWED",
+  "bus_connection": "LOCAL_SYSTEM_BUS_CLIENT",
+  "add_ref": true
+}

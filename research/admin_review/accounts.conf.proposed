@@ -1,0 +1,3 @@
+# REVIEW ONLY. Local numeric allocation and conflict checks UNAVAILABLE.
+u cp-e-lab - "CyberPilot research E" /nonexistent /usr/sbin/nologin
+u cp-w-lab - "CyberPilot research W" /nonexistent /usr/sbin/nologin

@@ -1,0 +1,379 @@
+{
+  "status": "TRUSTED_LAB_INTERNAL_D_LIFECYCLE_PASS",
+  "runtime_code_revision": "385b0e1b0598659bf20da37d83d8c5e20c89c433",
+  "base_research_revision": "9545d5422096fced078be1243cee98310499d25f",
+  "product_revision": "4b77b31dd23010f2d2b394466d88b04a4a2720e2",
+  "independent_review_revision": "3f72de3387b0a0f0fd71b897f07e25b1ac0e5512",
+  "post_review_code": "AUTHOR_SELF_VERIFIED_NOT_INDEPENDENT_C0_I0",
+  "tests": {
+    "research_pass": 178,
+    "baseline_preserved": 123,
+    "successor_added": 55,
+    "product_pass": 2786,
+    "fail": 0,
+    "skip": 0,
+    "unique_total": 2964,
+    "repeats_added": false
+  },
+  "coverage": {
+    "python_percent": 91.74,
+    "product_python_percent": 98.5,
+    "native_C_kernel_percent": "NOT_MEASURED"
+  },
+  "real_experiments": [
+    {
+      "revision": "3f72de3387b0a0f0fd71b897f07e25b1ac0e5512",
+      "status": "SYNTHETIC_DOMAIN_STOPPED",
+      "native_observation": {
+        "outcome": "SYNTHETIC_DOMAIN_STOPPED",
+        "cleanup": "CONFIRMED",
+        "worker_exit": 137,
+        "domain": [
+          [
+            "created_by_E",
+            true
+          ],
+          [
+            "worker_born_inside",
+            true
+          ],
+          [
+            "E_outside",
+            true
+          ],
+          [
+            "active_worker_stopped",
+            true
+          ],
+          [
+            "populated_zero",
+            true
+          ],
+          [
+            "original_D_removed",
+            true
+          ],
+          [
+            "original_OFD_retained",
+            true
+          ],
+          [
+            "worker_entry_no_directory_FD",
+            true
+          ]
+        ],
+        "errors": [],
+        "supervisor_exit": 0
+      },
+      "post": {
+        "exit": 0,
+        "properties": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive"
+        }
+      }
+    },
+    {
+      "revision": "5d7a52042c9eb85c922a7870e57ef1ff450f4136",
+      "status": "SYNTHETIC_DOMAIN_STOPPED",
+      "native_observation": {
+        "outcome": "SYNTHETIC_DOMAIN_STOPPED",
+        "cleanup": "CONFIRMED",
+        "worker_exit": 137,
+        "domain": [
+          [
+            "created_by_E",
+            true
+          ],
+          [
+            "worker_born_inside",
+            true
+          ],
+          [
+            "E_outside",
+            true
+          ],
+          [
+            "active_worker_stopped",
+            true
+          ],
+          [
+            "populated_zero",
+            true
+          ],
+          [
+            "original_D_removed",
+            true
+          ],
+          [
+            "original_OFD_retained",
+            true
+          ],
+          [
+            "worker_entry_no_directory_FD",
+            true
+          ]
+        ],
+        "errors": [],
+        "supervisor_exit": 0
+      },
+      "post": {
+        "exit": 0,
+        "properties": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive"
+        }
+      }
+    },
+    {
+      "revision": "b2f2d50362e6f9721fe4f8cb7412cfe1540ece01",
+      "status": "BLOCKED_GATE_OR_JOB",
+      "native_observation": {
+        "outcome": "REJECTED",
+        "cleanup": "UNKNOWN",
+        "worker_exit": null,
+        "domain": null,
+        "errors": [
+          "ProtocolError"
+        ],
+        "supervisor_exit": 21
+      },
+      "post": {
+        "exit": 0,
+        "properties": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive"
+        }
+      }
+    },
+    {
+      "revision": "385b0e1b0598659bf20da37d83d8c5e20c89c433",
+      "status": "SYNTHETIC_DOMAIN_STOPPED",
+      "native_observation": {
+        "outcome": "SYNTHETIC_DOMAIN_STOPPED",
+        "cleanup": "CONFIRMED",
+        "worker_exit": 137,
+        "domain": [
+          [
+            "created_by_E",
+            true
+          ],
+          [
+            "worker_born_inside",
+            true
+          ],
+          [
+            "E_outside",
+            true
+          ],
+          [
+            "active_worker_stopped",
+            true
+          ],
+          [
+            "populated_zero",
+            true
+          ],
+          [
+            "original_D_removed",
+            true
+          ],
+          [
+            "original_OFD_retained",
+            true
+          ],
+          [
+            "worker_entry_no_directory_FD",
+            true
+          ]
+        ],
+        "errors": [],
+        "supervisor_exit": 0
+      },
+      "post": {
+        "exit": 0,
+        "properties": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive"
+        }
+      }
+    }
+  ],
+  "new_user_units": 4,
+  "max_concurrent_units": 1,
+  "final_experiment": {
+    "revision": "385b0e1b0598659bf20da37d83d8c5e20c89c433",
+    "result": {
+      "status": "SYNTHETIC_DOMAIN_STOPPED",
+      "observation": {
+        "outcome": "SYNTHETIC_DOMAIN_STOPPED",
+        "cleanup": "CONFIRMED",
+        "worker_exit": 137,
+        "domain": [
+          [
+            "created_by_E",
+            true
+          ],
+          [
+            "worker_born_inside",
+            true
+          ],
+          [
+            "E_outside",
+            true
+          ],
+          [
+            "active_worker_stopped",
+            true
+          ],
+          [
+            "populated_zero",
+            true
+          ],
+          [
+            "original_D_removed",
+            true
+          ],
+          [
+            "original_OFD_retained",
+            true
+          ],
+          [
+            "worker_entry_no_directory_FD",
+            true
+          ]
+        ],
+        "errors": [],
+        "supervisor_exit": 0
+      },
+      "worker_executed": true,
+      "kernel_limits": {
+        "memory.max": "134217728",
+        "memory.swap.max": "0",
+        "pids.max": "8",
+        "cpu.max": "25000 100000"
+      },
+      "scope": {
+        "new_external_scope_checked": true,
+        "parent_writable_metadata": true
+      },
+      "flags": {
+        "application_authorized": false,
+        "build_execution_allowed": false,
+        "candidate_generation_allowed": false,
+        "device_class_qualified": false,
+        "owner_proposal_allowed": false,
+        "policy_adopted": false,
+        "promotion_authorized": false,
+        "runtime_accepted": false,
+        "runtime_qualified": false,
+        "actual_payload_released": false,
+        "cleanup_allowed": false,
+        "recovery_execution_authorized": false,
+        "H_executed": false,
+        "HREQ004_qualified": false
+      },
+      "provider_registration": "UNBOUND",
+      "custody_qualified": false,
+      "unit_exit": 0,
+      "loaded_limits": {
+        "RuntimeMaxUSec": "30s",
+        "TimeoutStopUSec": "5s",
+        "MemoryMax": "134217728",
+        "MemorySwapMax": "0",
+        "TasksMax": "8",
+        "CPUQuotaPerSecUSec": "250ms"
+      },
+      "external_unit_is_internal_D": false,
+      "loaded_delegation": "yes"
+    },
+    "new_unit_count": 1,
+    "post": {
+      "exit": 0,
+      "properties": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive"
+      }
+    },
+    "source_pins": {
+      "src/native_e_lab/__init__.py": "73f320bb9cdbc18fd1c5687145bcff677701783890c4a1a3f8755f66414ab72e",
+      "src/native_e_lab/build_native.py": "51b098b5ee861ac5898817111e935d14251afbb7287ee1e7c298d93a8491ab90",
+      "src/native_e_lab/domain.py": "2b15835c7a9414d9f402ef9452e911fabbfbcb45841650846a9302243cea1da6",
+      "src/native_e_lab/domain_gate.py": "8731581a32092e39aac4b6753c2ca4d125af6c8b437a90fd4fd67dc5e411993e",
+      "src/native_e_lab/domain_supervisor.c": "e19ebd8c77df6bb47fdb1dd5e3561ee4caacb0e8515a946e78c14bdbc078898b",
+      "src/native_e_lab/domain_worker.c": "39d904f0349c244e69f6823478ce4236c26b826faaa9ff2e266d8ee4f6389959",
+      "src/native_e_lab/gate.py": "64985d27d97338ec37240cae7e3fca5c1beaa2a50d2f87290b992f31cafe47af",
+      "src/native_e_lab/handles.py": "ff9e85ab822ac3233cb3ca845e32ffd7b33610397bb97a042c83258502b5c867",
+      "src/native_e_lab/lab.py": "ecd1be165ca4f81ae6275ad780010593bef797b3d387609851956d0ad5554db0",
+      "src/native_e_lab/protocol.py": "6b7449d8144f958c14202b63cb61b79c350c35f0e5b3e2f68c212d4056db3a44",
+      "src/native_e_lab/runner.py": "9d57dde634de43a02a92a0314321d058cc98a620e0f786a6a60c8504d2002839",
+      "src/native_e_lab/supervisor.c": "7f36ef5b7a08bbdc9843c6128d68950e36dca1737cdffe84edf00db6fd76e019",
+      "tests/test_build.py": "7dc12c4f81ed1a3541251150a90a339a08a4242b9b844b7bea55ca2cb85ed981",
+      "tests/test_domain.py": "658375d019e4c0d66dbf2c6bee2ac17e80350ba4882bb1b3b15fa0224eba0807",
+      "tests/test_domain_control.py": "136a834b323cc8c607950a8e89de6b5eeec18f4d1192020adb68a1f0c2699081",
+      "tests/test_domain_native_policy.py": "c470b42d9b7b3342198b769cfaac140077267ca032002614252831997bcbcf38",
+      "tests/test_domain_review.py": "9a80976975c67978dd9aedbbfdb59aea43d82a3f8de35043d23e4f29fe901ae2",
+      "tests/test_handles.py": "5b55520f2e8adf3f1171c10b49df534aac6a81c8753c988452364df906a6ec7e",
+      "tests/test_lab.py": "8520d7b45cc77ed226901ca909255ac25dce92a3db7dd93fb933bc66e402321b",
+      "tests/test_lab_control.py": "0cb7694301c404dc0501789e68ae92dd7286c413e5c90c19f9eb4718db12db08",
+      "tests/test_native.py": "08e38ee758c0532110f9d8d3be9c10705213a503d11fcc17b77336f809b2dbfd",
+      "tests/test_native_faults.py": "ae54b122d5b28112ee9a3510d3bb45f420fd2b737e5ba9393b7d38c40643c736",
+      "tests/test_protocol.py": "7bbadb5f3258af36d7430880ceedcf3a64f1269cf6f53d53d90e6e24c8e81335",
+      "tests/test_review_repairs.py": "92839275246f056d0534611c66285b0f12c912bcb159be814ce9625dc3c000b9",
+      "tests/test_runner.py": "e10bd95452dd2c22c14ec38cc0f3e3e5656291acd6318761c1d0bc0df5c6d7ed"
+    },
+    "pins_stable": true,
+    "binary_sha256": {
+      "domain_supervisor": "619dd1737c795004dd1a154405c261cbc161001d64a283be969358bd428adf1c",
+      "domain_worker": "75f97e339319146eace4b5a5958c57f8b2ffe9893d7013eaa87422ff0bed954e"
+    }
+  },
+  "prior_failed_cohort_cleanup": "UNKNOWN_RETAINED_NO_REATTACH_NO_RETRY",
+  "source_pins_existing_files_stable": true,
+  "additional_tests_after_unit": [
+    "tests/test_domain_write_faults.py"
+  ],
+  "resources": {
+    "fixture_directories": 72,
+    "fixture_files": 12,
+    "fixture_file_bytes": 96,
+    "wheel_sha256": "bfa58c9921e8d28727e021cc0fce9420275bff4bd562d79583ab1afee3af5dc7"
+  },
+  "provider_registration": "UNBOUND",
+  "qualification_evidence": {
+    "required": 16,
+    "available": 0,
+    "status": "UNAVAILABLE"
+  },
+  "flags": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false,
+    "actual_payload_released": false,
+    "cleanup_allowed": false,
+    "recovery_execution_authorized": false,
+    "H_executed": false,
+    "HREQ004_qualified": false
+  },
+  "custody_qualified": false,
+  "not_proven": [
+    "atomic_mkdir_to_FD_custody",
+    "hostile_same_UID_admission_fence",
+    "name_removal_atomicity",
+    "namespace_containment",
+    "readonly_mount",
+    "external_writer_async_drain",
+    "host_crash_recovery",
+    "actual_provider_integration"
+  ],
+  "remote_push": false,
+  "PR_changes": false,
+  "vehicle_access": false,
+  "existing_service_control": false
+}

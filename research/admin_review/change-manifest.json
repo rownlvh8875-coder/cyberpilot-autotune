@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "kind": "ADMIN_REVIEW_ONLY",
+  "review_base": "8c0058ee8b24e7acd1de8bec248563d623ff60e4",
+  "apply_state": "BLOCKED",
+  "host_backend": "MISSING",
+  "accounts_allocation": "UNAVAILABLE",
+  "qualification": "UNCHANGED_UNBOUND",
+  "accounts": [
+    "cp-e-lab",
+    "cp-w-lab"
+  ],
+  "artifacts": [
+    {
+      "name": "fixed-factory",
+      "path": "/usr/local/lib/cyberpilot-native-e-lab/fixed-factory",
+      "owner": "root:root",
+      "mode": "0555",
+      "sha256": "UNAVAILABLE"
+    },
+    {
+      "name": "e-bootstrap",
+      "path": "/usr/local/lib/cyberpilot-native-e-lab/e-bootstrap",
+      "owner": "root:root",
+      "mode": "0555",
+      "sha256": "UNAVAILABLE"
+    },
+    {
+      "name": "fixed-worker",
+      "path": "/usr/local/lib/cyberpilot-native-e-lab/fixed-worker",
+      "owner": "root:root",
+      "mode": "0555",
+      "sha256": "UNAVAILABLE"
+    }
+  ],
+  "blockers": [
+    "B01_PROTECTED_FACTORY_UNIMPLEMENTED",
+    "B02_MANAGER_PRIVATE_FD_UNTESTED",
+    "B03_ORIGINAL_P_FENCE_UNPROVEN",
+    "B04_PRIVILEGED_BACKEND_UNIMPLEMENTED",
+    "B05_UID_GID_ALLOCATION_UNAVAILABLE",
+    "B06_BUILD_LOADER_CLOSURE_UNAVAILABLE",
+    "B07_CROSS_UID_SEAL_UNEXECUTED",
+    "B08_BORN_IN_D_AND_STOP_UNINTEGRATED",
+    "B09_EXTERNAL_ACTOR_DENIAL_UNPROVEN",
+    "B10_ADMIN_CHANGE_AUTHORIZATION_ABSENT"
+  ],
+  "persistent_paths": [
+    "/etc/sysusers.d/cyberpilot-native-e-lab.conf",
+    "/usr/local/lib/cyberpilot-native-e-lab",
+    "/etc/cyberpilot-native-e-lab",
+    "/etc/cyberpilot-native-e-lab/manifest.json",
+    "/var/lib/cyberpilot-native-e-lab",
+    "/var/lib/cyberpilot-native-e-lab/attempt.intent"
+  ],
+  "persistent_units": "NONE",
+  "daemon_reload": "NOT_REQUIRED_BY_PROPOSED_TRANSIENT_STRATEGY",
+  "identity_policy": "RESERVE_ON_UNKNOWN_NO_UID_REUSE",
+  "apply_tool": "NOT_IMPLEMENTED",
+  "ephemeral_paths": [
+    "/run/systemd/transient/cyberpilot-native-e-lab-<factory_nonce>.service",
+    "MANAGER_OWNED_NEW_CGROUP_P_UNAVAILABLE"
+  ],
+  "one_shot_policy": "ROOT_EXCLUSIVE_FSYNC_DENY_ONLY_MARKER_NEVER_REATTACH",
+  "account_tool_effects": {
+    "may_modify_databases": [
+      "/etc/passwd",
+      "/etc/group",
+      "/etc/shadow",
+      "/etc/gshadow"
+    ],
+    "may_replace_existing_backups": [
+      "/etc/passwd-",
+      "/etc/group-",
+      "/etc/shadow-",
+      "/etc/gshadow-"
+    ],
+    "cache_effect": "MAY_FLUSH_NSCD_PASSWD_GROUP_IF_AVAILABLE",
+    "other_tool_effects": "UNAVAILABLE_DISTRIBUTION_REVIEW_REQUIRED",
+    "authorization": "NOT_GRANTED",
+    "rollback": "NO_AUTOMATIC_GLOBAL_DATABASE_OR_BACKUP_RESTORE"
+  }
+}

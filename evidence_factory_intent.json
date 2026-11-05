@@ -1,0 +1,255 @@
+{
+  "status": "PASS_NATIVE_FACTORY_INTENT_WITH_RELEASE_LIMITATION",
+  "base_revision": "d24cb17ef9e557286f8555680a033518529d10a4",
+  "branch": "research/native-e-factory-intent",
+  "source_pins": {
+    "research/factory_intent/internal.h": "469d9a8bae54a5e1d42f9284f39dc427d1b471cdf596685256540b66bb894433",
+    "research/factory_intent/intent.c": "2c54cbb96c28cd1b9dd418bd85872731e1de5d75dbcd64d30456c2ec48094cb7",
+    "research/factory_intent/factory.c": "117ee702768bb8aca4d64bdc1beafdf3db0b4fca5ae3c4f44bdf979b237a3637",
+    "research/factory_intent/unbound.c": "cc306b64ce99b1193acfde0a433c0ca11ec074be6d035e30a9f316b9fda5c39a",
+    "tests/native/factory_intent_driver.c": "d7c796e5c7c25dbb28dc86d2c7fbc2304b56486d8d94c30b514e350d35f2cf05",
+    "tests/test_factory_intent.py": "02c417949673bf69222529bfdbde570254fc0fb3bb9a43a47ce6ce74f9f7bbe0",
+    "research/factory_manager/factory.c": "6e8d48494656fe1fd349cd5bb98777b56e7f1fc63d6152bd5c55c3e3205a4d9b",
+    "research/factory_manager/request.c": "e680838919a161f3b7badf01f4dbced2d387d410a701a73aa4d36d2e143c6cf4",
+    "research/factory_manager/internal.h": "27bd130fc00e66dc42a8dd70004e99703e97d9e9563cc65a4fc5f9e32044fd97",
+    "research/factory_manager/sdbus_abi.h": "fd42c699c6768f5d6e256855b0d9929edf4bfc9e639b4637d02b7832b969bfbf",
+    "tests/native/factory_fake_manager.c": "680f76054cf415f4b2fcb223e7b55e576a61b85e68e3462fdf4403da8dfaa332",
+    "research/parent_handoff/handoff.c": "fb23fd48e35ee049f5fd3b8f3fd9164b2156e511dbd2d056577649f142835c16"
+  },
+  "source_pin_count": 12,
+  "preserved_old_nonledger_files": 123,
+  "preserved_digest": "b8cbc8123126dec1e717f08cd857b11214b037c7eda6a4f420eb48e2106e529b",
+  "preserved_original_refs": true,
+  "ledgers_append_only": true,
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.33.2-microsoft-standard-WSL2",
+    "arch": "x86_64",
+    "euid": 1000,
+    "egid": 1000,
+    "CapEff": "0000000000000000",
+    "phase": "native_private_fs_fixture",
+    "new_systemd_units": 0,
+    "new_cgroups": 0
+  },
+  "tests": {
+    "full_collection_run": {
+      "pass": 646,
+      "fail": 0,
+      "skip": 0
+    },
+    "final_focused": {
+      "pass": 61,
+      "fail": 0,
+      "skip": 0
+    },
+    "overlap": 60,
+    "unique_total": 647,
+    "preserved": 586,
+    "new": 61,
+    "single_647_pytest_invocation": false,
+    "ubsan_repeat": 61,
+    "gcov_repeat": 61,
+    "historical_product_2786": "NOT_RERUN_NOT_ADDED"
+  },
+  "coverage": {
+    "old_python_percent": 91.74,
+    "python_threshold": 90,
+    "native": {
+      "research/factory_intent/factory.c": {
+        "lines_hit": 17,
+        "lines_total": 17,
+        "line_percent": 100.0,
+        "branch_outcomes_hit": 34,
+        "branch_outcomes_total": 38,
+        "branch_outcome_percent": 89.47
+      },
+      "research/factory_intent/intent.c": {
+        "lines_hit": 70,
+        "lines_total": 70,
+        "line_percent": 100.0,
+        "branch_outcomes_hit": 115,
+        "branch_outcomes_total": 154,
+        "branch_outcome_percent": 74.68
+      }
+    },
+    "native_exclusions": [
+      "SDK",
+      "kernel",
+      "synthetic manager/E _exit paths",
+      "default-unbound binary",
+      "old C sources not merged"
+    ]
+  },
+  "static": {
+    "strict_cc": "PASS",
+    "ruff": "PASS",
+    "format": "PASS_76_FILES",
+    "mypy": "PASS_EXISTING_14_MODULES",
+    "unchanged_product_package_build": "NOT_RERUN"
+  },
+  "commands": {
+    "research-postfix": {
+      "command": [
+        "<research_root>/internal-d/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--cov=native_e_lab",
+        "--cov-branch",
+        "--cov-fail-under=90",
+        "--basetemp=<research_root>/factory-intent-logs/research-postfix"
+      ],
+      "env_overrides": {
+        "COVERAGE_FILE": "<research_root>/factory-intent-logs/python-postfix.coverage",
+        "FI_TEST_CFLAGS": ""
+      },
+      "exit_code": 0
+    },
+    "focused-last": {
+      "command": [
+        "<research_root>/internal-d/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_factory_intent.py",
+        "--basetemp=<research_root>/factory-intent-logs/focused-last"
+      ],
+      "env_overrides": {},
+      "exit_code": 0
+    },
+    "ubsan-last": {
+      "command": [
+        "<research_root>/internal-d/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_factory_intent.py",
+        "--basetemp=<research_root>/factory-intent-logs/ubsan-last"
+      ],
+      "env_overrides": {
+        "FI_TEST_CFLAGS": "-fsanitize=undefined -fno-sanitize-recover=all -g"
+      },
+      "exit_code": 0
+    },
+    "gcov-last": {
+      "command": [
+        "<research_root>/internal-d/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_factory_intent.py",
+        "--basetemp=<research_root>/factory-intent-logs/gcov-last"
+      ],
+      "env_overrides": {
+        "FI_TEST_CFLAGS": "-O0 --coverage -g -fprofile-abs-path"
+      },
+      "exit_code": 0
+    },
+    "ruff-latest": {
+      "command": [
+        "<research_root>/internal-d/.venv/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0
+    },
+    "format-latest": {
+      "command": [
+        "<research_root>/internal-d/.venv/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0
+    },
+    "mypy-latest": {
+      "command": [
+        "<research_root>/internal-d/.venv/bin/python",
+        "-m",
+        "mypy",
+        "--explicit-package-bases",
+        "-p",
+        "native_e_lab",
+        "-p",
+        "research.real_cgroup",
+        "-m",
+        "research.admin_review.check_bundle"
+      ],
+      "exit_code": 0
+    }
+  },
+  "native_filesystem_transaction": {
+    "exclusive_create": true,
+    "bounded_single_write": true,
+    "file_fsync": true,
+    "root_fsync": true,
+    "existing_marker_always_deny": true,
+    "parallel_winners": 1,
+    "crash_retry_deny": true,
+    "unknown_durability": null,
+    "receipt_is_live_authority": false,
+    "source_or_control_recovery_api": false
+  },
+  "default_scope": "ENOSYS",
+  "default_start_attempts": 0,
+  "actual_manager": false,
+  "manager": "PRIVATE_SYNTHETIC_SD_BUS",
+  "new_systemd_units": 0,
+  "new_cgroups": 0,
+  "worker_W_executed": false,
+  "release": {
+    "normal": "PARTIAL_REFS_RETAINED",
+    "last_anchor_slots": "TERMINAL_PROCESS_BOUND_NO_FURTHER_OPERATION",
+    "unknown_close": "UNKNOWN_NO_RETRY",
+    "full_HOST_cleanup": "UNAVAILABLE"
+  },
+  "review": {
+    "independent": "SOURCE_ONLY",
+    "initial_verdict": "REQUEST_CHANGES",
+    "critical": 0,
+    "important": 1,
+    "material_minor": 0,
+    "reproduced_anchor_red": 2,
+    "author_contract_red": 6,
+    "author_pause_bound_red": 1,
+    "all_fixed_by_author": true,
+    "postfix_independent_C0_I0": "NOT_CLAIMED"
+  },
+  "flags": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false,
+    "actual_payload_released": false,
+    "cleanup_allowed": false,
+    "recovery_execution_authorized": false,
+    "H_executed": false,
+    "HREQ004_qualified": false
+  },
+  "provider_registration": "UNBOUND",
+  "qualification_required": 16,
+  "qualification_available": 0,
+  "qualification_status": "UNAVAILABLE",
+  "protected_F1": "NOT_IMPLEMENTED_BY_THIS_LATCH",
+  "hostile_same_UID_exclusion": "NOT_PROVEN",
+  "cross_UID": "NOT_RUN",
+  "readonly_mount_namespace_external_async_drain": "UNAVAILABLE",
+  "existing_services_changed": false,
+  "admin_or_sudo": false,
+  "global_settings_changed": false,
+  "dependency_install": false,
+  "H_product_vehicle_payload": false,
+  "remote_publication": false,
+  "residue": "PRIVATE_FIXTURES_AND_PROCESS_BOUND_TERMINAL_REFS_PRESERVED; NO_OLD_RESOURCE_REATTACH",
+  "next_action": "IMPLEMENT_DYNAMIC_MANAGER_OWNER_JOB_BINDING_IN_PRIVATE_NATIVE_FIXTURE_NO_ADMIN_APPLY"
+}

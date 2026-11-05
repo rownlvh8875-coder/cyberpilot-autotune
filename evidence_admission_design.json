@@ -1,0 +1,120 @@
+{
+  "scope": "DESIGN_ONLY",
+  "base_revision": "694604e0722373d6666600e202e454b79a9d3d02",
+  "source_gaps": [
+    {
+      "path": "src/native_e_lab/domain_supervisor.c",
+      "lines": [
+        245,
+        249
+      ],
+      "gap": "creation_binding"
+    },
+    {
+      "path": "src/native_e_lab/domain_supervisor.c",
+      "lines": [
+        279,
+        290
+      ],
+      "gap": "membership_check_use"
+    },
+    {
+      "path": "src/native_e_lab/domain_supervisor.c",
+      "lines": [
+        296,
+        300
+      ],
+      "gap": "remove_name_binding"
+    },
+    {
+      "path": "src/native_e_lab/lab.py",
+      "lines": [
+        151,
+        159
+      ],
+      "gap": "delegation_not_exclusive_authority"
+    },
+    {
+      "path": "src/native_e_lab/domain.py",
+      "lines": [
+        54,
+        78
+      ],
+      "gap": "mutable_code_origin"
+    }
+  ],
+  "new_implementation": false,
+  "new_lab_units": 0,
+  "new_worker_executions": 0,
+  "tests_run": "NOT_RUN_DESIGN_ONLY",
+  "enforcement_status": "UNAVAILABLE_NOT_IMPLEMENTED",
+  "architecture_status": "PROPOSED",
+  "selected_architecture": "EXCLUSIVE_HOST_AUTHORITY_TRUSTED_FACTORY_E_ONLY_PARENT",
+  "provider_registration": "UNBOUND",
+  "qualification_required": 16,
+  "qualification_available": 0,
+  "qualification_status": "UNAVAILABLE",
+  "flags": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false,
+    "actual_payload_released": false,
+    "cleanup_allowed": false,
+    "recovery_execution_authorized": false,
+    "H_executed": false,
+    "HREQ004_qualified": false
+  },
+  "status": "DESIGN_COMPLETE",
+  "strong_fence_execution": "BLOCKED_ENFORCEMENT_UNPROVEN",
+  "preserved_files": {
+    "LOCAL_INTERNAL_D_FINAL_REPORT.md": "a033c274b079fd256724c27ccd39640fcda75a689e94166b16c5f90d72b3d7aa",
+    "LOCAL_NATIVE_E_FINAL_REPORT.md": "9399732c98bfe1f7994c1cdbef818b73292ea7c5cd5d8b7d0faf601f2e719691",
+    "evidence.json": "9a5ee8d5b9d92f06f763f42626e408f2f3d5144431e0efd0a1357f210798f5f1",
+    "evidence_internal_d.json": "e68c776e9784e5bb43e99ed5c93b3c98e87c3c33ee890442777237c793380551",
+    "pyproject.toml": "be5a361b451276f587ecda3ea5daf51ed0c41cb0572337fa5635799fdd2d9ad5",
+    "src/native_e_lab/__init__.py": "73f320bb9cdbc18fd1c5687145bcff677701783890c4a1a3f8755f66414ab72e",
+    "src/native_e_lab/build_native.py": "51b098b5ee861ac5898817111e935d14251afbb7287ee1e7c298d93a8491ab90",
+    "src/native_e_lab/domain.py": "2b15835c7a9414d9f402ef9452e911fabbfbcb45841650846a9302243cea1da6",
+    "src/native_e_lab/domain_gate.py": "8731581a32092e39aac4b6753c2ca4d125af6c8b437a90fd4fd67dc5e411993e",
+    "src/native_e_lab/domain_supervisor.c": "e19ebd8c77df6bb47fdb1dd5e3561ee4caacb0e8515a946e78c14bdbc078898b",
+    "src/native_e_lab/domain_worker.c": "39d904f0349c244e69f6823478ce4236c26b826faaa9ff2e266d8ee4f6389959",
+    "src/native_e_lab/gate.py": "64985d27d97338ec37240cae7e3fca5c1beaa2a50d2f87290b992f31cafe47af",
+    "src/native_e_lab/handles.py": "ff9e85ab822ac3233cb3ca845e32ffd7b33610397bb97a042c83258502b5c867",
+    "src/native_e_lab/lab.py": "ecd1be165ca4f81ae6275ad780010593bef797b3d387609851956d0ad5554db0",
+    "src/native_e_lab/protocol.py": "6b7449d8144f958c14202b63cb61b79c350c35f0e5b3e2f68c212d4056db3a44",
+    "src/native_e_lab/runner.py": "9d57dde634de43a02a92a0314321d058cc98a620e0f786a6a60c8504d2002839",
+    "src/native_e_lab/supervisor.c": "7f36ef5b7a08bbdc9843c6128d68950e36dca1737cdffe84edf00db6fd76e019",
+    "tests/test_build.py": "7dc12c4f81ed1a3541251150a90a339a08a4242b9b844b7bea55ca2cb85ed981",
+    "tests/test_domain.py": "658375d019e4c0d66dbf2c6bee2ac17e80350ba4882bb1b3b15fa0224eba0807",
+    "tests/test_domain_control.py": "136a834b323cc8c607950a8e89de6b5eeec18f4d1192020adb68a1f0c2699081",
+    "tests/test_domain_native_policy.py": "c470b42d9b7b3342198b769cfaac140077267ca032002614252831997bcbcf38",
+    "tests/test_domain_review.py": "9a80976975c67978dd9aedbbfdb59aea43d82a3f8de35043d23e4f29fe901ae2",
+    "tests/test_domain_write_faults.py": "de8198d1c78f25a622ec3427f4e449d22f757df9af105f75525904369c986982",
+    "tests/test_handles.py": "5b55520f2e8adf3f1171c10b49df534aac6a81c8753c988452364df906a6ec7e",
+    "tests/test_lab.py": "8520d7b45cc77ed226901ca909255ac25dce92a3db7dd93fb933bc66e402321b",
+    "tests/test_lab_control.py": "0cb7694301c404dc0501789e68ae92dd7286c413e5c90c19f9eb4718db12db08",
+    "tests/test_native.py": "08e38ee758c0532110f9d8d3be9c10705213a503d11fcc17b77336f809b2dbfd",
+    "tests/test_native_faults.py": "ae54b122d5b28112ee9a3510d3bb45f420fd2b737e5ba9393b7d38c40643c736",
+    "tests/test_protocol.py": "7bbadb5f3258af36d7430880ceedcf3a64f1269cf6f53d53d90e6e24c8e81335",
+    "tests/test_review_repairs.py": "92839275246f056d0534611c66285b0f12c912bcb159be814ce9625dc3c000b9",
+    "tests/test_runner.py": "e10bd95452dd2c22c14ec38cc0f3e3e5656291acd6318761c1d0bc0df5c6d7ed"
+  },
+  "preserved_count": 31,
+  "preservation_result": "31/31_IDENTICAL",
+  "review": {
+    "scope": "ADR_AND_THREE_BASE_SOURCE_FILES",
+    "mode": "INDEPENDENT_READ_ONLY_DESIGN_REVIEW",
+    "result": "NO_MATERIAL_FINDINGS",
+    "adr_sha256": "5d8fd6c4a8c17ff3d8a51f56376558f990655eb29633c09f4bb72ddc83ce8573",
+    "adr_changed_after_review": false
+  },
+  "new_adversarial_actor_executions": 0,
+  "historical_unknown": "b2f2d50_PRESERVED_NOT_UPGRADED",
+  "next_action": "Prepare a minimal dedicated-host-principal F/E/W provisioning and rollback plan; do not apply it."
+}

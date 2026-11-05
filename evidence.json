@@ -1,0 +1,152 @@
+{
+  "status": "RESEARCH_PROTOTYPE_VERIFIED_WITH_LIMITATIONS",
+  "product_revision": "4b77b31dd23010f2d2b394466d88b04a4a2720e2",
+  "code_revision": "b9624850cdb98c75f29dac0d3b4239ea3c3d4d92",
+  "independent_review_revision": "200b4f900a5512de9ff6d30fbd9704fe551955c1",
+  "post_review_scope": "AUTHOR_VERIFIED_NOT_INDEPENDENT_C0_I0",
+  "tests": {
+    "new_unique_pass": 123,
+    "product_unique_pass": 2786,
+    "fail": 0,
+    "skip": 0,
+    "unique_total": 2909,
+    "repeat_runs_added": false
+  },
+  "coverage": {
+    "python_harness_percent": 92.68,
+    "python_harness_statements": 488,
+    "python_harness_missing_statements": 27,
+    "python_harness_branches": 140,
+    "product_percent": 98.5,
+    "safety": 100,
+    "residual": 97.85,
+    "replay": 98.48,
+    "c_targeted_line_percent": 82.35,
+    "c_targeted_branch_executed_percent": 78.41,
+    "c_targeted_branch_taken_percent": 51.7,
+    "c_repeated_cases_not_added": 13
+  },
+  "final_unit": {
+    "code_revision": "b9624850cdb98c75f29dac0d3b4239ea3c3d4d92",
+    "source_pins": {
+      "src/native_e_lab/__init__.py": "73f320bb9cdbc18fd1c5687145bcff677701783890c4a1a3f8755f66414ab72e",
+      "src/native_e_lab/build_native.py": "e3328f2d40c7603a0a1e880db79e1eb6f014f75941f62ba134ca29d383e9945c",
+      "src/native_e_lab/gate.py": "64985d27d97338ec37240cae7e3fca5c1beaa2a50d2f87290b992f31cafe47af",
+      "src/native_e_lab/handles.py": "ff9e85ab822ac3233cb3ca845e32ffd7b33610397bb97a042c83258502b5c867",
+      "src/native_e_lab/lab.py": "a1b4127babff47f483de1477eecbc5783e5a16977f80ff466b44dd103964a4c7",
+      "src/native_e_lab/protocol.py": "6b7449d8144f958c14202b63cb61b79c350c35f0e5b3e2f68c212d4056db3a44",
+      "src/native_e_lab/runner.py": "9d57dde634de43a02a92a0314321d058cc98a620e0f786a6a60c8504d2002839",
+      "src/native_e_lab/supervisor.c": "7f36ef5b7a08bbdc9843c6128d68950e36dca1737cdffe84edf00db6fd76e019",
+      "tests/test_build.py": "af127b7293e7a1e2bae399bac968d39269104941f5638c0beaa4da6663ab5dd1",
+      "tests/test_handles.py": "5b55520f2e8adf3f1171c10b49df534aac6a81c8753c988452364df906a6ec7e",
+      "tests/test_lab.py": "8520d7b45cc77ed226901ca909255ac25dce92a3db7dd93fb933bc66e402321b",
+      "tests/test_lab_control.py": "0cb7694301c404dc0501789e68ae92dd7286c413e5c90c19f9eb4718db12db08",
+      "tests/test_native.py": "08e38ee758c0532110f9d8d3be9c10705213a503d11fcc17b77336f809b2dbfd",
+      "tests/test_native_faults.py": "ae54b122d5b28112ee9a3510d3bb45f420fd2b737e5ba9393b7d38c40643c736",
+      "tests/test_protocol.py": "7bbadb5f3258af36d7430880ceedcf3a64f1269cf6f53d53d90e6e24c8e81335",
+      "tests/test_review_repairs.py": "92839275246f056d0534611c66285b0f12c912bcb159be814ce9625dc3c000b9",
+      "tests/test_runner.py": "e10bd95452dd2c22c14ec38cc0f3e3e5656291acd6318761c1d0bc0df5c6d7ed"
+    },
+    "source_stable": true,
+    "result": {
+      "status": "SYNTHETIC_COMPLETE",
+      "worker_executed": true,
+      "kernel_limits": {
+        "memory.max": "134217728",
+        "memory.swap.max": "0",
+        "pids.max": "8",
+        "cpu.max": "25000 100000"
+      },
+      "observation": {
+        "outcome": "SYNTHETIC_COMPLETE",
+        "cleanup": "CONFIRMED",
+        "worker_exit": 0,
+        "fixture_sha256": "ad40ba72b67ffee3b83db45ef4f31a16397d9efd6ec2b301b9e921956f217bd4",
+        "errors": [],
+        "supervisor_exit": 0
+      },
+      "flags": {
+        "application_authorized": false,
+        "build_execution_allowed": false,
+        "candidate_generation_allowed": false,
+        "device_class_qualified": false,
+        "owner_proposal_allowed": false,
+        "policy_adopted": false,
+        "promotion_authorized": false,
+        "runtime_accepted": false,
+        "runtime_qualified": false,
+        "actual_payload_released": false,
+        "cleanup_allowed": false,
+        "recovery_execution_authorized": false,
+        "H_executed": false,
+        "HREQ004_qualified": false
+      },
+      "provider_registration": "UNBOUND",
+      "internal_D": "NOT_IMPLEMENTED",
+      "unit_exit": 0,
+      "loaded_limits": {
+        "RuntimeMaxUSec": "30s",
+        "TimeoutStopUSec": "5s",
+        "MemoryMax": "134217728",
+        "MemorySwapMax": "0",
+        "TasksMax": "8",
+        "CPUQuotaPerSecUSec": "250ms"
+      },
+      "external_unit_is_internal_D": false
+    },
+    "created_unit_count": 1,
+    "external_unit_final": "OBSERVED_COLLECTED",
+    "external_unit_post": {
+      "exit": 0,
+      "LoadState": "not-found",
+      "ActiveState": "inactive"
+    },
+    "native_binary_sha256": "c351ac9d3a4881b7b69f7e8b4d2fcc28691fb38c25a67b046aba3728eb3017cc"
+  },
+  "actual_user_unit_experiments": 2,
+  "max_concurrent_user_units": 1,
+  "private_synthetic_fixture_residue": {
+    "private_fixture_directories": 69,
+    "private_fixture_files": 14,
+    "private_fixture_file_bytes": 112,
+    "native_binary_bytes": 21408,
+    "wheel_sha256": "c9f03d40d2f6ddbfbf32351311bc571528247febb0a5302c3f624de2db66687b"
+  },
+  "provider_registration": "UNBOUND",
+  "qualification_evidence": {
+    "required": 16,
+    "available": 0,
+    "status": "UNAVAILABLE"
+  },
+  "flags": {
+    "application_authorized": false,
+    "build_execution_allowed": false,
+    "candidate_generation_allowed": false,
+    "device_class_qualified": false,
+    "owner_proposal_allowed": false,
+    "policy_adopted": false,
+    "promotion_authorized": false,
+    "runtime_accepted": false,
+    "runtime_qualified": false,
+    "actual_payload_released": false,
+    "cleanup_allowed": false,
+    "recovery_execution_authorized": false,
+    "H_executed": false,
+    "HREQ004_qualified": false
+  },
+  "not_implemented": [
+    "internal_D_creation_custody",
+    "namespace_containment",
+    "readonly_mount",
+    "admission_fence",
+    "aggregate_descendant_custody",
+    "external_writer_async_drain",
+    "host_crash_recovery",
+    "product_provider_integration"
+  ],
+  "remote_push": false,
+  "PR_changes": false,
+  "vehicle_access": false,
+  "Docker_operations": false,
+  "source_test_pins_stable_at_final_unit": true
+}

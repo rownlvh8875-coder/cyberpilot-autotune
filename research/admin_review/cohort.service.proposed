@@ -1,0 +1,36 @@
+# REVIEW ONLY. Do not install/load/start/rename into an active unit.
+# Descriptive view of the FUTURE transient service context, not a StartTransientUnit request.
+# Private fd0 arrives ONLY through StandardInputFileDescriptor (D-Bus signature h).
+# No StandardInput= setting here; default null without the live FD is NOT a supported launch path.
+[Unit]
+Description=CyberPilot fixed native E research cohort
+[Service]
+Type=exec
+User=cp-e-lab
+Group=cp-e-lab
+ExecStart=/usr/local/lib/cyberpilot-native-e-lab/e-bootstrap
+WorkingDirectory=/
+UMask=0077
+Delegate=cpu memory pids
+DelegateSubgroup=.supervisor
+CapabilityBoundingSet=CAP_SETUID CAP_SETGID
+AmbientCapabilities=CAP_SETUID CAP_SETGID
+NoNewPrivileges=yes
+PrivateUsers=no
+ProtectControlGroups=no
+RestrictNamespaces=yes
+RestrictAddressFamilies=AF_UNIX
+SystemCallArchitectures=native
+LimitCORE=0
+RuntimeMaxSec=30s
+TimeoutStartSec=5s
+TimeoutStopSec=5s
+MemoryMax=128M
+MemorySwapMax=0
+TasksMax=8
+CPUQuota=25%
+KillMode=control-group
+SendSIGKILL=yes
+Restart=no
+StandardOutput=null
+StandardError=null
